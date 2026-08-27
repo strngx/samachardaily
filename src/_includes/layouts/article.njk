@@ -1,0 +1,98 @@
+---
+layout: layouts/base.njk
+---
+
+<div class="container">
+  <article class="article-reading-container">
+    <!-- 1. Clean Breadcrumbs -->
+    <nav class="article-breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <a href="/{{ category | categorySlug }}/">{{ category }}</a>
+    </nav>
+
+    <!-- 2. Category Tag -->
+    <div>
+      <a href="/{{ category | categorySlug }}/" class="category-label">
+        {{ category }}
+      </a>
+    </div>
+
+    <!-- 3. Main H1 Headline -->
+    <h1 class="article-headline-main">{{ title }}</h1>
+
+    <!-- 4. Sub-headline / Dek -->
+    {% if dek %}
+      <p class="article-dek-main">{{ dek }}</p>
+    {% endif %}
+
+    <!-- 5. Byline Row -->
+    <div class="article-byline-bar">
+      <span>By <span class="byline-strong">{{ author or site.author.name }}</span></span>
+      <span>•</span>
+      <time datetime="{{ date | isoDate }}">{{ date | readableDate }}</time>
+      <span>•</span>
+      <span>{{ content | readTime }}</span>
+    </div>
+
+    <!-- 6. Hero Image -->
+    {% if image %}
+      <figure class="article-hero-frame">
+        <img 
+          src="{{ image }}" 
+          alt="{{ title }}" 
+          class="article-hero-img"
+          fetchpriority="high"
+          width="760" 
+          height="428"
+        >
+        {% if image_credit %}
+          <figcaption class="photo-caption-bar">
+            Photo: {{ image_credit }}
+          </figcaption>
+        {% endif %}
+      </figure>
+    {% endif %}
+
+    <!-- 7. Key Takeaways Box -->
+    {% include "partials/key-takeaways.njk" %}
+
+    <!-- 8. Core Article Content -->
+    <div class="article-body-text">
+      {{ content | safe }}
+    </div>
+
+    <!-- 9. Why It Matters Annotation -->
+    {% include "partials/why-it-matters.njk" %}
+
+    <!-- 10. Relevant Video Journalism (Rendered only if real video exists) -->
+    {% include "partials/video-embed.njk" %}
+
+    <!-- 11. Source Attribution -->
+    <div class="source-citation">
+      <span>Reporting based on verified dispatches from <strong>{{ source_name or "Official Wire Services" }}</strong>.</span>
+      {% if source_url %}
+        <span style="margin-left: 8px;">
+          <a href="{{ source_url }}" rel="nofollow noopener noreferrer" target="_blank">View primary release ↗</a>
+        </span>
+      {% endif %}
+    </div>
+
+    <!-- 12. In-Article Ad Slot -->
+    {% set slotName = "article-bottom" %}
+    {% include "partials/ad-slot.njk" %}
+
+    <!-- 13. Related Stories ("More in [Category]") -->
+    {% set related = collections.articles | relatedArticles(category, page.url, 3) %}
+    {% if related.length > 0 %}
+      <section class="more-from-category" aria-label="More in {{ category }}">
+        <h2 class="more-title">More in {{ category }}</h2>
+        <div class="more-grid">
+          {% for article in related %}
+            {% include "partials/card.njk" %}
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+  </article>
+</div>

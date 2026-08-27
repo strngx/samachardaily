@@ -1,0 +1,11 @@
+---
+pagination:
+  data: site.categories
+  size: 1
+  alias: category
+permalink: "/{{ category.slug }}/index.html"
+layout: layouts/category.njk
+eleventyComputed:
+  title: "{{ category.name }} — Verified News & Explainers"
+  description: "{{ category.description }}"
+---

@@ -1,0 +1,10 @@
+{% if why_it_matters %}
+<div class="why-matters-annotation" style="border-left-color: var(--cat-{{ category | categorySlug }}, var(--color-brand));">
+  <div class="annotation-label" style="color: var(--cat-{{ category | categorySlug }}, var(--color-brand));">
+    Why This Matters
+  </div>
+  <p class="annotation-text">
+    {{ why_it_matters }}
+  </p>
+</div>
+{% endif %}

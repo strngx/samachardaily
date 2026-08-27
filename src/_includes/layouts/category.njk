@@ -1,0 +1,57 @@
+---
+layout: layouts/base.njk
+---
+
+<div class="container">
+  <!-- Category Masthead (Monochrome, No "Desk" suffix) -->
+  <header class="category-masthead">
+    <h1 class="category-masthead-title">{{ category.name }}</h1>
+    <div class="category-masthead-rule"></div>
+    <p class="category-masthead-desc">{{ category.description }}</p>
+  </header>
+
+  <!-- Category Articles -->
+  {% set categoryList = collections[category.slug] %}
+  {% if categoryList.length > 0 %}
+    <!-- Lead Section (1 Lead + 2 Supporting) -->
+    <div class="grid-comp-a" style="margin-bottom: var(--space-8);">
+      {% for article in categoryList | limit(3) %}
+        {% include "partials/card.njk" %}
+      {% endfor %}
+    </div>
+
+    <!-- Ad Slot -->
+    {% set slotName = "category-mid" %}
+    {% include "partials/ad-slot.njk" %}
+
+    <!-- Additional Stories Grid -->
+    {% if categoryList.length > 3 %}
+      <div style="margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid var(--color-border);">
+        <h2 style="font-size: 1.5rem; margin-bottom: var(--space-6);">Latest {{ category.name }} Archive</h2>
+        <div class="grid-comp-a">
+          {% for article in categoryList | skip(3) | limit(6) %}
+            {% include "partials/card.njk" %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Numbered Pagination -->
+    <nav class="pagination-row" aria-label="{{ category.name }} Pagination">
+      <span class="pagination-btn active">1</span>
+      <a href="#" class="pagination-btn">2</a>
+      <a href="#" class="pagination-btn">3</a>
+      <a href="#" class="pagination-btn" aria-label="Next Page">→</a>
+    </nav>
+  {% else %}
+    <!-- Clean Empty Category State -->
+    <div class="empty-newsroom-state" style="padding: 40px 0;">
+      <div class="empty-newsroom-box">
+        <h2 class="empty-title">No stories published in {{ category.name }} yet.</h2>
+        <p class="empty-desc">
+          Verified reporting in this category will appear as the newsroom files dispatches.
+        </p>
+      </div>
+    </div>
+  {% endif %}
+</div>

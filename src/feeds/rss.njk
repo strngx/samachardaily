@@ -1,0 +1,43 @@
+---
+permalink: /rss.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>{{ site.name }}</title>
+    <description>{{ site.description }}</description>
+    <link>{{ site.url }}/</link>
+    <atom:link href="{{ site.url }}/rss.xml" rel="self" type="application/rss+xml"/>
+    <language>en-in</language>
+    <lastBuildDate>{{ "now" | isoDate }}</lastBuildDate>
+    <generator>Eleventy Static Site Generator</generator>
+
+    {% for article in collections.articles | limit(25) %}
+    <item>
+      <title>{{ article.data.title | escape }}</title>
+      <link>{{ site.url }}{{ article.url }}</link>
+      <guid isPermaLink="true">{{ site.url }}{{ article.url }}</guid>
+      <pubDate>{{ article.date | readableDate("ccc, dd LLL yyyy HH:mm:ss ZZZZ") }}</pubDate>
+      <dc:creator>{{ article.data.author or site.author.name }}</dc:creator>
+      <category>{{ article.data.category }}</category>
+      <description>{{ (article.data.dek or article.data.title) | escape }}</description>
+      {% if article.data.image %}
+      <enclosure url="{{ article.data.image }}" length="0" type="image/jpeg" />
+      {% endif %}
+      <content:encoded><![CDATA[
+        <p><em>{{ article.data.dek }}</em></p>
+        {{ article.templateContent | safe }}
+        {% if article.data.why_it_matters %}
+        <hr/>
+        <h4>Why It Matters:</h4>
+        <p>{{ article.data.why_it_matters }}</p>
+        {% endif %}
+        {% if article.data.source_name %}
+        <p><small>Reporting based on coverage from {{ article.data.source_name }}.</small></p>
+        {% endif %}
+      ]]></content:encoded>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

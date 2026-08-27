@@ -1,0 +1,144 @@
+---
+layout: layouts/base.njk
+title: "Search Articles"
+description: "Search across all SamacharDaily news categories, archives, and topics."
+permalink: "/search/index.html"
+---
+
+<div class="container">
+  <div class="article-reading-container" style="max-width: 880px;">
+    <!-- Breadcrumbs -->
+    <nav class="article-breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <span style="color: var(--color-ink);">Search</span>
+    </nav>
+
+    <h1 class="article-headline-main">Search Articles</h1>
+    <p style="color: var(--color-muted); font-size: 1.125rem; margin-bottom: var(--space-6);">
+      Search across all five categories: India, World, Business, Tech, and Sports.
+    </p>
+
+    <div style="margin-bottom: var(--space-8);">
+      <form class="search-form-page" id="main-search-form" action="/search/" method="get" role="search">
+        <input 
+          type="search" 
+          name="q"
+          id="page-search-input" 
+          class="search-page-input" 
+          placeholder="Type a topic, company, policy, or sport..."
+          autocomplete="off"
+          required
+        >
+        <button type="submit" class="search-page-btn">Search</button>
+      </form>
+    </div>
+
+    <!-- Search Results Container -->
+    <div id="search-results" class="grid-comp-b" style="display: none;">
+      <!-- Populated via client JS -->
+    </div>
+
+    <div id="search-empty-state" class="empty-newsroom-state" style="padding: 40px 0; text-align: center; color: var(--color-muted);">
+      <p>Enter keywords above to find verified reporting across our categories.</p>
+    </div>
+
+    <!-- Client-side Search Index Payload -->
+    <script>
+      window.SEARCH_INDEX = [
+        {% for article in collections.articles %}
+        {
+          title: {{ article.data.title | json | safe }},
+          dek: {{ (article.data.dek or "") | json | safe }},
+          url: "{{ article.url }}",
+          category: "{{ article.data.category }}",
+          categorySlug: "{{ article.data.category | categorySlug }}",
+          date: "{{ article.date | timeAgo }}",
+          readTime: "{{ article.templateContent | readTime }}",
+          image: "{{ article.data.image or '' }}"
+        }{% if not loop.last %},{% endif %}
+        {% endfor %}
+      ];
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get("q") || "";
+        const input = document.getElementById("page-search-input");
+        const resultsContainer = document.getElementById("search-results");
+        const emptyState = document.getElementById("search-empty-state");
+
+        if (window.SEARCH_INDEX.length === 0) {
+          emptyState.innerHTML = "<p>No stories published to search yet. As the newsroom publishes articles, they will be searchable here.</p>";
+        }
+
+        function performSearch(q) {
+          const trimmed = q.trim();
+          if (!trimmed) {
+            resultsContainer.style.display = "none";
+            emptyState.style.display = "block";
+            if (window.SEARCH_INDEX.length === 0) {
+              emptyState.innerHTML = "<p>No stories published to search yet. As the newsroom publishes articles, they will be searchable here.</p>";
+            } else {
+              emptyState.innerHTML = "<p>Enter keywords above to find verified reporting across our categories.</p>";
+            }
+            return;
+          }
+
+          if (window.SEARCH_INDEX.length === 0) {
+            resultsContainer.style.display = "none";
+            emptyState.style.display = "block";
+            emptyState.innerHTML = "<p>No stories published to search yet.</p>";
+            return;
+          }
+
+          const terms = trimmed.toLowerCase().split(" ").filter(Boolean);
+          const matches = window.SEARCH_INDEX.filter(item => {
+            const fullText = (item.title + " " + item.dek + " " + item.category).toLowerCase();
+            return terms.every(term => fullText.includes(term));
+          });
+
+          if (matches.length === 0) {
+            resultsContainer.style.display = "none";
+            emptyState.style.display = "block";
+            emptyState.innerHTML = `<p>No stories found matching <strong>"${trimmed}"</strong>. Try broader keywords or browse categories.</p>`;
+            return;
+          }
+
+          emptyState.style.display = "none";
+          resultsContainer.style.display = "grid";
+          resultsContainer.innerHTML = matches.map(item => `
+            <article class="editorial-card">
+              ${item.image ? `
+                <a href="${item.url}" class="card-thumb">
+                  <img src="${item.image}" alt="${item.title}" loading="lazy">
+                </a>
+              ` : ''}
+              <div>
+                <span class="category-label">${item.category}</span>
+              </div>
+              <h3 class="card-title"><a href="${item.url}">${item.title}</a></h3>
+              <p class="card-snippet">${item.dek}</p>
+              <div class="meta-row" style="margin-top: auto; font-size: 0.75rem;">
+                <span>${item.date}</span> • <span>${item.readTime}</span>
+              </div>
+            </article>
+          `).join("");
+        }
+
+        if (input) {
+          input.value = query;
+          if (query) performSearch(query);
+
+          input.addEventListener("input", (e) => {
+            performSearch(e.target.value);
+          });
+
+          document.getElementById("main-search-form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            performSearch(input.value);
+          });
+        }
+      });
+    </script>
+  </div>
+</div>

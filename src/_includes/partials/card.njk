@@ -1,0 +1,29 @@
+<article class="editorial-card">
+  {% if article.data.image %}
+    <a href="{{ article.url }}" class="card-thumb" aria-label="{{ article.data.title }}">
+      <img 
+        src="{{ article.data.image }}" 
+        alt="{{ article.data.title }}" 
+        loading="lazy" 
+        width="400" 
+        height="225"
+      >
+    </a>
+  {% endif %}
+  <div class="card-cat-wrap">
+    <a href="/{{ article.data.category | categorySlug }}/" class="category-label">
+      {{ article.data.category }}
+    </a>
+  </div>
+  <h3 class="card-title">
+    <a href="{{ article.url }}">{{ article.data.title }}</a>
+  </h3>
+  {% if article.data.dek %}
+    <p class="card-snippet">{{ article.data.dek }}</p>
+  {% endif %}
+  <div class="meta-row" style="margin-top: auto; font-size: 0.75rem;">
+    <time datetime="{{ article.date | isoDate }}">{{ article.date | timeAgo }}</time>
+    <span>•</span>
+    <span>{{ article.templateContent | readTime }}</span>
+  </div>
+</article>

@@ -1,0 +1,28 @@
+{
+  "name": "samachardaily",
+  "version": "1.0.0",
+  "description": "SamacharDaily - Fast news, trends explained. A modern digital news publication and zero-cost auto-blogger.",
+  "main": ".eleventy.js",
+  "scripts": {
+    "build": "npx @11ty/eleventy",
+    "serve": "npx @11ty/eleventy --serve",
+    "dev": "npx @11ty/eleventy --serve",
+    "test": "npx @11ty/eleventy"
+  },
+  "keywords": [
+    "news",
+    "eleventy",
+    "india",
+    "seo",
+    "static-site",
+    "journalism"
+  ],
+  "author": "SamacharDaily Editorial Desk",
+  "license": "MIT",
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-plugin-rss": "^2.0.2",
+    "luxon": "^3.5.0"
+  },
+  "devDependencies": {}
+}

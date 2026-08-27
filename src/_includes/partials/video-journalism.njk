@@ -1,0 +1,48 @@
+{% set videoStory = null %}
+{% for art in collections.articles %}
+  {% if art.data.video_id and art.data.video_id != "" and not videoStory %}
+    {% set videoStory = art %}
+  {% endif %}
+{% endfor %}
+
+{% if videoStory %}
+<section class="video-journalism-section" aria-label="Watch The Story - Video Journalism">
+  <div class="container">
+    <div class="video-section-header">
+      <h3 class="video-section-title">
+        <span style="color: var(--color-brand);">Watch</span> The Story
+      </h3>
+      <span style="font-size: 0.8125rem; color: #9DA3AF; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;">Broadcast Coverage</span>
+    </div>
+
+    <div class="video-grid">
+      <div class="video-player-wrap">
+        <iframe 
+          src="https://www.youtube-nocookie.com/embed/{{ videoStory.data.video_id }}" 
+          title="{{ videoStory.data.video_caption or videoStory.data.title }}" 
+          loading="lazy" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen
+        ></iframe>
+      </div>
+      
+      <div class="video-meta-box">
+        <div>
+          <span class="category-tag tag-{{ videoStory.data.category | categorySlug }}">
+            {{ videoStory.data.category }}
+          </span>
+        </div>
+        <h4 class="video-caption-text" style="margin-top: 12px;">
+          <a href="{{ videoStory.url }}" style="color: #FFFFFF;">{{ videoStory.data.video_caption or videoStory.data.title }}</a>
+        </h4>
+        <p style="color: #A0A5B1; font-size: 0.9375rem; line-height: 1.5; margin-bottom: 16px;">
+          {{ videoStory.data.dek }}
+        </p>
+        <a href="{{ videoStory.url }}" style="color: #FF5A67; font-weight: 700; font-size: 0.875rem;">
+          Read full accompanying article →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}

@@ -1,0 +1,10 @@
+node_modules/
+_site/
+.env
+.DS_Store
+Thumbs.db
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.system_generated/
+scratch/

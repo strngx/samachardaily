@@ -1,0 +1,24 @@
+---
+layout: layouts/base.njk
+---
+
+<div class="container">
+  <div class="article-reading-container">
+    <!-- Breadcrumbs -->
+    <nav class="article-breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <span style="color: var(--color-ink);">{{ title }}</span>
+    </nav>
+
+    <h1 class="article-headline-main">{{ title }}</h1>
+    
+    <div style="font-size: 0.875rem; color: var(--color-muted); margin-bottom: var(--space-6); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border);">
+      Last Updated: {{ page.date | readableDate("dd LLLL yyyy") }} • SamacharDaily Editorial
+    </div>
+
+    <div class="article-body-text">
+      {{ content | safe }}
+    </div>
+  </div>
+</div>

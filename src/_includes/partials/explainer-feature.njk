@@ -1,0 +1,52 @@
+{% set explainerStory = collections.articles | categoryArticles("India", 1) | first %}
+{% if not explainerStory %}
+  {% set explainerStory = collections.articles[0] %}
+{% endif %}
+
+{% if explainerStory %}
+<section class="explainer-feature" aria-label="Why This Matters Feature">
+  <div class="explainer-header">
+    <span class="explainer-badge">WHY THIS MATTERS</span>
+    <span class="explainer-subtitle">Key Editorial Breakdown</span>
+  </div>
+  <div class="explainer-grid">
+    <div class="explainer-left">
+      <h3 class="explainer-title">
+        <a href="{{ explainerStory.url }}">{{ explainerStory.data.title }}</a>
+      </h3>
+      {% if explainerStory.data.dek %}
+        <p class="explainer-dek">
+          {{ explainerStory.data.dek }}
+        </p>
+      {% endif %}
+      <a href="{{ explainerStory.url }}" class="explainer-cta">
+        Read Full Story →
+      </a>
+    </div>
+
+    <div class="explainer-points">
+      <div class="explainer-point-item">
+        <span class="point-number">01</span>
+        <div>
+          <span class="point-title">WHAT CHANGED</span>
+          <p class="point-text">{{ explainerStory.data.dek or explainerStory.data.title }}</p>
+        </div>
+      </div>
+      <div class="explainer-point-item">
+        <span class="point-number">02</span>
+        <div>
+          <span class="point-title">WHY IT MATTERS</span>
+          <p class="point-text">{{ explainerStory.data.why_it_matters or "Strategic shifts impact policy, infrastructure, and institutional roadmaps across key sectors." }}</p>
+        </div>
+      </div>
+      <div class="explainer-point-item">
+        <span class="point-number">03</span>
+        <div>
+          <span class="point-title">WHAT HAPPENS NEXT</span>
+          <p class="point-text">Implementation phases, stakeholder reviews, and regulatory milestones scheduled across upcoming operational cycles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}

@@ -1,0 +1,16 @@
+{% if video_id and video_id != "" and video_id != "null" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": {{ (video_caption or title) | json | safe }},
+  "description": {{ (dek or title) | json | safe }},
+  "thumbnailUrl": [
+    "https://img.youtube.com/vi/{{ video_id }}/maxresdefault.jpg",
+    "https://img.youtube.com/vi/{{ video_id }}/hqdefault.jpg"
+  ],
+  "uploadDate": "{{ page.date | isoDate }}",
+  "embedUrl": "https://www.youtube-nocookie.com/embed/{{ video_id }}"
+}
+</script>
+{% endif %}

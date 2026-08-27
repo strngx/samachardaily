@@ -1,0 +1,32 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ site.url }}{{ page.url }}"
+  },
+  "headline": {{ title | json | safe }},
+  "description": {{ (dek or description or title) | json | safe }},
+  "image": [
+    "{{ image or site.url + '/assets/images/default-hero.jpg' }}"
+  ],
+  "datePublished": "{{ page.date | isoDate }}",
+  "dateModified": "{{ page.date | isoDate }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ author or site.author.name }}",
+    "url": "{{ site.url }}/about/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.name }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}/assets/images/logo.svg"
+    }
+  },
+  "articleSection": "{{ category }}",
+  "inLanguage": "en-IN"
+}
+</script>

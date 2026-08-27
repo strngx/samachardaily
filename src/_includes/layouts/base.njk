@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="{{ site.language }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if title %}{{ title }} | {{ site.name }}{% else %}{{ site.name }} — {{ site.tagline }}{% endif %}</title>
+  
+  <meta name="description" content="{{ dek or description or site.description }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  
+  <!-- Open Graph / Social Meta -->
+  <meta property="og:type" content="{% if layout == 'layouts/article.njk' %}article{% else %}website{% endif %}">
+  <meta property="og:title" content="{% if title %}{{ title }} | {{ site.name }}{% else %}{{ site.name }}{% endif %}">
+  <meta property="og:description" content="{{ dek or description or site.description }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:image" content="{{ image or site.url + '/assets/images/default-hero.jpg' }}">
+  <meta property="og:locale" content="{{ site.locale }}">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="{{ site.social.twitter }}">
+  <meta name="twitter:title" content="{% if title %}{{ title }} | {{ site.name }}{% else %}{{ site.name }}{% endif %}">
+  <meta name="twitter:description" content="{{ dek or description or site.description }}">
+  <meta name="twitter:image" content="{{ image or site.url + '/assets/images/default-hero.jpg' }}">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+
+  <!-- Google Fonts: Inter + Source Serif 4 (Loaded with font-display: swap) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;0,8..60,900;1,8..60,400&display=swap" rel="stylesheet">
+
+  <!-- Production Stylesheet -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/rss+xml" title="{{ site.name }} RSS Feed" href="/rss.xml">
+
+  <!-- Structured Data JSON-LD -->
+  {% if layout == 'layouts/article.njk' %}
+    {% include "partials/jsonld-news.njk" %}
+    {% include "partials/jsonld-video.njk" %}
+  {% else %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsMediaOrganization",
+      "name": "{{ site.name }}",
+      "url": "{{ site.url }}",
+      "logo": "{{ site.url }}/assets/images/logo.svg",
+      "sameAs": [
+        "https://twitter.com/SamacharDaily"
+      ]
+    }
+    </script>
+  {% endif %}
+</head>
+<body>
+  <!-- Header -->
+  {% include "partials/header.njk" %}
+
+  <!-- Main Content Body -->
+  <main class="main-content" id="main-content">
+    {{ content | safe }}
+  </main>
+
+  <!-- Newsletter Capture Strip (only on non-policy pages) -->
+  {% if layout != 'layouts/page.njk' %}
+    {% include "partials/newsletter.njk" %}
+  {% endif %}
+
+  <!-- Footer -->
+  {% include "partials/footer.njk" %}
+
+  <!-- Client Script -->
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>
