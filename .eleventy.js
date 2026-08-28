@@ -1,7 +1,7 @@
 const { DateTime } = require("luxon");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 
-module.exports = function(eleventyConfig) {
+module.exports = function (eleventyConfig) {
   // Plugins
   eleventyConfig.addPlugin(pluginRss);
 
@@ -37,7 +37,7 @@ module.exports = function(eleventyConfig) {
     if (!dateObj) return "Recently";
     const dt = typeof dateObj === "string" ? DateTime.fromISO(dateObj) : DateTime.fromJSDate(dateObj);
     const diff = DateTime.now().diff(dt, ["hours", "minutes", "days"]).toObject();
-    
+
     if (diff.days >= 1) {
       return `${Math.floor(diff.days)}d ago`;
     } else if (diff.hours >= 1) {
@@ -110,7 +110,7 @@ module.exports = function(eleventyConfig) {
   });
 
   // Collections
-  eleventyConfig.addCollection("articles", function(collectionApi) {
+  eleventyConfig.addCollection("articles", function (collectionApi) {
     return collectionApi.getFilteredByGlob("src/articles/**/*.md").sort((a, b) => {
       return b.date - a.date;
     });
@@ -118,7 +118,7 @@ module.exports = function(eleventyConfig) {
 
   const categories = ["India", "World", "Business", "Tech", "Sports"];
   categories.forEach(cat => {
-    eleventyConfig.addCollection(cat.toLowerCase(), function(collectionApi) {
+    eleventyConfig.addCollection(cat.toLowerCase(), function (collectionApi) {
       return collectionApi.getFilteredByGlob("src/articles/**/*.md")
         .filter(item => (item.data.category || "").toLowerCase() === cat.toLowerCase())
         .sort((a, b) => b.date - a.date);
@@ -126,6 +126,7 @@ module.exports = function(eleventyConfig) {
   });
 
   return {
+    pathPrefix: "/samachardaily/",
     dir: {
       input: "src",
       includes: "_includes",
