@@ -8,7 +8,7 @@ module.exports = {
   locale: "en_IN",
   author: {
     name: "SamacharDaily Editorial Team",
-    email: "editor@samachardaily.com",
+    email: "samachardaily.editorial@gmail.com",
     url: "https://strngx.github.io/samachardaily/about/"
   },
   publisher: {
@@ -16,9 +16,9 @@ module.exports = {
     logo: "https://strngx.github.io/samachardaily/assets/images/logo.svg"
   },
   social: {
-    instagram: "https://instagram.com/SamacharDaily",
+    instagram: "https://www.instagram.com/samachardaily.in",
     youtube: "https://youtube.com/@SamacharDaily",
-    email: "mailto:editor@samachardaily.com",
+    email: "mailto:samachardaily.editorial@gmail.com",
     twitter: "@SamacharDaily"
   },
   categories: [

@@ -42,6 +42,6 @@ At SamacharDaily, we believe in complete transparency regarding the modern techn
 
 ## Contact Editorial
 
-- **Editorial Inquiries:** `editorial@samachardaily.com`
-- **Corrections & Clarifications:** `corrections@samachardaily.com`
+- **Editorial Inquiries:** [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
+- **Corrections & Clarifications:** [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
 - **General Inquiries:** Visit our [Contact Page]({{ '/contact/' | url }}).

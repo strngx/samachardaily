@@ -45,4 +45,4 @@ In no event will SamacharDaily, its editors, operators, or affiliates be liable 
 
 We reserve the right to revise these Terms of Service at any time without notice. By using this website, you are agreeing to be bound by the then-current version of these Terms.
 
-For any legal or terms inquiries, please contact `desk@samachardaily.com`.
+For any legal or terms inquiries, please contact [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com).

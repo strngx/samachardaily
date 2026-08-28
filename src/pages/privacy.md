@@ -48,4 +48,4 @@ We are committed to ensuring your data protection rights. Every user is entitled
 - **The right to rectification** – You have the right to request that we correct any information you believe is inaccurate.
 - **The right to erasure** – You have the right to request that we erase your personal data, under certain conditions.
 
-If you make a request, we have one month to respond to you. If you would like to exercise any of these rights, please contact us at `editor@samachardaily.com`.
+If you make a request, we have one month to respond to you. If you would like to exercise any of these rights, please contact us at [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com).

@@ -12,15 +12,15 @@ Thank you for your interest in **SamacharDaily**. Whether you have a news tip, f
 ## Editorial Inquiries & Contacts
 
 - **Editorial Inquiries & News Tips:**  
-  `tips@samachardaily.com`  
+  [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)  
   *Send news leads, press releases, or official announcements for review.*
 
 - **Corrections & Grievances:**  
-  `corrections@samachardaily.com`  
+  [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)  
   *In accordance with digital media ethics standards, our team reviews all factual correction requests promptly.*
 
 - **General & Press Inquiries:**  
-  `contact@samachardaily.com`
+  [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
 
 ---
 
