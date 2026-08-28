@@ -13,7 +13,7 @@
 {% if breakingStory %}
 <div class="breaking-banner" role="alert" aria-label="Breaking News">
   <span class="breaking-badge">BREAKING</span>
-  <a href="{{ breakingStory.url }}" class="breaking-title">{{ breakingStory.data.title }}</a>
+  <a href="{{ breakingStory.url | url }}" class="breaking-title">{{ breakingStory.data.title }}</a>
   <span class="breaking-time">{{ breakingStory.date | timeAgo }}</span>
 </div>
 {% endif %}
@@ -23,10 +23,10 @@
   <!-- Primary Lead Story -->
   <article class="lead-story-card">
     {% if leadStory.data.image %}
-      <a href="{{ leadStory.url }}" class="lead-media-wrap" aria-label="{{ leadStory.data.title }}">
+      <a href="{{ leadStory.url | url }}" class="lead-media-wrap" aria-label="{{ leadStory.data.title }}">
         <img 
-          src="{{ leadStory.data.image }}" 
-          alt="{{ leadStory.data.title }}" 
+          src="{{ leadStory.data.image | url }}" 
+          alt="{{ leadStory.data.imageAlt or leadStory.data.image_alt or leadStory.data.title }}" 
           class="lead-img" 
           fetchpriority="high"
           width="740" 
@@ -35,12 +35,12 @@
       </a>
     {% endif %}
     <div>
-      <a href="/{{ leadStory.data.category | categorySlug }}/" class="category-label">
+      <a href="{{ ('/' + (leadStory.data.category | categorySlug) + '/') | url }}" class="category-label">
         {{ leadStory.data.category }}
       </a>
     </div>
     <h2 class="lead-headline">
-      <a href="{{ leadStory.url }}">{{ leadStory.data.title }}</a>
+      <a href="{{ leadStory.url | url }}">{{ leadStory.data.title }}</a>
     </h2>
     {% if leadStory.data.dek %}
       <p class="lead-dek">{{ leadStory.data.dek }}</p>
@@ -70,12 +70,12 @@
           <div class="wire-meta">
             <time class="wire-time" datetime="{{ item.date | isoDate }}">{{ item.date | readableDate("hh:mm a") }}</time>
             <span class="wire-divider">|</span>
-            <a href="/{{ item.data.category | categorySlug }}/" class="category-label">
+            <a href="{{ ('/' + (item.data.category | categorySlug) + '/') | url }}" class="category-label">
               {{ item.data.category }}
             </a>
           </div>
           <h4 class="wire-headline">
-            <a href="{{ item.url }}">{{ item.data.title }}</a>
+            <a href="{{ item.url | url }}">{{ item.data.title }}</a>
           </h4>
         </article>
       {% endfor %}

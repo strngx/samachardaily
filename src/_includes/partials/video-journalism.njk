@@ -1,11 +1,13 @@
 {% set videoStory = null %}
 {% for art in collections.articles %}
-  {% if art.data.video_id and art.data.video_id != "" and not videoStory %}
+  {% set currentVid = art.data.videoId or art.data.video_id %}
+  {% if currentVid and currentVid != "" and currentVid != "null" and not videoStory %}
     {% set videoStory = art %}
   {% endif %}
 {% endfor %}
 
 {% if videoStory %}
+{% set activeVideoId = videoStory.data.videoId or videoStory.data.video_id %}
 <section class="video-journalism-section" aria-label="Watch The Story - Video Journalism">
   <div class="container">
     <div class="video-section-header">
@@ -18,8 +20,8 @@
     <div class="video-grid">
       <div class="video-player-wrap">
         <iframe 
-          src="https://www.youtube-nocookie.com/embed/{{ videoStory.data.video_id }}" 
-          title="{{ videoStory.data.video_caption or videoStory.data.title }}" 
+          src="https://www.youtube.com/embed/{{ activeVideoId }}" 
+          title="{{ videoStory.data.videoCaption or videoStory.data.video_caption or videoStory.data.title }}" 
           loading="lazy" 
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
           allowfullscreen
@@ -33,12 +35,12 @@
           </span>
         </div>
         <h4 class="video-caption-text" style="margin-top: 12px;">
-          <a href="{{ videoStory.url }}" style="color: #FFFFFF;">{{ videoStory.data.video_caption or videoStory.data.title }}</a>
+          <a href="{{ videoStory.url | url }}" style="color: #FFFFFF;">{{ videoStory.data.videoCaption or videoStory.data.video_caption or videoStory.data.title }}</a>
         </h4>
         <p style="color: #A0A5B1; font-size: 0.9375rem; line-height: 1.5; margin-bottom: 16px;">
           {{ videoStory.data.dek }}
         </p>
-        <a href="{{ videoStory.url }}" style="color: #FF5A67; font-weight: 700; font-size: 0.875rem;">
+        <a href="{{ videoStory.url | url }}" style="color: #FF5A67; font-weight: 700; font-size: 0.875rem;">
           Read full accompanying article →
         </a>
       </div>

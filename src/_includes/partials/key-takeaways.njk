@@ -5,7 +5,7 @@
       <strong>The Development:</strong> {{ dek or title }}
     </li>
     <li>
-      <strong>Strategic Significance:</strong> {{ why_it_matters | truncateWords(25) }}
+      <strong>Strategic Significance:</strong> {{ (why_it_matters or "Key developments impact policy, infrastructure, and institutional roadmaps across the sector.") | truncateWords(25) }}
     </li>
     <li>
       <strong>Next Phase:</strong> Initial phase rollouts, regulatory milestones, and key stakeholder deployment scheduled over the coming quarter.

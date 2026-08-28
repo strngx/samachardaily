@@ -97,27 +97,46 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 5. Newsletter Form Inline Feedback
-  const newsletterForm = document.getElementById("newsletter-form");
-  if (newsletterForm) {
-    newsletterForm.addEventListener("submit", (e) => {
+  // 5. Newsletter Form Submission to Google Forms
+  const newsletterForms = document.querySelectorAll(".newsletter-form-inline, #newsletter-form");
+  newsletterForms.forEach((form) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const emailInput = newsletterForm.querySelector('input[type="email"]');
-      const submitBtn = newsletterForm.querySelector('button[type="submit"]');
-      
-      if (emailInput && emailInput.value) {
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = "Subscribed!";
-        submitBtn.disabled = true;
-        submitBtn.style.backgroundColor = "#1E8A4C";
-        emailInput.value = "";
-        
-        setTimeout(() => {
-          submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
-          submitBtn.style.backgroundColor = "";
-        }, 4000);
+
+      const emailInput = form.querySelector('input[type="email"]');
+      if (!emailInput || !emailInput.value || !emailInput.checkValidity()) {
+        if (emailInput) emailInput.reportValidity();
+        return;
       }
+
+      const emailValue = emailInput.value.trim();
+      const formAction = form.getAttribute("action") || "https://docs.google.com/forms/d/e/1FAIpQLSeyzXuXR7S7dYrYmKuFeErbXE2O8DTmfMY3RARMlp4bkGNe3A/formResponse";
+      const fieldName = emailInput.getAttribute("name") || "entry.963532165";
+
+      const formData = new FormData();
+      formData.append(fieldName, emailValue);
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Subscribing...";
+      }
+
+      try {
+        await fetch(formAction, {
+          method: "POST",
+          mode: "no-cors",
+          body: formData
+        });
+      } catch (err) {
+        console.error("Newsletter submission error:", err);
+      }
+
+      const successWrapper = document.createElement("div");
+      successWrapper.className = "newsletter-text";
+      successWrapper.innerHTML = "<p style=\"font-weight: 700; color: var(--color-ink); margin: 0;\">Thanks! You're subscribed.</p>";
+
+      form.replaceWith(successWrapper);
     });
-  }
+  });
 });

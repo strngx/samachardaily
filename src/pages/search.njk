@@ -9,7 +9,7 @@ permalink: "/search/index.html"
   <div class="article-reading-container" style="max-width: 880px;">
     <!-- Breadcrumbs -->
     <nav class="article-breadcrumbs" aria-label="Breadcrumb">
-      <a href="/">Home</a>
+      <a href="{{ '/' | url }}">Home</a>
       <span>/</span>
       <span style="color: var(--color-ink);">Search</span>
     </nav>
@@ -20,7 +20,7 @@ permalink: "/search/index.html"
     </p>
 
     <div style="margin-bottom: var(--space-8);">
-      <form class="search-form-page" id="main-search-form" action="/search/" method="get" role="search">
+      <form class="search-form-page" id="main-search-form" action="{{ '/search/' | url }}" method="get" role="search">
         <input 
           type="search" 
           name="q"
@@ -50,12 +50,12 @@ permalink: "/search/index.html"
         {
           title: {{ article.data.title | json | safe }},
           dek: {{ (article.data.dek or "") | json | safe }},
-          url: "{{ article.url }}",
+          url: "{{ article.url | url }}",
           category: "{{ article.data.category }}",
           categorySlug: "{{ article.data.category | categorySlug }}",
           date: "{{ article.date | timeAgo }}",
           readTime: "{{ article.templateContent | readTime }}",
-          image: "{{ article.data.image or '' }}"
+          image: "{{ (article.data.image | url) if article.data.image else '' }}"
         }{% if not loop.last %},{% endif %}
         {% endfor %}
       ];

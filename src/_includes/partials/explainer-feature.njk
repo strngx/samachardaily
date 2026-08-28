@@ -12,14 +12,14 @@
   <div class="explainer-grid">
     <div class="explainer-left">
       <h3 class="explainer-title">
-        <a href="{{ explainerStory.url }}">{{ explainerStory.data.title }}</a>
+        <a href="{{ explainerStory.url | url }}">{{ explainerStory.data.title }}</a>
       </h3>
       {% if explainerStory.data.dek %}
         <p class="explainer-dek">
           {{ explainerStory.data.dek }}
         </p>
       {% endif %}
-      <a href="{{ explainerStory.url }}" class="explainer-cta">
+      <a href="{{ explainerStory.url | url }}" class="explainer-cta">
         Read Full Story →
       </a>
     </div>

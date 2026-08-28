@@ -5,6 +5,11 @@ module.exports = function (eleventyConfig) {
   // Plugins
   eleventyConfig.addPlugin(pluginRss);
 
+  // Prevent html-transformer from double-prefixing URLs that explicitly use the url filter
+  if (eleventyConfig.transforms) {
+    delete eleventyConfig.transforms["@11ty/eleventy/html-transformer"];
+  }
+
   // Passthrough static assets
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
@@ -82,13 +87,73 @@ module.exports = function (eleventyConfig) {
     return array.slice(n);
   });
 
-  eleventyConfig.addFilter("relatedArticles", (allArticles, currentArticle, limit = 3) => {
-    if (!allArticles || !currentArticle) return [];
-    const currentCat = (currentArticle.data && currentArticle.data.category) || "";
-    const currentUrl = currentArticle.url || "";
+  eleventyConfig.addFilter("relatedArticles", function (allArticles, currentArticleOrCategory, urlOrLimit = 3, limit = 3) {
+    if (!Array.isArray(allArticles) || allArticles.length === 0) return [];
+    if (!currentArticleOrCategory) return [];
+
+    let currentCat = "";
+    let currentUrl = "";
+    let actualLimit = 3;
+
+    if (typeof currentArticleOrCategory === "object" && currentArticleOrCategory !== null) {
+      currentUrl = currentArticleOrCategory.url || "";
+      currentCat = (currentArticleOrCategory.data && currentArticleOrCategory.data.category) || currentArticleOrCategory.category || "";
+      
+      if (!currentCat && currentUrl) {
+        const found = allArticles.find(item => item.url === currentUrl || (item.page && item.page.url === currentUrl));
+        if (found && found.data) {
+          currentCat = found.data.category || "";
+        }
+      }
+      if (!currentCat && this && this.ctx && this.ctx.category) {
+        currentCat = this.ctx.category;
+      }
+
+      actualLimit = typeof urlOrLimit === "number" ? urlOrLimit : limit;
+    } else if (typeof currentArticleOrCategory === "string") {
+      currentCat = currentArticleOrCategory;
+      if (typeof urlOrLimit === "string") {
+        currentUrl = urlOrLimit;
+        actualLimit = limit;
+      } else if (typeof urlOrLimit === "number") {
+        actualLimit = urlOrLimit;
+      }
+    }
+
     return allArticles
-      .filter(item => item.url !== currentUrl && item.data.category === currentCat)
-      .slice(0, limit);
+      .filter(item => {
+        const itemCat = (item.data && item.data.category) || "";
+        const itemUrl = item.url || "";
+        const isSameCategory = !currentCat || itemCat.toLowerCase().trim() === currentCat.toLowerCase().trim();
+        const isDifferentUrl = !currentUrl || (itemUrl !== currentUrl && !itemUrl.endsWith(currentUrl) && !currentUrl.endsWith(itemUrl));
+        return isSameCategory && isDifferentUrl;
+      })
+      .slice(0, actualLimit);
+  });
+
+  eleventyConfig.addFilter("injectAlsoRead", function (contentHtml, relatedArticle) {
+    if (!contentHtml) return "";
+    if (!relatedArticle || !relatedArticle.url) return contentHtml;
+
+    const urlFilter = eleventyConfig.getFilter("url");
+    const articleUrl = urlFilter ? urlFilter(relatedArticle.url) : relatedArticle.url;
+    const articleTitle = (relatedArticle.data && relatedArticle.data.title) || "Related Story";
+
+    const alsoReadHtml = `<p class="also-read-inline"><strong>ALSO READ</strong> | <a href="${articleUrl}">${articleTitle}</a></p>`;
+
+    let pCount = 0;
+    const modified = contentHtml.replace(/<\/p>/gi, (match) => {
+      pCount++;
+      if (pCount === 2) {
+        return match + "\n" + alsoReadHtml;
+      }
+      return match;
+    });
+
+    if (pCount < 2) {
+      return contentHtml + "\n" + alsoReadHtml;
+    }
+    return modified;
   });
 
   eleventyConfig.addFilter("categoryArticles", (allArticles, categoryName, limit = 6) => {
@@ -107,6 +172,15 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("json", (obj) => {
     return JSON.stringify(obj);
+  });
+
+  eleventyConfig.addFilter("url", function (url) {
+    if (!url) return "/samachardaily/";
+    if (typeof url !== "string") return url;
+    if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("//")) return url;
+    if (url.startsWith("/samachardaily/")) return url;
+    if (url.startsWith("/")) return "/samachardaily" + url;
+    return "/samachardaily/" + url;
   });
 
   // Collections

@@ -1,9 +1,9 @@
 <article class="editorial-card">
   {% if article.data.image %}
-    <a href="{{ article.url }}" class="card-thumb" aria-label="{{ article.data.title }}">
+    <a href="{{ article.url | url }}" class="card-thumb" aria-label="{{ article.data.title }}">
       <img 
-        src="{{ article.data.image }}" 
-        alt="{{ article.data.title }}" 
+        src="{{ article.data.image | url }}" 
+        alt="{{ article.data.imageAlt or article.data.image_alt or article.data.title }}" 
         loading="lazy" 
         width="400" 
         height="225"
@@ -11,12 +11,12 @@
     </a>
   {% endif %}
   <div class="card-cat-wrap">
-    <a href="/{{ article.data.category | categorySlug }}/" class="category-label">
+    <a href="{{ ('/' + (article.data.category | categorySlug) + '/') | url }}" class="category-label">
       {{ article.data.category }}
     </a>
   </div>
   <h3 class="card-title">
-    <a href="{{ article.url }}">{{ article.data.title }}</a>
+    <a href="{{ article.url | url }}">{{ article.data.title }}</a>
   </h3>
   {% if article.data.dek %}
     <p class="card-snippet">{{ article.data.dek }}</p>

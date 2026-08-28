@@ -17,7 +17,7 @@
 <header class="site-header" id="site-header">
   <div class="container header-main">
     <!-- Brand Logo -->
-    <a href="/" class="site-brand" aria-label="SamacharDaily Home">
+    <a href="{{ '/' | url }}" class="site-brand" aria-label="SamacharDaily Home">
       Samachar<span class="brand-red">Daily</span>
     </a>
 
@@ -25,8 +25,8 @@
     <nav class="desktop-nav" aria-label="Primary Navigation">
       {% for cat in site.categories %}
         <a 
-          href="/{{ cat.slug }}/" 
-          class="nav-category-link {% if page.url == '/' + cat.slug + '/' %}is-active{% endif %}"
+          href="{{ ('/' + cat.slug + '/') | url }}" 
+          class="nav-category-link {% if page.url == ('/' + cat.slug + '/') | url or page.url == '/' + cat.slug + '/' %}is-active{% endif %}"
         >
           {{ cat.name }}
         </a>
@@ -55,7 +55,7 @@
   <!-- Compact Search Drawer -->
   <div class="search-drawer" id="search-drawer">
     <div class="container">
-      <form class="search-form-drawer" action="/search/" method="get" role="search">
+      <form class="search-form-drawer" action="{{ '/search/' | url }}" method="get" role="search">
         <input 
           type="search" 
           name="q" 
@@ -74,7 +74,7 @@
 <div class="mobile-nav-sheet" id="mobile-nav-sheet" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
   <div class="mobile-nav-panel">
     <div class="mobile-nav-top">
-      <a href="/" class="site-brand">
+      <a href="{{ '/' | url }}" class="site-brand">
         Samachar<span class="brand-red">Daily</span>
       </a>
       <button type="button" class="menu-toggle-btn close-btn" id="close-mobile-nav" aria-label="Close navigation">
@@ -90,7 +90,7 @@
     <!-- Five Locked Categories Only (Monochrome, No "Desk" suffix) -->
     <nav class="mobile-nav-links" aria-label="Mobile Sections">
       {% for cat in site.categories %}
-        <a href="/{{ cat.slug }}/" class="mobile-nav-item">
+        <a href="{{ ('/' + cat.slug + '/') | url }}" class="mobile-nav-item">
           {{ cat.name }}
         </a>
       {% endfor %}

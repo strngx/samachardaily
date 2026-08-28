@@ -44,4 +44,4 @@ At SamacharDaily, we believe in complete transparency regarding the modern techn
 
 - **Editorial Inquiries:** `editorial@samachardaily.com`
 - **Corrections & Clarifications:** `corrections@samachardaily.com`
-- **General Inquiries:** Visit our [Contact Page](/contact/).
+- **General Inquiries:** Visit our [Contact Page]({{ '/contact/' | url }}).

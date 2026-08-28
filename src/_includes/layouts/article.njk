@@ -6,27 +6,46 @@ layout: layouts/base.njk
   <article class="article-reading-container">
     <!-- 1. Clean Breadcrumbs -->
     <nav class="article-breadcrumbs" aria-label="Breadcrumb">
-      <a href="/">Home</a>
+      <a href="{{ '/' | url }}">Home</a>
       <span>/</span>
-      <a href="/{{ category | categorySlug }}/">{{ category }}</a>
+      <a href="{{ ('/' + (category | categorySlug) + '/') | url }}">{{ category }}</a>
     </nav>
 
     <!-- 2. Category Tag -->
     <div>
-      <a href="/{{ category | categorySlug }}/" class="category-label">
+      <a href="{{ ('/' + (category | categorySlug) + '/') | url }}" class="category-label">
         {{ category }}
       </a>
     </div>
 
-    <!-- 3. Main H1 Headline -->
+    <!-- 3. Featured Hero Image (Positioned near top) -->
+    {% if image %}
+      <figure class="article-hero-frame">
+        <img 
+          src="{{ image | url }}" 
+          alt="{{ imageAlt or image_alt or title }}" 
+          class="article-hero-img"
+          fetchpriority="high"
+          width="760" 
+          height="428"
+        >
+        {% if imageCredit or image_credit %}
+          <figcaption class="photo-caption-bar">
+            Photo: {{ imageCredit or image_credit }}
+          </figcaption>
+        {% endif %}
+      </figure>
+    {% endif %}
+
+    <!-- 4. Main H1 Headline -->
     <h1 class="article-headline-main">{{ title }}</h1>
 
-    <!-- 4. Sub-headline / Dek -->
+    <!-- 5. Sub-headline / Dek -->
     {% if dek %}
       <p class="article-dek-main">{{ dek }}</p>
     {% endif %}
 
-    <!-- 5. Byline Row -->
+    <!-- 6. Byline Row -->
     <div class="article-byline-bar">
       <span>By <span class="byline-strong">{{ author or site.author.name }}</span></span>
       <span>•</span>
@@ -35,48 +54,69 @@ layout: layouts/base.njk
       <span>{{ content | readTime }}</span>
     </div>
 
-    <!-- 6. Hero Image -->
-    {% if image %}
-      <figure class="article-hero-frame">
-        <img 
-          src="{{ image }}" 
-          alt="{{ title }}" 
-          class="article-hero-img"
-          fetchpriority="high"
-          width="760" 
-          height="428"
-        >
-        {% if image_credit %}
-          <figcaption class="photo-caption-bar">
-            Photo: {{ image_credit }}
-          </figcaption>
-        {% endif %}
-      </figure>
-    {% endif %}
-
     <!-- 7. Key Takeaways Box -->
     {% include "partials/key-takeaways.njk" %}
 
-    <!-- 8. Core Article Content -->
+    <!-- 8. Core Article Content (with Inline "Also Read" after 2nd paragraph) -->
+    {% set related = collections.articles | relatedArticles(page, 1) %}
     <div class="article-body-text">
-      {{ content | safe }}
+      {% if related.length > 0 %}
+        {{ content | injectAlsoRead(related[0]) | safe }}
+      {% else %}
+        {{ content | safe }}
+      {% endif %}
     </div>
 
-    <!-- 9. Why It Matters Annotation -->
+    <!-- 9. Embedded YouTube Video (Inline right after body content) -->
+    {% if video_id and video_id != "" and video_id != "null" %}
+      <div class="video-block-wrapper" aria-label="Related Video Coverage">
+        <div class="video-caption-label">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-brand, #C81E2C);">
+            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+          </svg>
+          <span>Video Coverage: {{ video_caption or title }}</span>
+        </div>
+        <div class="video-embed-container">
+          <iframe 
+            src="https://www.youtube.com/embed/{{ video_id }}" 
+            title="{{ title | escape }}" 
+            loading="lazy" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- 10. Why It Matters Annotation -->
     {% include "partials/why-it-matters.njk" %}
 
-    <!-- 10. Relevant Video Journalism (Rendered only if real video exists) -->
-    {% include "partials/video-embed.njk" %}
-
     <!-- 11. Source Attribution -->
+    {% set currentSourceName = sourceName or source_name %}
+    {% set currentSourceUrl = sourceUrl or source_url %}
     <div class="source-citation">
-      <span>Reporting based on verified dispatches from <strong>{{ source_name or "Official Wire Services" }}</strong>.</span>
-      {% if source_url %}
+      <span>Reporting based on verified dispatches from <strong>{{ currentSourceName or "Official Wire Services" }}</strong>.</span>
+      {% if currentSourceUrl %}
         <span style="margin-left: 8px;">
-          <a href="{{ source_url }}" rel="nofollow noopener noreferrer" target="_blank">View primary release ↗</a>
+          <a href="{{ currentSourceUrl }}" rel="nofollow noopener noreferrer" target="_blank">View primary release ↗</a>
         </span>
       {% endif %}
     </div>
+
+    <!-- 12. Bottom "Also Read" Related Articles (Up to 3 stories) -->
+    {% set relatedBottom = collections.articles | relatedArticles(page, 3) %}
+    {% if relatedBottom.length > 0 %}
+      <div class="also-read-bottom" aria-label="Also Read Related Articles">
+        <div class="also-read-bottom-title">ALSO READ</div>
+        <ul class="also-read-list">
+          {% for rel in relatedBottom %}
+            <li class="also-read-item">
+              <a href="{{ rel.url | url }}">{{ rel.data.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
 
     <!-- 12. In-Article Ad Slot -->
     {% set slotName = "article-bottom" %}

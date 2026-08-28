@@ -1,16 +1,17 @@
-{% if video_id and video_id != "" and video_id != "null" %}
+{% set vid = videoId or video_id %}
+{% if vid and vid != "" and vid != "null" %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "name": {{ (video_caption or title) | json | safe }},
+  "name": {{ (videoCaption or video_caption or title) | json | safe }},
   "description": {{ (dek or title) | json | safe }},
   "thumbnailUrl": [
-    "https://img.youtube.com/vi/{{ video_id }}/maxresdefault.jpg",
-    "https://img.youtube.com/vi/{{ video_id }}/hqdefault.jpg"
+    "https://img.youtube.com/vi/{{ vid }}/maxresdefault.jpg",
+    "https://img.youtube.com/vi/{{ vid }}/hqdefault.jpg"
   ],
   "uploadDate": "{{ page.date | isoDate }}",
-  "embedUrl": "https://www.youtube-nocookie.com/embed/{{ video_id }}"
+  "embedUrl": "https://www.youtube.com/embed/{{ vid }}"
 }
 </script>
 {% endif %}

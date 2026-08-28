@@ -24,11 +24,11 @@ layout: layouts/base.njk
           <div class="trending-item">
             <span class="trending-rank" aria-hidden="true">0{{ loop.index }}</span>
             <div class="trending-content">
-              <a href="/{{ article.data.category | categorySlug }}/" class="category-label">
+              <a href="{{ ('/' + (article.data.category | categorySlug) + '/') | url }}" class="category-label">
                 {{ article.data.category }}
               </a>
               <h3 class="trending-headline">
-                <a href="{{ article.url }}">{{ article.data.title }}</a>
+                <a href="{{ article.url | url }}">{{ article.data.title }}</a>
               </h3>
               <div class="meta-row" style="font-size: 0.75rem;">
                 <time datetime="{{ article.date | isoDate }}">{{ article.date | timeAgo }}</time>
@@ -56,7 +56,7 @@ layout: layouts/base.njk
           <h2 class="section-masthead-title">India</h2>
           <span class="section-masthead-sub">National governance, policy, infrastructure, and domestic developments</span>
         </div>
-        <a href="/india/" class="section-view-all">View All India →</a>
+        <a href="{{ '/india/' | url }}" class="section-view-all">View All India →</a>
       </div>
 
       <div class="grid-comp-a">
@@ -76,7 +76,7 @@ layout: layouts/base.njk
           <h2 class="section-masthead-title">World</h2>
           <span class="section-masthead-sub">Global diplomacy, international pacts, multilateral summits, and world events</span>
         </div>
-        <a href="/world/" class="section-view-all">View All World →</a>
+        <a href="{{ '/world/' | url }}" class="section-view-all">View All World →</a>
       </div>
 
       <div class="grid-comp-b">
@@ -96,7 +96,7 @@ layout: layouts/base.njk
           <h2 class="section-masthead-title">Business</h2>
           <span class="section-masthead-sub">Markets, economy, venture ecosystems, and industry investments</span>
         </div>
-        <a href="/business/" class="section-view-all">View All Business →</a>
+        <a href="{{ '/business/' | url }}" class="section-view-all">View All Business →</a>
       </div>
 
       <div class="grid-comp-c">
@@ -111,7 +111,7 @@ layout: layouts/base.njk
                 {{ article.date | timeAgo }}
               </div>
               <h3 style="font-size: 1.125rem; font-family: var(--font-serif); line-height: 1.35;">
-                <a href="{{ article.url }}">{{ article.data.title }}</a>
+                <a href="{{ article.url | url }}">{{ article.data.title }}</a>
               </h3>
               {% if article.data.dek %}
                 <p style="font-size: 0.875rem; color: var(--color-muted); margin-top: 4px; margin-bottom: 0;">
@@ -138,7 +138,7 @@ layout: layouts/base.njk
           <h2 class="section-masthead-title">Tech</h2>
           <span class="section-masthead-sub">Frontier AI, digital infrastructure, telecommunications, and quantum science</span>
         </div>
-        <a href="/tech/" class="section-view-all">View All Tech →</a>
+        <a href="{{ '/tech/' | url }}" class="section-view-all">View All Tech →</a>
       </div>
 
       <div class="grid-comp-a">
@@ -158,7 +158,7 @@ layout: layouts/base.njk
           <h2 class="section-masthead-title">Sports</h2>
           <span class="section-masthead-sub">Cricket tournaments, athletics records, football, and international championships</span>
         </div>
-        <a href="/sports/" class="section-view-all">View All Sports →</a>
+        <a href="{{ '/sports/' | url }}" class="section-view-all">View All Sports →</a>
       </div>
 
       <div class="grid-comp-a">
