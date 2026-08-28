@@ -709,6 +709,10 @@ button {
 }
 
 .wire-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
   border-bottom: 1px solid var(--color-border);
   padding-bottom: var(--space-3);
 }
@@ -716,6 +720,32 @@ button {
 .wire-item:last-child {
   border-bottom: none;
   padding-bottom: 0;
+}
+
+.wire-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.wire-thumb-wrap {
+  flex-shrink: 0;
+  width: 76px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: var(--color-surface);
+  display: block;
+}
+
+.wire-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-fast);
+}
+
+.wire-item:hover .wire-thumb {
+  transform: scale(1.04);
 }
 
 .wire-meta {

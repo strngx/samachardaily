@@ -67,16 +67,30 @@
     <div class="wire-stream-list">
       {% for item in wireStories %}
         <article class="wire-item">
-          <div class="wire-meta">
-            <time class="wire-time" datetime="{{ item.date | isoDate }}">{{ item.date | readableDate("hh:mm a") }}</time>
-            <span class="wire-divider">|</span>
-            <a href="{{ ('/' + (item.data.category | categorySlug) + '/') | url }}" class="category-label">
-              {{ item.data.category }}
-            </a>
+          <div class="wire-content">
+            <div class="wire-meta">
+              <time class="wire-time" datetime="{{ item.date | isoDate }}">{{ item.date | readableDate("hh:mm a") }}</time>
+              <span class="wire-divider">|</span>
+              <a href="{{ ('/' + (item.data.category | categorySlug) + '/') | url }}" class="category-label">
+                {{ item.data.category }}
+              </a>
+            </div>
+            <h4 class="wire-headline">
+              <a href="{{ item.url | url }}">{{ item.data.title }}</a>
+            </h4>
           </div>
-          <h4 class="wire-headline">
-            <a href="{{ item.url | url }}">{{ item.data.title }}</a>
-          </h4>
+          {% if item.data.image %}
+            <a href="{{ item.url | url }}" class="wire-thumb-wrap" aria-label="{{ item.data.title }}">
+              <img 
+                src="{{ item.data.image | url }}" 
+                alt="{{ item.data.imageAlt or item.data.image_alt or item.data.title }}" 
+                class="wire-thumb" 
+                loading="lazy" 
+                width="96" 
+                height="64"
+              >
+            </a>
+          {% endif %}
         </article>
       {% endfor %}
     </div>

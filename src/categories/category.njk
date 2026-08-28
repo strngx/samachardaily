@@ -1,11 +1,11 @@
 ---
 pagination:
-  data: site.categories
+  data: collections.pagedCategoryArticles
   size: 1
-  alias: category
-permalink: "/{{ category.slug }}/index.html"
+  alias: pagedData
+permalink: "{{ pagedData.permalink }}"
 layout: layouts/category.njk
 eleventyComputed:
-  title: "{{ category.name }} — Verified News & Explainers"
-  description: "{{ category.description }}"
+  title: "{{ pagedData.category.name }}{% if pagedData.pageNumber > 1 %} — Page {{ pagedData.pageNumber }}{% endif %} — Verified News & Explainers"
+  description: "{{ pagedData.category.description }}"
 ---

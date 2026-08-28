@@ -199,6 +199,48 @@ module.exports = function (eleventyConfig) {
     });
   });
 
+  eleventyConfig.addCollection("pagedCategoryArticles", function (collectionApi) {
+    const site = require("./src/_data/site.js");
+    const PAGE_SIZE = 4;
+    const pagedList = [];
+
+    site.categories.forEach(cat => {
+      const categoryArticles = collectionApi.getFilteredByGlob("src/articles/**/*.md")
+        .filter(item => (item.data.category || "").toLowerCase() === cat.slug.toLowerCase())
+        .sort((a, b) => b.date - a.date);
+
+      const totalArticles = categoryArticles.length;
+      const totalPages = Math.max(Math.ceil(totalArticles / PAGE_SIZE), 1);
+
+      for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+        const startIndex = (pageNum - 1) * PAGE_SIZE;
+        const pageArticles = categoryArticles.slice(startIndex, startIndex + PAGE_SIZE);
+
+        const permalink = pageNum === 1
+          ? `/${cat.slug}/index.html`
+          : `/${cat.slug}/${pageNum}/index.html`;
+
+        const url = pageNum === 1
+          ? `/${cat.slug}/`
+          : `/${cat.slug}/${pageNum}/`;
+
+        pagedList.push({
+          category: cat,
+          pageNumber: pageNum,
+          totalPages: totalPages,
+          articles: pageArticles,
+          totalArticles: totalArticles,
+          permalink: permalink,
+          url: url,
+          prevPageUrl: pageNum > 1 ? (pageNum === 2 ? `/${cat.slug}/` : `/${cat.slug}/${pageNum - 1}/`) : null,
+          nextPageUrl: pageNum < totalPages ? `/${cat.slug}/${pageNum + 1}/` : null
+        });
+      }
+    });
+
+    return pagedList;
+  });
+
   return {
     pathPrefix: "/samachardaily/",
     dir: {

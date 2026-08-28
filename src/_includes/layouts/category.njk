@@ -2,20 +2,24 @@
 layout: layouts/base.njk
 ---
 
+{% set category = pagedData.category if pagedData else category %}
+{% set pageArticles = pagedData.articles if pagedData else collections[category.slug] %}
+{% set currentPage = pagedData.pageNumber if pagedData else 1 %}
+{% set totalPages = pagedData.totalPages if pagedData else 3 %}
+
 <div class="container">
   <!-- Category Masthead (Monochrome, No "Desk" suffix) -->
   <header class="category-masthead">
-    <h1 class="category-masthead-title">{{ category.name }}</h1>
+    <h1 class="category-masthead-title">{{ category.name }}{% if currentPage > 1 %} <span style="font-size: 1.125rem; font-family: var(--font-sans); color: var(--color-muted); font-weight: 500;">(Page {{ currentPage }})</span>{% endif %}</h1>
     <div class="category-masthead-rule"></div>
     <p class="category-masthead-desc">{{ category.description }}</p>
   </header>
 
   <!-- Category Articles -->
-  {% set categoryList = collections[category.slug] %}
-  {% if categoryList.length > 0 %}
+  {% if pageArticles and pageArticles.length > 0 %}
     <!-- Lead Section (1 Lead + 2 Supporting) -->
     <div class="grid-comp-a" style="margin-bottom: var(--space-8);">
-      {% for article in categoryList | limit(3) %}
+      {% for article in pageArticles | limit(3) %}
         {% include "partials/card.njk" %}
       {% endfor %}
     </div>
@@ -25,24 +29,36 @@ layout: layouts/base.njk
     {% include "partials/ad-slot.njk" %}
 
     <!-- Additional Stories Grid -->
-    {% if categoryList.length > 3 %}
+    {% if pageArticles.length > 3 %}
       <div style="margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid var(--color-border);">
         <h2 style="font-size: 1.5rem; margin-bottom: var(--space-6);">Latest {{ category.name }} Archive</h2>
         <div class="grid-comp-a">
-          {% for article in categoryList | skip(3) | limit(6) %}
+          {% for article in pageArticles | skip(3) | limit(6) %}
             {% include "partials/card.njk" %}
           {% endfor %}
         </div>
       </div>
     {% endif %}
 
-    <!-- Numbered Pagination -->
-    <nav class="pagination-row" aria-label="{{ category.name }} Pagination">
-      <span class="pagination-btn active">1</span>
-      <a href="#" class="pagination-btn">2</a>
-      <a href="#" class="pagination-btn">3</a>
-      <a href="#" class="pagination-btn" aria-label="Next Page">→</a>
-    </nav>
+    <!-- Numbered Pagination (Rendered when multiple pages exist) -->
+    {% if totalPages > 1 %}
+      <nav class="pagination-row" aria-label="{{ category.name }} Pagination">
+        {% if pagedData and pagedData.prevPageUrl %}
+          <a href="{{ pagedData.prevPageUrl | url }}" class="pagination-btn" aria-label="Previous Page">←</a>
+        {% endif %}
+        {% for p in range(1, totalPages + 1) %}
+          {% if p == currentPage %}
+            <span class="pagination-btn active" aria-current="page">{{ p }}</span>
+          {% else %}
+            {% set pageLink = ('/' + category.slug + '/') | url if p == 1 else ('/' + category.slug + '/' + p + '/') | url %}
+            <a href="{{ pageLink }}" class="pagination-btn">{{ p }}</a>
+          {% endif %}
+        {% endfor %}
+        {% if pagedData and pagedData.nextPageUrl %}
+          <a href="{{ pagedData.nextPageUrl | url }}" class="pagination-btn" aria-label="Next Page">→</a>
+        {% endif %}
+      </nav>
+    {% endif %}
   {% else %}
     <!-- Clean Empty Category State -->
     <div class="empty-newsroom-state" style="padding: 40px 0;">
