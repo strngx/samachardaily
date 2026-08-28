@@ -841,6 +841,14 @@ button {
   }
 }
 
+.explainer-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+}
+
 .explainer-title {
   font-size: 1.375rem;
   font-family: var(--font-serif);
@@ -862,6 +870,15 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+  text-decoration: none;
+}
+
+.explainer-cta:hover {
+  text-decoration: underline;
 }
 
 .explainer-points {
