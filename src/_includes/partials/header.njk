@@ -23,6 +23,12 @@
 
     <!-- Desktop 5-Category Navigation (Monochrome, No "Desk" suffix) -->
     <nav class="desktop-nav" aria-label="Primary Navigation">
+      <a 
+        href="{{ '/' | url }}" 
+        class="nav-category-link {% if page.url == '/' | url or page.url == '/' %}is-active{% endif %}"
+      >
+        Home
+      </a>
       {% for cat in site.categories %}
         <a 
           href="{{ ('/' + cat.slug + '/') | url }}" 
@@ -89,6 +95,9 @@
 
     <!-- Five Locked Categories Only (Monochrome, No "Desk" suffix) -->
     <nav class="mobile-nav-links" aria-label="Mobile Sections">
+      <a href="{{ '/' | url }}" class="mobile-nav-item">
+        Home
+      </a>
       {% for cat in site.categories %}
         <a href="{{ ('/' + cat.slug + '/') | url }}" class="mobile-nav-item">
           {{ cat.name }}
