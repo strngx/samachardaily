@@ -1,6 +1,22 @@
-{% set explainerStory = collections.articles | categoryArticles("India", 1) | first %}
-{% if not explainerStory %}
-  {% set explainerStory = collections.articles[0] %}
+{% set heroStory = collections.articles[0] %}
+{% set explainerStory = null %}
+
+{% if heroStory %}
+  {# Look for a distinct India article first #}
+  {% for art in collections.articles %}
+    {% if not explainerStory and art.url != heroStory.url and (art.data.category | lower) == "india" %}
+      {% set explainerStory = art %}
+    {% endif %}
+  {% endfor %}
+
+  {# Fallback to any distinct article from other categories #}
+  {% if not explainerStory %}
+    {% for art in collections.articles %}
+      {% if not explainerStory and art.url != heroStory.url %}
+        {% set explainerStory = art %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 {% endif %}
 
 {% if explainerStory %}
@@ -11,6 +27,11 @@
   </div>
   <div class="explainer-grid">
     <div class="explainer-left">
+      {% if explainerStory.data.image %}
+        <a href="{{ explainerStory.url | url }}" class="explainer-img-wrap" aria-label="{{ explainerStory.data.title }}">
+          <img src="{{ explainerStory.data.image | url }}" alt="{{ explainerStory.data.imageAlt or explainerStory.data.title }}" class="explainer-image" loading="lazy" width="400" height="225">
+        </a>
+      {% endif %}
       <h3 class="explainer-title">
         <a href="{{ explainerStory.url | url }}">{{ explainerStory.data.title }}</a>
       </h3>
@@ -36,7 +57,7 @@
         <span class="point-number">02</span>
         <div>
           <span class="point-title">WHY IT MATTERS</span>
-          <p class="point-text">{{ explainerStory.data.why_it_matters or "Strategic shifts impact policy, infrastructure, and institutional roadmaps across key sectors." }}</p>
+          <p class="point-text">{{ (explainerStory.data.why_it_matters or "Strategic shifts impact policy, infrastructure, and institutional roadmaps across key sectors.") | truncateWords(30) }}</p>
         </div>
       </div>
       <div class="explainer-point-item">

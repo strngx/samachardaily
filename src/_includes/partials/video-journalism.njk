@@ -30,17 +30,19 @@
       
       <div class="video-meta-box">
         <div>
-          <span class="category-tag tag-{{ videoStory.data.category | categorySlug }}">
+          <a href="{{ ('/' + (videoStory.data.category | categorySlug) + '/') | url }}" class="category-label">
             {{ videoStory.data.category }}
-          </span>
+          </a>
         </div>
-        <h4 class="video-caption-text" style="margin-top: 12px;">
-          <a href="{{ videoStory.url | url }}" style="color: #FFFFFF;">{{ videoStory.data.videoCaption or videoStory.data.video_caption or videoStory.data.title }}</a>
+        <h4 class="video-caption-text">
+          <a href="{{ videoStory.url | url }}" class="video-caption-link">{{ videoStory.data.videoCaption or videoStory.data.video_caption or videoStory.data.title }}</a>
         </h4>
-        <p style="color: #A0A5B1; font-size: 0.9375rem; line-height: 1.5; margin-bottom: 16px;">
-          {{ videoStory.data.dek }}
-        </p>
-        <a href="{{ videoStory.url | url }}" style="color: #FF5A67; font-weight: 700; font-size: 0.875rem;">
+        {% if videoStory.data.dek %}
+          <p class="video-dek">
+            {{ videoStory.data.dek }}
+          </p>
+        {% endif %}
+        <a href="{{ videoStory.url | url }}" class="video-cta-link">
           Read full accompanying article →
         </a>
       </div>
