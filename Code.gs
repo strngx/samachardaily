@@ -183,6 +183,31 @@ function isPressReleaseSpam_(title) {
   return SPAM_PATTERN.test(title);
 }
 
+var ENTERTAINMENT_NEWSWORTHY_PATTERN = /\b(dies|dead at \d|death of|passes away|obituary|arrested|files for divorce|divorce finalized|marries|got engaged|hospitalized|scandal|lawsuit|sues|sentenced|wins (an |the )?(oscar|grammy|award)|nominated for (an |the )?(oscar|grammy)|announces (new |his |her )?(movie|film|series|album|world tour)|trailer released|box office|makes (his|her) directorial debut|joins the cast|signs (a )?deal|biopic|announces retirement|comeback|passed away)\b/i;
+
+var ENTERTAINMENT_NOISE_PATTERN = /\b(live stream|streaming online|tv schedule|episode guide|watch live|live results|segment|playlist|new single|song by|ft\.|featuring|carnival|haunted house|theme park|anniversary event|market size|CAGR|press release|prnewswire|globenewswire|song drops|drops new)\b/i;
+
+/**
+ * Strict two-part filter for newsworthy celebrity and entertainment news.
+ * Must be categorized under entertainment, match at least one newsworthy signal, and NOT match any noise pattern.
+ *
+ * @param {string} title - Headline.
+ * @param {string} description - Summary or description.
+ * @param {Array<string>} categories - Categories array from API.
+ * @returns {boolean} True if newsworthy entertainment story.
+ */
+function isNewsworthyEntertainment_(title, description, categories) {
+  var itemCategories = categories || [];
+  if (itemCategories.indexOf('entertainment') === -1) {
+    return false;
+  }
+  var text = (title || '') + ' ' + (description || '');
+  var hasNewsworthySignal = ENTERTAINMENT_NEWSWORTHY_PATTERN.test(text);
+  var hasNoiseSignal = ENTERTAINMENT_NOISE_PATTERN.test(text);
+
+  return hasNewsworthySignal && !hasNoiseSignal;
+}
+
 // ============================================================================
 // 3. CROSS-SOURCE DUPLICATE & KEYWORD OVERLAP DETECTION (Fix 3)
 // ============================================================================
@@ -476,6 +501,36 @@ function rewriteWithGroq_(headline, category, config) {
     statusCode = resp.getResponseCode();
   }
 
+  // Handle Groq 400 json_validate_failed with simplified fallback retry
+  if (statusCode === 400) {
+    var respText = resp.getContentText();
+    if (respText.indexOf('json_validate_failed') !== -1) {
+      Logger.log('Groq 400 json_validate_failed encountered. Retrying with simplified fallback (max_tokens: 1500)...');
+      var fallbackSystemPrompt = systemPrompt + '\nKeep all string values concise and ensure the JSON is complete and properly closed.';
+      var fallbackPayload = {
+        model: 'openai/gpt-oss-120b',
+        messages: [
+          { role: 'system', content: fallbackSystemPrompt },
+          { role: 'user', content: userPrompt }
+        ],
+        response_format: { type: 'json_object' },
+        temperature: 0.2,
+        max_tokens: 1500
+      };
+      var fallbackOptions = {
+        method: 'post',
+        contentType: 'application/json',
+        headers: {
+          'Authorization': 'Bearer ' + config.GROQ_API_KEY
+        },
+        payload: JSON.stringify(fallbackPayload),
+        muteHttpExceptions: true
+      };
+      resp = UrlFetchApp.fetch('https://api.groq.com/openai/v1/chat/completions', fallbackOptions);
+      statusCode = resp.getResponseCode();
+    }
+  }
+
   if (statusCode !== 200) {
     throw new Error('Groq API error (' + statusCode + '): ' + resp.getContentText());
   }
@@ -637,16 +692,16 @@ function fetchFromNewsData_(categoryKey, config) {
             }
 
             var itemCategories = item.category || [];
-            var isEntertainment = itemCategories.indexOf('entertainment') !== -1;
+            var isEntertainment = isNewsworthyEntertainment_(item.title, item.description, itemCategories);
 
-            // India desk: skip isIndiaRelevant_ if entertainment (country=in guarantees India source)
+            // India desk: skip isIndiaRelevant_ if newsworthy entertainment (country=in guarantees India source)
             if (isIndiaDesk) {
               if (!isEntertainment && !isIndiaRelevant_(item.title, item.description)) {
                 return false;
               }
             }
 
-            // World desk: exclude if entertainment AND India-relevant (belongs to India desk)
+            // World desk: exclude if newsworthy entertainment AND India-relevant (belongs to India desk)
             if (isWorldDesk) {
               if (isEntertainment && isIndiaRelevant_(item.title, item.description)) {
                 return false;
@@ -702,16 +757,16 @@ function fetchFromCurrents_(categoryKey, config) {
             }
 
             var itemCategories = item.category || [];
-            var isEntertainment = itemCategories.indexOf('entertainment') !== -1;
+            var isEntertainment = isNewsworthyEntertainment_(item.title, item.description, itemCategories);
 
-            // India desk: skip isIndiaRelevant_ if entertainment
+            // India desk: skip isIndiaRelevant_ if newsworthy entertainment
             if (isIndiaDesk) {
               if (!isEntertainment && !isIndiaRelevant_(item.title, item.description)) {
                 return false;
               }
             }
 
-            // World desk: exclude if entertainment AND India-relevant
+            // World desk: exclude if newsworthy entertainment AND India-relevant
             if (isWorldDesk) {
               if (isEntertainment && isIndiaRelevant_(item.title, item.description)) {
                 return false;
