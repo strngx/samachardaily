@@ -72,7 +72,7 @@ layout: layouts/base.njk
         <!-- #1 Dominant Trending Story -->
         {% set topTrend = trendingStories[0] %}
         {% if topTrend %}
-        <article class="trending-featured-card cat-{{ topTrend.data.category | lower }}" data-category="{{ topTrend.data.category | lower }}">
+        <article class="trending-featured-card">
           <div class="trending-featured-media-wrap">
             {% if topTrend.data.image %}
               <a href="{{ topTrend.url | url }}" class="card-thumb" aria-label="{{ topTrend.data.title }}">
@@ -116,7 +116,7 @@ layout: layouts/base.njk
         <!-- #02-04 Compact List Items -->
         <div class="trending-compact-list">
           {% for article in trendingStories | skip(1) | limit(3) %}
-            <article class="trending-item cat-{{ article.data.category | lower }}" data-category="{{ article.data.category | lower }}">
+            <article class="trending-item">
               <span class="trending-rank" aria-hidden="true">0{{ loop.index + 1 }}</span>
               <div class="trending-content">
                 {% if article.data.image %}

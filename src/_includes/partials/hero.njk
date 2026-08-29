@@ -21,7 +21,7 @@
 <!-- Newsroom Hero: Dominant Lead + Chronological Latest Stream -->
 <section class="newsroom-hero" aria-label="Top Story & Latest Dispatches">
   <!-- Primary Lead Story -->
-  <article class="lead-story-card cat-{{ leadStory.data.category | lower }}" data-category="{{ leadStory.data.category | lower }}">
+  <article class="lead-story-card">
     {% if leadStory.data.image %}
       <a href="{{ leadStory.url | url }}" class="lead-media-wrap" aria-label="{{ leadStory.data.title }}">
         <img 
@@ -79,7 +79,7 @@
 
     <div class="wire-stream-list">
       {% for item in wireStories %}
-        <article class="wire-item cat-{{ item.data.category | lower }}" data-category="{{ item.data.category | lower }}">
+        <article class="wire-item">
           <div class="wire-content">
             <div class="wire-meta">
               <time class="wire-time" datetime="{{ item.date | isoDate }}">{{ item.date | readableDate("hh:mm a") }}</time>
