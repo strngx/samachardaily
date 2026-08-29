@@ -1,5 +1,5 @@
-{% set leadStory = collections.articles[0] %}
-{% set wireStories = collections.articles | skip(1) | limit(5) %}
+{% set leadStory = leadStory or (collections.articles | homepageFeed | first) or collections.articles[0] %}
+{% set wireStories = wireStories or (collections.articles | filterExcludedArticles([leadStory]) | limit(5)) %}
 
 {% if leadStory %}
 <!-- Breaking News Ticker (Rendered ONLY if genuine breaking content exists) -->

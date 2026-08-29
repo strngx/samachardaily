@@ -3,7 +3,38 @@ layout: layouts/base.njk
 ---
 
 <div class="container">
-  <!-- 1. Newsroom Lead + Latest Stream -->
+  {% set homepageArticles = collections.articles | homepageFeed %}
+  {% set leadStory = homepageArticles[0] %}
+  {% set wireStories = collections.articles | filterExcludedArticles([leadStory]) | limit(5) %}
+  
+  {# Build exclusion list for hero and wire stories to guarantee zero duplicate slugs #}
+  {% set excludedStories = [leadStory] %}
+  {% for item in wireStories %}
+    {% set excludedStories = (excludedStories.push(item), excludedStories) %}
+  {% endfor %}
+
+  {# Primary 24h/48h prioritized feed #}
+  {% set feedArticles = homepageArticles | filterExcludedArticles(excludedStories) %}
+
+  {# If fewer than 6 items remain in prioritized window, supplement with next chronological articles #}
+  {% if feedArticles.length < 6 %}
+    {% set extraArticles = collections.articles | filterExcludedArticles(excludedStories) %}
+    {% for extra in extraArticles %}
+      {% if feedArticles.length < 24 %}
+        {% set isAlreadyInFeed = false %}
+        {% for existing in feedArticles %}
+          {% if existing.url == extra.url or (existing.data.slug and existing.data.slug == extra.data.slug) %}
+            {% set isAlreadyInFeed = true %}
+          {% endif %}
+        {% endfor %}
+        {% if not isAlreadyInFeed %}
+          {% set feedArticles = (feedArticles.push(extra), feedArticles) %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  <!-- 1. Newsroom Lead + Latest News Continuous Wire -->
   {% include "partials/hero.njk" %}
 
   {% if collections.articles.length > 0 %}
@@ -11,172 +42,29 @@ layout: layouts/base.njk
     {% set slotName = "homepage-top" %}
     {% include "partials/ad-slot.njk" %}
 
-    <!-- 3. Trending / Top Stories Stream -->
-    {% set trendingArticles = collections.articles | limit(4) %}
-    {% if trendingArticles.length > 0 %}
-    <section class="trending-section" aria-label="Trending Stories">
-      <div class="section-masthead">
-        <h2 class="section-masthead-title">Trending Stories</h2>
-        <span class="section-masthead-sub">Top reporting across categories</span>
-      </div>
-      <div class="trending-grid">
-        {% for article in trendingArticles %}
-          <div class="trending-item">
-            <span class="trending-rank" aria-hidden="true">0{{ loop.index }}</span>
-            <div class="trending-content">
-              {% if article.data.image %}
-                <a href="{{ article.url | url }}" class="trending-thumb-wrap" aria-label="{{ article.data.title }}">
-                  <img src="{{ article.data.image | url }}" alt="{{ article.data.imageAlt or article.data.title }}" class="trending-thumb" loading="lazy" width="120" height="80">
-                </a>
-              {% endif %}
-              <div>
-                <a href="{{ ('/' + (article.data.category | categorySlug) + '/') | url }}" class="category-label">
-                  {{ article.data.category }}
-                </a>
-              </div>
-              <h3 class="trending-headline">
-                <a href="{{ article.url | url }}">{{ article.data.title }}</a>
-              </h3>
-              <div class="meta-row" style="font-size: 0.75rem;">
-                <time datetime="{{ article.date | isoDate }}">{{ article.date | timeAgo }}</time>
-                <span>•</span>
-                <span>{{ article.templateContent | readTime }}</span>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    </section>
-    {% endif %}
-
-    <!-- 4. The Explainer / Why This Matters Feature -->
-    {% include "partials/explainer-feature.njk" %}
-
-    <!-- 5. Five Visually Distinct Editorial Sections (Monochrome, No "Desk" suffix) -->
-
-    <!-- Section 1: INDIA -->
-    {% set indiaArticles = collections.india | limit(3) %}
-    {% if indiaArticles.length > 0 %}
-    <section class="editorial-category-section">
+    <!-- 3. Unified Live News Feed (Continuous stream across all desks) -->
+    {% if feedArticles.length > 0 %}
+    <section class="editorial-category-section" aria-label="Unified Live News Feed">
       <div class="section-masthead">
         <div class="section-title-group">
-          <h2 class="section-masthead-title">India</h2>
-          <span class="section-masthead-sub">National governance, policy, infrastructure, and domestic developments</span>
+          <h2 class="section-masthead-title">Live News Feed</h2>
+          <span class="section-masthead-sub">Continuous dispatches across India, World, Business, Tech, and Sports</span>
         </div>
-        <a href="{{ '/india/' | url }}" class="section-view-all">View All India →</a>
       </div>
 
-      <div class="grid-comp-a">
-        {% for article in indiaArticles %}
+      <div class="category-grid">
+        {% for article in feedArticles %}
           {% include "partials/card.njk" %}
         {% endfor %}
       </div>
     </section>
     {% endif %}
 
-    <!-- Section 2: WORLD -->
-    {% set worldArticles = collections.world | limit(2) %}
-    {% if worldArticles.length > 0 %}
-    <section class="editorial-category-section">
-      <div class="section-masthead">
-        <div class="section-title-group">
-          <h2 class="section-masthead-title">World</h2>
-          <span class="section-masthead-sub">Global diplomacy, international pacts, multilateral summits, and world events</span>
-        </div>
-        <a href="{{ '/world/' | url }}" class="section-view-all">View All World →</a>
-      </div>
-
-      <div class="grid-comp-b">
-        {% for article in worldArticles %}
-          {% include "partials/card.njk" %}
-        {% endfor %}
-      </div>
-    </section>
-    {% endif %}
-
-    <!-- Section 3: BUSINESS -->
-    {% set businessArticles = collections.business | limit(3) %}
-    {% if businessArticles.length > 0 %}
-    <section class="editorial-category-section">
-      <div class="section-masthead">
-        <div class="section-title-group">
-          <h2 class="section-masthead-title">Business</h2>
-          <span class="section-masthead-sub">Markets, economy, venture ecosystems, and industry investments</span>
-        </div>
-        <a href="{{ '/business/' | url }}" class="section-view-all">View All Business →</a>
-      </div>
-
-      <div class="grid-comp-c">
-        <div>
-          {% set article = businessArticles[0] %}
-          {% include "partials/card.njk" %}
-        </div>
-        <div style="display: flex; flex-direction: column; gap: var(--space-4);">
-          {% for article in businessArticles | skip(1) %}
-            <div style="border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-3);">
-              <div style="font-size: 0.75rem; color: var(--color-muted); font-weight: 600; margin-bottom: 4px;">
-                {{ article.date | timeAgo }}
-              </div>
-              <h3 style="font-size: 1.125rem; font-family: var(--font-serif); line-height: 1.35;">
-                <a href="{{ article.url | url }}">{{ article.data.title }}</a>
-              </h3>
-              {% if article.data.dek %}
-                <p style="font-size: 0.875rem; color: var(--color-muted); margin-top: 4px; margin-bottom: 0;">
-                  {{ article.data.dek | truncateWords(18) }}
-                </p>
-              {% endif %}
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-    </section>
-    {% endif %}
-
-    <!-- Mid-Page Ad Slot -->
+    <!-- 4. Mid-Page Ad Slot -->
     {% set slotName = "homepage-mid" %}
     {% include "partials/ad-slot.njk" %}
 
-    <!-- Section 4: TECH -->
-    {% set techArticles = collections.tech | limit(3) %}
-    {% if techArticles.length > 0 %}
-    <section class="editorial-category-section">
-      <div class="section-masthead">
-        <div class="section-title-group">
-          <h2 class="section-masthead-title">Tech</h2>
-          <span class="section-masthead-sub">Frontier AI, digital infrastructure, telecommunications, and quantum science</span>
-        </div>
-        <a href="{{ '/tech/' | url }}" class="section-view-all">View All Tech →</a>
-      </div>
-
-      <div class="grid-comp-a">
-        {% for article in techArticles %}
-          {% include "partials/card.njk" %}
-        {% endfor %}
-      </div>
-    </section>
-    {% endif %}
-
-    <!-- Section 5: SPORTS -->
-    {% set sportsArticles = collections.sports | limit(3) %}
-    {% if sportsArticles.length > 0 %}
-    <section class="editorial-category-section">
-      <div class="section-masthead">
-        <div class="section-title-group">
-          <h2 class="section-masthead-title">Sports</h2>
-          <span class="section-masthead-sub">Cricket tournaments, athletics records, football, and international championships</span>
-        </div>
-        <a href="{{ '/sports/' | url }}" class="section-view-all">View All Sports →</a>
-      </div>
-
-      <div class="grid-comp-a">
-        {% for article in sportsArticles %}
-          {% include "partials/card.njk" %}
-        {% endfor %}
-      </div>
-    </section>
-    {% endif %}
-
-    <!-- 6. Video Journalism Section (Rendered only if real video exists) -->
+    <!-- 5. Video Journalism Section -->
     {% include "partials/video-journalism.njk" %}
   {% endif %}
 </div>

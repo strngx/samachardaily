@@ -215,6 +215,97 @@ module.exports = function (eleventyConfig) {
     return splitCategoryArticlesByAge(articles).archiveList;
   });
 
+  // Homepage Priority Scoring & Unified Feed Filter
+  function getArticleScore(art) {
+    const isTrending = art.data && (art.data.trending === true || art.data.trending === "true");
+    const isFeatured = art.data && (art.data.featured === true || art.data.featured === "true");
+    if (isTrending) return 2;
+    if (isFeatured) return 1;
+    return 0;
+  }
+
+  function sortArticlesByPriority(articles) {
+    return [...articles].sort((a, b) => {
+      const scoreA = getArticleScore(a);
+      const scoreB = getArticleScore(b);
+      if (scoreA !== scoreB) {
+        return scoreB - scoreA;
+      }
+      const timeA = a.date ? new Date(a.date).getTime() : 0;
+      const timeB = b.date ? new Date(b.date).getTime() : 0;
+      return timeB - timeA;
+    });
+  }
+
+  eleventyConfig.addFilter("homepageFeed", function (allArticles) {
+    if (!Array.isArray(allArticles) || allArticles.length === 0) return [];
+
+    const now = new Date();
+    const MS_24H = 24 * 60 * 60 * 1000;
+    const MS_48H = 48 * 60 * 60 * 1000;
+
+    let maxArtTime = 0;
+    allArticles.forEach(a => {
+      const t = a.date ? new Date(a.date).getTime() : 0;
+      if (t > maxArtTime) maxArtTime = t;
+    });
+
+    const refTime = Math.max(now.getTime(), maxArtTime);
+
+    // 1. Pull articles in the last 24 hours
+    let filtered = allArticles.filter(art => {
+      const artTime = art.date ? new Date(art.date).getTime() : 0;
+      const diff = refTime - artTime;
+      return diff >= 0 && diff <= MS_24H;
+    });
+
+    // 2. Extend to 48 hours if fewer than 10 exist
+    if (filtered.length < 10) {
+      filtered = allArticles.filter(art => {
+        const artTime = art.date ? new Date(art.date).getTime() : 0;
+        const diff = refTime - artTime;
+        return diff >= 0 && diff <= MS_48H;
+      });
+    }
+
+    // 3. Fallback if still under 10
+    if (filtered.length < 10) {
+      filtered = allArticles.slice(0, 30);
+    }
+
+    return sortArticlesByPriority(filtered);
+  });
+
+  eleventyConfig.addFilter("filterExcludedArticles", function (articles, excludedItems) {
+    if (!Array.isArray(articles)) return [];
+    if (!Array.isArray(excludedItems)) {
+      excludedItems = excludedItems ? [excludedItems] : [];
+    }
+    const excludedUrls = new Set();
+    const excludedSlugs = new Set();
+
+    excludedItems.forEach(item => {
+      if (!item) return;
+      if (typeof item === "string") {
+        excludedUrls.add(item);
+        excludedSlugs.add(item);
+      } else {
+        if (item.url) excludedUrls.add(item.url);
+        if (item.page && item.page.url) excludedUrls.add(item.page.url);
+        if (item.data && item.data.slug) excludedSlugs.add(item.data.slug);
+        if (item.fileSlug) excludedSlugs.add(item.fileSlug);
+      }
+    });
+
+    return articles.filter(art => {
+      const url = art.url || (art.page && art.page.url) || "";
+      const slug = (art.data && art.data.slug) || art.fileSlug || "";
+      if (url && excludedUrls.has(url)) return false;
+      if (slug && excludedSlugs.has(slug)) return false;
+      return true;
+    });
+  });
+
   // Collections
   eleventyConfig.addCollection("articles", function (collectionApi) {
     return collectionApi.getFilteredByGlob("src/articles/**/*.md").sort((a, b) => {
