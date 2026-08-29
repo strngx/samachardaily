@@ -23,7 +23,8 @@
           src="https://www.youtube.com/embed/{{ activeVideoId }}" 
           title="{{ videoStory.data.videoCaption or videoStory.data.video_caption or videoStory.data.title }}" 
           loading="lazy" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
           allowfullscreen
         ></iframe>
       </div>
@@ -42,9 +43,14 @@
             {{ videoStory.data.dek }}
           </p>
         {% endif %}
-        <a href="{{ videoStory.url | url }}" class="video-cta-link">
-          Read full accompanying article →
-        </a>
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: auto;">
+          <a href="{{ videoStory.url | url }}" class="video-cta-link">
+            Read full accompanying article →
+          </a>
+          <a href="https://www.youtube.com/watch?v={{ activeVideoId }}" target="_blank" rel="noopener noreferrer" class="video-direct-link">
+            Watch on YouTube ↗
+          </a>
+        </div>
       </div>
     </div>
   </div>
