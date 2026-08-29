@@ -1069,24 +1069,48 @@ button {
   }
 }
 
+/* Category Equal Grid */
+.category-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 640px) {
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 /* Standard Editorial Story Card */
 .editorial-card {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .card-thumb {
   position: relative;
+  width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background-color: var(--color-surface);
   margin-bottom: var(--space-3);
+  display: block;
 }
 
 .card-thumb img {
   width: 100%;
   height: 100%;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
+  display: block;
   transition: transform var(--transition-normal);
 }
 
