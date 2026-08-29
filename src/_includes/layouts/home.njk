@@ -7,18 +7,34 @@ layout: layouts/base.njk
   {% set leadStory = homepageArticles[0] %}
   {% set wireStories = collections.articles | filterExcludedArticles([leadStory]) | limit(5) %}
   
-  {# Build exclusion list for hero and wire stories to guarantee zero duplicate slugs #}
-  {% set excludedStories = [leadStory] %}
+  {# Stories used in Hero + Wire #}
+  {% set heroUsedStories = [leadStory] %}
   {% for item in wireStories %}
-    {% set excludedStories = (excludedStories.push(item), excludedStories) %}
+    {% set heroUsedStories = (heroUsedStories.push(item), heroUsedStories) %}
+  {% endfor %}
+
+  {# 4 Trending Stories strictly excluding Hero leadStory to prevent duplication #}
+  {% set trendingCandidates = homepageArticles | filterExcludedArticles([leadStory]) %}
+  {% if trendingCandidates.length < 4 %}
+    {% set trendingCandidates = collections.articles | filterExcludedArticles([leadStory]) %}
+  {% endif %}
+  {% set trendingStories = trendingCandidates | limit(4) %}
+
+  {# Master exclusion list for Live Feed: hero + wire + trending #}
+  {% set excludedFromFeed = [leadStory] %}
+  {% for item in wireStories %}
+    {% set excludedFromFeed = (excludedFromFeed.push(item), excludedFromFeed) %}
+  {% endfor %}
+  {% for item in trendingStories %}
+    {% set excludedFromFeed = (excludedFromFeed.push(item), excludedFromFeed) %}
   {% endfor %}
 
   {# Primary 24h/48h prioritized feed #}
-  {% set feedArticles = homepageArticles | filterExcludedArticles(excludedStories) %}
+  {% set feedArticles = homepageArticles | filterExcludedArticles(excludedFromFeed) %}
 
   {# If fewer than 6 items remain in prioritized window, supplement with next chronological articles #}
   {% if feedArticles.length < 6 %}
-    {% set extraArticles = collections.articles | filterExcludedArticles(excludedStories) %}
+    {% set extraArticles = collections.articles | filterExcludedArticles(excludedFromFeed) %}
     {% for extra in extraArticles %}
       {% if feedArticles.length < 24 %}
         {% set isAlreadyInFeed = false %}
@@ -42,7 +58,106 @@ layout: layouts/base.njk
     {% set slotName = "homepage-top" %}
     {% include "partials/ad-slot.njk" %}
 
-    <!-- 3. Unified Live News Feed (Continuous stream across all desks) -->
+    <!-- 3. Trending Stories with Visual Hierarchy (#1 Dominant + #2-4 Compact) -->
+    {% if trendingStories.length > 0 %}
+    <section class="trending-section" aria-label="Trending Stories">
+      <div class="section-masthead">
+        <div class="section-title-group">
+          <h2 class="section-masthead-title">Trending Stories</h2>
+          <span class="section-masthead-sub">Top reporting across categories</span>
+        </div>
+      </div>
+
+      <div class="trending-hierarchy-grid">
+        <!-- #1 Dominant Trending Story -->
+        {% set topTrend = trendingStories[0] %}
+        {% if topTrend %}
+        <article class="trending-featured-card cat-{{ topTrend.data.category | lower }}" data-category="{{ topTrend.data.category | lower }}">
+          <div class="trending-featured-media-wrap">
+            {% if topTrend.data.image %}
+              <a href="{{ topTrend.url | url }}" class="card-thumb" aria-label="{{ topTrend.data.title }}">
+                <img src="{{ topTrend.data.image | url }}" alt="{{ topTrend.data.imageAlt or topTrend.data.title }}" loading="lazy" width="640" height="360">
+                {% if (topTrend.date | isJustIn(topTrend.data.featured)) %}
+                  <span class="badge-just-in">JUST IN</span>
+                {% endif %}
+              </a>
+            {% else %}
+              <a href="{{ topTrend.url | url }}" class="card-thumb card-thumb-placeholder category-bg-{{ topTrend.data.category | lower }}" aria-label="{{ topTrend.data.title }}">
+                <div class="placeholder-inner">
+                  <span class="placeholder-brand">Samachar<span class="brand-red">Daily</span></span>
+                  <span class="placeholder-category">{{ topTrend.data.category }}</span>
+                </div>
+                {% if (topTrend.date | isJustIn(topTrend.data.featured)) %}
+                  <span class="badge-just-in">JUST IN</span>
+                {% endif %}
+              </a>
+            {% endif %}
+            <span class="trending-rank-badge">#01 TRENDING</span>
+          </div>
+          <div class="trending-featured-body">
+            <a href="{{ ('/' + (topTrend.data.category | categorySlug) + '/') | url }}" class="category-label">
+              {{ topTrend.data.category }}
+            </a>
+            <h3 class="trending-featured-headline">
+              <a href="{{ topTrend.url | url }}">{{ topTrend.data.title }}</a>
+            </h3>
+            {% if topTrend.data.dek %}
+              <p class="trending-featured-dek">{{ topTrend.data.dek }}</p>
+            {% endif %}
+            <div class="meta-row" style="font-size: 0.8125rem; margin-top: auto;">
+              <time datetime="{{ topTrend.date | isoDate }}">{{ topTrend.date | timeAgo }}</time>
+              <span>•</span>
+              <span>{{ topTrend.templateContent | readTime }}</span>
+            </div>
+          </div>
+        </article>
+        {% endif %}
+
+        <!-- #02-04 Compact List Items -->
+        <div class="trending-compact-list">
+          {% for article in trendingStories | skip(1) | limit(3) %}
+            <article class="trending-item cat-{{ article.data.category | lower }}" data-category="{{ article.data.category | lower }}">
+              <span class="trending-rank" aria-hidden="true">0{{ loop.index + 1 }}</span>
+              <div class="trending-content">
+                {% if article.data.image %}
+                  <a href="{{ article.url | url }}" class="trending-thumb-wrap" aria-label="{{ article.data.title }}">
+                    <img src="{{ article.data.image | url }}" alt="{{ article.data.imageAlt or article.data.title }}" class="trending-thumb" loading="lazy" width="120" height="80">
+                    {% if (article.date | isJustIn(article.data.featured)) %}
+                      <span class="badge-just-in badge-just-in-sm">JUST IN</span>
+                    {% endif %}
+                  </a>
+                {% else %}
+                  <a href="{{ article.url | url }}" class="trending-thumb-wrap card-thumb-placeholder category-bg-{{ article.data.category | lower }}" aria-label="{{ article.data.title }}">
+                    <div class="placeholder-inner-sm">
+                      <span>{{ article.data.category }}</span>
+                    </div>
+                    {% if (article.date | isJustIn(article.data.featured)) %}
+                      <span class="badge-just-in badge-just-in-sm">JUST IN</span>
+                    {% endif %}
+                  </a>
+                {% endif %}
+                <div style="flex: 1; min-width: 0;">
+                  <a href="{{ ('/' + (article.data.category | categorySlug) + '/') | url }}" class="category-label">
+                    {{ article.data.category }}
+                  </a>
+                  <h4 class="trending-headline">
+                    <a href="{{ article.url | url }}">{{ article.data.title }}</a>
+                  </h4>
+                  <div class="meta-row" style="font-size: 0.75rem;">
+                    <time datetime="{{ article.date | isoDate }}">{{ article.date | timeAgo }}</time>
+                    <span>•</span>
+                    <span>{{ article.templateContent | readTime }}</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- 4. Unified Live News Feed -->
     {% if feedArticles.length > 0 %}
     <section class="editorial-category-section" aria-label="Unified Live News Feed">
       <div class="section-masthead">
@@ -60,11 +175,11 @@ layout: layouts/base.njk
     </section>
     {% endif %}
 
-    <!-- 4. Mid-Page Ad Slot -->
+    <!-- 5. Mid-Page Ad Slot -->
     {% set slotName = "homepage-mid" %}
     {% include "partials/ad-slot.njk" %}
 
-    <!-- 5. Video Journalism Section -->
+    <!-- 6. Video Journalism Section -->
     {% include "partials/video-journalism.njk" %}
   {% endif %}
 </div>

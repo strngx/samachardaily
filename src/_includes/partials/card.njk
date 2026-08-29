@@ -1,4 +1,4 @@
-<article class="editorial-card">
+<article class="editorial-card cat-{{ article.data.category | lower }}" data-category="{{ article.data.category | lower }}">
   {% if article.data.image %}
     <a href="{{ article.url | url }}" class="card-thumb" aria-label="{{ article.data.title }}">
       <img 
@@ -8,6 +8,19 @@
         width="400" 
         height="225"
       >
+      {% if (article.date | isJustIn(article.data.featured)) %}
+        <span class="badge-just-in">JUST IN</span>
+      {% endif %}
+    </a>
+  {% else %}
+    <a href="{{ article.url | url }}" class="card-thumb card-thumb-placeholder category-bg-{{ article.data.category | lower }}" aria-label="{{ article.data.title }}">
+      <div class="placeholder-inner">
+        <span class="placeholder-brand">Samachar<span class="brand-red">Daily</span></span>
+        <span class="placeholder-category">{{ article.data.category }}</span>
+      </div>
+      {% if (article.date | isJustIn(article.data.featured)) %}
+        <span class="badge-just-in">JUST IN</span>
+      {% endif %}
     </a>
   {% endif %}
   <div class="card-cat-wrap">

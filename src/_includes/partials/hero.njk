@@ -21,7 +21,7 @@
 <!-- Newsroom Hero: Dominant Lead + Chronological Latest Stream -->
 <section class="newsroom-hero" aria-label="Top Story & Latest Dispatches">
   <!-- Primary Lead Story -->
-  <article class="lead-story-card">
+  <article class="lead-story-card cat-{{ leadStory.data.category | lower }}" data-category="{{ leadStory.data.category | lower }}">
     {% if leadStory.data.image %}
       <a href="{{ leadStory.url | url }}" class="lead-media-wrap" aria-label="{{ leadStory.data.title }}">
         <img 
@@ -32,6 +32,19 @@
           width="740" 
           height="416"
         >
+        {% if (leadStory.date | isJustIn(leadStory.data.featured)) %}
+          <span class="badge-just-in">JUST IN</span>
+        {% endif %}
+      </a>
+    {% else %}
+      <a href="{{ leadStory.url | url }}" class="lead-media-wrap card-thumb-placeholder category-bg-{{ leadStory.data.category | lower }}" aria-label="{{ leadStory.data.title }}">
+        <div class="placeholder-inner">
+          <span class="placeholder-brand">Samachar<span class="brand-red">Daily</span></span>
+          <span class="placeholder-category">{{ leadStory.data.category }}</span>
+        </div>
+        {% if (leadStory.date | isJustIn(leadStory.data.featured)) %}
+          <span class="badge-just-in">JUST IN</span>
+        {% endif %}
       </a>
     {% endif %}
     <div>
@@ -66,7 +79,7 @@
 
     <div class="wire-stream-list">
       {% for item in wireStories %}
-        <article class="wire-item">
+        <article class="wire-item cat-{{ item.data.category | lower }}" data-category="{{ item.data.category | lower }}">
           <div class="wire-content">
             <div class="wire-meta">
               <time class="wire-time" datetime="{{ item.date | isoDate }}">{{ item.date | readableDate("hh:mm a") }}</time>
@@ -89,6 +102,18 @@
                 width="96" 
                 height="64"
               >
+              {% if (item.date | isJustIn(item.data.featured)) %}
+                <span class="badge-just-in badge-just-in-sm">JUST IN</span>
+              {% endif %}
+            </a>
+          {% else %}
+            <a href="{{ item.url | url }}" class="wire-thumb-wrap card-thumb-placeholder category-bg-{{ item.data.category | lower }}" aria-label="{{ item.data.title }}">
+              <div class="placeholder-inner-sm">
+                <span>{{ item.data.category }}</span>
+              </div>
+              {% if (item.date | isJustIn(item.data.featured)) %}
+                <span class="badge-just-in badge-just-in-sm">JUST IN</span>
+              {% endif %}
             </a>
           {% endif %}
         </article>

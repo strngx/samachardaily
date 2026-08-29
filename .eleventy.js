@@ -215,6 +215,17 @@ module.exports = function (eleventyConfig) {
     return splitCategoryArticlesByAge(articles).archiveList;
   });
 
+  // Check if article is within last 3 hours
+  eleventyConfig.addFilter("isJustIn", function (date, featured) {
+    if (featured === true || featured === "true") return true;
+    if (!date) return false;
+    const artTime = new Date(date).getTime();
+    if (isNaN(artTime)) return false;
+    const now = new Date().getTime();
+    const diff = Math.abs(now - artTime);
+    return diff <= (3 * 60 * 60 * 1000);
+  });
+
   // Homepage Priority Scoring & Unified Feed Filter
   function getArticleScore(art) {
     const isTrending = art.data && (art.data.trending === true || art.data.trending === "true");

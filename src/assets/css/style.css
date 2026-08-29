@@ -22,6 +22,13 @@
   --color-brand: #C81E2C;
   --color-brand-dark: #8F1520;
 
+  /* Category Brand Accent Colors */
+  --color-cat-india: #E05A1B;
+  --color-cat-world: #1E40AF;
+  --color-cat-business: #059669;
+  --color-cat-tech: #7C3AED;
+  --color-cat-sports: #DC2626;
+
   /* Typography */
   --font-serif: "Source Serif 4", "Merriweather", Georgia, "Times New Roman", serif;
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -773,7 +780,7 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   10. Trending Stories Section
+   10. Trending Stories Section (Visual Hierarchy: #1 Dominant + #2-4 Compact)
    -------------------------------------------------------------------------- */
 .trending-section {
   margin-bottom: var(--space-10);
@@ -781,52 +788,108 @@ button {
   border-bottom: 1px solid var(--color-border);
 }
 
-.trending-grid {
+.trending-hierarchy-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-4);
+  gap: var(--space-6);
 }
 
-@media (min-width: 640px) {
-  .trending-grid {
-    grid-template-columns: 1fr 1fr;
+@media (min-width: 860px) {
+  .trending-hierarchy-grid {
+    grid-template-columns: 1.35fr 1fr;
+    align-items: stretch;
   }
 }
 
-@media (min-width: 1024px) {
-  .trending-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+.trending-featured-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  border-left-width: 5px;
+  padding: var(--space-4);
+  position: relative;
 }
 
-.trending-item {
+.trending-featured-media-wrap {
+  position: relative;
+  margin-bottom: var(--space-3);
+}
+
+.trending-rank-badge {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: rgba(17, 19, 24, 0.9);
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  text-transform: uppercase;
+  z-index: 2;
+  backdrop-filter: blur(4px);
+}
+
+.trending-featured-headline {
+  font-size: 1.375rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 4px;
+  margin-bottom: var(--space-2);
+}
+
+.trending-featured-dek {
+  font-size: 0.9375rem;
+  color: var(--color-muted);
+  line-height: 1.5;
+  margin-bottom: var(--space-4);
+}
+
+.trending-compact-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.trending-compact-list .trending-item {
   display: flex;
   gap: var(--space-3);
-  padding: var(--space-3) 0;
-  border-top: 1px solid var(--color-border);
+  padding: var(--space-3);
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-left-width: 4px;
+  align-items: flex-start;
 }
 
 .trending-rank {
   font-family: var(--font-serif);
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: var(--color-muted);
   line-height: 1;
-  opacity: 0.5;
+  opacity: 0.55;
+  flex-shrink: 0;
+  width: 24px;
 }
 
 .trending-content {
   display: flex;
-  flex-direction: column;
+  gap: var(--space-3);
   flex: 1;
+  min-width: 0;
 }
 
 .trending-thumb-wrap {
-  display: block;
-  aspect-ratio: 16 / 9;
+  position: relative;
+  flex-shrink: 0;
+  width: 96px;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   background-color: var(--color-surface);
-  margin-bottom: var(--space-2);
+  display: block;
 }
 
 .trending-thumb {
@@ -838,14 +901,16 @@ button {
 }
 
 .trending-item:hover .trending-thumb {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
 .trending-headline {
   font-size: 0.9375rem;
   line-height: 1.35;
   font-family: var(--font-serif);
-  margin-bottom: var(--space-2);
+  font-weight: 600;
+  margin-top: 2px;
+  margin-bottom: var(--space-1);
 }
 
 /* --------------------------------------------------------------------------
@@ -1093,6 +1158,126 @@ button {
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-left-width: 4px;
+  padding: var(--space-4);
+  transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.editorial-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Sitewide Category Color Left Accents on Article Cards */
+.editorial-card,
+.lead-story-card,
+.wire-item,
+.trending-item,
+.trending-featured-card {
+  border-left: 4px solid var(--color-border);
+}
+
+.lead-story-card {
+  border-left-width: 6px;
+  padding-left: var(--space-4);
+}
+
+.cat-india, [data-category="india"] { border-left-color: var(--color-cat-india) !important; }
+.cat-world, [data-category="world"] { border-left-color: var(--color-cat-world) !important; }
+.cat-business, [data-category="business"] { border-left-color: var(--color-cat-business) !important; }
+.cat-tech, [data-category="tech"] { border-left-color: var(--color-cat-tech) !important; }
+.cat-sports, [data-category="sports"] { border-left-color: var(--color-cat-sports) !important; }
+
+/* Branded Fallback Placeholder for Articles Without Images */
+.card-thumb-placeholder {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  position: relative;
+  text-decoration: none;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+}
+
+.placeholder-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+  padding: var(--space-3);
+}
+
+.placeholder-brand {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--color-ink);
+  letter-spacing: -0.02em;
+}
+
+.placeholder-category {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+  background: rgba(0, 0, 0, 0.05);
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+
+.placeholder-inner-sm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  background: var(--color-surface);
+  letter-spacing: 0.06em;
+}
+
+.category-bg-india { background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%); }
+.category-bg-world { background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); }
+.category-bg-business { background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%); }
+.category-bg-tech { background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%); }
+.category-bg-sports { background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%); }
+
+/* "JUST IN" Pill Badge */
+.badge-just-in {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: var(--color-brand);
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 2px;
+  z-index: 3;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.badge-just-in-sm {
+  top: 3px;
+  right: 3px;
+  font-size: 0.5625rem;
+  padding: 2px 5px;
 }
 
 .card-thumb {
