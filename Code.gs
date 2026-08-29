@@ -49,7 +49,7 @@ var CATEGORY_CONFIG = {
   'india': {
     name: 'India',
     folder: 'src/articles/india',
-    newsDataCategory: 'top,politics',
+    newsDataCategory: 'top,politics,entertainment',
     newsDataCountry: 'in',
     currentsCategory: 'regional',
     currentsKeywords: 'India',
@@ -58,7 +58,7 @@ var CATEGORY_CONFIG = {
   'world': {
     name: 'World',
     folder: 'src/articles/world',
-    newsDataCategory: 'world',
+    newsDataCategory: 'world,entertainment',
     newsDataCountry: 'us,gb,au,ca,in',
     currentsCategory: 'world',
     currentsKeywords: 'World diplomacy geopolitics',
@@ -593,6 +593,7 @@ function buildMarkdown_(article, image, videos, sourceUrl, headline, isFeatured)
 function fetchFromNewsData_(categoryKey, config) {
   if (!config.NEWSDATA_API_KEY) return [];
   var isIndiaDesk = categoryKey.toLowerCase() === 'india';
+  var isWorldDesk = categoryKey.toLowerCase() === 'world';
   var catCfg = CATEGORY_CONFIG[categoryKey.toLowerCase()] || CATEGORY_CONFIG['india'];
   var url = 'https://newsdata.io/api/1/latest?apikey=' + config.NEWSDATA_API_KEY +
     '&language=en&category=' + catCfg.newsDataCategory;
@@ -611,10 +612,24 @@ function fetchFromNewsData_(categoryKey, config) {
             if (!item || !item.title || isNonEnglishTitle_(item.title)) {
               return false;
             }
-            // India Relevance Guard
-            if (isIndiaDesk && !isIndiaRelevant_(item.title, item.description)) {
-              return false;
+
+            var itemCategories = item.category || [];
+            var isEntertainment = itemCategories.indexOf('entertainment') !== -1;
+
+            // India desk: skip isIndiaRelevant_ if entertainment (country=in guarantees India source)
+            if (isIndiaDesk) {
+              if (!isEntertainment && !isIndiaRelevant_(item.title, item.description)) {
+                return false;
+              }
             }
+
+            // World desk: exclude if entertainment AND India-relevant (belongs to India desk)
+            if (isWorldDesk) {
+              if (isEntertainment && isIndiaRelevant_(item.title, item.description)) {
+                return false;
+              }
+            }
+
             return true;
           })
           .map(function(item) {
@@ -622,6 +637,7 @@ function fetchFromNewsData_(categoryKey, config) {
               title: item.title,
               description: item.description || '',
               content: item.content || item.description || '',
+              categories: item.category || [],
               sourceName: item.source_name || item.source_id || 'NewsData Wire',
               sourceUrl: item.link || '',
               imageUrl: item.image_url || null,
@@ -645,6 +661,7 @@ function fetchFromNewsData_(categoryKey, config) {
 function fetchFromCurrents_(categoryKey, config) {
   if (!config.CURRENTS_API_KEY) return [];
   var isIndiaDesk = categoryKey.toLowerCase() === 'india';
+  var isWorldDesk = categoryKey.toLowerCase() === 'world';
   var catCfg = CATEGORY_CONFIG[categoryKey.toLowerCase()] || CATEGORY_CONFIG['india'];
   var url = 'https://api.currentsapi.services/v1/latest-news?language=en&category=' +
     catCfg.currentsCategory + '&apiKey=' + config.CURRENTS_API_KEY;
@@ -660,10 +677,24 @@ function fetchFromCurrents_(categoryKey, config) {
             if (!item || !item.title || isNonEnglishTitle_(item.title)) {
               return false;
             }
-            // India Relevance Guard
-            if (isIndiaDesk && !isIndiaRelevant_(item.title, item.description)) {
-              return false;
+
+            var itemCategories = item.category || [];
+            var isEntertainment = itemCategories.indexOf('entertainment') !== -1;
+
+            // India desk: skip isIndiaRelevant_ if entertainment
+            if (isIndiaDesk) {
+              if (!isEntertainment && !isIndiaRelevant_(item.title, item.description)) {
+                return false;
+              }
             }
+
+            // World desk: exclude if entertainment AND India-relevant
+            if (isWorldDesk) {
+              if (isEntertainment && isIndiaRelevant_(item.title, item.description)) {
+                return false;
+              }
+            }
+
             return true;
           })
           .map(function(item) {
@@ -671,6 +702,7 @@ function fetchFromCurrents_(categoryKey, config) {
               title: item.title,
               description: item.description || '',
               content: item.description || '',
+              categories: item.category || [],
               sourceName: item.author || 'Currents Wire',
               sourceUrl: item.url || '',
               imageUrl: (item.image && item.image !== 'None') ? item.image : null,
