@@ -183,6 +183,46 @@ module.exports = function (eleventyConfig) {
     return "/samachardaily/" + url;
   });
 
+  function getFeaturedAndArchive(articles) {
+    if (!Array.isArray(articles) || articles.length === 0) {
+      return { featured: [], archive: [] };
+    }
+
+    const isTrending = (art) => {
+      const tm = art.data && (art.data.trendingMatch || art.data.trending_match || "");
+      return typeof tm === "string" && tm.toLowerCase().trim() === "yes";
+    };
+
+    const trendingArticles = articles.filter(isTrending);
+    const nonTrendingArticles = articles.filter(art => !isTrending(art));
+
+    const featured = [];
+    trendingArticles.forEach(art => {
+      if (featured.length < 3) {
+        featured.push(art);
+      }
+    });
+
+    nonTrendingArticles.forEach(art => {
+      if (featured.length < 3) {
+        featured.push(art);
+      }
+    });
+
+    const featuredUrls = new Set(featured.map(a => a.url));
+    const archive = articles.filter(art => !featuredUrls.has(art.url));
+
+    return { featured, archive };
+  }
+
+  eleventyConfig.addFilter("featuredArticles", (articles) => {
+    return getFeaturedAndArchive(articles).featured;
+  });
+
+  eleventyConfig.addFilter("archiveArticles", (articles) => {
+    return getFeaturedAndArchive(articles).archive;
+  });
+
   // Collections
   eleventyConfig.addCollection("articles", function (collectionApi) {
     return collectionApi.getFilteredByGlob("src/articles/**/*.md").sort((a, b) => {
@@ -201,7 +241,7 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addCollection("pagedCategoryArticles", function (collectionApi) {
     const site = require("./src/_data/site.js");
-    const PAGE_SIZE = 4;
+    const PAGE_SIZE = 60;
     const pagedList = [];
 
     site.categories.forEach(cat => {

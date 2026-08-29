@@ -5,7 +5,9 @@ layout: layouts/base.njk
 {% set category = pagedData.category if pagedData else category %}
 {% set pageArticles = pagedData.articles if pagedData else collections[category.slug] %}
 {% set currentPage = pagedData.pageNumber if pagedData else 1 %}
-{% set totalPages = pagedData.totalPages if pagedData else 3 %}
+{% set totalPages = pagedData.totalPages if pagedData else 1 %}
+{% set featuredList = pageArticles | featuredArticles %}
+{% set archiveList = pageArticles | archiveArticles %}
 
 <div class="container">
   <!-- Category Masthead (Monochrome, No "Desk" suffix) -->
@@ -17,9 +19,9 @@ layout: layouts/base.njk
 
   <!-- Category Articles -->
   {% if pageArticles and pageArticles.length > 0 %}
-    <!-- Lead Section (1 Lead + 2 Supporting) -->
+    <!-- Lead Section (Featured Articles: Up to 3, prioritized by trendingMatch then recency) -->
     <div class="grid-comp-a" style="margin-bottom: var(--space-8);">
-      {% for article in pageArticles | limit(3) %}
+      {% for article in featuredList %}
         {% include "partials/card.njk" %}
       {% endfor %}
     </div>
@@ -28,12 +30,12 @@ layout: layouts/base.njk
     {% set slotName = "category-mid" %}
     {% include "partials/ad-slot.njk" %}
 
-    <!-- Additional Stories Grid -->
-    {% if pageArticles.length > 3 %}
+    <!-- Additional Stories Grid (Archive list: uncapped, shows all remaining articles on this page up to PAGE_SIZE) -->
+    {% if archiveList.length > 0 %}
       <div style="margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid var(--color-border);">
         <h2 style="font-size: 1.5rem; margin-bottom: var(--space-6);">Latest {{ category.name }} Archive</h2>
         <div class="grid-comp-a">
-          {% for article in pageArticles | skip(3) | limit(6) %}
+          {% for article in archiveList %}
             {% include "partials/card.njk" %}
           {% endfor %}
         </div>
