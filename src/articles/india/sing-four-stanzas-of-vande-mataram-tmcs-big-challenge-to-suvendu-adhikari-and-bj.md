@@ -9,6 +9,7 @@ video_id: "TV0kEEI4j_Q"
 video_caption: "BJP’s New ‘Vande Mataram’ Challenge in Parliament: Mamata Faces a Religious Tightrope."
 slug: "sing-four-stanzas-of-vande-mataram-tmcs-big-challenge-to-suvendu-adhikari-and-bj"
 sourceUrl: "https://www.hindustantimes.com/india-news/sing-four-stanzas-of-vande-mataram-tmcs-big-challenge-to-suvendu-adhikari-and-bjp-101787911934100.html"
+sourceName: "Hindustan Times"
 dek: "At a foundation‑day event for the Trinamool Chhatra Parishad in Kolkata, TMC MP Kalyan Banerjee urged rival Suvendu Adhikari and the BJP to sing all four stanzas of the national song, turning a cultural symbol into a political showdown."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -19,5 +20,3 @@ On March 26, Trinamool Congress (TMC) MP Kalyan Banerjee took to the stage at a 
 The demand comes against a backdrop of long‑standing controversy over the song's length. While the first two stanzas are officially part of the Indian national anthem, the remaining verses have been a flashpoint between the TMC and the BJP, especially after the central government’s 2022 directive urging schools to teach the entire composition. Banerjee’s rally, attended by party cadres and TMCP members, turned the cultural debate into a political spectacle, positioning the TMC as the defender of regional sentiment against what it calls the BJP’s imposition of a pan‑Indian narrative.
 
 Suvendu Adhikari, a former TMC heavyweight who switched to the BJP ahead of the 2021 state elections, has been a frequent target of Mamata Banerjee’s criticism. By singling out Adhikari, Banerjee aimed to highlight the perceived hypocrisy of a leader who, according to the TMC, has previously questioned the full version of "Vande Mataram" while aligning with a party that promotes it as a unifying symbol. The challenge was met with applause from the crowd, and organisers promised to organize a public singing event if the opposition accepts the dare.
-
-Reporting based on coverage from Hindustan Times

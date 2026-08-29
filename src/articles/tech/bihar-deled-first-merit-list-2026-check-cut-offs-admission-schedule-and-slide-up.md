@@ -9,6 +9,7 @@ video_id: "r1Gtm0Z_SGo"
 video_caption: "Bihar Deled 1st Allotment Letter 2026 Kaise Dekhe | Bihar Deled Merit List 2026 Kaise download Kare"
 slug: "bihar-deled-first-merit-list-2026-check-cut-offs-admission-schedule-and-slide-up"
 sourceUrl: "https://www.swapupdate.in/bihar-deled-first-merit-list-2026-check-cut-offs-admission-schedule-and-slide-up-process-details/"
+sourceName: "SwapUpdate"
 dek: "The Bihar School Examination Board published the first DElEd merit list on August 27, 2026, detailing cut‑offs for each teacher‑training institute and outlining the admission and slide‑up schedule for aspirants."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ On August 27, 2026 the Bihar School Examination Board (BSEB) uploaded the first 
 The board has also released a detailed admission schedule. Candidates whose names appear in the list must report to their allotted institutes for document verification, fee payment and seat allotment between September 5 and September 12. Those who miss the initial cut‑off can participate in the slide‑up process, a waiting‑list mechanism that reallocates vacant seats to the next eligible candidates based on merit. The slide‑up rounds are slated for September 15, 20 and 25, with final confirmation expected by the end of the month.
 
 Over 45,000 applicants appeared for the DElEd entrance this year, and the merit list narrows the pool to roughly 12,000 candidates who meet the varied institute thresholds. The transparent, institute‑specific cut‑off approach aims to reduce confusion that plagued previous years, where candidates often struggled to match their scores with college requirements. By publishing the list early and outlining the subsequent steps, BSEB hopes to streamline the admission workflow and ensure that teacher‑training seats are filled promptly.
-
-Reporting based on coverage from SwapUpdate

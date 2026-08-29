@@ -9,6 +9,7 @@ video_id: ""
 video_caption: ""
 slug: "indian-startup-detectifai-develops-live-call-detection-system-to-fight-ai-voice-"
 sourceUrl: "https://dharmakshethra.com/indian-startup-detectifai-develops-live-call-detection-system-to-fight-ai-voice-deepfakes/"
+sourceName: "Dharmakshethra"
 dek: "Startup DetectifAI, founded by Tarini Padmanabhuni in 2025, unveiled a live‑call detection platform that can verify speakers and flag synthetic or replayed audio before sensitive transactions proceed, targeting banks, KYC firms and telecoms."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ DetectifAI, an Indian artificial‑intelligence startup established in 2025 by e
 The core of DetectifAI's solution combines acoustic fingerprinting, neural‑network‑based synthetic‑speech detection and behavioural voice analytics. When a call is initiated, the platform captures the audio stream, extracts unique vocal characteristics and compares them against a verified voice profile stored by the client. Simultaneously, it runs a deep‑learning model trained on thousands of synthetic and replayed samples to spot anomalies such as unnatural intonation, frequency patterns or timing glitches that are typical of AI‑generated voices. If the model flags a high probability of manipulation, the system can either pause the call, request an alternative authentication factor or notify a human operator, thereby preventing fraud before it happens.
 
 DetectifAI is focusing its go‑to‑market strategy on sectors where voice verification is already a regulatory requirement or a common fraud vector. Early pilots with several Indian banks, KYC service providers and major telecom operators have demonstrated a reduction in fraudulent call‑based incidents, according to the startup's internal testing. The company says its technology can be integrated via APIs into existing IVR systems, mobile apps or contact‑center platforms, offering a scalable defence against increasingly sophisticated voice‑cloning attacks.
-
-Reporting based on coverage from Dharmakshethra

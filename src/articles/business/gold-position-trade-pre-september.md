@@ -9,6 +9,7 @@ video_id: "ZJxjYbjfctQ"
 video_caption: "Gold Price Prediction | Detailed Technical &amp; Fundamental Analysis 📈"
 slug: "gold-position-trade-pre-september"
 sourceUrl: "https://in.tradingview.com/chart/XAUUSD/dQXduoiT-Gold-Position-trade-Pre-September/"
+sourceName: "TradingView"
 dek: "Technical analysis suggests gold may retreat to the $4,500‑$4,400 zone before testing higher levels, with traders targeting a long‑term move toward $6,000‑$10,000 per ounce."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ A recent technical outlook posted on TradingView highlights a potential short‑
 The chart also flags a series of higher Fibonacci extensions that could serve as future resistance if the metal rebounds. According to the author, a successful break above the $4,500‑$4,400 range could set the stage for a longer upward trajectory, with profit‑taking targets projected between $6,000 and $10,000 per ounce. The outlook is built on the premise that the current bearish momentum is temporary and that macro‑economic factors, such as easing inflation expectations and a softer U.S. dollar, may eventually bolster gold's appeal as a safe‑haven asset.
 
 While the analysis is rooted in price patterns rather than fundamental data, it reflects a broader sentiment among market participants that gold remains vulnerable to short‑term volatility but retains upside potential if broader economic conditions shift in its favor. The projected price corridor aligns with recent historical swings, where gold has oscillated between $4,200 and $5,200 over the past twelve months before embarking on steeper climbs during periods of heightened geopolitical tension.
-
-Reporting based on coverage from TradingView

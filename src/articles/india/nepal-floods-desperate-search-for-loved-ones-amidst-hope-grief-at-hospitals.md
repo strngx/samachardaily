@@ -20,6 +20,7 @@ videos:
     channel: "ABP NEWS"
 slug: "nepal-floods-desperate-search-for-loved-ones-amidst-hope-grief-at-hospitals"
 sourceUrl: "https://www.deccanherald.com/world/rest-of-world/in-flood-hit-nepal-people-hope-amid-fear-4127787"
+sourceName: "Deccan Herald"
 dek: "As relentless rain continues, families in Kathmandu comb hospitals and mortuaries for relatives lost in Nepal’s worst floods in years, while Indian pilgrims from the Kailash Mansarovar Yatra await news of missing loved ones."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -33,5 +34,3 @@ Heavy monsoon rains have triggered flash floods across Nepal’s central hills, 
 Rescue teams from Nepal’s army and the Nepal Red Cross are hampered by landslides that block key highways, while damaged telecom towers leave many without the ability to contact relatives. Indian citizens who joined the Kailash Mansarovar Yatra – a high‑altitude pilgrimage that traverses the flood‑hit region – are also stranded, with families in India anxiously awaiting confirmation of their status.
 
 Local authorities have set up temporary information desks at major hospitals, but the influx of desperate relatives has overwhelmed staff. Volunteers are distributing printed lists of missing persons, and some NGOs are using satellite phones to relay updates to embassies, yet the overall coordination remains fragmented.
-
-Reporting based on coverage from Deccan Herald

@@ -15,6 +15,7 @@ videos:
     channel: "Quartic element Anime"
 slug: "venomous-views-money-for-jam-and-a-shock-guest-star-five-things-we-learnt-from-week-f"
 sourceUrl: "https://www.theage.com.au/politics/nsw/venomous-views-money-for-jam-and-a-shock-guest-star-five-things-we-learnt-from-week-five-of-icac-20260828-p60sd2.html"
+sourceName: "The Age"
 dek: "In its fifth week, the Independent Commission Against Corruption inquiry disclosed heated political comments, a questionable subsidy for jam production, and the unexpected testimony of a high‑profile guest."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -64,5 +65,3 @@ video_query
 :
 
 ICAC week five inquiry revelations news footage
-
-Reporting based on coverage from The Age

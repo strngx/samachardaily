@@ -9,6 +9,7 @@ video_id: "mgex2LDbaa0"
 video_caption: "Audio DeepFake Detection using Machine Learning and Deep Learning | AI based Projects 2024-25"
 slug: "indian-startup-detectifai-develops-live-call-detection-system-to-fight-ai-voice-"
 sourceUrl: "https://dharmakshethra.com/indian-startup-detectifai-develops-live-call-detection-system-to-fight-ai-voice-deepfakes/"
+sourceName: "Dharmakshethra"
 dek: "DetectifAI, a startup founded in 2025 by Tarini Padmanabhuni, unveiled a live-call detection platform that can verify speakers and flag synthetic or replayed audio before critical transactions proceed, aiming at banks, KYC firms and telecom operators."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ DetectifAI, an Indian technology startup established in 2025 by entrepreneur Tar
 The startup’s solution is being positioned for sectors where voice verification is integral, such as banking, financial services, know‑your‑customer (KYC) providers, and telecom networks. By integrating the technology into existing call‑center infrastructure or interactive voice response (IVR) systems, DetectifAI aims to provide an additional security checkpoint that operates in real time, reducing reliance on static authentication methods like passwords or OTPs. The company says its algorithms are trained on a diverse dataset of both genuine and AI‑generated speech, allowing it to adapt to evolving deepfake techniques.
 
 DetectifAI’s launch comes as Indian regulators and industry bodies have begun to highlight the risks posed by synthetic audio, especially in fraud schemes targeting customers of banks and telecom operators. The startup plans to pilot the system with a handful of financial institutions later this year, with a broader commercial rollout slated for early 2026.
-
-Reporting based on coverage from Dharmakshethra

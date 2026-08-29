@@ -9,6 +9,7 @@ video_id: "YO-OO0_sTT0"
 video_caption: "🇪🇺 UEFA Champions League Round of 16 Fixtures Announced! 🔥⚽ #day#kun#data#uefa"
 slug: "ucl-league-phase-fixtures-psg-vs-barcelona-2026-man-united-vs-bayern-munich-real"
 sourceUrl: "https://www.etvbharat.com/ml/sports/uefa-champions-league-to-start-on-september-8-kls26082803924"
+sourceName: "ETV Bharat"
 dek: "The 2026-27 Champions League kicks off on September 8 with marquee matchups, and the final is set for June 5, 2027 in Madrid."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -22,5 +23,3 @@ UEFA has released the full schedule for the 2026-27 Champions League league phas
 The group stage will feature 32 clubs divided into eight groups of four, each playing home and away matches over six matchdays. The PSG‑Barcelona tie, scheduled for the opening week, pits two of the continent’s most glamorous sides against each other, offering a tantalising preview of the tactical battles to come. Manchester United’s clash with Bayern Munich revives a historic rivalry, while the Real Madrid‑Arsenal fixture pits the defending Spanish champions against a resurgent English side that reached the semi‑finals last season.
 
 UEFA has also confirmed that the tournament’s climax will be staged at the Santiago Bernabéu in Madrid on June 5, 2027. The decision follows a bidding process that saw the Spanish capital win over proposals from London and Istanbul. The final will be the culmination of a 10‑month campaign that sees clubs navigate a gruelling schedule of domestic league commitments alongside European fixtures.
-
-Reporting based on coverage from ETV Bharat

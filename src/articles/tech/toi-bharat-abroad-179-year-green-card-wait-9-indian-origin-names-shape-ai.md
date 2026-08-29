@@ -9,6 +9,7 @@ video_id: "eDUkpEmYeIA"
 video_caption: "179-Year Green Card Wait? Why Indian Applicants Face US Immigration Crisis | Firstpost America |N18G"
 slug: "toi-bharat-abroad-179-year-green-card-wait-9-indian-origin-names-shape-ai"
 sourceUrl: "https://timesofindia.indiatimes.com/blogs/toi-bharat-abroad/toi-bharat-abroad-179-year-green-card-wait-9-indian-origin-names-shape-ai/"
+sourceName: "Times of India"
 dek: "Nearly a million Indian professionals are stuck in the United States' employment‑based green‑card backlog, where the average wait can stretch to 179 years, even as nine Indian‑origin technologists dominate the AI leadership landscape."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ The Times of India’s ‘Bharat Abroad’ column this week draws attention to a
 Amid this immigration gridlock, the same column celebrates the outsized influence of Indian‑origin talent in artificial intelligence. It spotlights nine individuals who hold senior roles at global tech giants and AI‑focused firms, steering product strategy, research agendas and ethical frameworks. Their positions range from chief executive offices at companies like Google and Microsoft to senior research leadership at NVIDIA, OpenAI and Meta. The piece underscores how, despite bureaucratic hurdles, Indian expertise continues to shape the direction of AI development worldwide.
 
 The article juxtaposes the two narratives: a systemic bottleneck that threatens to drain Indian talent from the U.S. tech ecosystem, and the undeniable impact of the very same talent on cutting‑edge AI breakthroughs. It calls for policy reforms that could alleviate the backlog, while also acknowledging the contributions of Indian innovators who are already redefining the field.
-
-Reporting based on coverage from Times of India

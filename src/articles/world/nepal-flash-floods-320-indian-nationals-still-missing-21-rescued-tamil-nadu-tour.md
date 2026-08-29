@@ -9,6 +9,7 @@ video_id: "5dab_k-6_CU"
 video_caption: "Nepal Flash Floods: 87 Indian Nationals Rescued as Air Rescues Intensify in Remote Belts"
 slug: "nepal-flash-floods-320-indian-nationals-still-missing-21-rescued-tamil-nadu-tour"
 sourceUrl: "https://economictimes.indiatimes.com/news/india/nepal-flash-floods-320-indian-nationals-still-missing-21-rescued-tamil-nadu-tourists-land-in-delhi-says-mea/articleshow/133589669.cms"
+sourceName: "The Economic Times"
 dek: "The devastating flash floods in Nepal have left 320 Indians unaccounted for, while a group of 21 Tamil Nadu tourists were rescued and reached Delhi, according to the Ministry of External Affairs."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ Heavy monsoon rains triggered flash floods across Nepal's eastern districts on M
 The Indian government has mobilised a multi‑pronged relief effort. Following the initial two flights that delivered emergency kits and food, a third aircraft carrying additional supplies departed for Kathmandu on Wednesday, underscoring New Delhi's commitment to assist its neighbours. MEA officials are working closely with Nepalese authorities to consolidate multiple lists of missing persons, a task complicated by overlapping registrations and the chaotic nature of the disaster. The Indian embassy in Kathmandu has set up a dedicated helpline to field queries from relatives and to coordinate the repatriation of survivors.
 
 As rescue operations continue, the numbers remain fluid. Local officials in Nepal report that many villages are still cut off, and the search for missing Indians is hampered by landslides and damaged communication networks. Families in Indian states such as Tamil Nadu, Uttar Pradesh and West Bengal have been urged to register with the embassy and to stay in touch through the helpline. The MEA has promised regular updates and pledged further assistance, including medical aid and temporary shelter for those who manage to cross back into India.
-
-Reporting based on coverage from The Economic Times

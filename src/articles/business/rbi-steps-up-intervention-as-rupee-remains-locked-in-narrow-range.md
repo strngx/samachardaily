@@ -9,6 +9,7 @@ video_id: "uuovaZ93Qx8"
 video_caption: "New Red Line for India’s Rupee is forming as pressure mounts | World Business Watch | WION"
 slug: "rbi-steps-up-intervention-as-rupee-remains-locked-in-narrow-range"
 sourceUrl: "https://www.moneycontrol.com/news/business/banks/rbi-steps-up-intervention-as-rupee-remains-locked-in-narrow-range-14017648.html"
+sourceName: "Moneycontrol"
 dek: "The Reserve Bank of India intervened heavily, offloading over $8 billion in the spot and offshore markets to keep the rupee within a narrow trading range."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ The Reserve Bank of India (RBI) has stepped up its market operations this week, 
 Analysts note that the RBI’s actions come at a time when the Indian external sector is under strain from a combination of higher global oil prices, a strong U.S. dollar and modest capital outflows from emerging markets. The central bank’s willingness to sell dollars in both on‑shore and offshore markets reflects a coordinated approach to maintain market stability. While the rupee has remained within a narrow corridor, the RBI’s sizeable dollar sales suggest that the currency’s resilience is being actively managed rather than being purely market‑driven.
 
 The intervention also signals that the RBI is prepared to use its foreign‑exchange reserves more aggressively if needed. The central bank’s total reserves have been bolstered over the past year, giving it ample room to conduct such operations without jeopardising its overall balance‑sheet health. Traders have observed that the rupee’s limited movement is likely a result of the RBI’s readiness to step in whenever the currency shows signs of breaking the established range.
-
-Reporting based on coverage from Moneycontrol

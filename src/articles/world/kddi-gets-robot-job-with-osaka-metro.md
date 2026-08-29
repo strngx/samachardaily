@@ -9,6 +9,7 @@ video_id: ""
 video_caption: ""
 slug: "kddi-gets-robot-job-with-osaka-metro"
 sourceUrl: "https://www.mobileworldlive.com/industry/kddi-gets-robot-job-with-osaka-metro/"
+sourceName: "Mobile World Live"
 dek: "Japanese telecom KDDI will conduct a public test of a humanoid robot serving commuters on Osaka’s subway system, marking one of the first deployments of physical AI in Japanese public transport."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -19,5 +20,3 @@ KDDI, one of Japan’s leading telecommunications operators, announced that it w
 Osaka Metro, which serves more than three million riders daily, welcomed the partnership as part of its broader digital‑transformation agenda. Metro officials will integrate the robot’s software with existing information‑display systems, allowing it to pull real‑time train schedules and service alerts. The operator hopes the robot can reduce the load on human customer‑service counters, especially during rush‑hour surges and service disruptions. KDDI will collect usage data, including interaction duration and satisfaction metrics, to refine the robot’s natural‑language processing and response accuracy.
 
 The robot is built on KDDI’s AI platform that combines speech recognition, facial detection and cloud‑based language models. While the hardware resembles a typical humanoid form—standing about 1.5 metres tall with a touchscreen torso—it is equipped with multilingual capabilities to assist both Japanese commuters and foreign tourists. This pilot follows earlier, smaller‑scale deployments of service robots in Japanese retail stores and airports, but it is the first to be embedded directly within a public‑transport setting on this scale.
-
-Reporting based on coverage from Mobile World Live

@@ -9,6 +9,7 @@ video_id: "RYdflo2IA-Y"
 video_caption: "Sugar Price Surge: Centre Imposes Stock Limits On Bulk Buyers Ahead Of Festive Season | India Today"
 slug: "no-shortage-of-sugar-retail-prices-have-started-declining-ministry-of-food-publi"
 sourceUrl: "https://www.etvbharat.com/en/bharat/no-shortage-of-sugar-retail-prices-have-started-declining-ministry-of-food-public-distribution-enn26082804506"
+sourceName: "ETv Bharat"
 dek: "The Food and Public Distribution Ministry announced that there is no shortage of sugar and that retail prices are on a downward trend, citing a new fortnightly allocation system to keep stocks stable from September onward."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -25,5 +26,3 @@ The ministry’s statement highlighted that the new schedule will be implemented
 While the government emphasizes that the current stock levels are sufficient, it also warned that any abrupt changes in demand—such as those driven by festive seasons or unexpected export orders—could still influence prices. Nonetheless, the ministry remains confident that the fortnightly allocation will provide a buffer against short‑term shocks, allowing both producers and consumers to plan with greater certainty.
 
 The statement was made amid a broader effort by the government to monitor essential commodities and intervene when necessary to protect consumer interests. Officials have urged traders to adhere to the new schedule and discouraged any artificial scarcity tactics that could undermine market confidence.
-
-Reporting based on coverage from ETv Bharat

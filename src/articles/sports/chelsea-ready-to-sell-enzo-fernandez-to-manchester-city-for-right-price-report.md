@@ -9,6 +9,7 @@ video_id: "-_MaYSX79nI"
 video_caption: "Does Emi Martinez make Chelsea TITLE CONTENDERS? 😳 + Enzo Fernández to Man City | ESPN FC"
 slug: "chelsea-ready-to-sell-enzo-fernandez-to-manchester-city-for-right-price-report"
 sourceUrl: "https://www.deccanchronicle.com/sports/chelsea-ready-to-sell-enzo-fernandez-to-manchester-city-for-right-price-report-1982991"
+sourceName: "Deccan Chronicle"
 dek: "Chelsea have indicated willingness to part with midfielder Enzo Fernández, but only if Manchester City meets their price, even though no formal talks have begun and the Argentine was omitted from the recent Carabao Cup win."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ A source close to Chelsea's transfer department told Deccan Chronicle that the c
 Fernández arrived at Chelsea in the summer of 2023 for a reported £106 million, a British record at the time. Since then, his performances have been mixed, with flashes of the playmaking ability that earned him the 2022 South American Player of the Year but also periods of inconsistency in a side struggling to find a clear tactical identity. The Blues are also navigating a tight financial landscape after the pandemic‑era revenue dip and the Premier League's revised financial‑fair‑play rules, prompting the board to consider recouping a portion of the initial outlay.
 
 Manchester City, fresh from a domestic double, have expressed interest in bolstering their midfield depth ahead of a congested schedule that includes Champions League commitments. If City meets Chelsea's price, the move could provide the Argentine with a fresh platform under Pep Guardiola while giving the Blues a sizeable fee to reinvest in other areas. The summer transfer window, which closes on September 1, will determine whether the two clubs can bridge the valuation gap before the deadline.
-
-Reporting based on coverage from Deccan Chronicle

@@ -9,6 +9,7 @@ video_id: "Njz4iudiG48"
 video_caption: "China Removes Top General Zhang Youxia From Military Commission In Major Leadership Shake-Up | NXW"
 slug: "china-removes-ex-top-general-zhang-youxia-from-central-military-commission-after"
 sourceUrl: "https://www.firstpost.com/world/china-removes-ex-top-general-zhang-youxia-from-central-military-commission-after-probe-14041557.html"
+sourceName: "Firstpost"
 dek: "China’s state Central Military Commission has removed ex‑generals Zhang Youxia and Liu Zhenli following investigations into alleged serious violations of law and discipline, underscoring the ongoing purge of senior military officials."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -19,5 +20,3 @@ Beijing announced on Thursday that Zhang Youxia, a veteran lieutenant general wh
 The CMC, chaired by President Xi Jinping, is the highest military decision‑making body in China, overseeing the People’s Liberation Army (PLA) and its strategic direction. Zhang, a former commander of the Beijing Military Region and a trusted associate of Xi from their days in the 1970s, was considered a key figure in modernising the PLA’s missile and space capabilities. Liu, meanwhile, played a pivotal role in joint operations planning and had been promoted rapidly before his sudden fall from grace. Their ouster follows a pattern of high‑profile purges that began with the removal of former vice‑chairmen Guo Boxiong and Xu Caihou in the early 2010s, signalling that even the most senior military leaders are not immune to Xi’s anti‑corruption drive.
 
 The decision was made public through the official Xinhua news agency, which did not provide further details about the alleged infractions. Analysts note that the timing—just before the annual National People's Congress session—suggests a strategic move to reinforce party control over the armed forces ahead of key policy deliberations. The vacancy left by the two generals is expected to be filled by younger officers aligned closely with Xi’s vision for a leaner, more technologically advanced PLA.
-
-Reporting based on coverage from Firstpost

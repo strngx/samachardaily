@@ -9,6 +9,7 @@ video_id: ""
 video_caption: ""
 slug: "ac-milan-make-enquiry-for-40-million-rated-barcelona-defender-facing-complicated"
 sourceUrl: "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOSlNvNThJcVZpRVdlX2dORUxsamo2dEduRkFDdU9sbUo5dllvRVhpalR3MzktSXpqb3owRzdhOTNGOVNjTVZwN2pVWGg5ZU11REpuTEM1Rk1FNnJrYzlOSFluQnhzd0kzZ3BJbEVoMlpXMzVOcE1CVHdNc181eVEyR0NOSGl5dDB6cV8yOVphcnJhemR3d1JSdm1GcG8xWkFoMUQtX1IwMzVzX2dKSExQeVBadmM3SHpVc2lF?oc=5"
+sourceName: "Barca Universal"
 dek: "AC Milan have opened talks to sign Barcelona’s highly‑rated left‑back Alejandro Balde, whose future is complicated by the Catalan club’s financial woes and a hefty price tag."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -19,5 +20,3 @@ Italian champions AC Milan have reportedly made an official enquiry about Barcel
 Balde, 22, has emerged as one of the most promising full‑backs in Europe, combining pace, technical ability and defensive solidity. However, his situation at Barcelona has become increasingly complex. The club, still reeling from a massive debt load and a salary‑cap imposed by the league, has been forced to consider selling valuable assets to balance the books. While Balde is under contract until 2027, Barcelona’s recent statements indicate a willingness to entertain offers that meet their financial expectations, especially if the player’s development can be secured elsewhere.
 
 Milan’s interest aligns with their broader strategy of acquiring young, high‑potential talent rather than splurging on established stars. If the clubs reach an agreement, the move could see Balde swapping the Camp Nou for the San Siro, providing him with regular playing time in a defensively disciplined Serie A side and giving Milan a versatile option both in a back‑four and as an attacking wing‑back.
-
-Reporting based on coverage from Barca Universal

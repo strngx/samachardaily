@@ -21,6 +21,7 @@ videos:
     channel: "ken leibo"
 slug: "prep-boys-soccer-hurricane-proving-itself-in-pursuit-of-another-title-run"
 sourceUrl: "https://www.wvgazettemail.com/sports/prep_sports/soccer/boys_soccer/prep-boys-soccer-hurricane-proving-itself-in-pursuit-of-another-title-run/article_e0ed6336-6df8-4e06-a5c9-c2bb7ffac98c.html"
+sourceName: "Charleston Gazette-mail"
 dek: "Hurricane defeated Huntington 3-1 in a Class AAAA South Region rematch, bolstering their bid for a second state title after a dominant 13-1 start to the season."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ Hurricane rolled past Huntington 3-1 on Tuesday, replicating the matchup from la
 The victory extends Hurricane’s early-season dominance, as the team has outscored its first two opponents 13-1. Despite losing four players who each tallied double‑digit goals last year, coach Kent Bailey said the squad’s depth and disciplined play keep them in contention for another championship run.
 
 Bailey emphasized that the win is a “statement” that the program can sustain success despite the roster turnover, noting that the team’s defensive cohesion and balanced scoring will be critical as the regional schedule intensifies.
-
-Reporting based on coverage from Charleston Gazette-mail

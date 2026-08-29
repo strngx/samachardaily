@@ -9,6 +9,7 @@ video_id: "sedYNmeOxXQ"
 video_caption: "Supreme Court appears skeptical of Trump&#39;s effort to limit birthright citizenship"
 slug: "us-judge-wont-immediately-block-trumps-new-birthright-citizenship-order"
 sourceUrl: "https://www.business-standard.com/world-news/us-judge-won-t-immediately-block-trump-s-new-birthright-citizenship-order-126082801375_1.html"
+sourceName: "Business Standard"
 dek: "A federal judge in Washington rejected a request by immigrant‑rights groups to halt President Trump’s latest order that narrows eligibility for automatic citizenship for children born on U.S. soil."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ On Tuesday, U.S. District Judge James Dever in the Western District of Washingto
 The order, issued by the Department of Justice under the Trump administration, revisits a long‑standing interpretation of the 14th Amendment’s Citizenship Clause. While the Constitution guarantees citizenship to “all persons born or naturalized in the United States,” the new rule seeks to limit that guarantee to children of parents who possess legal status, arguing that undocumented immigration imposes fiscal and social costs on the nation. The judge’s decision does not preclude the case from proceeding; the plaintiffs can still pursue a full hearing on the merits, and the order remains in effect while the litigation continues.
 
 Legal experts note that the case adds to a growing docket of challenges to the administration’s immigration agenda, which includes attempts to curtail asylum, end the Deferred Action for Childhood Arrivals (DACA) program, and tighten border enforcement. The outcome could set a precedent for how far the executive branch can reinterpret constitutional provisions without congressional approval.
-
-Reporting based on coverage from Business Standard

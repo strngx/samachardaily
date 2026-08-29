@@ -21,6 +21,7 @@ videos:
     channel: "Michael huynh"
 slug: "system-tech-days-of-fall-2026-series-boosts-it-ai-cybersecurity-career-pathways"
 sourceUrl: "http://www.hawaii.edu/news/article.php?aId=14769"
+sourceName: "The University Of Hawaii System"
 dek: "The University of Hawaii System announced a series of Tech Days events for Fall 2026 aimed at expanding career pathways in information technology, artificial intelligence and cybersecurity."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ The University of Hawaii System unveiled its "Tech Days" series slated for the F
 Program officials say the series will feature a mix of workshops, industry panels, and collaborative labs designed for undergraduate and graduate students, as well as community members seeking reskilling. Partnerships with regional tech firms, federal agencies, and nonprofit cybersecurity groups are being formalized to provide real‑world case studies and potential internship pipelines.
 
 Funding for the initiative includes a $2 million allocation from the state’s workforce development budget, supplemented by private sponsorships. Organizers project that the Tech Days will generate at least 150 new internship placements and certify 200 participants in industry‑recognized credentials by the end of the academic year, directly supporting Hawaii’s goal of a 30% increase in tech‑related employment by 2030.
-
-Reporting based on coverage from The University Of Hawaii System

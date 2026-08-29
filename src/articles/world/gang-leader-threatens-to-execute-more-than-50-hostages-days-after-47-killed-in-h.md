@@ -9,6 +9,7 @@ video_id: "B4bIAM0GS7U"
 video_caption: "Haiti Gang Leader Threatens To Shoot 17 Hostages If Demands Aren&#39;t Met"
 slug: "gang-leader-threatens-to-execute-more-than-50-hostages-days-after-47-killed-in-h"
 sourceUrl: "https://news.sky.com/story/gang-leader-in-haiti-threatens-to-execute-more-than-50-hostages-days-after-47-killed-13578089"
+sourceName: "Sky News"
 dek: "A gang chief in Haiti warned he will kill more than 50 hostages held by his men, days after 47 residents of a farming community were shot dead."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ The threat came from a prominent gang commander who controls a swath of Port‑a
 The hostages were seized in a separate operation earlier this week when the gang stormed homes in a densely populated district of the capital, forcing residents to stay inside makeshift cages. Local witnesses say the captives are being held in a warehouse near the Cité Soleil slum, with the gang using them as leverage against the government and rival groups. Haitian officials have condemned the threats but have struggled to mount a coordinated response, citing limited police capacity and the recent withdrawal of the United Nations peacekeeping mission.
 
 International observers note that the violence is part of a broader power struggle among rival factions, most notably the G9 Family and Allies coalition led by Jimmy "Barbecue" Cherizier. The gang’s intimidation tactics have deepened an already volatile security environment, prompting calls from the United Nations and regional partners for urgent dialogue and humanitarian assistance.
-
-Reporting based on coverage from Sky News

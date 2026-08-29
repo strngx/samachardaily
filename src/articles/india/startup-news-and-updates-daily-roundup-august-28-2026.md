@@ -9,6 +9,7 @@ video_id: "vWq9hwoVqPA"
 video_caption: "Casira Chronicle | Everyday News in Quiz Format | Gen Y/Millennial Edition | August 26, 2026"
 slug: "startup-news-and-updates-daily-roundup-august-28-2026"
 sourceUrl: "https://yourstory.com/2026/08/startup-news-and-updates-daily-roundup-august-28-2026"
+sourceName: "YourStory"
 dek: "YourStory’s daily roundup for Friday, August 28, 2026 collated the most significant funding announcements, regulatory updates and product launches across India’s startup ecosystem."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ YourStory published its routine Friday roundup, offering a concise snapshot of t
 The daily summary also highlighted policy developments that could shape the ecosystem in the coming months. The Indian government’s latest revisions to startup‑related tax incentives and the newly announced visa framework for foreign founders were mentioned as key regulatory signals. Analysts cited these moves as part of a broader effort to sustain momentum after a year of robust venture activity. YourStory’s editorial team wrapped the piece with brief commentary on emerging trends, such as the rise of AI‑driven platforms and increased focus on sustainability‑linked business models, suggesting that these themes will dominate founder conversations in the near term.
 
 Overall, the roundup served as a quick reference for investors, founders and ecosystem partners seeking to stay abreast of the fast‑moving startup scene, offering links to deeper coverage for each highlighted story.
-
-Reporting based on coverage from YourStory

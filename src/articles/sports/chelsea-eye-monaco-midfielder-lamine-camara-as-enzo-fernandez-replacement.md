@@ -9,6 +9,7 @@ video_id: "EVAWpHUc7NE"
 video_caption: "CHELSEA FANS, YOU’RE MISSING THE POINT ON LAMINE CAMARA… || Lamine Camara Analysis"
 slug: "chelsea-eye-monaco-midfielder-lamine-camara-as-enzo-fernandez-replacement"
 sourceUrl: "https://daijiworld.com/news/newsDisplay?newsID=1324016"
+sourceName: "Daijiworld Media Network"
 dek: "Chelsea are in advanced talks with AS Monaco for the signing of 22‑year‑old Lamine Camara, seen as a potential replacement for midfield stalwart Enzo Fernández, who is reportedly considering a move away from the London club."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ Chelsea have opened negotiations with Ligue 1 side AS Monaco for the services of
 Fernández, 25, has been a key figure in Thomas Tuchel's midfield since his arrival from Benfica last summer, but recent speculation suggests he may be looking for a new challenge abroad. Sources close to the club say that Chelsea have identified Camara as a long‑term solution who can blend the technical qualities of Fernández with the physicality required in the Premier League. Monaco, meanwhile, are reportedly willing to negotiate a fee that reflects Camara's potential rather than his current market value, making the deal financially attractive for the Blues. 
 
 If the transfer materialises, Camara would join a Chelsea midfield already stocked with seasoned players such as Mateo Kovačić, N'Golo Kanté and newcomers from the summer window. The addition would give Tuchel more tactical flexibility, allowing the manager to rotate his squad without compromising the team's balance in both domestic and European competitions.
-
-Reporting based on coverage from Daijiworld Media Network

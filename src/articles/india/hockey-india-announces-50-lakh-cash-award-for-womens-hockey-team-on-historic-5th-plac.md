@@ -21,6 +21,7 @@ videos:
     channel: "World of Hockey"
 slug: "hockey-india-announces-50-lakh-cash-award-for-womens-hockey-team-on-historic-5th-plac"
 sourceUrl: "https://www.thehindu.com/sport/hockey/hockey-india-announces-50-lakh-cash-award-for-womens-hockey-team-on-historic-5th-place-finish-at-world-cup/article71402382.ece"
+sourceName: "The Hindu"
 dek: "The federation announced a cash reward of ₹50 lakh for the Indian women’s hockey squad after they secured a record fifth place at the World Cup."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ Hockey India confirmed that each member of the women's national team will receiv
 The team’s fifth‑place finish in the tournament, held in Spain, is the best ever by an Indian women’s squad at a senior World Cup, surpassing the previous best of seventh place in 2018 and signalling a rapid rise in competitiveness on the global stage.
 
 Officials said the reward underscores the federation’s commitment to rewarding excellence and will be disbursed ahead of the upcoming Asian Games, with the remaining funds earmarked for grassroots development and high‑performance training programmes.
-
-Reporting based on coverage from The Hindu

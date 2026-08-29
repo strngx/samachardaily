@@ -9,6 +9,7 @@ video_id: "Q4mdMMe9vck"
 video_caption: "Federal Judge Blocks Trump’s Mail-In Ballot Restrictions—Again"
 slug: "editor-daily-rundown-breaking-overnight-obama-judge-orders-postal-service-to-lea"
 sourceUrl: "https://cbnc.com/editor-daily-rundown-breaking-overnight-obama-judge-orders-postal-service-to-leave-ballots-unprotected/"
+sourceName: "CBNC"
 dek: "A federal judge appointed by former President Barack Obama issued a temporary injunction on Thursday, halting the Postal Service's plan to limit mail‑in voting after a Trump‑era directive. The order leaves all ballots in the existing USPS system without new protective restrictions."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ A federal judge, identified as an appointee of former President Barack Obama, is
 The injunction was granted after a lawsuit challenged the legality of the USPS's proposed restrictions, arguing that they could jeopardize the timely delivery of ballots in the upcoming election. The court found that the Postal Service had not demonstrated a compelling need to alter its handling of mail‑in votes and that the changes could potentially disenfranchise voters who rely on the postal system to cast their ballots. As a result, the USPS is required to maintain its current level of service for election mail, ensuring that ballots are not subjected to additional handling constraints that could delay delivery.
 
 The decision underscores the ongoing legal battles surrounding mail‑in voting in the United States, a contentious issue that has drawn sharp partisan lines. While the Trump administration has pushed for reforms they argue will improve efficiency, critics contend that such changes risk suppressing voter participation, especially among demographics that depend heavily on postal voting. The judge’s order temporarily preserves the existing framework, but the case remains open for further appeals and potential revisions as the election approaches.
-
-Reporting based on coverage from CBNC

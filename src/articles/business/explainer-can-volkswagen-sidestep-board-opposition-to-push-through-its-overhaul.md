@@ -9,6 +9,7 @@ video_id: "K9p_twNmOfQ"
 video_caption: "Volkswagen Considers More Job Cuts and Factory Closures in Major Overhaul | APT"
 slug: "explainer-can-volkswagen-sidestep-board-opposition-to-push-through-its-overhaul"
 sourceUrl: "https://cbnc.com/explainer-can-volkswagen-sidestep-board-opposition-to-push-through-its-overhaul/"
+sourceName: "CBNC"
 dek: "The automaker’s supervisory board will meet next week to vote on a massive restructuring that pits management against unions and the state of Lower Saxony, its second‑largest shareholder."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ Volkswagen has unveiled what it describes as its "biggest ever" turnaround plan,
 The plan, however, has run into stiff resistance from two powerful quarters. Germany’s trade unions, which represent thousands of VW workers, have warned that the restructuring could lead to significant job losses, plant closures and a weakening of workers’ bargaining power. At the same time, the state of Lower Saxony – which holds roughly 20% of VW’s shares and is the automaker’s second‑largest shareholder – has signalled that it will scrutinise any proposal that threatens employment in the region, where many of the group’s key factories are located. The supervisory board, which includes representatives from management, shareholders and employee groups, is scheduled to convene in a week’s time to discuss the overhaul and decide whether to give it the green light.
 
 If approved, the plan would mark a decisive shift in Volkswagen’s strategic direction, committing the company to a faster electrification timeline and tighter cost discipline. If rejected, the group could be forced to revisit its restructuring roadmap, potentially delaying its EV ambitions and leaving it vulnerable to rivals that are already scaling up electric production.
-
-Reporting based on coverage from CBNC

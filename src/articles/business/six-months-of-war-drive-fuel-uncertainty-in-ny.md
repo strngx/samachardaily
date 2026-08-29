@@ -21,6 +21,7 @@ videos:
     channel: "MS NOW"
 slug: "six-months-of-war-drive-fuel-uncertainty-in-ny"
 sourceUrl: "http://www.spectrumlocalnews.com/nys/buffalo/news/2026/08/28/six-months-of-war-drive-fuel-uncertainty-in-ny"
+sourceName: "Spectrum News 1 | Buffalo"
 dek: "Six months into the Iran conflict, disruptions to crude supplies have kept gasoline, diesel and heating‑fuel prices volatile in New York, prompting state officials to monitor inventories and consider relief measures."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ New York’s wholesale gasoline price has hovered 12‑15% above pre‑conflict 
 Retail stations across the state report price tags that fluctuate daily, with some commuters seeing a $0.30‑$0.45 per gallon increase. The volatility is compounded by seasonal demand for heating fuel as the region approaches winter, pressuring households and small businesses that rely on diesel for delivery fleets.
 
 State officials, including the Department of Environmental Conservation, have begun weekly inventory audits and are coordinating with the U.S. Energy Information Administration to assess strategic reserve options. Governor’s office officials say they are reviewing emergency measures to cushion low‑income consumers from the sustained price pressure.
-
-Reporting based on coverage from Spectrum News 1 | Buffalo

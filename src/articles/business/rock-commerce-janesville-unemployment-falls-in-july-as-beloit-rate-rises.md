@@ -21,6 +21,7 @@ videos:
     channel: "RideShare College"
 slug: "rock-commerce-janesville-unemployment-falls-in-july-as-beloit-rate-rises"
 sourceUrl: "https://www.beloitdailynews.com/news/rock-commerce-janesville-unemployment-falls-in-july-as-beloit-rate-rises/article_b09e33ad-fd2d-5980-9b48-692d4f11764f.html"
+sourceName: "Beloit Daily News"
 dek: "State labor data show Rock County's overall jobless rate unchanged in July, while Janesville's unemployment fell and Beloit's rose, highlighting divergent local labor trends."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ The Wisconsin Department of Workforce Development released July unemployment fig
 Janesville recorded a decline in its jobless rate, reflecting recent hiring gains in manufacturing and health services that have absorbed a portion of the local labor pool. In contrast, Beloit saw its unemployment percentage climb, driven by layoffs in retail and a slowdown in construction projects.
 
 Despite the opposing city trends, the aggregate county figure held steady, suggesting that gains in Janesville were offset by losses in Beloit. Officials noted that the mixed picture underscores the need for targeted workforce interventions across the county.
-
-Reporting based on coverage from Beloit Daily News

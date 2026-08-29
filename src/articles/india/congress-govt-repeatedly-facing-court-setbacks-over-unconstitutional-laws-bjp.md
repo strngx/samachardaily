@@ -9,6 +9,7 @@ video_id: "85jRanAoKPc"
 video_caption: "Congress will get another setback in Himachal Pradesh, dozens of leaders will leave the party"
 slug: "congress-govt-repeatedly-facing-court-setbacks-over-unconstitutional-laws-bjp"
 sourceUrl: "https://timesofindia.indiatimes.com/city/chandigarh/congress-govt-repeatedly-facing-court-setbacks-over-unconstitutional-laws-bjp/articleshow/133598003.cms"
+sourceName: "Times of India"
 dek: "The Himachal Pradesh High Court struck down the state government's role in appointing university vice‑chancellors, and BJP leader Jairam Thakur warned that the Sukhu‑led Congress is repeatedly losing battles in courts over statutes he calls unconstitutional."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -23,5 +24,3 @@ BJP state president Jairam Thakur seized on the verdict, stating that it was ano
 Chief Minister Sukhvinder Singh Sukhu’s government, which came to power in December 2022, defended the appointments as necessary to ensure merit‑based leadership in the state’s universities. The administration has indicated it will appeal the decision, asserting that the notifications were issued after extensive consultations with academic bodies and were intended to streamline the selection process.
 
 The legal tussle adds to a growing list of disputes between the state’s ruling party and the opposition, with both sides preparing for the next electoral cycle. The High Court’s order not only affects the immediate governance of higher‑education institutions but also sets a precedent that could influence how state governments across India draft and implement similar statutes.
-
-Reporting based on coverage from Times of India

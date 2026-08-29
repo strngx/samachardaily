@@ -9,6 +9,7 @@ video_id: ""
 video_caption: ""
 slug: "india-dispatches-team-of-doctors-and-paramedics-to-flood-hit-nepal"
 sourceUrl: "https://zeenews.india.com/india/india-dispatches-team-of-doctors-and-paramedics-to-flood-hit-nepal-3068817.html"
+sourceName: "Zee News"
 dek: "India dispatched a third special flight carrying 10 tonnes of relief supplies and an 11‑member medical‑rescue team to Nepal as flood waters continue to wreak havoc, while 84 Indians have already been rescued and 96 stranded on the Chinese side have been safely brought into Nepal."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -22,5 +23,3 @@ In a continued effort to assist Nepal after unprecedented monsoon flooding, the 
 The aid mission follows two earlier flights that delivered similar assistance, underscoring India’s commitment to its Himalayan neighbour during the crisis. According to officials, the relief package includes blankets, dry clothing, portable shelters, and medical kits designed to treat flood‑related injuries and prevent water‑borne diseases. The medical team, drawn from the Armed Forces Medical Services, is equipped to set up temporary clinics in the hardest‑hit districts, where local health infrastructure has been severely damaged.
 
 As of the latest count, 84 Indian nationals who were caught in the floods have been rescued and repatriated, and an additional 96 individuals who were stranded on the Chinese side of the border have been safely escorted across into Nepal. The coordinated cross‑border effort highlights the collaborative response among neighboring countries to a natural disaster that has displaced thousands and claimed numerous lives across Nepal’s western and central provinces.
-
-Reporting based on coverage from Zee News

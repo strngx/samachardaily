@@ -9,6 +9,7 @@ video_id: ""
 video_caption: ""
 slug: "metas-18-billion-settlement-why-it-could-change-social-media-rules-for-kids-worl"
 sourceUrl: "https://www.timesnownews.com/world/metas-18-billion-settlement-why-it-could-change-social-media-rules-for-kids-worldwide-article-156002774"
+sourceName: "TimesNowNews"
 dek: "Meta has agreed to a $18 billion settlement that will restrict teenagers from using Facebook and Instagram in the United States, a move regulators say could set a global precedent for protecting young users."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -19,5 +20,3 @@ The U.S. Federal Trade Commission (FTC) and a coalition of state attorneys gener
 While the settlement applies only to the U.S., Meta’s global reach means the company will likely adopt similar age‑verification and content‑restriction measures across other markets to avoid a patchwork of regulations. Industry analysts note that the deal could pressure other tech giants, such as TikTok and Snapchat, to pre‑emptively tighten their own age‑related policies. The settlement also includes a provision that Meta must provide a transparent, user‑friendly method for parents and guardians to control a teen’s account settings, a step that could become a de‑facto standard for the industry.
 
 Meta’s legal team has expressed willingness to comply, stating that the company will work with regulators to develop “responsible” tools that balance safety with user experience. The settlement is set to take effect within 90 days, after which Meta will begin rolling out the new age‑gate mechanisms, starting with a mandatory age prompt before account creation.
-
-Reporting based on coverage from TimesNowNews

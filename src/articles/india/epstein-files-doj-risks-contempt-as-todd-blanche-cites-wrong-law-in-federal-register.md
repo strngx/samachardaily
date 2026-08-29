@@ -11,6 +11,7 @@ video_caption: ""
 videos: []
 slug: "epstein-files-doj-risks-contempt-as-todd-blanche-cites-wrong-law-in-federal-register"
 sourceUrl: "https://easternherald.com/2026/08/29/epstein-files-doj-contempt-blanche-federal-register-sullivan/"
+sourceName: "The Eastern Herald"
 dek: "Acting Attorney General Todd Blanche submitted a six‑month‑old letter to the Federal Register claiming compliance with Judge Emmet Sullivan’s order, but cited the wrong statutory provision, prompting plaintiff Katie Phang to prepare a formal response."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -24,5 +25,3 @@ On Tuesday, Acting Attorney General Todd Blanche filed a letter in the Federal R
 Judge Emmet Sullivan’s original order required the DOJ to make specific Epstein‑related files publicly accessible within a set timeframe. By citing the wrong law, the DOJ’s filing does not meet the precise procedural requirements outlined by the court, exposing the agency to a possible finding of contempt.
 
 Plaintiff Katie Phang, representing the victims’ families, has indicated she will file a formal response outlining the deficiencies in the DOJ’s submission. Legal experts anticipate that the court may schedule a hearing to determine whether the agency must issue a corrected filing or face sanctions.
-
-Reporting based on coverage from The Eastern Herald

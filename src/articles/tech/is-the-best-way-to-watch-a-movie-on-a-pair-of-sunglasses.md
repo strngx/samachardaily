@@ -21,6 +21,7 @@ videos:
     channel: "The Tech Chap"
 slug: "is-the-best-way-to-watch-a-movie-on-a-pair-of-sunglasses"
 sourceUrl: "https://techcrunch.com/2026/08/28/is-the-best-way-to-watch-a-movie-on-a-pair-of-sunglasses/"
+sourceName: "Tech Crunch"
 dek: "XREAL unveiled its latest smart glasses, promising to stream movies directly to the lenses, positioning the device as a potential new format for home entertainment."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ The San Francisco‑based AR firm XREAL introduced a new pair of smart glasses t
 According to XREAL’s product brief, the glasses incorporate dual micro‑displays delivering high‑resolution visuals, and they connect to smartphones and streaming services via Bluetooth and Wi‑Fi. The company has placed the hardware behind a subscription‑based model, with access to premium content and software updates available only to paid‑plan members, limiting immediate widespread adoption.
 
 Analysts note that while the concept aligns with a broader push toward personal media devices, challenges remain around battery life, content licensing and user comfort. Competitors in the AR space have launched similar head‑mounted displays, but XREAL’s emphasis on a fashion‑forward form factor could differentiate it if the price and ecosystem hurdles are addressed.
-
-Reporting based on coverage from Tech Crunch

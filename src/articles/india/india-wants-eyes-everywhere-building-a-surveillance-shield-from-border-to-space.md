@@ -9,6 +9,7 @@ video_id: "v7pDYndNH28"
 video_caption: "India’s Maritime Shield | Defence Dynamics"
 slug: "india-wants-eyes-everywhere-building-a-surveillance-shield-from-border-to-space"
 sourceUrl: "https://www.wionews.com/defence-pulse/india-wants-eyes-everywhere-building-a-surveillance-shield-from-border-to-space-1787917627878"
+sourceName: "WION"
 dek: "India is linking satellites, long‑range electro‑optical sensors, drones and AI analytics into an integrated surveillance network aimed at improving situational awareness and response speed across its borders and maritime zones."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ Newly announced defence initiatives are stitching together a multi‑layered sur
 In the past six months India has launched two dedicated surveillance satellites, RISAT‑2B and Cartosat‑3, both designed to provide day‑and‑night imaging at sub‑meter resolution. Simultaneously, the Defence Research and Development Organisation (DRDO) has completed field trials of a 300‑kilometre‑range electro‑optical sensor that can track low‑observable aerial threats. The Indian Air Force has also inducted a squadron of indigenously built drones capable of autonomous patrols along the western coast, feeding live video streams to the new command centre in New Delhi. The integration of these disparate systems is being overseen by the Integrated Defence Staff, which aims to create a seamless picture of the nation’s security environment.
 
 Officials say the network will be operational in phases, with the first tier – border sensors and satellite feeds – expected to be fully functional by early 2027. Subsequent upgrades will add maritime surveillance nodes and expand AI‑driven predictive analytics, allowing the armed forces to anticipate and counter threats before they materialise.
-
-Reporting based on coverage from WION

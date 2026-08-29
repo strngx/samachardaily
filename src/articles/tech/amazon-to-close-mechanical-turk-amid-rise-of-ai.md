@@ -18,6 +18,7 @@ videos:
     channel: "Tricks Tips Fix"
 slug: "amazon-to-close-mechanical-turk-amid-rise-of-ai"
 sourceUrl: "https://www.troyrecord.com/2026/08/28/amazon-to-close-mechanical-turk-amid-rise-of-ai/"
+sourceName: "Troy Record"
 dek: "Amazon said it will wind down its Mechanical Turk crowdsourcing service, citing rapid advances in artificial intelligence that render the platform increasingly redundant."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -31,5 +32,3 @@ Amazon announced that it will close Mechanical Turk, the crowdsourcing service l
 Jeff Bezos, who once described Mechanical Turk as “artificial artificial intelligence,” said the platform had served a valuable role but now faces “fundamental redundancy” in the age of large language models. Amazon will cease accepting new tasks immediately and will keep existing projects running for a limited transition period.
 
 The shutdown will affect thousands of global gig workers who rely on the platform for supplemental income. Amazon has pledged to provide a migration toolkit, allowing requesters to move active jobs to its newer AI‑driven services such as Amazon SageMaker Ground Truth and to offer workers guidance on alternative gig platforms.
-
-Reporting based on coverage from Troy Record

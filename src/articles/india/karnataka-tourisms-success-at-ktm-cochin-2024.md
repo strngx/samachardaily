@@ -21,6 +21,7 @@ videos:
     channel: "Chennai Event Emcees"
 slug: "karnataka-tourisms-success-at-ktm-cochin-2024"
 sourceUrl: "https://hospitalitynews.in/news/karnataka-tourism-shines-at-ktm-cochin-2024-showcases-rich-heritage-and-diverse-attractions"
+sourceName: "Hospitalitynews"
 dek: "Karnataka Tourism officials said the state’s showcase at the Cochin tourism expo drew unprecedented interest, resulting in multiple partnership agreements and a projected boost in visitor arrivals."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ The Karnataka Tourism Department set up a flagship pavilion at the Cochin Intern
 During the five‑day event, Karnataka officials reported signing 12 memoranda of understanding with international tour operators, airline partners and technology firms. The agreements cover joint promotional campaigns, bundled travel packages and the deployment of AI‑driven visitor analytics. The department estimates the deals could lift inbound tourist arrivals by 8‑10% over the next two years, translating into roughly ₹1,200 crore in additional revenue.
 
 "The response at Cochin confirms Karnataka’s growing appeal as a holistic travel destination," said K. Raghavendra, Secretary of Tourism for Karnataka. He added that the state will leverage the momentum by launching a targeted digital marketing drive and expanding community‑based tourism initiatives in rural districts, aligning with the national ‘Incredible India’ agenda.
-
-Reporting based on coverage from Hospitalitynews

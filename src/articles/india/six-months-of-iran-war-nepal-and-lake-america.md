@@ -9,6 +9,7 @@ video_id: "E57V4WpOWTk"
 video_caption: "Meet the Press NOW — August 28"
 slug: "six-months-of-iran-war-nepal-and-lake-america"
 sourceUrl: "https://www.reuters.com/podcasts/six-months-iran-war-nepal-lake-america-2026-08-28/"
+sourceName: "Reuters"
 dek: "A Reuters podcast marks the half‑year milestone of the Iran war, looks at Nepal’s evolving political scene and explains the new environmental term ‘Lake America’ gaining traction in the United States."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ The latest Reuters podcast notes that the war that erupted in Iran six months ag
 In Kathmandu, the podcast shifts focus to Nepal, where a coalition of opposition parties is negotiating a power‑sharing agreement ahead of the scheduled general elections later this year. The talks come after a series of protests over the government's handling of recent monsoon‑related floods, which left thousands displaced. Analysts say the outcome could reshape Nepal’s foreign‑policy balance between China and India, both of which have vested interests in the Himalayan nation’s stability.
 
 The final segment introduces the term ‘Lake America’, a phrase used by environmental groups to describe the collective impact of the Great Lakes on the United States’ water security and climate resilience. Recent studies highlighted in the episode point to declining water levels and invasive species threatening the lakes’ ecosystems, prompting calls for a coordinated federal response that treats the lakes as a single, national resource rather than a collection of state‑run assets.
-
-Reporting based on coverage from Reuters

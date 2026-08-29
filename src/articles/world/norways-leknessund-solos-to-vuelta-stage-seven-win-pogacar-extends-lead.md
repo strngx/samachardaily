@@ -9,6 +9,7 @@ video_id: ""
 video_caption: ""
 slug: "norways-leknessund-solos-to-vuelta-stage-seven-win-pogacar-extends-lead"
 sourceUrl: "https://www.reuters.com/sports/norways-leknessund-solos-vuelta-stage-seven-win-pogacar-extends-lead-2026-08-28/"
+sourceName: "Reuters"
 dek: "Tobias Leknessund broke away on the mountainous seventh stage of the Vuelta a España to take a solo win, while defending champion Tadej Pogacar increased his general classification advantage."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ Norway's Tobias Leknessud surged clear of the peloton on the seventh stage of th
 Meanwhile, defending champion Tadej Pogacar of Slovenia, riding for UAE Team Emirates, finished safely within the main field, preserving his time advantage. Pogacar's performance on the stage allowed him to extend his lead in the general classification to 2 minutes and 45 seconds over his nearest rival, Spanish rider Enric Mas. The Slovenian's consistency across the first week of the three-week Grand Tour has reinforced his status as the pre-race favourite, despite a few minor setbacks on earlier stages.
 
 The stage win marks Leknessud's first Grand Tour victory, capping a season that has seen the Norwegian steadily improve his climbing credentials. His solo effort was celebrated by his teammates and the Norwegian cycling federation, which highlighted the achievement as a sign of the country's growing presence in elite road racing.
-
-Reporting based on coverage from Reuters

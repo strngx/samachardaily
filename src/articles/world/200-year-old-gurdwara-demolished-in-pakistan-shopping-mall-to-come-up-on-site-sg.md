@@ -9,6 +9,7 @@ video_id: "ifKWLA0L6eQ"
 video_caption: "Balochistan &#39;ਚ ਗੁਰੂ ਘਰ ਢਹਿ-ਢੇਰੀ, ਗੁਰਦੁਆਰੇ ਦੀ ਥਾਂ &#39;ਤੇ ਬਣ ਰਿਹਾ ਸ਼ਾਪਿੰਗ MALL | RP Singh | N18G"
 slug: "200-year-old-gurdwara-demolished-in-pakistan-shopping-mall-to-come-up-on-site-sg"
 sourceUrl: "https://www.ptcnews.tv/world-news/200-year-old-gurdwara-demolished-in-pakistan-for-shopping-mall-sgpc-bjp-flay-move-4428694"
+sourceName: "PTC News"
 dek: "A 200‑year‑old Sikh shrine in Pakistan was demolished to clear the site for a commercial complex, prompting condemnation from the Shiromani Gurdwara Parbandhak Committee and India’s Bharatiya Janata Party."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ The demolition of a two‑century‑old gurdwara in Pakistan has ignited a diplo
 The move has drawn sharp criticism from the Shiromani Gurdwara Parbandhak Committee (SGPC), the apex body that oversees Sikh places of worship worldwide. In a statement released on Thursday, the SGPC described the demolition as "a blatant violation of religious freedom and cultural heritage," urging the Pakistani government to halt the construction and restore the shrine. The Bharatiya Janata Party (BJP), India’s ruling party, echoed these concerns, labeling the act "an affront to the shared history of the subcontinent" and calling for international attention to the plight of Sikh heritage sites in Pakistan.
 
 Pakistani officials, however, defended the project, asserting that the redevelopment aligns with urban planning goals and will generate employment opportunities. They indicated that compensation will be offered to the custodians of the gurdwara, though details remain vague. The incident arrives amid a broader pattern of heritage disputes between the two neighbours, with several other pre‑partition religious sites reportedly facing neglect or redevelopment pressures.
-
-Reporting based on coverage from PTC News

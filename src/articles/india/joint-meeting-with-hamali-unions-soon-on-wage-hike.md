@@ -20,6 +20,7 @@ videos:
     channel: "V6 News Telugu"
 slug: "joint-meeting-with-hamali-unions-soon-on-wage-hike"
 sourceUrl: "https://www.thehansindia.com/news/cities/amaravati/joint-meeting-with-hamali-unions-soon-on-wage-hike-1115201"
+sourceName: "The Hans India"
 dek: "The Ministry of Labour will hold a joint meeting with Hamali unions demanding an increase in loading and unloading wages from Rs 28 to Rs 40 per quintal, citing rising living costs."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -33,5 +34,3 @@ The Ministry of Labour has agreed to hold a joint meeting with the Hamali unions
 Union leaders argue that the current rate has been eroded by steep increases in petrol, diesel, cooking gas, essential commodities and electricity over the past two years, leaving workers unable to meet basic expenses.
 
 Officials said the meeting will review the wage structure in line with the Minimum Wages Act and recent inflation data, and will consider the financial impact on logistics firms and the broader supply chain.
-
-Reporting based on coverage from The Hans India

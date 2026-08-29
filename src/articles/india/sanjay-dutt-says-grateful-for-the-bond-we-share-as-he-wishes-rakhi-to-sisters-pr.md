@@ -9,6 +9,7 @@ video_id: "85_2UXSKLX8"
 video_caption: "Sanjay Dutt Kindness #shorts #sanjaydutt #sunildutt"
 slug: "sanjay-dutt-says-grateful-for-the-bond-we-share-as-he-wishes-rakhi-to-sisters-pr"
 sourceUrl: "https://timesofindia.indiatimes.com/entertainment/hindi/bollywood/news/sanjay-dutt-says-grateful-for-the-bond-we-share-as-he-wishes-rakhi-to-sisters-priya-anju/articleshow/133590397.cms"
+sourceName: "Times of India"
 dek: "The veteran actor marked the festival by expressing gratitude to his sisters, recalling childhood memories and the enduring legacy of their parents Sunil Dutt and Nargis."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ On Raksha Bandhan, Sanjay Dutt used his social media platform to acknowledge the
 Priya Dutt responded to her brother’s message by recalling the carefree adventures of their childhood, when the three siblings would roam the Dutt household under the watchful eyes of their iconic parents, Sunil Dutt and Nargis. She emphasized that the values instilled by their parents—humility, compassion, and a love for cinema—continue to shape the siblings’ interactions today. The recollection underscored how the Dutt family’s close-knit dynamic has endured despite the challenges that have marked Sanjay Dutt’s public life.
 
 The tribute quickly resonated with fans and fellow industry members, who flooded the comments with wishes and admiration for the family’s unity. Many highlighted how Sanjay Dutt’s public acknowledgment of his sisters added a personal touch to a festival that celebrates sibling ties across India, reinforcing the actor’s connection with his audience beyond the screen.
-
-Reporting based on coverage from Times of India

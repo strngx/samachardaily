@@ -20,6 +20,7 @@ videos:
     channel: "Always Cinema"
 slug: "naidu-launches-ai-powered-pramaan-operating-system"
 sourceUrl: "https://www.thehansindia.com/news/cities/amaravati/naidu-launches-ai-powered-pramaan-operating-system-1115203"
+sourceName: "The Hans India"
 dek: "The state government introduced Pramaan, an AI-powered operating system designed to streamline services for businesses, chartered accountants and other accounting professionals, offering automation, analytics, compliance and security features."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -33,5 +34,3 @@ The Andhra Pradesh government, led by Chief Minister Y.S. Jagan Mohan Naidu, o
 Pramaan targets small and medium enterprises, large corporations, chartered accountants and other accounting professionals. Its suite includes AI‑enabled invoice processing, tax filing assistance, risk‑based analytics, and end‑to‑end information‑security protocols that align with national data‑privacy standards. In a briefing, the IT department highlighted that the platform can reduce manual processing time by up to 60 percent and lower error rates in compliance filings.
 
 State officials said the rollout will be phased, beginning with a pilot involving select businesses and accounting firms. Training modules and a dedicated support helpline will accompany the launch, and the government plans to integrate Pramaan with existing e‑governance portals such as the Andhra Pradesh Business Portal and the GSTN network.
-
-Reporting based on coverage from The Hans India

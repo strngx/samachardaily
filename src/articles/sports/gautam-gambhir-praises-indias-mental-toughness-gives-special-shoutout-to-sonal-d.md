@@ -9,6 +9,7 @@ video_id: "tao_FFWuyqk"
 video_caption: "Gautam Gambhir Press Conference | India Vs Sri Lanka Test | Sarfaraz | Pant | Rahul | Shubman"
 slug: "gautam-gambhir-praises-indias-mental-toughness-gives-special-shoutout-to-sonal-d"
 sourceUrl: "https://www.dtnext.in/news/sports/gautam-gambhir-praises-indias-mental-toughness-gives-special-shoutout-to-sonal-dinusha"
+sourceName: "DTNext"
 dek: "India’s head coach praised his side’s resilience in clinching a 2-0 victory over Sri Lanka, while also giving a special shout‑out to Sri Lankan bowler Sonal Dinusha for his spirited performance."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -19,5 +20,3 @@ India wrapped up a two‑Test series against Sri Lanka with a clean 2-0 sweep, a
 While celebrating the victory, Gambhir also turned the spotlight on Sri Lanka’s emerging pacer Sonal Dinusha, offering a "special shout‑out" for his disciplined spell of bowling. He highlighted Dinusha’s ability to maintain a tight line and generate pressure, qualities that earned respect even from the opposition’s camp. The acknowledgment underscored the competitive spirit of the series, where both teams displayed moments of high quality cricket.
 
 Gambhir’s comments came as the Indian squad reflected on the series’ lessons ahead of upcoming commitments, including a home series against England later this year. He emphasized that the mental edge cultivated in Sri Lanka would be essential for handling the varied challenges of the international calendar, especially in conditions that demand adaptability and perseverance.
-
-Reporting based on coverage from DTNext

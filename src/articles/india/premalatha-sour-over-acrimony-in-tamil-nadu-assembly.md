@@ -9,6 +9,7 @@ video_id: "xiNmJAiqSVw"
 video_caption: "ஆதவ் அர்ஜுனாவை சாடிய பிரேமலதா! கணக்கில் வராத சொத்து விபரங்கள் அம்பலம்! TVK | Premalatha"
 slug: "premalatha-sour-over-acrimony-in-tamil-nadu-assembly"
 sourceUrl: "https://www.deccanchronicle.com/southern-states/tamil-nadu/premalatha-sour-over-acrimony-in-tamil-nadu-assembly-1982952"
+sourceName: "Deccan Chronicle"
 dek: "The legislator claimed she was barred from speaking in the house, saying she had met the Speaker to highlight the deteriorating conduct of proceedings."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ Tamil Nadu legislator Premalatha expressed frustration on Monday after she was r
 The episode has added to growing tensions between the ruling Dravida Munnetra Kazhagam (DMK) and opposition parties, particularly the All India Anna Dravida Munnetra Kazhagam (AIADMK), to which Premalatha belongs. Opposition lawmakers have previously protested what they call procedural irregularities, including the limited time allotted for questions and debates. The speaker’s office, however, has not issued a detailed response to Premalatha’s grievance, maintaining that the allocation of speaking time follows established rules and the assembly’s agenda.
 
 Political analysts note that such disputes over speaking privileges are not new in Tamil Nadu’s vibrant legislative culture, but they often signal deeper frictions over policy direction and governance. Premalatha’s public complaint underscores the challenges faced by opposition legislators in making their concerns heard within a tightly controlled parliamentary environment.
-
-Reporting based on coverage from Deccan Chronicle

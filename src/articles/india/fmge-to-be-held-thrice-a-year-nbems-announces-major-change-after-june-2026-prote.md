@@ -9,6 +9,7 @@ video_id: "1r-nn1MwcRE"
 video_caption: "Big Update for FMGE 2026! What You Must Know About NBEMS Changes | FMGE Latest News Today!"
 slug: "fmge-to-be-held-thrice-a-year-nbems-announces-major-change-after-june-2026-prote"
 sourceUrl: "https://www.timesnownews.com/web-stories/education/fmge-to-be-held-thrice-a-year-nbems-announces-major-change-after-june-2026-protests-article-156001026"
+sourceName: "Times Now News"
 dek: "The National Board of Examinations Medical Services (NBEMS) announced that the Foreign Medical Graduate Examination (FMGE) will be conducted three times annually starting June 2026, and that detailed question IDs, correct answers and candidate responses will be posted online."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ The National Board of Examinations Medical Services (NBEMS) has unveiled a major
 The decision follows a series of protests and legal petitions filed by thousands of FMGE candidates who complained about the limited number of attempts, long result turnaround times and the opaque grading process. Under the current system, candidates can appear only twice a year and often wait several months for results, a delay that stalls their registration with the National Medical Commission (NMC) and hampers career progression. By increasing the frequency of the exam and publishing detailed answer data, NBEMS hopes to alleviate the backlog, reduce uncertainty and restore confidence in the assessment mechanism.
 
 NBEMS officials indicated that the additional April session will be synchronized with the existing infrastructure of test centres across India, and that the online portal will be secured to protect candidate privacy while allowing easy verification of scores. The board has not disclosed any changes to the exam’s syllabus or difficulty level, emphasizing that the core content will remain aligned with the NMC’s competency standards.
-
-Reporting based on coverage from Times Now News

@@ -9,6 +9,7 @@ video_id: ""
 video_caption: ""
 slug: "oil-iocl-exit-gabon-block-end-decade-old-oil-project"
 sourceUrl: "https://economictimes.indiatimes.com/industry/energy/oil-gas/oil-iocl-exit-gabon-block-end-decade-old-oil-project/articleshow/133598006.cms"
+sourceName: "Economic Times"
 dek: "Oil India Ltd and Indian Oil Corp have handed back their 50‑50 partnership in Gabon's Shakthi‑II exploration block, terminating the production sharing contract after more than ten years of delays."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ The two Indian energy majors formally relinquished their rights to the Shakthi�
 The decision to exit was taken after senior management reviews concluded that the continued financial outlay required to keep the project alive would not be justified given the uncertain timeline for first oil. Sources familiar with the companies' internal deliberations said that the partners had repeatedly sought to renegotiate terms with Gabonese authorities, but the negotiations stalled, leaving the PSC in a state of limbo. By formally surrendering the block, the companies will also forfeit any future entitlement to hydrocarbons from the area, though they will avoid further liability for operational costs and penalties.
 
 Gabon’s Directorate General of Hydrocarbons confirmed receipt of the relinquishment notice and announced that the block would be re‑offered to other interested investors through a fresh bidding round. The move is expected to free up OIL and IOCL’s capital for other strategic projects, including domestic upstream initiatives and the expansion of refining capacity back home in India.
-
-Reporting based on coverage from Economic Times

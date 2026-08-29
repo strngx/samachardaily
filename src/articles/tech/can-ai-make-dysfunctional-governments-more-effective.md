@@ -9,6 +9,7 @@ video_id: "GKILCqVwp9E"
 video_caption: "Can AI solve South Korea’s problem with social recluses? - Asia Specific podcast, BBC World Service"
 slug: "can-ai-make-dysfunctional-governments-more-effective"
 sourceUrl: "https://www.hindustantimes.com/technology/can-ai-make-dysfunctional-governments-more-effective-101787908266189.html"
+sourceName: "Hindustan Times"
 dek: "Across Asia, governments are experimenting with artificial intelligence to streamline services, but the technology also exposes deep‑seated bureaucratic flaws and raises questions about accountability and equity."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -19,5 +20,3 @@ In recent months, several Asian administrations have launched AI‑driven pilots
 These projects, however, have encountered practical and ethical snags. In India, the AI system struggled with linguistic diversity, misclassifying complaints lodged in regional languages and forcing manual overrides that negated speed gains. Singapore’s data‑centric approach sparked debate over privacy, as critics warned that extensive citizen profiling could erode trust in public institutions. In China, concerns about algorithmic bias surfaced when the facial‑recognition kiosks disproportionately flagged minority applicants, prompting calls for transparent auditing mechanisms. Across the board, a shortage of skilled AI talent within the civil service and the reliance on third‑party vendors have further complicated implementation, leaving many pilots in a perpetual testing phase.
 
 The mixed outcomes underscore a broader truth: while AI can automate routine tasks and surface insights hidden in massive datasets, it cannot compensate for systemic inefficiencies, opaque decision‑making or inadequate regulatory frameworks. Successful integration appears contingent on coupling technology with robust governance, clear accountability and a commitment to inclusivity.
-
-Reporting based on coverage from Hindustan Times

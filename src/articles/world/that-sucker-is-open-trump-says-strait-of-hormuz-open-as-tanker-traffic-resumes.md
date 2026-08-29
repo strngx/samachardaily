@@ -9,6 +9,7 @@ video_id: "qUoRNpMSHLI"
 video_caption: "The Strait Of Hormuz: Energy Lifeline Or Global Time Bomb? | 4K Documentary"
 slug: "that-sucker-is-open-trump-says-strait-of-hormuz-open-as-tanker-traffic-resumes"
 sourceUrl: "https://www.firstpost.com/world/that-sucker-is-open-trump-says-strait-of-hormuz-open-as-tanker-traffic-resumes-14041533.html"
+sourceName: "Firstpost"
 dek: "President Donald Trump announced the reopening of the Strait of Hormuz, while the US military confirmed that Iranian sea mines have been cleared, allowing 20‑30 tankers to pass nightly, though volumes remain below pre‑conflict levels."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ President Donald Trump took to the podium on Thursday and declared, “That suck
 According to the US Navy, the clearance operation involved mine‑hunting vessels and explosive ordnance disposal teams who swept the channel over a two‑day period. Following the operation, commercial vessels began to return, with the maritime traffic monitoring agency reporting that roughly 20 to 30 oil tankers are now transiting the strait each night. While this marks a clear improvement over the near‑standstill that followed the mine deployment, analysts note that the current flow is still well below the pre‑war average of 60‑70 tankers per night, indicating lingering caution among shippers.
 
 The resurgence of traffic has been welcomed by oil markets, which had seen price spikes as the strait’s closure threatened to choke off roughly a fifth of the world’s daily oil supply. However, officials from both the United States and the United Kingdom warned that the situation remains volatile and that any further escalation by Iran could quickly reverse the gains made by the clearance operation.
-
-Reporting based on coverage from Firstpost

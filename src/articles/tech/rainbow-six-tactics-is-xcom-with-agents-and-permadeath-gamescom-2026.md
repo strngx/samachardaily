@@ -9,6 +9,7 @@ video_id: "unmlCAE4wqY"
 video_caption: "Rainbow Six Tactics - Reveal Trailer | PS5 Games"
 slug: "rainbow-six-tactics-is-xcom-with-agents-and-permadeath-gamescom-2026"
 sourceUrl: "https://in.ign.com/tom-clancys-rainbow-6-tactics/270414/rainbow-six-tactics-is-xcom-with-agents-and-permadeath-gamescom-2026"
+sourceName: "IGN"
 dek: "At Gamescom 2026 Ubisoft announced Rainbow Six Tactics, a single‑player, turn‑based tactical game that blends the series’ operator DNA with XCOM‑style combat and permanent death, slated for a 2027 release on PS5, PC and Xbox Series X|S."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ Ubisoft used its Gamescom 2026 press conference to reveal Rainbow Six Tactics, t
 A key feature highlighted at the showcase is permadeath, meaning that if an operator falls in battle, they are permanently removed from the campaign, raising the stakes for players accustomed to the series’ more forgiving health systems. Ubisoft confirmed that Rainbow Six Tactics will launch in 2027 across PlayStation 5, Xbox Series X|S and PC via Ubisoft Connect and Steam. The announcement included a short gameplay trailer that demonstrated the grid layout, cover mechanics and the way operator abilities interact in a turn‑based context, giving fans a clear picture of how the familiar tactical tension translates to a new genre.
 
 The developers also noted that the game will feature a narrative‑driven single‑player campaign, a departure from the primarily multiplayer focus of recent Rainbow Six titles. By returning to a story‑centric experience, Ubisoft hopes to attract both longtime fans of the franchise and players who prefer strategic, turn‑based gameplay.
-
-Reporting based on coverage from IGN

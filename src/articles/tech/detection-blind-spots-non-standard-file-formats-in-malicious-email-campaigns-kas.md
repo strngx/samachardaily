@@ -9,6 +9,7 @@ video_id: ""
 video_caption: ""
 slug: "detection-blind-spots-non-standard-file-formats-in-malicious-email-campaigns-kas"
 sourceUrl: "https://www.kaspersky.co.in/blog/exotic-file-formats-detection-gaps-iso-one-xll-svg/31009/"
+sourceName: "Kaspersky"
 dek: "Cybercriminals are increasingly using uncommon file types such as disk images, atypical Office add‑ins and vector graphics to slip malware past traditional email scanners, according to Kaspersky research."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -20,5 +21,3 @@ Kaspersky’s research team has identified a growing trend where threat actors e
 Real‑world campaigns cited by Kaspersky illustrate the danger. In one case, a phishing email carried an ISO image that, when mounted, automatically launched a ransomware dropper hidden in the disc’s hidden folder. Another operation used a malicious XLL file – an Excel add‑in – to execute PowerShell commands that downloaded a banking trojan. SVG files, which are normally used for scalable graphics, were weaponised with embedded JavaScript that triggered drive‑by downloads when rendered in a webmail client. The most sophisticated examples involved polyglot files that behaved simultaneously as a PDF and a Windows executable, confusing signature‑based scanners that only parsed one format. These techniques expose a blind spot in many corporate email gateways and endpoint protection products that do not fully unpack or analyse the inner structure of such containers.
 
 Kaspersky advises security vendors to broaden their inspection capabilities to include these less common formats and to adopt behavior‑based detection that watches for suspicious actions regardless of file type. The firm also recommends regular updates to signature databases, sandboxing of attachments, and user awareness training to discourage opening unexpected files, especially from unknown senders.
-
-Reporting based on coverage from Kaspersky

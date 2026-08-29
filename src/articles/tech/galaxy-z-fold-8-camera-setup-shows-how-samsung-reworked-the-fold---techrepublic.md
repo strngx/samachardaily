@@ -9,6 +9,7 @@ video_id: "Z6z_feacXW8"
 video_caption: "Galaxy Z Fold 8 Review: Honeymoon&#39;s Over"
 slug: "galaxy-z-fold-8-camera-setup-shows-how-samsung-reworked-the-fold---techrepublic"
 sourceUrl: "https://news.google.com/rss/articles/CBMic0FVX3lxTE1lTi1XdnpNTjJFTWR5ejA5Y3YyMnhYcU1iTkRVby16Q29BYXVOd0NWMDlwcTlBc3h1TnRJci1VNGpxRzFvNlFPVUxmRjRDb0h2bWJpVWZNc0dVYzlOSWdIRnJ6S0NxSVVvRjBqa294Tlo0NGc?oc=5"
+sourceName: "TechRepublic"
 dek: "The latest Galaxy Z Fold 8 swaps its previous camera layout for a slimmer, more integrated system, a change highlighted by teardown videos and early reviewer impressions across Europe and India."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ Samsung’s eighth‑generation Foldable, the Galaxy Z Fold 8, arrives with a 
 Early reviews from European tech outlets and Indian publications such as The Indian Express and The Economic Times note that the camera performance feels more balanced, with faster autofocus and improved low‑light handling. Android Police and TechRepublic both point out that the redesign not only trims the device’s weight by a few grams but also enhances durability, as the new hinge mechanism distributes stress more evenly across the chassis. Samsung’s own Global Newsroom material confirms that the reengineered camera stack was a key focus during the device’s engineering phase, aiming to close the gap between foldable and flagship slab phones.
 
 Consumer sentiment appears positive. European reviewers praised the Z Fold 8 Ultra’s larger sensor suite, while many Indian users who initially eyed the premium Ultra model shifted to the standard Fold 8 after noting that the camera upgrades delivered comparable results at a lower price point. This shift underscores Samsung’s strategy of offering high‑end features across multiple price tiers.
-
-Reporting based on coverage from TechRepublic

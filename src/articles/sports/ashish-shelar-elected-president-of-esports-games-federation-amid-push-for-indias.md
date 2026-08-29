@@ -9,6 +9,7 @@ video_id: ""
 video_caption: ""
 slug: "ashish-shelar-elected-president-of-esports-games-federation-amid-push-for-indias"
 sourceUrl: "https://www.freepressjournal.in/sports/ashish-shelar-elected-president-of-esports-games-federation-amid-push-for-indias-gaming-ecosystem"
+sourceName: "Free Press Journal"
 dek: "Maharashtra’s sports minister Ashish Shelar has been chosen as the head of the newly formed Esports Games Federation (ESGF), a body positioned as a rival to the existing Esports Federation of India. The ESGF plans to accelerate player development, organise more tournaments and push Indian teams onto the global stage."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -22,5 +23,3 @@ The Esports Games Federation (ESGF) announced on Tuesday that Ashish Shelar, Mah
 The ESGF’s charter outlines three core pillars: nurturing talent through structured coaching programmes, expanding the domestic competition calendar, and facilitating Indian teams’ participation in international events such as the Asian Games and global esports leagues. The federation also intends to work closely with state governments to create dedicated esports arenas and to lobby for clearer regulatory guidelines on issues like betting, sponsorship and player contracts. By establishing a parallel governing structure, the ESGF hopes to address what its founders see as gaps in EFI’s outreach, especially in tier‑two and tier‑three cities where grassroots participation is still limited.
 
 Industry observers see Shelar’s political clout as a potential catalyst for faster policy decisions. The minister has previously championed sports infrastructure projects in Maharashtra and is now expected to leverage his network to secure funding, corporate partnerships and media coverage for the ESGF’s upcoming initiatives, including a national league slated to launch next year.
-
-Reporting based on coverage from Free Press Journal

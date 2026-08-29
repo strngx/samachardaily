@@ -9,6 +9,7 @@ video_id: "hyqs9ai-bsM"
 video_caption: "張又俠劉振立軍委職務正式被免#中國新聞#張又俠"
 slug: "china-removes-ex-top-general-zhang-from-central-military-commission-state-media"
 sourceUrl: "https://www.channelnewsasia.com/east-asia/china-zhang-youxia-removed-central-military-commission-6347871"
+sourceName: "Channel News Asia"
 dek: "Beijing announced on Friday that senior PLA officer Zhang Youxia was stripped of his seat on the Central Military Commission, marking a notable shift in China’s top military leadership."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -22,5 +23,3 @@ China’s state media reported that on Friday, August 28, the Central Military C
 The CMC, chaired by Xi Jinping, oversees the PLA’s strategic direction, operational command and political loyalty. While the state release did not provide a specific reason for Zhang’s departure, analysts interpret the move as part of a routine turnover that aligns with the party’s practice of refreshing leadership ahead of major political cycles. Zhang’s removal comes as the PLA continues to modernise its forces and adapt to new security challenges, ranging from Taiwan tensions to maritime disputes in the South China Sea.
 
 Zhang’s career includes command of the Beijing Military Region, a key posting that placed him at the heart of the capital’s security apparatus. His exit from the CMC may signal the end of an era for a generation of officers who rose through the ranks during the post‑Mao reforms, making way for younger commanders who have been groomed under Xi’s intensified anti‑corruption and loyalty‑driven campaigns.
-
-Reporting based on coverage from Channel News Asia

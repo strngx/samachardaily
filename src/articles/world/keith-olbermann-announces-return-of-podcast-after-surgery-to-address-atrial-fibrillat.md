@@ -12,6 +12,7 @@ video_caption: ""
 videos: []
 slug: "keith-olbermann-announces-return-of-podcast-after-surgery-to-address-atrial-fibrillat"
 sourceUrl: "https://awfulannouncing.com/podcasts/keith-olbermann-return-podcast-surgery-atrial-fibrillation.html"
+sourceName: "Awful Announcing"
 dek: "The former ESPN and MSNBC anchor announced he is back on air following a catheter‑ablation procedure for atrial fibrillation that forced a hiatus since May."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -25,5 +26,3 @@ Keith Olbermann, the veteran broadcaster who most recently hosted a political ta
 He revealed on his personal YouTube channel that doctors had diagnosed him with atrial fibrillation and that he underwent a minimally invasive catheter‑ablation surgery. Post‑operative reports indicate a successful outcome, and his medical team cleared him for a full return to broadcasting duties.
 
 The podcast, titled “The Keith Olbermann Show,” is set to resume later this month, with a special episode planned to address his health journey and outline upcoming political commentary for listeners.
-
-Reporting based on coverage from Awful Announcing

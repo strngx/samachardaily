@@ -12,6 +12,7 @@ video_caption: ""
 videos: []
 slug: "wayne-clears-113-unit-all-affordable-complex-on-old-growth-forest-near-wayne-hills-hi"
 sourceUrl: "https://hoodline.com/2026/08/wayne-clears-113-unit-all-affordable-complex-on-old-growth-forest-near-wayne-hills-high/"
+sourceName: "Hoodline"
 dek: "The Wayne Township Planning Board gave the green light to a 113‑unit, all‑affordable housing project on a parcel of old‑growth forest adjacent to Wayne Hills High School and Pancake Hollow."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -25,5 +26,3 @@ The Planning Board voted unanimously to allow a 113‑unit, all‑affordable hou
 Proponents argue the project will alleviate the local affordable‑housing deficit and generate modest tax revenue, while environmental groups have raised concerns about the loss of mature forest habitat and potential impacts on nearby school traffic and safety. The site’s proximity to the high school has sparked debate over student safety, parking, and the character of the neighborhood.
 
 Town officials said the approval triggers a series of procedural steps, including the issuance of building permits, a state‑required environmental impact assessment, and a public hearing on mitigation measures. Construction is expected to commence once these clearances are secured, with developers targeting a phased rollout of units over the next several years.
-
-Reporting based on coverage from Hoodline

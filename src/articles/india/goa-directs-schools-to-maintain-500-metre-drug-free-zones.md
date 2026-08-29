@@ -9,6 +9,7 @@ video_id: "tCsDOzatv5Y"
 video_caption: "Don’t Create Confusion Over Drug-Free Zone Circular: CM Sawant"
 slug: "goa-directs-schools-to-maintain-500-metre-drug-free-zones"
 sourceUrl: "https://nenews.in/goa/goa-directs-schools-to-maintain-500-metre-drug-free-zones/62429/"
+sourceName: "Northeast News"
 dek: "The Goa Directorate of Education has mandated that all state schools establish a 500‑metre drug‑free perimeter, acting on a recommendation from the Narcotics Control Bureau as part of a broader anti‑drug drive."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ The Directorate of Education in Goa issued an immediate directive to every schoo
 The move aligns with a nationwide initiative aimed at curbing the rising incidence of drug abuse among youth, particularly in states with high tourist footfall like Goa. The NCB has been urging educational institutions to become front‑line defenders against narcotics, emphasizing that early intervention can deter students from falling into drug use. By extending the responsibility beyond school grounds, the directive seeks to create a buffer that discourages dealers from operating near educational facilities.
 
 School administrators across Goa have begun drafting implementation plans, which may include installing signage, setting up helplines, and organizing counselling sessions. The Directorate has also promised to provide training resources and to monitor compliance through periodic inspections. Failure to adhere to the directive could result in penalties or withdrawal of certain state‑funded benefits, though the exact punitive measures remain to be clarified.
-
-Reporting based on coverage from Northeast News

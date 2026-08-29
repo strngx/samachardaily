@@ -9,6 +9,7 @@ video_id: "ikJ9WHdZmv8"
 video_caption: "Asia factory slowdown rattles growth hopes"
 slug: "indias-july-industrial-output-grows-67-yy"
 sourceUrl: "https://www.reuters.com/world/india/indias-july-industrial-output-grows-67-yy-2026-08-28/"
+sourceName: "Reuters"
 dek: "India’s industrial production recorded a 6.7% year‑on‑year increase in July, signalling renewed momentum in the manufacturing and services sectors amid a cautious economic recovery."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -22,5 +23,3 @@ The Ministry of Statistics and Programme Implementation (MoSPI) reported that In
 Economists attribute the surge to a combination of factors, including higher domestic demand for consumer goods, a rebound in capital spending by firms, and a modest easing of supply‑chain bottlenecks that had lingered since 2023. The government’s continued focus on infrastructure projects and the rollout of the Production‑Linked Incentive (PLI) schemes for electronics, pharmaceuticals and textiles are also seen as supportive undercurrents. While the data points to a healthier industrial base, analysts caution that the growth may be uneven, with some heavy‑industry subsectors still grappling with raw‑material price volatility.
 
 The July figures arrive as India’s broader economy is navigating a mixed outlook. The country’s GDP growth for the March‑June quarter was revised upward to 7.2%, but inflationary pressures and global monetary tightening remain concerns. The industrial output data will feed into the Reserve Bank of India’s (RBI) next policy review, where officials will assess whether the current growth momentum justifies a more accommodative stance or warrants caution amid external uncertainties.
-
-Reporting based on coverage from Reuters

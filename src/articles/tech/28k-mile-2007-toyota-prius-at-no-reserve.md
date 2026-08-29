@@ -21,6 +21,7 @@ videos:
     channel: "Pakistan police "
 slug: "28k-mile-2007-toyota-prius-at-no-reserve"
 sourceUrl: "https://bringatrailer.com/listing/2007-toyota-prius-2/"
+sourceName: "Bring A Trailer"
 dek: "A 2007 Toyota Prius with only 28,000 miles, retained by its first owner for 19 years, was listed without a reserve price at a Maryland auction in July 2026."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ The 2007 Toyota Prius, finished in Classic Silver Metallic with dark‑gray clot
 Bring A Trailer’s listing highlighted the vehicle’s original equipment—15‑inch alloy wheels, anti‑lock brakes, stability control, rear‑view camera, air conditioning, cruise control and power accessories—underscoring how well‑maintained hybrids can retain value decades after release. Bidders were drawn to the rarity of a 2007 Prius with just 28,000 miles, a figure more typical of a much newer car.
 
 The auction attracted both hybrid enthusiasts and collectors seeking a demonstrable example of early hybrid durability. While the final sale price was not disclosed, the no‑reserve format suggested confidence that market demand would meet or exceed the dealer’s expectations, especially given the vehicle’s pristine condition and documented service history.
-
-Reporting based on coverage from Bring A Trailer

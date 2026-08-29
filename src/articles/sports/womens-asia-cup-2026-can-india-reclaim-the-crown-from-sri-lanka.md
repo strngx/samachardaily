@@ -9,6 +9,7 @@ video_id: "BN7DprPWUGI"
 video_caption: "Highlights | Semi-Final 1 | India &#39;A&#39; v Sri Lanka &#39;A&#39; | DP World Women&#39;s Asia Cup Rising Stars 2026"
 slug: "womens-asia-cup-2026-can-india-reclaim-the-crown-from-sri-lanka"
 sourceUrl: "https://www.sportsyaari.com/cricket/womens-asia-cup-2026-can-india-reclaim-the-crown-from-sri-lanka-32280/"
+sourceName: "SportsYaari"
 dek: "The 10th edition of the Women’s Asia Cup begins in Dubai on August 28, with eight teams split into two groups and a possible India‑Sri Lanka showdown for the T20I crown."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -19,5 +20,3 @@ The Women’s Asia Cup 2026 will be staged at the International Cricket Stadium 
 India enters the tournament with a strong pedigree, having lifted the Asia Cup trophy three times in the past decade. However, they fell short in the 2024 edition, losing to Sri Lanka in the final. The loss has added urgency to their campaign, as they look to reclaim the title they last held in 2022. The Indian squad, led by seasoned campaigner Harmanpreet Kaur, blends experience with emerging talent such as Shafali Verma and Deepti Sharma, who have been in prolific form in recent bilateral series. Their primary challenge will be navigating a competitive Group A that includes a resurgent Pakistan side, which has shown significant improvement in the T20 format.
 
 Sri Lanka, the current champions, will be defending their crown on the back of a disciplined bowling unit that outperformed opponents in the previous edition. Their batting line‑up, anchored by Chamari Athapaththu, aims to replicate the aggressive style that saw them lift the trophy last year. Should both India and Sri Lanka top their respective groups, a semi‑final clash or a direct final encounter could set up a high‑stakes duel, reviving a rivalry that has defined women’s cricket in the sub‑continent for years.
-
-Reporting based on coverage from SportsYaari

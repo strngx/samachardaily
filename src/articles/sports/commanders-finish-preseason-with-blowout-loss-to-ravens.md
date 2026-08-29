@@ -21,6 +21,7 @@ videos:
     channel: "NFL"
 slug: "commanders-finish-preseason-with-blowout-loss-to-ravens"
 sourceUrl: "https://www.dailypress.com/2026/08/28/commanders-finish-preseason-with-blowout-loss-to-ravens/"
+sourceName: "Daily Press"
 dek: "Washington coach Dan Quinn criticised the team's performance after a lopsided loss to Baltimore in the preseason's final game, despite both squads fielding largely backup rosters."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ The Washington Commanders closed their preseason schedule with a heavy loss to t
 Coach Dan Quinn addressed the locker room after the game, saying, “It does not matter, you guys, who is or isn’t playing. What we saw tonight simply was not good enough.” His blunt assessment underscored concerns about depth, scheme familiarity, and the readiness of younger talent to step up when starters are unavailable.
 
 The loss adds pressure on the coaching staff as they finalize the 53‑man roster ahead of the regular season. Evaluations will focus on which backup players demonstrated the potential to contribute in limited roles and whether any positional groups require further reinforcement through free‑agency moves or trades.
-
-Reporting based on coverage from Daily Press

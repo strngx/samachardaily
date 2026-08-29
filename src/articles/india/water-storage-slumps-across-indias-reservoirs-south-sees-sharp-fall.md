@@ -9,6 +9,7 @@ video_id: "vsFNAH-g3hg"
 video_caption: "ಭಾರತದ ಬುಡಕ್ಕೆ ಚೀನಾ ಬಾಂಬ್- ಭಾರತ ಮುಳುಗಿಸಲು ಮಹಾ ಸಂಚು- Brahmaputra River dam |China |Thirdeyekannada"
 slug: "water-storage-slumps-across-indias-reservoirs-south-sees-sharp-fall"
 sourceUrl: "https://www.chinimandi.com/water-storage-slumps-across-indias-reservoirs-south-sees-sharp-fall/"
+sourceName: "Chinimandi"
 dek: "The Central Water Commission’s latest bulletin shows live storage in Indian reservoirs fell to 125.3 billion cubic metres, just 67.8% of total capacity, a steep decline from last year’s 153.1 bcm, with the southern states recording the sharpest fall."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ The Central Water Commission (CWC) released its reservoir storage bulletin for t
 The bulletin highlights regional disparities. While the northern region retained a larger share of its storage, the southern region experienced a pronounced drop, with several key reservoirs in Karnataka, Tamil Nadu and Andhra Pradesh falling well below the 70% threshold. In some basins, live storage dipped to the low‑50s percent, prompting concerns over water security for the upcoming agricultural season. The CWC’s data also shows that overall inflows have been below long‑term averages, reflecting a weaker monsoon in the central and western zones.
 
 The decline comes at a time when India’s water demand is projected to rise sharply due to population growth, expanding urban consumption, and increased hydro‑electric generation. The shortfall threatens not only irrigation schedules but also the operational capacity of major hydro‑power plants, potentially affecting the national grid during peak summer months. State water ministries are already issuing advisories to prioritize water use and explore supplemental sources such as groundwater and rainwater harvesting.
-
-Reporting based on coverage from Chinimandi

@@ -9,6 +9,7 @@ video_id: "Jq9duNqKAms"
 video_caption: "Pat Cummins supports former International Cricket Captains plea for Imran Khan Medical Treatment 😳🔥"
 slug: "pat-cummins-supports-former-international-captains-joint-plea-for-ex-pakistan-pm"
 sourceUrl: "https://www.latestly.com/sports/cricket/pat-cummins-supports-former-international-captains-joint-plea-for-ex-pakistan-pm-imran-khan-7580094.html"
+sourceName: "Latestly"
 dek: "Pat Cummins has joined 21 ex‑international captains, including Sunil Gavaskar and Kapil Dev, urging Pakistan’s prime minister to ensure proper medical care for jailed former leader Imran Khan."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ A coalition of 21 former international cricket captains, among them Indian legen
 Australian Test captain Pat Cummins, who leads the national side in the ongoing Ashes series, publicly endorsed the plea in a short video posted on his verified Instagram account. Cummins said, "Cricket is a game that unites us across borders, and we cannot turn a blind eye when any of our own are suffering. I stand with my fellow former captains in urging the Pakistani government to act compassionately." His endorsement adds a high‑profile voice from outside South Asia, underscoring the global cricket community’s concern over the matter.
 
 Imran Khan, a former cricket star turned politician, has been behind bars since May 2023 on corruption‑related charges. His supporters claim he has been denied adequate medical facilities, while authorities maintain that his health is being monitored. The joint plea follows earlier statements by former captains who warned that neglecting Khan’s health could tarnish Pakistan’s international image, especially ahead of the upcoming ICC World Cup where the nation hopes to showcase its hospitality and sporting spirit.
-
-Reporting based on coverage from Latestly

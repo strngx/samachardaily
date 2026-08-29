@@ -9,6 +9,7 @@ video_id: "4mbAzc0t-ps"
 video_caption: "📢 GOOD NEWS : IBPS PO 2026 - LOWER CUTOFF THIS TIME || VACANCY INCREASED 😱"
 slug: "ibps-po-recruitment-2026-vacancy-increased-to-7565-posts-update"
 sourceUrl: "https://ghaziabad365.com/?p=643356"
+sourceName: "Ghaziabad365"
 dek: "The Institute of Banking Personnel Selection (IBPS) has increased the number of Probationary Officer/Management Trainee positions for the 2026‑27 recruitment cycle from 7,365 to 7,565, reflecting higher demand for fresh talent in India’s banking sector."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ The Institute of Banking Personnel Selection (IBPS) announced on its official po
 Candidates who have already submitted their online applications will see the updated vacancy reflected in the portal’s dashboard. The selection procedure remains unchanged: a three‑stage process comprising a preliminary exam, a mains examination and a final interview. Eligibility criteria continue to require a bachelor’s degree with a minimum aggregate of 50 % (45 % for reserved categories) and an age limit of 21‑30 years, extendable by up to three years for certain categories. The IBPS has not altered the exam dates, but the larger pool of vacancies is expected to intensify competition for merit‑based shortlisting in the preliminary round.
 
 Banking aspirants across the country are reacting positively to the news, noting that the additional 200 positions could accommodate more candidates from under‑represented regions and help address staffing shortfalls in tier‑2 and tier‑3 branches. Training institutions and coaching centres have also updated their enrollment projections, anticipating a modest rise in demand for preparatory courses ahead of the upcoming preliminary test, scheduled for later this year.
-
-Reporting based on coverage from Ghaziabad365

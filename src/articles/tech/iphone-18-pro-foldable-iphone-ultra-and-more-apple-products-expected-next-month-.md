@@ -9,6 +9,7 @@ video_id: "wbBy1KXj5aM"
 video_caption: "Apple September 9 Event LEAKED! Everything We&#39;re Getting!"
 slug: "iphone-18-pro-foldable-iphone-ultra-and-more-apple-products-expected-next-month-"
 sourceUrl: "https://news.google.com/rss/articles/CBMixAFBVV95cUxOSG55UGVoRlg1el9vbXVFVUd1SFlDSUpTSjRxSEozWE5jVkxBb1pndGZfbUpxbG11Sy1EcVZ6TzFLZXFpSVdKcW5CeW8tQVF1Z2x6Q3BzR05PMUpxcXFBVnhXNXhFYnZqbDNpZGtON0F5cTRydkVKclBEM3UwZ1R0VS1FeGJPNDNacTZWNEpCS1VFQ3pHWHROU1FQaTNLcjJWYUNFWmhFMFpQN3lqblV6R2FzTWMtdU5GcEgyVExpOGFvMl9f0gHMAUFVX3lxTE5RTFFTSC1nNzZTaWQtQWhzZDg3ZGJqWmdqTWZBeFdFM0p5eGhkb01VWXczVF91VmNSUG82V1cyUlhhVWxzalBoY2tDa0FLdW9SQ2F5WUNkYWEwc05DSHRGVlhkOGlJbVd4X1FPTHZ5Si1FRlVQU3NDWHlodGNlN0MzZ3VYTDZ4Z1A1Nmdnazl0ZjR3ZWNRY042cTdESHdSZUtKRG1Kd2owT3dvd01KRE8xbm5sWklPcU14WXFvcEVkTDFsWktuSlhvR0NaWg?oc=5"
+sourceName: "NDTV Profit"
 dek: "Apple has confirmed a September 9 launch, promising the iPhone 18 Pro series, a fold‑able iPhone Ultra and fresh designs under its new CEO, as analysts weigh the impact on the tech giant’s stock."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -26,5 +27,3 @@ While Apple has not released official specifications, the buzz surrounding the f
 Why this matters is twofold. First, the September 9 event will set the tone for Apple’s product roadmap through 2025, influencing everything from component supply chains to app developer priorities. Second, the introduction of a foldable iPhone could reshape the high‑end smartphone market, compelling rivals to accelerate their own flexible‑screen offerings. Investors are watching closely, as Apple’s quarterly earnings are heavily tied to the success of its flagship launches. A strong reception could boost the company’s stock, while any misstep—particularly with the untested foldable form factor—might temper investor enthusiasm and affect the broader tech sector’s sentiment heading into the holiday quarter.
 
 Beyond the immediate financial implications, the event underscores Apple’s broader strategic shift under its new CEO, who is expected to steer the firm toward more diversified hardware experiments while maintaining the brand’s premium positioning. The outcomes of September 9 will therefore be a litmus test for Apple’s ability to balance innovation with the reliability that has defined its market dominance for over a decade.
-
-Reporting based on coverage from NDTV Profit

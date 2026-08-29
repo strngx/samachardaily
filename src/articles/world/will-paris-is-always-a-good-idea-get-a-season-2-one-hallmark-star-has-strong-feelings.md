@@ -21,6 +21,7 @@ videos:
     channel: "Jaybarber"
 slug: "will-paris-is-always-a-good-idea-get-a-season-2-one-hallmark-star-has-strong-feelings"
 sourceUrl: "https://www.cinemablend.com/streaming-news/lacey-chabert-paris-is-always-a-good-idea-season-2-hallmark-henry-czerny-rebecca-hanssen"
+sourceName: "Cinemablend"
 dek: "Hallmark’s lead actress says she’s eager for a second season of the romantic series, but the network has yet to confirm renewal."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ what_happens_next: "Hallmark is expected to review the series’ performance met
 Hallmark has not issued an official renewal decision. The network typically evaluates new series on live‑plus‑same‑day ratings and streaming performance on its Hallmark Movies Now platform. Early data suggest the show performed slightly above the channel’s average for original scripted content, but it remains below the threshold of its flagship holiday titles.
 
 The request comes as Hallmark expands its year‑round slate beyond holiday movies, seeking to retain viewers with recurring series. A second season would signal confidence in the channel’s shift toward serialized storytelling, potentially influencing its future programming mix.
-
-Reporting based on coverage from Cinemablend

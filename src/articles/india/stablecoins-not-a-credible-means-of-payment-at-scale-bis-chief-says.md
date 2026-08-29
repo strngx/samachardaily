@@ -9,6 +9,7 @@ video_id: "x7fBIywsgdA"
 video_caption: "OBOOK Holdings (OWLS) CEO Darren Wang on Regulated Stablecoin Payments, OwlPay Growth and 2026 Goals"
 slug: "stablecoins-not-a-credible-means-of-payment-at-scale-bis-chief-says"
 sourceUrl: "https://www.cnbctv18.com/market/cryptocurrency/stablecoins-not-a-credible-means-of-payment-at-scale-bis-chief-says-19979361.htm"
+sourceName: "CNBCTV18"
 dek: "Bank for International Settlements head Agustín Carstens said stablecoins lack the credibility needed for large‑scale payments, raising alarms over financial stability and money‑laundering concerns, especially for economies outside the United States."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ In a recent interview, Agustín Carstens, the governor of the Bank for Internati
 Carstens also pointed to the growing apprehension among regulators worldwide about the potential for stablecoins to facilitate money‑laundering and other illicit activities. The BIS chief noted that, unlike traditional banks, many stablecoin issuers operate across borders with limited transparency, complicating the task of monitoring suspicious transactions. While the United States has taken a relatively proactive stance in drafting comprehensive crypto regulations, Carstens said that jurisdictions outside the U.S. are lagging, creating a patchwork of rules that could undermine global financial stability.
 
 The BIS chief’s remarks come at a time when Indian policymakers are actively debating the regulatory framework for digital assets. The Reserve Bank of India (RBI) has already imposed a ban on private cryptocurrencies in 2023 and is now evaluating the role of central bank digital currencies (CBDCs) as a sovereign alternative to private stablecoins. Carstens’ cautionary stance adds weight to the argument that India should prioritize a robust, government‑backed digital payment system rather than relying on privately issued stablecoins for mass adoption.
-
-Reporting based on coverage from CNBCTV18

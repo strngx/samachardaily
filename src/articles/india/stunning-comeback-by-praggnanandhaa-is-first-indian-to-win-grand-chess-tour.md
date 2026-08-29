@@ -21,6 +21,7 @@ videos:
     channel: "ChessBase India"
 slug: "stunning-comeback-by-praggnanandhaa-is-first-indian-to-win-grand-chess-tour"
 sourceUrl: "https://www.tribuneindia.com/news/sports/stunning-comeback-by-praggnanandhaa-is-first-indian-to-win-grand-chess-tour"
+sourceName: "The Tribune India"
 dek: "Grandmaster R Praggnanandhaa overturned a six‑point deficit to defeat Fabiano Caruana and claim the Grand Chess Tour title, marking India's first triumph in the series."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ In a dramatic finale at the Saint Louis Chess Club, 17‑year‑old Grandmaster 
 Praggnanandhaa's surge came after a sluggish start to the day, where Caruana had taken an early lead. By employing aggressive opening preparation and precise endgame technique, Praggnanandhaa turned the tables, winning three of the four games on the final board and forcing Caruana into a draw in the last encounter.
 
 The win not only crowns Praggnanandhaa as the first Indian Grand Chess Tour champion but also underscores the rapid rise of India's new generation of grandmasters. The victory follows a string of strong performances by Indian players on the world stage, including recent successes at the World Cup and the Candidates Tournament.
-
-Reporting based on coverage from The Tribune India

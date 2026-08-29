@@ -21,6 +21,7 @@ videos:
     channel: "Ashwaveega News 24x7"
 slug: "krishna-basin-dams-benefit-most-from-maharashtra-rains"
 sourceUrl: "https://www.deccanherald.com/india/karnataka/krishna-basin-dams-benefit-most-from-maha-rains-4127865"
+sourceName: "Deccan Herald"
 dek: "Heavy rains in Maharashtra have dramatically raised water levels in Krishna basin reservoirs, while Karnataka's KRS and Cauvery dams lag behind last year's storage."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ The recent deluge across Maharashtra has poured an estimated 302 billion cubic
 In contrast, the Krishnarajasagara (KRS) and Cauvery basin reservoirs are holding less water than the same period last year, despite ongoing downstream releases mandated by inter‑state water-sharing agreements and court orders.
 
 State officials say the disparity reflects uneven monsoon distribution, with Maharashtra receiving above‑average rainfall while Karnataka's catchment areas remain comparatively dry, prompting concerns over irrigation, hydro‑electric generation and compliance with legal water commitments.
-
-Reporting based on coverage from Deccan Herald

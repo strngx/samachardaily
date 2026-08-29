@@ -9,6 +9,7 @@ video_id: "0qLczxaO9eE"
 video_caption: "Sridhar Vembu   CEO Zoho"
 slug: "sridhar-vembu-tells-young-entrepreneurs-success-takes-longer-than-expected"
 sourceUrl: "https://www.thehansindia.com/tech/sridhar-vembu-tells-young-entrepreneurs-success-takes-longer-than-expected-1115059"
+sourceName: "The Hans India"
 dek: "In a recent interview, Zoho CEO Sridhar Vembu cautioned budding founders against expecting rapid profits, citing the 15‑year journey of vTitan Medical Instruments to cross the ₹1 crore monthly revenue mark."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ Sridhar Vembu, the co‑founder and chief executive of Zoho Corp., one of India�
 To illustrate his point, Vembu recounted the story of vTitan Medical Instruments, a small manufacturing firm that set out to serve the Indian healthcare market. Founded in the early 2000s, vTitan struggled for more than a decade to secure steady orders, refine its product line and build a reliable distribution network. Only after fifteen years of incremental improvements did the company finally breach the ₹1 crore (about $12,000) monthly revenue threshold. Vembu used this example to show that even modest‑scale enterprises can achieve meaningful scale, but only with sustained effort over many years.
 
 The interview resonated with many young founders who are currently navigating a funding environment that often rewards rapid growth metrics. Vembu’s remarks were met with a mix of appreciation and reflection, as several startup founders shared their own experiences of early setbacks. By foregrounding the vTitan narrative, Vembu aimed to reset expectations and encourage a culture where perseverance is celebrated alongside innovation.
-
-Reporting based on coverage from The Hans India

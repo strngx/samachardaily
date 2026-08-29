@@ -9,6 +9,7 @@ video_id: "Fk0BKOMQdIc"
 video_caption: "Absolute Devastation in Nepal; Major Landslide Triggers Deadly Flash Flood"
 slug: "were-nepals-deadly-floods-man-made-how-climate-change-may-have-turned-glacier-co"
 sourceUrl: "https://www.dnaindia.com/explainer/report-nepal-floods-man-made-climate-change-glacier-collapse-glof-explained-3219410"
+sourceName: "DNA India"
 dek: "Heavy monsoon rains, a glacial lake outburst and decades of environmental neglect combined to unleash Nepal’s deadliest floods, raising questions about the role of climate change and human activity."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ In early August 2023, torrential monsoon rains slammed Nepal’s central hills, 
 Scientists point to a warming climate as a key factor that has accelerated the melt of Himalayan glaciers over the past decades. Warmer temperatures increase the volume of water stored in high‑altitude glacial lakes, raising the probability of sudden breaches. In Nepal, rapid glacier retreat has been documented across the central and eastern Himalayas, and the Imja‑tsho lake itself has grown markedly since the 1990s. While climate change sets the stage, human actions have amplified the risk. Unregulated construction on riverbanks, deforestation for fuel and agriculture, and inadequate drainage infrastructure have reduced the landscape’s natural ability to absorb heavy rains. Moreover, limited investment in monitoring and early‑warning mechanisms meant that communities received little advance notice of the impending flood.
 
 The government’s response included emergency rescue operations, temporary shelters and a pledge to rebuild damaged roads and bridges. International agencies, including the United Nations and the World Bank, offered technical assistance for disaster risk reduction. However, experts warn that without systemic changes—such as stricter land‑use planning, reforestation, and robust glacier‑lake monitoring—the country remains vulnerable to similar compound disasters in the future.
-
-Reporting based on coverage from DNA India

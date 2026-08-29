@@ -21,6 +21,7 @@ videos:
     channel: "BABY GRONK"
 slug: "hornets-split-pool-play-at-greater-kansas-city-softball-invitational-with-one-whammy"
 sourceUrl: "https://www.chillicothenews.com/hornets-split-pool-play-at-greater-kansas-city-softball-invitational-with-one-whammy-one-wham/"
+sourceName: "Chillicothe Constitution Tribune"
 dek: "The Hornets fell 4-2 to Platte County before rebounding with a dominant 17-0 victory over Harrisonville, leaving the pool standings undecided."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ The Greater Kansas City Softball Invitational opened with the Hornets facing a t
 Responding emphatically, the Hornets unleashed a relentless offensive on their second outing, routing Harrisonville 17-0. Pitcher Jenna Marshall recorded a shutout while the lineup combined for ten extra-base hits, highlighted by senior shortstop Maya Patel’s three-run double that set the tone early in the contest.
 
 The split results keep the Hornets in contention for a favorable seed heading into the knockout round. Coming off a state championship run in 2025, the team faces heightened expectations to translate its tournament success into another deep postseason run.
-
-Reporting based on coverage from Chillicothe Constitution Tribune

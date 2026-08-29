@@ -12,6 +12,7 @@ video_caption: ""
 videos: []
 slug: "rescued-from-nepal-floods-21-tn-pilgrims-meet-eam-at-delhi-airport"
 sourceUrl: "https://www.thehansindia.com/news/cities/new-delhi/rescued-from-nepal-floods-21-tn-pilgrims-meet-eam-at-delhi-airport-1115239"
+sourceName: "The Hans India"
 dek: "The External Affairs Minister welcomed 21 Tamil Nadu pilgrims rescued from Nepal’s recent floods as they arrived at Delhi’s Indira Gandhi International Airport."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -25,5 +26,3 @@ Heavy monsoon rains triggered flash floods in Nepal's eastern districts, strandi
 Upon landing in Delhi, the group was received by External Affairs Minister Dr. S. Jaishankar, who praised the swift cross‑border response and assured the pilgrims of full consular support. The minister highlighted India’s commitment to safeguarding its citizens abroad and pledged assistance for any medical or logistical needs.
 
 The incident underscores the robust India‑Nepal cooperation framework for disaster relief, while also prompting calls for enhanced safety protocols for pilgrim tours in flood‑prone regions. Authorities in Tamil Nadu are reviewing travel advisories and emergency preparedness measures for future religious trips.
-
-Reporting based on coverage from The Hans India

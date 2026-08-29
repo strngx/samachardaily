@@ -21,6 +21,7 @@ videos:
     channel: "The White House"
 slug: "us-to-get-new-nasa-led-space-academy-trump-signs-order-what-is-it-all-about-explained"
 sourceUrl: "https://menafn.com/1111593988/US-To-Get-New-NASA-Led-Space-Academy-Trump-Signs-Order-What-Is-It-All-About-Explained"
+sourceName: "Menafn"
 dek: "President Donald Trump signed an executive order establishing a new national military academy, the US Space Academy, to be led by NASA and integrated with the Space Force for advanced space‑operations training."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -68,5 +69,3 @@ video_query
 :
 
 Trump signing space academy order press conference
-
-Reporting based on coverage from Menafn

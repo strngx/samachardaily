@@ -9,6 +9,7 @@ video_id: "-JBtU7LMmB4"
 video_caption: "Mi viene seriamente da piangere.. | Sorteggi Europa League 2026/27 (Juventus, Milan)"
 slug: "ac-milan-get-english-opponents-sunderland-bournemouth-in-europa-league-draw"
 sourceUrl: "https://www.deccanchronicle.com/sports/ac-milan-get-english-opponents-sunderland-bournemouth-in-europa-league-draw-1983020"
+sourceName: "Deccan Chronicle"
 dek: "AC Milan have been paired with English sides Sunderland and Bournemouth in the Europa League group stage, while also set to host former champions Benfica at the San Siro."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -19,5 +20,3 @@ The UEFA Europa League draw on Tuesday placed Serie A giants AC Milan in a group
 Sunderland, newly promoted to the English Championship after a turbulent spell in lower divisions, view the European campaign as a chance to test their squad against elite opposition. Bournemouth, who secured a Europa League spot by finishing fifth in the Premier League last season, will aim to build on their recent European debut. Both clubs will travel to Italy for the return fixtures against Milan and Benfica, creating a busy schedule that could test squad depth.
 
 Milan, under the guidance of their current manager, are looking to re‑establish themselves as a European force after a period of domestic inconsistency. The club’s recent domestic form has been mixed, but the draw offers a blend of challenging opponents and potentially lucrative matches that could boost both confidence and revenue as they navigate the group stage.
-
-Reporting based on coverage from Deccan Chronicle

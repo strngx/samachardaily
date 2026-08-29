@@ -9,6 +9,7 @@ video_id: "FExPMBZwEjQ"
 video_caption: "Iran’s foreign minister responds to Trump’s call for negotiations"
 slug: "iran-vp-says-he-would-have-stopped-enrichment-if-he-knew-us-would-kill-supreme-l"
 sourceUrl: "https://www.wionews.com/world/iran-vp-says-he-would-have-stopped-enrichment-if-he-knew-us-would-kill-supreme-leader-ali-khamenei-1787922341818"
+sourceName: "WION"
 dek: "Vice President Jafar Ghaempanah told reporters that, had he been aware of a U.S. plot to assassinate Supreme Leader Ali Khamenei, Iran would have stopped its uranium enrichment program to avoid the high costs of such a confrontation."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ In a candid interview, Iran’s Vice President Jafar Ghaempanah said that the co
 The vice president’s comments come amid heightened tensions between Tehran and Washington, where the United States has repeatedly warned Iran over its nuclear program and imposed sanctions. While Iran continues to enrich uranium to levels below weapons-grade, it maintains that its nuclear activities are for peaceful purposes and sovereign rights. Ghaempanah’s statement reflects a broader narrative within Iran that external threats, especially those targeting the Supreme Leader, could reshape its strategic calculus, potentially leading to de‑escalation in certain areas to preserve national stability.
 
 Analysts note that the vice president’s remarks may also be aimed at domestic audiences, reinforcing the government’s resolve to protect its leadership while signaling to the United States that any aggressive move could have unintended diplomatic repercussions. The statement underscores the delicate balance Iran seeks between advancing its nuclear capabilities and avoiding a direct confrontation that could jeopardize its political hierarchy.
-
-Reporting based on coverage from WION

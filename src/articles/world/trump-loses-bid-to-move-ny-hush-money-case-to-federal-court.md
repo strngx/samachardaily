@@ -21,6 +21,7 @@ videos:
     channel: "CNN"
 slug: "trump-loses-bid-to-move-ny-hush-money-case-to-federal-court"
 sourceUrl: "https://www.thederrick.com/news/entertainment/trump-loses-bid-to-move-ny-hush-money-case-to-federal-court/article_bd177170-6681-5b8e-9249-d199abce9fe7.html"
+sourceName: "Thederrick"
 dek: "A Manhattan judge ruled the payments to adult film star Stormy Daniels were not official acts, denying Trump's attempt to move his criminal fraud conviction to federal court."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ Judge Juan Merchan of New York's Supreme Court denied former President Donald Tr
 The conviction stems from 34 felony counts of falsifying business records to conceal $130,000 paid to Stormy Daniels during the 2016 campaign. Trump’s legal team argued that the case should be heard in federal court, contending that the conduct involved interstate commerce and his official capacity as president.
 
 With the state court ruling, Trump is expected to appeal the decision to the New York Court of Appeals and may seek a petition for certiorari from the U.S. Supreme Court, while his legal team continues to explore other avenues to challenge the conviction and its enforcement.
-
-Reporting based on coverage from Thederrick

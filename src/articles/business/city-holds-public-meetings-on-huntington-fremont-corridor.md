@@ -12,6 +12,7 @@ video_caption: ""
 videos: []
 slug: "city-holds-public-meetings-on-huntington-fremont-corridor"
 sourceUrl: "https://outlooknewspapers.com/southpasadenareview/city-holds-public-meetings-on-huntington-fremont-corridor/article_53ef93c2-39fb-493a-9b4f-d38b972002ed.html"
+sourceName: "Outlook Newspapers"
 dek: "City officials are briefing residents on the planned upgrades to Huntington Drive and Fremont Avenue, outlining design, funding and timeline."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -25,5 +26,3 @@ The City of South Pasadena announced a series of open‑house sessions at the mu
 Project planners describe the corridor upgrade as a $45 million effort to widen key lanes, add protected bike lanes, upgrade sidewalks, and improve storm‑water drainage. The design aims to alleviate chronic congestion, enhance pedestrian safety and support transit‑oriented development along the corridor, with construction slated to begin after final design approval.
 
 Community feedback is being solicited on issues such as tree preservation, parking impacts for local merchants, and the timing of construction phases. Officials emphasized that resident comments will be incorporated into the final environmental review and that a formal comment period will remain open for 30 days after the last public meeting.
-
-Reporting based on coverage from Outlook Newspapers

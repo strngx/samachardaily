@@ -9,6 +9,7 @@ video_id: "zimIFWy7w34"
 video_caption: "Pragg Wins Grand Chess Tour: ‘Fight to the End’ | D6 #GCTFinals"
 slug: "praggnanandhaa-creates-history-becomes-first-indian-to-win-grand-chess-tour"
 sourceUrl: "http://www.en.etemaaddaily.com/sports/praggnanandhaa-creates-history-becomes-first-indian-to-win-grand-chess-tour:5905"
+sourceName: "Etemaaddaily"
 dek: "Chennai-born grandmaster Praggnanandhaa Rameshbabu staged a comeback against Fabiano Caruana to win the Grand Chess Tour Finals in St. Louis on August 27, marking India's first triumph in the elite series."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ The Grand Chess Tour Finals concluded on Thursday, August 27, in St. Louis, Miss
 Praggnanandhaa entered the tour as the youngest participant, having qualified through strong performances in the earlier rapid and blitz legs held across Europe and the United States. Throughout the season he accumulated 17 points, edging past seasoned Grandmasters such as Wesley So and Anish Giri, and finishing second only to Caruana before the final. His aggressive style, characterized by deep preparation in opening theory and a fearless endgame approach, earned him praise from commentators and peers alike.
 
 The victory was celebrated by the Indian chess community, with the All India Chess Federation issuing a congratulatory statement and the Indian Prime Minister’s Office noting the achievement as a milestone for the nation’s sporting excellence. Praggnanandhaa’s triumph also guarantees him an invitation to next year’s elite super‑tournaments, positioning him as a key contender for the upcoming World Chess Championship cycle.
-
-Reporting based on coverage from Etemaaddaily

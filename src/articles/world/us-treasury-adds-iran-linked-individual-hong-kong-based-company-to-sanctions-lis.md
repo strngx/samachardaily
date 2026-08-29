@@ -9,6 +9,7 @@ video_id: "G6IjdnM4fVQ"
 video_caption: "US lifts Iranian oil sanctions amid tensions in strait of Hormuz"
 slug: "us-treasury-adds-iran-linked-individual-hong-kong-based-company-to-sanctions-lis"
 sourceUrl: "https://www.middleeastmonitor.com/20260828-us-treasury-adds-iran-linked-individual-hong-kong-based-company-to-sanctions-list/"
+sourceName: "Middle East Monitor"
 dek: "The U.S. Treasury’s Office of Foreign Assets Control added a Dubai‑based Iranian bank manager and a newly formed Hong Kong trading company to its Specially Designated Nationals list, citing links to Iran’s sanctioned financial network."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ On Friday, the U.S. Treasury Department’s Office of Foreign Assets Control (OF
 In a parallel move, OFAC also targeted Kameng Trading Limited, a Hong Kong‑registered company incorporated in July 2024. The firm was added to the SDN list under an Iran‑related executive order, suggesting that it is suspected of providing a conduit for Iranian entities to move money, goods, or technology that would otherwise be blocked by sanctions. The Treasury’s statement did not disclose specific transactions, but the timing aligns with a broader U.S. strategy to tighten the financial noose around Tehran and any overseas actors that facilitate its illicit trade networks.
 
 The sanctions come as part of a coordinated effort by the United States to pressure Iran over its nuclear program, regional activities, and alleged support for terrorism. By extending the reach of OFAC’s authority to individuals and firms operating in major financial hubs such as Dubai and Hong Kong, Washington aims to close loopholes that have allowed Iran to sidestep earlier rounds of sanctions.
-
-Reporting based on coverage from Middle East Monitor

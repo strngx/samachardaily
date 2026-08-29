@@ -9,6 +9,7 @@ video_id: "jL0Scy2jj8Y"
 video_caption: "Onion Prices Make Common Man Cry; Government&#39;s Onion Express Steps In With ₹35/Kg Sale In Delhi"
 slug: "nashik-kanda-express-of-453-tonnes-of-onions-reaches-delhi-to-reduce-prices"
 sourceUrl: "https://www.deccanchronicle.com/nation/current-affairs/nashik-kanda-express-carrying-453-tonnes-of-onion-reaches-delhi-to-help-cool-prices-1982981"
+sourceName: "Deccan Chronicle"
 dek: "A convoy of trucks from Nashik, dubbed ‘Kanda Express’, has delivered 453 tonnes of onions to Delhi, where they will be sold at a subsidised Rs 35 per kg, with portions also earmarked for Chandigarh, Ludhiana and Jammu."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -20,5 +21,3 @@ The Ministry of Food Processing Industries dispatched a fleet of trucks, popular
 The move comes amid a prolonged period of price volatility for onions, a staple vegetable in Indian kitchens. Earlier this month, wholesale onion prices surged to a six‑year high, prompting widespread public discontent and political debate. The government, citing concerns over inflation and food security, has been procuring onions from surplus states and releasing them into deficit markets to stabilise prices. The Nashik stock, which had been stored under controlled conditions, represents one of the largest single‑batch releases in recent times.
 
 In addition to Delhi, a portion of the consignment is slated for distribution to nearby cities such as Chandigarh, Ludhiana and Jammu, where onion prices have also risen sharply. The subsidised rate is being funded through a combination of central subsidies and state‑level market intervention funds, ensuring that the cost to consumers does not translate into a loss for traders. Market officials expect the influx to ease immediate price pressures while longer‑term supply‑chain adjustments are pursued.
-
-Reporting based on coverage from Deccan Chronicle

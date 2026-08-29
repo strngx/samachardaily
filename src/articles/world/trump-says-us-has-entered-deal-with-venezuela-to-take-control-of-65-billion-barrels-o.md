@@ -21,6 +21,7 @@ videos:
     channel: "WPLG Local 10"
 slug: "trump-says-us-has-entered-deal-with-venezuela-to-take-control-of-65-billion-barrels-o"
 sourceUrl: "https://www.wsbradio.com/news/business/trump-says-us-has/TU3ETTI3CAYAXO5WC2W6QZIWEI/"
+sourceName: "95.5 Wsb"
 dek: "Former President Donald Trump asserted that the United States has struck a deal with Venezuela to assume control over its estimated 65 billion barrels of oil, a claim yet to be corroborated by official sources."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -82,5 +83,3 @@ video_query
 :
 
 Trump interview 95.5 WSB oil deal claim
-
-Reporting based on coverage from 95.5 Wsb

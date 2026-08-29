@@ -9,6 +9,7 @@ video_id: "1pp-E-QGyfw"
 video_caption: "Why Indian IT Stocks Are Skyrocketing Today | Nvidia Rally &amp; Nifty IT Rebound Explained"
 slug: "stock-markets-rebound-ending-2-day-losing-streak-on-buying-in-it-firms-sensex-ju"
 sourceUrl: "https://www.dtnext.in/news/business/stock-markets-rebound-ending-2-day-losing-streak-on-buying-in-it-firms-sensex-jumps-331-pts"
+sourceName: "DTNext"
 dek: "India's benchmark indices recovered on Friday, with the Sensex gaining 331 points amid strong buying in blue‑chip IT shares and a broader global market upswing."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ After slipping for two consecutive sessions, India's equity markets turned posit
 The bounce also reflected a broader recovery in global equity markets, where Asian peers posted modest gains after a week of mixed performance. Analysts noted that the improved risk sentiment, coupled with a stable domestic macro environment, helped lift investor confidence. Volume data showed a higher-than-average turnover, indicating that both institutional and retail participants were actively buying into the market rally. The rebound capped a two‑day losing streak that saw the Sensex slide by a cumulative 600 points, marking the longest decline since early March.
 
 While the IT sector led the gains, other heavyweight indices such as banking and FMCG also posted modest upticks, suggesting a more balanced recovery across sectors. The market’s upward trajectory was further supported by a marginal easing in crude oil prices, which eased inflation concerns and bolstered sentiment among domestic investors.
-
-Reporting based on coverage from DTNext

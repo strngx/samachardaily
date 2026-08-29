@@ -9,6 +9,7 @@ video_id: ""
 video_caption: ""
 slug: "sankara-nethralaya-detroit-chapter-5k-walk"
 sourceUrl: "https://www.andhrajyothy.com/2026/nri/sankara-nethralaya-detroit-chapter-annual-5k-walk-michigan-community-support-pcs-1553406.html"
+sourceName: "Andhra Jyothy"
 dek: "The Detroit Chapter of the Indian eye‑care nonprofit Sankara Nethralaya organized its annual 5K walk in Michigan, drawing a sizable crowd and raising funds for community eye‑health initiatives."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ The Detroit Chapter of Sankara Nethralaya, a renowned eye‑care institution bas
 Proceeds from participant registration fees and on‑site donations were earmarked for Sankara Nethralaya’s outreach programs, which provide free cataract surgeries, retinal screenings, and pediatric eye care in underserved regions of India. Local sponsors, including a few Michigan‑based health‑care firms and community businesses, contributed in‑kind support, covering refreshments, medical tents, and logistical costs. The event’s success was highlighted by the enthusiastic response on social media, where participants shared photos and thanked the organizers for fostering a sense of solidarity between the Indian community abroad and their host city.
 
 The walk also served as a platform for the chapter’s leadership to announce upcoming initiatives, such as a virtual eye‑health awareness series and a partnership with local schools to conduct vision‑screening camps. By blending physical activity with charitable purpose, the 5K walk reinforced Sankara Nethralaya’s mission of preventing avoidable blindness while encouraging a healthier lifestyle among participants.
-
-Reporting based on coverage from Andhra Jyothy

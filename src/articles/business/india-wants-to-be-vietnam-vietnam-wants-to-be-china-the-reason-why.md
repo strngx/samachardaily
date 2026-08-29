@@ -2,13 +2,14 @@
 title: "India Aims to Replicate Vietnam’s Manufacturing Rise as Vietnam Sets Sights on Becoming the Next China"
 category: "Business"
 date: 2026-08-28T23:29:58Z
-image: "https://c.ndtvimg.com/2026-08/26j19d1g_phones_625x300_28_August_26.png?im=FeatureCrop,algorithm=dnn,width=1280,height=720"
+image: ""
 imageAlt: "India Aims to Replicate Vietnam’s Manufacturing Rise as Vietnam Sets Sights on Becoming the Next China"
 imageCredit: "swapnil karkare"
 video_id: "PTTwYKGKXo8"
 video_caption: "Manufacturing Battle: India vs Vietnam – Who Wins the Global Factory Race? #manufacturinghub"
 slug: "india-wants-to-be-vietnam-vietnam-wants-to-be-china-the-reason-why"
 sourceUrl: "https://www.ndtvprofit.com/economy/opinion-india-wants-to-be-vietnam-vietnam-wants-to-be-china-the-reason-why-11971198"
+sourceName: "NDTV Profit"
 dek: "India, after mastering scale, is now courting deeper supplier networks, component design and R&D, while Vietnam is shifting from low‑cost assembly to higher‑value production to mirror China’s industrial heft."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ India’s industrial policy has long emphasized sheer volume. The Make in India 
 Vietnam, on the other hand, is at a different inflection point. Over the past decade it has become the world’s go‑to destination for low‑cost manufacturing, luring firms fleeing rising wages in China. Now, policymakers are encouraging a transition toward higher‑margin activities such as precision engineering, integrated circuit assembly and original equipment manufacturing. Tax breaks, streamlined customs procedures and a push to develop local talent are part of a broader strategy to emulate China’s ability to combine mass production with sophisticated supply‑chain integration.
 
 Both nations are leveraging their demographic dividend and strategic location to attract foreign direct investment, but the emphasis differs. India’s push for domestic design and R&D aims to reduce dependence on imported technology, while Vietnam’s ambition to become the "next China" focuses on scaling up its existing manufacturing ecosystem into a more diversified, technology‑intensive economy.
-
-Reporting based on coverage from NDTV Profit

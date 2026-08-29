@@ -9,6 +9,7 @@ video_id: "MPMFaFFY93o"
 video_caption: "NATIONALS vs. MARLINS: Official Full Game Highlights (August 21) | 2026 MLB Season"
 slug: "marlins-eager-to-take-advantage-of-schedule-in-opener-vs-nationals"
 sourceUrl: "https://www.reuters.com/sports/baseball/marlins-eager-take-advantage-schedule-opener-vs-nationals--flm-2026-08-28/"
+sourceName: "Reuters"
 dek: "The Miami Marlins open the MLB season at home against the Washington Nationals, hoping a favorable early schedule will give them a jump‑start in the NL East race."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -19,5 +20,3 @@ Miami will kick off the 2026 MLB season with a home opener against Washington at
 Marlins manager Skip Schumaker has emphasized that the early schedule allows the club to set its pitching rotation on a predictable cadence. Right‑hander (Name) will take the mound for the first start, backed by a bullpen that has been fine‑tuned during spring training. Offensively, the team hopes that emerging talents such as (Name) and (Name) can translate their spring success into consistent production. By contrast, the Nationals are still finalising their rotation and will likely lean on a mixed‑experience staff, a factor Schumaker believes could tilt the balance in Miami’s favour.
 
 A win in the opener would do more than add a victory to the ledger; it would provide momentum for a club that missed the playoffs last season but retained a core of young, contract‑rich players. For Washington, a loss could reinforce the narrative of a rebuilding franchise still searching for a clear identity. Both teams understand that early‑season performance can set the tone for the long 162‑game grind, especially in a division where every series is a potential swing in the standings.
-
-Reporting based on coverage from Reuters

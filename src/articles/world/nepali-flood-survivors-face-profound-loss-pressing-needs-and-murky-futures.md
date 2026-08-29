@@ -21,6 +21,7 @@ videos:
     channel: "PTI News"
 slug: "nepali-flood-survivors-face-profound-loss-pressing-needs-and-murky-futures"
 sourceUrl: "https://www.nytimes.com/2026/08/28/world/asia/nepal-flood-survivors.html"
+sourceName: "The New York Times"
 dek: "Hundreds of families displaced by recent floods in Nepal are left with destroyed homes, lost livelihoods and limited access to food, water and medical aid, while the path to recovery remains unclear."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ The monsoon‑triggered floods that swept through Nepal’s hilly districts this
 Relief agencies, including the Nepal Red Cross Society and international partners such as UNICEF, have set up emergency camps and are distributing food, clean‑water kits and basic medical supplies. However, logistical bottlenecks caused by landslides and damaged transport routes are slowing aid delivery, and many survivors remain in makeshift shelters vulnerable to disease outbreaks.
 
 Local officials say the government has earmarked emergency funds and is coordinating with the United Nations Office for the Coordination of Humanitarian Affairs to conduct a rapid needs assessment. Community leaders stress that rebuilding will require not only reconstruction of homes but also restoration of agriculture, schools and livelihoods, which could take months or years.
-
-Reporting based on coverage from The New York Times

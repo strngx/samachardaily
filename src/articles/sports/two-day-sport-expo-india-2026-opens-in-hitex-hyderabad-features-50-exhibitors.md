@@ -9,6 +9,7 @@ video_id: "gZtrPvUqSkU"
 video_caption: "Sport Expo India 2026 Inauguration | 9th Edition of Sport Expo India | Fitness, Wellness &amp; Sports"
 slug: "two-day-sport-expo-india-2026-opens-in-hitex-hyderabad-features-50-exhibitors"
 sourceUrl: "https://khelkhiladis.com/two-day-sport-expo-india-2026-opens-in-hitex/"
+sourceName: "Khel Khiladi"
 dek: "The ninth edition of the two‑day Sport Expo India opened on Friday at Hyderabad’s HITEX Centre, showcasing 50 brands across sports, fitness, nutrition and wellness."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -19,5 +20,3 @@ The 9th Edition of Sport Expo India 2026 opened its doors on Friday at the expan
 The expo’s agenda also includes a series of short‑talk sessions featuring coaches, physiotherapists and brand ambassadors who discuss topics such as grassroots talent development, the role of technology in training, and emerging trends in holistic wellness. Organisers have highlighted the event’s focus on creating a direct dialogue between producers and end‑consumers, a model that differs from traditional trade‑only fairs. Early footfall numbers suggest a strong response, with families, amateur athletes and fitness enthusiasts lining up for product trials and interactive zones. 
 
 In addition to product displays, the exhibition houses a ‘Wellness Hub’ where nutritionists offer free health checks and personalised diet advice. A dedicated area for school and college sports clubs allows young athletes to meet equipment suppliers and explore scholarship opportunities. The expo will close on Saturday, after which organisers plan to release a catalog of participating brands and a summary of market trends observed during the two days.
-
-Reporting based on coverage from Khel Khiladi

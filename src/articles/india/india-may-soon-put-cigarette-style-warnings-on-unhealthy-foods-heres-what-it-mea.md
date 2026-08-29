@@ -9,6 +9,7 @@ video_id: "0ORJu3u0c4g"
 video_caption: "&quot;India Needs Warning Labels For Food&quot;: Revant Himatsingka&#39;s Big Push"
 slug: "india-may-soon-put-cigarette-style-warnings-on-unhealthy-foods-heres-what-it-mea"
 sourceUrl: "https://www.cnbctv18.com/business/india-may-soon-put-cigarette-style-warnings-on-unhealthy-foods-heres-what-it-means-19979197.htm"
+sourceName: "CNBC TV18"
 dek: "The Food Safety and Standards Authority of India (FSSAI) is drafting rules that would require packaged foods high in sugar, salt or saturated fat to carry a bold red, hexagonal warning label, similar to cigarette warnings in many countries."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ The Food Safety and Standards Authority of India (FSSAI) has released a draft re
 The draft, circulated for public comment, sets specific thresholds – for example, more than 10 g of sugar per 100 g of product or more than 1.5 g of salt per 100 g – that would trigger the warning. The FSSAI says the move is aimed at curbing the rising burden of non‑communicable diseases such as diabetes, hypertension and heart disease, which account for a large share of India's mortality. Industry bodies have expressed concerns about the cost of redesigning packaging and the potential impact on sales, but the regulator has indicated that the rules could come into force as early as 2025 after the consultation period ends.
 
 If finalized, the warning system would align India with a handful of countries that have already implemented similar measures, including Chile, Israel and the United Kingdom. Unlike those nations, India’s proposal would apply to all packaged foods sold across the country, from biscuits and confectionery to ready‑to‑eat meals, making it one of the broadest labeling regimes in the world.
-
-Reporting based on coverage from CNBC TV18

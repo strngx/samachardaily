@@ -2,13 +2,14 @@
 title: "Instamart’s Rs 1 Onion Surprise Leaves Customer Stunned"
 category: "Business"
 date: 2026-08-28T22:59:54Z
-image: "https://c.ndtvimg.com/2026-08/nec5ghj_food_625x300_28_August_26.jpg?im=FeatureCrop,algorithm=dnn,width=1280,height=720"
+image: ""
 imageAlt: "Instamart’s Rs 1 Onion Surprise Leaves Customer Stunned"
 imageCredit: "nikita nikhil"
 video_id: "6hRhWIg33Lo"
 video_caption: "Ambani ke jio mart ki income reality😨😨"
 slug: "couldnt-believe-it-instamart-customer-gets-1-kg-onions-for-rs-1"
 sourceUrl: "https://www.ndtv.com/food/couldnt-believe-it-instamart-customer-gets-1-kg-onions-for-rs-1-11971115"
+sourceName: "NDTV"
 dek: "A shopper discovered a kilogram of onions priced at just Rs 1 in an Instamart order and queried the delivery executive, sparking talk of a possible pricing glitch or promotion."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ A customer ordering groceries through Instamart, the on‑demand grocery arm of 
 The incident quickly made rounds on social media, with users sharing screenshots of the order summary and expressing disbelief at the price discrepancy. While Instamart’s official channels did not immediately comment, similar pricing anomalies have surfaced in the past across various e‑commerce platforms, often attributed to system errors, promotional trials, or inventory clearance strategies. In this case, the onion’s Rs 1 tag stood out because it far undercut the market rate, which typically hovers around Rs 30‑40 per kilogram in most Indian cities.
 
 Industry observers note that such ultra‑low‑price offers can be a double‑edged sword: they generate buzz and attract new users, but they also risk eroding consumer trust if perceived as mistakes. For now, the customer has retained the onions, and the episode adds to the growing list of flash‑sale curiosities that keep Indian online grocery shoppers on their toes.
-
-Reporting based on coverage from NDTV

@@ -9,6 +9,7 @@ video_id: "ctBrLmLRwUI"
 video_caption: "Close Shave For 41 As Alliance Air Flight Tyre Bursts During Landing At Bilaspur Airport"
 slug: "delhi-bilaspur-alliance-air-flight-suffers-tyre-burst-on-landing"
 sourceUrl: "https://economictimes.indiatimes.com/industry/transportation/airlines-/-aviation/delhi-bilaspur-alliance-air-flight-suffers-tyre-burst-on-landing/articleshow/133590602.cms"
+sourceName: "Economic Times"
 dek: "A Delhi‑Bilaspur Alliance Air flight experienced a tyre burst while touching down at Bilaspur airport. All 37 passengers and four crew members were evacuated without injury and the onward leg of the flight was cancelled."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -22,5 +23,3 @@ On Thursday morning, an Alliance Air ATR‑72 aircraft operating the Delhi‑Bil
 Airline officials immediately grounded the aircraft for a thorough inspection and announced the cancellation of the flight's onward journey to its next scheduled destination. Passengers were transferred to alternative services where possible, and the airline’s customer care desk began processing refunds and re‑booking requests. The Directorate General of Civil Aviation (DGCA) was notified, and a preliminary report was requested to determine the cause of the tyre failure, whether it stemmed from maintenance lapses, runway conditions, or a manufacturing defect.
 
 Alliance Air, a subsidiary of Air India Limited, operates a fleet of turboprop aircraft on regional routes across the country. While the airline has a relatively clean safety record, this incident adds to a series of recent tyre‑related events in Indian aviation that have prompted regulators to tighten inspection protocols. The airline has pledged full cooperation with the investigation and reassured the public that safety remains its top priority.
-
-Reporting based on coverage from Economic Times

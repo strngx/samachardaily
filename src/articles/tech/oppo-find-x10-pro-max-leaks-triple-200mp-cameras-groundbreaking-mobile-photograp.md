@@ -9,6 +9,7 @@ video_id: "wni0rPaxrWY"
 video_caption: "[八卦] OPPO Find X10 系列八卦整理！Pro Max 直逼 Ultra，這次真的玩太大？"
 slug: "oppo-find-x10-pro-max-leaks-triple-200mp-cameras-groundbreaking-mobile-photograp"
 sourceUrl: "https://techgenyz.com/oppo-find-x10-pro-max/"
+sourceName: "TechGenyz"
 dek: "New leaks suggest the upcoming OPPO Find X10 Pro Max will house three 200‑megapixel sensors, a move that could set a new benchmark for mobile photography as the device heads toward mass production."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ Tech trackers have uncovered detailed specifications for OPPO’s next flagship,
 The rumors follow a series of earlier leaks that hinted at OPPO’s intent to push beyond the 48‑ and 64‑megapixel era. According to the latest report, the hardware configuration has moved from the prototype stage into pre‑production, suggesting that the company is preparing for a full‑scale launch later this year. While official performance benchmarks remain unavailable, the specifications point to a flagship powered by the latest Snapdragon chipset, a high‑refresh‑rate AMOLED display, and a sizable battery to support the power‑hungry imaging pipeline.
 
 Industry observers note that the Find X10 Pro Max arrives at a time when smartphone manufacturers are increasingly using megapixel counts as headline features. Brands such as Samsung, Xiaomi and Vivo have already introduced 200‑megapixel modules, but OPPO’s decision to triple that figure could be seen as an attempt to differentiate its premium offering. The real‑world impact will depend on how effectively the software can translate the massive sensor data into usable photos and videos, especially given the challenges of heat management and storage demands associated with such high‑resolution output.
-
-Reporting based on coverage from TechGenyz

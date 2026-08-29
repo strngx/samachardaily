@@ -9,6 +9,7 @@ video_id: "yKN5707bF98"
 video_caption: "Pakistan Refinery Policy 2026 | Which Refinery Has the Strongest Upgrade Plan?"
 slug: "pakistans-five-refineries-set-for-6-billion-upgrade-push"
 sourceUrl: "https://oilprice.com/Latest-Energy-News/World-News/Pakistans-Five-Refineries-Set-for-6-Billion-Upgrade-Push.html"
+sourceName: "Oilprice.com"
 dek: "Representatives of Pakistan’s five major oil refineries will meet the federal petroleum minister in early September to seal upgrade deals that could bring up to $6 billion of investment into the country’s refining sector."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -22,6 +23,3 @@ In a coordinated push to modernise its downstream oil sector, Pakistan’s five 
 The proposed upgrades are projected to unlock as much as $6 billion in private and public investment. While the exact allocation of funds remains under negotiation, the consensus among the participants is that modernisation will involve installing new processing units, upgrading existing distillation columns, and implementing advanced environmental controls. The upgrades are also expected to align the refineries with international standards, potentially opening avenues for export of refined products.
 
 The government’s involvement signals a shift from ad‑hoc subsidies toward a structured, policy‑driven framework for the sector. By offering clearer regulatory guidelines and potential fiscal incentives, the Ministry of Petroleum hopes to attract both domestic and foreign capital, thereby reducing the chronic shortfall in Pakistan’s refining capacity that has historically forced the country to import a significant share of its gasoline and diesel.
-
-
-Reporting based on coverage from Oilprice.com

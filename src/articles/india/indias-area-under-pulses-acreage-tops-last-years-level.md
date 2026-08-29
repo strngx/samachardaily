@@ -9,6 +9,7 @@ video_id: "P1-fNHiLBHg"
 video_caption: "India becomes world&#39;s largest producer of pulses | WION"
 slug: "indias-area-under-pulses-acreage-tops-last-years-level"
 sourceUrl: "https://www.thehindubusinessline.com/economy/agri-business/indias-area-under-pulses-acreage-tops-last-years-level/article71400528.ece"
+sourceName: "The Hindu Business Line"
 dek: "The total area sown to pulses in India this season has surpassed the previous year’s acreage, even as erratic monsoon patterns and delayed sowing raise concerns over per‑hectare yields."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ According to data released by the Ministry of Agriculture and Farmers' Welfare, 
 The season’s progress, however, is being closely watched. Erratic rainfall across the northern plains and parts of central India has led to pockets of water stress, while delayed sowing in some districts could compress the growth window for the crops. Experts warn that these factors may depress the average yield per hectare, even if the total harvested quantity remains stable. The Ministry’s preliminary estimates suggest that while the area under pulses has edged up, the overall production could fall short of the target set under the National Food Security Mission if yield gaps widen.
 
 State agricultural departments are already mobilising extension services to advise farmers on moisture‑conserving practices and timely pest management. In addition, the government is monitoring procurement levels to ensure that any shortfall does not translate into sharp price spikes, which could affect both consumers and the broader food‑grain market.
-
-Reporting based on coverage from The Hindu Business Line

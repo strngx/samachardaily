@@ -9,6 +9,7 @@ video_id: "Tzdrm2icfrM"
 video_caption: "Lenín Moreno condenado: Las claves de la sentencia por sobornos | DNews"
 slug: "tribunal-do-equador-declara-culpado-ex-presidente-lenin-moreno-em-caso-de-corrup"
 sourceUrl: "https://www.reuters.com/pt/mundo/5FAYAEWTHJNHZNWE2VGM533LUI-2026-08-28/"
+sourceName: "Reuters"
 dek: "An Ecuadorian tribunal found ex‑president Lenín Moreno guilty in a corruption case tied to his time in office, marking a rare high‑profile conviction in the country’s fight against graft."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ A criminal tribunal in Ecuador on Saturday delivered a verdict that former presi
 The tribunal’s decision includes a monetary penalty and the possibility of imprisonment, pending further legal steps. Legal analysts say the case could set a precedent for accountability in a nation where corruption scandals have often ended with limited consequences for senior politicians. International observers, including Transparency International, have welcomed the ruling as a sign that Ecuador’s anti‑corruption institutions are gaining traction, even as they caution that the appeal process could be lengthy. The verdict arrives amid a broader regional trend of former leaders facing legal scrutiny, reflecting heightened public demand for transparency.
 
 The ruling also has political ramifications ahead of upcoming elections, as Moreno’s former allies seek to distance themselves from the scandal. Opposition parties are likely to use the conviction to criticize the ruling party’s handling of public funds, while civil‑society groups are calling for stricter oversight of government contracts.
-
-Reporting based on coverage from Reuters

@@ -9,6 +9,7 @@ video_id: "SXDmQ_TTi6I"
 video_caption: "🔥 Ashwin BLASTS Team India for Dropping Kuldeep Yadav! | “Play Your Best Bowler!”"
 slug: "i-really-feel-sorry-for-him-ashwin-hits-out-at-team-indias-handling-of-kuldeep-y"
 sourceUrl: "https://www.hindustantimes.com/cricket/i-really-feel-sorry-for-him-ashwin-hits-out-at-team-india-s-handling-of-kuldeep-yadav-101787916264950.html"
+sourceName: "Hindustan Times"
 dek: "Veteran spinner Ravichandran Ashwin criticised the limited chances given to wrist‑spinner Kuldeep Yadav in the Test side, warning that the bowler’s confidence may be at a low point."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ Ravichandran Ashwin, one of India’s most experienced Test spinners, opened up 
 Kuldeep made his Test debut in 2022 but has struggled to cement a place amid stiff competition from the likes of Ashwin, Ravindra Jadeja and the emerging left‑arm spinner Axar Patel. While his variations and wrist‑spin have yielded success in white‑ball formats, the selectors have often preferred the more conventional off‑spin options in overseas conditions. Ashwin’s comments come at a time when India’s spin department is undergoing a transition, with senior players retiring and younger talent vying for a spot in the playing XI.
 
 The former captain’s remarks have sparked a debate among former players and analysts about whether the board should give Kuldeep a longer run in the Test arena. Some argue that his ability to turn the ball both ways could add a new dimension to India’s attack, especially on sub‑continental pitches where wrist‑spin traditionally thrives. Others caution that consistency in the longer format requires more than raw talent, emphasizing the need for bowlers who can sustain pressure over extended spells.
-
-Reporting based on coverage from Hindustan Times

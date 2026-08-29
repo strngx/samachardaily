@@ -21,6 +21,7 @@ videos:
     channel: "BNTV 24 sports"
 slug: "why-was-vaibhav-sooryavanshi-not-selected-in-india-u-19-squad-bcci-rule-is-the-reason"
 sourceUrl: "https://orangenews9.com/why-was-vaibhav-sooryavanshi-not-selected-in-india-u-19-squad-bcci-rule-is-the-reason/"
+sourceName: "Orangenews9"
 dek: "The BCCI excluded all‑rounder Vaibhav Sooryavanshi from the 15‑member U‑19 squad for the home series against Australia, citing the board’s age‑eligibility rule."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ The Board of Control for Cricket in India (BCCI) unveiled a 15‑member India U�
 BCCI officials clarified that the omission was not a matter of form but of eligibility: the board’s rule requires all U‑19 players to be under 19 years of age as of September 1 of the preceding year. Sooryavanshi, born on August 15, 2007, turned 19 after the cutoff date, rendering him ineligible for this cycle.
 
 Sooryavanshi’s camp expressed disappointment, arguing that the rule’s strict application overlooks his recent performances in the Vijay Merchant Trophy. Critics, however, noted that the board’s transparent criteria prevent accusations of nepotism, especially given the inclusion of several high‑profile cricketing heirs.
-
-Reporting based on coverage from Orangenews9

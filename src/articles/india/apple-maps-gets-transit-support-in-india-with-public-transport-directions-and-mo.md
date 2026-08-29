@@ -9,6 +9,7 @@ video_id: "kCpV1wC1WKg"
 video_caption: "Updated Apple Maps With Buses, Train &amp; Other Transportation Details"
 slug: "apple-maps-gets-transit-support-in-india-with-public-transport-directions-and-mo"
 sourceUrl: "https://www.swapupdate.in/apple-maps-gets-transit-support-in-india-with-public-transport-directions-and-more/"
+sourceName: "SwapUpdate"
 dek: "Apple has activated its Transit feature on Apple Maps for Indian users, offering step‑by‑step public‑transport routes, departure times and fare estimates, a capability independently confirmed by Gadgets 360."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ Apple announced that its Transit feature is now live in India on Apple Maps, aft
 The rollout covers a number of Indian metros where Apple has partnered with local transit agencies to integrate schedules and real‑time data. Users can search for a destination, select the “Transit” tab and see options such as bus, metro, suburban rail and auto‑rickshaw where supported. The interface also shows walking segments to and from stations, fare estimates and alerts for service disruptions when data is available. Apple Maps automatically switches between transit, driving, walking and ride‑hailing options to suggest the fastest route.
 
 The addition follows Apple’s broader push to improve its mapping services in the sub‑continent, including earlier enhancements to satellite imagery, detailed road data and the integration of local points of interest. The company has been expanding its ecosystem in India, rolling out new iPhone models, launching Apple Pay and investing in local developer support. By adding transit, Apple aims to make its devices more useful for everyday navigation, especially for users who rely on public transport in densely populated cities.
-
-Reporting based on coverage from SwapUpdate

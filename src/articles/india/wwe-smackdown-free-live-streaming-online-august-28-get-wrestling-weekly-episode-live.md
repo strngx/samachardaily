@@ -21,6 +21,7 @@ videos:
     channel: "Wrestling Daze"
 slug: "wwe-smackdown-free-live-streaming-online-august-28-get-wrestling-weekly-episode-live"
 sourceUrl: "https://www.latestly.com/sports/wwe-smackdown-free-live-streaming-online-august-28-get-wrestling-weekly-episode-live-tv-telecast-details-with-time-in-ist-7579999.html"
+sourceName: "Latestly"
 dek: "The three‑hour SmackDown episode from Rocket Arena in Cleveland will air live on Aug 28, 2026, on USA Network and Peacock in the United States and on Netflix in the UK, India and Australia, with exact start times listed for each region."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ WWE’s flagship weekly show, SmackDown, returns on Aug 28, 2026 for a three�
 International viewers will access the live telecast exclusively via Netflix. The platform will carry the show for audiences in the United Kingdom, India and Australia, with regional start times adjusted for local time zones – 2:30 a.m. IST for India and 5:30 a.m. AEST for Australia.
 
 Fans seeking free access can watch the live stream through the aforementioned platforms without additional fees beyond existing subscriptions. WWE has also posted a detailed schedule on its official website, outlining how to tune in across devices, and will provide post‑show highlights on its social channels later in the day.
-
-Reporting based on coverage from Latestly

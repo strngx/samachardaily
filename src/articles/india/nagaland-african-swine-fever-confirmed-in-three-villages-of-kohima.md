@@ -9,6 +9,7 @@ video_id: "2wrYj2IJChY"
 video_caption: "AFRICAN SWINE FEVER OUTBREAK CONFIRMED IN KOHIMA; CHUMOU DECLARED ASF FREE"
 slug: "nagaland-african-swine-fever-confirmed-in-three-villages-of-kohima"
 sourceUrl: "https://www.sentinelassam.com/breakingnews/nagaland-african-swine-fever-confirmed-in-three-villages-of-kohima"
+sourceName: "Sentinel Assam"
 dek: "The Deputy Commissioner of Kohima, B. Henok Buchem, confirmed African Swine Fever in three villages and ordered a one‑kilometre containment zone around the infected farms."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -22,5 +23,3 @@ The Nagaland administration confirmed on Tuesday that African Swine Fever (ASF) 
 Local pig farmers were urged to report any unusual deaths or symptoms in their herds immediately. The authorities have also set up a compensation scheme for owners of culled livestock, though the exact amount has yet to be disclosed. In addition to physical containment, the administration is coordinating with the Nagaland State Animal Husbandry Department to disseminate awareness material on biosecurity measures, such as restricting farm visitors, using dedicated footwear, and ensuring proper disposal of carcasses.
 
 The outbreak comes at a time when pig rearing forms a crucial source of income for many households in the hilly terrain of Nagaland. Over the past few weeks, the state has intensified surveillance after neighboring states reported sporadic ASF cases. The swift declaration of a containment zone reflects lessons learned from earlier outbreaks in Assam and West Bengal, where delayed responses contributed to wider transmission across districts.
-
-Reporting based on coverage from Sentinel Assam

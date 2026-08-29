@@ -9,6 +9,7 @@ video_id: ""
 video_caption: ""
 slug: "reading-history-from-below-remembering-sumit-sarkar"
 sourceUrl: "https://bizodisha.com/2026/08/reading-history-from-below-remembering-sumit-sarkar/"
+sourceName: "Biz Odisha"
 dek: "Renowned historian Sumit Sarkar, celebrated for his ‘history from below’ methodology, passed away last February, prompting an outpouring of tributes from former students and colleagues."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -19,5 +20,3 @@ Sumit Sarkar, whose scholarship reshaped modern Indian historiography, died in F
 In the weeks following his death, former students from the 1990s—many of whom now hold academic positions across India and abroad—gathered on social media and alumni platforms to share memories. They recalled his gentle demeanor, meticulous guidance, and the habit of addressing each of them simply as "Sumit" rather than by titles. Professor Satya Narayan Misra of Utkal University penned a heartfelt tribute in *Biz Odisha*, describing Sarkar as a “quiet revolutionary” whose lectures were as much about intellectual rigor as about moral responsibility. Tributes also highlighted his role in nurturing the subaltern studies collective, where he mentored scholars like Ranajit Guha and Dipesh Chakrabarty, fostering a collaborative spirit that persists today.
 
 The collective mourning extended beyond academia. Cultural organisations, student unions, and even political activists posted messages lauding Sarkar’s commitment to democratizing history. A memorial event organized by the Centre for Historical Studies at JNU featured readings from his unpublished manuscripts, underscoring the depth of his unfinished scholarly projects and the void his absence leaves in Indian historiography.
-
-Reporting based on coverage from Biz Odisha

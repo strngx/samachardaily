@@ -9,6 +9,7 @@ video_id: "8TRfFU_-LzM"
 video_caption: "Kashmir’s Apple Orchards: The Pesticide Risk Next Door"
 slug: "video--kashmirs-apple-orchards-the-pesticide-risk-next-door"
 sourceUrl: "https://kashmirobserver.net/2026/08/28/video-kashmirs-apple-orchards-the-pesticide-risk-next-door/"
+sourceName: "Kashmir Observer"
 dek: "Research published in the International Journal of Social Impact reveals that households close to apple orchards in Kashmir face elevated pesticide exposure, raising health concerns for the region’s rural communities."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ A recent peer‑reviewed study in the International Journal of Social Impact has
 Apple farming is a cornerstone of Kashmir’s economy, accounting for a large share of the region’s agricultural exports and providing livelihoods for thousands of small‑holder farmers. To protect yields, growers often rely on intensive pesticide regimes, especially during the blossom and fruit‑setting stages. While these chemicals boost production, the study warns that the lack of adequate protective measures—such as buffer zones, proper spraying techniques, and community awareness—has resulted in unintended exposure for nearby residents, particularly women and children who spend more time indoors where dust accumulates.
 
 The authors call for immediate policy interventions, including stricter regulation of pesticide application, promotion of integrated pest management (IPM) practices, and regular health monitoring of affected communities. They also recommend that local authorities facilitate training programs for farmers on safer pesticide handling and encourage the adoption of less hazardous alternatives where feasible.
-
-Reporting based on coverage from Kashmir Observer

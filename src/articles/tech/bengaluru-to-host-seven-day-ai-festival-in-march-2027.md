@@ -9,6 +9,7 @@ video_id: "YzMDwE2UIpk"
 video_caption: "BTS - Dynamite (Live from Arirang World Tour 2026, Munich, Germany)"
 slug: "bengaluru-to-host-seven-day-ai-festival-in-march-2027"
 sourceUrl: "https://economictimes.indiatimes.com/news/bengaluru-news/bengaluru-to-host-seven-day-ai-festival-in-march-2027/articleshow/133592234.cms"
+sourceName: "Economic Times"
 dek: "The city will stage a week‑long artificial‑intelligence festival in March 2027, targeting over 100,000 participants and focusing on rural empowerment and youth engagement."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ Bengaluru, often dubbed India’s Silicon Valley, announced plans to host a seve
 In preparation for the main festival, a national roadshow is set to begin this October in Wardha, Maharashtra. The roadshow aims to create a network of "AI ambassadors" who will promote the festival’s objectives in their respective regions, particularly focusing on villages and semi‑urban areas. Participants will receive training on basic AI concepts, data literacy, and how to leverage open‑source tools for local problem‑solving. The outreach is designed to ensure that the festival’s impact extends beyond Bengaluru’s tech ecosystem and reaches grassroots innovators.
 
 The festival’s agenda also includes panels on ethical AI, data privacy, and the regulatory framework needed to foster responsible innovation in India. Representatives from the Ministry of Electronics and Information Technology, leading AI research institutes, and global tech firms are slated to take part, underscoring the event’s ambition to position India as a hub for inclusive AI development.
-
-Reporting based on coverage from Economic Times

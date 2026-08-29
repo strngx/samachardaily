@@ -9,6 +9,7 @@ video_id: "mX1Tbw-PCqM"
 video_caption: "Indian Defence Updates : AMCA Mark-I By 2024,LCH Export Philippines,L&amp;T Enters Project P-75I"
 slug: "government-eases-defence-export-sop-to-help-local-manufacturers-tap-global-marke"
 sourceUrl: "https://indianexpress.com/article/business/government-eases-defence-export-sop-to-help-local-manufacturers-tap-global-market-10853916/"
+sourceName: "Indian Express"
 dek: "The government has streamlined the standard operating procedure for defence exports, aiming to cut red tape and enable Indian firms to compete abroad more effectively."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -22,5 +23,3 @@ New Delhi announced on Thursday a revision of the standard operating procedure (
 The overhaul comes after industry bodies and major defence firms, including Larsen & Toubro, Tata Group and Hindustan Aeronautics Limited, raised concerns that the earlier export regime was too cumbersome, causing delays that hampered their ability to win foreign bids. Under the revised rules, exporters can now submit applications electronically, receive provisional approvals within a stipulated 30‑day window, and benefit from clearer guidelines on end‑use verification. The Ministry also said it will set up a dedicated grievance redressal cell to address any compliance issues swiftly.
 
 The policy shift aligns with the government's broader "Make in India" and "Defence Production Policy" objectives, which aim to transform the country from a net importer of defence equipment to a net exporter. Officials cited the target of achieving $5 billion in defence export earnings by 2025 as a key driver behind the simplification drive.
-
-Reporting based on coverage from Indian Express

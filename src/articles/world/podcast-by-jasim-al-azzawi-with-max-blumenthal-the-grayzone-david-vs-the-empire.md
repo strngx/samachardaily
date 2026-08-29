@@ -9,6 +9,7 @@ video_id: "mnIT4wTnTHg"
 video_caption: "Top Iranian official to The Grayzone: &#39;The people will not let go of the blood of their Imam&#39;"
 slug: "podcast-by-jasim-al-azzawi-with-max-blumenthal-the-grayzone-david-vs-the-empire"
 sourceUrl: "https://www.middleeastmonitor.com/20260828-podcast-by-jasim-al-azzawi-with-max-blumenthal-the-grayzone-david-vs-the-empire/"
+sourceName: "Middle East Monitor"
 dek: "The latest episode of Jasim Al‑Azzawi’s podcast features Grayzone founder Max Blumenthal, who critiques American foreign policy and examines the impact of sanctions and shifting alliances in the Middle East and beyond."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -21,5 +22,3 @@ Jasim Al‑Azzawi, a journalist and commentator based in the Middle East, releas
 Throughout the hour‑long program, Blumenthal highlights the paradox of a "David versus Goliath" narrative that the U.S. often employs to justify interventions, arguing that the narrative masks deeper systemic issues such as corporate profiteering and military overreach. Al‑Azzawi adds a regional perspective, noting how Middle Eastern governments are navigating a complex web of alliances, from the Gulf’s tentative engagement with Israel to Turkey’s shifting posture toward the West. The hosts also touch on the rising tensions in the Red Sea and the Horn of Africa, where naval blockades and proxy conflicts threaten global shipping routes.
 
 The episode concludes with a call for more nuanced media coverage, urging listeners to look beyond mainstream headlines and consider the human cost of geopolitical maneuvering. Both Al‑Azzawi and Blumenthal stress that public awareness is essential for holding powerful states accountable and for fostering diplomatic solutions that prioritize stability over dominance.
-
-Reporting based on coverage from Middle East Monitor

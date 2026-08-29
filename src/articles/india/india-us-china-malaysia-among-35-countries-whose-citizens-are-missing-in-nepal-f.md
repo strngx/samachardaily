@@ -9,6 +9,7 @@ video_id: "Ai_p24wRmXU"
 video_caption: "🇳🇵 Nepal’s Deadly Flash Flood — What Really Happened and what travellers need to Know ?"
 slug: "india-us-china-malaysia-among-35-countries-whose-citizens-are-missing-in-nepal-f"
 sourceUrl: "https://www.news18.com/world/india-us-china-malaysia-among-35-countries-whose-citizens-are-missing-in-nepal-floods-full-list-ws-l-10298098.html"
+sourceName: "News18"
 dek: "India, the United States, China and 31 other countries say their nationals are among those unaccounted for following the catastrophic floods and landslides that hit Nepal in early August."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -17,5 +18,3 @@ why_it_matters: |
 Heavy monsoon rains that began in late July swelled Nepal's rivers and triggered a series of landslides across the country's hilly terrain, especially in the eastern districts of Sankhuwasabha, Taplejung and Ilam. By the first week of August, floodwaters had inundated villages, washed away bridges and cut off road links, leaving rescue teams scrambling on foot and by helicopter. Official tallies released by Nepal's disaster management authority put the death toll at over 150, with more than 1,000 people injured and hundreds still missing. The scale of the disaster prompted the Nepalese army, the Nepal Police and international humanitarian agencies to launch coordinated search‑and‑rescue operations, while the government declared a state of emergency in the most affected districts.
 
 Amid the chaos, foreign nationals quickly emerged among the missing. Nepal's Ministry of Foreign Affairs published a list naming citizens of 35 countries whose whereabouts were unknown after the floods. The list includes India, the United States, China, Malaysia, Ukraine, the United Kingdom, Australia and Canada, as well as several European, Asian and African nations. Consular officials from these countries have been dispatched to Kathmandu to assist families, verify identities and support ongoing rescue missions. Nepal's government has pledged full cooperation, offering translation services, medical aid and logistical support to foreign embassies as they work to locate their missing citizens.
-
-Reporting based on coverage from News18

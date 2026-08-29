@@ -445,6 +445,12 @@ function validateImage_(url) {
     return null;
   }
 
+  // 2. Reject domains known to block cross-origin hotlinking (HTTP 403)
+  if (/\b(c\.ndtvimg\.com)\b/i.test(cleanedUrl)) {
+    Logger.log('Rejecting image from domain with strict hotlinking protection: ' + cleanedUrl);
+    return null;
+  }
+
   // 2. Perform HEAD / partial fetch check to verify byte size
   try {
     var headOptions = {
@@ -689,12 +695,11 @@ function buildMarkdown_(article, image, videos, sourceUrl, headline, isFeatured)
     contentBody = article.content;
   }
 
-  var sourceAttribution = 'Reporting based on coverage from ' + (headline && headline.sourceName ? headline.sourceName : 'Official Wire Services');
-
   var safeTitle = (article.title || '').replace(/"/g, '\\"');
   var safeDek = (article.dek || '').replace(/"/g, '\\"');
   var safeImageAlt = (image && image.alt ? image.alt : safeTitle).replace(/"/g, '\\"');
   var safeImageCredit = (image && image.credit ? image.credit : 'SamacharDaily Desk').replace(/"/g, '\\"');
+  var safeSourceName = (headline && headline.sourceName ? headline.sourceName : safeImageCredit).replace(/"/g, '\\"');
   var safeWhyItMatters = (article.why_it_matters || '').trim();
   // Fix 7: Real what_happens_next
   var safeWhatHappensNext = (article.what_happens_next || 'No confirmed next steps reported yet.').replace(/"/g, '\\"');
@@ -714,6 +719,7 @@ function buildMarkdown_(article, image, videos, sourceUrl, headline, isFeatured)
     videosYaml,
     'slug: "' + headline.slug + '"',
     'sourceUrl: "' + (sourceUrl || '') + '"',
+    'sourceName: "' + safeSourceName + '"',
     'dek: "' + safeDek + '"',
     'author: "SamacharDaily Editorial Team"',
     'why_it_matters: |',
@@ -721,8 +727,6 @@ function buildMarkdown_(article, image, videos, sourceUrl, headline, isFeatured)
     'what_happens_next: "' + safeWhatHappensNext + '"',
     '---',
     contentBody,
-    '',
-    sourceAttribution,
     ''
   ].join('\n');
 

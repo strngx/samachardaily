@@ -21,6 +21,7 @@ videos:
     channel: "MTube"
 slug: "horror-has-a-new-home-house-of-horror-haunted-carnival-marks-25-years-at-tropical-par"
 sourceUrl: "https://techdash.in/horror-has-a-new-home-house-of-horror-haunted-carnival-marks-25-years-at-tropical-park/"
+sourceName: "Techdash.in"
 dek: "The Miami‑based Halloween attraction celebrates a quarter‑century milestone, adding five new haunted rides, expanded scare zones and the debut of BLIND TERROR, the nation’s first haunted dark roller coaster."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ The House of Horror Haunted Carnival, a staple of South Florida’s Halloween se
 This year’s lineup introduces five all‑new haunted attractions, enlarged scare zones and unlimited carnival rides. Central to the upgrade is BLIND TERROR, a dark‑themed roller coaster that combines immersive storytelling, synchronized lighting, and motion‑base technology to deliver a fully haunted ride experience—making it the only attraction of its kind in the United States.
 
 Park officials project a 30 % rise in attendance compared with the previous season, citing the novelty of the dark coaster and the broader attraction suite. Safety audits have been completed ahead of the opening, and local hotels report a surge in bookings as tourists flock to Miami for the extended Halloween festivities.
-
-Reporting based on coverage from Techdash.in

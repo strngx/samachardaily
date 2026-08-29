@@ -21,6 +21,7 @@ videos:
     channel: "Dodgeland Football"
 slug: "volleyball-johnson-creek-sweeps-cambria-friesland-to-begin-season"
 sourceUrl: "https://www.dailyunion.com/sports/volleyball-johnson-creek-sweeps-cambria-friesland-to-begin-season/article_2799e5f2-46a4-4515-984e-767b0a901aa7.html"
+sourceName: "Daily Jefferson County Union"
 dek: "Johnson Creek's volleyball team opened the season with a decisive 3-0 sweep of Cambria-Friesland, securing early momentum in the district league."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ In the first match of the high‑school volleyball season, Johnson Creek defeate
 The victory was anchored by senior outside hitter Maya Patel, who tallied 12 kills and served an ace in the second set, while the team's libero, Ethan Liu, recorded eight digs and two digs that sparked transition attacks.
 
 Cambria‑Friesland struggled to find rhythm on serve receive, committing 15 errors across the match, a factor that Johnson Creek capitalised on with aggressive net play and disciplined blocking.
-
-Reporting based on coverage from Daily Jefferson County Union

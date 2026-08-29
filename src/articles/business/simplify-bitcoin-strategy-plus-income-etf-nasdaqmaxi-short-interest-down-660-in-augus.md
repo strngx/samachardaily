@@ -21,6 +21,7 @@ videos:
     channel: "Sumit Jaiswal - The Finance Guru"
 slug: "simplify-bitcoin-strategy-plus-income-etf-nasdaqmaxi-short-interest-down-660-in-augus"
 sourceUrl: "https://www.watchlistnews.com/simplify-bitcoin-strategy-plus-income-etf-nasdaqmaxi-short-interest-down-66-0-in-august/11204858.html"
+sourceName: "Watch List News"
 dek: "The ETF’s short interest fell to 4,958 shares by Aug. 14, a 66% drop from late July, indicating a sharp reduction in bearish positions amid modest trading volumes."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ Data released on Aug. 14 shows short interest in Simplify Bitcoin Strategy PLU
 Analysts note that such a rapid unwind of short bets can signal growing confidence in the ETF’s underlying Bitcoin exposure, or a strategic repositioning by institutional traders ahead of anticipated market moves. The fund, which blends Bitcoin futures with income‑generating assets, has attracted attention for its hybrid approach, and the short‑interest swing may influence its net asset value and inflow dynamics.
 
 Market observers will watch whether the reduced short interest translates into tighter bid‑ask spreads and higher liquidity for MAXI. A sustained low short‑interest level could also affect the fund’s risk profile, as fewer bearish bets may lessen price volatility, but it also reduces the hedge that short sellers provide against sudden market corrections.
-
-Reporting based on coverage from Watch List News

@@ -12,6 +12,7 @@ video_caption: ""
 videos: []
 slug: "india-news-relief-as-stranded-maharashtra-citizens-return-from-flood-hit-nepal-expres"
 sourceUrl: "https://www.latestly.com/agency-news/india-news-relief-as-stranded-maharashtra-citizens-return-from-flood-hit-nepal-express-gratitude-to-cm-office-centre-7580602.html"
+sourceName: "Latestly"
 dek: "Stranded Maharashtra residents returned from flood‑stricken Nepal thanked the state government, CM office and central authorities for coordinated rescue and repatriation efforts."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -65,5 +66,3 @@ video_query
 :
 
 Maharashtra officials speaking with rescued citizens after Nepal floods
-
-Reporting based on coverage from Latestly

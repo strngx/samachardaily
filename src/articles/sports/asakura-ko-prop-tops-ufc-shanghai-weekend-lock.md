@@ -21,6 +21,7 @@ videos:
     channel: "UFC Japan"
 slug: "asakura-ko-prop-tops-ufc-shanghai-weekend-lock"
 sourceUrl: "https://www.yardbarker.com/mma/articles/asakura_ko_prop_tops_ufc_shanghai_weekend_lock/s1_17349_44231966"
+sourceName: "Yardbarker"
 dek: "Betting analyst Alexander Behunin names Asakura a knockout lock against Aoriqileng, highlighting his power and recent form ahead of Saturday's UFC Shanghai card."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
@@ -34,5 +35,3 @@ Kai Asakura entered the UFC Shanghai weekend as the clear favorite to finish his
 The Japanese striker, riding a three‑fight win streak, has demonstrated an ability to end bouts early, most recently with a first‑round KO in his last appearance. Aoriqileng, a relative newcomer to the UFC, possesses a grappling‑heavy style but has shown limited knockout power, further tilting odds toward Asakura’s striking advantage.
 
 Bookmakers have responded swiftly, shortening Asakura’s odds across major platforms. The betting market’s confidence reflects broader expectations that a decisive victory could propel Asakura into contention for a higher‑ranked featherweight slot, while a loss would stall his momentum in the rapidly expanding Chinese market for MMA events.
-
-Reporting based on coverage from Yardbarker
