@@ -213,6 +213,45 @@ function isLowSubstance_(title) {
   return false;
 }
 
+var GAMBLING_PATTERN = /\b(prop bet|prop picks?|betting (odds|lines|picks)|best bets?|parlay|moneyline|point spread|over\/under|lock of the (day|week)|sportsbook|bet slip|wager|odds to win|futures odds)\b/i;
+
+/**
+ * Checks if a headline involves sports betting, odds, or gambling content (AdSense policy risk).
+ *
+ * @param {string} title - Headline to check.
+ * @returns {boolean} True if gambling/betting content.
+ */
+function isGamblingContent_(title) {
+  if (!title || typeof title !== 'string') return false;
+  return GAMBLING_PATTERN.test(title);
+}
+
+var LISTICLE_PATTERN = /^(\d+\s+(essential|best|top|reasons|ways|things|tips|features|mistakes)|why you (should|need)|how to |the ultimate guide|everything you need to know about)/i;
+
+/**
+ * Checks if a headline matches generic listicle or how-to blog formats.
+ *
+ * @param {string} title - Headline to check.
+ * @returns {boolean} True if listicle/blog format.
+ */
+function isListicleFormat_(title) {
+  if (!title || typeof title !== 'string') return false;
+  return LISTICLE_PATTERN.test(title.trim());
+}
+
+var SELF_PROMO_PATTERN = /\b(success at|shines at|showcases? (its|their)|proud to (announce|present)|celebrates? (its|their) success|wins accolades at|receives? recognition at)\b/i;
+
+/**
+ * Checks if a headline matches self-promotional, corporate self-praise, or tourism-board PR.
+ *
+ * @param {string} title - Headline to check.
+ * @returns {boolean} True if self-promotional content.
+ */
+function isSelfPromotional_(title) {
+  if (!title || typeof title !== 'string') return false;
+  return SELF_PROMO_PATTERN.test(title);
+}
+
 var ENTERTAINMENT_NEWSWORTHY_PATTERN = /\b(dies|dead at \d|death of|passes away|obituary|arrested|files for divorce|divorce finalized|marries|got engaged|hospitalized|scandal|lawsuit|sues|sentenced|wins (an |the )?(oscar|grammy|award)|nominated for (an |the )?(oscar|grammy)|announces (new |his |her )?(movie|film|series|album|world tour)|trailer released|box office|makes (his|her) directorial debut|joins the cast|signs (a )?deal|biopic|announces retirement|comeback|passed away)\b/i;
 
 var ENTERTAINMENT_NOISE_PATTERN = /\b(live stream|streaming online|tv schedule|episode guide|watch live|live results|segment|playlist|new single|song by|ft\.|featuring|carnival|haunted house|theme park|anniversary event|market size|CAGR|press release|prnewswire|globenewswire|song drops|drops new)\b/i;
@@ -1019,6 +1058,12 @@ function runPipelineForCategory_(categoryKey) {
   for (var i = 0; i < candidates.length; i++) {
     var c = candidates[i];
 
+    // Reject gambling and betting content (AdSense policy risk)
+    if (isGamblingContent_(c.title)) {
+      Logger.log('SKIPPED (Gambling/Betting Content - Policy Risk): "' + c.title + '"');
+      continue;
+    }
+
     // Reject syndicated market-research and PR-wire spam
     if (isPressReleaseSpam_(c.title)) {
       Logger.log('Skipping market report / PR spam candidate: "' + c.title + '"');
@@ -1028,6 +1073,18 @@ function runPipelineForCategory_(categoryKey) {
     // Reject low-substance content (ticker dumps, local school sports recaps)
     if (isLowSubstance_(c.title)) {
       Logger.log('Skipping low-substance candidate: "' + c.title + '"');
+      continue;
+    }
+
+    // Reject listicles and generic blog formats
+    if (isListicleFormat_(c.title)) {
+      Logger.log('Skipping listicle/blog format candidate: "' + c.title + '"');
+      continue;
+    }
+
+    // Reject self-promotional and tourism-board self-praise
+    if (isSelfPromotional_(c.title)) {
+      Logger.log('Skipping self-promotional candidate: "' + c.title + '"');
       continue;
     }
 
