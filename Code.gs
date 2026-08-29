@@ -170,6 +170,19 @@ function isIndiaRelevant_(title, description) {
   return INDIA_SIGNAL_PATTERN.test(text);
 }
 
+var SPAM_PATTERN = /\b(market size|market share|cagr|forecast to 2\d{3}|usd\s+\d+(\.\d+)?\s+(million|billion)|press release|pr newswire|globenewswire|market research)\b/i;
+
+/**
+ * Checks if a headline matches syndicated market-research or PR-wire spam.
+ *
+ * @param {string} title - Headline to check.
+ * @returns {boolean} True if matched as market-report/PR spam.
+ */
+function isPressReleaseSpam_(title) {
+  if (!title || typeof title !== 'string') return false;
+  return SPAM_PATTERN.test(title);
+}
+
 // ============================================================================
 // 3. CROSS-SOURCE DUPLICATE & KEYWORD OVERLAP DETECTION (Fix 3)
 // ============================================================================
@@ -453,8 +466,18 @@ function rewriteWithGroq_(headline, category, config) {
   };
 
   var resp = UrlFetchApp.fetch('https://api.groq.com/openai/v1/chat/completions', options);
-  if (resp.getResponseCode() !== 200) {
-    throw new Error('Groq API error (' + resp.getResponseCode() + '): ' + resp.getContentText());
+  var statusCode = resp.getResponseCode();
+
+  // Handle Groq 429 Rate Limit with single 10-second retry backoff
+  if (statusCode === 429) {
+    Logger.log('Groq 429 rate limit reached. Backing off for 10 seconds before single retry...');
+    Utilities.sleep(10000);
+    resp = UrlFetchApp.fetch('https://api.groq.com/openai/v1/chat/completions', options);
+    statusCode = resp.getResponseCode();
+  }
+
+  if (statusCode !== 200) {
+    throw new Error('Groq API error (' + statusCode + '): ' + resp.getContentText());
   }
 
   var parsed = JSON.parse(resp.getContentText());
@@ -910,6 +933,13 @@ function runPipelineForCategory_(categoryKey) {
   var validCandidates = [];
   for (var i = 0; i < candidates.length; i++) {
     var c = candidates[i];
+
+    // Reject syndicated market-research and PR-wire spam
+    if (isPressReleaseSpam_(c.title)) {
+      Logger.log('Skipping market report / PR spam candidate: "' + c.title + '"');
+      continue;
+    }
+
     var slug = generateSlug_(c.title);
 
     // Exact duplicate slug check
@@ -1037,7 +1067,8 @@ function runPipelineAllCategories() {
       Logger.log('Error running pipeline for ' + keys[i] + ': ' + err.toString());
       results[keys[i]] = { success: false, error: err.toString() };
     }
-    Utilities.sleep(2000);
+    // 15-second rate limit buffer between desks to stay safely under Groq TPM limit
+    Utilities.sleep(15000);
   }
   return results;
 }
