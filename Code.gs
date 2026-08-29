@@ -183,6 +183,36 @@ function isPressReleaseSpam_(title) {
   return SPAM_PATTERN.test(title);
 }
 
+var TICKER_DUMP_PATTERN = /\b(short interest|shares outstanding|institutional ownership|insider (buying|selling)|13F filing|price target (raised|lowered)|moving average|NASDAQ:|NYSE:|hedge fund holdings)\b/i;
+
+var LOCAL_SPORTS_SUFFIX_PATTERN = /\b(high school|pool play|invitational|junior varsity|jv|little league|middle school|prep roundup|prep sports)\b/i;
+var LOCAL_SPORTS_RECAP_PATTERN = /\b(sweeps|splits|edges past|powers past|rallies past|takes down|rolls past|shuts out|holds off|top seeds|undefeated in pool)\b/i;
+var PRO_MAJOR_SPORTS_PATTERN = /\b(nfl|nba|mlb|nhl|fifa|uefa|premier league|la liga|serie a|bundesliga|ipl|bcci|icc|test|odi|t20|world cup|olympics|champions league|atp|wta|pga|formula 1|f1|isl|national team|championship)\b/i;
+
+/**
+ * Checks if a headline represents low-substance content (ticker dumps or small-scale local recaps).
+ *
+ * @param {string} title - Headline to check.
+ * @returns {boolean} True if low-substance content.
+ */
+function isLowSubstance_(title) {
+  if (!title || typeof title !== 'string') return false;
+
+  // 1. Stock / finance ticker dump
+  if (TICKER_DUMP_PATTERN.test(title)) {
+    return true;
+  }
+
+  // 2. Local youth / high school sports recaps (without professional/major signals)
+  if (LOCAL_SPORTS_SUFFIX_PATTERN.test(title) && LOCAL_SPORTS_RECAP_PATTERN.test(title)) {
+    if (!PRO_MAJOR_SPORTS_PATTERN.test(title)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 var ENTERTAINMENT_NEWSWORTHY_PATTERN = /\b(dies|dead at \d|death of|passes away|obituary|arrested|files for divorce|divorce finalized|marries|got engaged|hospitalized|scandal|lawsuit|sues|sentenced|wins (an |the )?(oscar|grammy|award)|nominated for (an |the )?(oscar|grammy)|announces (new |his |her )?(movie|film|series|album|world tour)|trailer released|box office|makes (his|her) directorial debut|joins the cast|signs (a )?deal|biopic|announces retirement|comeback|passed away)\b/i;
 
 var ENTERTAINMENT_NOISE_PATTERN = /\b(live stream|streaming online|tv schedule|episode guide|watch live|live results|segment|playlist|new single|song by|ft\.|featuring|carnival|haunted house|theme park|anniversary event|market size|CAGR|press release|prnewswire|globenewswire|song drops|drops new)\b/i;
@@ -992,6 +1022,12 @@ function runPipelineForCategory_(categoryKey) {
     // Reject syndicated market-research and PR-wire spam
     if (isPressReleaseSpam_(c.title)) {
       Logger.log('Skipping market report / PR spam candidate: "' + c.title + '"');
+      continue;
+    }
+
+    // Reject low-substance content (ticker dumps, local school sports recaps)
+    if (isLowSubstance_(c.title)) {
+      Logger.log('Skipping low-substance candidate: "' + c.title + '"');
       continue;
     }
 
