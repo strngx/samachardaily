@@ -58,53 +58,7 @@ layout: layouts/base.njk
     {% set slotName = "homepage-top" %}
     {% include "partials/ad-slot.njk" %}
 
-    <!-- 3. Compact Live Feed (Timeline / Live-Blog Style) -->
-    {% if feedArticles.length > 0 %}
-    <section class="live-timeline-section" aria-label="Live News Feed">
-      <div class="section-masthead">
-        <div class="section-title-group">
-          <h2 class="section-masthead-title">Live News Feed</h2>
-          <span class="section-masthead-sub">Continuous real-time reporting across all desks</span>
-        </div>
-      </div>
-
-      <div class="timeline-feed-wrapper">
-        {% for article in feedArticles | limit(8) %}
-          <article class="timeline-feed-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-body">
-              <div class="timeline-meta">
-                <time class="timeline-time" datetime="{{ article.date | isoDate }}">{{ article.date | timeAgo }}</time>
-                <span class="timeline-sep">•</span>
-                <a href="{{ ('/' + (article.data.category | categorySlug) + '/') | url }}" class="category-label" style="margin-bottom: 0;">
-                  {{ article.data.category }}
-                </a>
-                {% if (article.date | isJustIn(article.data.featured)) %}
-                  <span class="badge-just-in-inline">JUST IN</span>
-                {% endif %}
-              </div>
-              <h3 class="timeline-headline">
-                <a href="{{ article.url | url }}">{{ article.data.title }}</a>
-              </h3>
-            </div>
-            {% if article.data.image %}
-              <a href="{{ article.url | url }}" class="timeline-thumb-wrap" aria-label="{{ article.data.title }}">
-                <img src="{{ article.data.image | url }}" alt="{{ article.data.imageAlt or article.data.title }}" class="timeline-thumb" loading="lazy" width="72" height="50">
-              </a>
-            {% else %}
-              <a href="{{ article.url | url }}" class="timeline-thumb-wrap card-thumb-placeholder category-bg-{{ article.data.category | lower }}" aria-label="{{ article.data.title }}">
-                <div class="placeholder-inner-sm">
-                  <span>{{ article.data.category }}</span>
-                </div>
-              </a>
-            {% endif %}
-          </article>
-        {% endfor %}
-      </div>
-    </section>
-    {% endif %}
-
-    <!-- 4. Trending Stories (#01 Full-Bleed Overlay + #02-04 Compact List) -->
+    <!-- 3. Trending Stories with Visual Hierarchy (#1 Dominant + #2-4 Compact) -->
     {% if trendingStories.length > 0 %}
     <section class="trending-section" aria-label="Trending Stories">
       <div class="section-masthead">
@@ -115,64 +69,86 @@ layout: layouts/base.njk
       </div>
 
       <div class="trending-hierarchy-grid">
-        <!-- #01 Full-Bleed Overlay Story -->
+        <!-- #1 Dominant Trending Story -->
         {% set topTrend = trendingStories[0] %}
         {% if topTrend %}
-        <article class="trending-overlay-card">
-          <a href="{{ topTrend.url | url }}" class="trending-overlay-media" aria-label="{{ topTrend.data.title }}">
+        <article class="trending-featured-card">
+          <div class="trending-featured-media-wrap">
             {% if topTrend.data.image %}
-              <img src="{{ topTrend.data.image | url }}" alt="{{ topTrend.data.imageAlt or topTrend.data.title }}" class="trending-overlay-img" loading="lazy" width="720" height="420">
+              <a href="{{ topTrend.url | url }}" class="card-thumb" aria-label="{{ topTrend.data.title }}">
+                <img src="{{ topTrend.data.image | url }}" alt="{{ topTrend.data.imageAlt or topTrend.data.title }}" loading="lazy" width="640" height="360">
+                {% if (topTrend.date | isJustIn(topTrend.data.featured)) %}
+                  <span class="badge-just-in">JUST IN</span>
+                {% endif %}
+              </a>
             {% else %}
-              <div class="trending-overlay-placeholder category-bg-{{ topTrend.data.category | lower }}">
+              <a href="{{ topTrend.url | url }}" class="card-thumb card-thumb-placeholder category-bg-{{ topTrend.data.category | lower }}" aria-label="{{ topTrend.data.title }}">
                 <div class="placeholder-inner">
                   <span class="placeholder-brand">Samachar<span class="brand-red">Daily</span></span>
                   <span class="placeholder-category">{{ topTrend.data.category }}</span>
                 </div>
-              </div>
-            {% endif %}
-            <div class="trending-scrim"></div>
-            <div class="trending-overlay-content">
-              <div class="trending-overlay-top">
-                <span class="trending-rank-pill">#01 TRENDING</span>
                 {% if (topTrend.date | isJustIn(topTrend.data.featured)) %}
-                  <span class="badge-just-in-overlay">JUST IN</span>
+                  <span class="badge-just-in">JUST IN</span>
                 {% endif %}
-              </div>
-              <span class="category-label-overlay">{{ topTrend.data.category }}</span>
-              <h3 class="trending-overlay-headline">{{ topTrend.data.title }}</h3>
-              <div class="meta-row-overlay">
-                <time datetime="{{ topTrend.date | isoDate }}">{{ topTrend.date | timeAgo }}</time>
-                <span>•</span>
-                <span>{{ topTrend.templateContent | readTime }}</span>
-              </div>
+              </a>
+            {% endif %}
+            <span class="trending-rank-badge">#01 TRENDING</span>
+          </div>
+          <div class="trending-featured-body">
+            <a href="{{ ('/' + (topTrend.data.category | categorySlug) + '/') | url }}" class="category-label">
+              {{ topTrend.data.category }}
+            </a>
+            <h3 class="trending-featured-headline">
+              <a href="{{ topTrend.url | url }}">{{ topTrend.data.title }}</a>
+            </h3>
+            {% if topTrend.data.dek %}
+              <p class="trending-featured-dek">{{ topTrend.data.dek }}</p>
+            {% endif %}
+            <div class="meta-row" style="font-size: 0.8125rem; margin-top: auto;">
+              <time datetime="{{ topTrend.date | isoDate }}">{{ topTrend.date | timeAgo }}</time>
+              <span>•</span>
+              <span>{{ topTrend.templateContent | readTime }}</span>
             </div>
-          </a>
+          </div>
         </article>
         {% endif %}
 
-        <!-- #02-04 Compact List -->
+        <!-- #02-04 Compact List Items -->
         <div class="trending-compact-list">
           {% for article in trendingStories | skip(1) | limit(3) %}
-            <article class="trending-compact-item">
-              <span class="trending-compact-rank" aria-hidden="true">0{{ loop.index + 1 }}</span>
-              {% if article.data.image %}
-                <a href="{{ article.url | url }}" class="trending-compact-thumb-wrap" aria-label="{{ article.data.title }}">
-                  <img src="{{ article.data.image | url }}" alt="{{ article.data.imageAlt or article.data.title }}" class="trending-compact-thumb" loading="lazy" width="80" height="56">
-                </a>
-              {% else %}
-                <a href="{{ article.url | url }}" class="trending-compact-thumb-wrap card-thumb-placeholder category-bg-{{ article.data.category | lower }}" aria-label="{{ article.data.title }}">
-                  <div class="placeholder-inner-sm">
-                    <span>{{ article.data.category }}</span>
+            <article class="trending-item">
+              <span class="trending-rank" aria-hidden="true">0{{ loop.index + 1 }}</span>
+              <div class="trending-content">
+                {% if article.data.image %}
+                  <a href="{{ article.url | url }}" class="trending-thumb-wrap" aria-label="{{ article.data.title }}">
+                    <img src="{{ article.data.image | url }}" alt="{{ article.data.imageAlt or article.data.title }}" class="trending-thumb" loading="lazy" width="120" height="80">
+                    {% if (article.date | isJustIn(article.data.featured)) %}
+                      <span class="badge-just-in badge-just-in-sm">JUST IN</span>
+                    {% endif %}
+                  </a>
+                {% else %}
+                  <a href="{{ article.url | url }}" class="trending-thumb-wrap card-thumb-placeholder category-bg-{{ article.data.category | lower }}" aria-label="{{ article.data.title }}">
+                    <div class="placeholder-inner-sm">
+                      <span>{{ article.data.category }}</span>
+                    </div>
+                    {% if (article.date | isJustIn(article.data.featured)) %}
+                      <span class="badge-just-in badge-just-in-sm">JUST IN</span>
+                    {% endif %}
+                  </a>
+                {% endif %}
+                <div style="flex: 1; min-width: 0;">
+                  <a href="{{ ('/' + (article.data.category | categorySlug) + '/') | url }}" class="category-label">
+                    {{ article.data.category }}
+                  </a>
+                  <h4 class="trending-headline">
+                    <a href="{{ article.url | url }}">{{ article.data.title }}</a>
+                  </h4>
+                  <div class="meta-row" style="font-size: 0.75rem;">
+                    <time datetime="{{ article.date | isoDate }}">{{ article.date | timeAgo }}</time>
+                    <span>•</span>
+                    <span>{{ article.templateContent | readTime }}</span>
                   </div>
-                </a>
-              {% endif %}
-              <div class="trending-compact-body">
-                <a href="{{ ('/' + (article.data.category | categorySlug) + '/') | url }}" class="category-label" style="margin-bottom: 0;">
-                  {{ article.data.category }}
-                </a>
-                <h4 class="trending-compact-headline">
-                  <a href="{{ article.url | url }}">{{ article.data.title }}</a>
-                </h4>
+                </div>
               </div>
             </article>
           {% endfor %}
@@ -181,73 +157,29 @@ layout: layouts/base.njk
     </section>
     {% endif %}
 
-    <!-- 5. Editorial Breakdown: Why This Matters -->
-    {% include "partials/explainer-feature.njk" %}
+    <!-- 4. Unified Live News Feed -->
+    {% if feedArticles.length > 0 %}
+    <section class="editorial-category-section" aria-label="Unified Live News Feed">
+      <div class="section-masthead">
+        <div class="section-title-group">
+          <h2 class="section-masthead-title">Live News Feed</h2>
+          <span class="section-masthead-sub">Continuous dispatches across India, World, Business, Tech, and Sports</span>
+        </div>
+      </div>
 
-    <!-- 6. Mid-Page Ad Slot -->
+      <div class="category-grid">
+        {% for article in feedArticles %}
+          {% include "partials/card.njk" %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- 5. Mid-Page Ad Slot -->
     {% set slotName = "homepage-mid" %}
     {% include "partials/ad-slot.njk" %}
 
-    <!-- 7. Category Rails (India / World / Business / Tech / Sports) -->
-    {% set railDesks = [
-      { name: "India", slug: "india", coll: collections.india, sub: "National governance, policy, infrastructure, and civic developments" },
-      { name: "World", slug: "world", coll: collections.world, sub: "Global diplomacy, international pacts, multilateral summits, and world events" },
-      { name: "Business", slug: "business", coll: collections.business, sub: "Markets, economy, venture ecosystems, and industry investments" },
-      { name: "Tech", slug: "tech", coll: collections.tech, sub: "Frontier AI, digital infrastructure, telecommunications, and science" },
-      { name: "Sports", slug: "sports", coll: collections.sports, sub: "Cricket tournaments, athletics records, football, and championships" }
-    ] %}
-
-    {% for rail in railDesks %}
-      {% set railArticles = rail.coll | limit(4) %}
-      {% if railArticles.length > 0 %}
-      <section class="category-rail-section {% if loop.index % 2 == 0 %}section-tinted{% endif %}" aria-label="{{ rail.name }} Section">
-        <div class="section-masthead">
-          <div class="section-title-group">
-            <h2 class="section-masthead-title">{{ rail.name }}</h2>
-            <span class="section-masthead-sub">{{ rail.sub }}</span>
-          </div>
-          <a href="{{ ('/' + rail.slug + '/') | url }}" class="section-view-all">View All {{ rail.name }} →</a>
-        </div>
-
-        <div class="category-rail-grid">
-          <!-- Lead Rail Article (Bigger treatment) -->
-          {% set leadRailArt = railArticles[0] %}
-          <div class="rail-lead-card">
-            {% set article = leadRailArt %}
-            {% include "partials/card.njk" %}
-          </div>
-
-          <!-- Remaining 2-3 Rail Articles (Compact text-first list) -->
-          <div class="rail-sub-list">
-            {% for subArt in railArticles | skip(1) | limit(3) %}
-              <article class="rail-sub-item">
-                <div class="rail-sub-meta">
-                  <time datetime="{{ subArt.date | isoDate }}">{{ subArt.date | timeAgo }}</time>
-                  <span>•</span>
-                  <span>{{ subArt.templateContent | readTime }}</span>
-                  {% if (subArt.date | isJustIn(subArt.data.featured)) %}
-                    <span>•</span>
-                    <span class="badge-just-in-inline">JUST IN</span>
-                  {% endif %}
-                </div>
-                <h3 class="rail-sub-headline">
-                  <a href="{{ subArt.url | url }}">{{ subArt.data.title }}</a>
-                </h3>
-                {% if subArt.data.dek %}
-                  <p class="rail-sub-snippet">{{ subArt.data.dek | truncateWords(18) }}</p>
-                {% endif %}
-              </article>
-            {% endfor %}
-          </div>
-        </div>
-      </section>
-      {% endif %}
-    {% endfor %}
-
-    <!-- 8. Video Journalism Section -->
+    <!-- 6. Video Journalism Section -->
     {% include "partials/video-journalism.njk" %}
-
-    <!-- 9. Newsletter Section -->
-    {% include "partials/newsletter.njk" %}
   {% endif %}
 </div>
