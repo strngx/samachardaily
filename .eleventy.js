@@ -170,6 +170,18 @@ module.exports = function (eleventyConfig) {
     return words.slice(0, count).join(" ") + "...";
   });
 
+  eleventyConfig.addFilter("shortTitle", (str) => {
+    if (!str || typeof str !== "string") return "";
+    const cleanStr = str.trim();
+    if (cleanStr.length <= 60) return cleanStr;
+    const sub = cleanStr.slice(0, 60);
+    const lastSpace = sub.lastIndexOf(" ");
+    if (lastSpace > 0) {
+      return sub.slice(0, lastSpace).trim();
+    }
+    return sub.trim();
+  });
+
   eleventyConfig.addFilter("json", (obj) => {
     return JSON.stringify(obj);
   });

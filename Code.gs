@@ -656,6 +656,24 @@ function searchYouTubeVideo_(query, config) {
 // ============================================================================
 
 /**
+ * Truncates headline to 60 characters at last full word for SEO title tag.
+ *
+ * @param {string} title - Full headline string.
+ * @returns {string} Truncated SEO title without trailing punctuation/ellipsis.
+ */
+function generateSeoTitle_(title) {
+  if (!title || typeof title !== 'string') return '';
+  var cleanTitle = title.trim();
+  if (cleanTitle.length <= 60) return cleanTitle;
+  var sub = cleanTitle.substring(0, 60);
+  var lastSpace = sub.lastIndexOf(' ');
+  if (lastSpace > 0) {
+    return sub.substring(0, lastSpace).trim();
+  }
+  return sub.trim();
+}
+
+/**
  * Constructs production Markdown file with complete frontmatter schema.
  *
  * @param {Object} article - Groq synthesized article.
@@ -696,6 +714,8 @@ function buildMarkdown_(article, image, videos, sourceUrl, headline, isFeatured)
   }
 
   var safeTitle = (article.title || '').replace(/"/g, '\\"');
+  var seoTitle = generateSeoTitle_(article.title || '');
+  var safeSeoTitle = seoTitle.replace(/"/g, '\\"');
   var safeDek = (article.dek || '').replace(/"/g, '\\"');
   var safeImageAlt = (image && image.alt ? image.alt : safeTitle).replace(/"/g, '\\"');
   var safeImageCredit = (image && image.credit ? image.credit : 'SamacharDaily Desk').replace(/"/g, '\\"');
@@ -707,6 +727,7 @@ function buildMarkdown_(article, image, videos, sourceUrl, headline, isFeatured)
   var md = [
     '---',
     'title: "' + safeTitle + '"',
+    'seoTitle: "' + safeSeoTitle + '"',
     'category: "' + (headline.categoryName || 'India') + '"',
     'date: ' + nowIso,
     'image: "' + (image && image.url ? image.url : '') + '"',

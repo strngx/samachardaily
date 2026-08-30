@@ -11,7 +11,7 @@ layout: layouts/base.njk
       <span style="color: var(--color-ink);">{{ title }}</span>
     </nav>
 
-    <h1 class="article-headline-main">{{ title }}</h1>
+    <h1 class="article-headline-main">{{ title or "SamacharDaily" }}</h1>
     
     <div style="font-size: 0.875rem; color: var(--color-muted); margin-bottom: var(--space-6); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border);">
       Last Updated: {{ page.date | readableDate("dd LLLL yyyy") }} • SamacharDaily Editorial

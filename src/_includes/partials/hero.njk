@@ -52,9 +52,9 @@
         {{ leadStory.data.category }}
       </a>
     </div>
-    <h2 class="lead-headline">
+    <h1 class="lead-headline">
       <a href="{{ leadStory.url | url }}">{{ leadStory.data.title }}</a>
-    </h2>
+    </h1>
     {% if leadStory.data.dek %}
       <p class="lead-dek">{{ leadStory.data.dek }}</p>
     {% endif %}
@@ -126,7 +126,7 @@
 <section class="empty-newsroom-state" aria-label="Newsroom Status">
   <div class="empty-newsroom-box">
     <div class="empty-badge">SAMACHARDAILY · TODAY'S EDITION</div>
-    <h2 class="empty-title">Today's edition is being prepared.</h2>
+    <h1 class="empty-title">{{ title or "Today's edition is being prepared." }}</h1>
     <p class="empty-desc">
       Verified reporting and explanatory journalism from India, World, Business, Tech, and Sports will appear here once published.
     </p>
