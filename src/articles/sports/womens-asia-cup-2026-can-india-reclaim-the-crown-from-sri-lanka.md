@@ -2,9 +2,6 @@
 title: "Women’s Asia Cup 2026: India eyes redemption against defending champions Sri Lanka"
 category: "Sports"
 date: 2026-08-28T23:35:45Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Women’s Asia Cup 2026: India eyes redemption against defending champions Sri Lanka"
-imageCredit: "PENDING"
 video_id: "BN7DprPWUGI"
 video_caption: "Highlights | Semi-Final 1 | India &#39;A&#39; v Sri Lanka &#39;A&#39; | DP World Women&#39;s Asia Cup Rising Stars 2026"
 slug: "womens-asia-cup-2026-can-india-reclaim-the-crown-from-sri-lanka"
@@ -14,6 +11,10 @@ dek: "The 10th edition of the Women’s Asia Cup begins in Dubai on August 28, w
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The tournament is a barometer for the growth of women’s cricket in Asia, a region that supplies a large share of the sport’s global talent. A strong performance by India could boost its ICC ranking ahead of the 2027 Women’s World Cup, while Sri Lanka’s defence of the title will test whether their recent success was a one‑off or the start of sustained dominance. Beyond rankings, the event provides a platform for emerging players to gain exposure, attract sponsorship, and inspire a new generation of female athletes across the continent. The outcomes will also influence board decisions on funding, domestic league structures, and the scheduling of future international fixtures, shaping the trajectory of women’s cricket in the region for years to come.
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 The Women’s Asia Cup 2026 will be staged at the International Cricket Stadium in Dubai, marking the tournament’s return to the United Arab Emirates after a two‑year hiatus. The competition features eight national sides divided into two groups of four. Group A comprises India, Pakistan, Thailand and Hong Kong, while Group B contains defending champions Sri Lanka, runners‑up Bangladesh, China and an associate side yet to make its debut. Each team plays the others in its group once, with the top two progressing to the semi‑finals. The tournament, scheduled to run through early September, follows a round‑robin format that ensures each side gets at least three matches before the knockout stage.
 

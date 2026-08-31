@@ -2,9 +2,11 @@
 title: "India boosts aid as Nepal flash floods leave 1,924 missing, 579 dead"
 category: "World"
 date: 2026-08-29T15:03:14Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "India boosts aid as Nepal flash floods leave 1,924 missing, 579 dead"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Tomb_of_Humayun%2C_Delhi.jpg"
+imageAlt: "Tomb of Humayun, Delhi, India. Western façade as viewed from the main entrance"
+imageCredit: "Muhammad Mahdi Karim / Wikimedia Commons"
+imageLicense: "GFDL 1.2"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Tomb_of_Humayun,_Delhi.jpg"
 trending: false
 featured: false
 video_id: ""
@@ -15,9 +17,8 @@ sourceUrl: "https://newsonair.gov.in/death-toll-in-nepal-flash-floods-rises-to-5
 dek: "The death toll from flash floods in Nepal and Tibet has risen to 579, with 1,924 still missing; India has dispatched additional rescue teams and relief supplies to support Nepal’s response."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The scale of loss highlights gaps in early warning systems and infrastructure resilience across the Himalayas, prompting calls for stronger regional climate‑adaptation policies. International donors and multilateral agencies may be compelled to reassess funding allocations for disaster preparedness in South Asia.
-  
-  India’s involvement illustrates how humanitarian aid can reinforce diplomatic relations and security cooperation. A coordinated response can mitigate the risk of a protracted refugee flow, preserve trade routes, and strengthen collective capacity to manage trans‑border natural disasters.
+  The scale of loss highlights gaps in early warning systems and infrastructure resilience across the Himalayas, prompting calls for stronger regional climate‑adaptation policies. International donors and multilateral agencies may be compelled to reassess funding allocations for disaster preparedness in South Asia. India’s involvement illustrates how humanitarian aid can reinforce diplomatic relations and security cooperation. A coordinated response can mitigate the risk of a protracted refugee flow, preserve trade routes, and strengthen collective capacity to manage trans‑border natural disasters.
+
 what_happens_next: "Nepal’s disaster authority will continue ground searches for the missing while expanding temporary shelters for displaced families. India plans to air‑lift additional food and medical supplies over the next 48 hours, and the UN Office for the Coordination of Humanitarian Affairs is set to convene a joint briefing with both governments to streamline further assistance."
 ---
 The monsoon‑triggered flash floods that swept across Nepal’s eastern districts and parts of Tibet have claimed 579 lives, according to Nepal’s National Disaster Risk Reduction and Management Authority. The agency also confirmed that 1,924 people remain unaccounted for and 101 injured are receiving treatment in local hospitals.

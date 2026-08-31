@@ -2,9 +2,11 @@
 title: "Quick‑Commerce Platforms See Surge in Rakhi Orders: Meesho Up 36%, Amazon Premium Gifting Jumps 2.5‑fold"
 category: "Business"
 date: 2026-08-29T04:13:23Z
-image: ""
-imageAlt: "Quick‑Commerce Platforms See Surge in Rakhi Orders: Meesho Up 36%, Amazon Premium Gifting Jumps 2.5‑fold"
-imageCredit: "press trust of india"
+image: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Deceuninck-quick-step-2021.jpg"
+imageAlt: "Logo Deceuninck Quick step 2021"
+imageCredit: "Deceuninck Quickstep / Wikimedia Commons"
+imageLicense: "CC BY-SA 4.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Deceuninck-quick-step-2021.jpg"
 video_id: ""
 video_caption: ""
 slug: "q-comm-rakhi-sales-meesho-posts-36-order-surge-amazon-sees-25x-spike-in-premium-"
@@ -13,9 +15,7 @@ sourceName: "NDTV Profit"
 dek: "During the Rakhi festival, quick‑commerce players reported a sharp rise in orders, with Meesho’s sales climbing 36% and Amazon’s premium gifting segment surging 2.5 times, driven by last‑minute buying in tier‑3 and tier‑4 towns."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The Rakhi sales data underscores a broader transformation in Indian consumer behaviour: shoppers are moving away from traditional brick‑and‑mortar purchases toward digital platforms that promise delivery within hours. This trend is especially significant in tier‑3 and tier‑4 towns, where rising disposable incomes and better logistics are unlocking new demand pockets for e‑commerce firms. For investors, the rapid order growth signals that quick‑commerce could become a major revenue driver, prompting retailers to allocate more resources to inventory positioning, hyperlocal warehouses and AI‑driven demand forecasting.
-  
-  Looking ahead, the success of Q‑Comm during a single festive season may set a precedent for other celebrations such as Diwali and Christmas. Companies that can scale their same‑day delivery infrastructure while maintaining price competitiveness are likely to capture a larger share of the burgeoning Indian gifting market, which is projected to cross several hundred billion rupees in the next few years. Policymakers and logistics providers will also need to address challenges around traffic congestion, warehousing space and sustainable delivery practices to sustain this growth trajectory.
+  The Rakhi sales data underscores a broader transformation in Indian consumer behaviour: shoppers are moving away from traditional brick‑and‑mortar purchases toward digital platforms that promise delivery within hours. This trend is especially significant in tier‑3 and tier‑4 towns, where rising disposable incomes and better logistics are unlocking new demand pockets for e‑commerce firms. For investors, the rapid order growth signals that quick‑commerce could become a major revenue driver, prompting retailers to allocate more resources to inventory positioning, hyperlocal warehouses and AI‑driven demand forecasting. Looking ahead, the success of Q‑Comm during a single festive season may set a precedent for other celebrations such as Diwali and Christmas. Companies that can scale their same‑day delivery infrastructure while maintaining price competitiveness are likely to capture a larger share of the burgeoning Indian gifting market, which is projected to cross several hundred billion rupees in the next few years. Policymakers and logistics providers will also need to address challenges around traffic congestion, warehousing space and sustainable delivery practices to sustain this growth trajectory.
 ---
 The Hindu festival of Rakhi, celebrated in August, turned into a testing ground for India’s fast‑growing quick‑commerce (Q‑Comm) sector. Meesho, the social‑commerce platform that enables small sellers to reach buyers via messaging apps, disclosed a 36 per cent jump in orders compared with the same period last year. The surge was most pronounced in tier‑3 and tier‑4 cities, where consumers increasingly rely on same‑day delivery services to send gifts at the eleventh hour.
 

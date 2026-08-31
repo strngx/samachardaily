@@ -2,9 +2,6 @@
 title: "Praggnanandhaa Becomes First Indian to Win Grand Chess Tour After Comeback Victory"
 category: "India"
 date: 2026-08-29T11:39:05Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Praggnanandhaa Becomes First Indian to Win Grand Chess Tour After Comeback Victory"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "zimIFWy7w34"
@@ -25,10 +22,13 @@ sourceName: "The Tribune India"
 dek: "Grandmaster R Praggnanandhaa overturned a six‑point deficit to defeat Fabiano Caruana and claim the Grand Chess Tour title, marking India's first triumph in the series."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Praggnanandhaa's triumph signals a watershed moment for Indian chess, validating the country's investment in youth development and potentially attracting greater corporate sponsorship for the sport. It also reshapes the global competitive landscape, as India now boasts a Grand Chess Tour champion capable of challenging the traditional European and American powerhouses.
-  
-  The win is likely to inspire a surge in grassroots participation, prompting schools and academies to intensify training programs. On the policy front, the Board of Control for Chess in India may leverage the achievement to lobby for increased funding and better infrastructure, while FIDE could consider expanding the Grand Chess Tour to include more Asian venues.
+  Praggnanandhaa's triumph signals a watershed moment for Indian chess, validating the country's investment in youth development and potentially attracting greater corporate sponsorship for the sport. It also reshapes the global competitive landscape, as India now boasts a Grand Chess Tour champion capable of challenging the traditional European and American powerhouses. The win is likely to inspire a surge in grassroots participation, prompting schools and academies to intensify training programs. On the policy front, the Board of Control for Chess in India may leverage the achievement to lobby for increased funding and better infrastructure, while FIDE could consider expanding the Grand Chess Tour to include more Asian venues.
+
 what_happens_next: "Praggnanandhaa will attend a victory ceremony at the Saint Louis Chess Club later today, after which he is slated to compete in the upcoming FIDE Grand Prix series beginning in September, a key qualifier for the 2027 World Championship cycle."
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 In a dramatic finale at the Saint Louis Chess Club, 17‑year‑old Grandmaster R Praggnanandhaa erased a six‑point gap to outplay former world number two Fabiano Caruana, securing the Grand Chess Tour crown. The Indian prodigy won the final round with a decisive victory, finishing the tournament with 31 points, two ahead of Caruana.
 

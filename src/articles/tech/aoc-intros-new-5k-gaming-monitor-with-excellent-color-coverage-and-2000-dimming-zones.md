@@ -2,9 +2,6 @@
 title: "AOC launches Optimus Ultra 5K gaming monitor with 180 Hz refresh, 98% DCI‑P3 coverage"
 category: "Tech"
 date: 2026-08-30T07:22:30Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "AOC launches Optimus Ultra 5K gaming monitor with 180 Hz refresh, 98% DCI‑P3 coverage"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "a4I1Y3F-srE"
@@ -25,10 +22,13 @@ sourceName: "Notebookcheck"
 dek: "AOC unveiled the Optimus Ultra, a dual‑mode 5K gaming monitor that pairs a 180 Hz refresh rate with a mini‑LED panel offering over 2,000 local dimming zones and 98% DCI‑P3 color gamut."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The Optimus Ultra raises the performance bar for consumer gaming monitors, blending ultra‑high resolution with a 180 Hz refresh rate that few competitors currently offer. Its extensive DCI‑P3 coverage also makes it attractive to creators who need accurate color reproduction without sacrificing gaming performance.
-  
-  AOC's entry into the high‑end 5K gaming segment could intensify competition, potentially driving price adjustments and spurring further innovation in mini‑LED technology across the industry.
+  The Optimus Ultra raises the performance bar for consumer gaming monitors, blending ultra‑high resolution with a 180 Hz refresh rate that few competitors currently offer. Its extensive DCI‑P3 coverage also makes it attractive to creators who need accurate color reproduction without sacrificing gaming performance. AOC's entry into the high‑end 5K gaming segment could intensify competition, potentially driving price adjustments and spurring further innovation in mini‑LED technology across the industry.
+
 what_happens_next: "AOC will begin shipping the Optimus Ultra to pre‑order customers within two weeks, with full retail rollout slated for the following month. The company plans to release firmware updates to fine‑tune HDR performance and will host a live Q&A session for early adopters next Friday."
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 The Optimus Ultra is AOC's first dual‑mode 5K display, featuring a 27‑inch mini‑LED panel that supports a peak refresh rate of 180 Hz at native 5K resolution (5120×2880). The panel incorporates more than 2,000 dimming zones, enabling precise local dimming and high contrast ratios for both gaming and content creation.
 

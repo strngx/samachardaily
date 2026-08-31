@@ -3,9 +3,11 @@ title: "Actress Revathi urges focus on boys' home learning at 6th Bharat Soka GS
 seoTitle: "Revathi calls for attention to boys' upbringing"
 category: "India"
 date: 2026-08-31T10:34:07Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Actress Revathi urges focus on boys' home learning at 6th Bharat Soka GSSI seminar"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Revathi.jpg"
+imageAlt: "Actress, film director"
+imageCredit: "Thachan.makan / Wikimedia Commons"
+imageLicense: "CC BY-SA 3.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Revathi.jpg"
 trending: false
 featured: false
 video_id: ""
@@ -17,9 +19,8 @@ sourceName: "Mint"
 dek: "Actress Revathi, chief guest at the 6th Bharat Soka GSSI Women’s Awareness Seminar in Chennai, highlighted the need to monitor what boys see and learn at home."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Revathi’s emphasis on early gender socialisation spotlights a critical, often overlooked arena for achieving gender equity in India. By urging parents to monitor the content and conduct boys encounter at home, the message challenges entrenched patriarchal norms that perpetuate gender bias, potentially influencing future policy discussions on family education and media regulation.
-  
-  The seminar’s continuation under the Bharat Soka GSSI banner signals an institutional commitment to women's awareness that can shape public discourse, inspire community‑level initiatives, and inform governmental and non‑governmental programmes aimed at reducing gender disparities across education, employment, and social spheres.
+  Revathi’s emphasis on early gender socialisation spotlights a critical, often overlooked arena for achieving gender equity in India. By urging parents to monitor the content and conduct boys encounter at home, the message challenges entrenched patriarchal norms that perpetuate gender bias, potentially influencing future policy discussions on family education and media regulation. The seminar’s continuation under the Bharat Soka GSSI banner signals an institutional commitment to women's awareness that can shape public discourse, inspire community‑level initiatives, and inform governmental and non‑governmental programmes aimed at reducing gender disparities across education, employment, and social spheres.
+
 what_happens_next: "Organisers announced that a follow‑up workshop will be held in early September at the same venue, focusing on practical tools for parents to implement gender‑sensitive practices at home, with Revathi slated to participate in a panel discussion."
 ---
 The 6th Bharat Soka GSSI Women’s Awareness Seminar convened on Sunday at the Music Academy in Chennai, drawing participants from across the city. The event, organized by the global peace‑education network Bharat Soka GSSI, marked its sixth edition, underscoring a sustained effort to spotlight gender‑related issues in the Indian context. Actress Revathi, a noted figure in Indian cinema and social advocacy, was invited as the chief guest, lending the gathering both star power and a platform for her long‑standing concerns about gender socialisation.

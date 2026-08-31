@@ -2,9 +2,6 @@
 title: "Namibia Upset South Africa by 18 Runs in Tri‑nation T20I Opener"
 category: "Sports"
 date: 2026-08-29T05:13:18Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Namibia Upset South Africa by 18 Runs in Tri‑nation T20I Opener"
-imageCredit: "PENDING"
 video_id: ""
 video_caption: ""
 slug: "namibia-stun-south-africa-by-18-runs-in-tri-nation-t20i-opener"
@@ -14,6 +11,10 @@ dek: "Namibia clinched an 18‑run victory over South Africa in the opening game
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   Namibia’s triumph over a cricket heavyweight like South Africa signals a shift in the competitive landscape of international T20 cricket. Historically, associate nations have struggled to consistently challenge full‑member teams, but recent years have seen a narrowing of that gap, driven by improved coaching, exposure to high‑level competition, and investment in grassroots programs. This result will likely inspire greater interest in the sport within Namibia, encouraging sponsorship and youth participation, while also prompting South Africa to fine‑tune their strategies against emerging opponents. The outcome also adds intrigue to the tri‑nation series, as the third participating side now has a realistic chance to influence the final standings. For fans and stakeholders, the match serves as a reminder that in the shortest format, any team can prevail on a day when skill, execution, and home advantage align.
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 The Namibia Cricket Ground in Windhoek played host to the first match of the three‑team Twenty20 International series on Friday, August 28, 2026. After winning the toss, the home side elected to bat and posted a total that proved just enough to keep the world‑ranked South Africans at bay. Namibia’s top order built a solid foundation, while the lower order added crucial runs in the final overs, setting a target that was competitive yet challenging for the visitors. In response, South Africa’s chase faltered as Namibia’s bowlers applied disciplined pressure, extracting movement off the pitch and executing tight lines that forced a series of wickets. The visitors fell 18 runs short of the target, handing Namibia a memorable win that sent the home crowd into jubilation.
 

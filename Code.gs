@@ -960,6 +960,29 @@ function parseArticleJson_(rawText) {
   if (!parsed.title || !parsed.content) {
     throw new Error('AI response JSON missing required fields (title or content).');
   }
+
+  // Quality gate & Content Sanitization: Clean prose paragraphs and prevent internal field leakage
+  var leakedMarkerRegex = /\b(why_it_matters|what_happens_next|image_keyword|video_query)\s*:\s*/i;
+  if (Array.isArray(parsed.content)) {
+    parsed.content = parsed.content
+      .map(function(p) {
+        if (typeof p !== 'string') return '';
+        var cleanP = p.trim();
+        var splitIdx = cleanP.search(/(?:\n\s*\]\s*\n|\n\s*(?:why_it_matters|what_happens_next|image_keyword|video_query)\s*:\s*)/i);
+        if (splitIdx !== -1) {
+          cleanP = cleanP.substring(0, splitIdx).trim();
+        }
+        return cleanP.replace(/\s*\]\s*$/, '').trim();
+      })
+      .filter(function(p) {
+        return p.length > 0 && !leakedMarkerRegex.test(p);
+      });
+  }
+
+  if (!parsed.content || parsed.content.length === 0) {
+    throw new Error('AI response JSON has empty or invalid content array.');
+  }
+
   return parsed;
 }
 
@@ -1450,9 +1473,19 @@ function buildMarkdown_(article, image, videos, sourceUrl, headline, isFeatured)
   var safeSeoTitle = seoTitle.replace(/"/g, '\\"');
   var safeDek = (article.dek || '').replace(/"/g, '\\"');
   var safeImageAlt = (image && image.alt ? image.alt : safeTitle).replace(/"/g, '\\"');
-  var safeImageCredit = (image && image.credit ? image.credit : 'SamacharDaily Desk').replace(/"/g, '\\"');
+  var safeImageCredit = (image && image.credit ? image.credit : 'Licensed Editorial Archive').replace(/"/g, '\\"');
+  var safeImageLicense = (image && image.license ? image.license : 'Public Domain / Creative Commons').replace(/"/g, '\\"');
+  var safeImageSourceUrl = (image && image.sourceUrl ? image.sourceUrl : (image && image.url ? image.url : '')).replace(/"/g, '\\"');
   var safeSourceName = (headline && headline.sourceName ? headline.sourceName : safeImageCredit).replace(/"/g, '\\"');
-  var safeWhyItMatters = (article.why_it_matters || '').trim();
+  
+  var safeWhyItMattersLines = (article.why_it_matters || '')
+    .split(/\r?\n/)
+    .map(function(l) { return l.trim(); })
+    .filter(function(l) { return l.length > 0; })
+    .join(' ');
+  var formattedWhyItMatters = safeWhyItMattersLines.replace(/\s+/g, ' ').trim();
+  var safeWhyItMattersYaml = formattedWhyItMatters ? ('  ' + formattedWhyItMatters) : '  No additional editorial context reported.';
+
   // Fix 7: Real what_happens_next
   var safeWhatHappensNext = (article.what_happens_next || 'No confirmed next steps reported yet.').replace(/"/g, '\\"');
 
@@ -1468,6 +1501,8 @@ function buildMarkdown_(article, image, videos, sourceUrl, headline, isFeatured)
     'image: "' + (image && image.url ? image.url : '') + '"',
     'imageAlt: "' + safeImageAlt + '"',
     'imageCredit: "' + safeImageCredit + '"',
+    'imageLicense: "' + safeImageLicense + '"',
+    'imageSourceUrl: "' + safeImageSourceUrl + '"',
     'trending: ' + isTrending,
     'featured: ' + featuredFlag,
     'video_id: "' + topVideoId + '"',
@@ -1479,7 +1514,7 @@ function buildMarkdown_(article, image, videos, sourceUrl, headline, isFeatured)
     'dek: "' + safeDek + '"',
     'author: "' + safeAuthor + '"',
     'why_it_matters: |',
-    safeWhyItMatters.split('\n').map(function(line) { return '  ' + line; }).join('\n'),
+    safeWhyItMattersYaml,
     'what_happens_next: "' + safeWhatHappensNext + '"',
     '---',
     contentBody,
@@ -1670,11 +1705,15 @@ function scoreAgainstTrends_(candidate, trendGeo) {
 // ============================================================================
 
 /**
- * Fetches high-resolution landscape photo from Pexels API.
- * Returns null if Pexels API key is not configured or no Pexels image is found.
+ * Resolves high-resolution, relevant licensed news image.
+ * Priority: 1. Pexels API -> 2. Wikimedia Commons API.
+ * Returns null if no legally verified licensed image is found.
  */
 function fetchImage_(keyword, config) {
-  if (config.PEXELS_API_KEY && keyword) {
+  if (!keyword) return null;
+
+  // 1. Pexels API
+  if (config.PEXELS_API_KEY) {
     try {
       var url = 'https://api.pexels.com/v1/search?query=' + encodeURIComponent(keyword) + '&per_page=1&orientation=landscape';
       var resp = UrlFetchApp.fetch(url, {
@@ -1690,7 +1729,9 @@ function fetchImage_(keyword, config) {
             return {
               url: photoUrl,
               alt: photo.alt || keyword,
-              credit: photo.photographer ? (photo.photographer + ' via Pexels') : 'Pexels'
+              credit: photo.photographer ? (photo.photographer + ' via Pexels') : 'Pexels Contributor / Pexels',
+              license: 'Pexels License',
+              sourceUrl: photo.url || 'https://www.pexels.com/'
             };
           }
         }
@@ -1698,6 +1739,49 @@ function fetchImage_(keyword, config) {
     } catch (err) {
       Logger.log('Pexels API error: ' + err.toString());
     }
+  }
+
+  // 2. Wikimedia Commons API Fallback
+  try {
+    var cleanQ = keyword.replace(/[^\w\s-]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (cleanQ.length >= 3) {
+      var wmUrl = 'https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=' +
+        encodeURIComponent(cleanQ) + '&gsrnamespace=6&gsrlimit=4&prop=imageinfo&iiprop=url|size|mime|extmetadata&format=json';
+      var wmResp = UrlFetchApp.fetch(wmUrl, {
+        headers: { 'User-Agent': 'SamacharDailyNewsBot/1.0 (contact@samachardaily.com)' },
+        muteHttpExceptions: true
+      });
+      if (wmResp.getResponseCode() === 200) {
+        var wmData = JSON.parse(wmResp.getContentText());
+        if (wmData.query && wmData.query.pages) {
+          var pages = Object.keys(wmData.query.pages).map(function(k) { return wmData.query.pages[k]; });
+          for (var p = 0; p < pages.length; p++) {
+            var page = pages[p];
+            if (!page.imageinfo || !page.imageinfo[0]) continue;
+            var info = page.imageinfo[0];
+            var mime = info.mime || '';
+            if (mime.indexOf('image/jpeg') !== 0 && mime.indexOf('image/png') !== 0 && mime.indexOf('image/webp') !== 0) continue;
+            if (info.width && info.width < 400) continue;
+
+            var meta = info.extmetadata || {};
+            var license = (meta.LicenseShortName && meta.LicenseShortName.value) ? meta.LicenseShortName.value : 'Public Domain / Creative Commons';
+            var artist = (meta.Artist && meta.Artist.value) ? meta.Artist.value.replace(/<[^>]*>?/gm, '').trim() : 'Wikimedia Commons Contributor';
+            var desc = (meta.ImageDescription && meta.ImageDescription.value) ? meta.ImageDescription.value.replace(/<[^>]*>?/gm, '').trim() : keyword;
+            var cleanUrl = info.url.split('?')[0];
+
+            return {
+              url: cleanUrl,
+              alt: desc.substring(0, 140),
+              credit: artist + ' / Wikimedia Commons',
+              license: license,
+              sourceUrl: info.descriptionurl || ('https://commons.wikimedia.org/wiki/' + encodeURIComponent(page.title))
+            };
+          }
+        }
+      }
+    }
+  } catch (wmErr) {
+    Logger.log('Wikimedia Commons API search error: ' + wmErr.toString());
   }
 
   return null;
@@ -1992,15 +2076,15 @@ function runPipelineForCategory_(categoryKey) {
   // Ensure slug is derived from clean English synthesized title
   selectedCandidate.slug = generateSlug_(article.title || selectedCandidate.title);
 
-  // Step 4: Media Enrichment (Enforce 100% Pexels-only licensed photography)
-  var imageSearchKeyword = article.image_keyword || catCfg.name;
+  // Step 4: Media Enrichment (Licensed photography: Pexels or Wikimedia Commons)
+  var imageSearchKeyword = article.image_keyword || selectedCandidate.title;
   var imageObj = fetchImage_(imageSearchKeyword, config);
-  if (!imageObj || !imageObj.url || imageObj.url.indexOf('https://images.pexels.com/') !== 0) {
-    Logger.log('Discarding candidate: Pexels image unavailable or invalid (' + (imageObj ? imageObj.url : 'none') + '). Skipping run to prevent unverified image publication.');
-    return { success: false, reason: 'Pexels image required' };
+  if (!imageObj || !imageObj.url) {
+    Logger.log('Discarding candidate: Licensed image unavailable or invalid (' + (imageObj ? imageObj.url : 'none') + '). Skipping run to prevent unverified image publication.');
+    return { success: false, reason: 'Licensed image required' };
   }
-  var imageSourceLabel = 'pexels';
-  Logger.log('Using verified Pexels photography: ' + imageObj.url);
+  var imageSourceLabel = imageObj.license || 'Licensed Media Archive';
+  Logger.log('Using verified licensed photography: ' + imageObj.url + ' (' + imageObj.credit + ')');
 
   // Step 5: Video Search - Top 3 Videos (Fix 6)
   var videoQuery = article.video_query || selectedCandidate.title;

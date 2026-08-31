@@ -2,9 +2,6 @@
 title: "UEFA Champions League 2026-27 Group Stage Fixtures Announced: PSG vs Barcelona, Man United vs Bayern, Real Madrid vs Arsenal"
 category: "Sports"
 date: 2026-08-28T22:56:56Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "UEFA Champions League 2026-27 Group Stage Fixtures Announced: PSG vs Barcelona, Man United vs Bayern, Real Madrid vs Arsenal"
-imageCredit: "PENDING"
 video_id: "YO-OO0_sTT0"
 video_caption: "🇪🇺 UEFA Champions League Round of 16 Fixtures Announced! 🔥⚽ #day#kun#data#uefa"
 slug: "ucl-league-phase-fixtures-psg-vs-barcelona-2026-man-united-vs-bayern-munich-real"
@@ -13,9 +10,11 @@ sourceName: "ETV Bharat"
 dek: "The 2026-27 Champions League kicks off on September 8 with marquee matchups, and the final is set for June 5, 2027 in Madrid."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The announced fixtures carry weight for clubs, fans, and broadcasters alike. Early high‑profile matchups like PSG‑Barcelona guarantee strong television ratings and boost advertising revenue, while also influencing squad rotation strategies as teams balance domestic league duties with continental ambitions. For Indian football enthusiasts, the timing aligns with the Indian Super League calendar, allowing fans to follow both competitions without overlap.
-  
-  Moreover, the choice of Madrid as the final venue underscores UEFA’s intent to showcase iconic stadiums and maximize global viewership. The Santiago Bernabéu, a historic venue, promises a spectacular stage for the season’s climax, potentially attracting tourists and boosting the local economy. As the league phase unfolds, performances in these marquee games will shape the knockout draw, impacting the financial and sporting futures of the participating clubs.
+  The announced fixtures carry weight for clubs, fans, and broadcasters alike. Early high‑profile matchups like PSG‑Barcelona guarantee strong television ratings and boost advertising revenue, while also influencing squad rotation strategies as teams balance domestic league duties with continental ambitions. For Indian football enthusiasts, the timing aligns with the Indian Super League calendar, allowing fans to follow both competitions without overlap. Moreover, the choice of Madrid as the final venue underscores UEFA’s intent to showcase iconic stadiums and maximize global viewership. The Santiago Bernabéu, a historic venue, promises a spectacular stage for the season’s climax, potentially attracting tourists and boosting the local economy. As the league phase unfolds, performances in these marquee games will shape the knockout draw, impacting the financial and sporting futures of the participating clubs.
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 UEFA has released the full schedule for the 2026-27 Champions League league phase, confirming that the competition will begin on September 8, 2026. Among the highlighted fixtures are Paris Saint-Germain taking on Barcelona, Manchester United facing Bayern Munich, and Real Madrid clashing with Arsenal. These three encounters were drawn from the group stage draw that took place in Nyon earlier this month, and they set the tone for a season that promises high‑octane football across Europe.
 

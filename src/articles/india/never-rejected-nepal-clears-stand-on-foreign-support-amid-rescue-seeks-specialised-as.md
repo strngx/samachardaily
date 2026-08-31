@@ -2,9 +2,11 @@
 title: "Nepal Refutes Rejection Claims, Requests Specialized Flood Aid from India, China"
 category: "India"
 date: 2026-08-30T04:52:34Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Nepal Refutes Rejection Claims, Requests Specialized Flood Aid from India, China"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Tomb_of_Humayun%2C_Delhi.jpg"
+imageAlt: "Tomb of Humayun, Delhi, India. Western façade as viewed from the main entrance"
+imageCredit: "Muhammad Mahdi Karim / Wikimedia Commons"
+imageLicense: "GFDL 1.2"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Tomb_of_Humayun,_Delhi.jpg"
 trending: false
 featured: false
 video_id: "DQir8ix_pi0"
@@ -25,9 +27,8 @@ sourceName: "Jagran English"
 dek: "Foreign Minister Shisir Khanal said Nepal never turned down international help after the flash floods and is now seeking technical assistance from India and China for reconstruction and ongoing operations."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The request underscores Nepal's strategic balancing act between India and China, highlighting how disaster relief can become a conduit for deeper bilateral engagement and influence in the Himalayan region.
-  
-  Timely specialised assistance will affect the speed of economic recovery, agricultural output, and public health outcomes, while also setting a precedent for how South Asian nations collaborate on climate‑induced disasters.
+  The request underscores Nepal's strategic balancing act between India and China, highlighting how disaster relief can become a conduit for deeper bilateral engagement and influence in the Himalayan region. Timely specialised assistance will affect the speed of economic recovery, agricultural output, and public health outcomes, while also setting a precedent for how South Asian nations collaborate on climate‑induced disasters.
+
 what_happens_next: "The Nepalese government is expected to submit formal aid proposals to New Delhi and Beijing within the next week, after which joint assessment teams from the two countries will be dispatched to evaluate on‑ground needs and coordinate the deployment of technical resources and equipment for reconstruction."
 ---
 Following the recent flash floods that devastated large swathes of Nepal's Terai region, the government faced circulating rumors that it had declined foreign assistance. Foreign Minister Shisir Khanal publicly refuted those claims, emphasizing that Nepal has consistently welcomed international support and that any suggestion of rejection was unfounded.

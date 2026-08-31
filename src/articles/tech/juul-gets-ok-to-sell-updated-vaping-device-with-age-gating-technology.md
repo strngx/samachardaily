@@ -3,9 +3,6 @@ title: "FDA clears Juul's updated e‑cigarette with optional age‑verification
 seoTitle: "Juul gets FDA OK for age‑gated vaping device in US"
 category: "Tech"
 date: 2026-08-31T11:03:14Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "FDA clears Juul's updated e‑cigarette with optional age‑verification system"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "SeXYitmsL1I"
@@ -26,10 +23,12 @@ sourceName: "Wxxv Channel 25"
 dek: "Juul Labs received federal clearance to sell a refreshed vaping device that includes an optional age‑verification feature aimed at curbing under‑age use, marking the first new model approval since the brand’s launch."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The clearance signals a shift in how regulators may balance product innovation with public‑health safeguards, especially in a sector where youth uptake has been a persistent problem. By endorsing an age‑verification tool, the FDA is setting a precedent that could compel other vaping manufacturers to adopt similar safeguards, potentially reshaping industry standards.
-  
-  For policymakers, the decision offers a data point to assess the efficacy of technology‑driven age checks versus broader legislative bans. If the optional system proves successful in limiting under‑age access, it could inform future regulatory frameworks that favor targeted, tech‑based solutions over blanket prohibitions, influencing both market dynamics and public‑health outcomes.
+  The clearance signals a shift in how regulators may balance product innovation with public‑health safeguards, especially in a sector where youth uptake has been a persistent problem. By endorsing an age‑verification tool, the FDA is setting a precedent that could compel other vaping manufacturers to adopt similar safeguards, potentially reshaping industry standards. For policymakers, the decision offers a data point to assess the efficacy of technology‑driven age checks versus broader legislative bans. If the optional system proves successful in limiting under‑age access, it could inform future regulatory frameworks that favor targeted, tech‑based solutions over blanket prohibitions, influencing both market dynamics and public‑health outcomes.
+
 what_happens_next: "Juul will begin distributing the age‑gated device to its retail partners within the next two weeks, while the FDA will monitor sales data and compliance reports to evaluate the system’s impact on under‑age purchases."
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 On Friday, Juul Labs was granted permission by the Food and Drug Administration to market an updated version of its flagship e‑cigarette, according to a report by Matthew Perrone in Washington. The new device incorporates an optional age‑verification system designed to block access by minors, a move that the regulator says satisfies its latest safety criteria for tobacco‑related products.
 

@@ -2,9 +2,11 @@
 title: "Sensex climbs 331 points as IT stocks drive market rebound after two days of losses"
 category: "Business"
 date: 2026-08-28T23:35:20Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Sensex climbs 331 points as IT stocks drive market rebound after two days of losses"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/7/72/Bombay_Stock_Exchange_3.jpg"
+imageAlt: "The Mumbai Stock Exchange stands tall, and is scaling new heights"
+imageCredit: "Elroy Serrao / Wikimedia Commons"
+imageLicense: "CC BY-SA 2.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Bombay_Stock_Exchange_3.jpg"
 video_id: "1pp-E-QGyfw"
 video_caption: "Why Indian IT Stocks Are Skyrocketing Today | Nvidia Rally &amp; Nifty IT Rebound Explained"
 slug: "stock-markets-rebound-ending-2-day-losing-streak-on-buying-in-it-firms-sensex-ju"
@@ -13,9 +15,7 @@ sourceName: "DTNext"
 dek: "India's benchmark indices recovered on Friday, with the Sensex gaining 331 points amid strong buying in blue‑chip IT shares and a broader global market upswing."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The resurgence of the Sensex is significant because it signals renewed confidence in India's growth story, especially for the IT industry that contributes heavily to export earnings and employment. A stronger rupee and lower oil prices also improve corporate margins, which can translate into higher shareholder returns. Investors will be watching upcoming earnings reports from the IT giants, as well as any policy signals from the Reserve Bank of India regarding interest rates, which could influence capital flows. Additionally, the rally may attract foreign institutional investors seeking exposure to a market that offers both valuation appeal and robust fundamentals. However, market participants remain cautious about global uncertainties, including geopolitical tensions and potential shifts in US monetary policy, which could affect the pace of the recovery.
-  
-  Going forward, the sustainability of the bounce will depend on whether the positive sentiment can be maintained amid external headwinds. Analysts suggest that consistent corporate earnings growth, coupled with supportive fiscal measures, will be key to extending the rally beyond a single session.
+  The resurgence of the Sensex is significant because it signals renewed confidence in India's growth story, especially for the IT industry that contributes heavily to export earnings and employment. A stronger rupee and lower oil prices also improve corporate margins, which can translate into higher shareholder returns. Investors will be watching upcoming earnings reports from the IT giants, as well as any policy signals from the Reserve Bank of India regarding interest rates, which could influence capital flows. Additionally, the rally may attract foreign institutional investors seeking exposure to a market that offers both valuation appeal and robust fundamentals. However, market participants remain cautious about global uncertainties, including geopolitical tensions and potential shifts in US monetary policy, which could affect the pace of the recovery. Going forward, the sustainability of the bounce will depend on whether the positive sentiment can be maintained amid external headwinds. Analysts suggest that consistent corporate earnings growth, coupled with supportive fiscal measures, will be key to extending the rally beyond a single session.
 ---
 After slipping for two consecutive sessions, India's equity markets turned positive on Friday, with the BSE Sensex closing at 73,562, up 331 points, and the NSE Nifty rising 115 points. The rally was anchored by a surge in information‑technology stocks, led by market leaders such as TCS, Infosys, and Wipro, which posted gains of between 2% and 4% on the day. The buying pressure in the IT sector was attributed to renewed optimism about foreign portfolio inflows and a softer dollar, which improves the earnings outlook for export‑oriented software firms.
 

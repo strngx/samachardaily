@@ -2,9 +2,6 @@
 title: "F1 Sim Racing and Indigenous Tech Draw Crowds at Nagaland’s TXG Expo 2026"
 category: "Tech"
 date: 2026-08-29T04:13:38Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "F1 Sim Racing and Indigenous Tech Draw Crowds at Nagaland’s TXG Expo 2026"
-imageCredit: "PENDING"
 video_id: "kkUTCESo4O0"
 video_caption: "TXG EXPO NAGALAND TO HOST F1 SIM RACING INDIA OPEN 2026 KOHIMA ROUND"
 slug: "f1-sim-racing-indigenous-technologies-draw-crowds-at-txg-expo"
@@ -14,6 +11,10 @@ dek: "The opening day of TXG Expo Nagaland 2026 in Kohima featured free Formula�
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The convergence of motorsport and indigenous technology at TXG Expo signals a growing appetite for high‑tech experiences in India’s North‑East, a region traditionally under‑represented in both the automotive and startup landscapes. By offering free access to world‑class simulators, the F1 Sim Racing India Open is democratizing motorsport participation, potentially unearthing talent from remote areas and feeding the pipeline for future Indian racing teams. Simultaneously, the drone and robotics displays underscore how local research institutions and startups are translating academic expertise into market‑ready solutions, from pandemic‑era logistics to educational tools. This dual showcase could attract further investment, encourage public‑private partnerships, and inspire a new generation of engineers and racers, strengthening Nagaland’s profile as an emerging tech hub within the broader Indian innovation ecosystem.
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 The NBCC Convention Centre in Kohima became a bustling hub of high‑octane excitement and home‑grown innovation on August 28, when the TXG Expo Nagaland 2026 opened its doors. Organisers installed professional‑grade Formula 1 racing simulators that allowed visitors to take part in the F1 Sim Racing India Open Time Trials at no cost. While the free trials gave a taste of competitive sim racing, participants could also register for the full Open by paying the prescribed fee, with qualifying times feeding into a regional ladder that leads to junior and senior national championships. The event is being run by Mumbai Falcons Racing Ltd, an Indian motorsport outfit with a track record in international competition, and it will remain open at the expo until August 29, giving more enthusiasts the chance to test their skills.
 

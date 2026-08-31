@@ -2,9 +2,13 @@
 title: "Amazon Announces Shutdown of Mechanical Turk Platform as AI Alternatives Expand"
 category: "Tech"
 date: 2026-08-29T10:19:24Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Amazon Announces Shutdown of Mechanical Turk Platform as AI Alternatives Expand"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/9/9e/Siege_de_la_Colonne_de_Pompee-Science_in_the_pillory._%28BM_1851%2C0901.959%29.jpg"
+imageAlt: "Turks and Bedouins besiege the base of a tall Corinthian column, on which is a group of terrified French savants. They have lit a fire at th"
+imageCredit: "Print made by: James Gillray
+
+Published by: Hannah Humphrey / Wikimedia Commons"
+imageLicense: "Public domain"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Siege_de_la_Colonne_de_Pompee-Science_in_the_pillory._(BM_1851,0901.959).jpg"
 trending: false
 featured: false
 video_id: "ro6HGADrUZc"
@@ -22,9 +26,8 @@ sourceName: "Troy Record"
 dek: "Amazon said it will wind down its Mechanical Turk crowdsourcing service, citing rapid advances in artificial intelligence that render the platform increasingly redundant."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The closure signals a broader industry shift where AI is supplanting low‑skill crowdsourced labor, raising questions about the future of gig work and the social safety net for millions of micro‑taskers worldwide.
-  
-  For businesses, the move consolidates Amazon’s AI ecosystem, potentially accelerating adoption of its proprietary models but also concentrating data processing power, which could influence competition and regulatory scrutiny.
+  The closure signals a broader industry shift where AI is supplanting low‑skill crowdsourced labor, raising questions about the future of gig work and the social safety net for millions of micro‑taskers worldwide. For businesses, the move consolidates Amazon’s AI ecosystem, potentially accelerating adoption of its proprietary models but also concentrating data processing power, which could influence competition and regulatory scrutiny.
+
 what_happens_next: "Amazon will issue formal notices to all Mechanical Turk requesters by the end of the month, outlining a 90‑day transition window to migrate active tasks to Amazon’s AI‑powered labeling services. A dedicated support portal will assist workers in finding alternative gig opportunities, and the platform is slated to be fully decommissioned within six months."
 ---
 Amazon announced that it will close Mechanical Turk, the crowdsourcing service launched in 2005 that connected requesters with micro‑task workers. The decision comes as generative AI tools increasingly handle tasks that previously required human judgment, prompting the company to reallocate resources toward its AI services.

@@ -2,9 +2,11 @@
 title: "IBPS PO Recruitment 2026 Vacancy Raised to 7,565 Posts"
 category: "Business"
 date: 2026-08-28T23:31:57Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "IBPS PO Recruitment 2026 Vacancy Raised to 7,565 Posts"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/9/95/Nitrogen-Vacancy_Center.PNG"
+imageAlt: "Figure 2: View A of Nitrogen-vacancy Center: the blue atoms represent Carbon atoms, red atom represents Nitrogen atom substituting for a Car"
+imageCredit: "Stacylee14 / Wikimedia Commons"
+imageLicense: "CC BY-SA 3.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Nitrogen-Vacancy_Center.PNG"
 video_id: "4mbAzc0t-ps"
 video_caption: "📢 GOOD NEWS : IBPS PO 2026 - LOWER CUTOFF THIS TIME || VACANCY INCREASED 😱"
 slug: "ibps-po-recruitment-2026-vacancy-increased-to-7565-posts-update"
@@ -13,9 +15,7 @@ sourceName: "Ghaziabad365"
 dek: "The Institute of Banking Personnel Selection (IBPS) has increased the number of Probationary Officer/Management Trainee positions for the 2026‑27 recruitment cycle from 7,365 to 7,565, reflecting higher demand for fresh talent in India’s banking sector."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The expansion of PO vacancies signals a broader hiring push by Indian banks, driven by the need to replace retiring staff, digitise operations, and expand financial inclusion initiatives. With the banking sector aiming to deepen its rural outreach and roll out new technology‑driven services, fresh talent is crucial for sustaining growth. For job seekers, the increased slots improve the odds of securing a coveted entry‑level banking role, which offers stable employment, attractive remuneration and clear career progression.
-  
-  Looking ahead, the final merit list will be released after the interview stage, and successful candidates will undergo a four‑month training program before being posted to various banks. The larger vacancy pool may also influence the distribution of seats among participating banks, potentially offering more candidates the chance to join premier public sector institutions. Stakeholders will watch closely how the revised numbers affect the overall selection dynamics and whether further adjustments will be made in response to market conditions.
+  The expansion of PO vacancies signals a broader hiring push by Indian banks, driven by the need to replace retiring staff, digitise operations, and expand financial inclusion initiatives. With the banking sector aiming to deepen its rural outreach and roll out new technology‑driven services, fresh talent is crucial for sustaining growth. For job seekers, the increased slots improve the odds of securing a coveted entry‑level banking role, which offers stable employment, attractive remuneration and clear career progression. Looking ahead, the final merit list will be released after the interview stage, and successful candidates will undergo a four‑month training program before being posted to various banks. The larger vacancy pool may also influence the distribution of seats among participating banks, potentially offering more candidates the chance to join premier public sector institutions. Stakeholders will watch closely how the revised numbers affect the overall selection dynamics and whether further adjustments will be made in response to market conditions.
 ---
 The Institute of Banking Personnel Selection (IBPS) announced on its official portal that the total vacancy for the Probationary Officer (PO) and Management Trainee (MT) recruitment for 2026‑27 has been revised upward to 7,565 posts. Earlier, the recruitment drive was slated to fill 7,365 positions across public sector banks, regional rural banks and a few private banks that participate in the common selection process. The increase of 200 seats was communicated through a formal notification, which has been widely shared on regional news portals and social media platforms.
 

@@ -3,9 +3,11 @@ title: "Government Issues Legal Metrology Rules to Enforce IST as Sole Official 
 seoTitle: "IST mandated as sole official time reference, 2026"
 category: "India"
 date: 2026-08-31T01:33:52Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Government Issues Legal Metrology Rules to Enforce IST as Sole Official Time Reference"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Enrique-camarena1.jpg"
+imageAlt: "Enrique Camarena Salazar, former DEA special agent who was killed in Mexico."
+imageCredit: "United States Drug Enforcement Administration (DEA) PD-USGOV. / Wikimedia Common"
+imageLicense: "Public domain"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Enrique-camarena1.jpg"
 trending: false
 featured: false
 video_id: "OzNTBZjfoX0"
@@ -26,9 +28,8 @@ sourceName: "Cnbctv18"
 dek: "The Centre has issued the Legal Metrology (Indian Standard Time) Rules, 2026, requiring Indian Standard Time to be the single time reference for all official purposes, with a 180‑day compliance window after gazette notification."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  A single, legally mandated time reference eliminates the risk of timing errors in contracts, certifications, and regulatory filings, thereby strengthening the integrity of India’s measurement ecosystem. Uniformity in timekeeping also supports smoother inter‑state commerce and aligns India’s legal metrology framework with international best practices.
-  
-  The 180‑day compliance period gives businesses a finite timeline to upgrade systems and train staff, prompting a wave of digital modernization across sectors that rely on precise measurement standards. Successful implementation could set a precedent for further standardization initiatives in other regulatory domains.
+  A single, legally mandated time reference eliminates the risk of timing errors in contracts, certifications, and regulatory filings, thereby strengthening the integrity of India’s measurement ecosystem. Uniformity in timekeeping also supports smoother inter‑state commerce and aligns India’s legal metrology framework with international best practices. The 180‑day compliance period gives businesses a finite timeline to upgrade systems and train staff, prompting a wave of digital modernization across sectors that rely on precise measurement standards. Successful implementation could set a precedent for further standardization initiatives in other regulatory domains.
+
 what_happens_next: "The Ministry of Consumer Affairs will circulate detailed compliance guidelines within the next 30 days, outlining required system updates and certification procedures. Organizations are expected to submit compliance declarations to the Legal Metrology Department before the 180‑day deadline, after which routine audits will verify adherence."
 ---
 The Union Government has formally notified the Legal Metrology (Indian Standard Time) Rules, 2026, which stipulate that Indian Standard Time (IST) shall serve as the exclusive reference for all official and legal metrology activities across the country. The rules were published in the official Gazette and will become operative 180 days from the date of that publication.

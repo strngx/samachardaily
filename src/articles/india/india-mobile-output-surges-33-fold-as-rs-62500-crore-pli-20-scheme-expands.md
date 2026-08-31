@@ -4,8 +4,10 @@ seoTitle: "India Mobile Output Surges 33x Under Rs 62,500 Cr PLI"
 category: "India"
 date: 2026-08-31T11:34:10Z
 image: "https://images.pexels.com/photos/14534828/pexels-photo-14534828.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Close-up of disassembled smartphone on vibrant yellow surface, showing various parts."
+imageAlt: "India Mobile Output Surges 33-Fold as Rs 62,500 Crore PLI 2.0 Scheme Expands"
 imageCredit: "Andrey Matveev"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 trending: false
 featured: false
 video_id: "n0jhq5x_2T8"
@@ -26,9 +28,8 @@ sourceName: "Financial Express , Read To Lead"
 dek: "India's mobile phone production has recorded a massive 33-fold surge, driven by structural policy interventions. The government's Rs 62,500 crore Production-Linked Incentive (PLI 2.0) scheme is now setting the stage for the next phase of electronics manufacturing growth."
 author: "Vikram Malhotra | SamacharDaily Bureau"
 why_it_matters: |
-  The 33-fold growth in mobile output alongside the Rs 62,500 crore PLI 2.0 scheme marks a critical transition in India's macroeconomic strategy from import substitution to export-led industrial manufacturing. By establishing domestic component manufacturing capabilities, the policy insulates the Indian technology ecosystem from global supply chain disruptions while significantly reducing the foreign exchange burden associated with imported electronic components.
-  
-  From an institutional and market standpoint, the long-term fiscal backing under PLI 2.0 provides listed electronics manufacturing services (EMS) firms with strong earnings visibility and structural tailwinds. The commitment of capital incentivizes sustained corporate capex, accelerating technology transfers and positioning Indian manufacturing entities as viable primary and secondary suppliers for global original equipment manufacturers.
+  The 33-fold growth in mobile output alongside the Rs 62,500 crore PLI 2.0 scheme marks a critical transition in India's macroeconomic strategy from import substitution to export-led industrial manufacturing. By establishing domestic component manufacturing capabilities, the policy insulates the Indian technology ecosystem from global supply chain disruptions while significantly reducing the foreign exchange burden associated with imported electronic components. From an institutional and market standpoint, the long-term fiscal backing under PLI 2.0 provides listed electronics manufacturing services (EMS) firms with strong earnings visibility and structural tailwinds. The commitment of capital incentivizes sustained corporate capex, accelerating technology transfers and positioning Indian manufacturing entities as viable primary and secondary suppliers for global original equipment manufacturers.
+
 what_happens_next: "Following the financial operationalization of the Rs 62,500 crore PLI 2.0 scheme, participating electronics manufacturers will begin submitting quarterly production and investment verified benchmarks to claim incremental incentives. Institutional monitoring agencies are expected to review capital deployment milestones over coming reporting cycles to ensure seamless incentive disbursements."
 ---
 India's domestic mobile manufacturing ecosystem has achieved a monumental milestone, expanding its production volume by 33 times compared to initial baseline levels. The rapid scale-up underscores the impact of targeted industrial policies designed to transform the country into a global hub for electronics design and manufacturing. Central to this structural shift is the central government's Production-Linked Incentive (PLI) framework, which has systematically incentivized local assembly and component localization.

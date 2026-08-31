@@ -3,8 +3,10 @@ title: "Bulldogs fall at Stillwater in Lucas' debut, dropping conference opener"
 category: "Sports"
 date: 2026-08-29T19:06:15Z
 image: "https://images.pexels.com/photos/37370077/pexels-photo-37370077.png?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Empty Albertsons Stadium with iconic blue turf under clear sky."
+imageAlt: "Bulldogs fall at Stillwater in Lucas' debut, dropping conference opener"
 imageCredit: "Maui Media"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 trending: false
 featured: false
 video_id: "lb3GXckGfhw"
@@ -25,9 +27,8 @@ sourceName: "Nwaonline"
 dek: "Freshman quarterback Lucas debuted for the Bulldogs, but the team fell 28-21 to Stillwater in the season‑opening conference game."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The defeat puts the Bulldogs at an early disadvantage in a tightly contested conference where every win can dictate postseason eligibility. A loss in the opener also raises questions about the team’s ability to integrate a rookie quarterback into a high‑stakes environment.
-  
-  Lucas’ performance, while statistically solid, will be a focal point for recruiters and analysts monitoring the program’s future. His development could shape the Bulldogs’ offensive identity for the next three seasons, influencing both on‑field strategy and the program’s appeal to prospective talent.
+  The defeat puts the Bulldogs at an early disadvantage in a tightly contested conference where every win can dictate postseason eligibility. A loss in the opener also raises questions about the team’s ability to integrate a rookie quarterback into a high‑stakes environment. Lucas’ performance, while statistically solid, will be a focal point for recruiters and analysts monitoring the program’s future. His development could shape the Bulldogs’ offensive identity for the next three seasons, influencing both on‑field strategy and the program’s appeal to prospective talent.
+
 what_happens_next: "The Bulldogs will convene a mandatory film review session on Monday, focusing on defensive lapses and red‑zone efficiency. Coach Daniels has scheduled a two‑hour practice on Tuesday to drill situational plays, and the team travels to River City on Thursday for their next conference matchup, where Lucas will start again."
 ---
 The Bulldogs opened their conference slate on Saturday at Stillwater, facing a hostile crowd in the stadium that has become a fortress for the home side. Both squads entered the matchup with high expectations, the Bulldogs hoping to capitalize on a revamped offense while Stillwater aimed to defend its home turf record.

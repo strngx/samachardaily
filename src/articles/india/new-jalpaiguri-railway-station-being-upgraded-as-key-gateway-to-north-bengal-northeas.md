@@ -2,9 +2,6 @@
 title: "New Jalpaiguri Station Upgrade to Boost North Bengal, Northeast Rail Gateway"
 category: "India"
 date: 2026-08-30T08:52:32Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "New Jalpaiguri Station Upgrade to Boost North Bengal, Northeast Rail Gateway"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "YCOPWRvBAgU"
@@ -25,10 +22,13 @@ sourceName: "Thehawk"
 dek: "The Northeast Frontier Railway is overhauling New Jalpaiguri Junction with modern terminals, parking and passenger amenities to cement its status as a primary rail gateway for North Bengal and the Northeast."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Upgrading New Jalpaiguri positions the station as a critical node in India’s push to integrate the Northeast with the national rail network, potentially spurring trade, tourism and investment in a historically under‑served region. Improved facilities will also reduce congestion, cut travel times and raise safety standards for millions of commuters.
-  
-  The project signals the government’s commitment to infrastructure parity between the Northeast and other parts of the country, aligning with broader regional development plans. Enhanced rail capacity can attract private logistics players, support supply‑chain diversification, and create local employment during construction and operation phases.
+  Upgrading New Jalpaiguri positions the station as a critical node in India’s push to integrate the Northeast with the national rail network, potentially spurring trade, tourism and investment in a historically under‑served region. Improved facilities will also reduce congestion, cut travel times and raise safety standards for millions of commuters. The project signals the government’s commitment to infrastructure parity between the Northeast and other parts of the country, aligning with broader regional development plans. Enhanced rail capacity can attract private logistics players, support supply‑chain diversification, and create local employment during construction and operation phases.
+
 what_happens_next: "The railway authority has set a target to finish the redevelopment by March 2027, with weekly progress reviews and a dedicated task force overseeing construction. Upon completion, the station will feature integrated ticketing halls, digital information boards, and expanded parking, after which NFR will launch a public awareness campaign."
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 The Northeast Frontier Railway (NFR) announced a comprehensive redevelopment of New Jalpaiguri Railway Station, aiming to transform it into a state‑of‑the‑art, passenger‑friendly hub. The master plan covers new arrival and departure terminals, an elevated road, podium parking, an air‑concourse, additional foot over bridges and platform upgrades, alongside improved vehicular circulation and pedestrian drop‑off zones.
 

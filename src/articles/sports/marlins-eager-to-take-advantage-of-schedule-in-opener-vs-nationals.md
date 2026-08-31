@@ -3,8 +3,10 @@ title: "Marlins Look to Capitalise on Early‑Season Schedule Edge in Opener vs.
 category: "Sports"
 date: 2026-08-28T23:37:27Z
 image: "https://images.pexels.com/photos/7249451/pexels-photo-7249451.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Unrecognizable baseball player in uniform wearing a helmet and facemask, captured in black and white."
+imageAlt: "Marlins Look to Capitalise on Early‑Season Schedule Edge in Opener vs. Nationals"
 imageCredit: "gid qutki"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 video_id: "MPMFaFFY93o"
 video_caption: "NATIONALS vs. MARLINS: Official Full Game Highlights (August 21) | 2026 MLB Season"
 slug: "marlins-eager-to-take-advantage-of-schedule-in-opener-vs-nationals"

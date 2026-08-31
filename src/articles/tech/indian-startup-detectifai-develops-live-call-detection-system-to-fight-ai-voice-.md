@@ -2,9 +2,6 @@
 title: "DetectifAI Launches Real-Time Voice Authentication to Counter AI Deepfake Calls"
 category: "Tech"
 date: 2026-08-28T22:41:15Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "DetectifAI Launches Real-Time Voice Authentication to Counter AI Deepfake Calls"
-imageCredit: "PENDING"
 video_id: "mgex2LDbaa0"
 video_caption: "Audio DeepFake Detection using Machine Learning and Deep Learning | AI based Projects 2024-25"
 slug: "indian-startup-detectifai-develops-live-call-detection-system-to-fight-ai-voice-"
@@ -13,9 +10,11 @@ sourceName: "Dharmakshethra"
 dek: "DetectifAI, a startup founded in 2025 by Tarini Padmanabhuni, unveiled a live-call detection platform that can verify speakers and flag synthetic or replayed audio before critical transactions proceed, aiming at banks, KYC firms and telecom operators."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  AI‑generated voice deepfakes have moved from experimental demos to real‑world fraud tools, enabling criminals to impersonate executives, customers, or officials with convincing realism. In India, where voice‑based authentication is common for banking transactions and telecom services, a successful deepfake call can lead to unauthorized fund transfers, data breaches, or identity theft. DetectifAI’s real‑time detection adds a dynamic safeguard that can stop such attacks before they succeed, complementing existing static security layers.
-  
-  The technology also aligns with upcoming regulatory expectations. The Reserve Bank of India and the Telecom Regulatory Authority of India are drafting guidelines that may require financial and telecom entities to implement advanced authentication measures, including biometric and AI‑driven verification. If adopted widely, DetectifAI’s platform could set a new industry standard for voice security, prompting other startups and established vendors to develop similar capabilities, thereby strengthening the overall resilience of India's digital financial ecosystem.
+  AI‑generated voice deepfakes have moved from experimental demos to real‑world fraud tools, enabling criminals to impersonate executives, customers, or officials with convincing realism. In India, where voice‑based authentication is common for banking transactions and telecom services, a successful deepfake call can lead to unauthorized fund transfers, data breaches, or identity theft. DetectifAI’s real‑time detection adds a dynamic safeguard that can stop such attacks before they succeed, complementing existing static security layers. The technology also aligns with upcoming regulatory expectations. The Reserve Bank of India and the Telecom Regulatory Authority of India are drafting guidelines that may require financial and telecom entities to implement advanced authentication measures, including biometric and AI‑driven verification. If adopted widely, DetectifAI’s platform could set a new industry standard for voice security, prompting other startups and established vendors to develop similar capabilities, thereby strengthening the overall resilience of India's digital financial ecosystem.
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 DetectifAI, an Indian technology startup established in 2025 by entrepreneur Tarini Padmanabhuni, announced the rollout of a live-call detection system designed to combat the growing menace of AI‑generated voice deepfakes. The platform, described by the company as a "voice‑trust layer," works by continuously analysing incoming speech during a call, checking biometric voice signatures, detecting artifacts typical of synthetic generation, and identifying replayed recordings. When the system flags a call as potentially fraudulent, it can interrupt the interaction or alert the user before any sensitive information is exchanged.
 

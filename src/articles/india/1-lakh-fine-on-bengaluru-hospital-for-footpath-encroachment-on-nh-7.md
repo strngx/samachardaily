@@ -2,9 +2,11 @@
 title: "Bengaluru hospital fined ₹1 lakh for illegal parking on NH-7 footpath"
 category: "India"
 date: 2026-08-29T13:39:07Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Bengaluru hospital fined ₹1 lakh for illegal parking on NH-7 footpath"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/7/7b/High_Court_of_Karnataka%2C_Bangalore_MMK.jpg"
+imageAlt: "Karnataka High Court, in Bangalore, India."
+imageCredit: "Muhammad Mahdi Karim/ Augustus Binu / Wikimedia Commons"
+imageLicense: "GFDL 1.2"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:High_Court_of_Karnataka,_Bangalore_MMK.jpg"
 trending: false
 featured: false
 video_id: "Jz97vt7carg"
@@ -24,9 +26,8 @@ sourceUrl: "https://newsfirstprime.com/bengaluru/1-lakh-fine-on-bengaluru-hospit
 dek: "The Bengaluru North City Corporation imposed a ₹1 lakh penalty on a private hospital in Sahakaranagar for allowing vehicles to park on National Highways Authority land, disrupting pedestrian movement along the Shkodigehalli Gate–Mall of Asia stretch."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The enforcement underscores the municipal government's commitment to safeguarding public right‑of‑way, a critical issue in rapidly urbanising Indian cities where footpath encroachments impede safe pedestrian movement.
-  
-  If left unchecked, such violations can erode public trust in regulatory bodies, encourage further illegal use of civic spaces, and potentially increase traffic accidents, affecting both local commerce and commuter safety.
+  The enforcement underscores the municipal government's commitment to safeguarding public right‑of‑way, a critical issue in rapidly urbanising Indian cities where footpath encroachments impede safe pedestrian movement. If left unchecked, such violations can erode public trust in regulatory bodies, encourage further illegal use of civic spaces, and potentially increase traffic accidents, affecting both local commerce and commuter safety.
+
 what_happens_next: "The hospital must halt all parking on the NHAI‑owned footpath within 48 hours and submit a compliance report to BNCC. BNCC will conduct a follow‑up inspection within the week, and NHAI officials will monitor the site for any recurrence, with the possibility of additional fines or legal action if violations persist."
 ---
 Officials of the Bengaluru North City Corporation (BNCC) identified a private hospital in Sahakaranagar during a footpath encroachment clearance drive covering the NH‑7 stretch from Kodigehalli Gate to the Mall of Asia. The inspection revealed that the hospital was permitting patients and the public to park on land owned by the National Highways Authority of India (NHAI).

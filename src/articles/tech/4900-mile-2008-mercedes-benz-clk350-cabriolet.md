@@ -2,9 +2,11 @@
 title: "2008 Mercedes-Benz CLK350 Cabriolet Listed with 4,900 Miles, Full Service Records"
 category: "Tech"
 date: 2026-08-30T11:22:28Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "2008 Mercedes-Benz CLK350 Cabriolet Listed with 4,900 Miles, Full Service Records"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/a/a2/Mercedes-Benz_prototypes_amk1.jpg"
+imageAlt: "Mercedes-Benz C111 Prototype / Mercedes-Benz F400 'Carving' Prototype"
+imageCredit: "user:AngMoKio / Wikimedia Commons"
+imageLicense: "CC BY-SA 2.5"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_prototypes_amk1.jpg"
 trending: false
 featured: false
 video_id: "xEKDQmntaZw"
@@ -25,9 +27,8 @@ sourceName: "Bring A Trailer"
 dek: "A low‑mileage 2008 CLK350 cabriolet in Capri Blue Metallic, complete with service history and a clean Carfax, has been posted for sale on Bring A Trailer."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The CLK350 cabriolet occupies a niche segment of early‑2000s luxury convertibles, and low‑mileage examples in original condition are scarce, making this listing a bellwether for collector demand and pricing trends. A clean Carfax and complete service documentation further enhance its appeal, potentially setting a benchmark for similar models.
-  
-  If the auction draws strong interest, it could signal renewed market confidence in premium German convertibles as investment pieces, influencing dealer inventories and future listings on secondary‑market platforms like Bring A Trailer.
+  The CLK350 cabriolet occupies a niche segment of early‑2000s luxury convertibles, and low‑mileage examples in original condition are scarce, making this listing a bellwether for collector demand and pricing trends. A clean Carfax and complete service documentation further enhance its appeal, potentially setting a benchmark for similar models. If the auction draws strong interest, it could signal renewed market confidence in premium German convertibles as investment pieces, influencing dealer inventories and future listings on secondary‑market platforms like Bring A Trailer.
+
 what_happens_next: "The auction will open on Bring A Trailer later this week, with a bidding window of 72 hours. Prospective buyers are advised to review the full service records and arrange a pre‑purchase inspection; the seller expects to finalize the sale within two weeks of auction close, pending payment clearance."
 ---
 The vehicle, a 2008 Mercedes‑Benz CLK350 convertible (A209 chassis), shows just 4,900 miles on the odometer. The seller acquired it from the original owner in July 2025 and retains the owner’s manual, a full set of service records, and an Indiana title in their name.

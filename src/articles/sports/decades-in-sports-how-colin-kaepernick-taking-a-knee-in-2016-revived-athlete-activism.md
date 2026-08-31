@@ -4,8 +4,10 @@ seoTitle: "Kaepernick’s 2016 Knee Protest Revives Activism"
 category: "Sports"
 date: 2026-08-31T08:36:54Z
 image: "https://images.pexels.com/photos/4428566/pexels-photo-4428566.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "American football player kneels on field during a game in Toronto, Ontario."
+imageAlt: "Kaepernick’s 2016 Knee Protest Reignites Athlete Activism Across Sports"
 imageCredit: "Wendy Wei"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 trending: false
 featured: false
 video_id: "bBdoDOXMWkg"
@@ -26,9 +28,8 @@ sourceName: "Hawaii Television News Four"
 dek: "Colin Kaepernick’s decision to kneel during the national anthem in a December 2016 game against the Atlanta Falcons sparked a resurgence of athlete‑led social activism."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Kaepernick’s protest forced major sports institutions to reckon with their role in social discourse, prompting policy reviews and corporate reassessments of sponsorships tied to social issues. The ripple effect reshaped fan expectations, making activism an integral part of the athlete brand.
-  
-  The broader cultural impact extends beyond the playing field, as the kneeling movement intersected with nationwide protests, influencing legislative debates on policing and civil rights. It demonstrated that a single act by a high‑profile athlete could galvanise public opinion and pressure institutions to address systemic inequities.
+  Kaepernick’s protest forced major sports institutions to reckon with their role in social discourse, prompting policy reviews and corporate reassessments of sponsorships tied to social issues. The ripple effect reshaped fan expectations, making activism an integral part of the athlete brand. The broader cultural impact extends beyond the playing field, as the kneeling movement intersected with nationwide protests, influencing legislative debates on policing and civil rights. It demonstrated that a single act by a high‑profile athlete could galvanise public opinion and pressure institutions to address systemic inequities.
+
 what_happens_next: "The NFL’s Players Association has scheduled a meeting with league officials in early September to discuss formal guidelines for anthem-related expressions, aiming to balance player rights with league policies. Meanwhile, Kaepernick’s foundation plans to launch a mentorship program for young athletes in August, focusing on civic engagement and social justice education."
 ---
 On December 4, 2016, San Francisco 49ers quarterback Colin Kaepernick took a knee on the field during the national anthem before a game against the Atlanta Falcons in Atlanta, Georgia. The silent gesture, captured on broadcast and stadium screens, marked a stark departure from the usual pre‑game routine and placed the 49ers’ star at the centre of a national conversation.

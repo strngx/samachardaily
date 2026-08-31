@@ -2,9 +2,11 @@
 title: "BJP chief Nitin Nabin rebukes three Delhi MPs for visiting Sajjan Kumar’s home"
 category: "India"
 date: 2026-08-29T23:52:36Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "BJP chief Nitin Nabin rebukes three Delhi MPs for visiting Sajjan Kumar’s home"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Nitin_Nabin%2C_National_President_of_Bharatiya_Janata_Party_meeting_with_the_President_of_India%2C_Droupadi_Murmu_at_Rashtrapati_Bhavan_%282025%29.jpg"
+imageAlt: "Nitin Nabin Sinha, National President of Bharatiya Janata Party meeting with the President of India, Droupadi Murmu at Rashtrapati Bhavan (2"
+imageCredit: "President Secretariat (Rashtrapati Bhavan) / Wikimedia Commons"
+imageLicense: "GODL-India"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Nitin_Nabin,_National_President_of_Bharatiya_Janata_Party_meeting_with_the_President_of_India,_Droupadi_Murmu_at_Rashtrapati_Bhavan_(2025).jpg"
 trending: true
 featured: false
 video_id: "HSKu-74q3PA"
@@ -25,9 +27,8 @@ sourceName: "The Economic Times"
 dek: "Party president Nitin Nabin summoned three Delhi legislators on Saturday, voicing displeasure over their condolence visit to the late Sajjan Kumar, a convicted 1984 riot figure."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The incident underscores the BJP’s internal struggle to balance political outreach with the need to distance itself from controversial figures linked to historic communal violence, a factor that can influence voter sentiment, especially among Sikh communities.
-  
-  It also signals a potential tightening of party discipline ahead of upcoming state elections, as leadership seeks to preempt criticism that could be leveraged by opposition parties to question the BJP’s moral standing.
+  The incident underscores the BJP’s internal struggle to balance political outreach with the need to distance itself from controversial figures linked to historic communal violence, a factor that can influence voter sentiment, especially among Sikh communities. It also signals a potential tightening of party discipline ahead of upcoming state elections, as leadership seeks to preempt criticism that could be leveraged by opposition parties to question the BJP’s moral standing.
+
 what_happens_next: "The party’s disciplinary committee is set to review the MPs’ conduct within the next week, with Nitin Nabin indicating that sanctions could range from formal warnings to temporary suspension of party privileges. The three legislators are expected to submit written explanations to the committee before any decision is announced."
 ---
 On Saturday, BJP president Nitin Nabin called three Delhi MPs—Ashwini Kumar Choubey, Mahendra Nath Pandey and Sanjay Singh—to a party office, chastising them for traveling to the residence of Sajjan Kumar after the former minister’s death on August 20.

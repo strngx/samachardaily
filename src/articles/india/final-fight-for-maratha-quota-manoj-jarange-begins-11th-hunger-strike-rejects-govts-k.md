@@ -3,8 +3,10 @@ title: "Manoj Jarange launches 11th hunger strike, rejects govt's Kunbi certific
 category: "India"
 date: 2026-08-29T19:52:33Z
 image: "https://images.pexels.com/photos/38727117/pexels-photo-38727117.png?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "A peaceful protest in New Delhi focusing on citizens' rights and freedom of speech."
+imageAlt: "Manoj Jarange launches 11th hunger strike, rejects govt's Kunbi certificate claim on Maratha quota"
 imageCredit: "Shantum Singh"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 trending: false
 featured: false
 video_id: "EpyYFoDhwkY"
@@ -25,9 +27,8 @@ sourceName: "The Statesman"
 dek: "Maratha activist Manoj Jarange began his 11th consecutive hunger strike, demanding full implementation of the state’s Maratha reservation and dismissing the government’s assertion that his Kunbi certificate is invalid."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The standoff underscores the volatility of caste‑based reservation politics in Maharashtra, a state where the Maratha quota has already triggered widespread protests and legal challenges. A failure to resolve the dispute could reignite large‑scale demonstrations, potentially destabilising the state’s political equilibrium.
-  
-  If the government’s certificate verification is upheld, it may set a precedent for stricter scrutiny of caste documents across India, influencing future reservation policies and affecting millions of aspirants seeking affirmative action benefits.
+  The standoff underscores the volatility of caste‑based reservation politics in Maharashtra, a state where the Maratha quota has already triggered widespread protests and legal challenges. A failure to resolve the dispute could reignite large‑scale demonstrations, potentially destabilising the state’s political equilibrium. If the government’s certificate verification is upheld, it may set a precedent for stricter scrutiny of caste documents across India, influencing future reservation policies and affecting millions of aspirants seeking affirmative action benefits.
+
 what_happens_next: "Health officials have been summoned to monitor Jarange’s condition, and the state’s reservation board is scheduled to reconvene within the next week to review his Kunbi certificate. Simultaneously, Jarange’s legal team has filed a petition in the Bombay High Court seeking an injunction against the government’s certificate denial."
 ---
 On Monday, Manoj Jarange, a prominent Maratha leader, commenced his 11th day of an indefinite hunger strike outside the Maharashtra Legislative Assembly, demanding that the state honour the 16% reservation promised to the Maratha community under the 2018 amendment.

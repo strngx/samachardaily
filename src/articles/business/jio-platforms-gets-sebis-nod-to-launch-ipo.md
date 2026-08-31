@@ -2,9 +2,6 @@
 title: "SEBI Clears Jio Platforms to Proceed with IPO"
 category: "Business"
 date: 2026-08-28T23:37:10Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "SEBI Clears Jio Platforms to Proceed with IPO"
-imageCredit: "PENDING"
 video_id: "rJJSHnTOP6Y"
 video_caption: "Jio Platforms IPO Gets SEBI Nod | What’s The Timeline To Go Public? | Newscentre"
 slug: "jio-platforms-gets-sebis-nod-to-launch-ipo"
@@ -13,9 +10,11 @@ sourceName: "News18"
 dek: "India’s telecom and digital services powerhouse Jio Platforms received regulatory approval from SEBI to launch its initial public offering, moving the company closer to what could become one of the country’s biggest listings."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The SEBI nod is significant for India’s capital markets because a Jio Platforms listing would inject a massive amount of fresh capital, potentially reshaping the country’s equity landscape. A successful IPO could set a benchmark for valuations of Indian tech and telecom firms, encouraging other high‑growth companies to consider public listings. For investors, the offering presents exposure to a business that has rapidly transformed India’s digital connectivity and continues to expand into new verticals.
-  
-  For Reliance Industries, the IPO is a strategic move to monetize a portion of its digital assets while retaining control through its parent company. The proceeds can be deployed to strengthen Jio’s network, accelerate innovation, and improve the conglomerate’s balance sheet. Moreover, a public market valuation will provide greater clarity on the worth of Reliance’s digital portfolio, influencing future strategic decisions and potential partnerships within the broader Indian and global tech ecosystem.
+  The SEBI nod is significant for India’s capital markets because a Jio Platforms listing would inject a massive amount of fresh capital, potentially reshaping the country’s equity landscape. A successful IPO could set a benchmark for valuations of Indian tech and telecom firms, encouraging other high‑growth companies to consider public listings. For investors, the offering presents exposure to a business that has rapidly transformed India’s digital connectivity and continues to expand into new verticals. For Reliance Industries, the IPO is a strategic move to monetize a portion of its digital assets while retaining control through its parent company. The proceeds can be deployed to strengthen Jio’s network, accelerate innovation, and improve the conglomerate’s balance sheet. Moreover, a public market valuation will provide greater clarity on the worth of Reliance’s digital portfolio, influencing future strategic decisions and potential partnerships within the broader Indian and global tech ecosystem.
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 Jio Platforms, the digital arm of Reliance Industries, filed its draft red‑herring prospectus (DRHP) with the Securities and Exchange Board of India (SEBI) in June. After reviewing the filing, SEBI issued an in‑principle nod on Tuesday, allowing the company to move ahead with the next steps of its public issue. The regulator’s clearance removes the final hurdle before Jio can file a final prospectus, commence a roadshow, and set a price band for the shares. SEBI’s approval also signals that the company’s disclosures, corporate governance framework, and financial statements meet the board’s stringent requirements for a listed entity.
 

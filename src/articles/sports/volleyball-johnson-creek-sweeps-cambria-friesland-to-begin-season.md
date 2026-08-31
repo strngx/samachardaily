@@ -3,8 +3,10 @@ title: "Johnson Creek sweeps Cambria-Friesland 3-0 in season‑opening volleybal
 category: "Sports"
 date: 2026-08-29T10:19:39Z
 image: "https://images.pexels.com/photos/17591648/pexels-photo-17591648.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Intense volleyball match between high school teams in Rochester, MN with focused players preparing for a net play."
+imageAlt: "Johnson Creek sweeps Cambria-Friesland 3-0 in season‑opening volleyball match"
 imageCredit: "Tom Fisk"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 trending: false
 featured: false
 video_id: "hLAVPKcCX4A"
@@ -25,9 +27,8 @@ sourceName: "Daily Jefferson County Union"
 dek: "Johnson Creek's volleyball team opened the season with a decisive 3-0 sweep of Cambria-Friesland, securing early momentum in the district league."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The win positions Johnson Creek at the top of the district table early in the campaign, boosting the team's confidence and setting a benchmark for rivals. It also highlights the depth of talent in the program, which could influence college scouting and local support.
-  
-  For Cambria‑Friesland, the loss underscores areas needing improvement, particularly in serve reception and defensive coordination, prompting a reassessment of training focus before the next round of fixtures.
+  The win positions Johnson Creek at the top of the district table early in the campaign, boosting the team's confidence and setting a benchmark for rivals. It also highlights the depth of talent in the program, which could influence college scouting and local support. For Cambria‑Friesland, the loss underscores areas needing improvement, particularly in serve reception and defensive coordination, prompting a reassessment of training focus before the next round of fixtures.
+
 what_happens_next: "Johnson Creek will host its next league encounter next week, aiming to extend its winning streak, while Cambria‑Friesland returns to practice to address service errors before its upcoming match against Oakridge High. Both coaches have indicated adjustments will be made ahead of the next games."
 ---
 In the first match of the high‑school volleyball season, Johnson Creek defeated Cambria‑Friesland in straight sets, 25-18, 25-20, 25-16, completing a clean sweep and earning three points in the league standings.

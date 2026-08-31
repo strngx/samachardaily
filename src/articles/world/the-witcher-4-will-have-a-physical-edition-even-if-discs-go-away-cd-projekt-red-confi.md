@@ -2,9 +2,6 @@
 title: "CD Projekt Red Confirms Physical Edition for The Witcher 4 Despite Disc Phase‑out"
 category: "World"
 date: 2026-08-30T06:57:47Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "CD Projekt Red Confirms Physical Edition for The Witcher 4 Despite Disc Phase‑out"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "e4TisH_8GAY"
@@ -25,10 +22,13 @@ sourceName: "In Ign"
 dek: "Joint‑CEO Michał Nowakowski says The Witcher 4 will ship in a boxed collector’s edition even after Sony ends disc support in 2028."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The decision underscores the enduring demand for physical collectibles in a market increasingly dominated by digital downloads, offering an additional revenue stream for CD Projekt Red and reinforcing brand loyalty among long‑time fans.
-  
-  It also highlights the broader industry tension between platform manufacturers phasing out optical media and publishers seeking to preserve a tangible product line, potentially influencing how other studios approach physical releases in the coming years.
+  The decision underscores the enduring demand for physical collectibles in a market increasingly dominated by digital downloads, offering an additional revenue stream for CD Projekt Red and reinforcing brand loyalty among long‑time fans. It also highlights the broader industry tension between platform manufacturers phasing out optical media and publishers seeking to preserve a tangible product line, potentially influencing how other studios approach physical releases in the coming years.
+
 what_happens_next: "CD Projekt Red will finalize packaging designs and begin production of the Witcher 4 collector’s edition later this year, with pre‑order details slated for release in Q4 2026. Retail partners in Europe and North America are expected to receive stock ahead of the game's launch, and the studio will roll out promotional material through its official channels."
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 CD Projekt Red announced that its upcoming title, The Witcher 4, will be released in a traditional boxed format for physical‑media collectors, despite the industry’s shift toward digital distribution and Sony’s plan to discontinue disc support for its consoles by 2028.
 

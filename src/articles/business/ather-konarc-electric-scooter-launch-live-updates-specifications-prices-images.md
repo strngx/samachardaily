@@ -3,8 +3,10 @@ title: "Ather unveils Konarc electric scooter: live updates on specs, pricing an
 category: "Business"
 date: 2026-08-29T16:50:00Z
 image: "https://images.pexels.com/photos/33267414/pexels-photo-33267414.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "A vibrant outdoor display of pink, blue, and yellow VinFast scooters. Eye-catching and modern."
+imageAlt: "Ather unveils Konarc electric scooter: live updates on specs, pricing and images"
 imageCredit: "Sóc Năng Động"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 trending: false
 featured: false
 video_id: "9nqgZObUaYg"
@@ -25,9 +27,8 @@ sourceName: "Carandbike"
 dek: "Ather announced its latest Konarc electric scooter today, with Carandbike providing live coverage of specifications, pricing and visual details as they are released."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The Konarc’s introduction could reshape the premium electric scooter segment, offering consumers a new choice that may accelerate adoption of zero‑emission two‑wheelers and influence market pricing dynamics.
-  
-  India’s national EV policy targets a 30% share of electric two‑wheelers by 2030, backed by subsidies and charging infrastructure incentives. A high‑profile launch like Ather’s provides a tangible benchmark for policy effectiveness and signals to manufacturers the viability of scaling premium EV models.
+  The Konarc’s introduction could reshape the premium electric scooter segment, offering consumers a new choice that may accelerate adoption of zero‑emission two‑wheelers and influence market pricing dynamics. India’s national EV policy targets a 30% share of electric two‑wheelers by 2030, backed by subsidies and charging infrastructure incentives. A high‑profile launch like Ather’s provides a tangible benchmark for policy effectiveness and signals to manufacturers the viability of scaling premium EV models.
+
 what_happens_next: "Carandbike will publish the complete Konarc specification sheet and final price list within the next hour, while Ather is slated to hold a press briefing later today to address media queries. Test‑ride slots for journalists and select customers are expected to be announced early next week."
 ---
 The Bangalore‑based EV maker Ather launched its next‑generation Konarc scooter in a streamed event, positioning it as the company’s newest offering in the premium two‑wheeler segment. The rollout follows the success of the Ather 450X and reflects the firm’s ambition to broaden its portfolio amid accelerating demand for electric mobility in India.

@@ -2,9 +2,6 @@
 title: "Karnataka Tourism Secures Record Partnerships at Cochin Expo 2024"
 category: "India"
 date: 2026-08-29T11:30:28Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Karnataka Tourism Secures Record Partnerships at Cochin Expo 2024"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "DtcwOeMb_n8"
@@ -25,10 +22,12 @@ sourceName: "Hospitalitynews"
 dek: "Karnataka Tourism officials said the state’s showcase at the Cochin tourism expo drew unprecedented interest, resulting in multiple partnership agreements and a projected boost in visitor arrivals."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The newly forged partnerships are poised to diversify Karnataka’s tourism portfolio, reducing reliance on traditional pilgrimage circuits and boosting high‑value segments such as eco‑tourism and heritage travel. Increased visitor spend will generate employment across hospitality, transport and ancillary services, supporting the state’s broader economic growth targets.
-  
-  On a policy front, the success underscores the effectiveness of coordinated state‑level promotion at regional expos, encouraging other Indian states to adopt similar outreach strategies. It also aligns with the central government’s push for digital transformation in tourism, potentially shaping future funding allocations and regulatory frameworks for sustainable travel development.
+  The newly forged partnerships are poised to diversify Karnataka’s tourism portfolio, reducing reliance on traditional pilgrimage circuits and boosting high‑value segments such as eco‑tourism and heritage travel. Increased visitor spend will generate employment across hospitality, transport and ancillary services, supporting the state’s broader economic growth targets. On a policy front, the success underscores the effectiveness of coordinated state‑level promotion at regional expos, encouraging other Indian states to adopt similar outreach strategies. It also aligns with the central government’s push for digital transformation in tourism, potentially shaping future funding allocations and regulatory frameworks for sustainable travel development.
+
 what_happens_next: "Karnataka Tourism will convene a post‑expo task force next week to ratify the 12 memoranda of understanding signed at Cochin, roll out a digital marketing drive targeting domestic and overseas travelers, and submit a detailed impact report to the state cabinet by March 2025."
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 The Karnataka Tourism Department set up a flagship pavilion at the Cochin International Tourism Expo held in February 2024, highlighting the state’s heritage circuits, wildlife sanctuaries, and emerging digital‑tourism platforms. The booth featured immersive VR tours of Hampi, Coorg’s coffee estates and the coastal backwaters, attracting delegates from over 30 countries.
 

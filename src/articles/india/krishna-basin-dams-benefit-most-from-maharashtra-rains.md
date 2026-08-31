@@ -2,9 +2,6 @@
 title: "Maharashtra Monsoon Swells Krishna Basin Dams, Almatti Gains 302 TMCFT"
 category: "India"
 date: 2026-08-29T11:38:48Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Maharashtra Monsoon Swells Krishna Basin Dams, Almatti Gains 302 TMCFT"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "e5mHAcUDrT4"
@@ -25,10 +22,13 @@ sourceName: "Deccan Herald"
 dek: "Heavy rains in Maharashtra have dramatically raised water levels in Krishna basin reservoirs, while Karnataka's KRS and Cauvery dams lag behind last year's storage."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The divergent water levels intensify inter‑state tensions over the Krishna and Cauvery river allocations, potentially affecting agricultural output and power generation in Karnataka.
-  
-  Reduced storage in KRS and Cauvery reservoirs could pressure the state to seek additional releases from upstream states, testing the robustness of existing water‑sharing accords and court‑mandated releases.
+  The divergent water levels intensify inter‑state tensions over the Krishna and Cauvery river allocations, potentially affecting agricultural output and power generation in Karnataka. Reduced storage in KRS and Cauvery reservoirs could pressure the state to seek additional releases from upstream states, testing the robustness of existing water‑sharing accords and court‑mandated releases.
+
 what_happens_next: "Karnataka's water department will convene an emergency meeting with the Krishna River Management Board within the next week to reassess water allocation, prioritize irrigation needs, and evaluate whether to request supplemental releases from Maharashtra under the inter‑state agreement."
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 The recent deluge across Maharashtra has poured an estimated 302 billion cubic feet (tmcft) into the Almatti reservoir, the largest single gain among Krishna basin dams, according to the Karnataka Water Resources Department.
 

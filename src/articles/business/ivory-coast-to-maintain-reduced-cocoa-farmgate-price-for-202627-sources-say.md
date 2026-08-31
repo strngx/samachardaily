@@ -2,9 +2,11 @@
 title: "Ivory Coast to Keep Lower Cocoa Farmgate Price for 2026-27 Season"
 category: "Business"
 date: 2026-08-29T07:13:12Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Ivory Coast to Keep Lower Cocoa Farmgate Price for 2026-27 Season"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/2/20/Ivory_Coast-Mali_border.png"
+imageAlt: "Ivory Coast-Mali border map"
+imageCredit: "US Department of State / Wikimedia Commons"
+imageLicense: "Public domain"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Ivory_Coast-Mali_border.png"
 video_id: "dYCkFrhC_GQ"
 video_caption: "Ghana’s $1B Cocoa Crisis: New Price Reforms, Cocobod Debt Restructure &amp; 70% Farmer Guarantee "
 slug: "ivory-coast-to-maintain-reduced-cocoa-farmgate-price-for-202627-sources-say"
@@ -13,9 +15,7 @@ sourceName: "Livemint"
 dek: "The West African cocoa giant will retain the reduced farmgate price for the 2026/27 crop year, sources say, signalling continuity in its price‑support policy despite global market volatility."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Cocoa is Ivory Coast's top export, generating billions of dollars in foreign exchange each year and supporting the livelihoods of millions of smallholder farmers. A stable farmgate price helps smooth income volatility for these producers, who are otherwise vulnerable to global price swings. Moreover, because Ivory Coast sets a benchmark for cocoa pricing, its policy choices ripple through the international chocolate supply chain, affecting everything from raw‑cocoa contracts to retail chocolate prices in Europe, North America and Asia. By extending the reduced price into 2026/27, the government signals a commitment to market stability, which could temper speculative trading and aid downstream manufacturers in planning their procurement strategies.
-  
-  The continuation also underscores the delicate balance the Ivory Coast faces: protecting farmer welfare while ensuring that the country remains competitive in the global market. Analysts will watch how the price holds up against emerging trends such as increasing demand for premium and sustainably sourced cocoa, as well as potential climate‑related impacts on yields. The policy’s effectiveness will likely be judged by the next season's harvest volumes and the price trajectory on international exchanges.
+  Cocoa is Ivory Coast's top export, generating billions of dollars in foreign exchange each year and supporting the livelihoods of millions of smallholder farmers. A stable farmgate price helps smooth income volatility for these producers, who are otherwise vulnerable to global price swings. Moreover, because Ivory Coast sets a benchmark for cocoa pricing, its policy choices ripple through the international chocolate supply chain, affecting everything from raw‑cocoa contracts to retail chocolate prices in Europe, North America and Asia. By extending the reduced price into 2026/27, the government signals a commitment to market stability, which could temper speculative trading and aid downstream manufacturers in planning their procurement strategies. The continuation also underscores the delicate balance the Ivory Coast faces: protecting farmer welfare while ensuring that the country remains competitive in the global market. Analysts will watch how the price holds up against emerging trends such as increasing demand for premium and sustainably sourced cocoa, as well as potential climate‑related impacts on yields. The policy’s effectiveness will likely be judged by the next season's harvest volumes and the price trajectory on international exchanges.
 ---
 Abidjan – Ivory Coast, which accounts for roughly 40% of global cocoa output, is set to maintain the reduced farmgate price for the 2026/27 cocoa season, according to officials familiar with the decision. The price, first lowered in the previous marketing year as part of a broader effort to curb excess inventories and stabilize world cocoa prices, will remain unchanged for the upcoming harvest. Government sources indicated that the policy aims to protect farmer incomes while avoiding a sharp price drop that could destabilise the sector. The move comes after a period of fluctuating international cocoa prices, driven by shifting demand in key chocolate‑consuming markets and concerns over supply‑side disruptions in other producing regions.
 

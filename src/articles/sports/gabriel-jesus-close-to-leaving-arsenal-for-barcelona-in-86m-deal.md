@@ -3,9 +3,6 @@ title: "Gabriel Jesus Nears £8.6m Exit from Arsenal for Barcelona"
 seoTitle: "Gabriel Jesus set for Barcelona move"
 category: "Sports"
 date: 2026-08-31T02:36:52Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Gabriel Jesus Nears £8.6m Exit from Arsenal for Barcelona"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "hI6xUTSlYVw"
@@ -26,10 +23,12 @@ sourceName: "Yahoo! News"
 dek: "Brazilian striker Gabriel Jesus is on the brink of a surprise transfer to Barcelona, with Arsenal reportedly agreeing to an £8.6m exit fee."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The transfer signals a shift in Arsenal's squad composition, potentially freeing up wages and a transfer slot for new signings as the club aims to tighten its challenge for domestic honours. It also reflects Barcelona's strategic pivot toward cost‑effective acquisitions, a response to ongoing financial fair play constraints.
-  
-  For the broader market, the deal illustrates how mid‑tier European clubs can secure quality talent at reduced fees, influencing valuation benchmarks for similar players. It may prompt other Premier League clubs to reassess the market value of their own forwards, especially those who have not cemented a starting role.
+  The transfer signals a shift in Arsenal's squad composition, potentially freeing up wages and a transfer slot for new signings as the club aims to tighten its challenge for domestic honours. It also reflects Barcelona's strategic pivot toward cost‑effective acquisitions, a response to ongoing financial fair play constraints. For the broader market, the deal illustrates how mid‑tier European clubs can secure quality talent at reduced fees, influencing valuation benchmarks for similar players. It may prompt other Premier League clubs to reassess the market value of their own forwards, especially those who have not cemented a starting role.
+
 what_happens_next: "Both clubs are expected to submit the necessary paperwork to their respective football associations within the next 48 hours, with a formal announcement likely to follow once the transfer window officially opens. Pending medicals and personal terms, the move could be confirmed before the end of the week."
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 Gabriel Jesus is reportedly on the verge of leaving Arsenal for Barcelona after the Spanish champions tabled an £8.6m offer that would see the Brazilian forward exit the Premier League club. Sources close to the negotiations say the deal is "close to being finalised," marking a surprising shift for a player who has been a regular feature in Mikel Arteta's attacking line‑up since his arrival.
 

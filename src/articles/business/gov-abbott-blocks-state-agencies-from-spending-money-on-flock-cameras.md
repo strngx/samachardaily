@@ -3,9 +3,6 @@ title: "Gov. Abbott Halts $30 Million State Spending on Flock Surveillance Cam
 seoTitle: "Abbott blocks $30M Flock camera spending"
 category: "Business"
 date: 2026-08-31T06:58:04Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Gov. Abbott Halts $30 Million State Spending on Flock Surveillance Cameras"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "3pJMIc45vOg"
@@ -26,10 +23,13 @@ sourceName: "Kvia"
 dek: "Governor Greg Abbott issued an order stopping Texas state agencies from allocating funds to the Flock camera program after a Texas Tribune investigation revealed at least $30 million has been spent on the network."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The decision directly impacts Texas’s budgetary priorities, potentially redirecting $30 million toward other state needs or forcing a reevaluation of high‑tech surveillance projects. It also sets a precedent for executive oversight of agency spending in an era of rapid technological adoption.
-  
-  Beyond fiscal considerations, the move raises questions about privacy, data governance, and the balance between public safety and civil liberties. As other states watch Texas’s approach, the outcome could influence nationwide debates on the deployment of AI‑driven traffic monitoring systems.
+  The decision directly impacts Texas’s budgetary priorities, potentially redirecting $30 million toward other state needs or forcing a reevaluation of high‑tech surveillance projects. It also sets a precedent for executive oversight of agency spending in an era of rapid technological adoption. Beyond fiscal considerations, the move raises questions about privacy, data governance, and the balance between public safety and civil liberties. As other states watch Texas’s approach, the outcome could influence nationwide debates on the deployment of AI‑driven traffic monitoring systems.
+
 what_happens_next: "State agencies must halt any pending contracts or purchases related to the Flock system within 48 hours, and the governor’s office will convene a review panel to assess the program’s compliance with existing statutes and budgetary rules before any future funding is considered."
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 Governor Greg Abbott on Monday issued an executive order prohibiting all Texas state agencies from further spending on the Flock camera system, a move that comes as the Texas Tribune prepares to publish an investigative report on the program’s financing.
 

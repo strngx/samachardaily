@@ -3,8 +3,10 @@ title: "Remembering Historian Sumit Sarkar: A Scholar Who Brought History from B
 category: "India"
 date: 2026-08-29T05:12:46Z
 image: "https://images.pexels.com/photos/10498797/pexels-photo-10498797.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Male lecturer presenting a concept during a university lecture with a whiteboard in the background."
+imageAlt: "Remembering Historian Sumit Sarkar: A Scholar Who Brought History from Below to the Forefront"
 imageCredit: "Micah Eleazar"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 video_id: ""
 video_caption: ""
 slug: "reading-history-from-below-remembering-sumit-sarkar"

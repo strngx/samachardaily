@@ -3,9 +3,6 @@ title: "Trump Signs Executive Order to Establish US Space Academy, Honors Artemi
 seoTitle: "Trump Signs Executive Order to Form US Space Academy"
 category: "Tech"
 date: 2026-08-31T03:02:47Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Trump Signs Executive Order to Establish US Space Academy, Honors Artemis Crew"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "M9YNRQxqFIo"
@@ -26,10 +23,12 @@ sourceName: "The Boston Globe"
 dek: "President Donald Trump has signed an executive order creating a national U.S. space academy while honoring Artemis astronauts, declaring space exploration 'the hot thing.'"
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The creation of a specialized space academy via executive order represents a direct attempt to formalize educational and operational pipelines for future space initiatives. By embedding this within executive policy, the administration aims to institutionalize technical expertise required for long-term space mission support.
-  
-  Publicly anchoring the announcement to the Artemis astronaut corps further underscores a strategic focus on human spaceflight. The move reinforces policy prioritization for national aerospace programs, positioning space exploration as a key focal point for domestic technical development.
+  The creation of a specialized space academy via executive order represents a direct attempt to formalize educational and operational pipelines for future space initiatives. By embedding this within executive policy, the administration aims to institutionalize technical expertise required for long-term space mission support. Publicly anchoring the announcement to the Artemis astronaut corps further underscores a strategic focus on human spaceflight. The move reinforces policy prioritization for national aerospace programs, positioning space exploration as a key focal point for domestic technical development.
+
 what_happens_next: "No confirmed next steps reported yet."
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 President Donald Trump signed an executive order on Friday to establish a dedicated U.S. space academy, marking a formal policy push to bolster national infrastructure for specialized space training and education.
 

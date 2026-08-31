@@ -2,9 +2,11 @@
 title: "Young Thug's 'Slime Language 3' drops 'Eaters' with Travis Scott, Future, Yeat, Tezzus"
 category: "World"
 date: 2026-08-29T11:04:45Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Young Thug's 'Slime Language 3' drops 'Eaters' with Travis Scott, Future, Yeat, Tezzus"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/3/32/Scott_Travis2005.jpg"
+imageAlt: "Press conference of band Judas Priest at Moscow (Scott Travis)"
+imageCredit: "Дмитрий \"Ward\" Куликов / Wikimedia Commons"
+imageLicense: "CC BY-SA 3.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Scott_Travis2005.jpg"
 trending: false
 featured: false
 video_id: "Rwd3zMhGgbk"
@@ -25,9 +27,8 @@ sourceName: "Hot New Hip Hop"
 dek: "Young Stoner Life's latest compilation 'Slime Language 3' features the new track 'Eaters', uniting heavyweights Travis Scott, Future, Yeat and Tezzus alongside Young Thug."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The collaboration underscores a shifting power dynamic in hip‑hop, where label collectives like YSL leverage cross‑artist synergies to command streaming dominance and negotiate favorable royalty structures. It also highlights the growing influence of younger artists such as Yeat and Tezzus, who gain mainstream exposure through marquee partnerships.
-  
-  For record labels and streaming platforms, the release serves as a barometer for audience appetite for multi‑artist compilations. Strong performance could encourage similar projects, reshaping release strategies and promotional budgets across the industry.
+  The collaboration underscores a shifting power dynamic in hip‑hop, where label collectives like YSL leverage cross‑artist synergies to command streaming dominance and negotiate favorable royalty structures. It also highlights the growing influence of younger artists such as Yeat and Tezzus, who gain mainstream exposure through marquee partnerships. For record labels and streaming platforms, the release serves as a barometer for audience appetite for multi‑artist compilations. Strong performance could encourage similar projects, reshaping release strategies and promotional budgets across the industry.
+
 what_happens_next: "No confirmed next steps reported yet."
 ---
 The Young Stoner Life (YSL) label released its newest compilation, "Slime Language 3," today, headlined by Young Thug. Among the 20‑track project, "Eaters" stands out as a star‑studded collaboration that pairs Thug with Travis Scott, Future, rising rapper Yeat and newcomer Tezzus, marking the first joint effort for the quartet on a YSL record.

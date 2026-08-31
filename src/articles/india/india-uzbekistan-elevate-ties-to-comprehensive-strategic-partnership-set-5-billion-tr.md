@@ -3,9 +3,11 @@ title: "India, Uzbekistan Upgrade Ties to Comprehensive Strategic Partnership, E
 seoTitle: "India-Uzbekistan Strategic Partnership Targets $5bn"
 category: "India"
 date: 2026-08-30T21:33:53Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "India, Uzbekistan Upgrade Ties to Comprehensive Strategic Partnership, Eye $5 bn Trade by 2030"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Tomb_of_Humayun%2C_Delhi.jpg"
+imageAlt: "Tomb of Humayun, Delhi, India. Western façade as viewed from the main entrance"
+imageCredit: "Muhammad Mahdi Karim / Wikimedia Commons"
+imageLicense: "GFDL 1.2"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Tomb_of_Humayun,_Delhi.jpg"
 trending: true
 featured: false
 video_id: "CbFswJ5924g"
@@ -26,9 +28,8 @@ sourceName: "Kolkata Today"
 dek: "India and Uzbekistan have raised their bilateral relationship to a Comprehensive Strategic Partnership, committing to achieve $5 billion in trade by 2030."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The upgrade to a Comprehensive Strategic Partnership positions India and Uzbekistan as key collaborators in a geopolitically sensitive region, offering both nations a platform to coordinate on security, trade, and infrastructure projects. For India, deeper engagement with Central Asia helps diversify supply chains and counterbalance competing influences, while Uzbekistan gains a reliable partner for technology transfer and market expansion.
-  
-  Economically, the $5 billion trade ambition could catalyse new investment flows, create jobs, and stimulate sectors ranging from agriculture to manufacturing. Achieving this target would also signal to other regional actors that the Indo‑Uzbek corridor is a viable conduit for commerce, potentially attracting third‑party investors and fostering a more integrated Asian market.
+  The upgrade to a Comprehensive Strategic Partnership positions India and Uzbekistan as key collaborators in a geopolitically sensitive region, offering both nations a platform to coordinate on security, trade, and infrastructure projects. For India, deeper engagement with Central Asia helps diversify supply chains and counterbalance competing influences, while Uzbekistan gains a reliable partner for technology transfer and market expansion. Economically, the $5 billion trade ambition could catalyse new investment flows, create jobs, and stimulate sectors ranging from agriculture to manufacturing. Achieving this target would also signal to other regional actors that the Indo‑Uzbek corridor is a viable conduit for commerce, potentially attracting third‑party investors and fostering a more integrated Asian market.
+
 what_happens_next: "Both governments will convene a joint working group within the next month to draft the detailed action plan, after which senior trade delegations are expected to embark on reciprocal visits to identify specific projects and negotiate investment agreements."
 ---
 India and Uzbekistan have elevated their bilateral relationship to a Comprehensive Strategic Partnership, setting a joint ambition to reach $5 billion in trade by the end of the decade. The announcement, made during a high‑level dialogue between the two governments, signals a decisive shift toward deeper economic and strategic cooperation.

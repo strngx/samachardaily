@@ -2,9 +2,11 @@
 title: "India finish 8th at Hockey World Cup after shootout loss to Belgium"
 category: "India"
 date: 2026-08-29T10:56:01Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "India finish 8th at Hockey World Cup after shootout loss to Belgium"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Tomb_of_Humayun%2C_Delhi.jpg"
+imageAlt: "Tomb of Humayun, Delhi, India. Western façade as viewed from the main entrance"
+imageCredit: "Muhammad Mahdi Karim / Wikimedia Commons"
+imageLicense: "GFDL 1.2"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Tomb_of_Humayun,_Delhi.jpg"
 trending: false
 featured: false
 video_id: "ZMvyr0CRVA8"
@@ -25,9 +27,8 @@ sourceName: "News 24"
 dek: "India fell 4-3 in a penalty shootout to Belgium after a 2-2 draw, leaving the team in eighth place at the 2026 FIH Men's Hockey World Cup."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The finish affects India’s world ranking and could influence seedings for upcoming major events, potentially jeopardizing qualification pathways.
-  
-  It also puts pressure on Hockey India to justify recent investments in grassroots programs and may trigger a review of coaching staff and player selection ahead of the next Olympic cycle.
+  The finish affects India’s world ranking and could influence seedings for upcoming major events, potentially jeopardizing qualification pathways. It also puts pressure on Hockey India to justify recent investments in grassroots programs and may trigger a review of coaching staff and player selection ahead of the next Olympic cycle.
+
 what_happens_next: "Within the next week, Hockey India has scheduled a technical review meeting with head coach, senior selectors, and performance analysts to dissect the shootout loss. The committee will issue a detailed action plan, including a two‑month intensive training camp and potential changes to the penalty‑stroke roster ahead of the Asian Games in September."
 ---
 India’s campaign ended with a 4-3 penalty shootout defeat to Belgium, after a 2-2 draw in regular time where forward Harmanpreet Singh netted a brace.

@@ -2,9 +2,6 @@
 title: "Praggnanandhaa becomes first Indian to clinch Grand Chess Tour title"
 category: "Sports"
 date: 2026-08-29T08:15:45Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Praggnanandhaa becomes first Indian to clinch Grand Chess Tour title"
-imageCredit: "PENDING"
 video_id: "zimIFWy7w34"
 video_caption: "Pragg Wins Grand Chess Tour: ‘Fight to the End’ | D6 #GCTFinals"
 slug: "praggnanandhaa-creates-history-becomes-first-indian-to-win-grand-chess-tour"
@@ -13,9 +10,11 @@ sourceName: "Etemaaddaily"
 dek: "Chennai-born grandmaster Praggnanandhaa Rameshbabu staged a comeback against Fabiano Caruana to win the Grand Chess Tour Finals in St. Louis on August 27, marking India's first triumph in the elite series."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Praggnanandhaa’s historic win underscores the rapid rise of Indian chess on the global stage. While India has produced a former world champion in Viswanathan Anand, no Indian had previously claimed the Grand Chess Tour, an event that aggregates the world’s strongest rapid and blitz players. The victory signals a new generation of Indian talent capable of competing at the highest levels, potentially attracting greater sponsorship and government support for chess programs across the country.
-  
-  The win also reshapes the competitive landscape ahead of the 2025 World Chess Championship cycle. As a Grand Chess Tour champion, Praggnanandhaa now enjoys direct entry into elite invitationals and a higher FIDE rating, improving his chances of challenging for the world title. For aspiring young players in India’s schools and academies, his success provides a tangible role model, reinforcing the sport’s growing popularity and encouraging further investment in coaching infrastructure.
+  Praggnanandhaa’s historic win underscores the rapid rise of Indian chess on the global stage. While India has produced a former world champion in Viswanathan Anand, no Indian had previously claimed the Grand Chess Tour, an event that aggregates the world’s strongest rapid and blitz players. The victory signals a new generation of Indian talent capable of competing at the highest levels, potentially attracting greater sponsorship and government support for chess programs across the country. The win also reshapes the competitive landscape ahead of the 2025 World Chess Championship cycle. As a Grand Chess Tour champion, Praggnanandhaa now enjoys direct entry into elite invitationals and a higher FIDE rating, improving his chances of challenging for the world title. For aspiring young players in India’s schools and academies, his success provides a tangible role model, reinforcing the sport’s growing popularity and encouraging further investment in coaching infrastructure.
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 The Grand Chess Tour Finals concluded on Thursday, August 27, in St. Louis, Missouri, with India’s 18‑year‑old prodigy Praggnanandhaa Rameshbabu defeating former world‑championship challenger Fabiano Caruana in a dramatic final showdown. After trailing in the early stages of the rapid‑blitz tie‑break, Praggnanandhaa rallied with a series of precise attacks, turning a 1‑½ point deficit into a 3‑½ to 2‑½ victory. The win secured him the overall Grand Chess Tour title and a prize fund of $100,000, making him the first Indian ever to top the series.
 

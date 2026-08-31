@@ -2,9 +2,11 @@
 title: "Chief Minister Naidu Unveils AI-Driven Pramaan OS for Enterprises and Accountants"
 category: "India"
 date: 2026-08-29T09:39:05Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Chief Minister Naidu Unveils AI-Driven Pramaan OS for Enterprises and Accountants"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/7/71/Wolfsburg_VW-Werk.jpg"
+imageAlt: "Wolfsburg, Germany: VW-Werk"
+imageCredit: "AndreasPraefcke / Wikimedia Commons"
+imageLicense: "CC BY 3.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Wolfsburg_VW-Werk.jpg"
 trending: false
 video_id: "QYdWrHUcUeU"
 video_caption: "PawanKalyan WhatsApp Status | #janasena #pawankalyan #pspk #janasenaparty #janasenani"
@@ -24,9 +26,8 @@ sourceName: "The Hans India"
 dek: "The state government introduced Pramaan, an AI-powered operating system designed to streamline services for businesses, chartered accountants and other accounting professionals, offering automation, analytics, compliance and security features."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The introduction of Pramaan signals a strategic push by Andhra Pradesh to embed artificial intelligence into its economic infrastructure, potentially accelerating digital adoption among MSMEs that have lagged behind larger corporates. By automating compliance and analytics, the platform could lower operational costs, improve tax collection efficiency, and enhance the state’s attractiveness to investors seeking a tech‑friendly environment.
-  
-  On a policy level, Pramaan dovetails with India’s broader Digital India and AI for All initiatives, offering a state‑level testbed for AI‑driven public services. Successful implementation may prompt other states to adopt similar AI ecosystems, shaping national standards for data security, regulatory automation, and professional services digitisation.
+  The introduction of Pramaan signals a strategic push by Andhra Pradesh to embed artificial intelligence into its economic infrastructure, potentially accelerating digital adoption among MSMEs that have lagged behind larger corporates. By automating compliance and analytics, the platform could lower operational costs, improve tax collection efficiency, and enhance the state’s attractiveness to investors seeking a tech‑friendly environment. On a policy level, Pramaan dovetails with India’s broader Digital India and AI for All initiatives, offering a state‑level testbed for AI‑driven public services. Successful implementation may prompt other states to adopt similar AI ecosystems, shaping national standards for data security, regulatory automation, and professional services digitisation.
+
 what_happens_next: "The state government has scheduled a phased rollout beginning next month, starting with a pilot cohort of 300 small and medium enterprises and 150 chartered accountant firms. Training workshops will be conducted by the IT department, and a feedback portal will collect user experience data to refine the system before a full statewide launch later in the year."
 ---
 The Andhra Pradesh government, led by Chief Minister Y.S. Jagan Mohan Naidu, officially launched the Pramaan operating system on Thursday, branding it as the state’s first AI‑driven platform for the corporate and accounting sectors. Developed by Pramanique Infotech Private Limited, Pramaan integrates machine‑learning models to automate routine tasks, generate statutory compliance reports and provide real‑time data analytics.

@@ -3,9 +3,11 @@ title: "Elon Musk Calls Billie Eilish Hypocrite on Capitalism, Seeks AI-Generate
 seoTitle: "Elon Musk Calls Billie Eilish Hypocrite on Capitalism,"
 category: "World"
 date: 2026-08-30T14:59:51Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Elon Musk Calls Billie Eilish Hypocrite on Capitalism, Seeks AI-Generated Roast"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/4/49/Elon_Musk_2015.jpg"
+imageAlt: "Musk at the 2015 Tesla Motors Annual Meeting"
+imageCredit: "Steve Jurvetson / Wikimedia Commons"
+imageLicense: "CC BY 2.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Elon_Musk_2015.jpg"
 trending: false
 featured: false
 video_id: "pxX8Gvloqms"
@@ -26,9 +28,8 @@ sourceName: "Abp News"
 dek: "Elon Musk used his X account to denounce pop star Billie Eilish as hypocritical for criticizing capitalism while flaunting luxury, and he asked his AI chatbot Grok to craft a vulgar roast."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Musk’s public targeting of a high‑profile artist underscores how tech moguls can shape cultural debates, leveraging massive followings to frame narratives around wealth and authenticity. The episode also raises questions about the responsible use of AI for harassment, as a prominent figure solicits a chatbot to produce offensive content.
-  
-  For the music industry, the incident could influence how artists address socioeconomic topics, knowing that criticism may trigger amplified backlash from influential tech personalities. It also puts pressure on platforms like X to enforce policies on hate speech and AI‑generated harassment.
+  Musk’s public targeting of a high‑profile artist underscores how tech moguls can shape cultural debates, leveraging massive followings to frame narratives around wealth and authenticity. The episode also raises questions about the responsible use of AI for harassment, as a prominent figure solicits a chatbot to produce offensive content. For the music industry, the incident could influence how artists address socioeconomic topics, knowing that criticism may trigger amplified backlash from influential tech personalities. It also puts pressure on platforms like X to enforce policies on hate speech and AI‑generated harassment.
+
 what_happens_next: "Musk is expected to post the Grok‑generated roast later today, and X’s moderation team may review the thread for policy compliance. Billie Eilish’s representatives have not responded, but a formal statement could be issued if the controversy escalates."
 ---
 On X, Elon Musk posted a thread accusing Billie Eilish of hypocrisy, pointing to her recent comments about capitalism and juxtaposing them with images of her wearing high‑end designer items and driving expensive cars. Musk framed the critique as a broader rebuke of artists who, in his view, profit from the very system they denounce.

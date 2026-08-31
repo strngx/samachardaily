@@ -2,9 +2,6 @@
 title: "Tamil Nadu MLA Premalatha Raises Concerns Over Denied Floor Time in Assembly"
 category: "India"
 date: 2026-08-28T20:44:21Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Tamil Nadu MLA Premalatha Raises Concerns Over Denied Floor Time in Assembly"
-imageCredit: "PENDING"
 video_id: "xiNmJAiqSVw"
 video_caption: "ஆதவ் அர்ஜுனாவை சாடிய பிரேமலதா! கணக்கில் வராத சொத்து விபரங்கள் அம்பலம்! TVK | Premalatha"
 slug: "premalatha-sour-over-acrimony-in-tamil-nadu-assembly"
@@ -13,9 +10,11 @@ sourceName: "Deccan Chronicle"
 dek: "The legislator claimed she was barred from speaking in the house, saying she had met the Speaker to highlight the deteriorating conduct of proceedings."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The controversy highlights the delicate balance of power in Tamil Nadu’s legislative process, where the ruling party’s dominance can limit opposition participation. When legislators feel sidelined, it can erode confidence in democratic institutions and impede robust debate on policy matters affecting the state’s 72 million residents. Moreover, the episode comes at a time when the state is grappling with key issues such as water allocation, infrastructure projects, and economic recovery post‑pandemic, making inclusive dialogue essential.
-  
-  If the perceived marginalisation of opposition voices persists, it could fuel further political unrest and impact upcoming electoral dynamics. The speaker’s handling of such grievances will be closely watched by both parties, as it may set precedents for future assembly conduct and influence public perception of legislative fairness ahead of the next state elections.
+  The controversy highlights the delicate balance of power in Tamil Nadu’s legislative process, where the ruling party’s dominance can limit opposition participation. When legislators feel sidelined, it can erode confidence in democratic institutions and impede robust debate on policy matters affecting the state’s 72 million residents. Moreover, the episode comes at a time when the state is grappling with key issues such as water allocation, infrastructure projects, and economic recovery post‑pandemic, making inclusive dialogue essential. If the perceived marginalisation of opposition voices persists, it could fuel further political unrest and impact upcoming electoral dynamics. The speaker’s handling of such grievances will be closely watched by both parties, as it may set precedents for future assembly conduct and influence public perception of legislative fairness ahead of the next state elections.
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 Tamil Nadu legislator Premalatha expressed frustration on Monday after she was reportedly denied the chance to address the state assembly during a recent session. According to her statement, she had approached Speaker M. Appavu beforehand to brief him on what she described as a decline in the decorum and effectiveness of the house's debates. Premalatha alleged that despite her meeting, the Speaker did not grant her the floor, leaving her unable to raise issues she deemed critical for her constituency. The incident unfolded amid a series of heated exchanges in the assembly, where opposition members have repeatedly accused the ruling party of monopolising discussions and stifling dissenting voices.
 

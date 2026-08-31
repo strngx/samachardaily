@@ -3,8 +3,10 @@ title: "Juan Soto Returns from IL, Drives Mets Past Astros 6-2 with Go-Ahead RBI
 category: "World"
 date: 2026-08-30T10:57:49Z
 image: "https://images.pexels.com/photos/28964275/pexels-photo-28964275.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "A baseball player in action at a sunlit outdoor baseball field, preparing to swing."
+imageAlt: "Juan Soto Returns from IL, Drives Mets Past Astros 6-2 with Go-Ahead RBI"
 imageCredit: "Arturo Megargel"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 trending: false
 featured: false
 video_id: "FPzjk2fXBlo"
@@ -25,9 +27,8 @@ sourceName: "Caledonianrecord"
 dek: "Juan Soto was activated from the 10‑day injured list and delivered the decisive RBI single that lifted New York to a 6‑2 victory over Houston."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Soto’s immediate impact underscores his value as a middle‑of‑the‑order catalyst; his presence in the lineup restores the Mets’ offensive depth and could be pivotal in the tightly contested NL East race. The win also relieves pressure on the pitching staff, which had struggled in recent games without his run‑producing ability.
-  
-  For the Astros, the loss highlights lingering offensive inconsistencies and may prompt managerial adjustments as they aim to solidify their own postseason positioning. Both clubs now face a critical stretch of games where health and consistency will dictate their playoff trajectories.
+  Soto’s immediate impact underscores his value as a middle‑of‑the‑order catalyst; his presence in the lineup restores the Mets’ offensive depth and could be pivotal in the tightly contested NL East race. The win also relieves pressure on the pitching staff, which had struggled in recent games without his run‑producing ability. For the Astros, the loss highlights lingering offensive inconsistencies and may prompt managerial adjustments as they aim to solidify their own postseason positioning. Both clubs now face a critical stretch of games where health and consistency will dictate their playoff trajectories.
+
 what_happens_next: "The Mets will host the Philadelphia Phillies on Tuesday, with Soto slated to start in the lineup while the team’s medical staff continues daily assessments of his right leg. Manager Buck Showalter said the club will monitor his workload and adjust as needed ahead of the final stretch of the season."
 ---
 Soto was cleared to play just before the game after a brief stint on the 10‑day injured list, where he was treated for a right‑leg contusion sustained in a previous outing. The Mets announced his activation early Saturday, allowing him to line up in the leadoff spot.

@@ -2,9 +2,11 @@
 title: "Alliance Air flight to Bilaspur suffers tyre burst on landing, all passengers safe"
 category: "India"
 date: 2026-08-28T23:54:35Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Alliance Air flight to Bilaspur suffers tyre burst on landing, all passengers safe"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/1/11/Alliance_Air_aircraft_landing_in_New_Delhi.JPG"
+imageAlt: "Air India Regional aircraft landing at Indira Gandhi International Airport, New Delhi, India"
+imageCredit: "Kprateek88 / Wikimedia Commons"
+imageLicense: "CC BY-SA 3.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Alliance_Air_aircraft_landing_in_New_Delhi.JPG"
 video_id: "ctBrLmLRwUI"
 video_caption: "Close Shave For 41 As Alliance Air Flight Tyre Bursts During Landing At Bilaspur Airport"
 slug: "delhi-bilaspur-alliance-air-flight-suffers-tyre-burst-on-landing"
@@ -13,9 +15,7 @@ sourceName: "Economic Times"
 dek: "A Delhi‑Bilaspur Alliance Air flight experienced a tyre burst while touching down at Bilaspur airport. All 37 passengers and four crew members were evacuated without injury and the onward leg of the flight was cancelled."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The tyre burst underscores the importance of rigorous maintenance regimes for regional carriers that operate on shorter runways and in varied weather conditions. With India's domestic aviation market expanding rapidly, any safety lapse can erode passenger confidence and attract regulatory scrutiny. The DGCA's investigation will likely examine whether existing inspection schedules are sufficient for the high utilization rates of aircraft like the ATR‑72.
-  
-  For passengers, the incident highlights the effectiveness of emergency response procedures at Indian airports, as swift evacuation prevented injuries. For the airline, the cancellation of the onward leg may lead to short‑term revenue losses and logistical challenges in re‑accommodating affected travelers. In the longer term, findings from the probe could influence industry‑wide standards for tyre maintenance, potentially prompting airlines to adopt more frequent checks or upgrade to newer tyre technologies to mitigate similar risks.
+  The tyre burst underscores the importance of rigorous maintenance regimes for regional carriers that operate on shorter runways and in varied weather conditions. With India's domestic aviation market expanding rapidly, any safety lapse can erode passenger confidence and attract regulatory scrutiny. The DGCA's investigation will likely examine whether existing inspection schedules are sufficient for the high utilization rates of aircraft like the ATR‑72. For passengers, the incident highlights the effectiveness of emergency response procedures at Indian airports, as swift evacuation prevented injuries. For the airline, the cancellation of the onward leg may lead to short‑term revenue losses and logistical challenges in re‑accommodating affected travelers. In the longer term, findings from the probe could influence industry‑wide standards for tyre maintenance, potentially prompting airlines to adopt more frequent checks or upgrade to newer tyre technologies to mitigate similar risks.
 ---
 On Thursday morning, an Alliance Air ATR‑72 aircraft operating the Delhi‑Bilaspur sector touched down at Bilaspur Airport when one of its main landing tyres burst. The aircraft, carrying 37 passengers and a crew of four, came to a halt on the runway and the pilots initiated an emergency evacuation. Airport fire and rescue teams arrived within minutes, assisting the orderly exit of everyone on board. No injuries were reported, and medical personnel on site confirmed that all occupants were unharmed.
 

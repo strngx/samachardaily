@@ -3,9 +3,6 @@ title: "NASA Launches Nancy Grace Roman Telescope on Deep‑Space Mission"
 seoTitle: "NASA launches Nancy Grace Roman Telescope"
 category: "Tech"
 date: 2026-08-31T09:02:27Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "NASA Launches Nancy Grace Roman Telescope on Deep‑Space Mission"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "9wq3VHsL_bE"
@@ -26,10 +23,13 @@ sourceName: "Npr"
 dek: "NASA has sent the Nancy Grace Roman Telescope into deep space, honoring the astronomer whose work paved the way for Hubble and later observatories."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The Roman Telescope’s deployment signals a new chapter in space‑based astronomy, extending the observational reach that began with Hubble. Its deep‑space trajectory will allow scientists to gather data on phenomena that are otherwise obscured, potentially leading to breakthroughs in cosmology, galaxy formation, and dark matter research.
-  
-  Naming the mission after Nancy Grace Roman reinforces the importance of visionary leadership in scientific progress. It highlights how individual contributions can shape national programs and underscores the value of sustained investment in space science for both knowledge generation and technological innovation.
+  The Roman Telescope’s deployment signals a new chapter in space‑based astronomy, extending the observational reach that began with Hubble. Its deep‑space trajectory will allow scientists to gather data on phenomena that are otherwise obscured, potentially leading to breakthroughs in cosmology, galaxy formation, and dark matter research. Naming the mission after Nancy Grace Roman reinforces the importance of visionary leadership in scientific progress. It highlights how individual contributions can shape national programs and underscores the value of sustained investment in space science for both knowledge generation and technological innovation.
+
 what_happens_next: "NASA will conduct a series of commissioning checks over the coming weeks to verify the telescope’s systems and calibrate its instruments before beginning formal scientific operations."
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 NASA lifted off a new space observatory today, christening it the Nancy Grace Roman Telescope as it embarked on a journey beyond Earth’s immediate environment. The launch marks the agency’s latest effort to expand humanity’s view of the cosmos, extending the legacy of earlier missions that have reshaped our understanding of the universe.
 

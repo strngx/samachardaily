@@ -2,9 +2,11 @@
 title: "India’s pulse crop area expands beyond last year’s level"
 category: "India"
 date: 2026-08-29T03:13:12Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "India’s pulse crop area expands beyond last year’s level"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Tomb_of_Humayun%2C_Delhi.jpg"
+imageAlt: "Tomb of Humayun, Delhi, India. Western façade as viewed from the main entrance"
+imageCredit: "Muhammad Mahdi Karim / Wikimedia Commons"
+imageLicense: "GFDL 1.2"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Tomb_of_Humayun,_Delhi.jpg"
 video_id: "P1-fNHiLBHg"
 video_caption: "India becomes world&#39;s largest producer of pulses | WION"
 slug: "indias-area-under-pulses-acreage-tops-last-years-level"
@@ -13,9 +15,7 @@ sourceName: "The Hindu Business Line"
 dek: "The total area sown to pulses in India this season has surpassed the previous year’s acreage, even as erratic monsoon patterns and delayed sowing raise concerns over per‑hectare yields."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Pulses are a cornerstone of Indian diets, providing essential protein for a large portion of the population. The country imports a significant share of its pulse consumption, making domestic production crucial for food security and price stability. An expansion in cultivated area signals progress toward reducing import dependence, but any dip in yields could offset that gain and lead to higher market prices.
-  
-  The current monsoon variability underscores the growing vulnerability of Indian agriculture to climate change. Policymakers are therefore keen on bolstering resilience through better irrigation infrastructure, drought‑tolerant varieties, and timely sowing advisories. The outcome of this season will influence not only farmer incomes but also the broader agri‑business sector, which monitors pulse trends for commodity trading, processing, and export decisions.
+  Pulses are a cornerstone of Indian diets, providing essential protein for a large portion of the population. The country imports a significant share of its pulse consumption, making domestic production crucial for food security and price stability. An expansion in cultivated area signals progress toward reducing import dependence, but any dip in yields could offset that gain and lead to higher market prices. The current monsoon variability underscores the growing vulnerability of Indian agriculture to climate change. Policymakers are therefore keen on bolstering resilience through better irrigation infrastructure, drought‑tolerant varieties, and timely sowing advisories. The outcome of this season will influence not only farmer incomes but also the broader agri‑business sector, which monitors pulse trends for commodity trading, processing, and export decisions.
 ---
 According to data released by the Ministry of Agriculture and Farmers' Welfare, the combined area under major pulse crops such as gram, moong, urad and lentil has risen marginally above the 2022‑23 figure. The increase comes despite a challenging monsoon, with several regions reporting uneven rainfall and a slower-than‑usual sowing pace. Agricultural analysts attribute the growth to higher farm‑gate prices for pulses and the central government’s continued push for self‑sufficiency in protein‑rich crops, which has encouraged farmers to allocate more land to these legumes.
 

@@ -2,9 +2,11 @@
 title: "WWE SmackDown Live on Aug 28, 2026: US TV, Peacock & Netflix Stream Details"
 category: "India"
 date: 2026-08-29T11:04:23Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "WWE SmackDown Live on Aug 28, 2026: US TV, Peacock & Netflix Stream Details"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/3/33/Brightlingsea_Smack_Dock_-_geograph.org.uk_-_179264.jpg"
+imageAlt: "Brightlingsea Smack Dock. The preservation dock where smacks and barges are repaired."
+imageCredit: "Bob Jones / Wikimedia Commons"
+imageLicense: "CC BY-SA 2.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Brightlingsea_Smack_Dock_-_geograph.org.uk_-_179264.jpg"
 trending: true
 featured: false
 video_id: "9uHGkKDJrVo"
@@ -25,9 +27,8 @@ sourceName: "Latestly"
 dek: "The three‑hour SmackDown episode from Rocket Arena in Cleveland will air live on Aug 28, 2026, on USA Network and Peacock in the United States and on Netflix in the UK, India and Australia, with exact start times listed for each region."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The distribution model underscores WWE’s hybrid approach, leveraging traditional broadcast partners while expanding its footprint on global streaming services, a strategy that could reshape pay‑TV revenue streams and influence future rights negotiations.
-  
-  For Indian viewers, the Netflix partnership offers a rare direct-to-consumer avenue for live wrestling content, potentially boosting subscriber growth for the platform and setting a precedent for other sports‑entertainment properties seeking wider international reach.
+  The distribution model underscores WWE’s hybrid approach, leveraging traditional broadcast partners while expanding its footprint on global streaming services, a strategy that could reshape pay‑TV revenue streams and influence future rights negotiations. For Indian viewers, the Netflix partnership offers a rare direct-to-consumer avenue for live wrestling content, potentially boosting subscriber growth for the platform and setting a precedent for other sports‑entertainment properties seeking wider international reach.
+
 what_happens_next: "Indian fans should log into Netflix at 2:30 a.m. IST on Aug 28, 2026 to watch the live SmackDown broadcast. US audiences can tune to USA Network at 9:00 p.m. EDT or stream via Peacock. WWE will release episode highlights on its official YouTube channel and social media later that day."
 ---
 WWE’s flagship weekly show, SmackDown, returns on Aug 28, 2026 for a three‑hour live broadcast from the newly‑opened Rocket Arena in Cleveland, Ohio. In the United States, the episode will be simulcast on the USA Network at 9:00 p.m. EDT and streamed simultaneously on Peacock, the NBCUniversal streaming service.

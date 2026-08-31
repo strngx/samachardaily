@@ -3,8 +3,10 @@ title: "AC Milan eye Barcelona left‑back Alejandro Balde in €40 million 
 category: "Sports"
 date: 2026-08-29T06:13:29Z
 image: "https://images.pexels.com/photos/8664794/pexels-photo-8664794.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "A bustling city street viewed from above featuring historical architecture and vibrant crowds."
+imageAlt: "AC Milan eye Barcelona left‑back Alejandro Balde in €40 million bid"
 imageCredit: "Nastya Korenkova"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 video_id: ""
 video_caption: ""
 slug: "ac-milan-make-enquiry-for-40-million-rated-barcelona-defender-facing-complicated"

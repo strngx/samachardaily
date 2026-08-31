@@ -2,9 +2,11 @@
 title: "Modi to Advance India’s SCO Vision of Security, Connectivity, and Counter‑Terrorism"
 category: "India"
 date: 2026-08-29T16:51:12Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Modi to Advance India’s SCO Vision of Security, Connectivity, and Counter‑Terrorism"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Narendra_Damodardas_Modi.jpg"
+imageAlt: "Narendra Modi, Chief Minister of Gujarat"
+imageCredit: "Narendra Modi / Wikimedia Commons"
+imageLicense: "CC BY 2.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Narendra_Damodardas_Modi.jpg"
 trending: false
 featured: false
 video_id: "7kiN-5EWwqQ"
@@ -25,9 +27,8 @@ sourceName: "Orangenews9"
 dek: "Prime Minister Narendra Modi said he will use his upcoming visits to Uzbekistan and Kyrgyzstan and the SCO summit to promote a regional agenda centered on security, connectivity and economic opportunity, aiming for a terror‑free neighbourhood."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The SCO is a key multilateral platform for Eurasian security and economic cooperation. India’s push for a coordinated anti‑terrorism framework could tighten intelligence networks, reducing cross‑border militant activity that has plagued the region for years.
-  
-  A stronger Indian role in SCO deliberations also signals a shift in regional geopolitics, offering an alternative to Chinese‑led initiatives and potentially attracting investment in infrastructure projects that link South Asia with Central Asia, thereby expanding market access for Indian businesses.
+  The SCO is a key multilateral platform for Eurasian security and economic cooperation. India’s push for a coordinated anti‑terrorism framework could tighten intelligence networks, reducing cross‑border militant activity that has plagued the region for years. A stronger Indian role in SCO deliberations also signals a shift in regional geopolitics, offering an alternative to Chinese‑led initiatives and potentially attracting investment in infrastructure projects that link South Asia with Central Asia, thereby expanding market access for Indian businesses.
+
 what_happens_next: "Modi will meet President Mirziyoyev in Tashkent and President Japarov in Bishkek before attending the SCO summit in Samarkand, where India is expected to table a joint counter‑terrorism declaration and negotiate bilateral agreements on rail and digital connectivity. Outcomes will be reported after the summit concludes."
 ---
 Prime Minister Narendra Modi, speaking ahead of his two‑nation tour to Uzbekistan and the Kyrgyz Republic starting August 29, said he looks forward to advancing India’s vision for the Shanghai Cooperation Organisation (SCO). He framed the agenda around three pillars – security, connectivity and opportunity – and pledged to work with fellow members for a region free from terrorism.

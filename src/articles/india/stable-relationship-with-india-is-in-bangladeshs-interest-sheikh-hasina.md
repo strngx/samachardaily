@@ -2,9 +2,11 @@
 title: "Sheikh Hasina says stable India ties crucial for Bangladesh's security and growth"
 category: "India"
 date: 2026-08-30T10:52:35Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Sheikh Hasina says stable India ties crucial for Bangladesh's security and growth"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Tomb_of_Humayun%2C_Delhi.jpg"
+imageAlt: "Tomb of Humayun, Delhi, India. Western façade as viewed from the main entrance"
+imageCredit: "Muhammad Mahdi Karim / Wikimedia Commons"
+imageLicense: "GFDL 1.2"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Tomb_of_Humayun,_Delhi.jpg"
 trending: false
 featured: false
 video_id: "ZbJXFSbiWY8"
@@ -25,9 +27,8 @@ sourceName: "The Sunday Guardian"
 dek: "In an exclusive interview, former Prime Minister Sheikh Hasina stresses that a steady relationship with India is essential for Bangladesh’s security, economy and regional stability."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The remarks signal Bangladesh’s diplomatic priority, shaping South Asian geopolitics as both nations balance China’s expanding influence and seek deeper economic integration.
-  
-  Enhanced India‑Bangladesh ties could reshape trade policies, accelerate infrastructure projects and tighten security coordination, affecting investors, regional supply chains and neighboring countries reliant on stable cross‑border flows.
+  The remarks signal Bangladesh’s diplomatic priority, shaping South Asian geopolitics as both nations balance China’s expanding influence and seek deeper economic integration. Enhanced India‑Bangladesh ties could reshape trade policies, accelerate infrastructure projects and tighten security coordination, affecting investors, regional supply chains and neighboring countries reliant on stable cross‑border flows.
+
 what_happens_next: "Bangladesh’s foreign ministry said it will convene a senior delegation to New Delhi within weeks to discuss trade, water sharing and border protocols, while India’s Ministry of External Affairs confirmed plans for a bilateral summit later this year to cement cooperation on infrastructure and security."
 ---
 Sheikh Hasina, former Prime Minister of Bangladesh, told The Sunday Guardian that a stable relationship with India serves Bangladesh’s national interest, citing security, economic growth and regional stability as key pillars.

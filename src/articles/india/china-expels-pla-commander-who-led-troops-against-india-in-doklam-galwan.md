@@ -2,9 +2,11 @@
 title: "China strips former Western Theatre chief Zhao Zongqi of Party membership"
 category: "India"
 date: 2026-08-29T20:52:34Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "China strips former Western Theatre chief Zhao Zongqi of Party membership"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/6/62/1_zhangjiajie_huangshizhai_wulingyuan_panorama_2012.jpg"
+imageAlt: "Five fingers peak. Quartzite sandstone Huangshizhai Zhangjiajie Wulingyuan Hunan, China. Panorama 2012."
+imageCredit: "chensiyuan / Wikimedia Commons"
+imageLicense: "CC BY-SA 4.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:1_zhangjiajie_huangshizhai_wulingyuan_panorama_2012.jpg"
 trending: false
 featured: false
 video_id: "BElQS9JzT2s"
@@ -25,9 +27,8 @@ sourceName: "The Tribune India"
 dek: "General Zhao Zongqi, who commanded PLA forces in the 2020 Galwan clash, has been expelled from the Communist Party, while two other senior officers were removed from the supreme military command body."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The expulsion of Zhao, a figure directly linked to the Galwan clash, sends a clear signal to India that Beijing is willing to hold senior officers accountable, potentially influencing future military posturing along the disputed border.
-  
-  Domestically, the removal of high‑ranking officers underscores the Chinese leadership’s tightening grip over the armed forces, reinforcing party control and possibly reshaping the PLA’s strategic priorities in the region.
+  The expulsion of Zhao, a figure directly linked to the Galwan clash, sends a clear signal to India that Beijing is willing to hold senior officers accountable, potentially influencing future military posturing along the disputed border. Domestically, the removal of high‑ranking officers underscores the Chinese leadership’s tightening grip over the armed forces, reinforcing party control and possibly reshaping the PLA’s strategic priorities in the region.
+
 what_happens_next: "India’s Ministry of External Affairs said it will closely monitor the developments and engage through diplomatic channels to assess any shift in China’s border policy. Beijing is expected to issue a formal statement outlining the disciplinary process, while the PLA may conduct internal reviews of its frontier command structures."
 ---
 Beijing announced on Thursday that General Zhao Zongqi, former commander of the PLA Western Theatre Command, has been stripped of his Communist Party membership. Zhao oversaw the deployment of Chinese troops during the 2020 Galwan clash with India, a confrontation that resulted in casualties on both sides.

@@ -2,9 +2,6 @@
 title: "Modi Launches Central Asia Tour to Bolster Strategic Ties and Regional Security"
 category: "India"
 date: 2026-08-29T18:52:35Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Modi Launches Central Asia Tour to Bolster Strategic Ties and Regional Security"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "e_QI6JrdOYY"
@@ -25,10 +22,13 @@ sourceName: "Psu Connect"
 dek: "Prime Minister Narendra Modi began a multi‑nation tour of Central Asia, meeting leaders in Kazakhstan, Kyrgyzstan and Uzbekistan to deepen economic cooperation and coordinate on security challenges, including Afghanistan and counter‑terrorism."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The tour signals India’s intent to deepen its foothold in a region traditionally dominated by China and Russia, offering New Delhi a platform to project economic and strategic influence through trade, energy and connectivity projects.
-  
-  Enhanced cooperation could reshape regional security dynamics, providing a counterweight to extremist threats and fostering a more balanced power architecture that benefits both Central Asian economies and India’s own strategic interests.
+  The tour signals India’s intent to deepen its foothold in a region traditionally dominated by China and Russia, offering New Delhi a platform to project economic and strategic influence through trade, energy and connectivity projects. Enhanced cooperation could reshape regional security dynamics, providing a counterweight to extremist threats and fostering a more balanced power architecture that benefits both Central Asian economies and India’s own strategic interests.
+
 what_happens_next: "In the coming days, Modi will travel to Tajikistan and Turkmenistan for further bilateral talks, with plans to finalize a joint infrastructure fund and schedule a follow‑up summit in Astana later this month to review progress on signed agreements and coordinate on Afghanistan‑related security measures."
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 Modi arrived in Astana on Monday, where he was welcomed by President Kassym‑Jomart Tokayev. The itinerary includes high‑level talks in Kazakhstan, Kyrgyzstan and Uzbekistan over the next week, with scheduled visits to key industrial zones and cultural sites to underscore people‑to‑people ties.
 

@@ -2,9 +2,11 @@
 title: "Apple Maps launches public‑transport directions in India"
 category: "India"
 date: 2026-08-29T07:13:24Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Apple Maps launches public‑transport directions in India"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Market_share_Apple_Maps_and_Google_Maps.png"
+imageAlt: "The market share of Apple Maps and Google Maps on smartphones in the United States according to comScore. (English version of File:Marktaand"
+imageCredit: "Supercarwaar / Wikimedia Commons"
+imageLicense: "CC BY-SA 4.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Market_share_Apple_Maps_and_Google_Maps.png"
 video_id: "kCpV1wC1WKg"
 video_caption: "Updated Apple Maps With Buses, Train &amp; Other Transportation Details"
 slug: "apple-maps-gets-transit-support-in-india-with-public-transport-directions-and-mo"
@@ -13,9 +15,7 @@ sourceName: "SwapUpdate"
 dek: "Apple has activated its Transit feature on Apple Maps for Indian users, offering step‑by‑step public‑transport routes, departure times and fare estimates, a capability independently confirmed by Gadgets 360."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Introducing transit directions positions Apple Maps as a more viable alternative to Google Maps for Indian commuters, many of whom depend on buses, metros and trains for daily travel. Accurate, real‑time public‑transport data can reduce reliance on private vehicles, easing traffic congestion and lowering emissions in crowded urban areas. For Apple, the feature deepens the value proposition of its hardware and services ecosystem, encouraging iPhone users to stay within the Apple environment for navigation, payments and ride‑hailing.
-  
-  The move also signals Apple’s commitment to the Indian market, where smartphone penetration is soaring and competition for user attention is intense. As the company continues to localise its offerings—through regional language support, local partnerships and expanded services—features like Transit could become a differentiator in attracting new customers and retaining existing ones. Future updates may broaden coverage to smaller cities and integrate additional data such as live crowd levels, further embedding Apple Maps into the fabric of Indian urban mobility.
+  Introducing transit directions positions Apple Maps as a more viable alternative to Google Maps for Indian commuters, many of whom depend on buses, metros and trains for daily travel. Accurate, real‑time public‑transport data can reduce reliance on private vehicles, easing traffic congestion and lowering emissions in crowded urban areas. For Apple, the feature deepens the value proposition of its hardware and services ecosystem, encouraging iPhone users to stay within the Apple environment for navigation, payments and ride‑hailing. The move also signals Apple’s commitment to the Indian market, where smartphone penetration is soaring and competition for user attention is intense. As the company continues to localise its offerings—through regional language support, local partnerships and expanded services—features like Transit could become a differentiator in attracting new customers and retaining existing ones. Future updates may broaden coverage to smaller cities and integrate additional data such as live crowd levels, further embedding Apple Maps into the fabric of Indian urban mobility.
 ---
 Apple announced that its Transit feature is now live in India on Apple Maps, after independent verification by Gadgets 360. The update allows iPhone, iPad and Mac users to obtain step‑by‑step public‑transport routes, real‑time departure information and estimated travel times within the app, mirroring the service already available in many other countries.
 

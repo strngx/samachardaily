@@ -4,8 +4,10 @@ seoTitle: "India Mobile Output Up 33X Under Rs 62500 Cr PLI 2.0"
 category: "India"
 date: 2026-08-31T11:35:20Z
 image: "https://images.pexels.com/photos/18920790/pexels-photo-18920790.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Detailed interior view of a bustling industrial factory in Ahmedabad, India."
+imageAlt: "India's Mobile Output Surges 33-Fold as Rs 62,500 Crore PLI 2.0 Scheme Expands Ecosystem"
 imageCredit: "Kalpesh Damor"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 trending: false
 featured: false
 video_id: "GVwRG3SJpkU"
@@ -26,9 +28,8 @@ sourceName: "Financial Express , Read To Lead"
 dek: "India’s mobile manufacturing output has recorded a 33-fold surge, bolstered by the Rs 62,500 crore PLI 2.0 initiative aimed at strengthening domestic electronics manufacturing."
 author: "Vikram Malhotra | SamacharDaily Bureau"
 why_it_matters: |
-  The 33-fold growth in India's mobile manufacturing output demonstrates how targeted incentive frameworks can fundamentally reshape industrial supply chains. By committing Rs 62,500 crore through PLI 2.0, policymakers have incentivized large-scale private investments in domestic production capacity, positioning the country to capture a larger share of global electronics manufacturing.
-  
-  For capital markets and industrial stakeholders, the expansion creates structural growth opportunities for domestic component makers and assembly firms. Increased local value addition helps reduce import dependencies, strengthens trade balances, and provides multi-year operational momentum for key players operating within the technology hardware sector.
+  The 33-fold growth in India's mobile manufacturing output demonstrates how targeted incentive frameworks can fundamentally reshape industrial supply chains. By committing Rs 62,500 crore through PLI 2.0, policymakers have incentivized large-scale private investments in domestic production capacity, positioning the country to capture a larger share of global electronics manufacturing. For capital markets and industrial stakeholders, the expansion creates structural growth opportunities for domestic component makers and assembly firms. Increased local value addition helps reduce import dependencies, strengthens trade balances, and provides multi-year operational momentum for key players operating within the technology hardware sector.
+
 what_happens_next: "Implementation of the Rs 62,500 crore PLI 2.0 scheme will continue as participating electronics manufacturers meet production targets and claim disbursement incentives. Industry observers and financial analysts will monitor upcoming quarterly disclosures from key listed manufacturing partners to assess production scaling, capital expenditure commitments, and localized supply chain integration progress across regional manufacturing hubs."
 ---
 India's mobile phone manufacturing sector has achieved a significant milestone, recording a 33-fold increase in total production output. The dramatic surge highlights the rapid scale-up of domestic industrial capacity driven by targeted policy interventions and aggressive capital deployment across the electronics manufacturing ecosystem.

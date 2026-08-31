@@ -3,9 +3,11 @@ title: "US and Iran Exchange Fire in Fresh Escalation as Bessent Warns of New Sa
 seoTitle: "US-Iran Fire Exchange: Bessent Signals New Sanctions"
 category: "World"
 date: 2026-08-31T09:10:17Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "US and Iran Exchange Fire in Fresh Escalation as Bessent Warns of New Sanctions"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/d/dc/Iran%E2%80%93Iraq_War_front_1983.jpg"
+imageAlt: "Iranian soldiers rest after exchanging artillery fire with 152 mm D-20 powitzer. Photo from Operation Kheibar during the Battle of the Marsh"
+imageCredit: "Homaaaa / Wikimedia Commons"
+imageLicense: "CC BY-SA 4.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Iran%E2%80%93Iraq_War_front_1983.jpg"
 trending: false
 featured: false
 video_id: "lfooRq0WVVM"
@@ -26,9 +28,8 @@ sourceName: "Channel Newsasia"
 dek: "A fresh military engagement between the United States and Iran has broken a weeks-long stalemate, prompting US official Bessent to signal costly sanctions against Tehran and its foreign supporters."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The resumption of military exchanges between the US and Iran demonstrates the fragile nature of recent operational stalemates in the war. By coupling kinetic actions with the threat of sanctions, Washington is attempting to weaken Tehran's strategic endurance while discouraging third-party nations from intervening or extending economic lifelines to Iran.
-  
-  The signal from US official Bessent regarding costly sanctions against countries supporting Iran carries significant geopolitical and economic consequences. Foreign governments engaging in trade or diplomatic cooperation with Tehran face heightened risks of secondary sanctions, which could disrupt international commerce, energy markets, and global supply chains tied to nations aligning with Iran.
+  The resumption of military exchanges between the US and Iran demonstrates the fragile nature of recent operational stalemates in the war. By coupling kinetic actions with the threat of sanctions, Washington is attempting to weaken Tehran's strategic endurance while discouraging third-party nations from intervening or extending economic lifelines to Iran. The signal from US official Bessent regarding costly sanctions against countries supporting Iran carries significant geopolitical and economic consequences. Foreign governments engaging in trade or diplomatic cooperation with Tehran face heightened risks of secondary sanctions, which could disrupt international commerce, energy markets, and global supply chains tied to nations aligning with Iran.
+
 what_happens_next: "No concrete timetable has been released for the implementation of the new sanctions signaled by Bessent. US officials are expected to monitor incoming reports from the latest military exchange while assessing whether foreign nations heed Washington's warnings regarding support for Iran following the end of the weeks-long stalemate."
 ---
 The conflict between the United States and Iran has experienced a sharp tactical resurgence after both military forces exchanged fire, officially breaking a period of relative operational calm in the theater. The latest kinetic engagement marks a significant escalation in the ongoing regional war, coming after weeks during which direct confrontations between the two adversaries had slowed down. The fresh clash underscores the persistent volatility of the broader military engagement, effectively interrupting a phase where frontline battles had temporarily receded into a tense operational stalemate.

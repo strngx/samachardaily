@@ -2,9 +2,6 @@
 title: "Modi Mourns Norway’s Late King Harald V, Reflects on 2023 State Visit"
 category: "World"
 date: 2026-08-28T23:31:43Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Modi Mourns Norway’s Late King Harald V, Reflects on 2023 State Visit"
-imageCredit: "PENDING"
 video_id: "GbxDMgWoVjE"
 video_caption: "KING HARALD V dies|PM Modi pays tribute|Harald V passes away| King Harald death cause"
 slug: "pm-modi-mourns-norways-king-harald-v-recalls-may-visit"
@@ -14,6 +11,10 @@ dek: "Prime Minister Narendra Modi expressed sorrow over the death of King Haral
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The death of King Harald V marks the end of an era for Norway, a nation that has cultivated close ties with India under his reign. The monarch’s support for renewable energy initiatives aligned with India’s own push for clean energy, making his partnership particularly significant. Crown Prince Haakon, who has been an outspoken advocate for climate action, is likely to maintain and possibly expand these collaborative efforts, ensuring continuity in joint projects such as the Indo‑Norwegian solar partnership and maritime safety drills. For India, reaffirming its respect for Norway’s new king reinforces diplomatic goodwill and opens avenues for deeper economic engagement, especially as both countries seek to diversify supply chains and enhance technology cooperation. The condolence also reflects India’s broader foreign policy of acknowledging the passing of global leaders, thereby strengthening its image as a responsible international actor.
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 Prime Minister Narendra Modi conveyed his condolences to the people of Norway following the death of King Harald V, who had reigned for over three decades. In a brief statement released by the Prime Minister's Office, Modi highlighted the warm ties forged during his official visit to Norway in May 2023, when he met King Harald and Crown Prince Haakon. The visit, which featured discussions on renewable energy, maritime cooperation and cultural exchange, was described by Modi as a "memorable chapter" in Indo‑Norwegian relations. He praised the late monarch’s commitment to environmental stewardship and his role in strengthening bilateral trade, especially in sectors such as pharmaceuticals and information technology.
 

@@ -2,9 +2,11 @@
 title: "India's FDA pulls Cipla license cancellation after High Court rebuke"
 category: "Business"
 date: 2026-08-29T20:41:55Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "India's FDA pulls Cipla license cancellation after High Court rebuke"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Tomb_of_Humayun%2C_Delhi.jpg"
+imageAlt: "Tomb of Humayun, Delhi, India. Western façade as viewed from the main entrance"
+imageCredit: "Muhammad Mahdi Karim / Wikimedia Commons"
+imageLicense: "GFDL 1.2"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Tomb_of_Humayun,_Delhi.jpg"
 trending: false
 featured: false
 video_id: "6tCqyc12xiA"
@@ -25,9 +27,8 @@ sourceName: "Moneycontrol"
 dek: "The Food and Drug Administration has withdrawn its order to cancel Cipla Pharma's licence, following a High Court criticism that the regulator overstepped its authority."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The episode highlights the delicate balance between regulatory enforcement and due‑process rights for pharmaceutical firms, a sector critical to India's public health and export economy.
-  
-  A protracted licence dispute could have curtailed production of essential medicines, affecting both domestic patients and international markets that rely on Cipla’s generic drugs.
+  The episode highlights the delicate balance between regulatory enforcement and due‑process rights for pharmaceutical firms, a sector critical to India's public health and export economy. A protracted licence dispute could have curtailed production of essential medicines, affecting both domestic patients and international markets that rely on Cipla’s generic drugs.
+
 what_happens_next: "The FDA will serve Cipla with a fresh show‑cause notice within the next week, outlining specific compliance deficiencies. Cipla is expected to file its response within the statutory period, after which the regulator will issue a detailed order either reinstating the licence or imposing corrective measures."
 ---
 The Indian FDA had moved to cancel a manufacturing licence held by Cipla Pharma, citing alleged non‑compliance with quality‑control norms. The order triggered a petition in the Delhi High Court, where the regulator’s action was described as ‘overboard’ and lacking procedural fairness.

@@ -2,9 +2,6 @@
 title: "Avs lock up Cale Makar with record $163.2 million, eight‑year contract"
 category: "Business"
 date: 2026-08-29T12:50:02Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Avs lock up Cale Makar with record $163.2 million, eight‑year contract"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "4joUV4E14zc"
@@ -24,10 +21,13 @@ sourceUrl: "https://www.hjnews.com/sports/nation/ap-sports-summarybrief-at-8-48-
 dek: "Colorado’s star defenseman Cale Makar has agreed to an eight‑year, $163.2 million deal, the largest contract in NHL history, cementing the Avalanche’s core for the long term."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The contract reshapes the NHL’s salary‑cap landscape, establishing a new ceiling for defensemen and influencing negotiations for other marquee players. It also underscores the Avalanche’s commitment to retaining home‑grown talent, signaling to rivals that long‑term roster stability remains a priority despite escalating payroll demands.
-  
-  For the league, the deal tests the elasticity of the cap system and may prompt future adjustments to revenue‑sharing or luxury‑tax formulas. Smaller franchises could face heightened challenges in competing for elite talent, potentially prompting discussions about competitive‑balance mechanisms or revised contract limits.
+  The contract reshapes the NHL’s salary‑cap landscape, establishing a new ceiling for defensemen and influencing negotiations for other marquee players. It also underscores the Avalanche’s commitment to retaining home‑grown talent, signaling to rivals that long‑term roster stability remains a priority despite escalating payroll demands. For the league, the deal tests the elasticity of the cap system and may prompt future adjustments to revenue‑sharing or luxury‑tax formulas. Smaller franchises could face heightened challenges in competing for elite talent, potentially prompting discussions about competitive‑balance mechanisms or revised contract limits.
+
 what_happens_next: "The contract will be filed with the NHL Players’ Association and become official once the league’s salary‑cap office approves it. The Avalanche will then file a revised cap sheet ahead of the upcoming free‑agency window, and Makar will report to training camp under the new terms, setting the stage for his first season with the record deal."
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 The Colorado Avalanche announced that defenseman Cale Makar has signed an eight‑year contract worth $163.2 million, the richest deal ever in the National Hockey League. The agreement, detailed in a team press release, binds Makar to the franchise through the final year of the contract and includes a no‑trade clause that gives the player significant control over his future.
 

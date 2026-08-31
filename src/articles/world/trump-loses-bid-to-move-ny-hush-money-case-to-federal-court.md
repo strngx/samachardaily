@@ -2,9 +2,11 @@
 title: "Trump's bid to shift NY hush‑money conviction to federal court rejected"
 category: "World"
 date: 2026-08-29T11:39:12Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Trump's bid to shift NY hush‑money conviction to federal court rejected"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Melania_Trump_2011.jpg"
+imageAlt: "Melania Trump at the QVC Red Carpet Style Party, Four Seasons Hotel, Los Angeles, CA on February 25, 2011 - Photo by Glenn Francis of www.Pa"
+imageCredit: "Toglenn / Wikimedia Commons"
+imageLicense: "CC BY-SA 3.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Melania_Trump_2011.jpg"
 trending: true
 featured: false
 video_id: "NitEBTRXu2s"
@@ -25,9 +27,8 @@ sourceName: "Thederrick"
 dek: "A Manhattan judge ruled the payments to adult film star Stormy Daniels were not official acts, denying Trump's attempt to move his criminal fraud conviction to federal court."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The decision keeps the case in New York, where the conviction carries a 24‑month prison sentence and could affect Trump's eligibility for future public office under state law. It also underscores the limits of federal jurisdiction over state‑level criminal matters involving alleged campaign finance violations.
-  
-  Politically, the ruling reinforces the judiciary's role in checking executive claims of immunity and may influence public perception ahead of upcoming elections, while also shaping the broader legal strategy of Trump's multiple ongoing investigations.
+  The decision keeps the case in New York, where the conviction carries a 24‑month prison sentence and could affect Trump's eligibility for future public office under state law. It also underscores the limits of federal jurisdiction over state‑level criminal matters involving alleged campaign finance violations. Politically, the ruling reinforces the judiciary's role in checking executive claims of immunity and may influence public perception ahead of upcoming elections, while also shaping the broader legal strategy of Trump's multiple ongoing investigations.
+
 what_happens_next: "Trump's attorneys have filed a notice of appeal with the New York Court of Appeals and are preparing a petition for the U.S. Supreme Court to review the jurisdictional ruling. A hearing on the state‑level appeal is slated for later this month, and the defense will argue that the federal court should hear the case."
 ---
 Judge Juan Merchan of New York's Supreme Court denied former President Donald Trump's motion to transfer his New York criminal fraud conviction to a federal venue, finding that the alleged hush‑money payments do not qualify as official acts that would invoke federal jurisdiction.

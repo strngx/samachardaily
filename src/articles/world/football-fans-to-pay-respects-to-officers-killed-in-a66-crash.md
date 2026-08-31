@@ -2,9 +2,11 @@
 title: "Middlesbrough fans to honor fallen police officers in A66 crash tribute"
 category: "World"
 date: 2026-08-29T13:03:08Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Middlesbrough fans to honor fallen police officers in A66 crash tribute"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/0/0a/Middlesbrough_Town_Hall%2C_Yorkshire.jpg"
+imageAlt: "Middlesbrough Town Hall, taken in 2011."
+imageCredit: "Originally uploaded by MarcusBritish (Transferred by Hogweard) / Wikimedia Commo"
+imageLicense: "CC BY-SA 3.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Middlesbrough_Town_Hall,_Yorkshire.jpg"
 trending: true
 featured: false
 video_id: "tHXPNdjm8wQ"
@@ -21,9 +23,8 @@ sourceUrl: "https://www.bucksfreepress.co.uk/news/national/26506171.football-fan
 dek: "Middlesbrough FC has asked supporters to observe a moment of silence for PC Matthew Blades and PC Tom Clough, who were killed in a collision on the A66."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The joint tribute underscores the deep ties between sport and public service, reinforcing community cohesion in the wake of tragedy. It also brings attention to road safety concerns for emergency responders, potentially prompting policy reviews on patrol vehicle routing.
-  
-  A visible public mourning at a high‑profile sporting event can influence broader public sentiment, encouraging support for the families of the fallen officers and highlighting the risks faced by police on everyday duties.
+  The joint tribute underscores the deep ties between sport and public service, reinforcing community cohesion in the wake of tragedy. It also brings attention to road safety concerns for emergency responders, potentially prompting policy reviews on patrol vehicle routing. A visible public mourning at a high‑profile sporting event can influence broader public sentiment, encouraging support for the families of the fallen officers and highlighting the risks faced by police on everyday duties.
+
 what_happens_next: "Middlesbrough’s next home match, scheduled for the weekend, will feature a minute’s silence before kickoff and black‑armbanded supporters. Police investigators will release a preliminary report on the A66 collision within the coming weeks, and the club has pledged to coordinate with families for any further commemorative events."
 ---
 Two police constables, Matthew Blades and Tom Clough, lost their lives after their patrol vehicle was involved in a serious collision on the A66, a major trans‑Yorkshire route. The incident, which prompted an extensive emergency response, has left the local policing community in mourning.

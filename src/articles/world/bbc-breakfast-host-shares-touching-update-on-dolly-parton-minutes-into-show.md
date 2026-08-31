@@ -2,9 +2,11 @@
 title: "BBC Breakfast hosts discuss tribute plans for late Dolly Parton"
 category: "World"
 date: 2026-08-29T18:57:47Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "BBC Breakfast hosts discuss tribute plans for late Dolly Parton"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Dolly_Parton_and_Bob_Corker.jpg"
+imageAlt: "Dolly Parton and Bob Corker at the rededication ceremony for the Great Smoky Mountains National Park"
+imageCredit: "United States Congress / Wikimedia Commons"
+imageLicense: "Public domain"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Dolly_Parton_and_Bob_Corker.jpg"
 trending: false
 featured: false
 video_id: "bogHm2d3LOI"
@@ -25,9 +27,8 @@ sourceName: "Mirror"
 dek: "Presenters on BBC Breakfast shared a heartfelt update early in the show and said the team is weighing options to honour the iconic country singer."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Dolly Parton was not only a global music icon but also a prolific philanthropist; a high‑profile tribute on a flagship UK morning show underscores her cross‑cultural influence and can amplify charitable causes linked to her foundation.
-  
-  The BBC’s decision reflects broader media responsibility to honour cultural figures responsibly, while also engaging audiences in meaningful social impact projects that extend beyond entertainment.
+  Dolly Parton was not only a global music icon but also a prolific philanthropist; a high‑profile tribute on a flagship UK morning show underscores her cross‑cultural influence and can amplify charitable causes linked to her foundation. The BBC’s decision reflects broader media responsibility to honour cultural figures responsibly, while also engaging audiences in meaningful social impact projects that extend beyond entertainment.
+
 what_happens_next: "BBC editorial teams will meet with Parton's estate and the foundation within the next two weeks to finalize the tribute format, after which a detailed announcement will be broadcast on BBC Breakfast and posted on the network’s digital platforms."
 ---
 During the opening minutes of today's BBC Breakfast, host announced a personal tribute to Dolly Parton, who passed away earlier this year, expressing how her music shaped his own upbringing.

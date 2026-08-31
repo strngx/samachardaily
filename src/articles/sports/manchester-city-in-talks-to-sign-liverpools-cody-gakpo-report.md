@@ -2,9 +2,6 @@
 title: "Manchester City open talks with Liverpool for Cody Gakpo transfer"
 category: "Sports"
 date: 2026-08-30T09:06:14Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Manchester City open talks with Liverpool for Cody Gakpo transfer"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "rOB4E-HFUOg"
@@ -25,10 +22,12 @@ sourceName: "Newsbytes"
 dek: "Manchester City have begun negotiations with Liverpool to acquire Dutch forward Cody Gakpo, signalling a potential reshuffle in both clubs' attacking options."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The acquisition would reinforce Manchester City’s dominance in the title race, giving Guardiola additional tactical flexibility and injury cover as the season intensifies. For Liverpool, the sale could fund a broader rebuild, but losing Gakpo may weaken their immediate attacking threat and affect their European ambitions.
-  
-  The negotiation underscores the Premier League’s escalating transfer fees and the strategic importance of timing in the summer window. A high‑profile move between two top clubs could set a benchmark for future deals, influencing market valuations and prompting other teams to reassess their squad planning under financial‑fair‑play constraints.
+  The acquisition would reinforce Manchester City’s dominance in the title race, giving Guardiola additional tactical flexibility and injury cover as the season intensifies. For Liverpool, the sale could fund a broader rebuild, but losing Gakpo may weaken their immediate attacking threat and affect their European ambitions. The negotiation underscores the Premier League’s escalating transfer fees and the strategic importance of timing in the summer window. A high‑profile move between two top clubs could set a benchmark for future deals, influencing market valuations and prompting other teams to reassess their squad planning under financial‑fair‑play constraints.
+
 what_happens_next: "Both clubs have appointed senior officials to finalize terms, with City expected to submit a formal bid within the next 48 hours. Liverpool will conduct an internal valuation and prepare a counter‑offer, while Gakpo’s representatives will arrange a medical assessment pending agreement on personal terms."
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 Manchester City have approached Liverpool to discuss a possible move for Dutch international Cody Gakpo, whose pace and versatility have made him a standout performer in the Premier League this season. The club’s scouting network identified him as a fit for Pep Guardiola’s fluid front‑line, especially as City look to bolster depth ahead of a congested fixture list.
 

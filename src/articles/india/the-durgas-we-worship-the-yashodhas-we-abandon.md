@@ -2,9 +2,11 @@
 title: "Patriarchal Politics Overlook Women’s Plight in India’s Marriage Laws"
 category: "India"
 date: 2026-08-30T07:52:33Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Patriarchal Politics Overlook Women’s Plight in India’s Marriage Laws"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Tomb_of_Humayun%2C_Delhi.jpg"
+imageAlt: "Tomb of Humayun, Delhi, India. Western façade as viewed from the main entrance"
+imageCredit: "Muhammad Mahdi Karim / Wikimedia Commons"
+imageLicense: "GFDL 1.2"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Tomb_of_Humayun,_Delhi.jpg"
 trending: false
 featured: false
 video_id: "Qq5MrGvtEe4"
@@ -25,9 +27,8 @@ sourceName: "Deccan Herald"
 dek: "Debates on patriarchy in Indian politics often sideline the lived realities of abandoned wives and forced marriages, prompting calls for reforms that guarantee dignity, choice, and safety for women."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  If legislative gaps persist, millions of women remain vulnerable to economic destitution, health risks, and social stigma, undermining India’s commitments to gender equality and human rights. Strengthening legal safeguards would also reduce the informal economy’s reliance on unpaid domestic labour, fostering broader economic participation.
-  
-  Institutionally, addressing these gaps pressures the Ministry of Women and Child Development, the judiciary, and state governments to coordinate policy reforms, allocate resources for enforcement, and monitor compliance. A clear legal framework would set precedents for other personal law reforms, influencing the nation’s broader trajectory toward inclusive governance.
+  If legislative gaps persist, millions of women remain vulnerable to economic destitution, health risks, and social stigma, undermining India’s commitments to gender equality and human rights. Strengthening legal safeguards would also reduce the informal economy’s reliance on unpaid domestic labour, fostering broader economic participation. Institutionally, addressing these gaps pressures the Ministry of Women and Child Development, the judiciary, and state governments to coordinate policy reforms, allocate resources for enforcement, and monitor compliance. A clear legal framework would set precedents for other personal law reforms, influencing the nation’s broader trajectory toward inclusive governance.
+
 what_happens_next: "No confirmed next steps reported yet."
 ---
 Political parties across the spectrum invoke the fight against patriarchy, yet their legislative agendas frequently bypass the concrete hardships faced by women trapped in abandoned marriages or coerced unions. Analysts note that rhetoric in parliamentary speeches and election manifestos rarely translates into policies that address the legal loopholes allowing husbands to abandon wives without recourse, or the social pressures that force girls into early marriages.

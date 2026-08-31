@@ -3,9 +3,6 @@ title: "India Dispatches Relief Aid to Flood‑Stricken Nepal, Kathmandu Reports
 seoTitle: "India sends relief aid to flood‑hit Nepal"
 category: "India"
 date: 2026-08-30T19:34:08Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "India Dispatches Relief Aid to Flood‑Stricken Nepal, Kathmandu Reports"
-imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "EB8M7_D0uUQ"
@@ -26,10 +23,13 @@ sourceName: "Social News Xyz"
 dek: "India has sent relief assistance to Nepal after severe flooding, a development reported from Kathmandu by Social News XYZ."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The deployment of Indian relief assistance to Nepal carries significant diplomatic weight, reinforcing the long‑standing partnership between the two nations and demonstrating India's role as a regional stabiliser during natural disasters. Prompt aid can alleviate immediate suffering, reduce the risk of secondary health crises, and help restore basic services for flood‑displaced populations.
-  
-  Beyond the humanitarian dimension, the gesture may influence future cooperation frameworks, encouraging more structured disaster‑response protocols and joint resource‑sharing agreements. It also signals to other regional actors the importance of swift, coordinated action in the face of climate‑related emergencies, potentially shaping policy discussions on trans‑border disaster management.
+  The deployment of Indian relief assistance to Nepal carries significant diplomatic weight, reinforcing the long‑standing partnership between the two nations and demonstrating India's role as a regional stabiliser during natural disasters. Prompt aid can alleviate immediate suffering, reduce the risk of secondary health crises, and help restore basic services for flood‑displaced populations. Beyond the humanitarian dimension, the gesture may influence future cooperation frameworks, encouraging more structured disaster‑response protocols and joint resource‑sharing agreements. It also signals to other regional actors the importance of swift, coordinated action in the face of climate‑related emergencies, potentially shaping policy discussions on trans‑border disaster management.
+
 what_happens_next: "Indian authorities are expected to coordinate with Nepalese officials to deliver the relief supplies to the most affected districts, while the Nepalese government will likely assess on‑ground needs and request additional support if required."
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 Kathmandu – In a swift response to recent flooding that has battered Nepal, the Indian government has dispatched relief assistance, according to a post on Social News XYZ. The brief announcement, titled “Kathmandu: India Sends Relief Assistance to Flood hit Nepal #Gallery,” confirms that aid is on its way to the affected regions, though the exact composition of the assistance was not detailed in the source.
 

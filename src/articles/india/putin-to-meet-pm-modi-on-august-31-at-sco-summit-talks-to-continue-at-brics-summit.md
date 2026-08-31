@@ -3,8 +3,10 @@ title: "Putin to meet Modi on Aug 31 at SCO summit; talks to continue at BRICS s
 category: "India"
 date: 2026-08-29T15:39:12Z
 image: "https://images.pexels.com/photos/4175028/pexels-photo-4175028.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Professional handshake agreement over business charts in an office setting."
+imageAlt: "Putin to meet Modi on Aug 31 at SCO summit; talks to continue at BRICS summit"
 imageCredit: "Khwanchai Phanthong"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 trending: false
 featured: false
 video_id: "kqDBbxD7fzc"
@@ -24,9 +26,8 @@ sourceUrl: "https://www.hindustantimes.com/india-news/pm-modi-putin-meet-on-augu
 dek: "Russian President Vladimir Putin will meet Indian Prime Minister Narendra Modi on August 31 during the Shanghai Cooperation Organisation summit, after a scheduled encounter with Chinese President Xi Jinping. The two leaders plan to extend discussions at the upcoming BRICS summit."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The meeting signals a reaffirmation of the Indo‑Russian strategic partnership at a time when both nations are navigating heightened geopolitical pressures. Strengthened ties could translate into increased defence sales, energy deals and coordinated diplomatic stances, affecting regional power balances in South Asia and Central Asia.
-  
-  By extending talks into the BRICS forum, the leaders aim to shape a broader coalition that can challenge Western‑led economic policies and sanctions regimes. A unified stance among BRICS members could influence global trade rules, commodity markets and the geopolitical calculus surrounding the Ukraine war and Indo‑Pacific security dynamics.
+  The meeting signals a reaffirmation of the Indo‑Russian strategic partnership at a time when both nations are navigating heightened geopolitical pressures. Strengthened ties could translate into increased defence sales, energy deals and coordinated diplomatic stances, affecting regional power balances in South Asia and Central Asia. By extending talks into the BRICS forum, the leaders aim to shape a broader coalition that can challenge Western‑led economic policies and sanctions regimes. A unified stance among BRICS members could influence global trade rules, commodity markets and the geopolitical calculus surrounding the Ukraine war and Indo‑Pacific security dynamics.
+
 what_happens_next: "Both foreign ministries will draft a joint press communique summarising the SCO meeting outcomes within the next 48 hours. A bilateral working group on energy and defence is slated to convene in New Delhi by early September, and the leaders will meet again at the BRICS summit later this year to finalize any agreed initiatives."
 ---
 The SCO summit agenda lists a bilateral meeting between President Putin and Prime Minister Modi on August 31, following Putin’s earlier talks with President Xi Jinping. Both leaders will be hosted in the summit’s capital city, where senior officials from foreign ministries will attend to brief the heads of state on key agenda items.

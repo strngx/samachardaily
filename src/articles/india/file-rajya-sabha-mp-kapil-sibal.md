@@ -3,9 +3,11 @@ title: "Rajya Sabha MP Kapil Sibal Responds to RSS Chief Bhagwat’s ‘Unity in
 seoTitle: "Rajya Sabha MP Kapil Sibal Responds to RSS Chief Bhagwat’s"
 category: "India"
 date: 2026-08-30T16:29:29Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Rajya Sabha MP Kapil Sibal Responds to RSS Chief Bhagwat’s ‘Unity in Diversity’ Call"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/4/44/K._Rahman_Khan_and_Rajya_Sabha_secretary-general.jpg"
+imageAlt: "Secretary-general, Rajya Sabha welcoming Rajya Sabha deputy chairman of Rajya Sabha, K. Rahman Khan."
+imageCredit: "Rajya Sabha, Parliament of India / Wikimedia Commons"
+imageLicense: "GODL-India"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:K._Rahman_Khan_and_Rajya_Sabha_secretary-general.jpg"
 trending: false
 featured: false
 video_id: "IAriSBzKfKY"
@@ -26,9 +28,8 @@ sourceName: "Etv Bharat"
 dek: "Kapil Sibal voiced his reaction after RSS chief Mohan Bhagwat said that unity in diversity is embedded in Bharat’s DNA, urging the principle be celebrated and respected."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The interaction spotlights the tug‑of‑war between cultural nationalism and secular constitutionalism, a core tension shaping India’s policy landscape. Bhagwat’s framing of unity as a genetic trait seeks to legitimize the RSS’s ideological influence, while Sibal’s call for actionable safeguards underscores the opposition’s role in defending minority rights.
-  
-  If the discourse translates into legislative momentum, it could affect bills related to religious freedom, education reforms and anti‑discrimination measures. The debate also informs how political parties position themselves on communal harmony, potentially reshaping voter alignments in upcoming elections.
+  The interaction spotlights the tug‑of‑war between cultural nationalism and secular constitutionalism, a core tension shaping India’s policy landscape. Bhagwat’s framing of unity as a genetic trait seeks to legitimize the RSS’s ideological influence, while Sibal’s call for actionable safeguards underscores the opposition’s role in defending minority rights. If the discourse translates into legislative momentum, it could affect bills related to religious freedom, education reforms and anti‑discrimination measures. The debate also informs how political parties position themselves on communal harmony, potentially reshaping voter alignments in upcoming elections.
+
 what_happens_next: "No confirmed next steps reported yet."
 ---
 Senior Rajya Sabha member Kapil Sibal publicly addressed remarks made by RSS chief Mohan Bhagwat, who declared that the concept of unity in diversity is part of Bharat’s very DNA and must be celebrated, respected and accepted. Sibal’s comments, delivered in a press briefing, underscored the political weight of Bhagwat’s statement and highlighted the ongoing discourse on communal harmony in India.

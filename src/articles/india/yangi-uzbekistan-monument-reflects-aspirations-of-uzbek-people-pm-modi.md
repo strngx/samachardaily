@@ -2,9 +2,11 @@
 title: "Modi says Yangi Uzbekistan Monument Symbolizes Uzbek Aspirations During Bilateral Visit"
 category: "India"
 date: 2026-08-30T06:52:34Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Modi says Yangi Uzbekistan Monument Symbolizes Uzbek Aspirations During Bilateral Visit"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Narendra_Damodardas_Modi.jpg"
+imageAlt: "Narendra Modi, Chief Minister of Gujarat"
+imageCredit: "Narendra Modi / Wikimedia Commons"
+imageLicense: "CC BY 2.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Narendra_Damodardas_Modi.jpg"
 trending: false
 featured: false
 video_id: "Rpmqbn9S_dI"
@@ -25,9 +27,8 @@ sourceName: "The Hans India"
 dek: "Prime Minister Narendra Modi praised the Yangi Uzbekistan Monument as a reflection of the Uzbek people's aspirations and progress during his state visit to Tashkent."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Modi’s endorsement of the monument signals India’s recognition of Uzbekistan’s nation‑building narrative, potentially boosting cultural exchange, tourism, and mutual goodwill between the two democracies.
-  
-  By aligning with Uzbekistan’s development story, India positions itself for greater influence in Central Asia’s trade corridors and energy projects, complementing New Delhi’s broader Act East and Connect Central Asia strategies.
+  Modi’s endorsement of the monument signals India’s recognition of Uzbekistan’s nation‑building narrative, potentially boosting cultural exchange, tourism, and mutual goodwill between the two democracies. By aligning with Uzbekistan’s development story, India positions itself for greater influence in Central Asia’s trade corridors and energy projects, complementing New Delhi’s broader Act East and Connect Central Asia strategies.
+
 what_happens_next: "Indian and Uzbek officials will convene a joint working group next month to review the trade and energy agreements signed during the visit, while both governments plan a cultural exchange program featuring exhibitions on the Yangi Uzbekistan Monument in major Indian cities."
 ---
 Modi toured the newly inaugurated Yangi Uzbekistan Monument in Tashkent on Saturday, describing it as an embodiment of the nation’s aspirations and recent progress. His remarks were made alongside Uzbek President Shavkat Mirziyoyev as part of a high‑level bilateral agenda.

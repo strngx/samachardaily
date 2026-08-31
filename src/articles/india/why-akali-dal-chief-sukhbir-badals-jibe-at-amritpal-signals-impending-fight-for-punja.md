@@ -3,9 +3,11 @@ title: "SAD chief Sukhbir Badal’s jab at Amritpal foreshadows battle for Punja
 seoTitle: "SAD chief Sukhbir Badal’s jab at Amritpal foreshadows"
 category: "India"
 date: 2026-08-30T16:02:05Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "SAD chief Sukhbir Badal’s jab at Amritpal foreshadows battle for Punjab’s Panthic vote"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Sukhbir_Singh_Badal.jpg"
+imageAlt: "Punjab deputy CM Sukhbir Singh Badal"
+imageCredit: "Rehabnow / Wikimedia Commons"
+imageLicense: "CC BY 3.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Sukhbir_Singh_Badal.jpg"
 trending: false
 featured: false
 video_id: "6huFTUqoCz0"
@@ -26,9 +28,8 @@ sourceName: "Theprint Hindi"
 dek: "Shiromani Akali Dal, out of power for nearly a decade, is gearing up for next year’s Punjab elections as chief Sukhbir Badal’s criticism of Amritpal Singh signals a looming contest for the Sikh‑panthic electorate."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The Panthic vote remains a decisive factor in Punjab’s electoral calculus; a shift away from SAD could reshape the balance of power among regional parties and affect coalition formations at both state and national levels.
-  
-  If SAD succeeds in reclaiming this voter bloc, it may regain leverage in policy negotiations on issues such as agriculture, religious affairs and federal-state relations, influencing the state's governance trajectory for the next legislative term.
+  The Panthic vote remains a decisive factor in Punjab’s electoral calculus; a shift away from SAD could reshape the balance of power among regional parties and affect coalition formations at both state and national levels. If SAD succeeds in reclaiming this voter bloc, it may regain leverage in policy negotiations on issues such as agriculture, religious affairs and federal-state relations, influencing the state's governance trajectory for the next legislative term.
+
 what_happens_next: "SAD plans to unveil its candidate list and roll out a Panthic‑vote outreach drive within weeks, including rallies and community meetings, as it readies for next year’s Punjab election timetable. The party will also seek alliances with regional Sikh organisations to consolidate support."
 ---
 The Shiromani Akali Dal (SAD) has been out of government in Punjab for almost ten years, leaving the party in a precarious position as it confronts a changing electoral landscape. The urgency has intensified after Amritpal Singh, once an elected MP, lost his parliamentary seat, removing a key rival from the formal political arena.

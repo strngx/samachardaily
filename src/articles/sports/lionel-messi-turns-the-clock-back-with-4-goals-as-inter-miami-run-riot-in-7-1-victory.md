@@ -3,9 +3,6 @@ title: "Messi's four‑goal masterclass fuels Inter Miami's 7-1 rout of CF Montr
 seoTitle: "Messi scores four as Inter Miami beats Montreal 7-1"
 category: "Sports"
 date: 2026-08-30T18:36:52Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Messi's four‑goal masterclass fuels Inter Miami's 7-1 rout of CF Montreal"
-imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "bYxODmcR3EE"
@@ -26,10 +23,12 @@ sourceName: "News9live"
 dek: "Lionel Messi netted four times as Inter Miami demolished CF Montreal 7-1 on Sunday, delivering a dominant MLS performance."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Messi's four‑goal performance not only elevates Inter Miami's standing in the MLS table but also amplifies the league's international profile, drawing heightened media attention and fan interest worldwide. The spectacle underscores the growing impact of marquee signings on the commercial and competitive dynamics of North American soccer.
-  
-  For CF Montreal, the drubbing highlights the competitive disparity that can arise in the league, prompting a reassessment of tactical approaches and player recruitment strategies. The result may influence future roster moves and coaching decisions as the club seeks to close the gap with elite opponents.
+  Messi's four‑goal performance not only elevates Inter Miami's standing in the MLS table but also amplifies the league's international profile, drawing heightened media attention and fan interest worldwide. The spectacle underscores the growing impact of marquee signings on the commercial and competitive dynamics of North American soccer. For CF Montreal, the drubbing highlights the competitive disparity that can arise in the league, prompting a reassessment of tactical approaches and player recruitment strategies. The result may influence future roster moves and coaching decisions as the club seeks to close the gap with elite opponents.
+
 what_happens_next: "Inter Miami will travel to face the New York Red Bulls in their next MLS fixture on Thursday, looking to extend their winning streak, while CF Montreal prepares for a home match against the Seattle Sounders the following weekend as they aim to recover from the loss."
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 Sunday's MLS showdown saw Inter Miami unleash a spectacular offensive display, overwhelming CF Montreal with a 7-1 victory. Central to the onslaught was Lionel Messi, who turned back the clock by scoring four of the seven goals, a feat that underscored his enduring class on the pitch.
 

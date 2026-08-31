@@ -4,8 +4,10 @@ seoTitle: "Rajnath Singh, Yogi Launch ₹101 Cr Lucknow Projects"
 category: "India"
 date: 2026-08-30T17:17:10Z
 image: "https://images.pexels.com/photos/24525165/pexels-photo-24525165.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Team of architects examining building plans outdoors at a construction site."
+imageAlt: "Rajnath Singh and Yogi Adityanath Lay Foundation for ₹101 Crore Lucknow Projects"
 imageCredit: "Nishant Aneja"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 trending: true
 featured: false
 video_id: "tsf0cIl1epk"
@@ -26,9 +28,8 @@ sourceName: "Menafn"
 dek: "Defence Minister Rajnath Singh and Uttar Pradesh Chief Minister Yogi Adityanath jointly laid foundation stones for 12 major development projects in Lucknow valued at ₹101 crore."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The joint inauguration of ₹101 crore worth of development projects carries key policy and governance implications for Uttar Pradesh. Featuring both Union Defence Minister Rajnath Singh and Chief Minister Yogi Adityanath, the move demonstrates coordinated capital allocation between federal parliamentary leadership and the state executive to drive urban transformation in the state capital.
-  
-  From an institutional standpoint, bundling twelve separate development initiatives into a single structured rollout enables streamlined municipal execution. As major urban centers face growing population demands, sustained capital expenditure in civic works remains critical for upgrading infrastructure, expanding local services, and sustaining economic activity.
+  The joint inauguration of ₹101 crore worth of development projects carries key policy and governance implications for Uttar Pradesh. Featuring both Union Defence Minister Rajnath Singh and Chief Minister Yogi Adityanath, the move demonstrates coordinated capital allocation between federal parliamentary leadership and the state executive to drive urban transformation in the state capital. From an institutional standpoint, bundling twelve separate development initiatives into a single structured rollout enables streamlined municipal execution. As major urban centers face growing population demands, sustained capital expenditure in civic works remains critical for upgrading infrastructure, expanding local services, and sustaining economic activity.
+
 what_happens_next: "Following the foundation laying ceremony on Sunday, municipal and state execution agencies in Lucknow will commence initial site preparations for the twelve projects. Detailed timelines, construction schedules, and departmental monitoring procedures for the ₹101 crore infrastructure package are expected to be finalized by local authorities in the coming weeks."
 ---
 Union Defence Minister Rajnath Singh and Uttar Pradesh Chief Minister Yogi Adityanath on Sunday jointly laid the foundation stone for twelve major development projects in Lucknow. The cumulative financial outlay for the newly unveiled infrastructure initiatives stands at approximately ₹101 crore, marking a significant civic investment aimed at bolstering public works and municipal facilities across the state capital.

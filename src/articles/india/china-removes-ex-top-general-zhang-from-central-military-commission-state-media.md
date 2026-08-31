@@ -2,9 +2,11 @@
 title: "China removes veteran General Zhang Youxia from Central Military Commission"
 category: "India"
 date: 2026-08-28T23:29:37Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "China removes veteran General Zhang Youxia from Central Military Commission"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/6/62/1_zhangjiajie_huangshizhai_wulingyuan_panorama_2012.jpg"
+imageAlt: "Five fingers peak. Quartzite sandstone Huangshizhai Zhangjiajie Wulingyuan Hunan, China. Panorama 2012."
+imageCredit: "chensiyuan / Wikimedia Commons"
+imageLicense: "CC BY-SA 4.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:1_zhangjiajie_huangshizhai_wulingyuan_panorama_2012.jpg"
 video_id: "hyqs9ai-bsM"
 video_caption: "張又俠劉振立軍委職務正式被免#中國新聞#張又俠"
 slug: "china-removes-ex-top-general-zhang-from-central-military-commission-state-media"
@@ -13,9 +15,7 @@ sourceName: "Channel News Asia"
 dek: "Beijing announced on Friday that senior PLA officer Zhang Youxia was stripped of his seat on the Central Military Commission, marking a notable shift in China’s top military leadership."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The removal of General Zhang Youxia underscores a subtle but significant transition within China’s military hierarchy. As a senior figure with direct links to President Xi, his departure may reflect the leader’s ongoing effort to consolidate power by promoting officers who are perceived as more ideologically aligned and less tied to the older, reform‑era elite. This shift could affect the PLA’s strategic priorities, potentially accelerating reforms in joint operations, cyber warfare capabilities, and force modernization.
-  
-  For regional security analysts, the reshuffle offers clues about Beijing’s future military posture. A younger, more centrally loyal leadership might adopt a more assertive stance on issues such as Taiwan’s status and maritime claims, while also ensuring tighter civilian oversight of the armed forces. Observers will watch the next round of appointments to gauge whether the changes herald a continuity of Xi’s hard‑line policies or a recalibration aimed at enhancing operational effectiveness.
+  The removal of General Zhang Youxia underscores a subtle but significant transition within China’s military hierarchy. As a senior figure with direct links to President Xi, his departure may reflect the leader’s ongoing effort to consolidate power by promoting officers who are perceived as more ideologically aligned and less tied to the older, reform‑era elite. This shift could affect the PLA’s strategic priorities, potentially accelerating reforms in joint operations, cyber warfare capabilities, and force modernization. For regional security analysts, the reshuffle offers clues about Beijing’s future military posture. A younger, more centrally loyal leadership might adopt a more assertive stance on issues such as Taiwan’s status and maritime claims, while also ensuring tighter civilian oversight of the armed forces. Observers will watch the next round of appointments to gauge whether the changes herald a continuity of Xi’s hard‑line policies or a recalibration aimed at enhancing operational effectiveness.
 ---
 China’s state media reported that on Friday, August 28, the Central Military Commission (CMC) removed General Zhang Youxia, a veteran commander and former vice‑chairman of the body, from its roster of senior officers. Zhang, who has served in the People’s Liberation Army for more than four decades and is known for his close familial ties to President Xi Jinping, had been a fixture in the CMC since his promotion in 2017. The announcement, made through the official Xinhua news agency, listed his removal alongside that of other senior officers, indicating a broader reshuffle within the nation’s highest military organ.
 

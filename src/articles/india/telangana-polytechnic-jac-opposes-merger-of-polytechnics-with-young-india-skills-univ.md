@@ -2,9 +2,6 @@
 title: "Telangana JAC opposes merger with Young India Skills University, seeks GO 97 withdrawal"
 category: "India"
 date: 2026-08-29T22:52:34Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Telangana JAC opposes merger with Young India Skills University, seeks GO 97 withdrawal"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "sEfRHTlQUHM"
@@ -25,10 +22,13 @@ sourceName: "Telangana Today"
 dek: "The Telangana Polytechnic Joint Action Committee has rejected the government's plan to merge state polytechnics with Young India Skills University, demanding the revocation of Government Order 97."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The polytechnics produce a large share of India's skilled technicians; altering their governance could affect curriculum standards, placement pipelines, and the quality of vocational training across Telangana.
-  
-  A forced merger may set a precedent for other states to consolidate technical institutions under private or semi‑public universities, raising concerns about accountability, fee structures, and the preservation of public sector education mandates.
+  The polytechnics produce a large share of India's skilled technicians; altering their governance could affect curriculum standards, placement pipelines, and the quality of vocational training across Telangana. A forced merger may set a precedent for other states to consolidate technical institutions under private or semi‑public universities, raising concerns about accountability, fee structures, and the preservation of public sector education mandates.
+
 what_happens_next: "The JAC has filed a petition with the Telangana High Court seeking an interim stay on GO 97 and has requested a formal hearing with the Technical Education Department before the scheduled September consultative meeting. The state government is expected to issue a response to the petition within the next two weeks."
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 The Telangana state government issued Government Order 97, proposing to integrate the state's 31 polytechnic colleges into the newly created Young India Skills University (YISU). The move is framed as a step toward a unified skill‑development ecosystem, but it would dissolve the existing Technical Education Department's oversight of polytechnics and the State Board of Technical Education and Training (SBTET).
 

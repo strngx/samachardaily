@@ -2,9 +2,11 @@
 title: "Sanjay Dutt celebrates Raksha Bandhan, thanks sisters Priya and Anju for lifelong support"
 category: "India"
 date: 2026-08-28T23:36:53Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Sanjay Dutt celebrates Raksha Bandhan, thanks sisters Priya and Anju for lifelong support"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/7/78/Sunil_Dutt_Sanjay_Dutt_still4.jpg"
+imageAlt: "Audio release of Munnabhai MBBS"
+imageCredit: "Bollywood Hungama / Wikimedia Commons"
+imageLicense: "CC BY 3.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Sunil_Dutt_Sanjay_Dutt_still4.jpg"
 video_id: "85_2UXSKLX8"
 video_caption: "Sanjay Dutt Kindness #shorts #sanjaydutt #sunildutt"
 slug: "sanjay-dutt-says-grateful-for-the-bond-we-share-as-he-wishes-rakhi-to-sisters-pr"
@@ -13,9 +15,7 @@ sourceName: "Times of India"
 dek: "The veteran actor marked the festival by expressing gratitude to his sisters, recalling childhood memories and the enduring legacy of their parents Sunil Dutt and Nargis."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Raksha Bandhan is more than a ritual; it is a cultural affirmation of sibling solidarity that cuts across social strata in India. For a public figure like Sanjay Dutt, whose life has been marked by both cinematic triumphs and personal controversies, publicly honoring his sisters serves to humanize his image and remind the public of the familial foundations that have steadied him. The Dutt family’s narrative—rooted in the golden era of Indian cinema through Sunil Dutt and Nargis—carries symbolic weight, linking past cinematic heritage with present-day values of love and support.
-  
-  By sharing this personal moment, Sanjay Dutt not only reinforces the festival’s message but also engages with a broader audience that looks to Bollywood personalities for cultural cues. The post may strengthen his rapport with fans, potentially influencing public perception ahead of any upcoming projects or personal milestones. Moreover, it highlights how traditional festivals continue to serve as platforms for celebrities to connect authentically with their followers, bridging the gap between stardom and everyday family life.
+  Raksha Bandhan is more than a ritual; it is a cultural affirmation of sibling solidarity that cuts across social strata in India. For a public figure like Sanjay Dutt, whose life has been marked by both cinematic triumphs and personal controversies, publicly honoring his sisters serves to humanize his image and remind the public of the familial foundations that have steadied him. The Dutt family’s narrative—rooted in the golden era of Indian cinema through Sunil Dutt and Nargis—carries symbolic weight, linking past cinematic heritage with present-day values of love and support. By sharing this personal moment, Sanjay Dutt not only reinforces the festival’s message but also engages with a broader audience that looks to Bollywood personalities for cultural cues. The post may strengthen his rapport with fans, potentially influencing public perception ahead of any upcoming projects or personal milestones. Moreover, it highlights how traditional festivals continue to serve as platforms for celebrities to connect authentically with their followers, bridging the gap between stardom and everyday family life.
 ---
 On Raksha Bandhan, Sanjay Dutt used his social media platform to acknowledge the bond he shares with his sisters, Priya and Anju Dutt. In a heartfelt note, he thanked them for their unwavering support throughout his personal and professional journey, describing their relationship as a source of strength that has helped him navigate the highs and lows of a life lived in the public eye. The post, accompanied by a family photograph, highlighted the traditional spirit of the festival, where brothers protect their sisters and sisters, in turn, offer prayers and affection.
 

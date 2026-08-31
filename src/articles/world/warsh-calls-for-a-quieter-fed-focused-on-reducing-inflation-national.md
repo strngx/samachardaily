@@ -2,9 +2,6 @@
 title: "Fed Governor Warsh Calls for a Quieter Policy Approach to Tackle Persistent Inflation"
 category: "World"
 date: 2026-08-29T07:12:49Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Fed Governor Warsh Calls for a Quieter Policy Approach to Tackle Persistent Inflation"
-imageCredit: "PENDING"
 video_id: "1Py7NNldDvI"
 video_caption: "Warsh Speech from Jackson Hole on Deck | Opening Trade 8/28/2026"
 slug: "warsh-calls-for-a-quieter-fed-focused-on-reducing-inflation-national"
@@ -13,9 +10,11 @@ sourceName: "CBNC"
 dek: "At the Jackson Hole Economic Policy Symposium, Federal Reserve Governor Christopher Warsh urged the central bank to adopt a lower‑profile stance focused on bringing down more than five years of elevated inflation."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The Fed’s stance on inflation is a key driver of global financial conditions. Persistent price pressures in the United States can spill over into higher borrowing costs for emerging economies, elevate commodity prices, and weaken currencies linked to the dollar. By advocating a quieter, data‑focused approach, Warsh signals that the central bank may resist the temptation to react to political pressures or market hype, potentially stabilising expectations and reducing the likelihood of abrupt policy shifts.
-  
-  If the Fed maintains this disciplined tone, it could help anchor inflation expectations, allowing markets to price in a more predictable path for interest rates. This would benefit borrowers, investors, and governments worldwide, especially those already grappling with debt burdens exacerbated by past rate hikes. The upcoming Federal Open Market Committee meeting will be a litmus test: whether Warsh’s call translates into concrete actions such as continued rate hikes, a pause, or a gradual easing. The outcome will shape the trajectory of the U.S. economy and reverberate through global markets for months to come.
+  The Fed’s stance on inflation is a key driver of global financial conditions. Persistent price pressures in the United States can spill over into higher borrowing costs for emerging economies, elevate commodity prices, and weaken currencies linked to the dollar. By advocating a quieter, data‑focused approach, Warsh signals that the central bank may resist the temptation to react to political pressures or market hype, potentially stabilising expectations and reducing the likelihood of abrupt policy shifts. If the Fed maintains this disciplined tone, it could help anchor inflation expectations, allowing markets to price in a more predictable path for interest rates. This would benefit borrowers, investors, and governments worldwide, especially those already grappling with debt burdens exacerbated by past rate hikes. The upcoming Federal Open Market Committee meeting will be a litmus test: whether Warsh’s call translates into concrete actions such as continued rate hikes, a pause, or a gradual easing. The outcome will shape the trajectory of the U.S. economy and reverberate through global markets for months to come.
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 Federal Reserve Governor Christopher Warsh used his remarks at the annual Jackson Hole Economic Policy Symposium on Friday to argue that the U.S. central bank should shift toward a "quieter" operating style, concentrating its efforts on reducing what he described as 65 months of sustained elevated inflation. Warsh, speaking to an audience of central bankers, policymakers and economists from around the globe, said the Fed’s primary mandate remains price stability and that a less noisy, more disciplined communication strategy would better support that goal.
 

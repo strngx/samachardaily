@@ -2,9 +2,11 @@
 title: "Hockey India grants ₹50 lakh to women’s team for historic World Cup fifth‑place finish"
 category: "India"
 date: 2026-08-29T10:18:43Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Hockey India grants ₹50 lakh to women’s team for historic World Cup fifth‑place finish"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/f/f5/The_Captains_of_the_5_Premier_Hockey_League_teams_along_with_the_President_of_the_Indian_Hockey_Federation_%28IHF%29_Shri_K.P._S._Gill_presenting_a_Hockey_stick_to_the_President_Dr._A.P.J._Abdul_Kalam_in_New_Delhi.jpg"
+imageAlt: "The Captains of the 5 Premier Hockey League teams along with the President of the Indian Hockey Federation (IHF) Shri K.P. S. Gill presentin"
+imageCredit: "Ministry of Youth Affairs and Sports / Wikimedia Commons"
+imageLicense: "GODL-India"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:The_Captains_of_the_5_Premier_Hockey_League_teams_along_with_the_President_of_the_Indian_Hockey_Federation_(IHF)_Shri_K.P._S._Gill_presenting_a_Hockey_stick_to_the_President_Dr._A.P.J._Abdul_Kalam_in_New_Delhi.jpg"
 trending: false
 featured: false
 video_id: "NybU-qWqhDo"
@@ -25,9 +27,8 @@ sourceName: "The Hindu"
 dek: "The federation announced a cash reward of ₹50 lakh for the Indian women’s hockey squad after they secured a record fifth place at the World Cup."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The award signals a shift in Indian sport policy toward greater financial support for women athletes, potentially encouraging higher participation and retention in hockey.
-  
-  By publicly recognizing the team’s achievement, Hockey India aims to boost the sport’s visibility, attract sponsorship, and lay groundwork for sustained investment in women’s hockey infrastructure.
+  The award signals a shift in Indian sport policy toward greater financial support for women athletes, potentially encouraging higher participation and retention in hockey. By publicly recognizing the team’s achievement, Hockey India aims to boost the sport’s visibility, attract sponsorship, and lay groundwork for sustained investment in women’s hockey infrastructure.
+
 what_happens_next: "Hockey India has scheduled an award ceremony for early September, during which the cash will be transferred directly to players’ bank accounts. The federation will also announce a new high‑performance camp in Bengaluru to prepare the squad for the Asian Games later this year."
 ---
 Hockey India confirmed that each member of the women's national team will receive a share of a ₹50 lakh cash award, marking the highest monetary recognition ever given to the side for a World Cup performance.

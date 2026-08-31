@@ -2,9 +2,11 @@
 title: "PM Modi arrives in Uzbekistan, welcomed by President Mirziyoyev for trade, defence talks"
 category: "India"
 date: 2026-08-30T02:52:45Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "PM Modi arrives in Uzbekistan, welcomed by President Mirziyoyev for trade, defence talks"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Narendra_Damodardas_Modi.jpg"
+imageAlt: "Narendra Modi, Chief Minister of Gujarat"
+imageCredit: "Narendra Modi / Wikimedia Commons"
+imageLicense: "CC BY 2.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Narendra_Damodardas_Modi.jpg"
 trending: false
 featured: false
 video_id: "e_adFO4-KHA"
@@ -25,9 +27,8 @@ sourceName: "Moneycontrol"
 dek: "Prime Minister Narendra Modi touched down in Tashkent on Aug 29, beginning a two‑day state visit focused on boosting trade, defence cooperation, energy and digital links, before heading to Kyrgyzstan for the SCO summit."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The visit marks a significant upgrade in India‑Uzbekistan relations, offering a platform to diversify trade beyond traditional partners, secure energy supplies, and develop joint defence capabilities that could reduce reliance on other regional powers.
-  
-  By engaging Uzbekistan ahead of the SCO summit, India signals its intent to play a more active role in Central Asian geopolitics, counterbalancing China’s growing influence and reinforcing its ‘Neighbourhood First’ and ‘Act East’ strategies.
+  The visit marks a significant upgrade in India‑Uzbekistan relations, offering a platform to diversify trade beyond traditional partners, secure energy supplies, and develop joint defence capabilities that could reduce reliance on other regional powers. By engaging Uzbekistan ahead of the SCO summit, India signals its intent to play a more active role in Central Asian geopolitics, counterbalancing China’s growing influence and reinforcing its ‘Neighbourhood First’ and ‘Act East’ strategies.
+
 what_happens_next: "Over the next two days, Modi and Mirziyoyev are slated to sign MoUs on renewable energy cooperation, defence equipment procurement, and a digital connectivity framework. A joint business council will convene on Aug 30 to explore trade opportunities, and a joint press statement is expected after the talks. Following the Uzbekistan visit, Modi will travel to Bishkek for the SCO summit, where further agreements may be finalized."
 ---
 Modi landed at Tashkent International Airport on Aug 29 where President Shavkat Mirziyoyev received him with a formal welcome ceremony, including a guard of honour, national anthems and a brief exchange of pleasantries before proceeding to the presidential palace.

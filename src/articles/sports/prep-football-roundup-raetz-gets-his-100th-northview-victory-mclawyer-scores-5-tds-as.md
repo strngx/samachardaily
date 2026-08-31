@@ -3,9 +3,6 @@ title: "Raetz notches 100th win as Northview crushes Vincennes Lincoln 49-14, Mc
 seoTitle: "Raetz notches 100th win as Northview crushes Vincennes"
 category: "Sports"
 date: 2026-08-30T15:02:25Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Raetz notches 100th win as Northview crushes Vincennes Lincoln 49-14, McLawyer 5 TDs"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "duMN_xR27sI"
@@ -26,10 +23,12 @@ sourceName: "Tribune Star"
 dek: "Coach Mark Raetz celebrated his 100th victory as Northview routed Vincennes Lincoln 49-14, with quarterback McLawyer accounting for five touchdowns."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Reaching 100 victories cements Raetz’s legacy and enhances the program’s recruiting appeal, signaling stability and success to prospective student‑athletes in a competitive region.
-  
-  The decisive win also boosts the Knights’ seeding prospects for the state playoffs, while McLawyer’s five‑touchdown performance draws attention from college scouts, potentially influencing scholarship offers and the broader talent pipeline.
+  Reaching 100 victories cements Raetz’s legacy and enhances the program’s recruiting appeal, signaling stability and success to prospective student‑athletes in a competitive region. The decisive win also boosts the Knights’ seeding prospects for the state playoffs, while McLawyer’s five‑touchdown performance draws attention from college scouts, potentially influencing scholarship offers and the broader talent pipeline.
+
 what_happens_next: "Northview will travel to face conference rival Southridge High next Saturday, a game that could determine the top seed for the upcoming state playoffs. Coach Raetz said the team will review Friday’s film on Monday and hold a focused practice on Tuesday to fine‑tune the defense before the matchup."
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 On Friday night in the Western Indiana Conference, Northview High School's Knights overwhelmed Vincennes Lincoln 49-14, giving head coach Mark Raetz his 100th career win at the school. The victory, achieved at Northview’s home field, marked a milestone for Raetz, who has led the program for over a decade.
 

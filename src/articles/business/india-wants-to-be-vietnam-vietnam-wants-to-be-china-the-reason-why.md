@@ -2,9 +2,12 @@
 title: "India Aims to Replicate Vietnam’s Manufacturing Rise as Vietnam Sets Sights on Becoming the Next China"
 category: "Business"
 date: 2026-08-28T23:29:58Z
-image: ""
-imageAlt: "India Aims to Replicate Vietnam’s Manufacturing Rise as Vietnam Sets Sights on Becoming the Next China"
-imageCredit: "swapnil karkare"
+image: "https://upload.wikimedia.org/wikipedia/commons/1/15/Air_India_Boeing_747-400%3B_VT-AIM%40LAX%3B18.04.2007_464ax_%284271935967%29.jpg"
+imageAlt: "This Boeing 747-433 took its first flight on June 19, 1991...(c/n 25074/ 862)
+16/07/1991 Air Canada C-GAGM stored at Marana 30/10/04 as N770"
+imageCredit: "Aero Icarus from Zürich, Switzerland / Wikimedia Commons"
+imageLicense: "CC BY-SA 2.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Air_India_Boeing_747-400;_VT-AIM@LAX;18.04.2007_464ax_(4271935967).jpg"
 video_id: "PTTwYKGKXo8"
 video_caption: "Manufacturing Battle: India vs Vietnam – Who Wins the Global Factory Race? #manufacturinghub"
 slug: "india-wants-to-be-vietnam-vietnam-wants-to-be-china-the-reason-why"
@@ -13,9 +16,7 @@ sourceName: "NDTV Profit"
 dek: "India, after mastering scale, is now courting deeper supplier networks, component design and R&D, while Vietnam is shifting from low‑cost assembly to higher‑value production to mirror China’s industrial heft."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The shift in India’s approach could reshape global electronics and automotive supply chains. By hosting component makers and design studios, India hopes to retain more of the profit margin within its borders, create higher‑skill jobs and lessen vulnerability to geopolitical disruptions that affect semiconductor imports. For multinational corporations, a deeper Indian ecosystem offers an alternative to the China‑centric model that has dominated for decades.
-  
-  Vietnam’s drive to climb the industrial ladder carries similar geopolitical weight. As US‑China tensions persist, companies are eager to diversify production away from mainland China. If Vietnam successfully upgrades its capabilities, it could become a pivotal hub for advanced manufacturing, attracting firms that previously relied on Chinese clusters. Both countries’ strategies will influence where future tech investments flow, affect trade balances, and potentially reshape the competitive dynamics of the global manufacturing landscape.
+  The shift in India’s approach could reshape global electronics and automotive supply chains. By hosting component makers and design studios, India hopes to retain more of the profit margin within its borders, create higher‑skill jobs and lessen vulnerability to geopolitical disruptions that affect semiconductor imports. For multinational corporations, a deeper Indian ecosystem offers an alternative to the China‑centric model that has dominated for decades. Vietnam’s drive to climb the industrial ladder carries similar geopolitical weight. As US‑China tensions persist, companies are eager to diversify production away from mainland China. If Vietnam successfully upgrades its capabilities, it could become a pivotal hub for advanced manufacturing, attracting firms that previously relied on Chinese clusters. Both countries’ strategies will influence where future tech investments flow, affect trade balances, and potentially reshape the competitive dynamics of the global manufacturing landscape.
 ---
 India’s industrial policy has long emphasized sheer volume. The Make in India drive, coupled with Production‑Linked Incentive (PLI) schemes, succeeded in attracting factories that churn out smartphones, automobiles and textiles at competitive prices. The next phase, however, is a qualitative leap: the government is courting firms that can supply critical components, undertake design work and set up research and development centres within the country. Recent announcements have highlighted incentives for semiconductor fabs, electric‑vehicle battery cells and advanced electronics design houses, signalling a desire to move up the value chain rather than remain a final‑assembly hub.
 

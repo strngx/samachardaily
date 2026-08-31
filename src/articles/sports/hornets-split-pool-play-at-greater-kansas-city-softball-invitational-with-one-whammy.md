@@ -3,8 +3,10 @@ title: "Hornets Split Pool Play at Greater Kansas City Softball Invitational, 4-
 category: "Sports"
 date: 2026-08-29T11:22:54Z
 image: "https://images.pexels.com/photos/37907704/pexels-photo-37907704.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "A girls' softball team gathers around their coach on the field for a strategic discussion."
+imageAlt: "Hornets Split Pool Play at Greater Kansas City Softball Invitational, 4-2 Loss, 17-0 Win"
 imageCredit: "Roro Tata"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 trending: true
 featured: false
 video_id: "Yu6yJa6p9Ug"
@@ -25,9 +27,8 @@ sourceName: "Chillicothe Constitution Tribune"
 dek: "The Hornets fell 4-2 to Platte County before rebounding with a dominant 17-0 victory over Harrisonville, leaving the pool standings undecided."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  A win of this magnitude restores confidence after the early loss and reinforces the Hornets’ reputation as a state‑championship caliber program, influencing player morale and community support ahead of the state playoffs.
-  
-  College scouts and regional recruiters closely monitor the Invitational, and the Hornets’ performance could affect scholarship offers and future roster decisions for several senior athletes.
+  A win of this magnitude restores confidence after the early loss and reinforces the Hornets’ reputation as a state‑championship caliber program, influencing player morale and community support ahead of the state playoffs. College scouts and regional recruiters closely monitor the Invitational, and the Hornets’ performance could affect scholarship offers and future roster decisions for several senior athletes.
+
 what_happens_next: "The Hornets will await the final pool rankings, with the tournament schedule indicating a quarterfinal matchup on Saturday against the second‑seeded team from the opposite pool. Coaches are reviewing game footage to fine‑tune strategies before the next contest."
 ---
 The Greater Kansas City Softball Invitational opened with the Hornets facing a tough opening matchup against Platte County. In a tightly contested game, Platte County edged the Hornets 4-2, capitalizing on timely hits and solid defense to secure the win and hand the Hornets their first loss of pool play.

@@ -3,8 +3,10 @@ title: "SEBI clears Jio Platforms IPO, paving way for $4 bn public issue"
 category: "Business"
 date: 2026-08-29T14:50:02Z
 image: "https://images.pexels.com/photos/10958530/pexels-photo-10958530.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Modern urban skyline featuring buildings with a sky bridge under an overcast sky."
+imageAlt: "SEBI clears Jio Platforms IPO, paving way for $4 bn public issue"
 imageCredit: "anurag upadhyay"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 trending: false
 featured: false
 video_id: "DTrXsjyKj_4"
@@ -24,9 +26,8 @@ sourceUrl: "https://telecomlive.in/web/2026/08/29/mukesh-ambani-led-jio-platform
 dek: "SEBI gave final approval on Aug 28 for Jio Platforms' IPO, which aims to raise about $4 bn, potentially the biggest Indian public issue."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The IPO could reshape India’s capital markets by setting a new scale for tech listings, encouraging deeper participation from global investors and enhancing market depth. It also offers Reliance a pathway to diversify its capital base, reducing reliance on debt and strengthening its balance sheet for next‑generation digital investments.
-  
-  For the telecom and digital services sector, the infusion of fresh capital may accelerate rollout of 5G infrastructure, cloud services, and digital payments, intensifying competition and potentially lowering consumer costs. Policymakers will watch the listing closely as a barometer for investor confidence in India’s high‑growth technology ecosystem.
+  The IPO could reshape India’s capital markets by setting a new scale for tech listings, encouraging deeper participation from global investors and enhancing market depth. It also offers Reliance a pathway to diversify its capital base, reducing reliance on debt and strengthening its balance sheet for next‑generation digital investments. For the telecom and digital services sector, the infusion of fresh capital may accelerate rollout of 5G infrastructure, cloud services, and digital payments, intensifying competition and potentially lowering consumer costs. Policymakers will watch the listing closely as a barometer for investor confidence in India’s high‑growth technology ecosystem.
+
 what_happens_next: "Jio Platforms is expected to file its final prospectus with SEBI within the next week, after which the company will set a price band and open the issue to institutional and retail investors. The IPO is slated for a listing on the NSE and BSE by late Q4 2026, subject to market conditions."
 ---
 Jio Platforms, the digital services arm of Reliance Industries, received the Securities and Exchange Board of India's (SEBI) final observations on Aug 28, clearing the path for its proposed initial public offering. The company had lodged its draft filing in June, seeking to raise roughly $4 bn (about Rs 37,700 crore) through the issue.

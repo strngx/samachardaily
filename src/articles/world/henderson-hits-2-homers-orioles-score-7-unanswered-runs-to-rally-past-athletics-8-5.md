@@ -3,9 +3,6 @@ title: "Henderson Hits Two Homers as Orioles Rally Past Athletics 8-5"
 seoTitle: "Orioles Rally Past Athletics 8-5 With Henderson Homers"
 category: "World"
 date: 2026-08-31T11:09:24Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Henderson Hits Two Homers as Orioles Rally Past Athletics 8-5"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "cBJad3nPGdg"
@@ -26,10 +23,13 @@ sourceName: "Wthr"
 dek: "Gunnar Henderson delivered a five-RBI performance featuring two home runs as the Baltimore Orioles erased a deficit with seven unanswered runs to beat the Athletics 8-5."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Henderson’s multi-homer, five-RBI game underscores the individual brilliance required to anchor a Major League Baseball batting order during high-stakes games. For the Baltimore Orioles, executing a seven-run unanswered rally demonstrates deep offensive resilience, showing that the team possesses the depth and composure to overcome mid-game deficits against tough opponents.
-  
-  From a competitive standpoint, late-game comebacks of this magnitude impact team momentum and morale in equal measure. Securing an 8-5 win after trailing provides the Orioles with crucial strategic confidence, while highlighting persistent vulnerabilities in run containment that opponent teams like the Athletics must address moving forward.
+  Henderson’s multi-homer, five-RBI game underscores the individual brilliance required to anchor a Major League Baseball batting order during high-stakes games. For the Baltimore Orioles, executing a seven-run unanswered rally demonstrates deep offensive resilience, showing that the team possesses the depth and composure to overcome mid-game deficits against tough opponents. From a competitive standpoint, late-game comebacks of this magnitude impact team momentum and morale in equal measure. Securing an 8-5 win after trailing provides the Orioles with crucial strategic confidence, while highlighting persistent vulnerabilities in run containment that opponent teams like the Athletics must address moving forward.
+
 what_happens_next: "Following the 8-5 comeback victory, the Baltimore Orioles and the Athletics will prepare for their next scheduled fixtures in the series. Both clubs will look to adjust their pitching rotations and tactical approaches based on the defensive and offensive lessons learned from Baltimore's seven-run rally."
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 The Baltimore Orioles executed a dramatic comeback to defeat the Athletics 8-5, propelled by an outstanding offensive performance from Gunnar Henderson. Henderson dominated the game with two home runs and five runs driven in, powering Baltimore through a pivotal offensive surge. The Orioles scored seven unanswered runs to erase their earlier deficit and claim the victory, completing an impressive rally that showcased the team's ability to turn games around in high-pressure situations.
 

@@ -2,9 +2,11 @@
 title: "Wayne Township Board Approves 113‑Unit All‑Affordable Complex on Old‑Growth Forest"
 category: "Business"
 date: 2026-08-29T11:05:10Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Wayne Township Board Approves 113‑Unit All‑Affordable Complex on Old‑Growth Forest"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/1/1f/U.S._Army_Black-Nurses-In-Liberia-WWII.jpg"
+imageAlt: "25th Station Hospital Unit, also known as the Negro Army Nurse Corps, in Liberia in 1943."
+imageCredit: "US Army / Wikimedia Commons"
+imageLicense: "Public domain"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:U.S._Army_Black-Nurses-In-Liberia-WWII.jpg"
 trending: true
 featured: false
 video_id: ""
@@ -16,9 +18,8 @@ sourceName: "Hoodline"
 dek: "The Wayne Township Planning Board gave the green light to a 113‑unit, all‑affordable housing project on a parcel of old‑growth forest adjacent to Wayne Hills High School and Pancake Hollow."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The approval adds a significant number of affordable units to a market where low‑income families face steep rent burdens, directly supporting New Jersey’s broader housing‑affordability goals. It also demonstrates municipal willingness to use underutilized land to meet state housing mandates.
-  
-  Conversely, the project raises environmental stakes by encroaching on old‑growth forest, a rare and ecologically valuable resource. The decision sets a precedent for how local governments balance housing imperatives with conservation, potentially influencing future land‑use policies across the region.
+  The approval adds a significant number of affordable units to a market where low‑income families face steep rent burdens, directly supporting New Jersey’s broader housing‑affordability goals. It also demonstrates municipal willingness to use underutilized land to meet state housing mandates. Conversely, the project raises environmental stakes by encroaching on old‑growth forest, a rare and ecologically valuable resource. The decision sets a precedent for how local governments balance housing imperatives with conservation, potentially influencing future land‑use policies across the region.
+
 what_happens_next: "The township will forward the approved plan to the building department for permit issuance, commission a state‑mandated environmental impact study, and hold a public hearing on mitigation strategies within the next 30 days. Construction can begin only after these regulatory clearances are obtained."
 ---
 The Planning Board voted unanimously to allow a 113‑unit, all‑affordable housing complex to be built on a wooded tract that includes sections of old‑growth forest near Wayne Hills High School and the Pancake Hollow area. The development is slated to provide low‑ and moderate‑income families with rental units, addressing a noted shortage in the region.

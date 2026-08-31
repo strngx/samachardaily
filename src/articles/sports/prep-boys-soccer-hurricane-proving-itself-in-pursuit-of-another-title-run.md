@@ -2,9 +2,6 @@
 title: "Prep boys soccer: Hurricane eyes back-to-back title run after 3-1 win over Huntington"
 category: "Sports"
 date: 2026-08-29T11:00:15Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Prep boys soccer: Hurricane eyes back-to-back title run after 3-1 win over Huntington"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "0z9AFLZGInc"
@@ -25,10 +22,12 @@ sourceName: "Charleston Gazette-mail"
 dek: "Hurricane defeated Huntington 3-1 in a Class AAAA South Region rematch, bolstering their bid for a second state title after a dominant 13-1 start to the season."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The win signals that Huntington’s traditional powerhouse can remain competitive even after a significant talent exodus, influencing recruiting dynamics across the South Region. It also raises the stakes for rival programs that now face a rejuvenated Hurricane aiming for back‑to‑back titles.
-  
-  A sustained run by Hurricane could reshape the regional power balance, attract greater media attention, and potentially draw college scouts to the area, impacting player pathways and local school funding for athletics.
+  The win signals that Huntington’s traditional powerhouse can remain competitive even after a significant talent exodus, influencing recruiting dynamics across the South Region. It also raises the stakes for rival programs that now face a rejuvenated Hurricane aiming for back‑to‑back titles. A sustained run by Hurricane could reshape the regional power balance, attract greater media attention, and potentially draw college scouts to the area, impacting player pathways and local school funding for athletics.
+
 what_happens_next: "Hurricane’s next challenge is a Thursday clash with the top‑seeded Eastside Eagles, a game that could determine seeding for the upcoming South Region playoffs. Coach Bailey will assess player fitness and finalize line‑ups ahead of the encounter."
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 Hurricane rolled past Huntington 3-1 on Tuesday, replicating the matchup from last season’s Class AAAA South Region co‑final and delivering a morale‑boosting win for the defending state champions.
 

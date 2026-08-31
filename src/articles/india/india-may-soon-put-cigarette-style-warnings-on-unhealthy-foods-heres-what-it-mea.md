@@ -2,9 +2,11 @@
 title: "India to introduce red hexagonal warnings on high‑sugar, salt and fat foods"
 category: "India"
 date: 2026-08-29T02:12:47Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "India to introduce red hexagonal warnings on high‑sugar, salt and fat foods"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Tomb_of_Humayun%2C_Delhi.jpg"
+imageAlt: "Tomb of Humayun, Delhi, India. Western façade as viewed from the main entrance"
+imageCredit: "Muhammad Mahdi Karim / Wikimedia Commons"
+imageLicense: "GFDL 1.2"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Tomb_of_Humayun,_Delhi.jpg"
 video_id: "0ORJu3u0c4g"
 video_caption: "&quot;India Needs Warning Labels For Food&quot;: Revant Himatsingka&#39;s Big Push"
 slug: "india-may-soon-put-cigarette-style-warnings-on-unhealthy-foods-heres-what-it-mea"
@@ -13,9 +15,7 @@ sourceName: "CNBC TV18"
 dek: "The Food Safety and Standards Authority of India (FSSAI) is drafting rules that would require packaged foods high in sugar, salt or saturated fat to carry a bold red, hexagonal warning label, similar to cigarette warnings in many countries."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  India faces one of the fastest‑growing rates of diet‑related illnesses, with an estimated 135 million adults classified as diabetic and a rising prevalence of obesity among urban populations. Clear, front‑of‑pack warnings could help consumers make healthier choices at the point of purchase, especially in low‑literacy settings where detailed nutrition tables are often ignored. The policy also signals a stronger regulatory stance on public health, potentially prompting manufacturers to reformulate products to avoid the stigma of a warning label.
-  
-  Beyond health, the rule could reshape the food industry’s marketing strategies and supply chains. Companies may invest in lower‑sugar or lower‑salt formulations, and retailers could see a shift in shelf‑space allocation toward ‘healthier’ alternatives. However, the move may also trigger legal challenges from industry groups claiming over‑reach, as seen in other jurisdictions. The outcome will influence not only India’s domestic health agenda but also its position in global discussions on food labeling standards.
+  India faces one of the fastest‑growing rates of diet‑related illnesses, with an estimated 135 million adults classified as diabetic and a rising prevalence of obesity among urban populations. Clear, front‑of‑pack warnings could help consumers make healthier choices at the point of purchase, especially in low‑literacy settings where detailed nutrition tables are often ignored. The policy also signals a stronger regulatory stance on public health, potentially prompting manufacturers to reformulate products to avoid the stigma of a warning label. Beyond health, the rule could reshape the food industry’s marketing strategies and supply chains. Companies may invest in lower‑sugar or lower‑salt formulations, and retailers could see a shift in shelf‑space allocation toward ‘healthier’ alternatives. However, the move may also trigger legal challenges from industry groups claiming over‑reach, as seen in other jurisdictions. The outcome will influence not only India’s domestic health agenda but also its position in global discussions on food labeling standards.
 ---
 The Food Safety and Standards Authority of India (FSSAI) has released a draft regulation that would make it mandatory for manufacturers to display a red, hexagonal warning label on any pre‑packed food product that exceeds prescribed limits for sugar, salt or saturated fat. The label, roughly the size of a credit‑card, would read “High in Sugar/Salt/Fat – Consuming this may be harmful to health”, mirroring the graphic warnings already used on tobacco products. The proposal marks a shift from the current voluntary front‑of‑pack nutrition information system, which only requires a Nutrition Facts panel and a ‘traffic‑light’ colour coding that many companies have been slow to adopt.
 

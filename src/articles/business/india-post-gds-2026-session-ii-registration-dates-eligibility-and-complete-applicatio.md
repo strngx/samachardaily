@@ -3,9 +3,12 @@ title: "India Post to Begin GDS 2026 Session II Registration on August 31"
 seoTitle: "India Post GDS 2026 Session II Registration Details"
 category: "Business"
 date: 2026-08-30T20:57:20Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "India Post to Begin GDS 2026 Session II Registration on August 31"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Parcel_packing_-_Dharamsala_2010.jpg"
+imageAlt: "Parcel Post wrapping service sign, near Post Office, Jogiwara road, McLeod Ganj, H.P., India. 2010  - 
+I took this photo on a trip back to I"
+imageCredit: "John Hill / Wikimedia Commons"
+imageLicense: "CC BY-SA 4.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Parcel_packing_-_Dharamsala_2010.jpg"
 trending: true
 featured: false
 video_id: "5UbG0ZQ_2XA"
@@ -26,9 +29,8 @@ sourceName: "Swapupdate"
 dek: "India Post is set to launch the registration window for Gramin Dak Sevak 2026 Session II on August 31, with formal application submissions starting September 2."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The launch of the GDS 2026 Session II drive underscores India Post's ongoing effort to maintain robust staffing levels across its nationwide network. Timely recruitment cycles are vital for sustaining last-mile postal connectivity, government scheme disbursements, and essential mail delivery service in rural regions.
-  
-  For employment seekers across India, public sector recruitment drives of this scale offer vital entry-level opportunities. Streamlining registration dates and application windows ensures transparency and broader accessibility for candidates nationwide.
+  The launch of the GDS 2026 Session II drive underscores India Post's ongoing effort to maintain robust staffing levels across its nationwide network. Timely recruitment cycles are vital for sustaining last-mile postal connectivity, government scheme disbursements, and essential mail delivery service in rural regions. For employment seekers across India, public sector recruitment drives of this scale offer vital entry-level opportunities. Streamlining registration dates and application windows ensures transparency and broader accessibility for candidates nationwide.
+
 what_happens_next: "Registration for India Post GDS 2026 Session II officially opens on August 31, 2026, followed by the start of online application submissions on September 2, 2026. Applicants must complete their forms on the official recruitment portal before the upcoming closing deadlines."
 ---
 India Post has announced the official schedule for the Gramin Dak Sevak (GDS) 2026 Session II recruitment drive. Registration for prospective candidates is set to open on August 31, 2026, marking the commencement of the second major intake cycle for rural postal positions this year.

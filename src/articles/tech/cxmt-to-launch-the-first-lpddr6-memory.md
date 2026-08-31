@@ -2,9 +2,6 @@
 title: "CXMT to Debut World’s First LPDDR6 Memory in Xiaomi 18 Fold"
 category: "Tech"
 date: 2026-08-29T19:22:30Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "CXMT to Debut World’s First LPDDR6 Memory in Xiaomi 18 Fold"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: ""
@@ -16,10 +13,12 @@ sourceName: "Technobugg"
 dek: "Chinese chipmaker CXMT announced it will ship the inaugural LPDDR6 DRAM, slated for integration in Xiaomi’s upcoming 18 Fold smartphone."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Introducing LPDDR6 in a flagship device raises the performance ceiling for mobile applications, from AI‑driven photography to gaming, while extending battery life—a key consumer demand.
-  
-  The launch also signals China’s growing self‑reliance in advanced semiconductor technologies, which could shift global market share and influence future trade negotiations on chip exports.
+  Introducing LPDDR6 in a flagship device raises the performance ceiling for mobile applications, from AI‑driven photography to gaming, while extending battery life—a key consumer demand. The launch also signals China’s growing self‑reliance in advanced semiconductor technologies, which could shift global market share and influence future trade negotiations on chip exports.
+
 what_happens_next: "CXMT will begin pilot production of the LPDDR6 chips within the next quarter, while Xiaomi plans to integrate the memory into the 18 Fold during its final design freeze. Both companies have scheduled joint testing sessions to certify performance and reliability before mass‑market release later this year."
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 CXMT, a rising Chinese semiconductor firm, confirmed that its next‑generation low‑power DDR6 (LPDDR6) memory will be the first of its kind to reach a commercial device, with the Xiaomi 18 Fold earmarked as the launch platform.
 

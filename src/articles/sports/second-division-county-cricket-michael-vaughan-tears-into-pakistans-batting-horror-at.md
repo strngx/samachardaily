@@ -3,9 +3,6 @@ title: "'Second Division County Cricket': Vaughan Slams Pakistan After Top-Order
 seoTitle: "Michael Vaughan Slams Pakistan Batting Horror at Lord's"
 category: "Sports"
 date: 2026-08-30T22:37:25Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "'Second Division County Cricket': Vaughan Slams Pakistan After Top-Order Collapse at Lord's"
-imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "ZSlpOGOAdaE"
@@ -26,10 +23,12 @@ sourceName: "Moneycontrol"
 dek: "Former England captain Michael Vaughan criticized Pakistan's top-order collapse at Lord's, likening the performance to second division county cricket after key batters fell for single digits."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The sharp rebuke from a high-profile figure like Michael Vaughan amplifies the media and public scrutiny surrounding Pakistan’s top-order dependability. Repeated failures by cornerstone players such as Babar Azam, Shan Masood, and Mohammad Rizwan raise broader questions about team selection, preparation, and psychological resilience during high-pressure international fixtures on demanding overseas surfaces.
-  
-  Beyond immediate match outcomes, such dramatic collapses undermine Pakistan's institutional standing in top-tier red-ball cricket. Continued performance instability risks damaging fan confidence and dynamic commercial backing, while forcing team management to re-evaluate coaching frameworks and long-term middle-order transition strategies to prevent similar batting collapses in future series.
+  The sharp rebuke from a high-profile figure like Michael Vaughan amplifies the media and public scrutiny surrounding Pakistan’s top-order dependability. Repeated failures by cornerstone players such as Babar Azam, Shan Masood, and Mohammad Rizwan raise broader questions about team selection, preparation, and psychological resilience during high-pressure international fixtures on demanding overseas surfaces. Beyond immediate match outcomes, such dramatic collapses undermine Pakistan's institutional standing in top-tier red-ball cricket. Continued performance instability risks damaging fan confidence and dynamic commercial backing, while forcing team management to re-evaluate coaching frameworks and long-term middle-order transition strategies to prevent similar batting collapses in future series.
+
 what_happens_next: "Pakistan's coaching staff and team management will conduct detailed review sessions to analyze the technical errors that led to the top-order collapse at Lord's. The selection panel is expected to assess middle-order configurations and top-order form ahead of the next scheduled fixture, where senior batters Babar Azam and Shan Masood will be under heavy pressure to deliver a strong response."
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 Former England captain Michael Vaughan delivered a scathing assessment of Pakistan’s batting lineup following a dramatic top-order collapse during their match at Lord's. Vaughan drew a sharp comparison between the international side's performance and lower-tier domestic cricket, remarking that the display resembled 'second division county cricket.' His remarks came after several established senior batters failed to construct meaningful partnerships against the opposition bowling attack.
 

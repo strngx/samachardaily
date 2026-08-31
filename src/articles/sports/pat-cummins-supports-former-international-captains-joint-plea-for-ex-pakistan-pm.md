@@ -2,9 +2,6 @@
 title: "Australian captain Pat Cummins backs former cricket greats’ plea for humane treatment of Imran Khan"
 category: "Sports"
 date: 2026-08-28T23:48:52Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Australian captain Pat Cummins backs former cricket greats’ plea for humane treatment of Imran Khan"
-imageCredit: "PENDING"
 video_id: "Jq9duNqKAms"
 video_caption: "Pat Cummins supports former International Cricket Captains plea for Imran Khan Medical Treatment 😳🔥"
 slug: "pat-cummins-supports-former-international-captains-joint-plea-for-ex-pakistan-pm"
@@ -13,9 +10,11 @@ sourceName: "Latestly"
 dek: "Pat Cummins has joined 21 ex‑international captains, including Sunil Gavaskar and Kapil Dev, urging Pakistan’s prime minister to ensure proper medical care for jailed former leader Imran Khan."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The involvement of cricket’s most respected former captains signals that the issue transcends politics and touches on the broader values of sportsmanship and human dignity. Cricket has historically acted as a diplomatic bridge between India, Pakistan and the wider Commonwealth, and a unified call from icons of the game can amplify pressure on governments to adhere to international human‑rights norms. For Pakistan, the plea arrives at a sensitive time as it prepares to host high‑profile international fixtures, making the treatment of a former cricket hero a litmus test for its global reputation. Moreover, Pat Cummins’ endorsement highlights how contemporary athletes increasingly use their platforms to advocate for social and humanitarian causes, potentially influencing public opinion and prompting diplomatic dialogue.
-  
-  If the Pakistani government responds positively, it could ease tensions within the cricketing fraternity and set a precedent for future interventions by sports figures in humanitarian matters. Conversely, a dismissive stance may deepen criticism from the global cricket community and could affect Pakistan’s standing in upcoming tournaments, where player safety and hospitality are under scrutiny.
+  The involvement of cricket’s most respected former captains signals that the issue transcends politics and touches on the broader values of sportsmanship and human dignity. Cricket has historically acted as a diplomatic bridge between India, Pakistan and the wider Commonwealth, and a unified call from icons of the game can amplify pressure on governments to adhere to international human‑rights norms. For Pakistan, the plea arrives at a sensitive time as it prepares to host high‑profile international fixtures, making the treatment of a former cricket hero a litmus test for its global reputation. Moreover, Pat Cummins’ endorsement highlights how contemporary athletes increasingly use their platforms to advocate for social and humanitarian causes, potentially influencing public opinion and prompting diplomatic dialogue. If the Pakistani government responds positively, it could ease tensions within the cricketing fraternity and set a precedent for future interventions by sports figures in humanitarian matters. Conversely, a dismissive stance may deepen criticism from the global cricket community and could affect Pakistan’s standing in upcoming tournaments, where player safety and hospitality are under scrutiny.
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 A coalition of 21 former international cricket captains, among them Indian legends Sunil Gavaskar and Kapil Dev, issued an urgent appeal to Pakistan’s prime minister Shehbaz Sharif on Tuesday, calling for humane treatment and immediate medical attention for former prime minister Imran Khan, who remains incarcerated. The appeal, circulated via a joint statement and shared on social media, highlighted concerns over Khan’s deteriorating health and the conditions of his detention, urging the Pakistani authorities to grant him access to specialist care and to observe basic human‑rights standards.
 

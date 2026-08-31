@@ -3,9 +3,11 @@ title: "BCCI Announces Uncontested Re‑election of Dhumal, Majumdar to IPL Gove
 seoTitle: "BCCI Announces Uncontested Re‑election of Dhumal, Majumdar"
 category: "India"
 date: 2026-08-30T15:36:10Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "BCCI Announces Uncontested Re‑election of Dhumal, Majumdar to IPL Governing Council"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Ajay_Dhumal%2C_Chairman_%26_Managing_Director%2C_K.P._Group..jpg"
+imageAlt: "Chairman &amp; Managing Director, K.P. Group."
+imageCredit: "Abcd224 / Wikimedia Commons"
+imageLicense: "CC BY-SA 4.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Ajay_Dhumal,_Chairman_%26_Managing_Director,_K.P._Group..jpg"
 trending: false
 featured: false
 video_id: "NJMLrqugdec"
@@ -26,9 +28,8 @@ sourceName: "Newsbytes"
 dek: "The BCCI has set the election timetable for two IPL Governing Council seats, with former BCCI secretary Anurag Dhumal and former IPL chief Rajiv Majumdar expected to be returned unopposed."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The unopposed re‑election underscores the concentration of influence among a small cadre of senior administrators, raising questions about the robustness of democratic processes within Indian cricket’s governing structures. Critics argue that a lack of competition may limit fresh perspectives on policy reforms and accountability mechanisms.
-  
-  For the IPL, stability in its governing council translates into predictable decision‑making on commercial contracts, media rights and franchise operations. Continuity reassures sponsors and investors ahead of the high‑revenue season, reducing uncertainty that could otherwise affect ticket sales, advertising spend and international broadcasting agreements.
+  The unopposed re‑election underscores the concentration of influence among a small cadre of senior administrators, raising questions about the robustness of democratic processes within Indian cricket’s governing structures. Critics argue that a lack of competition may limit fresh perspectives on policy reforms and accountability mechanisms. For the IPL, stability in its governing council translates into predictable decision‑making on commercial contracts, media rights and franchise operations. Continuity reassures sponsors and investors ahead of the high‑revenue season, reducing uncertainty that could otherwise affect ticket sales, advertising spend and international broadcasting agreements.
+
 what_happens_next: "The BCCI will open formal nomination forms on its website tomorrow, with a deadline for submissions set for 10 days later. An electronic ballot will be conducted among the 31 member associations, and results are expected to be announced within a week after the voting closes."
 ---
 The Board of Control for Cricket in India (BCCI) released a statement today outlining the election procedure for two seats on the Indian Premier League (IPL) Governing Council. Nominations will be invited from current and former BCCI office‑bearers, with the ballot slated for early September and conducted by secret ballot among the BCCI’s 31 member associations.

@@ -2,9 +2,11 @@
 title: "India eases defence export procedures to aid local manufacturers in global markets"
 category: "Business"
 date: 2026-08-29T08:14:28Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "India eases defence export procedures to aid local manufacturers in global markets"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Tomb_of_Humayun%2C_Delhi.jpg"
+imageAlt: "Tomb of Humayun, Delhi, India. Western façade as viewed from the main entrance"
+imageCredit: "Muhammad Mahdi Karim / Wikimedia Commons"
+imageLicense: "GFDL 1.2"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Tomb_of_Humayun,_Delhi.jpg"
 video_id: "mX1Tbw-PCqM"
 video_caption: "Indian Defence Updates : AMCA Mark-I By 2024,LCH Export Philippines,L&amp;T Enters Project P-75I"
 slug: "government-eases-defence-export-sop-to-help-local-manufacturers-tap-global-marke"
@@ -13,9 +15,7 @@ sourceName: "Indian Express"
 dek: "The government has streamlined the standard operating procedure for defence exports, aiming to cut red tape and enable Indian firms to compete abroad more effectively."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  India's defence sector has traditionally relied on imports, accounting for a large share of the national defence budget. By easing export procedures, the government hopes to unlock the commercial potential of domestic manufacturers, creating new revenue streams and reducing the fiscal burden of imports. A more robust export capability also enhances strategic autonomy, allowing India to supply allied nations and participate in joint defence projects without excessive regulatory hurdles.
-  
-  The reforms could make Indian firms more competitive in markets such as Southeast Asia, Africa and the Middle East, where demand for cost‑effective military hardware is rising. In the short term, the simplified SOP is expected to accelerate pending export deals and attract foreign partners looking for reliable Indian suppliers. In the longer run, a thriving defence export ecosystem may stimulate ancillary industries, generate high‑skill jobs, and contribute to the country's overall trade balance.
+  India's defence sector has traditionally relied on imports, accounting for a large share of the national defence budget. By easing export procedures, the government hopes to unlock the commercial potential of domestic manufacturers, creating new revenue streams and reducing the fiscal burden of imports. A more robust export capability also enhances strategic autonomy, allowing India to supply allied nations and participate in joint defence projects without excessive regulatory hurdles. The reforms could make Indian firms more competitive in markets such as Southeast Asia, Africa and the Middle East, where demand for cost‑effective military hardware is rising. In the short term, the simplified SOP is expected to accelerate pending export deals and attract foreign partners looking for reliable Indian suppliers. In the longer run, a thriving defence export ecosystem may stimulate ancillary industries, generate high‑skill jobs, and contribute to the country's overall trade balance.
 ---
 New Delhi announced on Thursday a revision of the standard operating procedure (SOP) governing defence exports, a move intended to simplify the licensing process for Indian manufacturers seeking overseas contracts. The Defence Ministry said the updated SOP removes several procedural bottlenecks, such as multiple agency clearances and lengthy approval timelines, and introduces a single‑window system that will allow exporters to obtain all necessary permissions through a unified portal. The changes also expand the list of equipment and technologies eligible for export, bringing more categories under the "approved" banner that were previously restricted under the older framework.
 

@@ -2,9 +2,11 @@
 title: "BJP launches Gujarat-wide 'Mann Ki Baat' gatherings for youth, farmers, professionals"
 category: "India"
 date: 2026-08-30T05:52:36Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "BJP launches Gujarat-wide 'Mann Ki Baat' gatherings for youth, farmers, professionals"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/3/35/Gujarat_Satellite_Imagery_2012.jpg"
+imageAlt: "An image taken by NASA of Gujarat, India."
+imageCredit: "NASA, MODIS / Wikimedia Commons"
+imageLicense: "Public domain"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Gujarat_Satellite_Imagery_2012.jpg"
 trending: true
 featured: false
 video_id: "NHDmcV2KdLg"
@@ -25,9 +27,8 @@ sourceName: "Thehawk"
 dek: "The BJP has organized a series of community‑focused listening events across Gujarat for the 137th episode of Prime Minister Narendra Modi’s Mann Ki Baat, scheduled to air at 11 a.m. on August 30."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The gatherings serve as a pulse‑check for the ruling party, allowing it to gauge public sentiment across key voter segments ahead of the 2027 Gujarat assembly polls. Direct interaction with youth, farmers and professionals can translate into targeted campaign messaging and policy adjustments that bolster electoral prospects.
-  
-  Institutionally, the events illustrate how the BJP leverages a national broadcast to synchronize party activities at the state level, reinforcing a top‑down communication model. The thematic focus on women, agriculture and marginalized groups also signals an attempt to broaden its appeal beyond its traditional base, potentially reshaping policy discourse in Gujarat.
+  The gatherings serve as a pulse‑check for the ruling party, allowing it to gauge public sentiment across key voter segments ahead of the 2027 Gujarat assembly polls. Direct interaction with youth, farmers and professionals can translate into targeted campaign messaging and policy adjustments that bolster electoral prospects. Institutionally, the events illustrate how the BJP leverages a national broadcast to synchronize party activities at the state level, reinforcing a top‑down communication model. The thematic focus on women, agriculture and marginalized groups also signals an attempt to broaden its appeal beyond its traditional base, potentially reshaping policy discourse in Gujarat.
+
 what_happens_next: "Party officials said they will compile audience reactions and local issues raised during the gatherings to inform the next set of development initiatives, and a summary report will be presented at the state BJP’s coordination meeting slated for early September."
 ---
 Senior BJP leaders announced a coordinated rollout of Mann Ki Baat listening sessions in Gujarat, targeting distinct demographic groups such as youth, farmers, chartered accountants and women. Events will be held at designated party booths and community venues in Ahmedabad, Gandhinagar, Surat, Surendranagar, Nadiad, Mandvi and other districts, with national and state officials joining each gathering.

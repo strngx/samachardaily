@@ -4,8 +4,10 @@ seoTitle: "India July renewables hit 20% of power"
 category: "India"
 date: 2026-08-31T12:11:39Z
 image: "https://images.pexels.com/photos/7563984/pexels-photo-7563984.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Aerial view of an industrial power plant in Vijayawada, India, with cooling towers and chimneys emitting smoke."
+imageAlt: "Renewables Near 20% of India’s Power Mix in July, Marking Green‑Energy Surge"
 imageCredit: "Sharath G. via Pexels"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 trending: false
 featured: false
 video_id: "xa2Mkg8t0aY"
@@ -26,9 +28,8 @@ sourceName: "The Times Of India"
 dek: "Renewable sources supplied almost one‑fifth of national electricity in July, underscoring the momentum of India’s green‑energy drive."
 author: "SamacharDaily India Desk"
 why_it_matters: |
-  The rise to almost one‑fifth of total generation underscores the effectiveness of India’s renewable‑energy policies, signaling to investors that the market is maturing and that large‑scale projects can achieve commercial viability. It also reduces the carbon intensity of the power sector, contributing to the nation’s climate‑change commitments and improving air quality in densely populated regions.
-  
-  From a grid‑management perspective, a higher renewable share tests the robustness of balancing mechanisms and storage solutions. Successful integration in July provides a data‑driven confidence boost for regulators, who can now refine ancillary service rules and incentivize further technological upgrades, ensuring that the system can handle larger shares of intermittent generation without compromising reliability.
+  The rise to almost one‑fifth of total generation underscores the effectiveness of India’s renewable‑energy policies, signaling to investors that the market is maturing and that large‑scale projects can achieve commercial viability. It also reduces the carbon intensity of the power sector, contributing to the nation’s climate‑change commitments and improving air quality in densely populated regions. From a grid‑management perspective, a higher renewable share tests the robustness of balancing mechanisms and storage solutions. Successful integration in July provides a data‑driven confidence boost for regulators, who can now refine ancillary service rules and incentivize further technological upgrades, ensuring that the system can handle larger shares of intermittent generation without compromising reliability.
+
 what_happens_next: "The Ministry of Power will convene a stakeholder meeting next month to review July’s renewable performance, assess grid‑integration challenges, and outline any adjustments to capacity‑addition targets or incentive schemes for the remainder of the fiscal year."
 ---
 New Delhi – Data released for July shows that renewable energy contributed nearly 20 percent of India’s total power generation, a clear indicator of the country’s accelerating green‑energy agenda. The figure, reported by the national electricity monitoring agency, reflects a modest but measurable rise over the same month in the previous year, signalling that policy incentives and new capacity additions are beginning to translate into higher generation shares.

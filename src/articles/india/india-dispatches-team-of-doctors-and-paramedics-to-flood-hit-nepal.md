@@ -2,9 +2,11 @@
 title: "India Sends Third Aid Flight and Medical Team to Flood‑Stricken Nepal"
 category: "India"
 date: 2026-08-29T04:13:07Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "India Sends Third Aid Flight and Medical Team to Flood‑Stricken Nepal"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/5/55/FEMA_-_42079_-_Disaster_Medical_Assistance_Team_members_in_American_Samoa.jpg"
+imageAlt: "Pago Pago, AS, October 5, 2009 --  Members of a Disaster Medical Assistance Team (DMAT)prepare to transfer an infant to a Coast Guard plane"
+imageCredit: "Casey Deshong / Wikimedia Commons"
+imageLicense: "Public domain"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:FEMA_-_42079_-_Disaster_Medical_Assistance_Team_members_in_American_Samoa.jpg"
 video_id: ""
 video_caption: ""
 slug: "india-dispatches-team-of-doctors-and-paramedics-to-flood-hit-nepal"
@@ -13,9 +15,7 @@ sourceName: "Zee News"
 dek: "India dispatched a third special flight carrying 10 tonnes of relief supplies and an 11‑member medical‑rescue team to Nepal as flood waters continue to wreak havoc, while 84 Indians have already been rescued and 96 stranded on the Chinese side have been safely brought into Nepal."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The floods in Nepal have triggered one of the worst humanitarian crises in the country’s recent history, affecting over a million people and overwhelming local disaster response capacities. India's swift deployment of aid not only provides immediate relief but also reinforces long‑standing diplomatic ties and mutual security arrangements between the two nations. By sending medical professionals and essential supplies, India helps curb the spread of disease, stabilise affected communities, and prevent a deeper socioeconomic fallout.
-  
-  The cross‑border rescue of stranded individuals, including those on the Chinese side, demonstrates a broader regional cooperation framework that can serve as a model for future disaster response in the Himalayas. Continued assistance is expected to focus on rebuilding infrastructure, restoring livelihoods, and supporting Nepal’s own disaster‑management agencies, ensuring that relief efforts transition into sustainable recovery.
+  The floods in Nepal have triggered one of the worst humanitarian crises in the country’s recent history, affecting over a million people and overwhelming local disaster response capacities. India's swift deployment of aid not only provides immediate relief but also reinforces long‑standing diplomatic ties and mutual security arrangements between the two nations. By sending medical professionals and essential supplies, India helps curb the spread of disease, stabilise affected communities, and prevent a deeper socioeconomic fallout. The cross‑border rescue of stranded individuals, including those on the Chinese side, demonstrates a broader regional cooperation framework that can serve as a model for future disaster response in the Himalayas. Continued assistance is expected to focus on rebuilding infrastructure, restoring livelihoods, and supporting Nepal’s own disaster‑management agencies, ensuring that relief efforts transition into sustainable recovery.
 ---
 In a continued effort to assist Nepal after unprecedented monsoon flooding, the Indian government launched its third special flight on Tuesday, delivering roughly 10 tonnes of humanitarian aid to the disaster‑hit regions. The aircraft also transported an 11‑member team of doctors, paramedics and rescue personnel, tasked with providing emergency medical care, conducting search‑and‑rescue operations, and coordinating distribution of essential supplies such as food, clean water and medicines.
 

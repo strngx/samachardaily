@@ -2,9 +2,11 @@
 title: "Trump declares Strait of Hormuz open as US clears Iranian mines and tanker traffic resumes"
 category: "World"
 date: 2026-08-28T23:35:08Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Trump declares Strait of Hormuz open as US clears Iranian mines and tanker traffic resumes"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Melania_Trump_2011.jpg"
+imageAlt: "Melania Trump at the QVC Red Carpet Style Party, Four Seasons Hotel, Los Angeles, CA on February 25, 2011 - Photo by Glenn Francis of www.Pa"
+imageCredit: "Toglenn / Wikimedia Commons"
+imageLicense: "CC BY-SA 3.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Melania_Trump_2011.jpg"
 video_id: "qUoRNpMSHLI"
 video_caption: "The Strait Of Hormuz: Energy Lifeline Or Global Time Bomb? | 4K Documentary"
 slug: "that-sucker-is-open-trump-says-strait-of-hormuz-open-as-tanker-traffic-resumes"
@@ -13,9 +15,7 @@ sourceName: "Firstpost"
 dek: "President Donald Trump announced the reopening of the Strait of Hormuz, while the US military confirmed that Iranian sea mines have been cleared, allowing 20‑30 tankers to pass nightly, though volumes remain below pre‑conflict levels."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The Strait of Hormuz is a chokepoint through which about 21 million barrels of oil pass daily, making its security vital for global energy stability. Iran’s decision to lay mines was a direct response to US and allied support for Israel, and it signalled a willingness to leverage maritime pressure to influence regional geopolitics. The successful removal of the mines demonstrates US naval capability and its commitment to keeping the waterway open, reassuring global markets and allied nations that supply routes can be defended.
-  
-  Looking ahead, the US and its partners will likely maintain a heightened naval presence to deter any repeat attempts at obstruction. Diplomatic channels remain open, with the US urging Iran to respect international shipping norms, while Tehran continues to issue veiled threats tied to developments in Gaza. The pace at which tanker traffic returns to pre‑war levels will depend on the broader trajectory of Middle‑East tensions and the willingness of oil companies to trust the security assurances provided by the coalition forces.
+  The Strait of Hormuz is a chokepoint through which about 21 million barrels of oil pass daily, making its security vital for global energy stability. Iran’s decision to lay mines was a direct response to US and allied support for Israel, and it signalled a willingness to leverage maritime pressure to influence regional geopolitics. The successful removal of the mines demonstrates US naval capability and its commitment to keeping the waterway open, reassuring global markets and allied nations that supply routes can be defended. Looking ahead, the US and its partners will likely maintain a heightened naval presence to deter any repeat attempts at obstruction. Diplomatic channels remain open, with the US urging Iran to respect international shipping norms, while Tehran continues to issue veiled threats tied to developments in Gaza. The pace at which tanker traffic returns to pre‑war levels will depend on the broader trajectory of Middle‑East tensions and the willingness of oil companies to trust the security assurances provided by the coalition forces.
 ---
 President Donald Trump took to the podium on Thursday and declared, “That sucker is open,” referring to the strategic Strait of Hormuz, the narrow waterway that links the Persian Gulf with the Arabian Sea. The comment came after the US Central Command announced that naval teams had successfully neutralised a series of sea mines that Iran had reportedly laid in the internationally recognised shipping lanes earlier this month. The mines were part of Tehran’s broader intimidation campaign amid heightened tensions over the Israel‑Hamas war, during which Iran threatened to close the strait if Israel proceeded with a ground invasion of Gaza.
 

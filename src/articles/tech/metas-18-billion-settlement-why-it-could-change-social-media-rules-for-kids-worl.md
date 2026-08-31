@@ -2,9 +2,6 @@
 title: "Meta to Pay $18 Billion Settlement, Limits Teen Access to Facebook and Instagram in US"
 category: "Tech"
 date: 2026-08-29T03:13:24Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Meta to Pay $18 Billion Settlement, Limits Teen Access to Facebook and Instagram in US"
-imageCredit: "PENDING"
 video_id: ""
 video_caption: ""
 slug: "metas-18-billion-settlement-why-it-could-change-social-media-rules-for-kids-worl"
@@ -14,6 +11,10 @@ dek: "Meta has agreed to a $18 billion settlement that will restrict teenagers
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The settlement arrives amid mounting evidence linking excessive social‑media use to anxiety, depression, and sleep disorders among adolescents. By imposing the largest consumer‑protection fine to date, U.S. regulators signal a shift toward more aggressive oversight of tech platforms that profit from young users’ attention. If Meta’s compliance framework proves effective, it could become a template for other countries grappling with similar concerns, potentially prompting a wave of age‑restriction laws worldwide. For parents and educators, the deal offers a tangible tool to limit unsupervised teen access, while also highlighting the broader debate about the balance between digital innovation and public health. The next steps will involve monitoring Meta’s rollout, assessing its impact on teen engagement metrics, and possibly extending the model to other digital services that target younger audiences.
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 The U.S. Federal Trade Commission (FTC) and a coalition of state attorneys general reached a settlement with Meta Platforms Inc. that requires the company to halt the creation of new accounts for users under 18 on its flagship platforms, Facebook and Instagram, within the United States. In exchange, Meta will pay $18 billion – the largest ever consumer‑protection penalty in U.S. history – and fund a series of safety programs aimed at mitigating the mental‑health risks associated with social‑media use among minors. The agreement also obliges Meta to submit detailed design‑and‑privacy audits to the FTC for the next decade, ensuring that any algorithmic changes that could affect younger users are scrutinised.
 

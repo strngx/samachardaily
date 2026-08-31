@@ -3,9 +3,6 @@ title: "Peterborough United poised to secure Aston Villa defender Josh Feeney on
 seoTitle: "Peterborough target Aston Villa defender Josh Feeney"
 category: "Sports"
 date: 2026-08-31T00:36:56Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Peterborough United poised to secure Aston Villa defender Josh Feeney on loan"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "KtmVyFYaaJE"
@@ -23,10 +20,12 @@ sourceName: "Peterborough Telegraph"
 dek: "Peterborough United are expected to bring in young Aston Villa centre‑back Josh Feeney on a loan deal, adding a ball‑playing, ball‑winning option to their back line."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Peterborough United’s acquisition of a ball‑playing centre‑back could tighten a back line that has struggled with consistency, potentially improving the club’s defensive record and league standing. A stronger defence also frees up attacking players to focus on creating chances, influencing the team’s overall tactical balance.
-  
-  For Aston Villa, loaning Feeney provides a pathway for a home‑grown prospect to gain valuable first‑team experience, accelerating his readiness for Premier League duties. Successful loan spells often serve as a benchmark for future integration into the senior squad, impacting the club’s long‑term talent pipeline and financial planning.
+  Peterborough United’s acquisition of a ball‑playing centre‑back could tighten a back line that has struggled with consistency, potentially improving the club’s defensive record and league standing. A stronger defence also frees up attacking players to focus on creating chances, influencing the team’s overall tactical balance. For Aston Villa, loaning Feeney provides a pathway for a home‑grown prospect to gain valuable first‑team experience, accelerating his readiness for Premier League duties. Successful loan spells often serve as a benchmark for future integration into the senior squad, impacting the club’s long‑term talent pipeline and financial planning.
+
 what_happens_next: "Peterborough United expect to complete Feeney’s medical assessment and finalize registration paperwork within the next 48 hours, after which the club will issue an official announcement and integrate him into pre‑season training sessions."
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 Peterborough United have been tipped to sign Aston Villa’s promising centre‑back Josh Feeney on a short‑term loan, a move that would bolster the club’s defensive options ahead of the upcoming campaign. The 21‑year‑old defender, described by scouts as both ball‑playing and ball‑winning, is expected to join the Cambridgeshire side after discussions between the two clubs were reported to be nearing completion.
 

@@ -3,9 +3,11 @@ title: "Maharashtra Allocates ₹1.27 crore to Launch 30‑Horse Mounted Polic
 seoTitle: "₹1.27 crore approved for Mumbai’s 30‑horse mounted unit"
 category: "India"
 date: 2026-08-31T00:33:49Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Maharashtra Allocates ₹1.27 crore to Launch 30‑Horse Mounted Police Unit in Mumbai"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Kakade_Avinash_ji_and_Parth.jpg"
+imageAlt: "13th August, 1942 is remembered as a Brave Martyrs day in the Brave History of City of Nagpur, Maharashtra, India. Krantivir Amar SHahid Kru"
+imageCredit: "CustosMorumIndia / Wikimedia Commons"
+imageLicense: "CC BY-SA 4.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Kakade_Avinash_ji_and_Parth.jpg"
 trending: false
 featured: false
 video_id: "HlBbfTNvH_M"
@@ -26,9 +28,8 @@ sourceName: "The Free Press Journal"
 dek: "Maharashtra has cleared Rs 1.27 crore to operationalise a 30‑horse mounted police unit for Mumbai, seven years after its 2019 approval. The funding will cover horses, gear, medical checks and staff salaries."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The introduction of a mounted police unit adds a versatile layer to Mumbai’s law‑enforcement toolkit. Horses can navigate crowded streets and uneven terrain more effectively than vehicles, offering a rapid response option for riots, protests or emergencies where motorised units might be impeded.
-  
-  Beyond immediate security benefits, the unit enhances the city’s ceremonial image and tourism appeal. Mounted patrols on popular beaches and during cultural festivals provide a traditional yet modern symbol of public safety, potentially improving public confidence and attracting visitors who value well‑managed public spaces.
+  The introduction of a mounted police unit adds a versatile layer to Mumbai’s law‑enforcement toolkit. Horses can navigate crowded streets and uneven terrain more effectively than vehicles, offering a rapid response option for riots, protests or emergencies where motorised units might be impeded. Beyond immediate security benefits, the unit enhances the city’s ceremonial image and tourism appeal. Mounted patrols on popular beaches and during cultural festivals provide a traditional yet modern symbol of public safety, potentially improving public confidence and attracting visitors who value well‑managed public spaces.
+
 what_happens_next: "Procurement of the thirty horses and related equipment is set to begin within the next two weeks, followed by a three‑month training schedule for the thirty‑eight assigned officers. The Mumbai Police aim to commission the mounted unit before the upcoming monsoon tourism peak."
 ---
 The state government of Maharashtra has sanctioned a budget of Rs 1.27 crore to bring a 30‑horse mounted police unit into active service for the Mumbai Police. The allocation, announced this week, comes seven years after the unit received formal approval in 2019, marking the first financial commitment to turn the proposal into a functioning force.

@@ -2,9 +2,11 @@
 title: "Filmmaker Gurvinder Singh on 'Rehmat' and his enduring ties to Punjab"
 category: "India"
 date: 2026-08-30T12:52:33Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Filmmaker Gurvinder Singh on 'Rehmat' and his enduring ties to Punjab"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/b/bb/Gurvinder_Singh%2C_Filmmaker.jpg"
+imageAlt: "Gurvinder Singh-New Delhi-2009-Pic by Amarjit Chandan"
+imageCredit: "Amarjit Chandan / Wikimedia Commons"
+imageLicense: "CC BY 4.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Gurvinder_Singh,_Filmmaker.jpg"
 trending: false
 featured: false
 video_id: "QHoUiUFBIn0"
@@ -25,9 +27,8 @@ sourceName: "The New Indian Express"
 dek: "In an exclusive interview, acclaimed director Gurvinder Singh discusses his new film 'Rehmat' and the personal motivations that draw him back to Punjab through both narrative and documentary lenses."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Singh’s approach spotlights a growing trend in Indian cinema that fuses documentary realism with narrative drama, offering audiences a more nuanced view of regional issues. By foregrounding Punjab’s border dynamics, the film can influence public discourse on migration, cultural preservation, and inter‑community relations.
-  
-  The project also underscores the importance of indigenous storytelling in a globalized media environment. As Indian filmmakers seek authentic voices, 'Rehmat' may inspire funding bodies and festivals to back similar hybrid works, potentially reshaping market expectations for regional cinema.
+  Singh’s approach spotlights a growing trend in Indian cinema that fuses documentary realism with narrative drama, offering audiences a more nuanced view of regional issues. By foregrounding Punjab’s border dynamics, the film can influence public discourse on migration, cultural preservation, and inter‑community relations. The project also underscores the importance of indigenous storytelling in a globalized media environment. As Indian filmmakers seek authentic voices, 'Rehmat' may inspire funding bodies and festivals to back similar hybrid works, potentially reshaping market expectations for regional cinema.
+
 what_happens_next: "The film is slated to premiere at upcoming Indian and international film festivals, with distributors currently negotiating theatrical and streaming releases. Singh has indicated that a press tour will follow the festival circuit to promote the film’s themes and secure broader audience engagement."
 ---
 Singh explains that 'Rehmat' emerged from his long‑standing fascination with the porous borders that shape everyday life in Punjab. The film weaves fictional characters with real‑world testimonies, blurring the line between story‑telling and ethnographic observation to capture the region’s complex sense of belonging.

@@ -2,9 +2,6 @@
 title: "BIS chief warns stablecoins cannot serve as mass‑payment tool, cites stability risks"
 category: "India"
 date: 2026-08-29T06:12:47Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "BIS chief warns stablecoins cannot serve as mass‑payment tool, cites stability risks"
-imageCredit: "PENDING"
 video_id: "x7fBIywsgdA"
 video_caption: "OBOOK Holdings (OWLS) CEO Darren Wang on Regulated Stablecoin Payments, OwlPay Growth and 2026 Goals"
 slug: "stablecoins-not-a-credible-means-of-payment-at-scale-bis-chief-says"
@@ -13,9 +10,11 @@ sourceName: "CNBCTV18"
 dek: "Bank for International Settlements head Agustín Carstens said stablecoins lack the credibility needed for large‑scale payments, raising alarms over financial stability and money‑laundering concerns, especially for economies outside the United States."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Carstens’ warning is significant for India because the country is rapidly digitising its payments ecosystem and grappling with how to integrate emerging crypto‑assets. If stablecoins were to be adopted widely without stringent oversight, they could bypass the RBI’s monetary controls, potentially destabilising the rupee and complicating anti‑money‑laundering enforcement. Moreover, India’s large unbanked population could be attracted to the promise of low‑cost, instant transfers offered by stablecoins, amplifying the need for clear policy direction.
-  
-  The BIS chief’s comments also reinforce the RBI’s ongoing push for a digital rupee, a central bank digital currency designed to combine the benefits of blockchain technology with full regulatory oversight. By highlighting the systemic risks of private stablecoins, Carstens indirectly supports India’s strategy to develop a sovereign digital currency that can serve as a safe, scalable alternative for everyday transactions, while preserving the integrity of the financial system.
+  Carstens’ warning is significant for India because the country is rapidly digitising its payments ecosystem and grappling with how to integrate emerging crypto‑assets. If stablecoins were to be adopted widely without stringent oversight, they could bypass the RBI’s monetary controls, potentially destabilising the rupee and complicating anti‑money‑laundering enforcement. Moreover, India’s large unbanked population could be attracted to the promise of low‑cost, instant transfers offered by stablecoins, amplifying the need for clear policy direction. The BIS chief’s comments also reinforce the RBI’s ongoing push for a digital rupee, a central bank digital currency designed to combine the benefits of blockchain technology with full regulatory oversight. By highlighting the systemic risks of private stablecoins, Carstens indirectly supports India’s strategy to develop a sovereign digital currency that can serve as a safe, scalable alternative for everyday transactions, while preserving the integrity of the financial system.
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 In a recent interview, Agustín Carstens, the governor of the Bank for International Settlements (BIS), warned that stablecoins – digital assets pegged to a fiat currency or a basket of assets – are not a credible means of payment when used at scale. While stablecoins have attracted considerable investor interest because they promise the price stability of traditional money combined with the speed of blockchain transactions, Carstens argued that the underlying infrastructure and regulatory oversight are insufficient for them to replace conventional payment rails. He highlighted that most stablecoins are issued by private firms that lack the balance‑sheet strength and public‑sector accountability that central banks provide, making them vulnerable to runs and operational failures.
 

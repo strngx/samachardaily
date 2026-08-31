@@ -3,9 +3,11 @@ title: "Akhilesh Yadav Vows to Reopen 26,000 Schools Shut by BJP Rule After Rs 4
 seoTitle: "Akhilesh Yadav pledges Rs 40K aid, school reopening"
 category: "India"
 date: 2026-08-30T23:33:50Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Akhilesh Yadav Vows to Reopen 26,000 Schools Shut by BJP Rule After Rs 40K Aid Pledge"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/3/34/Sainsbury%27s_is_now_reopen_-_geograph.org.uk_-_4799731.jpg"
+imageAlt: "Sainsbury's is now reopen"
+imageCredit: "Graham Hogg / Wikimedia Commons"
+imageLicense: "CC BY-SA 2.0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Sainsbury%27s_is_now_reopen_-_geograph.org.uk_-_4799731.jpg"
 trending: false
 featured: false
 video_id: "TfRCnQTGKXU"
@@ -26,9 +28,8 @@ sourceName: "Odisha News, Odisha Breaking News, Odisha Latest N"
 dek: "Samajwadi Party chief Akhilesh Yadav claimed over 26,000 schools have been closed by the BJP‑led government and promised to revive them, backing the pledge with a Rs 40,000 annual aid commitment."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The alleged shutdown of over 26,000 schools affects millions of students, potentially widening educational inequities and hampering human capital development in Uttar Pradesh, India’s most populous state. Restoring these schools could improve literacy rates, reduce dropout levels, and bolster long‑term economic prospects.
-  
-  Politically, the issue underscores the growing contestation over public service delivery between the ruling BJP and opposition parties like the Samajwadi Party. A successful reopening drive could shift public sentiment, influence voter behavior, and set a precedent for how state governments address large‑scale service disruptions.
+  The alleged shutdown of over 26,000 schools affects millions of students, potentially widening educational inequities and hampering human capital development in Uttar Pradesh, India’s most populous state. Restoring these schools could improve literacy rates, reduce dropout levels, and bolster long‑term economic prospects. Politically, the issue underscores the growing contestation over public service delivery between the ruling BJP and opposition parties like the Samajwadi Party. A successful reopening drive could shift public sentiment, influence voter behavior, and set a precedent for how state governments address large‑scale service disruptions.
+
 what_happens_next: "No confirmed next steps reported yet."
 ---
 Lucknow – On Sunday, Samajwadi Party (SP) chief Akhilesh Yadav asserted that more than 26,000 schools across Uttar Pradesh have been shut down by the ruling dispensation, which he identified as the BJP‑led state government. In a press briefing, Yadav announced a Rs 40,000 annual aid pledge aimed at supporting the reopening of these institutions, positioning education as a central plank of his party’s agenda.

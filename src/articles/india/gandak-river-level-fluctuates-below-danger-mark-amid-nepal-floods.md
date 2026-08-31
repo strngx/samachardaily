@@ -3,9 +3,11 @@ title: "Gandak River in Bihar stays below danger level despite Nepal flood‑dri
 seoTitle: "Gandak River flow below danger mark amid Nepal floods"
 category: "India"
 date: 2026-08-30T18:33:51Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Gandak River in Bihar stays below danger level despite Nepal flood‑driven rise"
-imageCredit: "PENDING"
+image: "https://upload.wikimedia.org/wikipedia/commons/d/dc/Budhi_Gandak.jpg"
+imageAlt: "Budhi Gandak river bank in Rampurwa Mehsi"
+imageCredit: "Warrior.bits (talk) (Uploads) / Wikimedia Commons"
+imageLicense: "CC0"
+imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Budhi_Gandak.jpg"
 trending: false
 featured: false
 video_id: "Xiui_x5SjRQ"
@@ -26,9 +28,8 @@ sourceName: "The News Mill"
 dek: "The Gandak River in West Champaran, Bihar, recorded a flow of 114,000 cusecs at Valmikinagar Barrage, fluctuating but remaining under the danger threshold as floods rage in neighboring Nepal."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The Gandak River is a lifeline for Bihar’s agrarian economy; even modest rises in its flow can affect irrigation schedules, floodplain farming, and the safety of settlements along its banks. Maintaining the river below the danger mark averts the activation of costly emergency measures and prevents disruption to transport routes that depend on stable water levels.
-  
-  Cross‑border hydrological events underscore the need for robust bilateral water‑management mechanisms. Nepal’s flood situation directly influences downstream flow, highlighting how climate‑induced extremes in one nation can have immediate repercussions for another, prompting both governments to refine data‑exchange protocols and joint response strategies.
+  The Gandak River is a lifeline for Bihar’s agrarian economy; even modest rises in its flow can affect irrigation schedules, floodplain farming, and the safety of settlements along its banks. Maintaining the river below the danger mark averts the activation of costly emergency measures and prevents disruption to transport routes that depend on stable water levels. Cross‑border hydrological events underscore the need for robust bilateral water‑management mechanisms. Nepal’s flood situation directly influences downstream flow, highlighting how climate‑induced extremes in one nation can have immediate repercussions for another, prompting both governments to refine data‑exchange protocols and joint response strategies.
+
 what_happens_next: "State water authorities will release daily flow updates from Valmikinagar Barrage for the next week, and any rise above the danger mark will trigger pre‑planned flood mitigation actions, including controlled releases and community alerts."
 ---
 The Gandak River flowing through West Champaran district in Bihar has shown fluctuating water levels amid ongoing floods in Nepal, but the flow measured at Valmikinagar Barrage stayed below the designated danger mark. Officials recorded a discharge of 114,000 cubic feet per second (cusecs), a figure that, while elevated, has not crossed the critical threshold that would trigger emergency alerts.

@@ -26,9 +26,8 @@ sourceName: "Nj"
 dek: "Polymarket is offering live trading on US Open outcomes, with the NJCOM promo code unlocking a bonus for users as the final Grand Slam of the season unfolds."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The entry of Polymarket into mainstream tennis betting signals a broader shift toward blockchain‑enabled prediction platforms that operate alongside traditional sportsbooks. By offering transparent, on‑chain contracts, the platform challenges conventional betting models and could pressure regulators to clarify the legal status of such markets in India and abroad.
-  
-  For investors and advertisers, the US Open market provides a high‑visibility venue to test new user acquisition strategies, such as promo‑code incentives. Successful engagement could spur further collaborations between prediction platforms and major sporting events, reshaping revenue streams for both the tech and sports industries.
+  The entry of Polymarket into mainstream tennis betting signals a broader shift toward blockchain‑enabled prediction platforms that operate alongside traditional sportsbooks. By offering transparent, on‑chain contracts, the platform challenges conventional betting models and could pressure regulators to clarify the legal status of such markets in India and abroad. For investors and advertisers, the US Open market provides a high‑visibility venue to test new user acquisition strategies, such as promo‑code incentives. Successful engagement could spur further collaborations between prediction platforms and major sporting events, reshaping revenue streams for both the tech and sports industries.
+
 what_happens_next: "Polymarket will activate live price updates as the US Open matches commence, and users who entered the NJCOM code during registration can claim the associated bonus through the platform's rewards dashboard."
 ---
 Polymarket, a digital marketplace for event‑based contracts, has opened a dedicated prediction market for the US Open, the season's final Grand Slam tennis tournament. The platform is advertising live price feeds that reflect real‑time betting sentiment on match results, set scores and tournament milestones. Users who register with the promo code NJCOM can access a bonus offer tied to the US Open market, according to the announcement from the outlet Nj.

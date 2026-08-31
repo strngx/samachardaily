@@ -3,9 +3,6 @@ title: "Babul Supriyo Pays Musical Tribute to Late Singer Zubeen Garg With ‘Ma
 seoTitle: "Babul Supriyo Releases Tribute Song for Zubeen Garg"
 category: "World"
 date: 2026-08-30T23:09:17Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Babul Supriyo Pays Musical Tribute to Late Singer Zubeen Garg With ‘Mayabini’"
-imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "BpQw20LOQuI"
@@ -26,10 +23,13 @@ sourceName: "The Times Of India"
 dek: "Musician and politician Babul Supriyo has honored the late singer Zubeen Garg with a rendition of 'Mayabini', calling music the ultimate expression of his love and respect."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The musical homage by Babul Supriyo underscores the role of cross-regional artistic solidarity in preserving the legacies of influential Indian vocalists. By reinterpreting celebrated compositions like 'Mayabini', established performers maintain continuity across generations, ensuring that the work of pioneering artists remains active in the public consciousness.
-  
-  Furthermore, such commemorative releases highlight the evolving landscape of digital music distribution in India, where tribute tracks serve both as personal gestures of remembrance and as curated archival pieces that sustain cultural heritage across streaming platforms.
+  The musical homage by Babul Supriyo underscores the role of cross-regional artistic solidarity in preserving the legacies of influential Indian vocalists. By reinterpreting celebrated compositions like 'Mayabini', established performers maintain continuity across generations, ensuring that the work of pioneering artists remains active in the public consciousness. Furthermore, such commemorative releases highlight the evolving landscape of digital music distribution in India, where tribute tracks serve both as personal gestures of remembrance and as curated archival pieces that sustain cultural heritage across streaming platforms.
+
 what_happens_next: "Following the release of the 'Mayabini' rendition, additional commemorative broadcasts and streaming availability across major audio platforms are anticipated. However, no official statements regarding prospective tribute concerts or further memorial recordings dedicated to Zubeen Garg have been announced yet."
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 Prominent singer and politician Babul Supriyo has released a heartfelt musical tribute dedicated to the late vocalist Zubeen Garg, offering a specialized rendition of the iconic song 'Mayabini'. The tribute highlights the deep professional camaraderie and personal bond shared between the two acclaimed musicians.
 

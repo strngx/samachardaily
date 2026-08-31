@@ -26,9 +26,8 @@ sourceName: "Hip2save"
 dek: "Amazon shoppers can secure a 10‑pack of IRIS Instant White Rice for $12.59—well below its $19.99 list price—by clipping a digital coupon and enrolling in Subscribe & Save."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The steep markdown underscores how major e‑commerce players are using digital coupons and subscription incentives to drive repeat purchases in the competitive online grocery market. By bundling price cuts with recurring‑delivery commitments, Amazon can increase basket size and customer retention while offering tangible savings to price‑sensitive shoppers.
-  
-  For Indian consumers tracking global retail trends, the deal illustrates the growing influence of subscription‑based pricing models that could be replicated by domestic platforms. It also signals that even staple food items are becoming subject to promotional tactics traditionally reserved for non‑essential goods, reshaping expectations around grocery pricing.
+  The steep markdown underscores how major e‑commerce players are using digital coupons and subscription incentives to drive repeat purchases in the competitive online grocery market. By bundling price cuts with recurring‑delivery commitments, Amazon can increase basket size and customer retention while offering tangible savings to price‑sensitive shoppers. For Indian consumers tracking global retail trends, the deal illustrates the growing influence of subscription‑based pricing models that could be replicated by domestic platforms. It also signals that even staple food items are becoming subject to promotional tactics traditionally reserved for non‑essential goods, reshaping expectations around grocery pricing.
+
 what_happens_next: "Shoppers must clip the 5% digital coupon on Amazon, then select the Subscribe & Save option to lock in the $12.59 price. The subscription will trigger automatic shipments according to the buyer’s chosen interval, and the discount will apply to each recurring order."
 ---
 Amazon is offering the IRIS Instant White Rice 10‑Pack at a steep $12.59, inclusive of shipping, after shoppers apply a digital coupon and opt into the retailer’s Subscribe & Save program. The deal appears on the Hip2Save platform, which flags it as a limited‑time discount for members.

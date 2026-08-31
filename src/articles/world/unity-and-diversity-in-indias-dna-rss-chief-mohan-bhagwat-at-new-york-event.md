@@ -3,8 +3,10 @@ title: "RSS chief Mohan Bhagwat stresses India's unity and diversity at New York
 category: "World"
 date: 2026-08-30T08:57:49Z
 image: "https://images.pexels.com/photos/38196121/pexels-photo-38196121.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "A lively city street scene showcasing a diverse crowd gathering and a speaker with a megaphone."
+imageAlt: "RSS chief Mohan Bhagwat stresses India's unity and diversity at New York forum"
 imageCredit: "Yura Forrat"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 trending: false
 featured: false
 video_id: "h_OMy9XFCv8"
@@ -25,9 +27,8 @@ sourceName: "Ndtv"
 dek: "Speaking at a New York event on August 29, RSS chief Mohan Bhagwat highlighted India's cultural pluralism as a core strength, framing unity and diversity as intrinsic to the nation's DNA."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The address signals the RSS’s strategic outreach to the Indian diaspora, a key constituency that shapes perceptions of India in the United States and can influence bilateral dialogue on trade, security and cultural exchange. By framing unity and diversity as a constitutional DNA, the RSS seeks to legitimize its ideological narrative beyond domestic politics.
-  
-  Domestically, Bhagwat’s remarks reinforce the symbiotic relationship between the RSS and the ruling BJP, potentially informing policy debates on minority rights, education and cultural funding. The speech may also affect how diaspora groups lobby U.S. lawmakers on issues ranging from immigration to human‑rights concerns linked to India’s internal politics.
+  The address signals the RSS’s strategic outreach to the Indian diaspora, a key constituency that shapes perceptions of India in the United States and can influence bilateral dialogue on trade, security and cultural exchange. By framing unity and diversity as a constitutional DNA, the RSS seeks to legitimize its ideological narrative beyond domestic politics. Domestically, Bhagwat’s remarks reinforce the symbiotic relationship between the RSS and the ruling BJP, potentially informing policy debates on minority rights, education and cultural funding. The speech may also affect how diaspora groups lobby U.S. lawmakers on issues ranging from immigration to human‑rights concerns linked to India’s internal politics.
+
 what_happens_next: "The full transcript of Bhagwat's speech is expected to be released by the RSS within the next two days, and the Indian Ministry of External Affairs has scheduled a briefing with US diplomatic officials to discuss the remarks and address any concerns raised by diaspora groups."
 ---
 On Saturday, August 29, Mohan Bhagwat, the chief of the Rashtriya Swayamsevak Sangh (RSS), addressed a gathering of Indian diaspora leaders, scholars and policy analysts at a New York venue. The forum, titled "Unity And Diversity In India's DNA," was organized by a coalition of diaspora cultural groups and think‑tanks to discuss India's evolving global narrative.

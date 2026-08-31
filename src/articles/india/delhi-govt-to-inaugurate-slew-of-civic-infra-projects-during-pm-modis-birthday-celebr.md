@@ -4,8 +4,10 @@ seoTitle: "Delhi govt to inaugurate dozens of civic projects on PM"
 category: "India"
 date: 2026-08-30T14:36:12Z
 image: "https://images.pexels.com/photos/19921803/pexels-photo-19921803.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "A peaceful park in New Delhi during sunset, with silhouettes of people and trees against the evening sky."
+imageAlt: "Delhi govt to inaugurate dozens of civic projects on PM Modi’s birthday"
 imageCredit: "Ranjeet  Chauhan"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 trending: false
 featured: false
 video_id: "0xRpacQvWEk"
@@ -26,9 +28,8 @@ sourceName: "Hindustan Times"
 dek: "The Delhi administration will launch a slate of water, sewerage, school and power projects, including Barapullah Phase‑III, as part of the ‘Sewa Pakhwada’ celebrations marking the prime minister’s birthday."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The roll‑out signals the Delhi administration’s emphasis on infrastructure as a political lever, aiming to bolster public perception ahead of local elections and reinforce the central government’s development narrative.
-  
-  If executed effectively, the projects could alleviate chronic water shortages, improve sanitation, and expand educational capacity, setting a benchmark for other Indian metros grappling with similar urban challenges.
+  The roll‑out signals the Delhi administration’s emphasis on infrastructure as a political lever, aiming to bolster public perception ahead of local elections and reinforce the central government’s development narrative. If executed effectively, the projects could alleviate chronic water shortages, improve sanitation, and expand educational capacity, setting a benchmark for other Indian metros grappling with similar urban challenges.
+
 what_happens_next: "The inauguration events are slated for August 31, with senior officials overseeing each site. The Delhi Development Authority and the Municipal Corporation of Delhi will monitor progress, and quarterly status reports are to be published. Funding for the projects will be released in the next fiscal cycle."
 ---
 The Delhi government announced that a series of civic and infrastructure projects will be inaugurated on the prime minister’s birthday, framing the day as a "Sewa Pakhwada" – a week dedicated to public service. The timing aligns with the political calendar, allowing the administration to showcase delivery ahead of upcoming municipal elections.

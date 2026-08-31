@@ -4,8 +4,10 @@ seoTitle: "CJI Surya Kant Calls for Court Action on Digital Scams"
 category: "India"
 date: 2026-08-30T17:33:52Z
 image: "https://images.pexels.com/photos/37730955/pexels-photo-37730955.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Close-up of a wooden podium with microphones in a Polish courtroom setting."
+imageAlt: "CJI Surya Kant Urges Courts to Counter Digital Arrest Scams Without Legislative Delay"
 imageCredit: "SHOX ART"
+imageLicense: "Pexels License"
+imageSourceUrl: "https://www.pexels.com/"
 trending: false
 featured: false
 video_id: "CmddpkVXeQ4"
@@ -26,9 +28,8 @@ sourceName: "Deccan Chronicle"
 dek: "Chief Justice of India Surya Kant, speaking in London, warned that the judiciary must act swiftly against the rise of digital arrest scams, rather than await parliamentary legislation."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The rise of digital arrest scams threatens public confidence in law‑enforcement institutions and exploits the digital divide, leaving many vulnerable to financial loss and intimidation. A swift judicial response can curb the spread of these scams, protect citizens, and reinforce the rule of law in the digital age.
-  
-  If courts take the lead, it may pressure Parliament to prioritize comprehensive cyber‑crime legislation, ensuring that statutory provisions keep pace with technological abuse. This dynamic could reshape the balance between legislative deliberation and judicial intervention in India’s evolving legal landscape.
+  The rise of digital arrest scams threatens public confidence in law‑enforcement institutions and exploits the digital divide, leaving many vulnerable to financial loss and intimidation. A swift judicial response can curb the spread of these scams, protect citizens, and reinforce the rule of law in the digital age. If courts take the lead, it may pressure Parliament to prioritize comprehensive cyber‑crime legislation, ensuring that statutory provisions keep pace with technological abuse. This dynamic could reshape the balance between legislative deliberation and judicial intervention in India’s evolving legal landscape.
+
 what_happens_next: "No confirmed next steps reported yet."
 ---
 Speaking at a legal forum in London, Chief Justice of India Surya Kant said the nation’s courts must move proactively to address the surge in digital arrest scams, a form of fraud that exploits the fear of police action to extort money from victims. He emphasized that waiting for Parliament to enact new statutes would leave citizens vulnerable to increasingly sophisticated online deceptions.

@@ -3,9 +3,6 @@ title: "Bengaluru launches paid parking on 20 central roads, targeting ₹3 cr
 seoTitle: "Bengaluru launches paid parking on 20 central roads,"
 category: "Business"
 date: 2026-08-30T14:43:41Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Bengaluru launches paid parking on 20 central roads, targeting ₹3 cr annual revenue"
-imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "9d5f7UqVKLA"
@@ -26,10 +23,13 @@ sourceName: "News First Prime"
 dek: "The civic administration will begin charging ₹15 per hour for two-wheelers and ₹30 for cars on 20 key streets, expecting ₹3 crore in yearly fees."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The scheme promises a new, non‑tax revenue source for Bengaluru’s municipal finances, potentially easing budget pressures and funding civic upgrades. It also serves as a testbed for disciplined parking management, which could reduce congestion and improve the commercial viability of busy city corridors.
-  
-  If successful, the model may be replicated in other Indian metros grappling with chronic roadside parking chaos, prompting broader policy shifts toward smart, fee‑based urban space utilisation.
+  The scheme promises a new, non‑tax revenue source for Bengaluru’s municipal finances, potentially easing budget pressures and funding civic upgrades. It also serves as a testbed for disciplined parking management, which could reduce congestion and improve the commercial viability of busy city corridors. If successful, the model may be replicated in other Indian metros grappling with chronic roadside parking chaos, prompting broader policy shifts toward smart, fee‑based urban space utilisation.
+
 what_happens_next: "The chosen agencies are slated to install signage, ticketing kiosks and CCTV over the next four weeks, after which paid parking operations are expected to commence on the 20 roads within a short timeframe. The BBMP will monitor compliance and revenue, and will re‑issue tenders for the remaining 80 roads thereafter."
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 The BBMP has shortlisted 20 central Bengaluru roads—including Commercial Street and Sampige Road—for the first phase of its paid‑parking scheme after a competitive tender attracted interest from agencies for exactly those stretches. The selected operators will manage fee collection, install mechanised ticket dispensers, CCTV surveillance and clearly marked parking bays.
 

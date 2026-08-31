@@ -2,9 +2,6 @@
 title: "US Treasury sanctions Iran-linked Dubai banker and Hong Kong firm as pressure on Tehran intensifies"
 category: "World"
 date: 2026-08-29T03:13:00Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "US Treasury sanctions Iran-linked Dubai banker and Hong Kong firm as pressure on Tehran intensifies"
-imageCredit: "PENDING"
 video_id: "G6IjdnM4fVQ"
 video_caption: "US lifts Iranian oil sanctions amid tensions in strait of Hormuz"
 slug: "us-treasury-adds-iran-linked-individual-hong-kong-based-company-to-sanctions-lis"
@@ -13,9 +10,11 @@ sourceName: "Middle East Monitor"
 dek: "The U.S. Treasury’s Office of Foreign Assets Control added a Dubai‑based Iranian bank manager and a newly formed Hong Kong trading company to its Specially Designated Nationals list, citing links to Iran’s sanctioned financial network."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  The designations have immediate practical consequences. Any assets Taeedi or Kameng Trading hold in U.S. dollars are now frozen, and U.S. banks must block transactions involving them, effectively cutting off a key channel for Iran’s external financing. For Dubai’s financial sector, the move underscores heightened scrutiny of banks and businesses that handle Iranian clientele, potentially prompting tighter compliance checks and reputational risk assessments.
-  
-  Strategically, the sanctions signal that the United States is willing to expand its enforcement beyond traditional jurisdictions, targeting actors in third‑country financial centers. This could deter other firms in the Gulf and East Asia from providing services to Iranian entities, thereby amplifying economic pressure on Tehran ahead of upcoming diplomatic negotiations over its nuclear activities. The broader impact may also ripple through global trade networks, as companies reassess risk exposure to secondary sanctions when dealing with partners that have any Iranian ties.
+  The designations have immediate practical consequences. Any assets Taeedi or Kameng Trading hold in U.S. dollars are now frozen, and U.S. banks must block transactions involving them, effectively cutting off a key channel for Iran’s external financing. For Dubai’s financial sector, the move underscores heightened scrutiny of banks and businesses that handle Iranian clientele, potentially prompting tighter compliance checks and reputational risk assessments. Strategically, the sanctions signal that the United States is willing to expand its enforcement beyond traditional jurisdictions, targeting actors in third‑country financial centers. This could deter other firms in the Gulf and East Asia from providing services to Iranian entities, thereby amplifying economic pressure on Tehran ahead of upcoming diplomatic negotiations over its nuclear activities. The broader impact may also ripple through global trade networks, as companies reassess risk exposure to secondary sanctions when dealing with partners that have any Iranian ties.
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 On Friday, the U.S. Treasury Department’s Office of Foreign Assets Control (OFAC) announced the latest round of sanctions aimed at curbing Iran’s ability to evade international restrictions. The agency placed Reza Mohammad Taeedi, an Iranian national who runs the Dubai branch of Iran’s state‑owned Bank Melli, on the Specially Designated Nationals (SDN) list. Taeedi, who also serves as the branch’s general manager, is now subject to secondary sanctions that prohibit U.S. persons and entities from dealing with him and freeze any assets he holds under U.S. jurisdiction. The designation was made under both counter‑terrorism and Iran‑related authorities, signalling Washington’s view that the individual plays a role in financing activities deemed hostile to U.S. interests.
 

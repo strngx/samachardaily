@@ -2,9 +2,6 @@
 title: "TMC MP Kalyan Banerjee Challenges Suvendu Adhikari and BJP to Sing Full Vande Mataram at Kolkata Rally"
 category: "India"
 date: 2026-08-28T23:48:10Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "TMC MP Kalyan Banerjee Challenges Suvendu Adhikari and BJP to Sing Full Vande Mataram at Kolkata Rally"
-imageCredit: "PENDING"
 video_id: "TV0kEEI4j_Q"
 video_caption: "BJP’s New ‘Vande Mataram’ Challenge in Parliament: Mamata Faces a Religious Tightrope."
 slug: "sing-four-stanzas-of-vande-mataram-tmcs-big-challenge-to-suvendu-adhikari-and-bj"
@@ -14,6 +11,10 @@ dek: "At a foundation‑day event for the Trinamool Chhatra Parishad in Kolkata,
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The episode underscores how cultural symbols like "Vande Mataram" are weaponised in West Bengal’s high‑stakes political arena, especially as the state gears up for the 2024 Lok Sabha polls and the 2026 assembly elections. By forcing the BJP and Suvendu Adhikari into a public test of patriotism, the TMC seeks to portray itself as the true guardian of national pride, while attempting to erode the opposition’s credibility among nationalist voters. The challenge also revives the broader national debate over the song’s full verses, which have been contested in courts and legislatures across India. If the BJP accepts the dare, it could lead to a highly visible, media‑driven event that may shift public sentiment in the state, influencing voter perceptions ahead of the upcoming elections.
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 On March 26, Trinamool Congress (TMC) MP Kalyan Banerjee took to the stage at a rally in Kolkata marking the foundation day of the party's student wing, the Trinamool Chhatra Parishad (TMCP). While addressing a crowd of students and supporters, Banerjee issued a direct challenge to West Bengal's opposition leader Suvendu Adhikari and the Bharatiya Janata Party (BJP), asking them to sing the complete four‑stanza version of "Vande Mataram" in public. The challenge was framed as a test of patriotism, with Banerjee asserting that the full rendition reflects genuine respect for the nation’s anthem. He warned that any refusal would expose a lack of commitment to national symbols.
 

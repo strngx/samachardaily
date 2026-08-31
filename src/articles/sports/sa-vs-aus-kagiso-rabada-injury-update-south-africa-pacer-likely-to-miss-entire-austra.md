@@ -3,9 +3,6 @@ title: "Kagiso Rabada Sidelined as Grade 3 Hamstring Tear Rules Him Out of Austr
 seoTitle: "Kagiso Rabada Ruled Out of Australia Test Series"
 category: "Sports"
 date: 2026-08-30T20:37:16Z
-image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
-imageAlt: "Kagiso Rabada Sidelined as Grade 3 Hamstring Tear Rules Him Out of Australia Series"
-imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "1Z_ZKGaLxec"
@@ -26,10 +23,13 @@ sourceName: "The Sunday Guardian"
 dek: "South Africa pacer Kagiso Rabada is set to miss the upcoming home Test series against Australia after suffering a Grade 3 hamstring tear that could sideline him for up to 10 weeks."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Rabada's unexpected extended absence fundamentally shifts the dynamic of the South Africa vs Australia Test series. As the spearhead of the Proteas' bowling attack, Rabada's capability to deliver breakthrough overs and control the run rate on home wickets is virtually irreplaceable, significantly lowering South Africa's tactical advantage against a strong Australian batting lineup.
-  
-  Furthermore, the dual fitness concerns involving both Rabada and Nandre Burger highlight the growing physical toll on modern fast bowlers managing demanding international schedules. For South African cricket administrators, the situation exposes potential vulnerabilities in fast-bowling depth, placing extra burden on domestic replacement candidates to perform immediately on the international stage.
+  Rabada's unexpected extended absence fundamentally shifts the dynamic of the South Africa vs Australia Test series. As the spearhead of the Proteas' bowling attack, Rabada's capability to deliver breakthrough overs and control the run rate on home wickets is virtually irreplaceable, significantly lowering South Africa's tactical advantage against a strong Australian batting lineup. Furthermore, the dual fitness concerns involving both Rabada and Nandre Burger highlight the growing physical toll on modern fast bowlers managing demanding international schedules. For South African cricket administrators, the situation exposes potential vulnerabilities in fast-bowling depth, placing extra burden on domestic replacement candidates to perform immediately on the international stage.
+
 what_happens_next: "South African team management and medical staff will oversee Kagiso Rabada's ten-week rehabilitation program to monitor his progress. Meanwhile, national selectors are expected to evaluate domestic performers and fitness reports for Nandre Burger before announcing a revised squad for the Test series against Australia in the coming days."
+
+image: ""
+imageCredit: ""
+imageStatus: "needs_manual_review"
 ---
 South Africa’s national cricket team has suffered a major setback ahead of their highly anticipated home Test series against Australia, with premier fast bowler Kagiso Rabada expected to miss the entire tour. The star pacer suffered a severe Grade 3 hamstring tear, a serious soft-tissue injury that requires a lengthy recovery phase. Medical projections indicate that Rabada could be sidelined for up to ten weeks, effectively ruling him out of the key red-ball encounters against their fierce rivals.
 
