@@ -10,7 +10,7 @@ eleventyExcludeFromCollections: true
     <link>{{ site.url }}/</link>
     <atom:link href="{{ site.url }}/rss.xml" rel="self" type="application/rss+xml"/>
     <language>en-in</language>
-    <lastBuildDate>{{ "now" | isoDate }}</lastBuildDate>
+    <lastBuildDate>{{ "now" | rfc822Date }}</lastBuildDate>
     <generator>Eleventy Static Site Generator</generator>
 
     {% for article in collections.articles | limit(25) %}
@@ -18,7 +18,7 @@ eleventyExcludeFromCollections: true
       <title>{{ article.data.title | escape }}</title>
       <link>{{ site.url }}{{ article.url }}</link>
       <guid isPermaLink="true">{{ site.url }}{{ article.url }}</guid>
-      <pubDate>{{ article.date | readableDate("ccc, dd LLL yyyy HH:mm:ss ZZZZ") }}</pubDate>
+      <pubDate>{{ article.date | rfc822Date }}</pubDate>
       <dc:creator>{{ article.data.author or site.author.name }}</dc:creator>
       <category>{{ article.data.category }}</category>
       <description>{{ (article.data.dek or article.data.title) | escape }}</description>

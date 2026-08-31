@@ -24,6 +24,14 @@ module.exports = function (eleventyConfig) {
     return (dt.isValid ? dt : DateTime.now().setZone("Asia/Kolkata")).toFormat(format) + " IST";
   });
 
+  eleventyConfig.addFilter("rfc822Date", (dateObj) => {
+    if (!dateObj || dateObj === "now") {
+      return DateTime.now().setZone("Asia/Kolkata").toRFC2822();
+    }
+    const dt = typeof dateObj === "string" ? DateTime.fromISO(dateObj, { zone: "Asia/Kolkata" }) : DateTime.fromJSDate(dateObj, { zone: "Asia/Kolkata" });
+    return (dt.isValid ? dt : DateTime.now().setZone("Asia/Kolkata")).toRFC2822();
+  });
+
   eleventyConfig.addFilter("isoDate", (dateObj) => {
     if (!dateObj || dateObj === "now") return DateTime.now().toISO();
     const dt = typeof dateObj === "string" ? DateTime.fromISO(dateObj) : DateTime.fromJSDate(dateObj);

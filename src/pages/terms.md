@@ -6,7 +6,7 @@ permalink: "/terms/index.html"
 lastUpdated: "August 2026"
 ---
 
-Welcome to **SamacharDaily**. By accessing or using our website located at `https://samachardaily.github.io`, you agree to be bound by these Terms of Service.
+Welcome to **SamacharDaily**. By accessing or using our website located at `https://strngx.github.io/samachardaily`, you agree to be bound by these Terms of Service.
 
 ---
 
