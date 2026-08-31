@@ -35,7 +35,7 @@ function getConfig_() {
     GITHUB_BRANCH: props.getProperty('GITHUB_BRANCH') || 'main',
     GROQ_API_KEY: props.getProperty('GROQ_API_KEY') || '',
     GEMINI_API_KEY: props.getProperty('GEMINI_API_KEY') || '',
-    CEREBRAS_API_KEY: props.getProperty('CEREBRAS_API_KEY') || '',
+    OPENROUTER_API_KEY: props.getProperty('OPENROUTER_API_KEY') || '',
     NEWSDATA_API_KEY: props.getProperty('NEWSDATA_API_KEY') || '',
     CURRENTS_API_KEY: props.getProperty('CURRENTS_API_KEY') || '',
     PEXELS_API_KEY: props.getProperty('PEXELS_API_KEY') || '',
@@ -987,63 +987,57 @@ function rewriteWithGemini_(systemPrompt, userPrompt, config) {
 }
 
 /**
- * Fallback #2: Rewrites article via Cerebras (llama3.1-70b with gpt-oss-120b fallback).
+ * Model identifier for OpenRouter Tier 3 fallback.
+ * Configured in a single place for easy catalog updates.
+ */
+var OPENROUTER_MODEL = 'meta-llama/llama-3.3-70b-instruct:free';
+
+/**
+ * Fallback #2 (Tier 3): Rewrites article via OpenRouter API.
  *
  * @param {string} systemPrompt - Standardized system prompt.
  * @param {string} userPrompt - Standardized user prompt.
  * @param {Object} config - Configuration object.
  * @returns {Object} Parsed JSON article structure.
  */
-function rewriteWithCerebras_(systemPrompt, userPrompt, config) {
-  var cerebrasKey = (config && config.CEREBRAS_API_KEY) || PropertiesService.getScriptProperties().getProperty('CEREBRAS_API_KEY');
-  if (!cerebrasKey) {
-    throw new Error('Missing CEREBRAS_API_KEY in script properties.');
+function rewriteWithOpenRouter_(systemPrompt, userPrompt, config) {
+  var openRouterKey = (config && config.OPENROUTER_API_KEY) || PropertiesService.getScriptProperties().getProperty('OPENROUTER_API_KEY');
+  if (!openRouterKey) {
+    throw new Error('Missing OPENROUTER_API_KEY in script properties.');
   }
 
-  var url = 'https://api.cerebras.ai/v1/chat/completions';
-  var modelsToTry = ['llama3.1-70b', 'gpt-oss-120b'];
-  var lastError = null;
+  var url = 'https://openrouter.ai/api/v1/chat/completions';
+  var payload = {
+    model: OPENROUTER_MODEL,
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userPrompt }
+    ],
+    response_format: { type: 'json_object' },
+    temperature: 0.2
+  };
 
-  for (var m = 0; m < modelsToTry.length; m++) {
-    var modelName = modelsToTry[m];
-    var payload = {
-      model: modelName,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt }
-      ],
-      response_format: { type: 'json_object' },
-      temperature: 0.2
-    };
+  var options = {
+    method: 'post',
+    contentType: 'application/json',
+    headers: {
+      'Authorization': 'Bearer ' + openRouterKey
+    },
+    payload: JSON.stringify(payload),
+    muteHttpExceptions: true
+  };
 
-    var options = {
-      method: 'post',
-      contentType: 'application/json',
-      headers: {
-        'Authorization': 'Bearer ' + cerebrasKey
-      },
-      payload: JSON.stringify(payload),
-      muteHttpExceptions: true
-    };
-
-    var resp = UrlFetchApp.fetch(url, options);
-    var statusCode = resp.getResponseCode();
-    if (statusCode === 200) {
-      var data = JSON.parse(resp.getContentText());
-      if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
-        var text = data.choices[0].message.content;
-        return parseArticleJson_(text);
-      }
-    } else if (statusCode === 404 || statusCode === 400) {
-      Logger.log('Cerebras model ' + modelName + ' failed (' + statusCode + '). Trying next option...');
-      lastError = new Error('Cerebras API error with ' + modelName + ' (' + statusCode + '): ' + resp.getContentText());
-      continue;
-    } else {
-      lastError = new Error('Cerebras API error (' + statusCode + '): ' + resp.getContentText());
+  var resp = UrlFetchApp.fetch(url, options);
+  var statusCode = resp.getResponseCode();
+  if (statusCode === 200) {
+    var data = JSON.parse(resp.getContentText());
+    if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+      var text = data.choices[0].message.content;
+      return parseArticleJson_(text);
     }
   }
 
-  throw lastError || new Error('Malformed response from Cerebras API.');
+  throw new Error('OpenRouter API error (' + statusCode + '): ' + resp.getContentText());
 }
 
 /**
@@ -1336,14 +1330,14 @@ function rewriteWithGroq_(headline, category, config) {
       Logger.log('Generated via: Gemini (Groq fallback)');
       return geminiArticle;
     } catch (geminiErr) {
-      Logger.log('Gemini fallback failed: ' + geminiErr.message + '. Falling back to Tier 3 (Cerebras Llama 3.1 70B)...');
+      Logger.log('Gemini fallback failed: ' + geminiErr.message + '. Falling back to Tier 3 (OpenRouter Llama 3.3 70B)...');
       try {
-        var cerebrasArticle = rewriteWithCerebras_(systemPrompt, userPrompt, config);
-        Logger.log('Generated via: Cerebras (double fallback)');
-        return cerebrasArticle;
-      } catch (cerebrasErr) {
-        Logger.log('All 3 AI tiers (Groq, Gemini, Cerebras) failed.');
-        throw new Error('Groq rate limit: ' + (groqError ? groqError.message : '429') + ' | Gemini error: ' + geminiErr.message + ' | Cerebras error: ' + cerebrasErr.message);
+        var openRouterArticle = rewriteWithOpenRouter_(systemPrompt, userPrompt, config);
+        Logger.log('Generated via: OpenRouter (double fallback)');
+        return openRouterArticle;
+      } catch (openRouterErr) {
+        Logger.log('All 3 AI tiers (Groq, Gemini, OpenRouter) failed.');
+        throw new Error('Groq rate limit: ' + (groqError ? groqError.message : '429') + ' | Gemini error: ' + geminiErr.message + ' | OpenRouter error: ' + openRouterErr.message);
       }
     }
   }
