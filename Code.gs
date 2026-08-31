@@ -320,7 +320,7 @@ function isLowSubstance_(title) {
   return false;
 }
 
-var GAMBLING_PATTERN = /\b(polymarket|kalshi|betmgm|fanduel|draftkings|bovada|bet365|sportsbook|promo code|bonus code|deposit match|prop bet|prop picks?|betting (odds|lines|picks|market)|best bets?|parlay|moneyline|point spread|over\/under|lock of the (day|week)|bet slip|wager|wagering|odds to win|futures odds|prediction market)\b/i;
+var GAMBLING_PATTERN = /\b(polymarket|kalshi|betmgm|fanduel|draftkings|bovada|bet365|sportsbook|promo code|bonus code|deposit match|prop bet|prop picks?|betting (odds|lines|picks|market|predictions?)|best bets?|parlay|moneyline|point spread|over\/under|lock of the (day|week)|bet slip|wager|wagering|odds to win|futures odds|prediction market|dream11\s+(?:prediction|winning\s+team|team)|fantasy\s+(?:team|prediction|cricket\s+prediction)|winning\s+prediction|match\s+prediction(?:\s+today)?|who\s+will\s+win\s+today'?s\s+match)\b/i;
 
 /**
  * Checks if candidate involves gambling, betting, wagering, or prediction market promotions (AdSense policy risk).
@@ -346,7 +346,8 @@ var ASTROLOGY_SERVICE_PATTERNS = [
   /\b(?:aries|taurus|gemini|cancer|leo|virgo|libra|scorpio|sagittarius|capricorn|aquarius|pisces)\s+today\s*:\s*/i,
   /\bdaily\s+astrology\s+forecast\b/i,
   /\bfor\s+all\s+12\s+zodiac\s+signs\b/i,
-  /\bhoroscope\b/i
+  /\bhoroscope\b/i,
+  /\b(zodiac\s+sign\s+and\s+lucky\s+number|lucky\s+number\s+and\s+zodiac)\b/i
 ];
 
 var LEGITIMATE_ASTRO_NEWS_PATTERNS = [
@@ -424,7 +425,9 @@ var COMMERCIAL_RETAIL_PATTERNS = [
   /\b(?:buy\s*now|shop\s*now|add\s*to\s*cart|where\s*to\s*buy\s*(?:the|this))\b/i,
   /\b(?:retailer\s*discounts?|product\s*bargains?|shopping\s*roundup)\b/i,
   /\b(?:drops\s*to\s*\$\d+|slashed\s*to\s*\$\d+|just\s*\$\d+\.\d{2}\s*shipped)\b/i,
-  /\b(?:was\s*\$\d+[\s\S]*now\s*\$\d+|was\s*₹\d+[\s\S]*now\s*₹\d+)\b/i
+  /\b(?:was\s*\$\d+[\s\S]*now\s*\$\d+|was\s*₹\d+[\s\S]*now\s*₹\d+)\b/i,
+  /\b(?:best\s+(?:smartphones?|laptops?|tvs?|gadgets?|phones?|tablets?|cameras?|earbuds?|headphones?)\s+under\s+(?:₹|\$)\d+)\b/i,
+  /\b(?:where\s+to\s+buy\s+the\s+cheapest\s+(?:iphone|samsung|pixel|macbook|ipad|laptop|phone)\b)/i
 ];
 
 var COMMERCIAL_DOMAINS_PATTERN = /\b(?:hip2save\.com|slickdeals\.net|dealnews\.com|coupons\.com|retailmenot\.com|bringatrailer\.com|fool\.com|rakuten\.com|honey\.com|techbargains\.com)\b/i;
@@ -521,20 +524,29 @@ var FINANCIAL_ADVICE_PATTERN = /\b(which (stock|etf) is (the )?better buy|buy th
 
 var LEAKED_METADATA_PATTERN = /\b(why_it_matters|what_happens_next|image_keyword|video_query|seoTitle)\s*:\s*/i;
 
+var ENTERTAINMENT_FILLER_PATTERN = /\b(\d+\s+(?:best\s+)?movies?\s+to\s+watch(?:\s+tonight|\s+this\s+weekend)?|best\s+shows?\s+to\s+binge(?:\s+this\s+weekend|\s+tonight)?|top\s+\d+\s+netflix\s+shows|top\s+\d+\s+songs\s+to|celebrity\s+style\s+inspiration|celebrity\s+birthday\s+facts|upcoming\s+streaming\s+releases|what\s+to\s+watch\s+this\s+weekend|quizzes?|trivia\s+facts?)\b/i;
+
+var GENERIC_LISTICLE_PATTERN = /^(\d+\s+(?:essential|best|top|reasons|ways|things|tips|features|mistakes)\b|why you (should|need)|how to |the ultimate guide|everything you need to know about|things to know before|\d+\s+things\s+to\s+do\s+in)/i;
+
+var LEGITIMATE_POLICY_LISTICLE_PATTERN = /\b(tax\s+rules?|budget|policy|guidelines?|amendments?|regulations?|law|bill|ordinance|central\s+bank|rbi|cabinet|infrastructure|reform|key\s+changes|key\s+takeaways)\b/i;
+
+var SELF_PROMO_PATTERN = /\b(success at|shines at|showcases? (its|their)|proud to (announce|present)|celebrates? (its|their) success|wins accolades at|receives? recognition at|exciting new product for consumers|announces its exciting new product)\b/i;
+
 /**
- * Evaluates whether a candidate or generated article is editorially acceptable for publication.
- * Rejects commercial shopping deals, coupons, gambling, investment advice, PR/market spam,
- * wire dumps, listicles, malformed AI output, and leaked metadata keys.
- * Allows legitimate political, world, business, technology, and sports news.
+ * Centralized evaluation of newsworthy editorial quality for SamacharDaily.
+ * Rejects non-news filler, commercial deals, shopping roundups, gambling/prediction markets,
+ * investment advice, generic listicles, entertainment filler, game hints, PR advertising,
+ * and leaked generation metadata.
+ * Preserves genuine political, economic, corporate, scientific, technological, and sports news.
  *
  * @param {Object|string} candidateOrTitle - Candidate or Article object, or title string.
- * @param {string} [optDesc] - Description/dek if first param is string.
+ * @param {string} [optDesc] - Description/dek.
  * @param {string|Array} [optContent] - Body content.
  * @param {string} [optSourceUrl] - Source URL.
  * @param {string} [optSourceName] - Source Name.
- * @returns {Object} { acceptable: boolean, reason: string }
+ * @returns {Object} { reject: boolean, acceptable: boolean, reason: string }
  */
-function isEditoriallyAcceptable_(candidateOrTitle, optDesc, optContent, optSourceUrl, optSourceName) {
+function isNewsworthyEditorialContent_(candidateOrTitle, optDesc, optContent, optSourceUrl, optSourceName) {
   var title = '';
   var desc = '';
   var body = '';
@@ -557,64 +569,76 @@ function isEditoriallyAcceptable_(candidateOrTitle, optDesc, optContent, optSour
 
   // 1. Commercial shopping, coupon, and retailer deals
   if (isCommercialRetailContent_(title, desc, body, sourceUrl, sourceName)) {
-    return { acceptable: false, reason: 'Commercial retail / coupon / deal content' };
+    return { reject: true, acceptable: false, reason: 'COMMERCIAL SHOPPING / DEAL CONTENT' };
   }
 
-  // 2. Gambling, sportsbook, and prediction market promotions
+  // 2. Gambling, sportsbook, fantasy Dream11, and sports betting predictions
   if (isGamblingContent_(title, desc)) {
-    return { acceptable: false, reason: 'Gambling / prediction market content' };
+    return { reject: true, acceptable: false, reason: 'GAMBLING / SPORTS PREDICTION CONTENT' };
   }
 
   // 3. Astrology, daily horoscopes, and fortune-telling guidance
   if (isAstrologyContent_(title, desc, body, sourceUrl, sourceName)) {
-    return { acceptable: false, reason: 'ASTROLOGY / HOROSCOPE CONTENT' };
+    return { reject: true, acceptable: false, reason: 'ASTROLOGY / HOROSCOPE CONTENT' };
   }
 
   // 4. Investment advice & stock advisory spam
   var fullText = title + ' ' + desc + ' ' + body;
   if (STOCK_ADVISORY_PATTERN.test(fullText) || TICKER_MENTION_PATTERN.test(title) || CHAPTER_STOCK_PATTERN.test(title) || FINANCIAL_ADVICE_PATTERN.test(fullText)) {
-    return { acceptable: false, reason: 'Investment advice / stock advisory content' };
+    return { reject: true, acceptable: false, reason: 'INVESTMENT ADVICE / STOCK ADVISORY CONTENT' };
   }
 
   // 5. Wire summary dumps & ticker dumps
   if (isWireSummaryDump_(title) || isLowSubstance_(title)) {
-    return { acceptable: false, reason: 'Wire summary dump / low-substance ticker content' };
+    return { reject: true, acceptable: false, reason: 'WIRE SUMMARY DUMP / LOW-SUBSTANCE TICKER CONTENT' };
   }
 
   // 6. Syndicated PR wire & market research spam
   if (isPressReleaseSpam_(title, desc, body)) {
-    return { acceptable: false, reason: 'Syndicated PR wire / market research spam' };
+    return { reject: true, acceptable: false, reason: 'SYNDICATED PR WIRE / MARKET RESEARCH SPAM' };
   }
 
-  // 7. Game puzzle hints & streaming schedules
+  // 7. Entertainment filler / "what to watch" / streaming lists
+  if (ENTERTAINMENT_FILLER_PATTERN.test(title + ' ' + desc)) {
+    return { reject: true, acceptable: false, reason: 'ENTERTAINMENT FILLER / WHAT TO WATCH CONTENT' };
+  }
+
+  // 8. Gaming puzzle answers & pure streaming schedules
   if (isAggregatorOrGameHint_(title, desc)) {
-    return { acceptable: false, reason: 'Game hint / streaming schedule content' };
+    return { reject: true, acceptable: false, reason: 'GAME HINT / STREAMING SCHEDULE CONTENT' };
   }
 
-  // 8. Listicles & generic blog formats
-  if (isListicleFormat_(title)) {
-    return { acceptable: false, reason: 'Listicle / generic blog format' };
+  // 9. Generic listicles & lifestyle filler (unless reporting real policy/government news)
+  if (GENERIC_LISTICLE_PATTERN.test(title.trim()) && !LEGITIMATE_POLICY_LISTICLE_PATTERN.test(title)) {
+    return { reject: true, acceptable: false, reason: 'GENERIC LISTICLE / LIFESTYLE FILLER' };
   }
 
-  // 9. Self-promotional PR praise
+  // 10. Self-promotional PR advertising & corporate self-praise
   if (isSelfPromotional_(title)) {
-    return { acceptable: false, reason: 'Self-promotional corporate praise' };
+    return { reject: true, acceptable: false, reason: 'PR / CORPORATE SELF-PROMOTION CONTENT' };
   }
 
-  // 10. Leaked generation metadata inside visible text
+  // 11. Leaked generation metadata inside visible text
   if (body && LEAKED_METADATA_PATTERN.test(body)) {
-    return { acceptable: false, reason: 'Leaked internal generation metadata in body' };
+    return { reject: true, acceptable: false, reason: 'LEAKED GENERATION METADATA' };
   }
 
-  // 11. Minimum substance check
+  // 12. Minimum substance check
   if (!title || title.trim().length < 15) {
-    return { acceptable: false, reason: 'Title too short or empty' };
+    return { reject: true, acceptable: false, reason: 'LOW-SUBSTANCE / TITLE EMPTY' };
   }
 
-  return { acceptable: true, reason: 'Passed all editorial quality checks' };
+  return { reject: false, acceptable: true, reason: 'PASSED EDITORIAL NEWSWORTHINESS TEST' };
 }
 
-var GAME_HINTS_AND_STREAM_PATTERN = /\b(quordle|wordle|connections|crossword|strands|spelling bee|octordle|contexto)\s+(hints?|clues?|answers?|today|daily)|today's\s+(quordle|wordle|connections|crossword|strands)\b|\b(how to watch|where to watch|watch\s+.+\s+live\s+stream|streaming details|live stream channel|live stream online|air time and tv channel)\b/i;
+/**
+ * Editorial Quality Gate compatibility wrapper.
+ */
+function isEditoriallyAcceptable_(candidateOrTitle, optDesc, optContent, optSourceUrl, optSourceName) {
+  return isNewsworthyEditorialContent_(candidateOrTitle, optDesc, optContent, optSourceUrl, optSourceName);
+}
+
+var GAME_HINTS_AND_STREAM_PATTERN = /\b(quordle|wordle|connections|crossword|strands|spelling bee|octordle|contexto)\s+(hints?|clues?|answers?|today|daily)|today's\s+(quordle|wordle|connections|crossword|strands)|(wordle|connections|quordle)\s+answer\s+today\b|\b(how to watch|where to watch|watch\s+.+\s+live\s+stream|streaming details|live stream channel|live stream online|air time and tv channel|game walkthrough|game hints|daily puzzle answers)\b/i;
 
 /**
  * Checks if candidate is game-puzzle answer hints or pure streaming availability schedule dumps.
@@ -628,8 +652,6 @@ function isAggregatorOrGameHint_(title, description) {
   return GAME_HINTS_AND_STREAM_PATTERN.test(text);
 }
 
-var LISTICLE_PATTERN = /^(\d+\s+(essential|best|top|reasons|ways|things|tips|features|mistakes)|why you (should|need)|how to |the ultimate guide|everything you need to know about)/i;
-
 /**
  * Checks if a headline matches generic listicle or how-to blog formats.
  *
@@ -638,10 +660,8 @@ var LISTICLE_PATTERN = /^(\d+\s+(essential|best|top|reasons|ways|things|tips|fea
  */
 function isListicleFormat_(title) {
   if (!title || typeof title !== 'string') return false;
-  return LISTICLE_PATTERN.test(title.trim());
+  return GENERIC_LISTICLE_PATTERN.test(title.trim()) && !LEGITIMATE_POLICY_LISTICLE_PATTERN.test(title);
 }
-
-var SELF_PROMO_PATTERN = /\b(success at|shines at|showcases? (its|their)|proud to (announce|present)|celebrates? (its|their) success|wins accolades at|receives? recognition at)\b/i;
 
 /**
  * Checks if a headline matches self-promotional, corporate self-praise, or tourism-board PR.
