@@ -24,12 +24,11 @@ Thank you for your interest in **SamacharDaily**. Whether you have a news tip, f
 
 ---
 
-## Publication Headquarters
+## Editorial Location & Identity
 
 **SamacharDaily Media**  
-Cyber Hub, DLF Phase 2  
-Gurugram, Haryana 122002  
-India
+Digital news publication based in India  
+Editorial inquiries: [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
 
 ---
 

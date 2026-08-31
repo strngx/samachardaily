@@ -12,40 +12,45 @@ At **SamacharDaily** (`https://strngx.github.io/samachardaily`), accessible from
 
 ## 1. Information We Collect
 
-### Log Files
-SamacharDaily follows a standard procedure of using log files. These files log visitors when they visit websites. The information collected by log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site, tracking users' movement on the website, and gathering demographic information.
+### Log Files & Technical Data
+SamacharDaily follows standard operating procedures of using server log files. The information collected includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamps, referring/exit pages, and general click trends. This information is used strictly to analyze site traffic, administer the portal, detect technical anomalies, and optimize performance. Log data is not linked to personally identifiable information.
+
+### Web Analytics
+SamacharDaily uses Google Analytics to understand overall audience trends, page readership, and technical performance. Analytics data is aggregated and anonymized to evaluate site usability without identifying individual users.
 
 ### Newsletter Subscription
-If you subscribe to our newsletter, we collect your email address solely for the purpose of sending daily or weekly news roundups. You can unsubscribe at any time using the link in the email footer.
+If you voluntarily subscribe to our daily news roundup, we collect your email address solely for delivering requested editorial briefings. You may unsubscribe at any time using the opt-out link provided in every newsletter communication.
 
 ---
 
-## 2. Cookies and Web Beacons
+## 2. Cookies, Web Beacons & Advertising Disclosures
 
-Like any other website, SamacharDaily uses "cookies". These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the users' experience by customizing our web page content based on visitors' browser type and/or other information.
+SamacharDaily uses standard cookies to store visitor preferences and optimize page rendering based on device and browser configurations.
 
----
+### Third-Party Vendors & Advertising Partners
+Third-party vendors, including Google, may use cookies, web beacons, IP addresses, and related digital technologies to serve, measure, and optimize advertisements on this website based on a user's prior visits to this or other websites:
 
-## 3. Google DoubleClick DART Cookie & Advertising Partners
-
-Google is one of a third-party vendor on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our site and other sites on the internet. 
-
-- Visitors may choose to decline the use of DART cookies by visiting the Google ad and content network Privacy Policy at the following URL: [https://policies.google.com/technologies/ads](https://policies.google.com/technologies/ads).
-- Third-party ad servers or ad networks uses technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on SamacharDaily, which are sent directly to users' browser. They automatically receive your IP address when this occurs.
+- **Personalized & Contextual Advertising:** Third-party advertising partners may serve personalized or contextual advertisements based on relevant browsing activity, where permitted by regional regulations.
+- **Opt-Out Controls:** Users may manage or opt out of personalized Google advertising at any time by visiting [Google Ads Settings](https://www.google.com/settings/ads). Alternatively, users can opt out of third-party vendor cookies across various networks by visiting [AboutAds.info](https://www.aboutads.info/choices/) or the [Network Advertising Initiative](https://optout.networkadvertising.org/).
+- **No Sale of Personal Data:** SamacharDaily does not sell, rent, or trade visitors' personal data to third parties.
 
 ---
 
-## 4. Third-Party Privacy Policies
+## 3. Third-Party Embedded Content & Services
 
-SamacharDaily's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers or embedded platforms (such as YouTube and Pexels) for more detailed information.
+Articles on SamacharDaily may include embedded media, such as video journalism hosted on YouTube and editorial photography licensed from Pexels:
+- Embedded content from third-party platforms behaves in the exact same manner as if the visitor visited the host platform directly.
+- These external platforms may collect data, utilize their own cookies, or monitor interactions in accordance with their respective privacy policies.
 
 ---
 
-## 5. GDPR & Indian Digital Personal Data Protection (DPDP) Compliance
+## 4. International Privacy & Data Protection Rights
 
-We are committed to ensuring your data protection rights. Every user is entitled to the following:
-- **The right to access** – You have the right to request copies of your personal data.
-- **The right to rectification** – You have the right to request that we correct any information you believe is inaccurate.
-- **The right to erasure** – You have the right to request that we erase your personal data, under certain conditions.
+### Indian Digital Personal Data Protection (DPDP) Act
+In alignment with the Digital Personal Data Protection framework, visitors retain rights to know how their digital data is processed, request corrections of inaccurate personal data, and request the deletion of subscribed information.
 
-If you make a request, we have one month to respond to you. If you would like to exercise any of these rights, please contact us at [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com).
+### European Economic Area (EEA), UK & Switzerland Notice
+When advertising technologies are deployed for visitors residing in the European Economic Area (EEA), United Kingdom, or Switzerland, applicable regional consent requirements and data protection frameworks under the General Data Protection Regulation (GDPR) and UK GDPR will be respected.
+
+### Data Protection Inquiries & Rights Requests
+Users wishing to exercise data access, rectification, or deletion rights regarding subscribed communications may contact our privacy desk directly at [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com).
