@@ -36,6 +36,7 @@ function getConfig_() {
     GROQ_API_KEY: props.getProperty('GROQ_API_KEY') || '',
     GEMINI_API_KEY: props.getProperty('GEMINI_API_KEY') || '',
     OPENROUTER_API_KEY: props.getProperty('OPENROUTER_API_KEY') || '',
+    OPENROUTER_MODEL: props.getProperty('OPENROUTER_MODEL') || 'google/gemma-4-31b-it:free',
     NEWSDATA_API_KEY: props.getProperty('NEWSDATA_API_KEY') || '',
     CURRENTS_API_KEY: props.getProperty('CURRENTS_API_KEY') || '',
     PEXELS_API_KEY: props.getProperty('PEXELS_API_KEY') || '',
@@ -1169,7 +1170,8 @@ function rewriteWithGemini_(systemPrompt, userPrompt, config) {
 }
 
 /**
- * Fallback #2 (Tier 3): Rewrites article via OpenRouter (meta-llama/llama-3.3-70b-instruct:free).
+ * Fallback #2 (Tier 3): Rewrites article via OpenRouter.
+ * Uses verified active free model (google/gemma-4-31b-it:free) with router fallback (openrouter/free).
  *
  * @param {string} systemPrompt - Standardized system prompt.
  * @param {string} userPrompt - Standardized user prompt.
@@ -1182,40 +1184,50 @@ function rewriteWithOpenRouter_(systemPrompt, userPrompt, config) {
     throw new Error('Missing OPENROUTER_API_KEY in script properties.');
   }
 
-  var url = 'https://openrouter.ai/api/v1/chat/completions';
-  var payload = {
-    model: 'meta-llama/llama-3.3-70b-instruct:free',
-    messages: [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: userPrompt }
-    ],
-    response_format: { type: 'json_object' },
-    temperature: 0.2
-  };
+  var configuredModel = PropertiesService.getScriptProperties().getProperty('OPENROUTER_MODEL');
+  var modelsToTry = configuredModel ? [configuredModel] : ['google/gemma-4-31b-it:free', 'openrouter/free'];
+  var lastError = null;
 
-  var options = {
-    method: 'post',
-    contentType: 'application/json',
-    headers: {
-      'Authorization': 'Bearer ' + openRouterKey,
-      'HTTP-Referer': 'https://samachardaily.com',
-      'X-Title': 'SamacharDaily News Pipeline'
-    },
-    payload: JSON.stringify(payload),
-    muteHttpExceptions: true
-  };
+  for (var m = 0; m < modelsToTry.length; m++) {
+    var modelName = modelsToTry[m];
+    var url = 'https://openrouter.ai/api/v1/chat/completions';
+    var payload = {
+      model: modelName,
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt }
+      ],
+      response_format: { type: 'json_object' },
+      temperature: 0.2
+    };
 
-  var resp = UrlFetchApp.fetch(url, options);
-  var statusCode = resp.getResponseCode();
-  if (statusCode === 200) {
-    var data = JSON.parse(resp.getContentText());
-    if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
-      var text = data.choices[0].message.content;
-      return parseArticleJson_(text);
+    var options = {
+      method: 'post',
+      contentType: 'application/json',
+      headers: {
+        'Authorization': 'Bearer ' + openRouterKey,
+        'HTTP-Referer': 'https://samachardaily.com',
+        'X-Title': 'SamacharDaily News Pipeline'
+      },
+      payload: JSON.stringify(payload),
+      muteHttpExceptions: true
+    };
+
+    var resp = UrlFetchApp.fetch(url, options);
+    var statusCode = resp.getResponseCode();
+    if (statusCode === 200) {
+      var data = JSON.parse(resp.getContentText());
+      if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+        var text = data.choices[0].message.content;
+        return parseArticleJson_(text);
+      }
+    } else {
+      Logger.log('OpenRouter model ' + modelName + ' returned HTTP ' + statusCode + ': ' + resp.getContentText());
+      lastError = new Error('OpenRouter API error (' + statusCode + ' with ' + modelName + '): ' + resp.getContentText());
     }
   }
 
-  throw new Error('OpenRouter API error (' + statusCode + '): ' + resp.getContentText());
+  throw lastError || new Error('Malformed response from OpenRouter API.');
 }
 
 /**
@@ -1273,7 +1285,7 @@ function recordGroqTokenUsage_(tokens) {
  * Rewrites news wire dispatch into high-credibility SamacharDaily article.
  * Tier 1: Groq Llama 3.3 / GPT-OSS (Primary)
  * Tier 2: Gemini 3.6 Flash (Fallback #1 on 429 / TPD limit)
- * Tier 3: OpenRouter Llama 3.3 70B (Fallback #2 on double failure)
+ * Tier 3: OpenRouter (Fallback #2 on double failure)
  *
  * @param {Object} headline - The selected candidate news dispatch.
  * @param {string} category - Focus category name.
