@@ -333,18 +333,105 @@ function isGamblingContent_(title, description) {
   return GAMBLING_PATTERN.test(text);
 }
 
-var COMMERCIAL_DEAL_PATTERN = /\b(\d+%\s*off|coupon|promo code|\bdeals?\b|on sale|drops? to \$\d+|discounted?|price drop|save \$\d+|lowest price ever|special offer on (amazon|walmart|best buy|target|flipkart)|on amazon with coupon|with coupon code)\b/i;
+var COMMERCIAL_RETAIL_PATTERNS = [
+  /\b(?:coupon|coupon\s*code|promo\s*code|discount\s*code|discount\s*voucher)\b/i,
+  /\b(?:subscribe\s*&\s*save|subscribe\s*and\s*save)\b/i,
+  /\b(?:deal\s*of\s*the\s*day|today'?s\s*deals?|best\s*deals?|shopping\s*deals?|amazon\s*deals?|walmart\s*deals?|target\s*deals?|flipkart\s*deals?|best\s*buy\s*deals?)\b/i,
+  /\b(?:price\s*drop|price\s*cut|lowest\s*price(?:\s*ever)?|all-time\s*low\s*price)\b/i,
+  /\b(?:cashback|cash\s*back|mail-in\s*rebate)\b/i,
+  /\b(?:save\s*\$\d+|save\s*₹\d+|\$\d+\s*off|₹\d+\s*off|\d+%\s*off)\b/i,
+  /\b(?:shipped\s*on\s*amazon|available\s*on\s*amazon|on\s*amazon\s*for\s*\$\d+)\b/i,
+  /\b(?:buy\s*now|shop\s*now|add\s*to\s*cart|where\s*to\s*buy\s*(?:the|this))\b/i,
+  /\b(?:retailer\s*discounts?|product\s*bargains?|shopping\s*roundup)\b/i,
+  /\b(?:drops\s*to\s*\$\d+|slashed\s*to\s*\$\d+|just\s*\$\d+\.\d{2}\s*shipped)\b/i,
+  /\b(?:was\s*\$\d+[\s\S]*now\s*\$\d+|was\s*₹\d+[\s\S]*now\s*₹\d+)\b/i
+];
+
+var COMMERCIAL_DOMAINS_PATTERN = /\b(?:hip2save\.com|slickdeals\.net|dealnews\.com|coupons\.com|retailmenot\.com|bringatrailer\.com|fool\.com|rakuten\.com|honey\.com|techbargains\.com)\b/i;
+
+var LEGITIMATE_NEWS_PATTERNS = [
+  /\b(?:trade\s*deal|bilateral\s*deal|diplomatic\s*deal|peace\s*deal|ceasefire\s*deal|climate\s*deal)\b/i,
+  /\b(?:acquisition\s*deal|merger\s*deal|takeover\s*deal|licensing\s*deal|partnership\s*deal|supply\s*deal)\b/i,
+  /\b(?:signs?\s*deal|seals?\s*deal|approves?\s*deal|strikes?\s*deal|reaches?\s*deal|agrees?\s*deal|inks?\s*deal)\b/i,
+  /\b(?:billion-dollar\s*deal|crore\s*deal|multi-million\s*deal|government\s*deal|contract\s*deal)\b/i
+];
 
 /**
- * Checks if candidate is promotional deal, coupon, or retailer SKU price-drop content.
+ * Semantically determines if content is commercial shopping, coupon promo, or retailer price-drop content.
+ * Evaluates title, description, body content, sourceName, and sourceUrl.
+ * Protects legitimate journalism (mergers, acquisitions, trade treaties, and diplomatic agreements).
  *
- * @param {string} title - Headline.
- * @param {string} description - Summary or description.
- * @returns {boolean} True if commercial deal/coupon spam.
+ * @param {Object|string} candidateOrTitle - Candidate object or title string.
+ * @param {string} [optDesc] - Description if first param is string.
+ * @param {string|Array} [optContent] - Body content.
+ * @param {string} [optSourceUrl] - Source URL.
+ * @param {string} [optSourceName] - Source Name.
+ * @returns {boolean} True if commercial retail/shopping content.
+ */
+function isCommercialRetailContent_(candidateOrTitle, optDesc, optContent, optSourceUrl, optSourceName) {
+  var title = '';
+  var desc = '';
+  var body = '';
+  var sourceUrl = '';
+  var sourceName = '';
+
+  if (candidateOrTitle && typeof candidateOrTitle === 'object') {
+    title = candidateOrTitle.title || '';
+    desc = candidateOrTitle.description || candidateOrTitle.dek || '';
+    body = Array.isArray(candidateOrTitle.content) ? candidateOrTitle.content.join(' ') : (candidateOrTitle.content || '');
+    sourceUrl = candidateOrTitle.sourceUrl || candidateOrTitle.url || '';
+    sourceName = candidateOrTitle.sourceName || '';
+  } else {
+    title = candidateOrTitle || '';
+    desc = optDesc || '';
+    body = Array.isArray(optContent) ? optContent.join(' ') : (optContent || '');
+    sourceUrl = optSourceUrl || '';
+    sourceName = optSourceName || '';
+  }
+
+  // 1. Check known commercial / deal / auction domains
+  if (sourceUrl && COMMERCIAL_DOMAINS_PATTERN.test(sourceUrl)) {
+    return true;
+  }
+
+  var fullText = title + ' ' + desc + ' ' + body + ' ' + sourceUrl + ' ' + sourceName;
+
+  // 2. High-confidence commercial triggers in headline or summary
+  var headerText = title + ' ' + desc;
+  if (/\b(coupon|promo\s*code|discount\s*code|subscribe\s*&\s*save|shipped\s*on\s*amazon|just\s*\$\d+\.\d{2}\s*shipped|drops\s*to\s*\$\d+)\b/i.test(headerText)) {
+    return true;
+  }
+
+  // 3. Check for multiple commercial signals while protecting legitimate news
+  var matchCount = 0;
+  for (var i = 0; i < COMMERCIAL_RETAIL_PATTERNS.length; i++) {
+    if (COMMERCIAL_RETAIL_PATTERNS[i].test(fullText)) {
+      matchCount++;
+    }
+  }
+
+  if (matchCount === 0) return false;
+
+  var isLegitNews = false;
+  for (var j = 0; j < LEGITIMATE_NEWS_PATTERNS.length; j++) {
+    if (LEGITIMATE_NEWS_PATTERNS[j].test(title)) {
+      isLegitNews = true;
+      break;
+    }
+  }
+
+  if (isLegitNews && matchCount < 2) {
+    return false;
+  }
+
+  return matchCount >= 1 && (/\b(amazon|walmart|flipkart|target|best buy|coupons?|deals?|save|drops?|discount|\% off|\$\d+)\b/i.test(title));
+}
+
+/**
+ * Backward compatibility alias for isCommercialDeal_.
  */
 function isCommercialDeal_(title, description) {
-  var text = (title || '') + ' ' + (description || '');
-  return COMMERCIAL_DEAL_PATTERN.test(text);
+  return isCommercialRetailContent_(title, description);
 }
 
 var GAME_HINTS_AND_STREAM_PATTERN = /\b(quordle|wordle|connections|crossword|strands|spelling bee|octordle|contexto)\s+(hints?|clues?|answers?|today|daily)|today's\s+(quordle|wordle|connections|crossword|strands)\b|\b(how to watch|where to watch|watch\s+.+\s+live\s+stream|streaming details|live stream channel|live stream online|air time and tv channel)\b/i;
@@ -1860,6 +1947,12 @@ function runPipelineForCategory_(categoryKey) {
   Logger.log('Selected candidate from ' + validCandidates.length + ' valid items: "' +
     selectedCandidate.title + '" [Trending: ' + selectedCandidate.trendingMatch + ']');
 
+  // Stage 2: Quality Gate on Selected Candidate
+  if (isCommercialRetailContent_(selectedCandidate)) {
+    Logger.log('REJECTED — COMMERCIAL RETAIL CONTENT (Stage 2 Selected Candidate): "' + selectedCandidate.title + '"');
+    return { success: false, reason: 'Selected candidate rejected as commercial retail content' };
+  }
+
   var isFeatured = (function() {
     if (!selectedCandidate.pubDate) return false;
     var published = new Date(selectedCandidate.pubDate);
@@ -1886,6 +1979,12 @@ function runPipelineForCategory_(categoryKey) {
     }
   }
 
+  // Stage 3: Post-Synthesis Commercial Quality Gate
+  if (isCommercialRetailContent_(article.title, article.dek, article.content, selectedCandidate.sourceUrl, selectedCandidate.sourceName)) {
+    Logger.log('REJECTED — COMMERCIAL RETAIL CONTENT (Stage 3 Post-Synthesis): "' + (article.title || selectedCandidate.title) + '"');
+    return { success: false, reason: 'Synthesized article rejected as commercial retail content' };
+  }
+
   // Ensure slug is derived from clean English synthesized title
   selectedCandidate.slug = generateSlug_(article.title || selectedCandidate.title);
 
@@ -1903,6 +2002,12 @@ function runPipelineForCategory_(categoryKey) {
 
   // Step 6: Build Markdown & Frontmatter (Fixes 5, 6, 7)
   var markdownContent = buildMarkdown_(article, imageObj, videos, selectedCandidate.sourceUrl, selectedCandidate, isFeatured);
+
+  // Stage 4: Pre-Publish Final Gate
+  if (isCommercialRetailContent_(article.title, article.dek, markdownContent, selectedCandidate.sourceUrl, selectedCandidate.sourceName)) {
+    Logger.log('REJECTED — COMMERCIAL RETAIL CONTENT (Stage 4 Pre-Publish): "' + (article.title || selectedCandidate.title) + '"');
+    return { success: false, reason: 'Final markdown rejected as commercial retail content' };
+  }
 
   // Step 7: Publish to GitHub
   var targetPath = catCfg.folder + '/' + selectedCandidate.slug + '.md';
