@@ -25,9 +25,11 @@ sourceName: "Menafn"
 dek: "President Donald Trump signed an executive order establishing a new national military academy, the US Space Academy, to be led by NASA and integrated with the Space Force for advanced space‑operations training."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  
-what_happens_next: "No confirmed next steps reported yet."
+  The academy addresses a critical talent gap as the United States seeks to maintain strategic superiority in low‑Earth orbit and beyond ensuring a steady flow of officers capable of operating increasingly complex space assets. Its establishment also signals a deeper militarization of space policy prompting budget reallocations and influencing international norms as rival powers accelerate their own space education programs.
+
+what_happens_next: "NASA will convene a curriculum development board within the next 30 days while the Department of Defense will appoint a commanding officer for the academy. A site‑selection committee is expected to deliver a shortlist of three locations within 90 days after which Congress will review the funding request for final approval."
 ---
+
 The order, announced Friday at the White House, creates a four‑year, federally funded institution that will operate under a joint NASA‑Department of Defense framework.  Its mandate is to develop a pipeline of officers skilled in orbital mechanics, satellite engineering, cyber‑defense and space‑law, directly feeding the U.S. Space Force.
 
 The academy will recruit high‑school graduates and offer a curriculum modeled on the service academies, emphasizing STEM, leadership and operational readiness.  Funding of $2.5 billion over five years has been earmarked, with site selection slated for an existing NASA research complex pending a federal review panel.
@@ -35,37 +37,3 @@ The academy will recruit high‑school graduates and offer a curriculum modeled 
 Lawmakers from both parties praised the move as a boost to national security, while some defense analysts warned of potential mission creep.  NASA officials said the academy will accelerate talent development, and aerospace firms welcomed the prospect of a larger, highly trained workforce.
 
 )
-
-why_it_matters
-
-:
-
-The academy addresses a critical talent gap as the United States seeks to maintain strategic superiority in low‑Earth orbit and beyond
-
-ensuring a steady flow of officers capable of operating increasingly complex space assets.
-
-Its establishment also signals a deeper militarization of space policy
-
-prompting budget reallocations and influencing international norms as rival powers accelerate their own space education programs.
-
-what_happens_next
-
-:
-
-NASA will convene a curriculum development board within the next 30 days
-
-while the Department of Defense will appoint a commanding officer for the academy.  A site‑selection committee is expected to deliver a shortlist of three locations within 90 days
-
-after which Congress will review the funding request for final approval.
-
-image_keyword
-
-:
-
-US Space Academy training facility
-
-video_query
-
-:
-
-Trump signing space academy order press conference

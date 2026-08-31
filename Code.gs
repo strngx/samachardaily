@@ -434,6 +434,101 @@ function isCommercialDeal_(title, description) {
   return isCommercialRetailContent_(title, description);
 }
 
+var STOCK_ADVISORY_PATTERN = /\b(target price|buy rating|which stocks benefit|earnings visibility|structural tailwinds)\b/i;
+var TICKER_MENTION_PATTERN = /\b[A-Z]{2,5}\s+(stock|shares)\b/;
+var CHAPTER_STOCK_PATTERN = /opens a new chapter for\s+[A-Z]/;
+var FINANCIAL_ADVICE_PATTERN = /\b(which (stock|etf) is (the )?better buy|buy this stock now|top stocks to buy|best crypto to invest in|portfolio allocation tip)\b/i;
+
+var LEAKED_METADATA_PATTERN = /\b(why_it_matters|what_happens_next|image_keyword|video_query|seoTitle)\s*:\s*/i;
+
+/**
+ * Evaluates whether a candidate or generated article is editorially acceptable for publication.
+ * Rejects commercial shopping deals, coupons, gambling, investment advice, PR/market spam,
+ * wire dumps, listicles, malformed AI output, and leaked metadata keys.
+ * Allows legitimate political, world, business, technology, and sports news.
+ *
+ * @param {Object|string} candidateOrTitle - Candidate or Article object, or title string.
+ * @param {string} [optDesc] - Description/dek if first param is string.
+ * @param {string|Array} [optContent] - Body content.
+ * @param {string} [optSourceUrl] - Source URL.
+ * @param {string} [optSourceName] - Source Name.
+ * @returns {Object} { acceptable: boolean, reason: string }
+ */
+function isEditoriallyAcceptable_(candidateOrTitle, optDesc, optContent, optSourceUrl, optSourceName) {
+  var title = '';
+  var desc = '';
+  var body = '';
+  var sourceUrl = '';
+  var sourceName = '';
+
+  if (candidateOrTitle && typeof candidateOrTitle === 'object') {
+    title = candidateOrTitle.title || '';
+    desc = candidateOrTitle.description || candidateOrTitle.dek || '';
+    body = Array.isArray(candidateOrTitle.content) ? candidateOrTitle.content.join(' ') : (candidateOrTitle.content || '');
+    sourceUrl = candidateOrTitle.sourceUrl || candidateOrTitle.url || '';
+    sourceName = candidateOrTitle.sourceName || '';
+  } else {
+    title = candidateOrTitle || '';
+    desc = optDesc || '';
+    body = Array.isArray(optContent) ? optContent.join(' ') : (optContent || '');
+    sourceUrl = optSourceUrl || '';
+    sourceName = optSourceName || '';
+  }
+
+  // 1. Commercial shopping, coupon, and retailer deals
+  if (isCommercialRetailContent_(title, desc, body, sourceUrl, sourceName)) {
+    return { acceptable: false, reason: 'Commercial retail / coupon / deal content' };
+  }
+
+  // 2. Gambling, sportsbook, and prediction market promotions
+  if (isGamblingContent_(title, desc)) {
+    return { acceptable: false, reason: 'Gambling / prediction market content' };
+  }
+
+  // 3. Investment advice & stock advisory spam
+  var fullText = title + ' ' + desc + ' ' + body;
+  if (STOCK_ADVISORY_PATTERN.test(fullText) || TICKER_MENTION_PATTERN.test(title) || CHAPTER_STOCK_PATTERN.test(title) || FINANCIAL_ADVICE_PATTERN.test(fullText)) {
+    return { acceptable: false, reason: 'Investment advice / stock advisory content' };
+  }
+
+  // 4. Wire summary dumps & ticker dumps
+  if (isWireSummaryDump_(title) || isLowSubstance_(title)) {
+    return { acceptable: false, reason: 'Wire summary dump / low-substance ticker content' };
+  }
+
+  // 5. Syndicated PR wire & market research spam
+  if (isPressReleaseSpam_(title, desc, body)) {
+    return { acceptable: false, reason: 'Syndicated PR wire / market research spam' };
+  }
+
+  // 6. Game puzzle hints & streaming schedules
+  if (isAggregatorOrGameHint_(title, desc)) {
+    return { acceptable: false, reason: 'Game hint / streaming schedule content' };
+  }
+
+  // 7. Listicles & generic blog formats
+  if (isListicleFormat_(title)) {
+    return { acceptable: false, reason: 'Listicle / generic blog format' };
+  }
+
+  // 8. Self-promotional PR praise
+  if (isSelfPromotional_(title)) {
+    return { acceptable: false, reason: 'Self-promotional corporate praise' };
+  }
+
+  // 9. Leaked generation metadata inside visible text
+  if (body && LEAKED_METADATA_PATTERN.test(body)) {
+    return { acceptable: false, reason: 'Leaked internal generation metadata in body' };
+  }
+
+  // 10. Minimum substance check
+  if (!title || title.trim().length < 15) {
+    return { acceptable: false, reason: 'Title too short or empty' };
+  }
+
+  return { acceptable: true, reason: 'Passed all editorial quality checks' };
+}
+
 var GAME_HINTS_AND_STREAM_PATTERN = /\b(quordle|wordle|connections|crossword|strands|spelling bee|octordle|contexto)\s+(hints?|clues?|answers?|today|daily)|today's\s+(quordle|wordle|connections|crossword|strands)\b|\b(how to watch|where to watch|watch\s+.+\s+live\s+stream|streaming details|live stream channel|live stream online|air time and tv channel)\b/i;
 
 /**
@@ -1837,51 +1932,10 @@ function runPipelineForCategory_(categoryKey) {
   for (var i = 0; i < relevanceCandidates.length; i++) {
     var c = relevanceCandidates[i];
 
-    // Reject gambling, betting, and prediction market promotions (AdSense policy risk)
-    if (isGamblingContent_(c.title, c.description)) {
-      Logger.log('SKIPPED (Gambling/Betting/Prediction Market - Policy Risk): "' + c.title + '"');
-      continue;
-    }
-
-    // Reject commercial deals, coupons, and retailer price-drops
-    if (isCommercialDeal_(c.title, c.description)) {
-      Logger.log('SKIPPED (Commercial Deal/Coupon/Price-Drop): "' + c.title + '"');
-      continue;
-    }
-
-    // Reject wire summary ticker dumps
-    if (isWireSummaryDump_(c.title)) {
-      Logger.log('SKIPPED (Wire Summary/Brief Dump): "' + c.title + '"');
-      continue;
-    }
-
-    // Reject syndicated market-research and PR-wire spam
-    if (isPressReleaseSpam_(c.title, c.description, c.content)) {
-      Logger.log('Skipping market report / PR spam candidate: "' + c.title + '"');
-      continue;
-    }
-
-    // Reject game puzzle hints (Quordle/Wordle/Crossword) and pure streaming schedules
-    if (isAggregatorOrGameHint_(c.title, c.description)) {
-      Logger.log('Skipping game hint or pure streaming schedule: "' + c.title + '"');
-      continue;
-    }
-
-    // Reject low-substance content (ticker dumps, local school sports recaps)
-    if (isLowSubstance_(c.title)) {
-      Logger.log('Skipping low-substance candidate: "' + c.title + '"');
-      continue;
-    }
-
-    // Reject listicles and generic blog formats
-    if (isListicleFormat_(c.title)) {
-      Logger.log('Skipping listicle/blog format candidate: "' + c.title + '"');
-      continue;
-    }
-
-    // Reject self-promotional and tourism-board self-praise
-    if (isSelfPromotional_(c.title)) {
-      Logger.log('Skipping self-promotional candidate: "' + c.title + '"');
+    // Stage 1: Editorial Quality Gate on Raw Candidate
+    var stage1Quality = isEditoriallyAcceptable_(c);
+    if (!stage1Quality.acceptable) {
+      Logger.log('REJECTED — EDITORIAL QUALITY GATE (Stage 1 Raw Candidate): "' + c.title + '" [' + stage1Quality.reason + ']');
       continue;
     }
 
@@ -1938,9 +1992,10 @@ function runPipelineForCategory_(categoryKey) {
     selectedCandidate.title + '" [Trending: ' + selectedCandidate.trendingMatch + ']');
 
   // Stage 2: Quality Gate on Selected Candidate
-  if (isCommercialRetailContent_(selectedCandidate)) {
-    Logger.log('REJECTED — COMMERCIAL RETAIL CONTENT (Stage 2 Selected Candidate): "' + selectedCandidate.title + '"');
-    return { success: false, reason: 'Selected candidate rejected as commercial retail content' };
+  var stage2Quality = isEditoriallyAcceptable_(selectedCandidate);
+  if (!stage2Quality.acceptable) {
+    Logger.log('REJECTED — EDITORIAL QUALITY GATE (Stage 2 Selected Candidate): "' + selectedCandidate.title + '" [' + stage2Quality.reason + ']');
+    return { success: false, reason: 'Selected candidate rejected by editorial quality gate: ' + stage2Quality.reason };
   }
 
   var isFeatured = (function() {
@@ -1969,10 +2024,11 @@ function runPipelineForCategory_(categoryKey) {
     }
   }
 
-  // Stage 3: Post-Synthesis Commercial Quality Gate
-  if (isCommercialRetailContent_(article.title, article.dek, article.content, selectedCandidate.sourceUrl, selectedCandidate.sourceName)) {
-    Logger.log('REJECTED — COMMERCIAL RETAIL CONTENT (Stage 3 Post-Synthesis): "' + (article.title || selectedCandidate.title) + '"');
-    return { success: false, reason: 'Synthesized article rejected as commercial retail content' };
+  // Stage 3: Post-Synthesis Editorial Quality Gate
+  var stage3Quality = isEditoriallyAcceptable_(article.title, article.dek, article.content, selectedCandidate.sourceUrl, selectedCandidate.sourceName);
+  if (!stage3Quality.acceptable) {
+    Logger.log('REJECTED — EDITORIAL QUALITY GATE (Stage 3 Post-Synthesis): "' + (article.title || selectedCandidate.title) + '" [' + stage3Quality.reason + ']');
+    return { success: false, reason: 'Synthesized article rejected by editorial quality gate: ' + stage3Quality.reason };
   }
 
   // Ensure slug is derived from clean English synthesized title
@@ -1993,10 +2049,11 @@ function runPipelineForCategory_(categoryKey) {
   // Step 6: Build Markdown & Frontmatter (Fixes 5, 6, 7)
   var markdownContent = buildMarkdown_(article, imageObj, videos, selectedCandidate.sourceUrl, selectedCandidate, isFeatured);
 
-  // Stage 4: Pre-Publish Final Gate
-  if (isCommercialRetailContent_(article.title, article.dek, markdownContent, selectedCandidate.sourceUrl, selectedCandidate.sourceName)) {
-    Logger.log('REJECTED — COMMERCIAL RETAIL CONTENT (Stage 4 Pre-Publish): "' + (article.title || selectedCandidate.title) + '"');
-    return { success: false, reason: 'Final markdown rejected as commercial retail content' };
+  // Stage 4: Pre-Publish Final Editorial Quality Gate
+  var stage4Quality = isEditoriallyAcceptable_(article.title, article.dek, markdownContent, selectedCandidate.sourceUrl, selectedCandidate.sourceName);
+  if (!stage4Quality.acceptable) {
+    Logger.log('REJECTED — EDITORIAL QUALITY GATE (Stage 4 Pre-Publish): "' + (article.title || selectedCandidate.title) + '" [' + stage4Quality.reason + ']');
+    return { success: false, reason: 'Final markdown rejected by editorial quality gate: ' + stage4Quality.reason };
   }
 
   // Step 7: Publish to GitHub
