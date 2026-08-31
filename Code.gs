@@ -96,7 +96,7 @@ var CATEGORY_CONFIG = {
 };
 
 // ============================================================================
-// 2. LANGUAGE GUARD (Fix 2)
+// 2. LANGUAGE GUARD (INPUT & OUTPUT VALIDATION)
 // ============================================================================
 
 /**
@@ -120,7 +120,7 @@ function isNonEnglishTitle_(title) {
   var nonAsciiMatches = cleanTitle.match(/[^\x00-\x7F]/g);
   var nonAsciiCount = nonAsciiMatches ? nonAsciiMatches.length : 0;
   var nonAsciiRatio = nonAsciiCount / cleanTitle.length;
-  if (nonAsciiRatio > 0.12) {
+  if (nonAsciiRatio > 0.10) {
     return true;
   }
 
@@ -133,6 +133,8 @@ function isNonEnglishTitle_(title) {
     ' que ', ' como ', ' pero ', ' mas ', ' mais ', ' este ', ' esta ',
     ' são ', ' não ', ' um ', ' uma ', ' pelos ', ' pelas ', ' após ',
     ' até ', ' contra ', ' seus ', ' suas ', ' foi ', ' foram ',
+    ' em ', ' no ', ' na ', ' nos ', ' nas ', ' ao ', ' aos ', ' declara ',
+    ' culpado ', ' ex presidente ', ' caso de ',
     // French
     ' le ', ' les ', ' du ', ' des ', ' dans ', ' pour ', ' avec ', ' sur ',
     // German
@@ -153,13 +155,95 @@ function isNonEnglishTitle_(title) {
   }
 
   // High-signal foreign news keywords
-  if (/\b(notícias|noticias|última hora|dernière heure|nachrichten|cronaca|morre|queda|muerte|guerra|presidente)\b/i.test(cleanTitle)) {
+  if (/\b(notícias|noticias|última hora|dernière heure|nachrichten|cronaca|morre|queda|muerte|guerra|presidente|declara culpado|tribunal do)\b/i.test(cleanTitle)) {
     if (matchCount >= 1 || nonAsciiCount > 0) {
       return true;
     }
   }
 
   return false;
+}
+
+/**
+ * Detects if a body paragraph or text section is non-English.
+ *
+ * @param {string} text - Text to analyze.
+ * @returns {boolean} True if non-English.
+ */
+function isNonEnglishText_(text) {
+  if (!text || typeof text !== 'string') return false;
+  var clean = text.trim();
+  if (clean.length === 0) return false;
+
+  // 1. Non-Latin scripts
+  if (/[\u0900-\u097F\u0400-\u04FF\u4E00-\u9FFF\u0600-\u06FF\u0590-\u05FF\u0E00-\u0E7F\u3040-\u30FF]/.test(clean)) {
+    return true;
+  }
+
+  // 2. High ratio of accented/non-ASCII chars
+  var nonAsciiMatches = clean.match(/[^\x00-\x7F]/g);
+  var nonAsciiCount = nonAsciiMatches ? nonAsciiMatches.length : 0;
+  if ((nonAsciiCount / clean.length) > 0.08) {
+    return true;
+  }
+
+  // 3. Foreign stopword frequency test
+  var lower = ' ' + clean.toLowerCase().replace(/[^a-z0-9\s]/g, ' ') + ' ';
+  var foreignStopwords = [
+    ' o ', ' a ', ' os ', ' as ', ' um ', ' uma ', ' uns ', ' umas ',
+    ' de ', ' do ', ' da ', ' dos ', ' das ', ' no ', ' na ', ' nos ', ' nas ',
+    ' pelo ', ' pela ', ' pelos ', ' pelas ', ' em ', ' para ', ' por ', ' com ',
+    ' que ', ' como ', ' mais ', ' mas ', ' este ', ' esta ', ' estes ', ' estas ',
+    ' são ', ' não ', ' após ', ' até ', ' contra ', ' seus ', ' suas ', ' foi ',
+    ' foram ', ' era ', ' eram ', ' caso ', ' corrupção ', ' governo ', ' tribunal ',
+    ' el ', ' la ', ' los ', ' las ', ' del ', ' sobre ', ' entre ', ' pero ',
+    ' le ', ' la ', ' les ', ' du ', ' des ', ' dans ', ' pour ', ' avec ', ' sur ',
+    ' der ', ' die ', ' das ', ' ein ', ' eine ', ' und ', ' für ', ' mit '
+  ];
+
+  var matchCount = 0;
+  for (var i = 0; i < foreignStopwords.length; i++) {
+    var regex = new RegExp(foreignStopwords[i], 'g');
+    var matches = lower.match(regex);
+    if (matches) {
+      matchCount += matches.length;
+    }
+  }
+
+  var totalWords = clean.split(/\s+/).length;
+  if (totalWords > 10 && (matchCount / totalWords) > 0.06) {
+    return true;
+  }
+  if (totalWords <= 10 && matchCount >= 2) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Validates whether the synthesized article output (title, dek, body) is strictly English (Issue #4).
+ *
+ * @param {Object} articleObj - Synthesized article JSON object.
+ * @returns {boolean} True if the article output is verified English.
+ */
+function isArticleOutputEnglish_(articleObj) {
+  if (!articleObj || typeof articleObj !== 'object') return false;
+  if (isNonEnglishTitle_(articleObj.title)) return false;
+  if (articleObj.seoTitle && isNonEnglishTitle_(articleObj.seoTitle)) return false;
+  if (articleObj.dek && isNonEnglishText_(articleObj.dek)) return false;
+
+  var bodyText = '';
+  if (Array.isArray(articleObj.content)) {
+    bodyText = articleObj.content.join(' ');
+  } else if (typeof articleObj.content === 'string') {
+    bodyText = articleObj.content;
+  }
+
+  if (bodyText && isNonEnglishText_(bodyText)) return false;
+  if (articleObj.why_it_matters && isNonEnglishText_(articleObj.why_it_matters)) return false;
+
+  return true;
 }
 
 var INDIA_SIGNAL_PATTERN = /\b(india|indian|modi|delhi|mumbai|bengaluru|bangalore|kolkata|chennai|hyderabad|pune|bihar|punjab|kerala|gujarat|maharashtra|rajasthan|karnataka|tamil nadu|west bengal|uttar pradesh|lok sabha|rajya sabha|rbi|sebi|bjp|congress party|rupee)\b/i;
@@ -1027,9 +1111,13 @@ function recordGroqTokenUsage_(tokens) {
 function rewriteWithGroq_(headline, category, config) {
   // Anchor current date explicitly to prevent hallucinated historical years (Fix 4)
   var todayDateStr = Utilities.formatDate(new Date(), 'Etc/UTC', 'MMMM d, yyyy');
+  var englishEnforceRule = (headline && headline.enforceEnglish)
+    ? '\nCRITICAL REQUIREMENT: Output MUST be 100% written in fluent, standard journalistic English. Never output Portuguese, Spanish, French, German, or non-English text for title, seoTitle, dek, or content under any circumstances.\n'
+    : '\nCRITICAL REQUIREMENT: All output fields (title, seoTitle, dek, content, why_it_matters, what_happens_next) MUST be written in 100% fluent English even if source dispatches contain foreign-language text.\n';
 
   var systemPrompt = 'You are a senior investigative and wire editor at SamacharDaily, a high-velocity Indian and international digital news publication.\n' +
     "Today's date is " + todayDateStr + '.\n' +
+    englishEnforceRule +
     "Do not reference years, cycles, or 'upcoming' events using any year other than what's explicitly stated in the source headline/description — never infer or carry over a year from your own training data.\n\n" +
     'Editorial Requirements:\n' +
     '1. Craft a high-credibility, authoritative headline (60-90 characters) in sharp newsroom tone (no clickbait).\n' +
@@ -1782,6 +1870,24 @@ function runPipelineForCategory_(categoryKey) {
   // Step 3: Editorial synthesis with Groq (Fixes 4 & 7)
   Logger.log('Synthesizing article with Groq Llama 3.3...');
   var article = rewriteWithGroq_(selectedCandidate, catCfg.name, config);
+
+  // Fix 4: Validate output language AFTER synthesis, before commit
+  if (!isArticleOutputEnglish_(article)) {
+    Logger.log('Synthesized article failed output language check (detected non-English). Retrying synthesis with strict English instruction...');
+    selectedCandidate.enforceEnglish = true;
+    try {
+      article = rewriteWithGroq_(selectedCandidate, catCfg.name, config);
+    } catch (retryErr) {
+      Logger.log('Retry synthesis failed: ' + retryErr);
+    }
+    if (!isArticleOutputEnglish_(article)) {
+      Logger.log('Synthesized article failed language verification on retry. Discarding candidate to prevent foreign-language leak.');
+      return { success: false, reason: 'Synthesized article output was not English' };
+    }
+  }
+
+  // Ensure slug is derived from clean English synthesized title
+  selectedCandidate.slug = generateSlug_(article.title || selectedCandidate.title);
 
   // Step 4: Image Quality Guard (Fix 1)
   var imageObj = null;
