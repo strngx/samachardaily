@@ -369,7 +369,9 @@ var BLOCKED_SOURCE_PATTERNS = [
   'foolcdn.com'
 ];
 
-var STOCK_ADVISORY_PATTERN = /\b(target price|buy rating|which stocks benefit|earnings visibility|structural tailwinds|opens a new chapter for\s+[A-Z]|[A-Z]{2,5}\s+(stock|shares))\b/i;
+var STOCK_ADVISORY_PATTERN = /\b(target price|buy rating|which stocks benefit|earnings visibility|structural tailwinds)\b/i;
+var TICKER_MENTION_PATTERN = /\b[A-Z]{2,5}\s+(stock|shares)\b/;
+var CHAPTER_STOCK_PATTERN = /opens a new chapter for\s+[A-Z]/;
 
 /**
  * Checks if candidate is stock-advisory, investment tip, or financial advice spam.
@@ -386,7 +388,7 @@ function isStockAdvisoryCandidate_(candidate) {
     }
   }
   var text = (candidate.title || '') + ' ' + (candidate.description || '') + ' ' + (candidate.content || '');
-  return STOCK_ADVISORY_PATTERN.test(text);
+  return STOCK_ADVISORY_PATTERN.test(text) || TICKER_MENTION_PATTERN.test(text) || CHAPTER_STOCK_PATTERN.test(text);
 }
 
 var LISTICLE_PATTERN = /^(\d+\s+(essential|best|top|reasons|ways|things|tips|features|mistakes)|why you (should|need)|how to |the ultimate guide|everything you need to know about)/i;
