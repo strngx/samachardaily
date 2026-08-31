@@ -2,9 +2,9 @@
 title: "SEBI Gives In‑Principle Approval to Jio Platforms IPO"
 category: "Tech"
 date: 2026-08-28T23:00:07Z
-image: "https://images.etnownews.com/thumb/msid-156001142,updatedat-1787914723541,width-1280,height-720,resizemode-75/156001142.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "SEBI Gives In‑Principle Approval to Jio Platforms IPO"
-imageCredit: "et now digital"
+imageCredit: "PENDING"
 video_id: "rJJSHnTOP6Y"
 video_caption: "Jio Platforms IPO Gets SEBI Nod | What’s The Timeline To Go Public? | Newscentre"
 slug: "jio-platforms-ipo-gets-sebi-nod"

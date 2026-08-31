@@ -3,9 +3,9 @@ title: "India, Uzbekistan Upgrade Ties to Comprehensive Strategic Partnership, E
 seoTitle: "India-Uzbekistan Strategic Partnership Targets $5bn"
 category: "India"
 date: 2026-08-30T21:33:53Z
-image: "https://kolkatatoday.com/uploads/2026/08/c9e77f302f3a4f5a-large.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "India, Uzbekistan Upgrade Ties to Comprehensive Strategic Partnership, Eye $5 bn Trade by 2030"
-imageCredit: "Kolkata Today"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "CbFswJ5924g"

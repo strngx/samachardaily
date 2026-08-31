@@ -2,9 +2,9 @@
 title: "Astro‑Bio 2026 Workshop in Ooty Examines Space Simulation and Human Biology"
 category: "India"
 date: 2026-08-29T17:52:33Z
-image: "https://www.deccanchronicle.com/h-upload/2026/08/29/2082498-dc-ooty-28a.tif"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Astro‑Bio 2026 Workshop in Ooty Examines Space Simulation and Human Biology"
-imageCredit: "Andhrabhoomi"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "RTyniiQXxew"

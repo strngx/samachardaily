@@ -2,9 +2,9 @@
 title: "India’s pulse crop area expands beyond last year’s level"
 category: "India"
 date: 2026-08-29T03:13:12Z
-image: "https://bl-i.thgim.com/public/todays-paper/tp-agri-biz-and-commodity/z129v/article71311159.ece/alternates/LANDSCAPE_1200/ICAR-develops-IGJEGBQAKB.4.jpg.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "India’s pulse crop area expands beyond last year’s level"
-imageCredit: "vishwanath kulkarni"
+imageCredit: "PENDING"
 video_id: "P1-fNHiLBHg"
 video_caption: "India becomes world&#39;s largest producer of pulses | WION"
 slug: "indias-area-under-pulses-acreage-tops-last-years-level"

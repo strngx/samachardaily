@@ -2,9 +2,9 @@
 title: "Patriarchal Politics Overlook Women’s Plight in India’s Marriage Laws"
 category: "India"
 date: 2026-08-30T07:52:33Z
-image: "https://media.assettype.com/deccanherald/2026-08-29/qu36bvts/file86uwuo6gcy01flcbtrf3.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Patriarchal Politics Overlook Women’s Plight in India’s Marriage Laws"
-imageCredit: "Deccan Herald"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "Qq5MrGvtEe4"

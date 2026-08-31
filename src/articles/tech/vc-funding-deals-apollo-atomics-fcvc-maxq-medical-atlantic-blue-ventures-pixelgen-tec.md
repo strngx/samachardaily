@@ -2,9 +2,9 @@
 title: "VC Funding Rounds Announced for Apollo Atomics, MaxQ Medical, Pixelgen and Others"
 category: "Tech"
 date: 2026-08-29T16:44:02Z
-image: "https://infotechlead.com/wp-content/uploads/2026/01/VC-funding-news-InfotechLead.com_.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "VC Funding Rounds Announced for Apollo Atomics, MaxQ Medical, Pixelgen and Others"
-imageCredit: "Infotech Lead"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: ""

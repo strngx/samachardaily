@@ -2,9 +2,9 @@
 title: "Wayne Township Board Approves 113‑Unit All‑Affordable Complex on Old‑Growth Forest"
 category: "Business"
 date: 2026-08-29T11:05:10Z
-image: "https://img.hoodline.com/2026/8/wayne-clears-113-unit-all-affordable-complex-on-old-growth-forest-near-wayne-hills-high.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Wayne Township Board Approves 113‑Unit All‑Affordable Complex on Old‑Growth Forest"
-imageCredit: "Hoodline"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: ""

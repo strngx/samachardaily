@@ -2,9 +2,9 @@
 title: "Ecuadorian Court Convicts Former President Lenín Moreno of Corruption"
 category: "World"
 date: 2026-08-29T08:13:02Z
-image: "https://www.reuters.com/resizer/v2/Q4YZYJTWYFMQTJ6K47ZMDEEGFI.jpg?auth=cbb71edd4f6b30b6ee6af2928e60087d51dca17776c941469f0a83b98b2dfb59&smart=true&width=1920"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Ecuadorian Court Convicts Former President Lenín Moreno of Corruption"
-imageCredit: "reuters_com"
+imageCredit: "PENDING"
 video_id: "Tzdrm2icfrM"
 video_caption: "Lenín Moreno condenado: Las claves de la sentencia por sobornos | DNews"
 slug: "tribunal-do-equador-declara-culpado-ex-presidente-lenin-moreno-em-caso-de-corrup"

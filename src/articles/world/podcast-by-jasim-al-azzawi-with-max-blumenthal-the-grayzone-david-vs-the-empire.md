@@ -2,9 +2,9 @@
 title: "Max Blumenthal Discusses U.S. Imperialism and Global Tensions on Jasim Al‑Azzawi’s Podcast"
 category: "World"
 date: 2026-08-29T02:13:00Z
-image: "https://www.middleeastmonitor.com/wp-content/uploads/2026/08/Jasim-Podcast-1-1-2.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Max Blumenthal Discusses U.S. Imperialism and Global Tensions on Jasim Al‑Azzawi’s Podcast"
-imageCredit: "mehdi editor"
+imageCredit: "PENDING"
 video_id: "mnIT4wTnTHg"
 video_caption: "Top Iranian official to The Grayzone: &#39;The people will not let go of the blood of their Imam&#39;"
 slug: "podcast-by-jasim-al-azzawi-with-max-blumenthal-the-grayzone-david-vs-the-empire"

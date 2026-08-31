@@ -2,9 +2,9 @@
 title: "China strips former top generals Zhang Youxia and Liu Zhenli from Central Military Commission after anti‑corruption probe"
 category: "World"
 date: 2026-08-28T23:48:21Z
-image: "https://images.firstpost.com/uploads/2026/08/Representational-image-65-2026-08-eae3dc3037613978ab921da9c3a0f346-1200x675.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "China strips former top generals Zhang Youxia and Liu Zhenli from Central Military Commission after anti‑corruption probe"
-imageCredit: "chandan prakash"
+imageCredit: "PENDING"
 video_id: "Njz4iudiG48"
 video_caption: "China Removes Top General Zhang Youxia From Military Commission In Major Leadership Shake-Up | NXW"
 slug: "china-removes-ex-top-general-zhang-youxia-from-central-military-commission-after"

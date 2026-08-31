@@ -2,9 +2,9 @@
 title: "India's FDA pulls Cipla license cancellation after High Court rebuke"
 category: "Business"
 date: 2026-08-29T20:41:55Z
-image: "https://images.moneycontrol.com/static-mcnews/2019/04/Cipla12802.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "India's FDA pulls Cipla license cancellation after High Court rebuke"
-imageCredit: "Moneycontrol"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "6tCqyc12xiA"

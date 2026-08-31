@@ -3,9 +3,9 @@ title: "Akhilesh Yadav Vows to Reopen 26,000 Schools Shut by BJP Rule After Rs 4
 seoTitle: "Akhilesh Yadav pledges Rs 40K aid, school reopening"
 category: "India"
 date: 2026-08-30T23:33:50Z
-image: "https://ommcomnews.com/wp-content/uploads/2026/08/New-Project-2026-08-30T170136.802.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Akhilesh Yadav Vows to Reopen 26,000 Schools Shut by BJP Rule After Rs 40K Aid Pledge"
-imageCredit: "Odisha News, Odisha Breaking News, Odisha Latest N"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "TfRCnQTGKXU"

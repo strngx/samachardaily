@@ -2,9 +2,9 @@
 title: "Commanders suffer blowout defeat to Ravens in preseason finale"
 category: "Sports"
 date: 2026-08-29T11:40:22Z
-image: "https://www.dailypress.com/wp-content/uploads/2026/08/TVP-BALWARD.jpg?w=1600&resize=1600,900"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Commanders suffer blowout defeat to Ravens in preseason finale"
-imageCredit: "Daily Press"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "hSTxZ7Fc11I"

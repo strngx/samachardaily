@@ -3,9 +3,9 @@ title: "US and Iran Exchange Fire in Fresh Escalation as Bessent Warns of New Sa
 seoTitle: "US-Iran Fire Exchange: Bessent Signals New Sanctions"
 category: "World"
 date: 2026-08-31T09:10:17Z
-image: "https://dam.mediacorp.sg/image/upload/s--weZY0Ju6--/c_crop,h_449,w_799,x_1,y_34/fl_relative,g_south_east,l_mediacorp:cna:watermark:2024-04:reuters_1,w_0.1/f_auto,q_auto/c_fill,g_auto,h_468,w_830/v1/one-cms/core/2026-08-24T011425Z_2_LYNXMPEM7N023_RTROPTP_3_IRAN-CRISIS.JPG?itok=NNmvdUGy"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "US and Iran Exchange Fire in Fresh Escalation as Bessent Warns of New Sanctions"
-imageCredit: "Channel Newsasia"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "lfooRq0WVVM"

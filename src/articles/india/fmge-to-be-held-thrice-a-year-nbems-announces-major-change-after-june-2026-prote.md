@@ -2,9 +2,9 @@
 title: "NBEMS to Hold FMGE Thrice a Year from June 2026 after Candidate Protests"
 category: "India"
 date: 2026-08-29T00:01:24Z
-image: "https://images.timesnownews.com/thumb/msid-156001690,thumbsize-96182,width-1280,height-720,resizemode-75/156001690.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "NBEMS to Hold FMGE Thrice a Year from June 2026 after Candidate Protests"
-imageCredit: "deeksha teri"
+imageCredit: "PENDING"
 video_id: "1r-nn1MwcRE"
 video_caption: "Big Update for FMGE 2026! What You Must Know About NBEMS Changes | FMGE Latest News Today!"
 slug: "fmge-to-be-held-thrice-a-year-nbems-announces-major-change-after-june-2026-prote"

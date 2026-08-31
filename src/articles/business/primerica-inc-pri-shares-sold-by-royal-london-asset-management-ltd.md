@@ -3,9 +3,9 @@ title: "Royal London trims Primerica stake, sells 16,361 shares in Q2"
 seoTitle: "Royal London cuts Primerica stake 10.4% in Q2 filing"
 category: "Business"
 date: 2026-08-30T22:57:02Z
-image: "https://www.marketbeat.com/logos/primerica-logo-1200x675.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Royal London trims Primerica stake, sells 16,361 shares in Q2"
-imageCredit: "Ticker Report"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "Yc0XJA-lF5I"

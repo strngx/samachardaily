@@ -2,9 +2,9 @@
 title: "Volkswagen faces board pushback as it seeks to accelerate its restructuring plan"
 category: "Business"
 date: 2026-08-28T23:48:42Z
-image: "https://www.reuters.com/resizer/v2/HVPNACRAH5LGFJWBVJAHW3OOTI.jpg?auth=45edb2b5daef01955ee90bcae927d1243c5a7737affe932e6fdf6e693bc64f4b&smart=true&width=1920"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Volkswagen faces board pushback as it seeks to accelerate its restructuring plan"
-imageCredit: "reuters_com"
+imageCredit: "PENDING"
 video_id: "sOygGP0EXKA"
 video_caption: "6 Causes of EPC light coming on VW vehicles. How to diagnose and fix?"
 slug: "can-volkswagen-sidestep-board-opposition-to-push-through-its-overhaul"

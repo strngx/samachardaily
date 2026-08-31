@@ -2,9 +2,9 @@
 title: "SEBI Clears Jio Platforms to Proceed with IPO"
 category: "Business"
 date: 2026-08-28T23:37:10Z
-image: "https://images.news18.com/ibnlive/uploads/2025/02/jio-reliance-2025-02-213b2412c6dd83944e4e6cf8fac9c814-3x2.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "SEBI Clears Jio Platforms to Proceed with IPO"
-imageCredit: "news18"
+imageCredit: "PENDING"
 video_id: "rJJSHnTOP6Y"
 video_caption: "Jio Platforms IPO Gets SEBI Nod | What’s The Timeline To Go Public? | Newscentre"
 slug: "jio-platforms-gets-sebis-nod-to-launch-ipo"

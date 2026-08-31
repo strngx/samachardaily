@@ -2,9 +2,9 @@
 title: "Apple Maps launches public‑transport directions in India"
 category: "India"
 date: 2026-08-29T07:13:24Z
-image: "https://i.gadgets360cdn.com/large/Apple_maps_transit_feature_india_1787923914361.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Apple Maps launches public‑transport directions in India"
-imageCredit: "swapupdate"
+imageCredit: "PENDING"
 video_id: "kCpV1wC1WKg"
 video_caption: "Updated Apple Maps With Buses, Train &amp; Other Transportation Details"
 slug: "apple-maps-gets-transit-support-in-india-with-public-transport-directions-and-mo"

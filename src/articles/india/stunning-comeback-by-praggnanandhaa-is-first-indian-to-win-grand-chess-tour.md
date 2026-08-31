@@ -2,9 +2,9 @@
 title: "Praggnanandhaa Becomes First Indian to Win Grand Chess Tour After Comeback Victory"
 category: "India"
 date: 2026-08-29T11:39:05Z
-image: "https://publish.tribuneindia.com/wp-content/uploads/2026/08/6a91c9b61d698-1-1-28081-PTI08_28_2026_000158B1-scaled.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Praggnanandhaa Becomes First Indian to Win Grand Chess Tour After Comeback Victory"
-imageCredit: "The Tribune India"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "zimIFWy7w34"

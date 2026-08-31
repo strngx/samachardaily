@@ -2,9 +2,9 @@
 title: "Praggnanandhaa becomes first Indian to clinch Grand Chess Tour title"
 category: "Sports"
 date: 2026-08-29T08:15:45Z
-image: "https://www.en.etemaaddaily.com/pages/sports/8453praggwin.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Praggnanandhaa becomes first Indian to clinch Grand Chess Tour title"
-imageCredit: "news; media"
+imageCredit: "PENDING"
 video_id: "zimIFWy7w34"
 video_caption: "Pragg Wins Grand Chess Tour: ‘Fight to the End’ | D6 #GCTFinals"
 slug: "praggnanandhaa-creates-history-becomes-first-indian-to-win-grand-chess-tour"

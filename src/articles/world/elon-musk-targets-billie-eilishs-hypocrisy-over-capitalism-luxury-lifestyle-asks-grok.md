@@ -3,9 +3,9 @@ title: "Elon Musk Calls Billie Eilish Hypocrite on Capitalism, Seeks AI-Generate
 seoTitle: "Elon Musk Calls Billie Eilish Hypocrite on Capitalism,"
 category: "World"
 date: 2026-08-30T14:59:51Z
-image: "https://feeds.abplive.com/onecms/images/uploaded-images/2026/08/30/2cf9e61aca3a9391d2eb74fbfa755cc017880584424071090_original.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Elon Musk Calls Billie Eilish Hypocrite on Capitalism, Seeks AI-Generated Roast"
-imageCredit: "Abp News"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "pxX8Gvloqms"

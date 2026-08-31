@@ -2,9 +2,9 @@
 title: "World Leaders Confirmed for BRICS 2026 Summit in Delhi, Including Xi’s Massive Delegation and Putin"
 category: "World"
 date: 2026-08-28T23:29:48Z
-image: "https://cdn1.wionews.com/prod/wion/images/2025/20251204/image-1764838511156.jpg?rect=(0,8,1185,887)"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "World Leaders Confirmed for BRICS 2026 Summit in Delhi, Including Xi’s Massive Delegation and Putin"
-imageCredit: "vinay prasad sharma"
+imageCredit: "PENDING"
 video_id: "0fYxeP9ntJ0"
 video_caption: "BRICS Summit 2026: Iran President Pezeshkian To Visit New Delhi | NewsX"
 slug: "from-xis-400-officials-to-putin-full-list-of-world-leaders-attending-brics-summi"

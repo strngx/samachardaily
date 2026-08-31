@@ -3,9 +3,9 @@ title: "U.P. native nabbed with 10.8 kg cannabis‑infused toffees in Coimbato
 seoTitle: "U.P. man arrested with cannabis‑toffees in Coimbatore"
 category: "India"
 date: 2026-08-31T02:33:51Z
-image: "https://www.thehindu.com/theme/images/og-image.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "U.P. native nabbed with 10.8 kg cannabis‑infused toffees in Coimbatore"
-imageCredit: "The Hindu"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "DmmnT1_Fw4A"

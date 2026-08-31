@@ -2,9 +2,9 @@
 title: "PSU Lenders to Appeal NCLT Sanction of Subhash Chandra’s Rs 6.5 Cr Repayment Plan"
 category: "India"
 date: 2026-08-30T03:52:35Z
-image: "https://ommcomnews.com/wp-content/uploads/2026/08/New-Project-2026-08-29T212114.253.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "PSU Lenders to Appeal NCLT Sanction of Subhash Chandra’s Rs 6.5 Cr Repayment Plan"
-imageCredit: "Odisha News, Odisha Breaking News, Odisha Latest N"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "2Wwt6urtqcY"

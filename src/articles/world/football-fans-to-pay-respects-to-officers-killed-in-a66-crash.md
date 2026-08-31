@@ -2,9 +2,9 @@
 title: "Middlesbrough fans to honor fallen police officers in A66 crash tribute"
 category: "World"
 date: 2026-08-29T13:03:08Z
-image: "https://www.bucksfreepress.co.uk/resources/images/21378033/"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Middlesbrough fans to honor fallen police officers in A66 crash tribute"
-imageCredit: "Bucksfreepress Co Uk"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "tHXPNdjm8wQ"

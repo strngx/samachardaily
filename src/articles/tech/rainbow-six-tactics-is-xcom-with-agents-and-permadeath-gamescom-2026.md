@@ -2,9 +2,9 @@
 title: "Ubisoft Unveils Rainbow Six Tactics, a Turn‑Based XCOM‑Style Spin on the Franchise"
 category: "Tech"
 date: 2026-08-28T23:54:59Z
-image: "https://sm.ign.com/ign_in/video/r/rainbow-si/rainbow-six-tactics-is-xcom-with-agents-and-permadeath-games_sw84.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Ubisoft Unveils Rainbow Six Tactics, a Turn‑Based XCOM‑Style Spin on the Franchise"
-imageCredit: "ign india"
+imageCredit: "PENDING"
 video_id: "unmlCAE4wqY"
 video_caption: "Rainbow Six Tactics - Reveal Trailer | PS5 Games"
 slug: "rainbow-six-tactics-is-xcom-with-agents-and-permadeath-gamescom-2026"

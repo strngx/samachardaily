@@ -2,9 +2,9 @@
 title: "OPPO Find X10 Pro Max Leaks Triple 200MP Camera Setup, Pushing Total Resolution Past 600MP"
 category: "Tech"
 date: 2026-08-28T23:45:17Z
-image: "https://techgenyz.com/wp-content/uploads/2026/08/OPPO-Find-X10-Pro-Max-camera.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "OPPO Find X10 Pro Max Leaks Triple 200MP Camera Setup, Pushing Total Resolution Past 600MP"
-imageCredit: "tanisha bhowmik"
+imageCredit: "PENDING"
 video_id: "wni0rPaxrWY"
 video_caption: "[八卦] OPPO Find X10 系列八卦整理！Pro Max 直逼 Ultra，這次真的玩太大？"
 slug: "oppo-find-x10-pro-max-leaks-triple-200mp-cameras-groundbreaking-mobile-photograp"

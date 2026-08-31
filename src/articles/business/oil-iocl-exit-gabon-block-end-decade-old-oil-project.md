@@ -2,9 +2,9 @@
 title: "Oil India and Indian Oil exit Gabon's Shakthi‑II block, ending decade‑old project"
 category: "Business"
 date: 2026-08-29T06:13:08Z
-image: "https://img.etimg.com/thumb/msid-133598022,resizemode-4,width-1200,height-900,imgsize-87288,overlay-economictimes/articleshow.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Oil India and Indian Oil exit Gabon's Shakthi‑II block, ending decade‑old project"
-imageCredit: "kalpana pathak"
+imageCredit: "PENDING"
 video_id: ""
 video_caption: ""
 slug: "oil-iocl-exit-gabon-block-end-decade-old-oil-project"

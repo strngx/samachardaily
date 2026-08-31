@@ -2,9 +2,9 @@
 title: "Tata Motors rebrands passenger vehicle line, unveils new logo color and showroom look"
 category: "Tech"
 date: 2026-08-29T14:44:00Z
-image: "https://imgs.etvbharat.com/etvbharat/prod-images/29-08-2026/1200-675-27506445-thumbnail-16x9-ssefd.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Tata Motors rebrands passenger vehicle line, unveils new logo color and showroom look"
-imageCredit: "Etv Bharat"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: ""

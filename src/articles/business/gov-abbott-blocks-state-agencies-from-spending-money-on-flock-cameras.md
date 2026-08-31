@@ -3,9 +3,9 @@ title: "Gov. Abbott Halts $30 Million State Spending on Flock Surveillance Cam
 seoTitle: "Abbott blocks $30M Flock camera spending"
 category: "Business"
 date: 2026-08-31T06:58:04Z
-image: "https://kvia.com/wp-content/uploads/2026/08/TT_FLOCK-MONEY-TEXAS_01-.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Gov. Abbott Halts $30 Million State Spending on Flock Surveillance Cameras"
-imageCredit: "Kvia"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "3pJMIc45vOg"

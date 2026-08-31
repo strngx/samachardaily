@@ -2,9 +2,9 @@
 title: "Six months into Iran conflict, Nepal's political crossroads and the rise of ‘Lake America’"
 category: "India"
 date: 2026-08-28T22:56:12Z
-image: "https://www.reuters.com/resizer/v2/NA5BZRHU6VHX7BRWSXNIHOMR7Y.jpg?auth=1baad586d55548ad8abc374cf5539e925f7096c95b80d2b98511c98889464410&smart=true&width=1920"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Six months into Iran conflict, Nepal's political crossroads and the rise of ‘Lake America’"
-imageCredit: "reuters_com"
+imageCredit: "PENDING"
 video_id: "E57V4WpOWTk"
 video_caption: "Meet the Press NOW — August 28"
 slug: "six-months-of-iran-war-nepal-and-lake-america"

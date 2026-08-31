@@ -3,9 +3,9 @@ title: "Bihar, Centre to Unveil ₹285-Crore Projects at Motihari Bapudham Mahot
 seoTitle: "Motihari Bapudham Mahotsav: ₹285 Cr Projects Unveiled"
 category: "Business"
 date: 2026-08-31T00:57:18Z
-image: "https://suspensecrime.com/wp-content/uploads/2026/08/7%20(1)_1915593944.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Bihar, Centre to Unveil ₹285-Crore Projects at Motihari Bapudham Mahotsav"
-imageCredit: "Suspense Crime"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: ""

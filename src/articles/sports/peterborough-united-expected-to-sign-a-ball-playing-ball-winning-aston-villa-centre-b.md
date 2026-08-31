@@ -3,9 +3,9 @@ title: "Peterborough United poised to secure Aston Villa defender Josh Feeney on
 seoTitle: "Peterborough target Aston Villa defender Josh Feeney"
 category: "Sports"
 date: 2026-08-31T00:36:56Z
-image: "https://www.peterboroughtoday.co.uk/webimg/b25lY21zOjIxNTM0YzkyLWViOGYtNDdiYy1iNDY0LTg1NDA1OWExYjc4NDplOTYzMWQxYi0zMmZlLTQ4MGUtYTNiNC1kMGZkYWZkYzcxZGI=.jpg?width=1200&auto=webp&crop=3%3A2"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Peterborough United poised to secure Aston Villa defender Josh Feeney on loan"
-imageCredit: "Peterborough Telegraph"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "KtmVyFYaaJE"

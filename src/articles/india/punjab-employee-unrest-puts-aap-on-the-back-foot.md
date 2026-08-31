@@ -2,9 +2,9 @@
 title: "Punjab Government Employee Unrest Challenges AAP Ahead of Assembly Vote"
 category: "India"
 date: 2026-08-30T09:52:33Z
-image: "https://sundayguardianlive.com/wp-content/uploads/2026/08/articles_20.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Punjab Government Employee Unrest Challenges AAP Ahead of Assembly Vote"
-imageCredit: "The Sunday Guardian"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "KZvepNtzCXc"

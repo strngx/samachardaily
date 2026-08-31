@@ -3,9 +3,9 @@ title: "IRIS Instant White Rice 10-Pack drops to $12.59 on Amazon with coupon, S
 seoTitle: "IRIS Instant White Rice 10-Pack $12.59 Amazon Deal Now"
 category: "Business"
 date: 2026-08-31T04:57:46Z
-image: "https://hip2save.com/wp-content/uploads/2026/08/IRIS-Instant-White-Rice-10-Pack-1.jpg?w=912"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "IRIS Instant White Rice 10-Pack drops to $12.59 on Amazon with coupon, Subscribe & Save"
-imageCredit: "Hip2save"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "-k9uMZjBnPE"

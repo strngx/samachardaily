@@ -2,9 +2,9 @@
 title: "2007 Toyota Prius with 28k miles sells no‑reserve in Maryland, original owner till 2026"
 category: "Tech"
 date: 2026-08-29T10:56:32Z
-image: "https://bringatrailer.com/wp-content/uploads/2026/08/IMG_6399-scaled-copy-2026-08-25-4pp-87996.jpeg?w=940"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "2007 Toyota Prius with 28k miles sells no‑reserve in Maryland, original owner till 2026"
-imageCredit: "Bring A Trailer"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "OO-0xLzL3-w"

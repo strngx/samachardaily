@@ -2,9 +2,9 @@
 title: "U.S. District Judge Declines to Suspend Trump’s Birthright Citizenship Order"
 category: "World"
 date: 2026-08-29T05:12:55Z
-image: "https://bsmedia.business-standard.com/_media/bs/img/article/default/1260828/thumb-126082801375.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "U.S. District Judge Declines to Suspend Trump’s Birthright Citizenship Order"
-imageCredit: "reuters"
+imageCredit: "PENDING"
 video_id: "sedYNmeOxXQ"
 video_caption: "Supreme Court appears skeptical of Trump&#39;s effort to limit birthright citizenship"
 slug: "us-judge-wont-immediately-block-trumps-new-birthright-citizenship-order"

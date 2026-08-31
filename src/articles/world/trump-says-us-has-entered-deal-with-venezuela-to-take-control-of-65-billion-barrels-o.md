@@ -2,9 +2,9 @@
 title: "Trump claims US secured deal to control Venezuela's 65 billion‑barrel oil reserves"
 category: "World"
 date: 2026-08-29T11:21:37Z
-image: "https://www.wsbradio.com/resizer/v2/EUOQIKFZ3I2K3EZVPI7QLLXGEI.jpg?auth=a1d778d5c34c2467375a6276b4f6ff9580f0b9a73226b0de1c55b99ac1e91433&smart=true&width=4854&height=3236"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Trump claims US secured deal to control Venezuela's 65 billion‑barrel oil reserves"
-imageCredit: "95.5 Wsb"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "-hRFzsV4mec"

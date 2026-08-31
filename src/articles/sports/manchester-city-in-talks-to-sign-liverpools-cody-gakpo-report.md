@@ -2,9 +2,9 @@
 title: "Manchester City open talks with Liverpool for Cody Gakpo transfer"
 category: "Sports"
 date: 2026-08-30T09:06:14Z
-image: "https://i.cdn.newsbytesapp.com/images/l35520260830022113.jpeg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Manchester City open talks with Liverpool for Cody Gakpo transfer"
-imageCredit: "Newsbytes"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "rOB4E-HFUOg"

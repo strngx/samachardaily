@@ -2,9 +2,9 @@
 title: "Sankara Nethralaya Detroit Chapter Holds Successful Annual 5K Walk in Michigan"
 category: "Sports"
 date: 2026-08-29T04:13:53Z
-image: "https://media.andhrajyothy.com/media/2026/20260822/1_d9e9e0116e_v_jpg.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Sankara Nethralaya Detroit Chapter Holds Successful Annual 5K Walk in Michigan"
-imageCredit: "abn"
+imageCredit: "PENDING"
 video_id: ""
 video_caption: ""
 slug: "sankara-nethralaya-detroit-chapter-5k-walk"

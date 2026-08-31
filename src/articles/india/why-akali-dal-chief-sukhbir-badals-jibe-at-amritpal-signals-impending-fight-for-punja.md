@@ -3,9 +3,9 @@ title: "SAD chief Sukhbir Badal’s jab at Amritpal foreshadows battle for Punja
 seoTitle: "SAD chief Sukhbir Badal’s jab at Amritpal foreshadows"
 category: "India"
 date: 2026-08-30T16:02:05Z
-image: "https://staticprintenglish.theprint.in/wp-content/uploads/2026/08/Untitled-design-76.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "SAD chief Sukhbir Badal’s jab at Amritpal foreshadows battle for Punjab’s Panthic vote"
-imageCredit: "Theprint Hindi"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "6huFTUqoCz0"

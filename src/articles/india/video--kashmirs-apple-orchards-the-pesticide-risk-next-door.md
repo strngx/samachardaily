@@ -2,9 +2,9 @@
 title: "Study Finds High Pesticide Exposure Risk for Families Living Near Kashmir Apple Orchards"
 category: "India"
 date: 2026-08-28T22:59:30Z
-image: "https://kashmirobserver.net/wp-content/uploads/2026/08/Apple-Orchards-Pesticide-Risk.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Study Finds High Pesticide Exposure Risk for Families Living Near Kashmir Apple Orchards"
-imageCredit: "ko web desk"
+imageCredit: "PENDING"
 video_id: "8TRfFU_-LzM"
 video_caption: "Kashmir’s Apple Orchards: The Pesticide Risk Next Door"
 slug: "video--kashmirs-apple-orchards-the-pesticide-risk-next-door"

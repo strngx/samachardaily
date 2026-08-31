@@ -2,9 +2,9 @@
 title: "35 Nations Report Missing Citizens After Devastating Nepal Floods"
 category: "India"
 date: 2026-08-28T20:47:05Z
-image: "https://images.news18.com/ibnlive/uploads/2026/08/nepal-1-2026-08-0f1eec325ca2a58270d40b893d167c68-1200x800.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "35 Nations Report Missing Citizens After Devastating Nepal Floods"
-imageCredit: "news18"
+imageCredit: "PENDING"
 video_id: "Ai_p24wRmXU"
 video_caption: "🇳🇵 Nepal’s Deadly Flash Flood — What Really Happened and what travellers need to Know ?"
 slug: "india-us-china-malaysia-among-35-countries-whose-citizens-are-missing-in-nepal-f"

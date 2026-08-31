@@ -2,9 +2,9 @@
 title: "DetectifAI Launches Real-Time Voice Authentication to Counter AI Deepfake Calls"
 category: "Tech"
 date: 2026-08-28T22:41:15Z
-image: "https://dharmakshethra.com/wp-content/uploads/2026/08/AI-Voice-Security-Interface.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "DetectifAI Launches Real-Time Voice Authentication to Counter AI Deepfake Calls"
-imageCredit: "kautilya"
+imageCredit: "PENDING"
 video_id: "mgex2LDbaa0"
 video_caption: "Audio DeepFake Detection using Machine Learning and Deep Learning | AI based Projects 2024-25"
 slug: "indian-startup-detectifai-develops-live-call-detection-system-to-fight-ai-voice-"

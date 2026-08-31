@@ -2,9 +2,9 @@
 title: "Australian captain Pat Cummins backs former cricket greats’ plea for humane treatment of Imran Khan"
 category: "Sports"
 date: 2026-08-28T23:48:52Z
-image: "https://st1.latestly.com/wp-content/uploads/2026/08/2-774455727.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Australian captain Pat Cummins backs former cricket greats’ plea for humane treatment of Imran Khan"
-imageCredit: "sports desk"
+imageCredit: "PENDING"
 video_id: "Jq9duNqKAms"
 video_caption: "Pat Cummins supports former International Cricket Captains plea for Imran Khan Medical Treatment 😳🔥"
 slug: "pat-cummins-supports-former-international-captains-joint-plea-for-ex-pakistan-pm"

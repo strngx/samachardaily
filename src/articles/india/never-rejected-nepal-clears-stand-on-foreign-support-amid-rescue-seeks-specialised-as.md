@@ -2,9 +2,9 @@
 title: "Nepal Refutes Rejection Claims, Requests Specialized Flood Aid from India, China"
 category: "India"
 date: 2026-08-30T04:52:34Z
-image: "https://images.thedailyjagran.com/article-img/2026/08/29/1200x675/Nepal-flood-1788021575538.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Nepal Refutes Rejection Claims, Requests Specialized Flood Aid from India, China"
-imageCredit: "Jagran English"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "DQir8ix_pi0"

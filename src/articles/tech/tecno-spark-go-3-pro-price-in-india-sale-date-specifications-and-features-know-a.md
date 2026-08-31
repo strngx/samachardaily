@@ -2,9 +2,9 @@
 title: "Tecno launches Spark Go 3 Pro in India at ₹15,999 with IP68/69 rating and 120Hz display"
 category: "Tech"
 date: 2026-08-28T23:35:33Z
-image: "https://st1.latestly.com/wp-content/uploads/2026/08/1-92417682.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Tecno launches Spark Go 3 Pro in India at ₹15,999 with IP68/69 rating and 120Hz display"
-imageCredit: "team latestly"
+imageCredit: "PENDING"
 video_id: "V_p4hRpRyDw"
 video_caption: "Tecno Spark Go 3 Pro Unboxing &amp; Full Review 🔥"
 slug: "tecno-spark-go-3-pro-price-in-india-sale-date-specifications-and-features-know-a"

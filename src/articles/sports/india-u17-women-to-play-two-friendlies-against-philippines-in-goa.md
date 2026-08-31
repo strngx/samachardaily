@@ -2,9 +2,9 @@
 title: "India U‑17 women’s football team to host Philippines for two friendlies in Goa"
 category: "Sports"
 date: 2026-08-29T00:01:39Z
-image: "https://www.arunfoot.com/wp-content/uploads/2026/08/India-U17-Women.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "India U‑17 women’s football team to host Philippines for two friendlies in Goa"
-imageCredit: "press release"
+imageCredit: "PENDING"
 video_id: "_Cb-RyXFUOg"
 video_caption: "India U17 women’s team will play two friendly matches against  Philippines in Goa on Sept 26 and 29"
 slug: "india-u17-women-to-play-two-friendlies-against-philippines-in-goa"

@@ -2,9 +2,9 @@
 title: "AOC launches Optimus Ultra 5K gaming monitor with 180 Hz refresh, 98% DCI‑P3 coverage"
 category: "Tech"
 date: 2026-08-30T07:22:30Z
-image: "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/aoc_agon_pro_5k_mini_led_gaming_monitor.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "AOC launches Optimus Ultra 5K gaming monitor with 180 Hz refresh, 98% DCI‑P3 coverage"
-imageCredit: "Notebookcheck"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "a4I1Y3F-srE"

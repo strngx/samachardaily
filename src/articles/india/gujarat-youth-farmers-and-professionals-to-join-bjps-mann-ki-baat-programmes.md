@@ -2,9 +2,9 @@
 title: "BJP launches Gujarat-wide 'Mann Ki Baat' gatherings for youth, farmers, professionals"
 category: "India"
 date: 2026-08-30T05:52:36Z
-image: "https://thehawk.sgp1.digitaloceanspaces.com/369d8239-98f6-47b6-a679-a4c2d33a6158/202608293923137-697acb27-c41b-430b-b603-85b502c28a90.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "BJP launches Gujarat-wide 'Mann Ki Baat' gatherings for youth, farmers, professionals"
-imageCredit: "Thehawk"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "NHDmcV2KdLg"

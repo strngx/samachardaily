@@ -2,9 +2,9 @@
 title: "Windsor sees $822,000 single‑family home lead list of seven priciest sales last week"
 category: "Business"
 date: 2026-08-30T02:42:04Z
-image: "https://www.pressdemocrat.com/wp-content/uploads/2026/08/How-much-were-the-top-7-most-expensive-home-sales-in-Windsor-last-week.png?w=1600&resize=1600,900"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Windsor sees $822,000 single‑family home lead list of seven priciest sales last week"
-imageCredit: "The Press Democrat"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "3WwU9Gm8t2g"

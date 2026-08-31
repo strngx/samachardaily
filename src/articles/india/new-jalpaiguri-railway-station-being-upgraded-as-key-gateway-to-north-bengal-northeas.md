@@ -2,9 +2,9 @@
 title: "New Jalpaiguri Station Upgrade to Boost North Bengal, Northeast Rail Gateway"
 category: "India"
 date: 2026-08-30T08:52:32Z
-image: "https://thehawk.sgp1.digitaloceanspaces.com/189250c8-2277-417b-b8e3-24df764629d1/202608303923178-0c87ad60-ae63-44df-83c8-7b4392b203fd.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "New Jalpaiguri Station Upgrade to Boost North Bengal, Northeast Rail Gateway"
-imageCredit: "Thehawk"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "YCOPWRvBAgU"

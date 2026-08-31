@@ -3,9 +3,9 @@ title: "India Post to Begin GDS 2026 Session II Registration on August 31"
 seoTitle: "India Post GDS 2026 Session II Registration Details"
 category: "Business"
 date: 2026-08-30T20:57:20Z
-image: "https://images.careerindia.com/img/2026/08/india-post-gds-2026-session-ii-registration-eligibility-guide_600x280_1788080052818_.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "India Post to Begin GDS 2026 Session II Registration on August 31"
-imageCredit: "Swapupdate"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "5UbG0ZQ_2XA"

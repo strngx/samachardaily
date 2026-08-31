@@ -2,9 +2,9 @@
 title: "Maine Meteorologist Patrick Osborn Bursts into Laughter on Live TV, Sparks Viral Sensation"
 category: "World"
 date: 2026-08-29T03:12:47Z
-image: "https://www.hindustantimes.com/ht-img/img/2026/08/28/1600x900/forecast_1787929674639_1787929681008_07554289-1e2f-4fee-85be-a87cf85f5a18.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Maine Meteorologist Patrick Osborn Bursts into Laughter on Live TV, Sparks Viral Sensation"
-imageCredit: "shweta kukreti"
+imageCredit: "PENDING"
 video_id: "uCrMpsKGHVI"
 video_caption: "Weatherman Can&#39;t Stop Laughing During Live Broadcast"
 slug: "patrick-osborn-maine-meteorologist-goes-viral-after-uncontrollable-laughter-on-a"

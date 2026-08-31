@@ -2,9 +2,9 @@
 title: "Sensex climbs 331 points as IT stocks drive market rebound after two days of losses"
 category: "Business"
 date: 2026-08-28T23:35:20Z
-image: "https://media.assettype.com/dt-next/import/imported/import/Articles/2018/Mar/201803091041019706_Sensex-extends-gains-up-139-points-in-early-trade-on-global_SECVPF.gif?w=280"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Sensex climbs 331 points as IT stocks drive market rebound after two days of losses"
-imageCredit: "pti"
+imageCredit: "PENDING"
 video_id: "1pp-E-QGyfw"
 video_caption: "Why Indian IT Stocks Are Skyrocketing Today | Nvidia Rally &amp; Nifty IT Rebound Explained"
 slug: "stock-markets-rebound-ending-2-day-losing-streak-on-buying-in-it-firms-sensex-ju"

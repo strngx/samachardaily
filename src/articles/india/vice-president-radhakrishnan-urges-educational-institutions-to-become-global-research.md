@@ -2,9 +2,9 @@
 title: "Vice President Radhakrishnan calls for Indian colleges to become global research hubs"
 category: "India"
 date: 2026-08-30T00:52:35Z
-image: "https://i0.wp.com/www.socialnews.xyz/wp-content/uploads/2026/08/29/20260829245f-1-scaled.jpg?fit=2507%2C2560&quality=80&zoom=1&ssl=1"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Vice President Radhakrishnan calls for Indian colleges to become global research hubs"
-imageCredit: "Social News Xyz"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "iwhzPQRwp10"

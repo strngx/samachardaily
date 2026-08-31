@@ -3,9 +3,9 @@ title: "Renée Fleming Headlines Piedmont Opera’s 50th Anniversary Season Laun
 seoTitle: "Renée Fleming Opens Piedmont Opera’s 50th Season Launch"
 category: "World"
 date: 2026-08-30T16:59:42Z
-image: "https://operawire.com/wp-content/uploads/2026/08/ConcertPoster-scaled-e1787688009173.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Renée Fleming Headlines Piedmont Opera’s 50th Anniversary Season Launch"
-imageCredit: "Operawire"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: ""

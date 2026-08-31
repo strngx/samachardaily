@@ -2,9 +2,9 @@
 title: "AC Milan Draw Sunderland and Bournemouth in Europa League Group Stage"
 category: "Sports"
 date: 2026-08-29T01:13:37Z
-image: "https://www.deccanchronicle.com/h-upload/2026/08/28/2082263-aa-800551811zon.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "AC Milan Draw Sunderland and Bournemouth in Europa League Group Stage"
-imageCredit: "renju john daniel"
+imageCredit: "PENDING"
 video_id: "-JBtU7LMmB4"
 video_caption: "Mi viene seriamente da piangere.. | Sorteggi Europa League 2026/27 (Juventus, Milan)"
 slug: "ac-milan-get-english-opponents-sunderland-bournemouth-in-europa-league-draw"

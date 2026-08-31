@@ -2,9 +2,9 @@
 title: "NASA Administrator Flies Over Cape Canaveral Launchpad Before Telescope Launch"
 category: "Tech"
 date: 2026-08-30T05:22:35Z
-image: "https://i0.wp.com/www.socialnews.xyz/wp-content/uploads/2026/08/29/maxresdefault-19.jpg?fit=1280%2C720&quality=80&zoom=1&ssl=1?v=1788025875"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "NASA Administrator Flies Over Cape Canaveral Launchpad Before Telescope Launch"
-imageCredit: "Social News Xyz"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "Jm8wRjD3xVA"

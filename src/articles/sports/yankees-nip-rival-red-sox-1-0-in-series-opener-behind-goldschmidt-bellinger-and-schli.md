@@ -2,9 +2,9 @@
 title: "Yankees edge Red Sox 1-0 in series opener as Goldschmidt homers, Bellinger throws out run"
 category: "Sports"
 date: 2026-08-29T15:00:32Z
-image: "https://d3gouztkx1c1lh.cloudfront.net/360_TheDay_Live/0/0/0/1/155/150/1155150_1"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Yankees edge Red Sox 1-0 in series opener as Goldschmidt homers, Bellinger throws out run"
-imageCredit: "The Day"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "cgUQ2cCPeMk"

@@ -2,9 +2,9 @@
 title: "India Sends Third Aid Flight and Medical Team to Flood‑Stricken Nepal"
 category: "India"
 date: 2026-08-29T04:13:07Z
-image: "https://english.cdn.zeenews.com/sites/default/files/2026/08/28/1977034-your-us-air-defence-munitions-running-low-paragraph-text-2026-08-28t213819.811.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "India Sends Third Aid Flight and Medical Team to Flood‑Stricken Nepal"
-imageCredit: "zee news"
+imageCredit: "PENDING"
 video_id: ""
 video_caption: ""
 slug: "india-dispatches-team-of-doctors-and-paramedics-to-flood-hit-nepal"
@@ -16,7 +16,6 @@ why_it_matters: |
   The floods in Nepal have triggered one of the worst humanitarian crises in the country’s recent history, affecting over a million people and overwhelming local disaster response capacities. India's swift deployment of aid not only provides immediate relief but also reinforces long‑standing diplomatic ties and mutual security arrangements between the two nations. By sending medical professionals and essential supplies, India helps curb the spread of disease, stabilise affected communities, and prevent a deeper socioeconomic fallout.
   
   The cross‑border rescue of stranded individuals, including those on the Chinese side, demonstrates a broader regional cooperation framework that can serve as a model for future disaster response in the Himalayas. Continued assistance is expected to focus on rebuilding infrastructure, restoring livelihoods, and supporting Nepal’s own disaster‑management agencies, ensuring that relief efforts transition into sustainable recovery.
-  
 ---
 In a continued effort to assist Nepal after unprecedented monsoon flooding, the Indian government launched its third special flight on Tuesday, delivering roughly 10 tonnes of humanitarian aid to the disaster‑hit regions. The aircraft also transported an 11‑member team of doctors, paramedics and rescue personnel, tasked with providing emergency medical care, conducting search‑and‑rescue operations, and coordinating distribution of essential supplies such as food, clean water and medicines.
 

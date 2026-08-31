@@ -2,9 +2,9 @@
 title: "Modi Mourns Norway’s Late King Harald V, Reflects on 2023 State Visit"
 category: "World"
 date: 2026-08-28T23:31:43Z
-image: "https://one.newkerala.com/images/r/newkerala-com-news250.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Modi Mourns Norway’s Late King Harald V, Reflects on 2023 State Visit"
-imageCredit: "roshni t"
+imageCredit: "PENDING"
 video_id: "GbxDMgWoVjE"
 video_caption: "KING HARALD V dies|PM Modi pays tribute|Harald V passes away| King Harald death cause"
 slug: "pm-modi-mourns-norways-king-harald-v-recalls-may-visit"

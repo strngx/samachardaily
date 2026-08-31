@@ -2,9 +2,9 @@
 title: "Volkswagen faces board showdown over its sweeping turnaround plan"
 category: "Business"
 date: 2026-08-28T23:45:05Z
-image: "https://cbnc.com/wp-content/uploads/2026/08/HVPNACRAH5LGFJWBVJAHW3OOTI.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Volkswagen faces board showdown over its sweeping turnaround plan"
-imageCredit: "reuters"
+imageCredit: "PENDING"
 video_id: "K9p_twNmOfQ"
 video_caption: "Volkswagen Considers More Job Cuts and Factory Closures in Major Overhaul | APT"
 slug: "explainer-can-volkswagen-sidestep-board-opposition-to-push-through-its-overhaul"

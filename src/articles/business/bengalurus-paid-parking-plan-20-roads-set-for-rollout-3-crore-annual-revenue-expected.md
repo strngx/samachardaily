@@ -3,9 +3,9 @@ title: "Bengaluru launches paid parking on 20 central roads, targeting ₹3 cr
 seoTitle: "Bengaluru launches paid parking on 20 central roads,"
 category: "Business"
 date: 2026-08-30T14:43:41Z
-image: "https://img-cdn.publive.online/fit-in/1280x960/newsfirstprime/media/media_files/2025/12/20/bengaluru-paid-parking-2025-12-20-20-26-58.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Bengaluru launches paid parking on 20 central roads, targeting ₹3 cr annual revenue"
-imageCredit: "News First Prime"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "9d5f7UqVKLA"

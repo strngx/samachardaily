@@ -3,9 +3,9 @@ title: "NASA Launches Nancy Grace Roman Telescope on Deep‑Space Mission"
 seoTitle: "NASA launches Nancy Grace Roman Telescope"
 category: "Tech"
 date: 2026-08-31T09:02:27Z
-image: "https://media.npr.org/include/images/facebook-default-wide.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "NASA Launches Nancy Grace Roman Telescope on Deep‑Space Mission"
-imageCredit: "Npr"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "9wq3VHsL_bE"

@@ -3,9 +3,9 @@ title: "Messi's four‑goal masterclass fuels Inter Miami's 7-1 rout of CF Montr
 seoTitle: "Messi scores four as Inter Miami beats Montreal 7-1"
 category: "Sports"
 date: 2026-08-30T18:36:52Z
-image: "https://images.news9live.com/wp-content/uploads/2026/08/Lionel-Messi-Inter-Miami-goal.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Messi's four‑goal masterclass fuels Inter Miami's 7-1 rout of CF Montreal"
-imageCredit: "News9live"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "bYxODmcR3EE"

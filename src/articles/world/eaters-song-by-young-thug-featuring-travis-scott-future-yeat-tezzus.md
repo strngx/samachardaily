@@ -2,9 +2,9 @@
 title: "Young Thug's 'Slime Language 3' drops 'Eaters' with Travis Scott, Future, Yeat, Tezzus"
 category: "World"
 date: 2026-08-29T11:04:45Z
-image: "https://www.hotnewhiphop.com/imgprst/2292x1200-fit-81-auto/2026/08/Slime-Language-3.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Young Thug's 'Slime Language 3' drops 'Eaters' with Travis Scott, Future, Yeat, Tezzus"
-imageCredit: "Hot New Hip Hop"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "Rwd3zMhGgbk"

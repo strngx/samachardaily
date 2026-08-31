@@ -3,9 +3,9 @@ title: "Maharashtra Allocates ₹1.27 crore to Launch 30‑Horse Mounted Polic
 seoTitle: "₹1.27 crore approved for Mumbai’s 30‑horse mounted unit"
 category: "India"
 date: 2026-08-31T00:33:49Z
-image: "https://media.assettype.com/freepressjournal/2026-08-30/23hen6lp/Untitled-design-4.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Maharashtra Allocates ₹1.27 crore to Launch 30‑Horse Mounted Police Unit in Mumbai"
-imageCredit: "The Free Press Journal"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "HlBbfTNvH_M"

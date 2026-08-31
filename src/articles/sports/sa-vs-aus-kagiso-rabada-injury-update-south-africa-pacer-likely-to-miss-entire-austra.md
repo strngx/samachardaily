@@ -3,9 +3,9 @@ title: "Kagiso Rabada Sidelined as Grade 3 Hamstring Tear Rules Him Out of Austr
 seoTitle: "Kagiso Rabada Ruled Out of Australia Test Series"
 category: "Sports"
 date: 2026-08-30T20:37:16Z
-image: "https://sundayguardianlive.com/wp-content/uploads/2026/08/1200x900-px-7_8.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Kagiso Rabada Sidelined as Grade 3 Hamstring Tear Rules Him Out of Australia Series"
-imageCredit: "The Sunday Guardian"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "1Z_ZKGaLxec"

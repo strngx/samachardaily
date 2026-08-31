@@ -2,9 +2,9 @@
 title: "Vikings quarterback J.J. McCarthy’s polarizing rise sparks fan and media debate"
 category: "Sports"
 date: 2026-08-29T13:00:17Z
-image: "https://cdn.forumcomm.com/dims4/default/6a20d48/2147483647/resize/800x/quality/90/?url=https%3A%2F%2Fforum-communications-production-web.s3.us-west-2.amazonaws.com%2Fbrightspot%2F80%2Fca%2Fa6285f42430bac199dfe50e5eb07%2Fvikings-qb-j-j-mccarthy.JPG"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Vikings quarterback J.J. McCarthy’s polarizing rise sparks fan and media debate"
-imageCredit: "Mitchell Daily Republic"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "abMJLvcMfgM"

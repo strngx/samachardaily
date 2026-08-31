@@ -2,9 +2,9 @@
 title: "Women’s Asia Cup 2026: India eyes redemption against defending champions Sri Lanka"
 category: "Sports"
 date: 2026-08-28T23:35:45Z
-image: "https://www.sportsyaari.com/images/posts/2026/Women-asia-cup-2026.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Women’s Asia Cup 2026: India eyes redemption against defending champions Sri Lanka"
-imageCredit: "jhelum shit"
+imageCredit: "PENDING"
 video_id: "BN7DprPWUGI"
 video_caption: "Highlights | Semi-Final 1 | India &#39;A&#39; v Sri Lanka &#39;A&#39; | DP World Women&#39;s Asia Cup Rising Stars 2026"
 slug: "womens-asia-cup-2026-can-india-reclaim-the-crown-from-sri-lanka"

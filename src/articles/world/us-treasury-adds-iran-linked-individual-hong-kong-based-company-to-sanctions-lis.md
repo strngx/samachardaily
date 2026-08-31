@@ -2,9 +2,9 @@
 title: "US Treasury sanctions Iran-linked Dubai banker and Hong Kong firm as pressure on Tehran intensifies"
 category: "World"
 date: 2026-08-29T03:13:00Z
-image: "https://www.middleeastmonitor.com/wp-content/uploads/2022/01/GettyImages-1237337782-scaled-e1642532391835.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "US Treasury sanctions Iran-linked Dubai banker and Hong Kong firm as pressure on Tehran intensifies"
-imageCredit: "mehdi editor"
+imageCredit: "PENDING"
 video_id: "G6IjdnM4fVQ"
 video_caption: "US lifts Iranian oil sanctions amid tensions in strait of Hormuz"
 slug: "us-treasury-adds-iran-linked-individual-hong-kong-based-company-to-sanctions-lis"

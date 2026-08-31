@@ -2,9 +2,9 @@
 title: "Manipur ambush survivor says attackers wore camouflage uniforms"
 category: "India"
 date: 2026-08-28T22:09:53Z
-image: "https://static.toiimg.com/thumb/resizemode-4,width-1280,height-720,msid-133589054/133589054.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Manipur ambush survivor says attackers wore camouflage uniforms"
-imageCredit: "aastha jha"
+imageCredit: "PENDING"
 video_id: "U3UIm9r6MSM"
 video_caption: "Kuki Armed Groups Challenging NIA &amp; Indian Authorities in Manipur."
 slug: "wore-camouflage-uniforms-manipur-ambush-survivor-recalls-details-of-attackers"

@@ -3,9 +3,9 @@ title: "Rajya Sabha MP Kapil Sibal Responds to RSS Chief Bhagwat’s ‘Unity in
 seoTitle: "Rajya Sabha MP Kapil Sibal Responds to RSS Chief Bhagwat’s"
 category: "India"
 date: 2026-08-30T16:29:29Z
-image: "https://imgs.etvbharat.com/etvbharat/prod-images/30-08-2026/1200-675-27513591-975-27513591-1788064063311.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Rajya Sabha MP Kapil Sibal Responds to RSS Chief Bhagwat’s ‘Unity in Diversity’ Call"
-imageCredit: "Etv Bharat"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "IAriSBzKfKY"

@@ -3,9 +3,9 @@ title: "India Women's Hockey Coach Sjoerd Marijne Sees World Cup Boost Ahead of 
 seoTitle: "Marijne Sees World Cup Boost for India Women Hockey"
 category: "India"
 date: 2026-08-31T03:34:04Z
-image: "https://thenewsmill.com/wp-content/uploads/2026/08/india-womens-hockey-coach-credits-world-cup-for-boosting-confidence-ahead-of-asian-games.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "India Women's Hockey Coach Sjoerd Marijne Sees World Cup Boost Ahead of Asian Games"
-imageCredit: "The News Mill"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "OF23EEZS1AA"

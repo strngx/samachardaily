@@ -2,9 +2,9 @@
 title: "Prep boys soccer: Hurricane eyes back-to-back title run after 3-1 win over Huntington"
 category: "Sports"
 date: 2026-08-29T11:00:15Z
-image: "https://bloximages.newyork1.vip.townnews.com/wvgazettemail.com/content/tncms/assets/v3/editorial/e/0e/e0ed6336-6df8-4e06-a5c9-c2bb7ffac98c/6a91f49dafddf.preview.jpg?crop=1757%2C922%2C5%2C153&resize=1200%2C630&order=crop%2Cresize"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Prep boys soccer: Hurricane eyes back-to-back title run after 3-1 win over Huntington"
-imageCredit: "Charleston Gazette-mail"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "0z9AFLZGInc"

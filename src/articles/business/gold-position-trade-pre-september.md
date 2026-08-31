@@ -2,9 +2,9 @@
 title: "Gold Prices Poised for Pullback to $4,500 Amid Technical Breakdowns, Analysts Eye $6,000‑$10,000 Target"
 category: "Business"
 date: 2026-08-29T02:13:12Z
-image: "https://s3.tradingview.com/d/dQXduoiT_big.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Gold Prices Poised for Pullback to $4,500 Amid Technical Breakdowns, Analysts Eye $6,000‑$10,000 Target"
-imageCredit: "lberks follow following"
+imageCredit: "PENDING"
 video_id: "ZJxjYbjfctQ"
 video_caption: "Gold Price Prediction | Detailed Technical &amp; Fundamental Analysis 📈"
 slug: "gold-position-trade-pre-september"

@@ -2,9 +2,9 @@
 title: "Sport Expo India 2026 kicks off at HITEX Hyderabad with 50 exhibitors"
 category: "Sports"
 date: 2026-08-28T23:45:29Z
-image: "https://khelkhiladis.com/wp-content/uploads/2026/08/Sports-expo1.jpeg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Sport Expo India 2026 kicks off at HITEX Hyderabad with 50 exhibitors"
-imageCredit: "team khel khiladis"
+imageCredit: "PENDING"
 video_id: "gZtrPvUqSkU"
 video_caption: "Sport Expo India 2026 Inauguration | 9th Edition of Sport Expo India | Fitness, Wellness &amp; Sports"
 slug: "two-day-sport-expo-india-2026-opens-in-hitex-hyderabad-features-50-exhibitors"

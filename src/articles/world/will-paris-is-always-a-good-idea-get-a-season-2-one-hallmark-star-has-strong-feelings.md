@@ -2,9 +2,9 @@
 title: "Hallmark Star Pushes for Season 2 of ‘Paris Is Always A Good Idea’"
 category: "World"
 date: 2026-08-29T11:03:05Z
-image: "https://cdn.mos.cms.futurecdn.net/gaxtse7et7VGwsuFyUjSFd-1280-80.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Hallmark Star Pushes for Season 2 of ‘Paris Is Always A Good Idea’"
-imageCredit: "Cinemablend"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "jSds4Oi83Eg"

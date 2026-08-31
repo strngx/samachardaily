@@ -3,9 +3,9 @@ title: "Trump Signs Executive Order to Establish US Space Academy, Honors Artemi
 seoTitle: "Trump Signs Executive Order to Form US Space Academy"
 category: "Tech"
 date: 2026-08-31T03:02:47Z
-image: "https://bostonglobe-bostonglobe-prod.web.arc-cdn.net/resizer/v2/XNCYO77OAZBOFDA7F7T64X742U.jpg?auth=be4cab6b88a308f4bf8918cd9ea06f252834ef567c567371f885ba615c95010f&smart=true&width=8163&height=5442"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Trump Signs Executive Order to Establish US Space Academy, Honors Artemis Crew"
-imageCredit: "The Boston Globe"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "M9YNRQxqFIo"

@@ -2,9 +2,9 @@
 title: "Sharp swings in NSE closing auction leave traders uneasy"
 category: "Business"
 date: 2026-08-29T05:13:02Z
-image: "https://images.financialexpressdigital.com/2026/08/Stocks-marekt-6_20260312083637_20260411024104_20260414105453_20260415152632_20260416142715_20260811154234_20260828073154_20260828170308.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Sharp swings in NSE closing auction leave traders uneasy"
-imageCredit: "kushan shah"
+imageCredit: "PENDING"
 video_id: ""
 video_caption: ""
 slug: "sharp-swings-in-closing-auction-keep-traders-on-edge"

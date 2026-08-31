@@ -2,9 +2,9 @@
 title: "Asieris Pharmaceuticals Reports Strong First‑Half 2026 Results, Launches World’s First Non‑Invasive Cervical Lesion Treatment CEVIRA® in China"
 category: "India"
 date: 2026-08-28T23:31:28Z
-image: "https://mmx.prnewswire.com/media/MS1885219/MORFIUS.jpg?id=OA2769962&p=facebook"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Asieris Pharmaceuticals Reports Strong First‑Half 2026 Results, Launches World’s First Non‑Invasive Cervical Lesion Treatment CEVIRA® in China"
-imageCredit: "cision pr newswire"
+imageCredit: "PENDING"
 video_id: ""
 video_caption: ""
 slug: "asieris-pharmaceuticals-releases-2026-semi-annual-report-core-product-commercial"

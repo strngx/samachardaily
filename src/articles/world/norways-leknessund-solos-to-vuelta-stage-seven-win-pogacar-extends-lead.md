@@ -2,9 +2,9 @@
 title: "Norwegian Leknessund claims solo victory on Vuelta stage seven as Pogacar widens overall lead"
 category: "World"
 date: 2026-08-29T04:12:52Z
-image: "https://www.reuters.com/resizer/v2/DR6WI6QNKNOITHX57CYFPAAT5U.jpg?auth=823c8c3c54fd8a32552142c605961d15fc9c31e52d29803d88560ab59b0aa228&smart=true&width=1920"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Norwegian Leknessund claims solo victory on Vuelta stage seven as Pogacar widens overall lead"
-imageCredit: "reuters_com"
+imageCredit: "PENDING"
 video_id: ""
 video_caption: ""
 slug: "norways-leknessund-solos-to-vuelta-stage-seven-win-pogacar-extends-lead"

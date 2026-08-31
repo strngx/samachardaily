@@ -2,9 +2,9 @@
 title: "Gautam Gambhir lauds India’s mental grit, hails Sri Lanka’s Sonal Dinusha after Test series win"
 category: "Sports"
 date: 2026-08-28T22:51:59Z
-image: "https://media.assettype.com/dt-next/2026-08-28/x70gzch4/Sonal.jpg?w=280"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Gautam Gambhir lauds India’s mental grit, hails Sri Lanka’s Sonal Dinusha after Test series win"
-imageCredit: "pti"
+imageCredit: "PENDING"
 video_id: "tao_FFWuyqk"
 video_caption: "Gautam Gambhir Press Conference | India Vs Sri Lanka Test | Sarfaraz | Pant | Rahul | Shubman"
 slug: "gautam-gambhir-praises-indias-mental-toughness-gives-special-shoutout-to-sonal-d"

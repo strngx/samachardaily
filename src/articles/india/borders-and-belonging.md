@@ -2,9 +2,9 @@
 title: "Filmmaker Gurvinder Singh on 'Rehmat' and his enduring ties to Punjab"
 category: "India"
 date: 2026-08-30T12:52:33Z
-image: "https://cf-images.assettype.com/newindianexpress/2026-08-27/chakaqos/REHMAT-STILL10-COPY-2050528.JPG?w=280"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Filmmaker Gurvinder Singh on 'Rehmat' and his enduring ties to Punjab"
-imageCredit: "The New Indian Express"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "QHoUiUFBIn0"

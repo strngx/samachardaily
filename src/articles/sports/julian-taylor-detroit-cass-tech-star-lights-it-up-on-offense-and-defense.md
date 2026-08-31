@@ -2,9 +2,9 @@
 title: "Cass Tech’s Julian Taylor scores three touchdowns in dominant Week 1 win over Michigan City"
 category: "Sports"
 date: 2026-08-29T21:06:11Z
-image: "https://s.yimg.com/lo/mysterio/api/2b79f7cf83e62ef30cdd9eba378fa14a1cc4b223bc3382a4ef05ae87cf4f2b31/lightyear_networkapi/resizefit_w1200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fdetroit-free-press%2Fb996d91d443b29434e8f61c9c50d4855.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Cass Tech’s Julian Taylor scores three touchdowns in dominant Week 1 win over Michigan City"
-imageCredit: "Yahoo! News"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "fElZsz0P2z0"

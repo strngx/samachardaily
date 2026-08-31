@@ -2,9 +2,9 @@
 title: "Federal Judge Blocks USPS Mail‑in Voting Restrictions, Keeping Ballots Unprotected"
 category: "World"
 date: 2026-08-29T01:12:49Z
-image: "https://cbnc.com/wp-content/uploads/2026/08/GettyImages-2280067129.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Federal Judge Blocks USPS Mail‑in Voting Restrictions, Keeping Ballots Unprotected"
-imageCredit: "the daily caller"
+imageCredit: "PENDING"
 video_id: "Q4mdMMe9vck"
 video_caption: "Federal Judge Blocks Trump’s Mail-In Ballot Restrictions—Again"
 slug: "editor-daily-rundown-breaking-overnight-obama-judge-orders-postal-service-to-lea"

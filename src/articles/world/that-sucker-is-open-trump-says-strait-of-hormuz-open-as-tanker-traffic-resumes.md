@@ -2,9 +2,9 @@
 title: "Trump declares Strait of Hormuz open as US clears Iranian mines and tanker traffic resumes"
 category: "World"
 date: 2026-08-28T23:35:08Z
-image: "https://images.firstpost.com/uploads/2026/08/2026-08-03T202424Z_136667495_RC28RMA8J8SW_RTRMADP_3_USA-TRUMP-APPROVAL-1-2026-08-bb481b5cca271a39e5d2c2a382906ca9.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Trump declares Strait of Hormuz open as US clears Iranian mines and tanker traffic resumes"
-imageCredit: "sonam chauhan"
+imageCredit: "PENDING"
 video_id: "qUoRNpMSHLI"
 video_caption: "The Strait Of Hormuz: Energy Lifeline Or Global Time Bomb? | 4K Documentary"
 slug: "that-sucker-is-open-trump-says-strait-of-hormuz-open-as-tanker-traffic-resumes"

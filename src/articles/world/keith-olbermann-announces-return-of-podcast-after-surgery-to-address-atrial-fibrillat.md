@@ -2,9 +2,9 @@
 title: "Keith Olbermann to resume podcast after atrial fibrillation surgery"
 category: "World"
 date: 2026-08-29T10:56:11Z
-image: "https://awfulannouncing.com/wp-content/uploads/sites/94/2026/08/aaolbermann.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Keith Olbermann to resume podcast after atrial fibrillation surgery"
-imageCredit: "Awful Announcing"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: ""

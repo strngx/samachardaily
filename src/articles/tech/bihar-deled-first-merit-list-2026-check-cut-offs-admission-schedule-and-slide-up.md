@@ -2,9 +2,9 @@
 title: "Bihar DElEd First Merit List 2026 Released with Institute‑Wise Cut‑offs"
 category: "Tech"
 date: 2026-08-28T22:43:29Z
-image: "https://images.careerindia.com/img/2026/08/bihar-deled-first-merit-list-2026-check-cut-offs-admission-schedule-slide-up-process_600x280_1787913764723_.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Bihar DElEd First Merit List 2026 Released with Institute‑Wise Cut‑offs"
-imageCredit: "swapupdate"
+imageCredit: "PENDING"
 video_id: "r1Gtm0Z_SGo"
 video_caption: "Bihar Deled 1st Allotment Letter 2026 Kaise Dekhe | Bihar Deled Merit List 2026 Kaise download Kare"
 slug: "bihar-deled-first-merit-list-2026-check-cut-offs-admission-schedule-and-slide-up"

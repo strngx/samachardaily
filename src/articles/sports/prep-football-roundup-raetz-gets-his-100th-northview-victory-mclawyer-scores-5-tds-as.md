@@ -3,9 +3,9 @@ title: "Raetz notches 100th win as Northview crushes Vincennes Lincoln 49-14, Mc
 seoTitle: "Raetz notches 100th win as Northview crushes Vincennes"
 category: "Sports"
 date: 2026-08-30T15:02:25Z
-image: "https://bloximages.chicago2.vip.townnews.com/tribstar.com/content/tncms/assets/v3/editorial/f/5c/f5c473e5-51c2-4d31-908b-a1dd38a76d12/6a939da777742.image.jpg?resize=300%2C484"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Raetz notches 100th win as Northview crushes Vincennes Lincoln 49-14, McLawyer 5 TDs"
-imageCredit: "Tribune Star"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "duMN_xR27sI"

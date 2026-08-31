@@ -2,9 +2,9 @@
 title: "2008 Mercedes-Benz CLK350 Cabriolet Listed with 4,900 Miles, Full Service Records"
 category: "Tech"
 date: 2026-08-30T11:22:28Z
-image: "https://bringatrailer.com/wp-content/uploads/2026/08/IMG_7830-scaled-copy-2026-08-26-vv4-14014.jpg?w=940"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "2008 Mercedes-Benz CLK350 Cabriolet Listed with 4,900 Miles, Full Service Records"
-imageCredit: "Bring A Trailer"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "xEKDQmntaZw"

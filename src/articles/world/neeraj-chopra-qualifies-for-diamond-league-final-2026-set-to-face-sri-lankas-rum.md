@@ -2,9 +2,9 @@
 title: "Neeraj Chopra secures spot in 2026 Diamond League final after season‑best 88.05m in Lausanne"
 category: "World"
 date: 2026-08-28T23:44:53Z
-image: "https://cdn1.wionews.com/prod/wion/images/2026/20260828/image-1787916897655.jpg?rect=(0,68,1065,799)"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Neeraj Chopra secures spot in 2026 Diamond League final after season‑best 88.05m in Lausanne"
-imageCredit: "aditya bhatia"
+imageCredit: "PENDING"
 video_id: "drcSPQHI8GU"
 video_caption: "&quot;It didn&#39;t feel like 88 metres!&quot; - Neeraj Chopra on javelin battle with Pathirage in Lausanne"
 slug: "neeraj-chopra-qualifies-for-diamond-league-final-2026-set-to-face-sri-lankas-rum"

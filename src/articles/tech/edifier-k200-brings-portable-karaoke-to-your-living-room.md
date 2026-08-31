@@ -2,9 +2,9 @@
 title: "Edifier launches K200 portable speaker with built‑in karaoke and dual wireless mics"
 category: "Tech"
 date: 2026-08-29T06:13:18Z
-image: "https://www.gizmochina.com/wp-content/uploads/2026/08/Edifier-K200-Design.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Edifier launches K200 portable speaker with built‑in karaoke and dual wireless mics"
-imageCredit: "rajesh regmi"
+imageCredit: "PENDING"
 video_id: ""
 video_caption: ""
 slug: "edifier-k200-brings-portable-karaoke-to-your-living-room"

@@ -3,9 +3,9 @@ title: "FDA clears Juul's updated e‑cigarette with optional age‑verification
 seoTitle: "Juul gets FDA OK for age‑gated vaping device in US"
 category: "Tech"
 date: 2026-08-31T11:03:14Z
-image: "https://wpcdn.us-east-1.vip.tn-cloud.net/www.wxxv25.com/content/uploads/2026/08/s/i/juul.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "FDA clears Juul's updated e‑cigarette with optional age‑verification system"
-imageCredit: "Wxxv Channel 25"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "SeXYitmsL1I"

@@ -2,9 +2,9 @@
 title: "XREAL's Smart Glasses Aim to Turn Sunglasses into Personal Movie Screens"
 category: "Tech"
 date: 2026-08-29T10:44:09Z
-image: "https://techcrunch.com/wp-content/uploads/2026/08/P1110099.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "XREAL's Smart Glasses Aim to Turn Sunglasses into Personal Movie Screens"
-imageCredit: "Tech Crunch"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "fuuJr55Mu4k"

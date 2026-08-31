@@ -2,9 +2,9 @@
 title: "Bengaluru hospital fined ₹1 lakh for illegal parking on NH-7 footpath"
 category: "India"
 date: 2026-08-29T13:39:07Z
-image: "https://img-cdn.publive.online/fit-in/1280x960/newsfirstprime/media/media_files/2026/08/29/gba-fine-2026-08-29-07-03-54.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Bengaluru hospital fined ₹1 lakh for illegal parking on NH-7 footpath"
-imageCredit: "News First Prime"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "Jz97vt7carg"

@@ -2,9 +2,9 @@
 title: "Sebastian Bach Debuts as Twisted Sister Frontman, Replacing Dee Snider"
 category: "World"
 date: 2026-08-30T00:57:48Z
-image: "https://townsquare.media/site/295/files/2026/08/attachment-sebastianbachtwistedsister.jpg?format=natural"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Sebastian Bach Debuts as Twisted Sister Frontman, Replacing Dee Snider"
-imageCredit: "Ultimate Classic Rock"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "VGbyPUjWxdE"

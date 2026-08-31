@@ -3,9 +3,9 @@ title: "Actress Revathi urges focus on boys' home learning at 6th Bharat Soka GS
 seoTitle: "Revathi calls for attention to boys' upbringing"
 category: "India"
 date: 2026-08-31T10:34:07Z
-image: "https://www.livemint.com/lm-img/img/2025/03/17/1600x900/logo/entertainmentlm4_1742216199465_1742216238799.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Actress Revathi urges focus on boys' home learning at 6th Bharat Soka GSSI seminar"
-imageCredit: "Mint"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: ""

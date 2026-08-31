@@ -2,9 +2,9 @@
 title: "Tagore’s Rakhi Campaign United Bengal Against the 1905 Partition"
 category: "World"
 date: 2026-08-28T22:40:53Z
-image: "https://cdn1.wionews.com/prod/wion/images/2026/20260828/image-1787913496319.png?rect=(0,0,1200,900)"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Tagore’s Rakhi Campaign United Bengal Against the 1905 Partition"
-imageCredit: "shomini sen"
+imageCredit: "PENDING"
 video_id: "0nrTMXtBKec"
 video_caption: "রাখি বন্ধন এর ইতিহাস | History Of Rakhi Festival | Partition Of Bengal 1905,RakhiBandhan@sayan_01"
 slug: "when-rakhi-unified-bengal-the-story-of-rabindranath-tagores-1905-anti-partition-"

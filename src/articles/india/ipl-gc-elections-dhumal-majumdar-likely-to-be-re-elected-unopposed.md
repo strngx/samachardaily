@@ -3,9 +3,9 @@ title: "BCCI Announces Uncontested Re‑election of Dhumal, Majumdar to IPL Gove
 seoTitle: "BCCI Announces Uncontested Re‑election of Dhumal, Majumdar"
 category: "India"
 date: 2026-08-30T15:36:10Z
-image: "https://i.cdn.newsbytesapp.com/images/l98120260830084021.jpeg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "BCCI Announces Uncontested Re‑election of Dhumal, Majumdar to IPL Governing Council"
-imageCredit: "Newsbytes"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "NJMLrqugdec"

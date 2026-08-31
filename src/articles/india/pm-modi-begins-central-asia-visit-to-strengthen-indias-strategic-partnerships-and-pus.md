@@ -2,9 +2,9 @@
 title: "Modi Launches Central Asia Tour to Bolster Strategic Ties and Regional Security"
 category: "India"
 date: 2026-08-29T18:52:35Z
-image: "https://images.psuconnect.in/PM_Modi_Begins_Central_Asia_Visit_to_Strengthen_India_Strategic_Partnerships.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Modi Launches Central Asia Tour to Bolster Strategic Ties and Regional Security"
-imageCredit: "Psu Connect"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "e_QI6JrdOYY"

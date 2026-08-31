@@ -2,9 +2,9 @@
 title: "DRDO eyes 3,500‑km range for LR‑AShM hypersonic missile family"
 category: "Tech"
 date: 2026-08-29T17:22:29Z
-image: "https://dharmakshethra.com/wp-content/uploads/2020/02/India-DRDO-Signs-Technology-Development-Contract-with-Rosoboronexport-Russia-Defence-Dharmakshethra.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "DRDO eyes 3,500‑km range for LR‑AShM hypersonic missile family"
-imageCredit: "Dharmakshethra - India Unabridged"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "KOWCM-v64FY"

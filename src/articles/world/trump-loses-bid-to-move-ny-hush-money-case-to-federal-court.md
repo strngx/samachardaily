@@ -2,9 +2,9 @@
 title: "Trump's bid to shift NY hush‑money conviction to federal court rejected"
 category: "World"
 date: 2026-08-29T11:39:12Z
-image: "https://bloximages.newyork1.vip.townnews.com/thederrick.com/content/tncms/assets/v3/editorial/9/bc/9bcc1d9e-4eef-5fa3-a20c-794079732f1b/6a9225a030e01.image.jpg?resize=300%2C200"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Trump's bid to shift NY hush‑money conviction to federal court rejected"
-imageCredit: "Thederrick"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "NitEBTRXu2s"

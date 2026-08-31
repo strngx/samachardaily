@@ -3,9 +3,9 @@ title: "Uber Drivers Claim Waymo Robotaxis Are Slashing Earnings as Unions Fight
 seoTitle: "Uber Drivers Union Battles Waymo Robotaxis Over Pay"
 category: "Tech"
 date: 2026-08-31T07:03:24Z
-image: "https://futurism.com/wp-content/uploads/2026/08/uber-drivers-waymo-driving-down-pay.jpg?quality=85&w=2048"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Uber Drivers Claim Waymo Robotaxis Are Slashing Earnings as Unions Fight Back"
-imageCredit: "Futurism"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "GWFXdl4EuCQ"

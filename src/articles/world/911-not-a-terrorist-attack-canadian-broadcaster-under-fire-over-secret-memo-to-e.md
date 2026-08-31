@@ -2,9 +2,9 @@
 title: "CBC memo sparks controversy for avoiding term ‘terrorist attack’ in 9/11 coverage"
 category: "World"
 date: 2026-08-28T22:59:42Z
-image: "https://cdn1.wionews.com/prod/wion/images/2026/20260828/image-1787914028261.jpg?rect=(0,110,1700,1275)"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "CBC memo sparks controversy for avoiding term ‘terrorist attack’ in 9/11 coverage"
-imageCredit: "prajvi mathur"
+imageCredit: "PENDING"
 video_id: "pNhcaA-k5Fo"
 video_caption: "‘BIG 9/11 TERROR ATTACK’: Canada Broadcaster Blasts Trump In LEAKED Memo; Lake Ontario ‘RENAMED’"
 slug: "911-not-a-terrorist-attack-canadian-broadcaster-under-fire-over-secret-memo-to-e"

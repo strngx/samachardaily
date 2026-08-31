@@ -2,9 +2,9 @@
 title: "Nepal floods force families to scour Kathmandu hospitals for missing kin"
 category: "India"
 date: 2026-08-29T09:43:43Z
-image: "https://media.assettype.com/deccanherald/2026-08-28/813uw9ok/file87cuysjes4nvirmugl9.jpeg?w=1200&h=675&auto=format%2Ccompress&fit=max"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Nepal floods force families to scour Kathmandu hospitals for missing kin"
-imageCredit: "Deccan Herald"
+imageCredit: "PENDING"
 trending: false
 video_id: "ie7Vyk117G0"
 video_caption: "Nepal flash floods: Families search for missing loved ones at Kathmandu hospitals"

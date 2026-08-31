@@ -2,9 +2,9 @@
 title: "RBI Boosts Dollar Sales as Rupee Stays Confined to Tight Band"
 category: "Business"
 date: 2026-08-28T22:56:35Z
-image: "https://images.moneycontrol.com/static-mcnews/2022/06/Reserve-Bank-of-India-New-Building.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "RBI Boosts Dollar Sales as Rupee Stays Confined to Tight Band"
-imageCredit: "archishma iyer"
+imageCredit: "PENDING"
 video_id: "uuovaZ93Qx8"
 video_caption: "New Red Line for India’s Rupee is forming as pressure mounts | World Business Watch | WION"
 slug: "rbi-steps-up-intervention-as-rupee-remains-locked-in-narrow-range"

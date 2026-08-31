@@ -2,9 +2,9 @@
 title: "Tamil Nadu MLA Premalatha Raises Concerns Over Denied Floor Time in Assembly"
 category: "India"
 date: 2026-08-28T20:44:21Z
-image: "https://www.deccanchronicle.com/h-upload/2026/08/28/2082179-dmdk-leader-premalatha.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Tamil Nadu MLA Premalatha Raises Concerns Over Denied Floor Time in Assembly"
-imageCredit: "parameswaran"
+imageCredit: "PENDING"
 video_id: "xiNmJAiqSVw"
 video_caption: "ஆதவ் அர்ஜுனாவை சாடிய பிரேமலதா! கணக்கில் வராத சொத்து விபரங்கள் அம்பலம்! TVK | Premalatha"
 slug: "premalatha-sour-over-acrimony-in-tamil-nadu-assembly"

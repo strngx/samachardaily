@@ -2,9 +2,9 @@
 title: "Hockey India grants ₹50 lakh to women’s team for historic World Cup fifth‑place finish"
 category: "India"
 date: 2026-08-29T10:18:43Z
-image: "https://th-i.thgim.com/public/news/national/oq85ek/article71402383.ece/alternates/FREE_1200/GetImageContent.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Hockey India grants ₹50 lakh to women’s team for historic World Cup fifth‑place finish"
-imageCredit: "The Hindu"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "NybU-qWqhDo"

@@ -2,9 +2,9 @@
 title: "India finish 8th at Hockey World Cup after shootout loss to Belgium"
 category: "India"
 date: 2026-08-29T10:56:01Z
-image: "https://news24online.com/wp-content/uploads/2026/08/India-fought-back-through-captain-Harmanpreet-Singh-who-scored-in-the-31st-minute-to-make-it-2-2.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "India finish 8th at Hockey World Cup after shootout loss to Belgium"
-imageCredit: "News 24"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "ZMvyr0CRVA8"

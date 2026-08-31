@@ -2,9 +2,9 @@
 title: "CD Projekt Red Confirms Physical Edition for The Witcher 4 Despite Disc Phase‑out"
 category: "World"
 date: 2026-08-30T06:57:47Z
-image: "https://sm.ign.com/ign_in/news/t/the-witche/the-witcher-4-will-have-a-physical-edition-even-if-discs-go_6859.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "CD Projekt Red Confirms Physical Edition for The Witcher 4 Despite Disc Phase‑out"
-imageCredit: "In Ign"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "e4TisH_8GAY"

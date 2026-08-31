@@ -2,9 +2,9 @@
 title: "Asian Games hopeful Abhishek Pal provisionally suspended after clomiphene positive test"
 category: "Sports"
 date: 2026-08-29T07:13:34Z
-image: "https://media.assettype.com/deccanherald/2026-08-28/bfdchpmm/istockphoto-1438653074-612x612.jpg?w=1200&h=675&auto=format%2Ccompress&fit=max&enlarge=true"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Asian Games hopeful Abhishek Pal provisionally suspended after clomiphene positive test"
-imageCredit: "dhns"
+imageCredit: "PENDING"
 video_id: "HrWH72BVHe4"
 video_caption: "Athletics - Indian shot-putter Kaur handed four-year doping ban"
 slug: "asian-games-bound-runner-abhishek-pal-fails-dope-test-faces-suspension"

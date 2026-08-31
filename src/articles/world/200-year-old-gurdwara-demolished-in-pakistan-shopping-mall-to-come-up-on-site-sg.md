@@ -2,9 +2,9 @@
 title: "Historic 200-Year-Old Gurdwara Razed in Pakistan to Make Way for Shopping Mall, Sparks Outcry from Sikh Body and Indian BJP"
 category: "World"
 date: 2026-08-29T00:00:49Z
-image: "https://media.ptcnews.tv/wp-content/uploads/2026/08/678e5c9940cd430abb96579a4c4e09af_1280X720.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Historic 200-Year-Old Gurdwara Razed in Pakistan to Make Way for Shopping Mall, Sparks Outcry from Sikh Body and Indian BJP"
-imageCredit: "ptcnews"
+imageCredit: "PENDING"
 video_id: "ifKWLA0L6eQ"
 video_caption: "Balochistan &#39;ਚ ਗੁਰੂ ਘਰ ਢਹਿ-ਢੇਰੀ, ਗੁਰਦੁਆਰੇ ਦੀ ਥਾਂ &#39;ਤੇ ਬਣ ਰਿਹਾ ਸ਼ਾਪਿੰਗ MALL | RP Singh | N18G"
 slug: "200-year-old-gurdwara-demolished-in-pakistan-shopping-mall-to-come-up-on-site-sg"

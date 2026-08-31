@@ -2,9 +2,9 @@
 title: "WWE SmackDown Live on Aug 28, 2026: US TV, Peacock & Netflix Stream Details"
 category: "India"
 date: 2026-08-29T11:04:23Z
-image: "https://st1.latestly.com/wp-content/uploads/2026/08/1-44001502.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "WWE SmackDown Live on Aug 28, 2026: US TV, Peacock & Netflix Stream Details"
-imageCredit: "Latestly"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "9uHGkKDJrVo"

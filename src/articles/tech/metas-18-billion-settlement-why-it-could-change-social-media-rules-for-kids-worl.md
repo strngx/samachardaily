@@ -2,9 +2,9 @@
 title: "Meta to Pay $18 Billion Settlement, Limits Teen Access to Facebook and Instagram in US"
 category: "Tech"
 date: 2026-08-29T03:13:24Z
-image: "https://images.timesnownews.com/thumb/msid-156003208,thumbsize-718299,width-1280,height-720,resizemode-75/156003208.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Meta to Pay $18 Billion Settlement, Limits Teen Access to Facebook and Instagram in US"
-imageCredit: "ananya varma"
+imageCredit: "PENDING"
 video_id: ""
 video_caption: ""
 slug: "metas-18-billion-settlement-why-it-could-change-social-media-rules-for-kids-worl"

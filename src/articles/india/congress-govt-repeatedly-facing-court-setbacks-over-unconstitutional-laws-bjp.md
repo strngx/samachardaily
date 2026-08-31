@@ -2,9 +2,9 @@
 title: "BJP alleges Himachal Congress government faces repeated court setbacks over unconstitutional laws"
 category: "India"
 date: 2026-08-29T06:12:58Z
-image: "https://static.toiimg.com/thumb/resizemode-72,width-1280,height-720,msid-132872410/132872410.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "BJP alleges Himachal Congress government faces repeated court setbacks over unconstitutional laws"
-imageCredit: "the times of india"
+imageCredit: "PENDING"
 video_id: "85jRanAoKPc"
 video_caption: "Congress will get another setback in Himachal Pradesh, dozens of leaders will leave the party"
 slug: "congress-govt-repeatedly-facing-court-setbacks-over-unconstitutional-laws-bjp"

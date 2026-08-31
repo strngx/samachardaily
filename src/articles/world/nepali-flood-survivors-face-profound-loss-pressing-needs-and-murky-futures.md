@@ -2,9 +2,9 @@
 title: "Flood Survivors in Nepal Grapple with Loss, Urgent Needs and Uncertain Rebuilding"
 category: "World"
 date: 2026-08-29T10:18:56Z
-image: "https://static01.nyt.com/images/2026/08/28/multimedia/28INT-NEPAL-DISPLACED-zptw/28INT-NEPAL-DISPLACED-zptw-mediumSquareAt3X.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Flood Survivors in Nepal Grapple with Loss, Urgent Needs and Uncertain Rebuilding"
-imageCredit: "The New York Times"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "biQyRC6T0dc"

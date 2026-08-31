@@ -2,9 +2,9 @@
 title: "India's Talent Bottleneck: 179-Year Green Card Wait Highlights US Immigration Crunch, While Nine Indian-Origin Leaders Drive AI Innovation"
 category: "Tech"
 date: 2026-08-29T02:13:23Z
-image: "https://static.toiimg.com/imagenext/toiblogs/thumb/blogs/wp-content/uploads/2026/08/image-1-2.png?resizemode=4&width=1280&height=720"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "India's Talent Bottleneck: 179-Year Green Card Wait Highlights US Immigration Crunch, While Nine Indian-Origin Leaders Drive AI Innovation"
-imageCredit: "toi bharat"
+imageCredit: "PENDING"
 video_id: "eDUkpEmYeIA"
 video_caption: "179-Year Green Card Wait? Why Indian Applicants Face US Immigration Crisis | Firstpost America |N18G"
 slug: "toi-bharat-abroad-179-year-green-card-wait-9-indian-origin-names-shape-ai"

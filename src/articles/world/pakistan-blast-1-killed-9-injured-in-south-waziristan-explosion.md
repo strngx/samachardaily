@@ -2,9 +2,9 @@
 title: "Motorcycle‑Borne IED Kills One, Injures Nine in South Waziristan Market"
 category: "World"
 date: 2026-08-28T23:37:02Z
-image: "https://images.mid-day.com/images/images/2026/aug/bombblast-two-1787915817055_d.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Motorcycle‑Borne IED Kills One, Injures Nine in South Waziristan Market"
-imageCredit: "mid-day"
+imageCredit: "PENDING"
 video_id: "3UprZWwjZTE"
 video_caption: "South Waziristan: Motorcycle Blast Kills 1, Injures 8 | 4PM Headlines Geo News (28 August 2026)"
 slug: "pakistan-blast-1-killed-9-injured-in-south-waziristan-explosion"

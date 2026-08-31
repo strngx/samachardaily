@@ -2,9 +2,9 @@
 title: "PM Modi arrives in Uzbekistan, welcomed by President Mirziyoyev for trade, defence talks"
 category: "India"
 date: 2026-08-30T02:52:45Z
-image: "https://images.moneycontrol.com/static-mcnews/2026/08/20260829145048_modi-in-Uzbekistan.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "PM Modi arrives in Uzbekistan, welcomed by President Mirziyoyev for trade, defence talks"
-imageCredit: "Moneycontrol"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "e_adFO4-KHA"

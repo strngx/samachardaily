@@ -2,9 +2,9 @@
 title: "Fed Governor Warsh Calls for a Quieter Policy Approach to Tackle Persistent Inflation"
 category: "World"
 date: 2026-08-29T07:12:49Z
-image: "https://cbnc.com/wp-content/uploads/2026/06/6a2ead0a225a0.image_.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Fed Governor Warsh Calls for a Quieter Policy Approach to Tackle Persistent Inflation"
-imageCredit: "center square"
+imageCredit: "PENDING"
 video_id: "1Py7NNldDvI"
 video_caption: "Warsh Speech from Jackson Hole on Deck | Opening Trade 8/28/2026"
 slug: "warsh-calls-for-a-quieter-fed-focused-on-reducing-inflation-national"

@@ -2,9 +2,9 @@
 title: "BJP chief Nitin Nabin rebukes three Delhi MPs for visiting Sajjan Kumar’s home"
 category: "India"
 date: 2026-08-29T23:52:36Z
-image: "https://img.etimg.com/thumb/msid-133611148,resizemode-4,width-1200,height-900,imgsize-73434,overlay-economictimes/articleshow.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "BJP chief Nitin Nabin rebukes three Delhi MPs for visiting Sajjan Kumar’s home"
-imageCredit: "The Economic Times"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "HSKu-74q3PA"

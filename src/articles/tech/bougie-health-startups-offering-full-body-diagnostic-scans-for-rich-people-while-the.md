@@ -3,9 +3,9 @@ title: "High-End Health Startups Offer Full-Body Scans as Public Systems Struggl
 seoTitle: "Luxury Scans Highlight Growing Healthcare Disparities"
 category: "Tech"
 date: 2026-08-31T01:03:48Z
-image: "https://futurism.com/wp-content/uploads/2026/08/health-startup-full-body-scan-rich-healthcare.jpg?quality=85&w=2048"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "High-End Health Startups Offer Full-Body Scans as Public Systems Struggle"
-imageCredit: "Futurism"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "ZaIenA74V0M"

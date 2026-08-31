@@ -2,9 +2,9 @@
 title: "CXMT to Debut World’s First LPDDR6 Memory in Xiaomi 18 Fold"
 category: "Tech"
 date: 2026-08-29T19:22:30Z
-image: "https://www.technobugg.com/wp-content/uploads/2026/08/CXMT-To-Launch-The-First-LPDDR6-Memory-.jpeg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "CXMT to Debut World’s First LPDDR6 Memory in Xiaomi 18 Fold"
-imageCredit: "Technobugg"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: ""

@@ -2,9 +2,9 @@
 title: "Curt Cignetti faces 2026 test: Can Indiana repeat perfect season?"
 category: "Sports"
 date: 2026-08-30T13:06:11Z
-image: "https://nypost.com/wp-content%2Fuploads%2Fsites%2F2%2F2026%2F08%2Fhead-coach-curt-cignetti-indiana-137499320_8bb31e.jpg?w%3D1024"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Curt Cignetti faces 2026 test: Can Indiana repeat perfect season?"
-imageCredit: "New York Post"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "dD5M6ifEP4M"

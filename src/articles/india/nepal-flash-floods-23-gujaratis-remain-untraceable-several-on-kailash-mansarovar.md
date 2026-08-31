@@ -2,9 +2,9 @@
 title: "23 Gujaratis missing after Nepal flash floods on Kailash Mansarovar pilgrimage route"
 category: "India"
 date: 2026-08-28T23:54:08Z
-image: "https://morungexpress.com/uploads/2026/08/88824433_1787918023_thumb_51213572_1787918023_20260827170F.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "23 Gujaratis missing after Nepal flash floods on Kailash Mansarovar pilgrimage route"
-imageCredit: "morungexpress.com"
+imageCredit: "PENDING"
 video_id: "7P8_GaG4jKU"
 video_caption: "Nepal Floods: 32 Kolkata Kailash Pilgrims Missing After Flash Floods | India Today"
 slug: "nepal-flash-floods-23-gujaratis-remain-untraceable-several-on-kailash-mansarovar"

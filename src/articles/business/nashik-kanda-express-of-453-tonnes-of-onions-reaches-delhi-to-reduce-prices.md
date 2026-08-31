@@ -2,9 +2,9 @@
 title: "Delhi Gets 453 Tonnes of Nashik Onion via ‘Kanda Express’ to Slash Prices"
 category: "Business"
 date: 2026-08-28T22:51:28Z
-image: "https://www.deccanchronicle.com/h-upload/2026/08/28/2082214-aa-8030418.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Delhi Gets 453 Tonnes of Nashik Onion via ‘Kanda Express’ to Slash Prices"
-imageCredit: "vishakha"
+imageCredit: "PENDING"
 video_id: "jL0Scy2jj8Y"
 video_caption: "Onion Prices Make Common Man Cry; Government&#39;s Onion Express Steps In With ₹35/Kg Sale In Delhi"
 slug: "nashik-kanda-express-of-453-tonnes-of-onions-reaches-delhi-to-reduce-prices"
@@ -14,7 +14,6 @@ dek: "A convoy of trucks from Nashik, dubbed ‘Kanda Express’, has delivered 
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   Onion prices have a disproportionate impact on household inflation in India because the vegetable is a daily cooking essential across socio‑economic groups. A sudden spike can erode real incomes, especially for low‑ and middle‑income families, and can become a flashpoint in political discourse, as seen in recent state elections where price hikes featured prominently. By releasing a large, centrally‑procured stock at a subsidised rate, the government aims to demonstrate its capacity to intervene in essential commodity markets, curb inflationary expectations, and prevent further public unrest. The strategy also signals to farmers in surplus regions that the state will purchase and redistribute excess produce, potentially stabilising farmgate prices. Looking ahead, authorities may continue to monitor stock levels in key storage hubs and employ similar bulk releases if price pressures re‑emerge, while also encouraging private sector logistics to improve the efficiency of inter‑state vegetable movement.
-  
 ---
 The Ministry of Food Processing Industries dispatched a fleet of trucks, popularly called the ‘Kanda Express’, from the onion storage hub in Nashik to the national capital on Wednesday. The convoy carried roughly 453 tonnes of fresh onions, a volume sufficient to meet the daily consumption of millions of households in the Delhi‑NCR region. Upon arrival at the Delhi wholesale market, the onions were placed under a special price regime, allowing retailers to sell them at a capped Rs 35 per kilogram, well below the market rate that had hovered around Rs 70‑80 per kg in recent weeks.
 

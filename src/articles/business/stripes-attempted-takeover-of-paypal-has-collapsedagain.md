@@ -2,9 +2,9 @@
 title: "Stripe and Private‑Equity Partner Walk Away from $53 B PayPal Deal"
 category: "Business"
 date: 2026-08-30T12:41:50Z
-image: "https://img-cdn.inc.com/image/upload/f_webp,q_auto,c_fit/vip/2026/08/PAYPAL_5a7e34.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Stripe and Private‑Equity Partner Walk Away from $53 B PayPal Deal"
-imageCredit: "Inc"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "hCd77UPR7CI"

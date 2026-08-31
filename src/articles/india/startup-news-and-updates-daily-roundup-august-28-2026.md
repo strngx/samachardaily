@@ -2,9 +2,9 @@
 title: "YourStory’s August 28, 2026 Startup Roundup Highlights Funding, Policy Shifts and New Launches"
 category: "India"
 date: 2026-08-28T22:42:54Z
-image: "https://images.yourstory.com/cs/2/11718bd02d6d11e9aa979329348d4c3e/DailyRoundupImages1600x900-1774005165949.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "YourStory’s August 28, 2026 Startup Roundup Highlights Funding, Policy Shifts and New Launches"
-imageCredit: "team ys"
+imageCredit: "PENDING"
 video_id: "vWq9hwoVqPA"
 video_caption: "Casira Chronicle | Everyday News in Quiz Format | Gen Y/Millennial Edition | August 26, 2026"
 slug: "startup-news-and-updates-daily-roundup-august-28-2026"

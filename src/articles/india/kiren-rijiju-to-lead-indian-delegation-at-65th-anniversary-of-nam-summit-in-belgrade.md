@@ -2,9 +2,9 @@
 title: "India's Kiren Rijiju to head delegation at 65th NAM summit in Belgrade"
 category: "India"
 date: 2026-08-29T16:39:08Z
-image: "https://i0.wp.com/www.socialnews.xyz/wp-content/uploads/2026/08/29/20260813220f-scaled.jpg?fit=2560%2C1724&quality=80&zoom=1&ssl=1"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "India's Kiren Rijiju to head delegation at 65th NAM summit in Belgrade"
-imageCredit: "Social News Xyz"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: ""

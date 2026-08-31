@@ -2,9 +2,9 @@
 title: "Short Interest in Simplify Bitcoin Strategy ETF Plummets 66% in August"
 category: "Business"
 date: 2026-08-29T11:22:03Z
-image: "https://www.marketbeat.com/logos/simplify-bitcoin-strategy-plus-income-etf-logo-1200x675.png?v=20240926141614"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Short Interest in Simplify Bitcoin Strategy ETF Plummets 66% in August"
-imageCredit: "Watch List News"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "K_JjIoEArhQ"

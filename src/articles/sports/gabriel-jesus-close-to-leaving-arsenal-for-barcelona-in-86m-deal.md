@@ -3,9 +3,9 @@ title: "Gabriel Jesus Nears £8.6m Exit from Arsenal for Barcelona"
 seoTitle: "Gabriel Jesus set for Barcelona move"
 category: "Sports"
 date: 2026-08-31T02:36:52Z
-image: "https://s.yimg.com/lo/mysterio/api/e14d967bf7d2b5ea815acabedd28e5d91841f2c463302fa6d5daf754386681e9/lightyear_networkapi/resizefit_w1200%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Fen%2Fthe_telegraph_818%2F3886fd6cc18fcac9d3ada79302406464.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Gabriel Jesus Nears £8.6m Exit from Arsenal for Barcelona"
-imageCredit: "Yahoo! News"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "hI6xUTSlYVw"

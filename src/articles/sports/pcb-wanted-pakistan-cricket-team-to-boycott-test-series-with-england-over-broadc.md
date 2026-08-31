@@ -2,9 +2,9 @@
 title: "PCB considered boycotting England Test after Sky Sports aired interview with Imran Khan’s sons"
 category: "Sports"
 date: 2026-08-29T03:13:35Z
-image: "https://english.revoi.in/wp-content/uploads/2026/08/60-imran.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "PCB considered boycotting England Test after Sky Sports aired interview with Imran Khan’s sons"
-imageCredit: "editor in chief"
+imageCredit: "PENDING"
 video_id: "421oZw3syP8"
 video_caption: "DRAMA AT LORD&#39;S! 😱 PCB Threatens Match Boycott Over Sky Sports&#39; Imran Khan Sons Interview!PAK vs ENG"
 slug: "pcb-wanted-pakistan-cricket-team-to-boycott-test-series-with-england-over-broadc"

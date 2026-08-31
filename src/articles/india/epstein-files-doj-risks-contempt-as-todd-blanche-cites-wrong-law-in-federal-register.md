@@ -2,9 +2,9 @@
 title: "DOJ Faces Contempt Risk After Mis‑citing Law in Epstein Files Filing"
 category: "India"
 date: 2026-08-29T09:39:10Z
-image: "https://easternherald.com/wp-content/uploads/2026/08/todd-blanche-doj-press-conference-epstein-reuters-2026.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "DOJ Faces Contempt Risk After Mis‑citing Law in Epstein Files Filing"
-imageCredit: "The Eastern Herald"
+imageCredit: "PENDING"
 trending: false
 video_id: ""
 video_caption: ""

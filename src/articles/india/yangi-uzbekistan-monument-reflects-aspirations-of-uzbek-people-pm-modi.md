@@ -2,9 +2,9 @@
 title: "Modi says Yangi Uzbekistan Monument Symbolizes Uzbek Aspirations During Bilateral Visit"
 category: "India"
 date: 2026-08-30T06:52:34Z
-image: "https://assets.thehansindia.com/h-upload/2026/08/29/1695667-modi.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Modi says Yangi Uzbekistan Monument Symbolizes Uzbek Aspirations During Bilateral Visit"
-imageCredit: "The Hans India"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "Rpmqbn9S_dI"

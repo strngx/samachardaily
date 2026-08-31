@@ -2,9 +2,9 @@
 title: "India builds a surveillance shield from borders to space to boost defence readiness"
 category: "India"
 date: 2026-08-28T23:54:23Z
-image: "https://cdn1.wionews.com/prod/wion/images/2026/20260828/image-1787917827720.jpg?rect=(0,600,3856,2889)"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "India builds a surveillance shield from borders to space to boost defence readiness"
-imageCredit: "shivan chanana"
+imageCredit: "PENDING"
 video_id: "v7pDYndNH28"
 video_caption: "India’s Maritime Shield | Defence Dynamics"
 slug: "india-wants-eyes-everywhere-building-a-surveillance-shield-from-border-to-space"

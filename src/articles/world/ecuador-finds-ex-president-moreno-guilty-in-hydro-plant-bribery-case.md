@@ -2,9 +2,9 @@
 title: "Ecuadorian court convicts former President Lenín Moreno in hydroelectric plant bribery case"
 category: "World"
 date: 2026-08-29T08:13:43Z
-image: "https://staticprintenglish.theprint.in/wp-content/uploads/2026/08/Ecuador_363.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Ecuadorian court convicts former President Lenín Moreno in hydroelectric plant bribery case"
-imageCredit: "reuters"
+imageCredit: "PENDING"
 video_id: "Tzdrm2icfrM"
 video_caption: "Lenín Moreno condenado: Las claves de la sentencia por sobornos | DNews"
 slug: "ecuador-finds-ex-president-moreno-guilty-in-hydro-plant-bribery-case"

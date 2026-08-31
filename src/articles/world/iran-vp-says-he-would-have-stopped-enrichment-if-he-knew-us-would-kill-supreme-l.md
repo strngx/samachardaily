@@ -2,9 +2,9 @@
 title: "Iranian Vice President Says He Would Have Halted Nuclear Enrichment Had He Known US Planned to Kill Supreme Leader"
 category: "World"
 date: 2026-08-29T01:13:01Z
-image: "https://cdn1.wionews.com/prod/wion/images/2026/20260512/image-1778556053193.png?rect=(0,0,1200,900)"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Iranian Vice President Says He Would Have Halted Nuclear Enrichment Had He Known US Planned to Kill Supreme Leader"
-imageCredit: "gulshan parveen"
+imageCredit: "PENDING"
 video_id: "FExPMBZwEjQ"
 video_caption: "Iran’s foreign minister responds to Trump’s call for negotiations"
 slug: "iran-vp-says-he-would-have-stopped-enrichment-if-he-knew-us-would-kill-supreme-l"

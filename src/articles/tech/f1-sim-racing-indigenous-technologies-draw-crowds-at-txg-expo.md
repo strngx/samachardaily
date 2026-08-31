@@ -2,9 +2,9 @@
 title: "F1 Sim Racing and Indigenous Tech Draw Crowds at Nagaland’s TXG Expo 2026"
 category: "Tech"
 date: 2026-08-29T04:13:38Z
-image: "https://morungexpress.com/uploads/2026/08/59758488_1787933497_thumb_90243246_1787933497_Attendees.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "F1 Sim Racing and Indigenous Tech Draw Crowds at Nagaland’s TXG Expo 2026"
-imageCredit: "morungexpress.com"
+imageCredit: "PENDING"
 video_id: "kkUTCESo4O0"
 video_caption: "TXG EXPO NAGALAND TO HOST F1 SIM RACING INDIA OPEN 2026 KOHIMA ROUND"
 slug: "f1-sim-racing-indigenous-technologies-draw-crowds-at-txg-expo"

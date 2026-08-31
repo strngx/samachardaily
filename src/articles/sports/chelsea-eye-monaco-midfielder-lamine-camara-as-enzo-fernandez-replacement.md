@@ -2,9 +2,9 @@
 title: "Chelsea target Monaco midfielder Lamine Camara as Enzo Fernández departure looms"
 category: "Sports"
 date: 2026-08-28T22:41:26Z
-image: "https://daijiworld.ap-south-1.linodeobjects.com/Linode/images3/chelsea_280826_1.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Chelsea target Monaco midfielder Lamine Camara as Enzo Fernández departure looms"
-imageCredit: "daijiworld.com"
+imageCredit: "PENDING"
 video_id: "EVAWpHUc7NE"
 video_caption: "CHELSEA FANS, YOU’RE MISSING THE POINT ON LAMINE CAMARA… || Lamine Camara Analysis"
 slug: "chelsea-eye-monaco-midfielder-lamine-camara-as-enzo-fernandez-replacement"

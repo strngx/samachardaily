@@ -361,6 +361,34 @@ function isAggregatorOrGameHint_(title, description) {
   return GAME_HINTS_AND_STREAM_PATTERN.test(text);
 }
 
+var BLOCKED_SOURCE_PATTERNS = [
+  'equitywizards.com',
+  '/stock-insights/',
+  'moneycontrol.com/news/business/buy-sell',
+  'fool.com',
+  'foolcdn.com'
+];
+
+var STOCK_ADVISORY_PATTERN = /\b(target price|buy rating|which stocks benefit|earnings visibility|structural tailwinds|opens a new chapter for\s+[A-Z]|[A-Z]{2,5}\s+(stock|shares))\b/i;
+
+/**
+ * Checks if candidate is stock-advisory, investment tip, or financial advice spam.
+ *
+ * @param {Object} candidate - Candidate object.
+ * @returns {boolean} True if stock-advisory content.
+ */
+function isStockAdvisoryCandidate_(candidate) {
+  if (!candidate) return false;
+  var source = (candidate.sourceUrl || '') + ' ' + (candidate.sourceName || '');
+  for (var i = 0; i < BLOCKED_SOURCE_PATTERNS.length; i++) {
+    if (source.toLowerCase().indexOf(BLOCKED_SOURCE_PATTERNS[i].toLowerCase()) !== -1) {
+      return true;
+    }
+  }
+  var text = (candidate.title || '') + ' ' + (candidate.description || '') + ' ' + (candidate.content || '');
+  return STOCK_ADVISORY_PATTERN.test(text);
+}
+
 var LISTICLE_PATTERN = /^(\d+\s+(essential|best|top|reasons|ways|things|tips|features|mistakes)|why you (should|need)|how to |the ultimate guide|everything you need to know about)/i;
 
 /**
@@ -1091,49 +1119,18 @@ function recordGroqTokenUsage_(tokens) {
   }
 }
 
-var DESK_BYLINES = {
-  india: [
-    'Ananya Iyer | SamacharDaily National Desk',
-    'Vikram Malhotra | SamacharDaily Bureau',
-    'Rohit Sengupta | SamacharDaily New Delhi Bureau',
-    'Pooja Nair | SamacharDaily Policy Desk'
-  ],
-  world: [
-    'Elena Rostova | SamacharDaily Global Affairs',
-    'David Sterling | SamacharDaily World Desk',
-    'Kiran Varma | SamacharDaily Diplomatic Desk',
-    'Marcus Thorne | SamacharDaily International Bureau'
-  ],
-  business: [
-    'Priya Sharma | SamacharDaily Markets Desk',
-    'Aditya Singhania | SamacharDaily Financial Bureau',
-    'Tanvi Deshmukh | SamacharDaily Corporate Desk',
-    'Rajat Kapoor | SamacharDaily Economy Desk'
-  ],
-  tech: [
-    'Aarav Mehta | SamacharDaily Tech Desk',
-    'Sneha Chakraborty | SamacharDaily AI & Silicon Bureau',
-    'Devendra Rao | SamacharDaily Innovation Desk',
-    'Maya Krishnan | SamacharDaily Cyber & Systems'
-  ],
-  sports: [
-    'Rohan Mukherjee | SamacharDaily Sports Desk',
-    'Kabir Dasgupta | SamacharDaily Sports Bureau',
-    'Simran Sandhu | SamacharDaily Stadium & Pitch',
-    'Karthik Venkat | SamacharDaily Sports Desk'
-  ]
-};
-
 /**
- * Returns a named rotating byline persona for a category desk (Issue #6).
+ * Returns a clean desk-level byline for a category desk.
+ * Always outputs "SamacharDaily [Category] Desk" or "SamacharDaily Editorial Team".
  *
  * @param {string} categoryKey - Category identifier.
- * @returns {string} Persona byline string.
+ * @returns {string} Desk byline string.
  */
 function getDeskAuthor_(categoryKey) {
-  var pool = DESK_BYLINES[(categoryKey || 'india').toLowerCase()] || DESK_BYLINES['india'];
-  var randomIndex = Math.floor(Math.random() * pool.length);
-  return pool[randomIndex];
+  var key = (categoryKey || 'india').toLowerCase();
+  var catCfg = CATEGORY_CONFIG[key];
+  var catName = catCfg ? catCfg.name : (key.charAt(0).toUpperCase() + key.slice(1));
+  return 'SamacharDaily ' + catName + ' Desk';
 }
 
 var TEMPLATE_STYLES = [
@@ -1672,6 +1669,7 @@ function scoreAgainstTrends_(candidate, trendGeo) {
 
 /**
  * Fetches high-resolution landscape photo from Pexels API.
+ * Returns null if Pexels API key is not configured or no Pexels image is found.
  */
 function fetchImage_(keyword, config) {
   if (config.PEXELS_API_KEY && keyword) {
@@ -1685,11 +1683,14 @@ function fetchImage_(keyword, config) {
         var data = JSON.parse(resp.getContentText());
         if (data.photos && data.photos.length > 0) {
           var photo = data.photos[0];
-          return {
-            url: photo.src.large || photo.src.medium || photo.src.landscape,
-            alt: photo.alt || keyword,
-            credit: photo.photographer || 'Pexels Contributor'
-          };
+          var photoUrl = photo.src.large || photo.src.medium || photo.src.landscape;
+          if (photoUrl && photoUrl.indexOf('https://images.pexels.com/') === 0) {
+            return {
+              url: photoUrl,
+              alt: photo.alt || keyword,
+              credit: photo.photographer ? (photo.photographer + ' via Pexels') : 'Pexels'
+            };
+          }
         }
       }
     } catch (err) {
@@ -1697,13 +1698,7 @@ function fetchImage_(keyword, config) {
     }
   }
 
-  var fallbackImages = [
-    { url: 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=1200&q=80', alt: 'Global Newsroom and Editorial Reporting', credit: 'Unsplash' },
-    { url: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&q=80', alt: 'Daily News and Newspaper Headlines', credit: 'Unsplash' },
-    { url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80', alt: 'Technology and Global Connectivity', credit: 'Unsplash' }
-  ];
-  var randomIndex = Math.floor(Math.random() * fallbackImages.length);
-  return fallbackImages[randomIndex];
+  return null;
 }
 
 /**
@@ -1879,6 +1874,12 @@ function runPipelineForCategory_(categoryKey) {
       continue;
     }
 
+    // Reject stock-advisory, investment tips, and financial advice spam
+    if (isStockAdvisoryCandidate_(c)) {
+      Logger.log('SKIPPED (Stock Advisory / Investment Tips): "' + c.title + '"');
+      continue;
+    }
+
     // Strict Subject-Matter Category Classification Check (Issue #3)
     var classifiedDesk = classifyStoryCategory_(c.title, c.description, c.categories);
     if (classifiedDesk !== key) {
@@ -1989,12 +1990,15 @@ function runPipelineForCategory_(categoryKey) {
   // Ensure slug is derived from clean English synthesized title
   selectedCandidate.slug = generateSlug_(article.title || selectedCandidate.title);
 
-  // Step 4: Media Enrichment (Stop hotlinking external publishers' images - Issue #5)
-  // Default exclusively to Pexels API and curated licensed editorial libraries for 100% of articles
+  // Step 4: Media Enrichment (Enforce 100% Pexels-only licensed photography)
   var imageSearchKeyword = article.image_keyword || catCfg.name;
   var imageObj = fetchImage_(imageSearchKeyword, config);
+  if (!imageObj || !imageObj.url || imageObj.url.indexOf('https://images.pexels.com/') !== 0) {
+    Logger.log('Discarding candidate: Pexels image unavailable or invalid (' + (imageObj ? imageObj.url : 'none') + '). Skipping run to prevent unverified image publication.');
+    return { success: false, reason: 'Pexels image required' };
+  }
   var imageSourceLabel = 'pexels';
-  Logger.log('Using licensed editorial photography for: ' + imageSearchKeyword);
+  Logger.log('Using verified Pexels photography: ' + imageObj.url);
 
   // Step 5: Video Search - Top 3 Videos (Fix 6)
   var videoQuery = article.video_query || selectedCandidate.title;

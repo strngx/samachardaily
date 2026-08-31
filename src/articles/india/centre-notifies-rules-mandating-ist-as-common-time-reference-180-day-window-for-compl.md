@@ -3,9 +3,9 @@ title: "Government Issues Legal Metrology Rules to Enforce IST as Sole Official 
 seoTitle: "IST mandated as sole official time reference, 2026"
 category: "India"
 date: 2026-08-31T01:33:52Z
-image: "https://images.cnbctv18.com/uploads/2026/08/image-2026-08-ae89895f67fff575ee2ff498414a2ca9.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Government Issues Legal Metrology Rules to Enforce IST as Sole Official Time Reference"
-imageCredit: "Cnbctv18"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "OzNTBZjfoX0"

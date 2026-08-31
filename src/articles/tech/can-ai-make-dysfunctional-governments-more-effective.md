@@ -2,9 +2,9 @@
 title: "AI in Asian Governments: Hopes, Hurdles and the Quest for Efficiency"
 category: "Tech"
 date: 2026-08-28T23:32:11Z
-image: "https://www.hindustantimes.com/ht-img/img/2026/08/28/1600x900/logo/photo-1646583288948-24548aedffd8_1787908324343_1787908336345_9ea09f29-91f4-4d70-90d0-388c60f68b3c.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "AI in Asian Governments: Hopes, Hurdles and the Quest for Efficiency"
-imageCredit: "the economist"
+imageCredit: "PENDING"
 video_id: "GKILCqVwp9E"
 video_caption: "Can AI solve South Korea’s problem with social recluses? - Asia Specific podcast, BBC World Service"
 slug: "can-ai-make-dysfunctional-governments-more-effective"

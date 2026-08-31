@@ -2,9 +2,9 @@
 title: "Maharashtra Monsoon Swells Krishna Basin Dams, Almatti Gains 302 TMCFT"
 category: "India"
 date: 2026-08-29T11:38:48Z
-image: "https://media.assettype.com/deccanherald/2026-08-28/mm9a4w65/file7wfrns7d45011893hggj.jpg?w=1200&h=675&auto=format%2Ccompress&fit=max"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Maharashtra Monsoon Swells Krishna Basin Dams, Almatti Gains 302 TMCFT"
-imageCredit: "Deccan Herald"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "e5mHAcUDrT4"

@@ -3,9 +3,9 @@ title: "Babul Supriyo Pays Musical Tribute to Late Singer Zubeen Garg With ‘Ma
 seoTitle: "Babul Supriyo Releases Tribute Song for Zubeen Garg"
 category: "World"
 date: 2026-08-30T23:09:17Z
-image: "https://static.toiimg.com/thumb/resizemode-4,width-1280,height-720,msid-133628099/133628099.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Babul Supriyo Pays Musical Tribute to Late Singer Zubeen Garg With ‘Mayabini’"
-imageCredit: "The Times Of India"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "BpQw20LOQuI"

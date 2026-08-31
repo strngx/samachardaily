@@ -3,9 +3,9 @@ title: "Polymarket launches US Open prediction market with NJCOM promo code"
 seoTitle: "Polymarket US Open prediction market promo code NJCOM"
 category: "Sports"
 date: 2026-08-31T06:37:16Z
-image: "https://www.nj.com/resizer/v2/7MNQFL7RTNDNZOONX6Y4KLO2BM.jpg?auth=26e0e737459b91d50ba92d02004123bb3a262f3ff87b8bd317472983a389b946&smart=true&height=1200"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Polymarket launches US Open prediction market with NJCOM promo code"
-imageCredit: "Nj"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "8bqPzv5kO_w"

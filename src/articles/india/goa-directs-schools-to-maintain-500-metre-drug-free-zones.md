@@ -2,9 +2,9 @@
 title: "Goa Schools Ordered to Create 500‑Metre Drug‑Free Zones Around Campuses"
 category: "India"
 date: 2026-08-28T23:34:56Z
-image: "https://nenews.in/wp-content/uploads/2026/08/1-101-1200x900.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Goa Schools Ordered to Create 500‑Metre Drug‑Free Zones Around Campuses"
-imageCredit: "northeast news"
+imageCredit: "PENDING"
 video_id: "tCsDOzatv5Y"
 video_caption: "Don’t Create Confusion Over Drug-Free Zone Circular: CM Sawant"
 slug: "goa-directs-schools-to-maintain-500-metre-drug-free-zones"

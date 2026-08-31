@@ -2,9 +2,9 @@
 title: "BIS chief warns stablecoins cannot serve as mass‑payment tool, cites stability risks"
 category: "India"
 date: 2026-08-29T06:12:47Z
-image: "https://images.cnbctv18.com/uploads/2026/08/2025-10-31t205604z-1288212985-rc22pgaoqw0h-rtrmadp-3-fintech-crypto-2-2026-08-f13e24783ffaff4d39a25ce7b40bb2e5.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "BIS chief warns stablecoins cannot serve as mass‑payment tool, cites stability risks"
-imageCredit: "tarkesh jha"
+imageCredit: "PENDING"
 video_id: "x7fBIywsgdA"
 video_caption: "OBOOK Holdings (OWLS) CEO Darren Wang on Regulated Stablecoin Payments, OwlPay Growth and 2026 Goals"
 slug: "stablecoins-not-a-credible-means-of-payment-at-scale-bis-chief-says"

@@ -2,9 +2,9 @@
 title: "Haitian gang leader threatens execution of over 50 hostages after mass killing"
 category: "World"
 date: 2026-08-28T22:43:05Z
-image: "https://e3.365dm.com/26/08/1920x1080/skynews-haiti-police_7333568.jpg?20260828122226"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Haitian gang leader threatens execution of over 50 hostages after mass killing"
-imageCredit: "skynews"
+imageCredit: "PENDING"
 video_id: "B4bIAM0GS7U"
 video_caption: "Haiti Gang Leader Threatens To Shoot 17 Hostages If Demands Aren&#39;t Met"
 slug: "gang-leader-threatens-to-execute-more-than-50-hostages-days-after-47-killed-in-h"

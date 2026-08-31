@@ -2,9 +2,9 @@
 title: "China strips former Western Theatre chief Zhao Zongqi of Party membership"
 category: "India"
 date: 2026-08-29T20:52:34Z
-image: "https://publish.tribuneindia.com/wp-content/uploads/2026/08/6a929c5c61b24-General-Zhou-Zonghi-PLA-western-theatre-command-e1787993250265.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "China strips former Western Theatre chief Zhao Zongqi of Party membership"
-imageCredit: "The Tribune India"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "BElQS9JzT2s"

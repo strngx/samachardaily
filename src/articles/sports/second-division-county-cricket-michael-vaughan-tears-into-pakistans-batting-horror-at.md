@@ -3,9 +3,9 @@ title: "'Second Division County Cricket': Vaughan Slams Pakistan After Top-Order
 seoTitle: "Michael Vaughan Slams Pakistan Batting Horror at Lord's"
 category: "Sports"
 date: 2026-08-30T22:37:25Z
-image: "https://images.moneycontrol.com/static-mcnews/2024/09/20240904132734_Babar-Azam.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "'Second Division County Cricket': Vaughan Slams Pakistan After Top-Order Collapse at Lord's"
-imageCredit: "Moneycontrol"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "ZSlpOGOAdaE"

@@ -2,9 +2,9 @@
 title: "Chelsea Open to Selling Enzo Fernández to Manchester City if Valuation Met, Sources Say"
 category: "Sports"
 date: 2026-08-28T23:30:21Z
-image: "https://www.deccanchronicle.com/h-upload/2026/08/28/2082229-aa-8012330.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Chelsea Open to Selling Enzo Fernández to Manchester City if Valuation Met, Sources Say"
-imageCredit: "ani"
+imageCredit: "PENDING"
 video_id: "-_MaYSX79nI"
 video_caption: "Does Emi Martinez make Chelsea TITLE CONTENDERS? 😳 + Enzo Fernández to Man City | ESPN FC"
 slug: "chelsea-ready-to-sell-enzo-fernandez-to-manchester-city-for-right-price-report"

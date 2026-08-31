@@ -2,9 +2,9 @@
 title: "Kaspersky warns of hidden malware in exotic file formats used in email attacks"
 category: "Tech"
 date: 2026-08-29T05:13:10Z
-image: "https://media.kasperskydaily.com/wp-content/uploads/sites/36/2026/08/28224256/exotic-file-formats-detection-gaps-iso-one-xll-svg-featured.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Kaspersky warns of hidden malware in exotic file formats used in email attacks"
-imageCredit: "stan kaminsky"
+imageCredit: "PENDING"
 video_id: ""
 video_caption: ""
 slug: "detection-blind-spots-non-standard-file-formats-in-malicious-email-campaigns-kas"
@@ -14,7 +14,6 @@ dek: "Cybercriminals are increasingly using uncommon file types such as disk ima
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   Email remains the most prevalent entry point for malware, and the emergence of exotic file formats erodes the effectiveness of legacy defenses that rely on static signatures. When malicious payloads bypass initial scans, they can gain a foothold in corporate networks, leading to data theft, ransomware encryption or lateral movement across systems. For organisations, this translates into higher remediation costs, potential regulatory penalties and damage to reputation. The findings underscore the need for security teams to adopt more holistic, context‑aware scanning solutions and to keep pace with attackers’ evolving tactics. By recognising and mitigating these blind spots, enterprises can close a critical gap in their cyber‑defence posture before the next wave of sophisticated email‑borne attacks strikes.
-  
 ---
 Kaspersky’s research team has identified a growing trend where threat actors embed malicious code in file formats that are rarely inspected by conventional security solutions. The study highlights a range of "exotic" containers – from ISO disk images and XLL Excel add‑ins to SVG vector graphics and polyglot files that masquerade as legitimate documents. By exploiting the fact that many anti‑virus engines focus on well‑known extensions like .exe, .docx or .pdf, attackers can deliver payloads that remain invisible until the user opens the attachment or the file is mounted on a system.
 

@@ -2,9 +2,9 @@
 title: "IBPS PO Recruitment 2026 Vacancy Raised to 7,565 Posts"
 category: "Business"
 date: 2026-08-28T23:31:57Z
-image: "https://images.bhaskarassets.com/thumb/730x0/web2images/521/2026/08/28/for-only-1-line-cover-41-217567219791785740800_1787916358.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "IBPS PO Recruitment 2026 Vacancy Raised to 7,565 Posts"
-imageCredit: "गाज़ियाबाद365"
+imageCredit: "PENDING"
 video_id: "4mbAzc0t-ps"
 video_caption: "📢 GOOD NEWS : IBPS PO 2026 - LOWER CUTOFF THIS TIME || VACANCY INCREASED 😱"
 slug: "ibps-po-recruitment-2026-vacancy-increased-to-7565-posts-update"

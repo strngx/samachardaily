@@ -2,9 +2,9 @@
 title: "Zoho founder Sridhar Vembu warns young entrepreneurs that success takes time"
 category: "Tech"
 date: 2026-08-28T23:54:46Z
-image: "https://assets.thehansindia.com/h-upload/2026/08/28/1695270-sridhar-vembu-1.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Zoho founder Sridhar Vembu warns young entrepreneurs that success takes time"
-imageCredit: "kahekashan"
+imageCredit: "PENDING"
 video_id: "0qLczxaO9eE"
 video_caption: "Sridhar Vembu   CEO Zoho"
 slug: "sridhar-vembu-tells-young-entrepreneurs-success-takes-longer-than-expected"

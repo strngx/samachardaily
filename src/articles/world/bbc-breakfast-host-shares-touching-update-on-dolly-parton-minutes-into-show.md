@@ -2,9 +2,9 @@
 title: "BBC Breakfast hosts discuss tribute plans for late Dolly Parton"
 category: "World"
 date: 2026-08-29T18:57:47Z
-image: "https://i2-prod.mirror.co.uk/incoming/article37605954.ece/ALTERNATES/s615/0_Charlie-Stayt-and-Luxmy-Gospal.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "BBC Breakfast hosts discuss tribute plans for late Dolly Parton"
-imageCredit: "Mirror"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "bogHm2d3LOI"

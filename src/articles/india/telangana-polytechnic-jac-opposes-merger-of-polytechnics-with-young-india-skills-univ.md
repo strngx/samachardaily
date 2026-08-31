@@ -2,9 +2,9 @@
 title: "Telangana JAC opposes merger with Young India Skills University, seeks GO 97 withdrawal"
 category: "India"
 date: 2026-08-29T22:52:34Z
-image: "https://media.telanganatoday.com/wp-content/uploads/2026/08/polytechnic.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Telangana JAC opposes merger with Young India Skills University, seeks GO 97 withdrawal"
-imageCredit: "Telangana Today"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "sEfRHTlQUHM"

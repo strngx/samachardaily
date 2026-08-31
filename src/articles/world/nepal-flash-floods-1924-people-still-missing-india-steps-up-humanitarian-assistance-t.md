@@ -2,9 +2,9 @@
 title: "India boosts aid as Nepal flash floods leave 1,924 missing, 579 dead"
 category: "World"
 date: 2026-08-29T15:03:14Z
-image: "https://newsonair.gov.in/wp-content/uploads/2026/08/20260826526F-scaled.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "India boosts aid as Nepal flash floods leave 1,924 missing, 579 dead"
-imageCredit: "Newsonair"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: ""

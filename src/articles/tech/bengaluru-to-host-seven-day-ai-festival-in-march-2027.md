@@ -2,9 +2,9 @@
 title: "Bengaluru to Host Seven-Day AI Festival in March 2027"
 category: "Tech"
 date: 2026-08-29T01:13:25Z
-image: "https://img.etimg.com/thumb/msid-133592242,resizemode-4,width-1200,height-900,imgsize-54190,overlay-economictimes/articleshow.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Bengaluru to Host Seven-Day AI Festival in March 2027"
-imageCredit: "et bureau"
+imageCredit: "PENDING"
 video_id: "YzMDwE2UIpk"
 video_caption: "BTS - Dynamite (Live from Arirang World Tour 2026, Munich, Germany)"
 slug: "bengaluru-to-host-seven-day-ai-festival-in-march-2027"

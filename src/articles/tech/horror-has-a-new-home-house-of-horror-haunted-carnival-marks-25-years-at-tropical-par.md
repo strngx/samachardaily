@@ -2,9 +2,9 @@
 title: "House of Horror Carnival Marks 25 Years with New Dark Coaster at Miami’s Tropical Park"
 category: "Tech"
 date: 2026-08-29T11:05:35Z
-image: "https://mmx.prnewswire.com/media/MS1977872/House-of-Horror-Haunted-Carnival.jpg?id=OA2918859&p=thumbnail"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "House of Horror Carnival Marks 25 Years with New Dark Coaster at Miami’s Tropical Park"
-imageCredit: "Techdash.in"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "JLaiYccknP4"

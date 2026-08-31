@@ -2,9 +2,9 @@
 title: "Priority Jewels IPO Fully Subscribed on First Day of Bidding"
 category: "Business"
 date: 2026-08-28T22:43:17Z
-image: "https://media.assettype.com/outlookmoney/2026-08-28/z7jrumqm/priority-jewels-ipo.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Priority Jewels IPO Fully Subscribed on First Day of Bidding"
-imageCredit: "ayush khar"
+imageCredit: "PENDING"
 video_id: "Togp8xksyi4"
 video_caption: "How to Increase IPO Allotment Chances | IPO Allotment Trick 2026 "
 slug: "priority-jewels-ipo-jewellery-makers-public-issue-fully-booked-on-first-day-of-b"

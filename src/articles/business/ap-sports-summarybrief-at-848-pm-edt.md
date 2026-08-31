@@ -2,9 +2,9 @@
 title: "Avs lock up Cale Makar with record $163.2 million, eight‑year contract"
 category: "Business"
 date: 2026-08-29T12:50:02Z
-image: "https://bloximages.chicago2.vip.townnews.com/hjnews.com/content/tncms/custom/image/01d65bdc-75bc-11e9-a6ea-4f05c88a4606.jpg?resize=600%2C354"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Avs lock up Cale Makar with record $163.2 million, eight‑year contract"
-imageCredit: "Hjnews"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "4joUV4E14zc"

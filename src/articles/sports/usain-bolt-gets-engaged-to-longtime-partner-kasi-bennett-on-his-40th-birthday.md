@@ -2,9 +2,9 @@
 title: "Usain Bolt Proposes to Longtime Partner Kasi Bennett on His 40th Birthday in Kingston"
 category: "Sports"
 date: 2026-08-28T22:43:39Z
-image: "https://st1.latestly.com/wp-content/uploads/2026/08/59-236-1.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Usain Bolt Proposes to Longtime Partner Kasi Bennett on His 40th Birthday in Kingston"
-imageCredit: "ani"
+imageCredit: "PENDING"
 video_id: "rQsNIgoryfg"
 video_caption: "Usain Bolt Proposes After 13 Years, Inside the Birthday Surprise Kasi Bennett Never Saw Coming"
 slug: "usain-bolt-gets-engaged-to-longtime-partner-kasi-bennett-on-his-40th-birthday"

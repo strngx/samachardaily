@@ -2,9 +2,9 @@
 title: "320 Indian nationals still missing after Nepal flash floods, 21 Tamil Nadu tourists rescued and flown to Delhi"
 category: "World"
 date: 2026-08-28T22:56:24Z
-image: "https://img.etimg.com/thumb/msid-133589679,resizemode-4,width-1200,height-900,imgsize-54896,overlay-economictimes/articleshow.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "320 Indian nationals still missing after Nepal flash floods, 21 Tamil Nadu tourists rescued and flown to Delhi"
-imageCredit: "et online"
+imageCredit: "PENDING"
 video_id: "5dab_k-6_CU"
 video_caption: "Nepal Flash Floods: 87 Indian Nationals Rescued as Air Rescues Intensify in Remote Belts"
 slug: "nepal-flash-floods-320-indian-nationals-still-missing-21-rescued-tamil-nadu-tour"

@@ -2,9 +2,9 @@
 title: "Sanjay Dutt celebrates Raksha Bandhan, thanks sisters Priya and Anju for lifelong support"
 category: "India"
 date: 2026-08-28T23:36:53Z
-image: "https://static.toiimg.com/thumb/resizemode-4,width-1280,height-720,msid-133590426/133590426.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Sanjay Dutt celebrates Raksha Bandhan, thanks sisters Priya and Anju for lifelong support"
-imageCredit: "ians"
+imageCredit: "PENDING"
 video_id: "85_2UXSKLX8"
 video_caption: "Sanjay Dutt Kindness #shorts #sanjaydutt #sunildutt"
 slug: "sanjay-dutt-says-grateful-for-the-bond-we-share-as-he-wishes-rakhi-to-sisters-pr"

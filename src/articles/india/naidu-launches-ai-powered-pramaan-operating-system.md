@@ -2,9 +2,9 @@
 title: "Chief Minister Naidu Unveils AI-Driven Pramaan OS for Enterprises and Accountants"
 category: "India"
 date: 2026-08-29T09:39:05Z
-image: "https://assets.thehansindia.com/h-upload/2026/08/28/1695417-cm.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Chief Minister Naidu Unveils AI-Driven Pramaan OS for Enterprises and Accountants"
-imageCredit: "The Hans India"
+imageCredit: "PENDING"
 trending: false
 video_id: "QYdWrHUcUeU"
 video_caption: "PawanKalyan WhatsApp Status | #janasena #pawankalyan #pspk #janasenaparty #janasenani"

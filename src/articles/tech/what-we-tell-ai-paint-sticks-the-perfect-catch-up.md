@@ -3,9 +3,9 @@ title: "Recomendo Newsletter Curation Highlights AI Prompts, Creative Tools, and
 seoTitle: "Recomendo Curates Latest AI Prompts and Paint Sticks"
 category: "Tech"
 date: 2026-08-30T21:02:50Z
-image: "https://substackcdn.com/image/fetch/$s_!a5Gl!,w_256,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd96ab40f-6a21-4900-ab5b-358e4b6bfb07_800x800.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Recomendo Newsletter Curation Highlights AI Prompts, Creative Tools, and Catch-Up Tech"
-imageCredit: "Recomendo Newsletter"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "NENWiQuuXU8"

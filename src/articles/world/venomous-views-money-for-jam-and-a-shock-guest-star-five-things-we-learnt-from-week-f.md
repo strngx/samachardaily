@@ -2,9 +2,9 @@
 title: "ICAC's fifth week reveals venomous remarks, jam funding and surprise witness"
 category: "World"
 date: 2026-08-29T11:30:53Z
-image: "https://static.ffx.io/images/$zoom_0.6002%2C$multiply_0.7554%2C$ratio_1.777778%2C$width_1059%2C$x_100%2C$y_0/t_crop_custom/q_86%2Cf_auto/68c1f9f273fd4865dff0b557557a336ff477352d"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "ICAC's fifth week reveals venomous remarks, jam funding and surprise witness"
-imageCredit: "The Age"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "GU6sShgDrMc"

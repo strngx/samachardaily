@@ -2,9 +2,9 @@
 title: "Amazon Announces Shutdown of Mechanical Turk Platform as AI Alternatives Expand"
 category: "Tech"
 date: 2026-08-29T10:19:24Z
-image: "https://www.troyrecord.com/wp-content/uploads/2026/08/202608271756MCT_____PHOTO____BIZ-AMAZON-MECHANICAL-TURK-FILEPIC-DMT.jpg?w=1400px&strip=all"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Amazon Announces Shutdown of Mechanical Turk Platform as AI Alternatives Expand"
-imageCredit: "Troy Record"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "ro6HGADrUZc"

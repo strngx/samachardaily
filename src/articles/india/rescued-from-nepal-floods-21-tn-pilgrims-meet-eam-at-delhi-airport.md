@@ -2,9 +2,9 @@
 title: "21 Tamil Nadu pilgrims rescued from Nepal floods meet EAM at Delhi airport"
 category: "India"
 date: 2026-08-29T10:39:05Z
-image: "https://assets.thehansindia.com/h-upload/2026/08/28/1695454-jay.webp"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "21 Tamil Nadu pilgrims rescued from Nepal floods meet EAM at Delhi airport"
-imageCredit: "The Hans India"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: ""

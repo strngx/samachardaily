@@ -3,9 +3,9 @@ title: "Henderson Hits Two Homers as Orioles Rally Past Athletics 8-5"
 seoTitle: "Orioles Rally Past Athletics 8-5 With Henderson Homers"
 category: "World"
 date: 2026-08-31T11:09:24Z
-image: "https://media.tegna-media.com/assets/AssociatedPress/images/0ac41919-2daa-477f-af01-41954b8eb708/20260830T231009/0ac41919-2daa-477f-af01-41954b8eb708_750x422.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Henderson Hits Two Homers as Orioles Rally Past Athletics 8-5"
-imageCredit: "Wthr"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "cBJad3nPGdg"

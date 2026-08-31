@@ -3,9 +3,9 @@ title: "India Dispatches Relief Aid to Flood‑Stricken Nepal, Kathmandu Reports
 seoTitle: "India sends relief aid to flood‑hit Nepal"
 category: "India"
 date: 2026-08-30T19:34:08Z
-image: "https://i0.wp.com/www.socialnews.xyz/wp-content/uploads/2026/08/30/20260830125F-scaled.jpg?fit=2560%2C1920&quality=80&zoom=1&ssl=1?v=1788075138"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "India Dispatches Relief Aid to Flood‑Stricken Nepal, Kathmandu Reports"
-imageCredit: "Social News Xyz"
+imageCredit: "PENDING"
 trending: true
 featured: false
 video_id: "EB8M7_D0uUQ"

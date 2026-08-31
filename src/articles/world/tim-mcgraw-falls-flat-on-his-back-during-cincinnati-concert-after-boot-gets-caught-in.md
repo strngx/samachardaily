@@ -2,9 +2,9 @@
 title: "Tim McGraw Falls Flat on Back After Boot Catches on Cincinnati Stage"
 category: "World"
 date: 2026-08-30T04:57:54Z
-image: "https://media.breitbart.com/media/2026/08/GettyImages-2280276956-640x335.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Tim McGraw Falls Flat on Back After Boot Catches on Cincinnati Stage"
-imageCredit: "Brietbart"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "Ezq8xU_EaS0"

@@ -2,9 +2,9 @@
 title: "India’s Reservoir Live Storage Drops to 68% of Capacity, South Region Hit Hard"
 category: "India"
 date: 2026-08-29T01:13:14Z
-image: "https://www.chinimandi.com/wp-content/uploads/2026/06/ani-water_woes_below-normal_rainfall_threatens_drought_in_several_parts_of_balochistan.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "India’s Reservoir Live Storage Drops to 68% of Capacity, South Region Hit Hard"
-imageCredit: "chinimandi"
+imageCredit: "PENDING"
 video_id: "vsFNAH-g3hg"
 video_caption: "ಭಾರತದ ಬುಡಕ್ಕೆ ಚೀನಾ ಬಾಂಬ್- ಭಾರತ ಮುಳುಗಿಸಲು ಮಹಾ ಸಂಚು- Brahmaputra River dam |China |Thirdeyekannada"
 slug: "water-storage-slumps-across-indias-reservoirs-south-sees-sharp-fall"

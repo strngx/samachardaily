@@ -3,9 +3,9 @@ title: "Top-Rated 21st-Century Disaster Film Dominates Global Streaming Leaderbo
 seoTitle: "Top 21st-Century Disaster Film Dominates Streaming"
 category: "World"
 date: 2026-08-31T05:09:27Z
-image: "https://static0.srcdn.com/wordpress/wp-content/uploads/2026/08/the-wave.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Top-Rated 21st-Century Disaster Film Dominates Global Streaming Leaderboards"
-imageCredit: "Screenrant"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "LwVOU6vFFY0"

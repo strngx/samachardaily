@@ -2,9 +2,9 @@
 title: "Rock County July Unemployment Holds Steady as Janesville Improves, Beloit Worsens"
 category: "Business"
 date: 2026-08-29T10:50:00Z
-image: "https://bloximages.newyork1.vip.townnews.com/beloitdailynews.com/content/tncms/custom/image/c270922e-ebc4-11eb-8571-eb444426d521.png"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Rock County July Unemployment Holds Steady as Janesville Improves, Beloit Worsens"
-imageCredit: "Beloit Daily News"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "oU6Fz2MtJ1s"

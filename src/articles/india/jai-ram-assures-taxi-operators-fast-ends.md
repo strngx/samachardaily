@@ -2,9 +2,9 @@
 title: "Opposition leader Jai Ram Thakur pledges to seek extension of taxi permits, ending fast"
 category: "India"
 date: 2026-08-29T08:14:57Z
-image: "https://publish.tribuneindia.com/wp-content/uploads/2025/01/67854eacde47a-11301582CD-_JAI-RAM-THAKUR-FOREVER.jpg"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Opposition leader Jai Ram Thakur pledges to seek extension of taxi permits, ending fast"
-imageCredit: "tribune news service"
+imageCredit: "PENDING"
 video_id: "jMD3dFLjh7g"
 video_caption: "शिमला : जयराम ठाकुर ने खत्म करवाया टैक्सी ऑपरेटर यूनियन का आमरण अनशन।"
 slug: "jai-ram-assures-taxi-operators-fast-ends"

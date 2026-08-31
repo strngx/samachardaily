@@ -2,9 +2,9 @@
 title: "Karnataka Tourism Secures Record Partnerships at Cochin Expo 2024"
 category: "India"
 date: 2026-08-29T11:30:28Z
-image: "https://hospitalitynews.in/uploads/images/202410/img_66fe9068ca4288-15217893-14864829.gif"
+image: "NEEDS_REPLACEMENT_PEXELS_IMAGE"
 imageAlt: "Karnataka Tourism Secures Record Partnerships at Cochin Expo 2024"
-imageCredit: "Hospitalitynews"
+imageCredit: "PENDING"
 trending: false
 featured: false
 video_id: "DtcwOeMb_n8"
