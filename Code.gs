@@ -34,6 +34,8 @@ function getConfig_() {
     GITHUB_REPO: props.getProperty('GITHUB_REPO') || 'strngx/samachardaily',
     GITHUB_BRANCH: props.getProperty('GITHUB_BRANCH') || 'main',
     GROQ_API_KEY: props.getProperty('GROQ_API_KEY') || '',
+    GEMINI_API_KEY: props.getProperty('GEMINI_API_KEY') || '',
+    CEREBRAS_API_KEY: props.getProperty('CEREBRAS_API_KEY') || '',
     NEWSDATA_API_KEY: props.getProperty('NEWSDATA_API_KEY') || '',
     CURRENTS_API_KEY: props.getProperty('CURRENTS_API_KEY') || '',
     PEXELS_API_KEY: props.getProperty('PEXELS_API_KEY') || '',
@@ -277,8 +279,36 @@ function isNewsworthyEntertainment_(title, description, categories) {
   return hasNewsworthySignal && !hasNoiseSignal;
 }
 
+/**
+ * FIX 2: Content Relevance Filtering.
+ * Excludes hyperlocal US small-town noise (city/county-specific business,
+ * local real estate, high school sports) that has no relevance to an India-focused global news audience.
+ *
+ * @param {Object} headline - Candidate headline object with title and description.
+ * @param {string} category - Category key.
+ * @returns {boolean} True if candidate is relevant.
+ */
+function isRelevantCandidate_(headline, category) {
+  var title = (headline.title || '').toLowerCase();
+  var desc = (headline.description || '').toLowerCase();
+  var text = title + ' ' + desc;
+  
+  // Exclude hyperlocal US small-town noise (city/county-specific business, 
+  // local real estate, high school sports) that has no relevance to an 
+  // India-focused global news audience
+  var excludePatterns = [
+    /\bhigh school\b/, /\bfactory closes\b/, /\bfactory closing\b/,
+    /\blocal home sales\b/, /\bmost expensive home\b/, /\bsingle-family\b/,
+    /\bdonut\b/, /\bhometown\b/, /\bfreshman quarterback\b/
+  ];
+  for (var i = 0; i < excludePatterns.length; i++) {
+    if (excludePatterns[i].test(text)) return false;
+  }
+  return true;
+}
+
 // ============================================================================
-// 3. CROSS-SOURCE DUPLICATE & KEYWORD OVERLAP DETECTION (Fix 3)
+// 3. CROSS-CATEGORY DEDUPLICATION & FINGERPRINTING ENGINE
 // ============================================================================
 
 var ENGLISH_STOPWORDS = {
@@ -346,20 +376,62 @@ function calculateKeywordOverlapRatio_(keywordsA, keywordsB) {
     }
   }
   var minLength = Math.min(keywordsA.length, keywordsB.length);
-  return matchCount / minLength;
+  return minLength > 0 ? (matchCount / minLength) : 0.0;
 }
 
 /**
- * Retrieves recent published articles in a category folder from GitHub API.
+ * Calculates Jaccard similarity index between two keyword sets.
  *
- * @param {string} categoryKey - Category identifier.
- * @param {Object} config - Configuration object.
- * @returns {Array<Object>} List of existing file items with parsed keywords.
+ * @param {Array<string>} keywordsA
+ * @param {Array<string>} keywordsB
+ * @returns {number} Jaccard index between 0.0 and 1.0.
  */
-function getRecentCategoryArticles_(categoryKey, config) {
-  var catCfg = CATEGORY_CONFIG[categoryKey.toLowerCase()] || { folder: 'src/articles/' + categoryKey.toLowerCase() };
-  var folderPath = catCfg.folder;
-  var url = 'https://api.github.com/repos/' + config.GITHUB_REPO + '/contents/' + folderPath + '?ref=' + config.GITHUB_BRANCH;
+function calculateJaccardSimilarity_(keywordsA, keywordsB) {
+  if (!keywordsA || !keywordsB || keywordsA.length === 0 || keywordsB.length === 0) return 0.0;
+  var setA = {};
+  var unionSet = {};
+  for (var i = 0; i < keywordsA.length; i++) {
+    setA[keywordsA[i]] = true;
+    unionSet[keywordsA[i]] = true;
+  }
+  var intersectionCount = 0;
+  for (var j = 0; j < keywordsB.length; j++) {
+    if (setA[keywordsB[j]]) {
+      intersectionCount++;
+    }
+    unionSet[keywordsB[j]] = true;
+  }
+  var unionSize = Object.keys(unionSet).length;
+  return unionSize > 0 ? (intersectionCount / unionSize) : 0.0;
+}
+
+/**
+ * Generates a normalized fingerprint for a story candidate.
+ *
+ * @param {string} title - Candidate headline.
+ * @param {string} description - Candidate description or summary.
+ * @returns {Object} Fingerprint object { normalizedTitle, keywords, key }.
+ */
+function computeNormalizedFingerprint_(title, description) {
+  var cleanTitle = (title || '').toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+  var text = (title || '') + ' ' + (description || '');
+  var keywords = extractKeywords_(text);
+  return {
+    normalizedTitle: cleanTitle,
+    keywords: keywords,
+    key: keywords.slice(0, 8).join('-')
+  };
+}
+
+/**
+ * Fetches the rolling 7-day story fingerprints index from GitHub.
+ *
+ * @param {Object} config - Configuration object.
+ * @returns {Object} { items: Array<Object>, sha: string|null }
+ */
+function getRecentFingerprints_(config) {
+  var filePath = 'src/_data/recent-fingerprints.json';
+  var url = 'https://api.github.com/repos/' + config.GITHUB_REPO + '/contents/' + filePath + '?ref=' + config.GITHUB_BRANCH;
   var headers = {
     'Accept': 'application/vnd.github.v3+json',
     'User-Agent': 'SamacharDaily-AutoBlogger'
@@ -371,24 +443,146 @@ function getRecentCategoryArticles_(categoryKey, config) {
   try {
     var resp = UrlFetchApp.fetch(url, { headers: headers, muteHttpExceptions: true });
     if (resp.getResponseCode() === 200) {
-      var files = JSON.parse(resp.getContentText());
-      if (Array.isArray(files)) {
-        return files.filter(function(f) {
-          return f.type === 'file' && f.name.endsWith('.md');
-        }).map(function(f) {
-          var slugName = f.name.replace(/\.md$/, '');
-          return {
-            name: f.name,
-            slug: slugName,
-            keywords: extractKeywords_(slugName)
-          };
-        });
+      var data = JSON.parse(resp.getContentText());
+      if (data.content) {
+        var rawJson = Utilities.newBlob(Utilities.base64Decode(data.content)).getDataAsString('UTF-8');
+        var parsed = JSON.parse(rawJson);
+        return {
+          items: Array.isArray(parsed) ? parsed : [],
+          sha: data.sha || null
+        };
       }
     }
   } catch (err) {
-    Logger.log('Error fetching recent category articles from GitHub: ' + err.toString());
+    Logger.log('Error reading recent-fingerprints.json from GitHub: ' + err.toString());
   }
-  return [];
+
+  return { items: [], sha: null };
+}
+
+/**
+ * Saves updated fingerprints back to GitHub, maintaining a rolling 7-day window.
+ *
+ * @param {Object} newEntry - New article fingerprint entry.
+ * @param {Object} existingStore - Object with { items, sha }.
+ * @param {Object} config - Configuration object.
+ */
+function saveRecentFingerprints_(newEntry, existingStore, config) {
+  var filePath = 'src/_data/recent-fingerprints.json';
+  var now = Date.now();
+  var SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+
+  // Filter existing entries to keep only those within rolling 7-day window
+  var activeItems = (existingStore.items || []).filter(function(item) {
+    if (!item.timestamp) return false;
+    var itemAge = now - new Date(item.timestamp).getTime();
+    return itemAge <= SEVEN_DAYS_MS;
+  });
+
+  // Prepend latest entry
+  activeItems.unshift(newEntry);
+
+  var jsonContent = JSON.stringify(activeItems, null, 2);
+  var commitMsg = 'Update recent fingerprints index [' + newEntry.slug + ']';
+
+  var url = 'https://api.github.com/repos/' + config.GITHUB_REPO + '/contents/' + filePath;
+  var headers = {
+    'Authorization': 'token ' + config.GITHUB_TOKEN,
+    'Accept': 'application/vnd.github.v3+json',
+    'User-Agent': 'SamacharDaily-AutoBlogger'
+  };
+
+  var payload = {
+    message: commitMsg,
+    content: Utilities.base64Encode(jsonContent, Utilities.Charset.UTF_8),
+    branch: config.GITHUB_BRANCH
+  };
+  if (existingStore.sha) {
+    payload.sha = existingStore.sha;
+  }
+
+  try {
+    var options = {
+      method: 'put',
+      contentType: 'application/json',
+      headers: headers,
+      payload: JSON.stringify(payload),
+      muteHttpExceptions: true
+    };
+    var resp = UrlFetchApp.fetch(url, options);
+    var code = resp.getResponseCode();
+    if (code === 200 || code === 201) {
+      Logger.log('Successfully updated recent-fingerprints.json on GitHub (' + activeItems.length + ' entries tracked).');
+    } else {
+      Logger.log('Warning: Failed to update recent-fingerprints.json (HTTP ' + code + '): ' + resp.getContentText());
+    }
+  } catch (err) {
+    Logger.log('Error committing recent-fingerprints.json: ' + err.toString());
+  }
+}
+
+/**
+ * Checks candidate against all published stories in the last 72 hours across ALL categories.
+ * Discards candidate if similarity is >= 75% overlap or >= 65% Jaccard similarity.
+ *
+ * @param {Object} candidate - Candidate news object { title, description, sourceUrl }.
+ * @param {Array<Object>} recentFingerprints - List of recent fingerprint records.
+ * @returns {boolean} True if candidate matches an existing story within 72h window.
+ */
+function isFingerprintDuplicate_(candidate, recentFingerprints) {
+  if (!recentFingerprints || recentFingerprints.length === 0) return false;
+
+  var fp = computeNormalizedFingerprint_(candidate.title, candidate.description);
+  var now = Date.now();
+  var SEVENTY_TWO_HOURS_MS = 72 * 60 * 60 * 1000;
+
+  for (var i = 0; i < recentFingerprints.length; i++) {
+    var existing = recentFingerprints[i];
+    if (!existing.timestamp) continue;
+
+    var ageMs = now - new Date(existing.timestamp).getTime();
+    if (ageMs > SEVENTY_TWO_HOURS_MS) continue; // Only check last 72 hours
+
+    var ageHours = Math.round(ageMs / (1000 * 60 * 60));
+
+    // 1. Direct source URL match
+    if (candidate.sourceUrl && existing.sourceUrl && candidate.sourceUrl === existing.sourceUrl) {
+      Logger.log('[DEDUPLICATION DISCARD] Exact source URL match with "' + existing.slug +
+        '" (' + existing.category + ', ' + ageHours + 'h ago): ' + candidate.sourceUrl);
+      return true;
+    }
+
+    // 2. Keyword overlap ratio
+    var overlap = calculateKeywordOverlapRatio_(fp.keywords, existing.keywords || []);
+    if (overlap >= 0.75) {
+      Logger.log('[DEDUPLICATION DISCARD] High keyword overlap (' + Math.round(overlap * 100) +
+        '% >= 75%) between candidate "' + candidate.title + '" and existing "' +
+        existing.slug + '" in [' + existing.category + '] (' + ageHours + 'h ago). Discarding candidate.');
+      return true;
+    }
+
+    // 3. Jaccard similarity
+    var jaccard = calculateJaccardSimilarity_(fp.keywords, existing.keywords || []);
+    if (jaccard >= 0.65) {
+      Logger.log('[DEDUPLICATION DISCARD] High Jaccard similarity (' + Math.round(jaccard * 100) +
+        '% >= 65%) between candidate "' + candidate.title + '" and existing "' +
+        existing.slug + '" in [' + existing.category + '] (' + ageHours + 'h ago). Discarding candidate.');
+      return true;
+    }
+
+    // 4. Normalized title substring / containment check
+    if (fp.normalizedTitle && existing.normalizedTitle) {
+      if (fp.normalizedTitle === existing.normalizedTitle ||
+          (fp.normalizedTitle.length > 25 && existing.normalizedTitle.indexOf(fp.normalizedTitle) !== -1) ||
+          (existing.normalizedTitle.length > 25 && fp.normalizedTitle.indexOf(existing.normalizedTitle) !== -1)) {
+        Logger.log('[DEDUPLICATION DISCARD] Normalized title near-match with "' + existing.slug +
+          '" in [' + existing.category + '] (' + ageHours + 'h ago). Discarding candidate.');
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 /**
@@ -495,13 +689,233 @@ function validateImage_(url) {
 }
 
 // ============================================================================
-// 5. GROQ EDITORIAL SYNTHESIS (Fixes 4 & 7)
+// 5. COMPETITOR ANGLE RSS FETCH & GROQ EDITORIAL SYNTHESIS
 // ============================================================================
 
 /**
+ * Fetches recent competitor/publisher headline angles via RSS.
+ *
+ * @param {string} category - Category key ('india', 'world', 'business', 'tech', 'sports')
+ * @returns {Array<string>} Array of up to 3 top headline angles.
+ */
+function getCompetitorAngle(category) {
+  const feeds = {
+    india: "https://www.indiatoday.in/rss/1206578",
+    world: "https://www.indiatoday.in/rss/1206577",
+    business: "https://www.indiatoday.in/rss/1206574",
+    tech: "https://www.indiatoday.in/rss/1206688",
+    sports: "https://www.indiatoday.in/rss/1206550"
+  };
+  try {
+    const feedUrl = feeds[category];
+    if (!feedUrl) return [];
+    const xml = UrlFetchApp.fetch(feedUrl, { muteHttpExceptions: true }).getContentText();
+    const doc = XmlService.parse(xml);
+    const items = doc.getRootElement().getChild("channel").getChildren("item");
+    return items.slice(0, 3).map(i => i.getChildText("title")).filter(Boolean);
+  } catch (e) {
+    Logger.log("getCompetitorAngle failed, continuing without it: " + e);
+    return [];
+  }
+}
+
+/**
+ * Standalone test function to verify RSS angle fetching across all categories.
+ */
+function testCompetitorAngle() {
+  ["india", "world", "business", "tech", "sports"].forEach(cat => {
+    Logger.log(cat + ": " + JSON.stringify(getCompetitorAngle(cat)));
+  });
+}
+
+/**
+ * Helper to safely extract and validate JSON article object from AI text responses.
+ *
+ * @param {string} rawText - Raw string content returned by AI provider.
+ * @returns {Object} Parsed article structure.
+ */
+function parseArticleJson_(rawText) {
+  if (!rawText) throw new Error('Empty response from AI provider.');
+  var cleaned = rawText.trim();
+  if (cleaned.startsWith('```')) {
+    cleaned = cleaned.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+  }
+  var parsed = JSON.parse(cleaned);
+  if (!parsed.title || !parsed.content) {
+    throw new Error('AI response JSON missing required fields (title or content).');
+  }
+  return parsed;
+}
+
+/**
+ * Fallback #1: Rewrites article via Google Gemini 3.6 Flash.
+ *
+ * @param {string} systemPrompt - Standardized system prompt.
+ * @param {string} userPrompt - Standardized user prompt.
+ * @param {Object} config - Configuration object.
+ * @returns {Object} Parsed JSON article structure.
+ */
+function rewriteWithGemini_(systemPrompt, userPrompt, config) {
+  var geminiKey = (config && config.GEMINI_API_KEY) || PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY');
+  if (!geminiKey) {
+    throw new Error('Missing GEMINI_API_KEY in script properties.');
+  }
+
+  var url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=' + geminiKey;
+  var payload = {
+    contents: [
+      {
+        role: 'user',
+        parts: [{ text: userPrompt }]
+      }
+    ],
+    systemInstruction: {
+      parts: [{ text: systemPrompt }]
+    },
+    generationConfig: {
+      responseMimeType: 'application/json',
+      temperature: 0.2
+    }
+  };
+
+  var options = {
+    method: 'post',
+    contentType: 'application/json',
+    payload: JSON.stringify(payload),
+    muteHttpExceptions: true
+  };
+
+  var resp = UrlFetchApp.fetch(url, options);
+  var statusCode = resp.getResponseCode();
+  if (statusCode !== 200) {
+    throw new Error('Gemini API error (' + statusCode + '): ' + resp.getContentText());
+  }
+
+  var data = JSON.parse(resp.getContentText());
+  if (!data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts || !data.candidates[0].content.parts[0]) {
+    throw new Error('Malformed response from Gemini API.');
+  }
+
+  var text = data.candidates[0].content.parts[0].text;
+  return parseArticleJson_(text);
+}
+
+/**
+ * Fallback #2: Rewrites article via Cerebras (llama3.1-70b with gpt-oss-120b fallback).
+ *
+ * @param {string} systemPrompt - Standardized system prompt.
+ * @param {string} userPrompt - Standardized user prompt.
+ * @param {Object} config - Configuration object.
+ * @returns {Object} Parsed JSON article structure.
+ */
+function rewriteWithCerebras_(systemPrompt, userPrompt, config) {
+  var cerebrasKey = (config && config.CEREBRAS_API_KEY) || PropertiesService.getScriptProperties().getProperty('CEREBRAS_API_KEY');
+  if (!cerebrasKey) {
+    throw new Error('Missing CEREBRAS_API_KEY in script properties.');
+  }
+
+  var url = 'https://api.cerebras.ai/v1/chat/completions';
+  var modelsToTry = ['llama3.1-70b', 'gpt-oss-120b'];
+  var lastError = null;
+
+  for (var m = 0; m < modelsToTry.length; m++) {
+    var modelName = modelsToTry[m];
+    var payload = {
+      model: modelName,
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt }
+      ],
+      response_format: { type: 'json_object' },
+      temperature: 0.2
+    };
+
+    var options = {
+      method: 'post',
+      contentType: 'application/json',
+      headers: {
+        'Authorization': 'Bearer ' + cerebrasKey
+      },
+      payload: JSON.stringify(payload),
+      muteHttpExceptions: true
+    };
+
+    var resp = UrlFetchApp.fetch(url, options);
+    var statusCode = resp.getResponseCode();
+    if (statusCode === 200) {
+      var data = JSON.parse(resp.getContentText());
+      if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+        var text = data.choices[0].message.content;
+        return parseArticleJson_(text);
+      }
+    } else if (statusCode === 404 || statusCode === 400) {
+      Logger.log('Cerebras model ' + modelName + ' failed (' + statusCode + '). Trying next option...');
+      lastError = new Error('Cerebras API error with ' + modelName + ' (' + statusCode + '): ' + resp.getContentText());
+      continue;
+    } else {
+      lastError = new Error('Cerebras API error (' + statusCode + '): ' + resp.getContentText());
+    }
+  }
+
+  throw lastError || new Error('Malformed response from Cerebras API.');
+}
+
+/**
+ * FIX 3: Groq TPD (Tokens Per Day) Guardrail.
+ * Checks tracked token counter in Script Properties. Resets every 24h.
+ * If within 5,000 tokens of 200,000 (i.e. >= 195,000), skips Groq to avoid 429.
+ *
+ * @returns {boolean} True if within safe limit; false if limit exceeded.
+ */
+function checkGroqTpdLimit_() {
+  try {
+    var props = PropertiesService.getScriptProperties();
+    var now = Date.now();
+    var lastResetStr = props.getProperty('groq_tpd_reset_time');
+    var lastReset = lastResetStr ? parseInt(lastResetStr, 10) : 0;
+    var ONE_DAY_MS = 24 * 60 * 60 * 1000;
+
+    if (!lastReset || (now - lastReset) >= ONE_DAY_MS) {
+      props.setProperty('groq_tpd_used', '0');
+      props.setProperty('groq_tpd_reset_time', now.toString());
+      return true;
+    }
+
+    var usedStr = props.getProperty('groq_tpd_used') || '0';
+    var usedTokens = parseInt(usedStr, 10) || 0;
+    if (usedTokens >= 195000) {
+      Logger.log('Groq TPD guardrail active: used ' + usedTokens + ' / 200,000 tokens. Skipping Groq to prevent 429.');
+      return false;
+    }
+    return true;
+  } catch (e) {
+    Logger.log('Error checking Groq TPD counter: ' + e);
+    return true;
+  }
+}
+
+/**
+ * Updates tracked Groq daily token usage counter.
+ *
+ * @param {number} tokens - Tokens consumed by Groq request.
+ */
+function recordGroqTokenUsage_(tokens) {
+  if (!tokens || tokens <= 0) return;
+  try {
+    var props = PropertiesService.getScriptProperties();
+    var usedStr = props.getProperty('groq_tpd_used') || '0';
+    var currentUsed = parseInt(usedStr, 10) || 0;
+    props.setProperty('groq_tpd_used', (currentUsed + tokens).toString());
+  } catch (e) {
+    Logger.log('Failed to update groq_tpd_used counter: ' + e);
+  }
+}
+
+/**
  * Rewrites news wire dispatch into high-credibility SamacharDaily article.
- * Date-anchored system prompt prevents training hallucinated years.
- * Adds what_happens_next concrete forward-looking section.
+ * Tier 1: Groq Llama 3.3 / GPT-OSS (Primary)
+ * Tier 2: Gemini 3.6 Flash (Fallback #1 on 429 / TPD limit)
+ * Tier 3: Cerebras Llama 3.1 70B (Fallback #2 on double failure)
  *
  * @param {Object} headline - The selected candidate news dispatch.
  * @param {string} category - Focus category name.
@@ -509,10 +923,6 @@ function validateImage_(url) {
  * @returns {Object} Parsed JSON article structure.
  */
 function rewriteWithGroq_(headline, category, config) {
-  if (!config.GROQ_API_KEY) {
-    throw new Error('Missing GROQ_API_KEY in script properties.');
-  }
-
   // Anchor current date explicitly to prevent hallucinated historical years (Fix 4)
   var todayDateStr = Utilities.formatDate(new Date(), 'Etc/UTC', 'MMMM d, yyyy');
 
@@ -521,15 +931,17 @@ function rewriteWithGroq_(headline, category, config) {
     "Do not reference years, cycles, or 'upcoming' events using any year other than what's explicitly stated in the source headline/description — never infer or carry over a year from your own training data.\n\n" +
     'Editorial Requirements:\n' +
     '1. Craft a high-credibility, authoritative headline (60-90 characters) in sharp newsroom tone (no clickbait).\n' +
-    '2. Write a crisp "dek" (1-2 sentence executive summary).\n' +
-    '3. Produce 2-3 detailed paragraphs of rigorous journalistic reporting synthesizing the core facts.\n' +
-    '4. Compose a 2-paragraph "why_it_matters" section analyzing institutional, policy, or market impact.\n' +
-    '5. Provide "what_happens_next" (Fix 7): 1 short paragraph (40-70 words) on concrete next steps specific to THIS story — not generic boilerplate. If genuinely nothing concrete is known, write "No confirmed next steps reported yet."\n' +
-    '6. Provide a targeted "image_keyword" for editorial photo search (e.g. "semiconductor cleanroom", "cricket stadium floodlights").\n' +
-    '7. Provide a concise "video_query" for broadcast coverage search.\n\n' +
+    '2. Provide a concise seoTitle (50-55 characters max) optimized for search results, distinct from the main headline.\n' +
+    '3. Write a crisp "dek" (1-2 sentence executive summary).\n' +
+    '4. Write the core story in at least 4-5 substantial paragraphs (350-450 words total). Include: the main event, relevant background/context that a reader unfamiliar with this topic would need to understand it, and specific named details (people, places, dates, numbers, organizations) drawn only from the source article. Do not write a short summary — write a full explanatory news article a reader could rely on without needing to read the original source.\n' +
+    '5. Compose a 2-paragraph "why_it_matters" section analyzing institutional, policy, or market impact.\n' +
+    '6. Provide "what_happens_next" (Fix 7): 1 short paragraph (40-70 words) on concrete next steps specific to THIS story — not generic boilerplate. If genuinely nothing concrete is known, write "No confirmed next steps reported yet."\n' +
+    '7. Provide a targeted "image_keyword" for editorial photo search (e.g. "semiconductor cleanroom", "cricket stadium floodlights").\n' +
+    '8. Provide a concise "video_query" for broadcast coverage search.\n\n' +
     'You MUST return ONLY a valid JSON object matching this exact structure:\n' +
     '{\n' +
-    '  "title": "String (authoritative headline)",\n' +
+    '  "title": "String (authoritative headline, 60-90 characters)",\n' +
+    '  "seoTitle": "String (concise, 50-55 characters max)",\n' +
     '  "dek": "String (1-2 sentence executive summary)",\n' +
     '  "content": ["Paragraph 1 string...", "Paragraph 2 string...", "Paragraph 3 string..."],\n' +
     '  "why_it_matters": "Paragraph 1\\n\\nParagraph 2",\n' +
@@ -538,81 +950,142 @@ function rewriteWithGroq_(headline, category, config) {
     '  "video_query": "String"\n' +
     '}';
 
+  const catKey = (category || '').toLowerCase();
+  const competitorAngles = getCompetitorAngle(catKey);
+  const angleBlock = competitorAngles.length > 0
+    ? `\nHere's how top Indian publishers are currently framing similar stories today:\n- ${competitorAngles.join("\n- ")}\nUse a similar hook/framing style (punchy, direct, wire-service tone) — but write 100% original wording using ONLY the facts from the source article below. Do not copy their headlines or sentences.\n`
+    : "";
+
   var userPrompt = 'Category: ' + category + '\n' +
+    angleBlock +
     'Source Headline: ' + headline.title + '\n' +
     'Source Description: ' + (headline.description || '') + '\n' +
     'Source Content Snippet: ' + (headline.content || '') + '\n' +
     'Source Outlet: ' + (headline.sourceName || 'News Wire');
 
-  var payload = {
-    model: 'openai/gpt-oss-120b',
-    messages: [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: userPrompt }
-    ],
-    response_format: { type: 'json_object' },
-    temperature: 0.2,
-    max_tokens: 2048
-  };
+  var isGroq429 = false;
+  var groqError = null;
 
-  var options = {
-    method: 'post',
-    contentType: 'application/json',
-    headers: {
-      'Authorization': 'Bearer ' + config.GROQ_API_KEY
-    },
-    payload: JSON.stringify(payload),
-    muteHttpExceptions: true
-  };
+  // Tier 1: Groq (Primary) - with FIX 3 TPD Guardrail
+  var isGroqTpdAllowed = checkGroqTpdLimit_();
+  if (!isGroqTpdAllowed) {
+    Logger.log('Groq daily token limit reached (TPD >= 195,000). Skipping directly to Tier 2 (Gemini)...');
+    isGroq429 = true;
+    groqError = new Error('Groq daily token limit reached (TPD guardrail >= 195,000).');
+  } else if (!config.GROQ_API_KEY) {
+    Logger.log('Missing GROQ_API_KEY in script properties. Triggering fallback waterfall...');
+    isGroq429 = true;
+    groqError = new Error('Missing GROQ_API_KEY in script properties.');
+  } else {
+    var payload = {
+      model: 'openai/gpt-oss-120b',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt }
+      ],
+      response_format: { type: 'json_object' },
+      temperature: 0.2,
+      max_tokens: 2048
+    };
 
-  var resp = UrlFetchApp.fetch('https://api.groq.com/openai/v1/chat/completions', options);
-  var statusCode = resp.getResponseCode();
+    var options = {
+      method: 'post',
+      contentType: 'application/json',
+      headers: {
+        'Authorization': 'Bearer ' + config.GROQ_API_KEY
+      },
+      payload: JSON.stringify(payload),
+      muteHttpExceptions: true
+    };
 
-  // Handle Groq 429 Rate Limit with single 10-second retry backoff
-  if (statusCode === 429) {
-    Logger.log('Groq 429 rate limit reached. Backing off for 10 seconds before single retry...');
-    Utilities.sleep(10000);
-    resp = UrlFetchApp.fetch('https://api.groq.com/openai/v1/chat/completions', options);
-    statusCode = resp.getResponseCode();
-  }
+    try {
+      var resp = UrlFetchApp.fetch('https://api.groq.com/openai/v1/chat/completions', options);
+      var statusCode = resp.getResponseCode();
 
-  // Handle Groq 400 json_validate_failed with simplified fallback retry
-  if (statusCode === 400) {
-    var respText = resp.getContentText();
-    if (respText.indexOf('json_validate_failed') !== -1) {
-      Logger.log('Groq 400 json_validate_failed encountered. Retrying with simplified fallback (max_tokens: 1500)...');
-      var fallbackSystemPrompt = systemPrompt + '\nKeep all string values concise and ensure the JSON is complete and properly closed.';
-      var fallbackPayload = {
-        model: 'openai/gpt-oss-120b',
-        messages: [
-          { role: 'system', content: fallbackSystemPrompt },
-          { role: 'user', content: userPrompt }
-        ],
-        response_format: { type: 'json_object' },
-        temperature: 0.2,
-        max_tokens: 1500
-      };
-      var fallbackOptions = {
-        method: 'post',
-        contentType: 'application/json',
-        headers: {
-          'Authorization': 'Bearer ' + config.GROQ_API_KEY
-        },
-        payload: JSON.stringify(fallbackPayload),
-        muteHttpExceptions: true
-      };
-      resp = UrlFetchApp.fetch('https://api.groq.com/openai/v1/chat/completions', fallbackOptions);
-      statusCode = resp.getResponseCode();
+      // Handle Groq 429 Rate Limit with single 10-second retry backoff
+      if (statusCode === 429) {
+        Logger.log('Groq 429 rate limit reached. Backing off for 10 seconds before single retry...');
+        Utilities.sleep(10000);
+        resp = UrlFetchApp.fetch('https://api.groq.com/openai/v1/chat/completions', options);
+        statusCode = resp.getResponseCode();
+      }
+
+      // Handle Groq 400 json_validate_failed with simplified fallback retry
+      if (statusCode === 400) {
+        var respText = resp.getContentText();
+        if (respText.indexOf('json_validate_failed') !== -1) {
+          Logger.log('Groq 400 json_validate_failed encountered. Retrying with simplified fallback (max_tokens: 1500)...');
+          var fallbackSystemPrompt = systemPrompt + '\nKeep all string values concise and ensure the JSON is complete and properly closed.';
+          var fallbackPayload = {
+            model: 'openai/gpt-oss-120b',
+            messages: [
+              { role: 'system', content: fallbackSystemPrompt },
+              { role: 'user', content: userPrompt }
+            ],
+            response_format: { type: 'json_object' },
+            temperature: 0.2,
+            max_tokens: 1500
+          };
+          var fallbackOptions = {
+            method: 'post',
+            contentType: 'application/json',
+            headers: {
+              'Authorization': 'Bearer ' + config.GROQ_API_KEY
+            },
+            payload: JSON.stringify(fallbackPayload),
+            muteHttpExceptions: true
+          };
+          resp = UrlFetchApp.fetch('https://api.groq.com/openai/v1/chat/completions', fallbackOptions);
+          statusCode = resp.getResponseCode();
+        }
+      }
+
+      if (statusCode === 200) {
+        var parsed = JSON.parse(resp.getContentText());
+        var tokensUsed = (parsed.usage && parsed.usage.total_tokens) ? parsed.usage.total_tokens : 1800;
+        recordGroqTokenUsage_(tokensUsed);
+        var resultText = parsed.choices[0].message.content;
+        var articleObj = parseArticleJson_(resultText);
+        Logger.log('Generated via: Groq');
+        return articleObj;
+      }
+
+      if (statusCode === 429) {
+        isGroq429 = true;
+        groqError = new Error('Groq API rate limit (429): ' + resp.getContentText());
+      } else {
+        groqError = new Error('Groq API error (' + statusCode + '): ' + resp.getContentText());
+      }
+    } catch (err) {
+      groqError = err;
+      if (err.message && (err.message.indexOf('429') !== -1 || err.message.indexOf('rate') !== -1)) {
+        isGroq429 = true;
+      }
     }
   }
 
-  if (statusCode !== 200) {
-    throw new Error('Groq API error (' + statusCode + '): ' + resp.getContentText());
+  // Tier 2 & 3: Fallback Waterfall on 429 / TPD limit
+  if (isGroq429) {
+    Logger.log('Groq rate limited (429). Falling back to Tier 2 (Gemini 3.6 Flash)...');
+    try {
+      var geminiArticle = rewriteWithGemini_(systemPrompt, userPrompt, config);
+      Logger.log('Generated via: Gemini (Groq fallback)');
+      return geminiArticle;
+    } catch (geminiErr) {
+      Logger.log('Gemini fallback failed: ' + geminiErr.message + '. Falling back to Tier 3 (Cerebras Llama 3.1 70B)...');
+      try {
+        var cerebrasArticle = rewriteWithCerebras_(systemPrompt, userPrompt, config);
+        Logger.log('Generated via: Cerebras (double fallback)');
+        return cerebrasArticle;
+      } catch (cerebrasErr) {
+        Logger.log('All 3 AI tiers (Groq, Gemini, Cerebras) failed.');
+        throw new Error('Groq rate limit: ' + (groqError ? groqError.message : '429') + ' | Gemini error: ' + geminiErr.message + ' | Cerebras error: ' + cerebrasErr.message);
+      }
+    }
   }
 
-  var parsed = JSON.parse(resp.getContentText());
-  var resultText = parsed.choices[0].message.content;
-  return JSON.parse(resultText);
+  // Throw non-429 Groq error directly
+  throw groqError || new Error('Unknown Groq synthesis error.');
 }
 
 // ============================================================================
@@ -656,7 +1129,8 @@ function searchYouTubeVideo_(query, config) {
 // ============================================================================
 
 /**
- * Truncates headline to 60 characters at last full word for SEO title tag.
+ * Truncates headline to 55 characters at last full word for SEO title tag.
+ * Leaves headroom for the " | SamacharDaily" brand suffix to stay under 60 chars.
  *
  * @param {string} title - Full headline string.
  * @returns {string} Truncated SEO title without trailing punctuation/ellipsis.
@@ -664,8 +1138,8 @@ function searchYouTubeVideo_(query, config) {
 function generateSeoTitle_(title) {
   if (!title || typeof title !== 'string') return '';
   var cleanTitle = title.trim();
-  if (cleanTitle.length <= 60) return cleanTitle;
-  var sub = cleanTitle.substring(0, 60);
+  if (cleanTitle.length <= 55) return cleanTitle;
+  var sub = cleanTitle.substring(0, 55);
   var lastSpace = sub.lastIndexOf(' ');
   if (lastSpace > 0) {
     return sub.substring(0, lastSpace).trim();
@@ -714,7 +1188,8 @@ function buildMarkdown_(article, image, videos, sourceUrl, headline, isFeatured)
   }
 
   var safeTitle = (article.title || '').replace(/"/g, '\\"');
-  var seoTitle = generateSeoTitle_(article.title || '');
+  var rawSeoTitle = article.seoTitle || article.title || '';
+  var seoTitle = generateSeoTitle_(rawSeoTitle);
   var safeSeoTitle = seoTitle.replace(/"/g, '\\"');
   var safeDek = (article.dek || '').replace(/"/g, '\\"');
   var safeImageAlt = (image && image.alt ? image.alt : safeTitle).replace(/"/g, '\\"');
@@ -1075,13 +1550,25 @@ function runPipelineForCategory_(categoryKey) {
     return { success: false, reason: 'No news candidates found' };
   }
 
-  // Step 2: Cross-Source Duplicate & Overlap Detection and Trending Selection
-  var recentGitHubArticles = getRecentCategoryArticles_(key, config);
-  Logger.log('Found ' + recentGitHubArticles.length + ' existing articles in category ' + catCfg.name);
+  // Step 2: Cross-Category Fingerprint & Duplicate Detection
+  var recentFingerprintsStore = getRecentFingerprints_(config);
+  Logger.log('Fetched ' + (recentFingerprintsStore.items ? recentFingerprintsStore.items.length : 0) + ' recent fingerprints from GitHub.');
+
+  // Content Relevance Filtering
+  var relevanceCandidates = candidates.filter(function(c) {
+    return isRelevantCandidate_(c, key);
+  });
+  if (relevanceCandidates.length === 0) {
+    Logger.log('WARNING: All candidates filtered out by isRelevantCandidate_. Using original candidates.');
+    relevanceCandidates = candidates;
+  } else {
+    Logger.log('Relevance filter kept ' + relevanceCandidates.length + ' of ' + candidates.length + ' candidates.');
+  }
 
   var validCandidates = [];
-  for (var i = 0; i < candidates.length; i++) {
-    var c = candidates[i];
+
+  for (var i = 0; i < relevanceCandidates.length; i++) {
+    var c = relevanceCandidates[i];
 
     // Reject gambling and betting content (AdSense policy risk)
     if (isGamblingContent_(c.title)) {
@@ -1117,24 +1604,13 @@ function runPipelineForCategory_(categoryKey) {
 
     // Exact duplicate slug check
     if (isDuplicate_(slug, key, config)) {
-      Logger.log('Skipping exact slug duplicate: ' + slug);
+      Logger.log('Skipping exact slug duplicate on GitHub: ' + slug);
       continue;
     }
 
-    // Cross-source duplicate check (Fix 3): >60% keyword overlap with articles in category
-    var candidateKeywords = extractKeywords_(c.title);
-    var isOverlapDuplicate = false;
-    for (var j = 0; j < recentGitHubArticles.length; j++) {
-      var existingArt = recentGitHubArticles[j];
-      var overlapRatio = calculateKeywordOverlapRatio_(candidateKeywords, existingArt.keywords);
-      if (overlapRatio > 0.60) {
-        Logger.log('Skipping cross-source duplicate (>60% overlap: ' +
-          Math.round(overlapRatio * 100) + '%) between "' + c.title + '" and "' + existingArt.slug + '"');
-        isOverlapDuplicate = true;
-        break;
-      }
-    }
-    if (isOverlapDuplicate) {
+    // Cross-Category 72-Hour Deduplication Fingerprint Check (Issue #1)
+    if (isFingerprintDuplicate_(c, recentFingerprintsStore.items)) {
+      // Discard candidate — logged with [DEDUPLICATION DISCARD] inside isFingerprintDuplicate_
       continue;
     }
 
@@ -1146,9 +1622,10 @@ function runPipelineForCategory_(categoryKey) {
     validCandidates.push(c);
   }
 
+  // Strict deduplication: If all candidates are duplicates or filtered out, discard run rather than forcing duplicate publication
   if (validCandidates.length === 0) {
-    Logger.log('All candidates filtered out as duplicates or non-English. Skipping run.');
-    return { success: false, reason: 'All candidates duplicate or non-English' };
+    Logger.log('All candidates were duplicates or filtered out. Discarding run to prevent duplicate content.');
+    return { success: false, reason: 'All candidates filtered out or duplicates' };
   }
 
   // Sort valid candidates: trendingMatch === 'yes' first, then newer pubDate
@@ -1214,6 +1691,20 @@ function runPipelineForCategory_(categoryKey) {
   var targetPath = catCfg.folder + '/' + selectedCandidate.slug + '.md';
   var commitMsg = 'Auto-publish: ' + selectedCandidate.slug;
   var publishResult = publishToGitHub_(targetPath, markdownContent, commitMsg, config);
+
+  // Step 8: Update Rolling 7-Day Fingerprints Store on GitHub
+  var fp = computeNormalizedFingerprint_(selectedCandidate.title, selectedCandidate.description);
+  var fingerprintEntry = {
+    title: selectedCandidate.title,
+    normalizedTitle: fp.normalizedTitle,
+    keywords: fp.keywords,
+    category: catCfg.name,
+    categoryKey: key,
+    slug: selectedCandidate.slug,
+    sourceUrl: selectedCandidate.sourceUrl || '',
+    timestamp: new Date().toISOString()
+  };
+  saveRecentFingerprints_(fingerprintEntry, recentFingerprintsStore, config);
 
   return {
     success: true,
