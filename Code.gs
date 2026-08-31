@@ -356,6 +356,59 @@ function isRelevantCandidate_(headline, category) {
   return true;
 }
 
+/**
+ * Classifies story by true subject matter to prevent cross-category misrouting (Issue #3).
+ *
+ * @param {string} title - Headline.
+ * @param {string} description - Summary or description.
+ * @param {Array<string>} categories - Raw categories from API.
+ * @returns {string} 'sports' | 'tech' | 'business' | 'world' | 'india'
+ */
+function classifyStoryCategory_(title, description, categories) {
+  var text = ((title || '') + ' ' + (description || '')).toLowerCase();
+  
+  // 1. SPORTS (sports match results, championships, athletes regardless of nationality)
+  var sportsSignal = /\b(cricket|chess|grand chess tour|grandmaster|fide|praggnanandhaa|gukesh|erigaisi|diamond league|neeraj chopra|javelin|ipl|bcci|icc|test match|odi|t20|world cup|olympics|fifa|uefa|premier league|champions league|la liga|serie a|bundesliga|football|soccer|tennis|atp|wta|us open|wimbledon|french open|australian open|badminton|bwf|formula 1|f1|grand prix|motogp|hockey|fih|nba|nfl|mlb|nhl|pga tour|golf|boxing|ufc|mma|wrestling|wwe|asian games|commonwealth games|world championship|vuelta|tour de france|giro)\b/i;
+  var sportsActionSignal = /\b(beats|defeats|wins title|clinches gold|clinches title|tournament|championship|match victory|semi-final|quarter-final|final round|qualifies for final|scores goal|hat-trick|century|wicket|podium finish|silver medal|bronze medal|stage win|solos to win)\b/i;
+  
+  if (sportsSignal.test(text) || (categories && categories.indexOf('sports') !== -1 && sportsActionSignal.test(text))) {
+    return 'sports';
+  }
+
+  // 2. TECH (products, software, AI, hardware, robotics, cybersecurity)
+  var techSignal = /\b(artificial intelligence|\bai\b|generative ai|llm|chatgpt|openai|anthropic|gemini ai|claude ai|deepseek|voice authentication|detectifai|facial recognition|cybersecurity|malware|ransomware|semiconductor|semiconductors|microchip|microchips|nvidia|tsmc|qualcomm|intel|amd|smartphone|smartphones|iphone|android|software update|cloud computing|supercomputer|quantum computing|robotics|humanoid robot|kddi.+robot)\b/i;
+  if (techSignal.test(text) || (categories && (categories.indexOf('technology') !== -1 || categories.indexOf('tech') !== -1 || categories.indexOf('science') !== -1))) {
+    if (techSignal.test(text)) {
+      return 'tech';
+    }
+  }
+
+  // 3. BUSINESS & MARKETS (financial regulation, IPO, markets, corporate earnings)
+  var businessSignal = /\b(sebi|rbi|ipo|initial public offering|stock market|sensex|nifty|wall street|nasdaq|dow jones|nyse|quarterly profit|revenue surge|q[1-4] results|fiscal deficit|interest rates|rate cut|repo rate|inflation rate|merger|acquisition|private equity|venture capital|bankruptcy|insolvency|shares surge|shares plunge|market capitalization|trade tariff|board-opposition|jio platforms)\b/i;
+  if (businessSignal.test(text) || (categories && categories.indexOf('business') !== -1)) {
+    if (businessSignal.test(text)) {
+      return 'business';
+    }
+  }
+
+  // 4. NON-INDIA GOVERNANCE & GEOPOLITICS -> WORLD
+  // Non-India leaders, foreign military, foreign courts, foreign state affairs
+  var foreignEntitySignal = /\b(china|chinese|beijing|cmc|central military commission|zhang youxia|xi jinping|taiwan|united states|white house|pentagon|us congress|trump|biden|kamala|ukraine|russia|kremlin|putin|zelenskyy|israel|netanyahu|gaza|hamas|iran|tehran|ayatollah|hezbollah|united kingdom|downing street|starmer|france|macron|germany|scholz|japan|tokyo|south korea|north korea|kim jong|pakistan|islamabad|bangladesh|dhaka|yunus|sri lanka|nepal|latin america|ecuador|lenin moreno|brazil|lula|argentina|milei|venezuela|united nations|un security council|nato|eu commission|norway|king harald)\b/i;
+  
+  var indiaSpecificGovSignal = /\b(lok sabha|rajya sabha|supreme court of india|election commission of india|bjp|congress party|aap|narendra modi|amit shah|rahul gandhi|delhi high court|mumbai police|delhi police|isro|rbi|sebi|ed\b|cbi\b|ncb\b)\b/i;
+
+  if (foreignEntitySignal.test(text) && !indiaSpecificGovSignal.test(text)) {
+    return 'world';
+  }
+
+  // 5. INDIA
+  if (isIndiaRelevant_(title, description)) {
+    return 'india';
+  }
+
+  return (categories && categories[0]) ? categories[0].toLowerCase() : 'world';
+}
+
 // ============================================================================
 // 3. CROSS-CATEGORY DEDUPLICATION & FINGERPRINTING ENGINE
 // ============================================================================
@@ -1664,6 +1717,14 @@ function runPipelineForCategory_(categoryKey) {
     // Reject self-promotional and tourism-board self-praise
     if (isSelfPromotional_(c.title)) {
       Logger.log('Skipping self-promotional candidate: "' + c.title + '"');
+      continue;
+    }
+
+    // Strict Subject-Matter Category Classification Check (Issue #3)
+    var classifiedDesk = classifyStoryCategory_(c.title, c.description, c.categories);
+    if (classifiedDesk !== key) {
+      Logger.log('Desk mismatch: candidate "' + c.title + '" classified as [' + classifiedDesk +
+        '] desk, skipping on [' + key + '] desk.');
       continue;
     }
 
