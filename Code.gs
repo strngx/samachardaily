@@ -172,17 +172,37 @@ function isIndiaRelevant_(title, description) {
   return INDIA_SIGNAL_PATTERN.test(text);
 }
 
-var SPAM_PATTERN = /\b(market size|market share|cagr|forecast to 2\d{3}|usd\s+\d+(\.\d+)?\s+(million|billion)|press release|pr newswire|globenewswire|market research)\b/i;
+var SPAM_TITLE_PATTERN = /\b(market size|market share|cagr|forecast to 2\d{3}|usd\s+\d+(\.\d+)?\s*(million|billion|m|b)|press release|pr newswire|globenewswire|businesswire|market research|market projected to reach)\b/i;
+
+var SPAM_BODY_PATTERN = /\b(market is projected to reach|projected to reach usd|market size was valued at|cagr of \d+(\.\d+)?%|according to a new report by|published by (grand view research|allied market research|technavio|marketsandmarkets|transparency market research|coherent market insights|fortunebusinessinsights|verified market research|persistencemarketresearch|market research future|spherical insights|polarismarketresearch)|global .+ market report|key players profiled in this report)\b/i;
 
 /**
- * Checks if a headline matches syndicated market-research or PR-wire spam.
+ * Checks if a candidate matches syndicated market-research or PR-wire spam across title, description, or body.
  *
- * @param {string} title - Headline to check.
+ * @param {string} title - Headline.
+ * @param {string} description - Description or summary.
+ * @param {string} content - Body content.
  * @returns {boolean} True if matched as market-report/PR spam.
  */
-function isPressReleaseSpam_(title) {
+function isPressReleaseSpam_(title, description, content) {
+  var titleText = title || '';
+  if (SPAM_TITLE_PATTERN.test(titleText)) return true;
+
+  var fullText = (title || '') + ' ' + (description || '') + ' ' + (content || '');
+  return SPAM_BODY_PATTERN.test(fullText);
+}
+
+var WIRE_SUMMARY_PATTERN = /\b(AP\s+([A-Za-z\s]+)?(Summary|Brief)s?\s+at\s+\d+:\d+|\bAP\s+Sports\s+Summary\b|\bReuters\s+Briefs?\b|\bDaily\s+Rundown\s+Breaking\b|\bNews\s+Roundup\s+at\s+\d+:\d+|\bBriefing\s+at\s+\d+:\d+)\b/i;
+
+/**
+ * Checks if a title is a raw wire ticker dump or automated summary brief.
+ *
+ * @param {string} title - Headline.
+ * @returns {boolean} True if wire summary dump.
+ */
+function isWireSummaryDump_(title) {
   if (!title || typeof title !== 'string') return false;
-  return SPAM_PATTERN.test(title);
+  return WIRE_SUMMARY_PATTERN.test(title);
 }
 
 var TICKER_DUMP_PATTERN = /\b(short interest|shares outstanding|institutional ownership|insider (buying|selling)|13F filing|price target (raised|lowered)|moving average|NASDAQ:|NYSE:|hedge fund holdings)\b/i;
@@ -215,17 +235,46 @@ function isLowSubstance_(title) {
   return false;
 }
 
-var GAMBLING_PATTERN = /\b(prop bet|prop picks?|betting (odds|lines|picks)|best bets?|parlay|moneyline|point spread|over\/under|lock of the (day|week)|sportsbook|bet slip|wager|odds to win|futures odds)\b/i;
+var GAMBLING_PATTERN = /\b(polymarket|kalshi|betmgm|fanduel|draftkings|bovada|bet365|sportsbook|promo code|bonus code|deposit match|prop bet|prop picks?|betting (odds|lines|picks|market)|best bets?|parlay|moneyline|point spread|over\/under|lock of the (day|week)|bet slip|wager|wagering|odds to win|futures odds|prediction market)\b/i;
 
 /**
- * Checks if a headline involves sports betting, odds, or gambling content (AdSense policy risk).
+ * Checks if candidate involves gambling, betting, wagering, or prediction market promotions (AdSense policy risk).
  *
  * @param {string} title - Headline to check.
+ * @param {string} description - Summary or description.
  * @returns {boolean} True if gambling/betting content.
  */
-function isGamblingContent_(title) {
-  if (!title || typeof title !== 'string') return false;
-  return GAMBLING_PATTERN.test(title);
+function isGamblingContent_(title, description) {
+  var text = (title || '') + ' ' + (description || '');
+  return GAMBLING_PATTERN.test(text);
+}
+
+var COMMERCIAL_DEAL_PATTERN = /\b(\d+%\s*off|coupon|promo code|\bdeals?\b|on sale|drops? to \$\d+|discounted?|price drop|save \$\d+|lowest price ever|special offer on (amazon|walmart|best buy|target|flipkart)|on amazon with coupon|with coupon code)\b/i;
+
+/**
+ * Checks if candidate is promotional deal, coupon, or retailer SKU price-drop content.
+ *
+ * @param {string} title - Headline.
+ * @param {string} description - Summary or description.
+ * @returns {boolean} True if commercial deal/coupon spam.
+ */
+function isCommercialDeal_(title, description) {
+  var text = (title || '') + ' ' + (description || '');
+  return COMMERCIAL_DEAL_PATTERN.test(text);
+}
+
+var GAME_HINTS_AND_STREAM_PATTERN = /\b(quordle|wordle|connections|crossword|strands|spelling bee|octordle|contexto)\s+(hints?|clues?|answers?|today|daily)|today's\s+(quordle|wordle|connections|crossword|strands)\b|\b(how to watch|where to watch|watch\s+.+\s+live\s+stream|streaming details|live stream channel|live stream online|air time and tv channel)\b/i;
+
+/**
+ * Checks if candidate is game-puzzle answer hints or pure streaming availability schedule dumps.
+ *
+ * @param {string} title - Headline.
+ * @param {string} description - Summary or description.
+ * @returns {boolean} True if puzzle hint or streaming listing.
+ */
+function isAggregatorOrGameHint_(title, description) {
+  var text = (title || '') + ' ' + (description || '');
+  return GAME_HINTS_AND_STREAM_PATTERN.test(text);
 }
 
 var LISTICLE_PATTERN = /^(\d+\s+(essential|best|top|reasons|ways|things|tips|features|mistakes)|why you (should|need)|how to |the ultimate guide|everything you need to know about)/i;
@@ -1570,15 +1619,33 @@ function runPipelineForCategory_(categoryKey) {
   for (var i = 0; i < relevanceCandidates.length; i++) {
     var c = relevanceCandidates[i];
 
-    // Reject gambling and betting content (AdSense policy risk)
-    if (isGamblingContent_(c.title)) {
-      Logger.log('SKIPPED (Gambling/Betting Content - Policy Risk): "' + c.title + '"');
+    // Reject gambling, betting, and prediction market promotions (AdSense policy risk)
+    if (isGamblingContent_(c.title, c.description)) {
+      Logger.log('SKIPPED (Gambling/Betting/Prediction Market - Policy Risk): "' + c.title + '"');
+      continue;
+    }
+
+    // Reject commercial deals, coupons, and retailer price-drops
+    if (isCommercialDeal_(c.title, c.description)) {
+      Logger.log('SKIPPED (Commercial Deal/Coupon/Price-Drop): "' + c.title + '"');
+      continue;
+    }
+
+    // Reject wire summary ticker dumps
+    if (isWireSummaryDump_(c.title)) {
+      Logger.log('SKIPPED (Wire Summary/Brief Dump): "' + c.title + '"');
       continue;
     }
 
     // Reject syndicated market-research and PR-wire spam
-    if (isPressReleaseSpam_(c.title)) {
+    if (isPressReleaseSpam_(c.title, c.description, c.content)) {
       Logger.log('Skipping market report / PR spam candidate: "' + c.title + '"');
+      continue;
+    }
+
+    // Reject game puzzle hints (Quordle/Wordle/Crossword) and pure streaming schedules
+    if (isAggregatorOrGameHint_(c.title, c.description)) {
+      Logger.log('Skipping game hint or pure streaming schedule: "' + c.title + '"');
       continue;
     }
 
