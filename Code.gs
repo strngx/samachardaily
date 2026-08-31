@@ -1097,6 +1097,70 @@ function recordGroqTokenUsage_(tokens) {
   }
 }
 
+var DESK_BYLINES = {
+  india: [
+    'Ananya Iyer | SamacharDaily National Desk',
+    'Vikram Malhotra | SamacharDaily Bureau',
+    'Rohit Sengupta | SamacharDaily New Delhi Bureau',
+    'Pooja Nair | SamacharDaily Policy Desk'
+  ],
+  world: [
+    'Elena Rostova | SamacharDaily Global Affairs',
+    'David Sterling | SamacharDaily World Desk',
+    'Kiran Varma | SamacharDaily Diplomatic Desk',
+    'Marcus Thorne | SamacharDaily International Bureau'
+  ],
+  business: [
+    'Priya Sharma | SamacharDaily Markets Desk',
+    'Aditya Singhania | SamacharDaily Financial Bureau',
+    'Tanvi Deshmukh | SamacharDaily Corporate Desk',
+    'Rajat Kapoor | SamacharDaily Economy Desk'
+  ],
+  tech: [
+    'Aarav Mehta | SamacharDaily Tech Desk',
+    'Sneha Chakraborty | SamacharDaily AI & Silicon Bureau',
+    'Devendra Rao | SamacharDaily Innovation Desk',
+    'Maya Krishnan | SamacharDaily Cyber & Systems'
+  ],
+  sports: [
+    'Rohan Mukherjee | SamacharDaily Sports Desk',
+    'Kabir Dasgupta | SamacharDaily Sports Bureau',
+    'Simran Sandhu | SamacharDaily Stadium & Pitch',
+    'Karthik Venkat | SamacharDaily Sports Desk'
+  ]
+};
+
+/**
+ * Returns a named rotating byline persona for a category desk (Issue #6).
+ *
+ * @param {string} categoryKey - Category identifier.
+ * @returns {string} Persona byline string.
+ */
+function getDeskAuthor_(categoryKey) {
+  var pool = DESK_BYLINES[(categoryKey || 'india').toLowerCase()] || DESK_BYLINES['india'];
+  var randomIndex = Math.floor(Math.random() * pool.length);
+  return pool[randomIndex];
+}
+
+var TEMPLATE_STYLES = [
+  {
+    type: 'straight_narrative',
+    guideline: 'Structural Style: Straight In-Depth Narrative. Write the story as a compelling, continuous journalistic narrative across 4-5 rich paragraphs. Weave all background, context, named figures, and statistics organically into the prose without mechanical subheadings.'
+  },
+  {
+    type: 'explainer_qa',
+    guideline: 'Structural Style: Authoritative News Explainer. In the content paragraphs, systematically unpack the central dimensions: the immediate development, key stakeholders/institutions affected, policy/economic drivers, and what readers need to understand.'
+  },
+  {
+    type: 'timeline_dispatch',
+    guideline: 'Structural Style: Progressive Developments & Timeline. Detail the sequence of verified events, institutional actions taken, immediate ripple effects, and milestone projections.'
+  },
+  {
+    type: 'standard_analysis',
+    guideline: 'Structural Style: Comprehensive News Analysis. Provide balanced coverage with executive context, primary factual reporting, and multi-dimensional institutional impact.'
+  }
+];
+
 /**
  * Rewrites news wire dispatch into high-credibility SamacharDaily article.
  * Tier 1: Groq Llama 3.3 / GPT-OSS (Primary)
@@ -1115,9 +1179,14 @@ function rewriteWithGroq_(headline, category, config) {
     ? '\nCRITICAL REQUIREMENT: Output MUST be 100% written in fluent, standard journalistic English. Never output Portuguese, Spanish, French, German, or non-English text for title, seoTitle, dek, or content under any circumstances.\n'
     : '\nCRITICAL REQUIREMENT: All output fields (title, seoTitle, dek, content, why_it_matters, what_happens_next) MUST be written in 100% fluent English even if source dispatches contain foreign-language text.\n';
 
+  // Rotate between 4 distinct structural templates (Issue #6)
+  var templateIdx = Math.floor(Math.random() * TEMPLATE_STYLES.length);
+  var selectedTemplate = TEMPLATE_STYLES[templateIdx];
+
   var systemPrompt = 'You are a senior investigative and wire editor at SamacharDaily, a high-velocity Indian and international digital news publication.\n' +
     "Today's date is " + todayDateStr + '.\n' +
     englishEnforceRule +
+    selectedTemplate.guideline + '\n' +
     "Do not reference years, cycles, or 'upcoming' events using any year other than what's explicitly stated in the source headline/description — never infer or carry over a year from your own training data.\n\n" +
     'Editorial Requirements:\n' +
     '1. Craft a high-credibility, authoritative headline (60-90 characters) in sharp newsroom tone (no clickbait).\n' +
@@ -1146,8 +1215,13 @@ function rewriteWithGroq_(headline, category, config) {
     ? `\nHere's how top Indian publishers are currently framing similar stories today:\n- ${competitorAngles.join("\n- ")}\nUse a similar hook/framing style (punchy, direct, wire-service tone) — but write 100% original wording using ONLY the facts from the source article below. Do not copy their headlines or sentences.\n`
     : "";
 
+  var multiSourceBlock = (headline && headline.multiSourceNotes)
+    ? '\nAdditional Related Dispatches for Comprehensive Multi-Source Synthesis:\n' + headline.multiSourceNotes + '\nSynthesize all unique factual details from all provided dispatches into one cohesive, deep article.\n'
+    : '';
+
   var userPrompt = 'Category: ' + category + '\n' +
     angleBlock +
+    multiSourceBlock +
     'Source Headline: ' + headline.title + '\n' +
     'Source Description: ' + (headline.description || '') + '\n' +
     'Source Content Snippet: ' + (headline.content || '') + '\n' +
@@ -1389,6 +1463,9 @@ function buildMarkdown_(article, image, videos, sourceUrl, headline, isFeatured)
   // Fix 7: Real what_happens_next
   var safeWhatHappensNext = (article.what_happens_next || 'No confirmed next steps reported yet.').replace(/"/g, '\\"');
 
+  var authorName = (headline && headline.author) ? headline.author : getDeskAuthor_(headline.categoryKey || headline.categoryName || 'india');
+  var safeAuthor = authorName.replace(/"/g, '\\"');
+
   var md = [
     '---',
     'title: "' + safeTitle + '"',
@@ -1407,7 +1484,7 @@ function buildMarkdown_(article, image, videos, sourceUrl, headline, isFeatured)
     'sourceUrl: "' + (sourceUrl || '') + '"',
     'sourceName: "' + safeSourceName + '"',
     'dek: "' + safeDek + '"',
-    'author: "SamacharDaily Editorial Team"',
+    'author: "' + safeAuthor + '"',
     'why_it_matters: |',
     safeWhyItMatters.split('\n').map(function(line) { return '  ' + line; }).join('\n'),
     'what_happens_next: "' + safeWhatHappensNext + '"',
@@ -1866,6 +1943,35 @@ function runPipelineForCategory_(categoryKey) {
     var ageMs = Date.now() - published.getTime();
     return ageMs > 0 && ageMs <= (3 * 60 * 60 * 1000);
   })();
+
+  // Multi-source aggregation (Issue #6): Find related dispatches to synthesize deeper multi-source coverage
+  var candidateKeywords = extractKeywords_(selectedCandidate.title);
+  var relatedDispatches = [];
+  var combinedSources = [selectedCandidate.sourceName || 'News Wire'];
+
+  for (var k = 1; k < validCandidates.length; k++) {
+    var other = validCandidates[k];
+    var otherKeywords = extractKeywords_(other.title);
+    var overlap = calculateKeywordOverlapRatio_(candidateKeywords, otherKeywords);
+    if (overlap >= 0.45) {
+      relatedDispatches.push(other);
+      if (other.sourceName && combinedSources.indexOf(other.sourceName) === -1) {
+        combinedSources.push(other.sourceName);
+      }
+    }
+  }
+
+  if (relatedDispatches.length > 0) {
+    selectedCandidate.multiSourceNotes = relatedDispatches.map(function(d) {
+      return '- [' + (d.sourceName || 'Wire') + ']: ' + d.title + ' -- ' + (d.description || '');
+    }).join('\n');
+    selectedCandidate.sourceName = combinedSources.slice(0, 3).join(', ');
+    Logger.log('Synthesizing multi-source article using ' + (1 + relatedDispatches.length) + ' combined dispatches from ' + selectedCandidate.sourceName);
+  }
+
+  // Assign rotating byline persona by category desk (Issue #6)
+  selectedCandidate.author = getDeskAuthor_(key);
+  selectedCandidate.categoryKey = key;
 
   // Step 3: Editorial synthesis with Groq (Fixes 4 & 7)
   Logger.log('Synthesizing article with Groq Llama 3.3...');
