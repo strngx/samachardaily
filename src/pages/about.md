@@ -27,7 +27,7 @@ At SamacharDaily, we believe in complete transparency regarding the modern techn
 - **Sourcing & Ingestion:** Our systems monitor real-time verified news wires and institutional press releases across our five categories.
 - **AI-Assisted Synthesis:** We utilize advanced artificial intelligence models to assist in processing complex wire dispatches, generating executive summaries, and structuring deep explanatory context.
 - **Editorial Quality Standards:** Automated systems are constrained by strict journalistic guidelines. They are strictly prohibited from fabricating quotes, statistics, or events. If source dispatches lack sufficient factual context, the story is not published.
-- **Visuals & Media:** Photography is licensed through official photography platforms. Embedded video reports are linked directly to authorized broadcast networks.
+- **Visuals & Media:** Editorial photography is sourced exclusively through licensed photography platforms (including Pexels and curated stock libraries) with proper photographer attribution. Embedded video reports are linked directly to authorized broadcast networks.
 - **Transparent Attribution:** Every article includes a clear citation of the primary wire services and releases that informed the coverage.
 
 ---

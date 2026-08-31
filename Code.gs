@@ -1889,29 +1889,12 @@ function runPipelineForCategory_(categoryKey) {
   // Ensure slug is derived from clean English synthesized title
   selectedCandidate.slug = generateSlug_(article.title || selectedCandidate.title);
 
-  // Step 4: Image Quality Guard (Fix 1)
-  var imageObj = null;
-  var imageSourceLabel = '';
-  if (selectedCandidate.imageUrl) {
-    var validatedUrl = validateImage_(selectedCandidate.imageUrl);
-    if (validatedUrl) {
-      imageObj = {
-        url: validatedUrl,
-        alt: article.title || selectedCandidate.title,
-        credit: selectedCandidate.sourceName || 'Official Dispatch'
-      };
-      imageSourceLabel = 'article_photo';
-      Logger.log('Using validated article photo: ' + validatedUrl);
-    } else {
-      Logger.log('Article photo failed validation. Falling back to Pexels...');
-    }
-  }
-
-  if (!imageObj) {
-    imageObj = fetchImage_(article.image_keyword || catCfg.name, config);
-    imageSourceLabel = 'pexels';
-    Logger.log('Using Pexels/curated editorial image for: ' + (article.image_keyword || catCfg.name));
-  }
+  // Step 4: Media Enrichment (Stop hotlinking external publishers' images - Issue #5)
+  // Default exclusively to Pexels API and curated licensed editorial libraries for 100% of articles
+  var imageSearchKeyword = article.image_keyword || catCfg.name;
+  var imageObj = fetchImage_(imageSearchKeyword, config);
+  var imageSourceLabel = 'pexels';
+  Logger.log('Using licensed editorial photography for: ' + imageSearchKeyword);
 
   // Step 5: Video Search - Top 3 Videos (Fix 6)
   var videoQuery = article.video_query || selectedCandidate.title;
