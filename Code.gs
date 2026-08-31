@@ -334,6 +334,85 @@ function isGamblingContent_(title, description) {
   return GAMBLING_PATTERN.test(text);
 }
 
+var ASTROLOGY_SERVICE_PATTERNS = [
+  /\b(?:today['’]?s\s+horoscope|daily\s+horoscope|weekly\s+horoscope|monthly\s+horoscope|yearly\s+horoscope|know\s+your\s+(?:today['’]?s\s+)?horoscope)\b/i,
+  /\b(?:horoscope\s+today|zodiac\s+predictions?|astrolog(?:y|ical)\s+predictions?|astrolog(?:y|ical)\s+guidance|astrological\s+forecast)\b/i,
+  /\b(?:zodiac\s+forecast|star[- ]sign\s+predictions?|love\s+horoscope|career\s+horoscope|money\s+horoscope)\b/i,
+  /\b(?:lucky\s+numbers?|lucky\s+colors?|zodiac\s+compatibility|planetary\s+predictions?|astrological\s+advice)\b/i,
+  /\b(?:rashifal|rashi\s+bhavishya|dainik\s+rashifal|aaj\s+ka\s+rashifal)\b/i,
+  /\b(?:fortune[- ]telling|predictions\s+based\s+on\s+zodiac|what\s+the\s+stars\s+(?:say|predict)\s+for\s+(?:every|your|all)\s+zodiac)\b/i,
+  /\b(?:what\s+the\s+planets\s+predict|what\s+the\s+stars\s+have\s+in\s+store)\b/i,
+  /\b(?:aries|taurus|gemini|cancer|leo|virgo|libra|scorpio|sagittarius|capricorn|aquarius|pisces)\s+horoscope\b/i,
+  /\b(?:aries|taurus|gemini|cancer|leo|virgo|libra|scorpio|sagittarius|capricorn|aquarius|pisces)\s+today\s*:\s*/i,
+  /\bdaily\s+astrology\s+forecast\b/i,
+  /\bfor\s+all\s+12\s+zodiac\s+signs\b/i,
+  /\bhoroscope\b/i
+];
+
+var LEGITIMATE_ASTRO_NEWS_PATTERNS = [
+  /\b(?:nasa|isro|esa|jaxa|space\s+agency|telescope|planetary\s+science|solar\s+system|exoplanets?|formation\s+of\s+planets|spacecraft)\b/i,
+  /\b(?:history\s+of\s+zodiac|cultural\s+history|ancient\s+civilizations|why\s+people\s+believe\s+in\s+astrology|history\s+of\s+astrology)\b/i,
+  /\b(?:exhibition\s+explores|scientists\s+study|scientists\s+investigate|researchers\s+examine)\b/i
+];
+
+/**
+ * Checks if candidate is astrology predictions, daily horoscopes, or fortune-telling guidance.
+ * Protects legitimate scientific and cultural reporting (NASA planetary missions, history of zodiacs, etc.).
+ *
+ * @param {Object|string} candidateOrTitle - Candidate object or title string.
+ * @param {string} [optDesc] - Description/dek.
+ * @param {string|Array} [optContent] - Body content.
+ * @param {string} [optSourceUrl] - Source URL.
+ * @param {string} [optSourceName] - Source Name.
+ * @returns {boolean} True if astrology / horoscope prediction service content.
+ */
+function isAstrologyContent_(candidateOrTitle, optDesc, optContent, optSourceUrl, optSourceName) {
+  var title = '';
+  var desc = '';
+  var body = '';
+  var sourceUrl = '';
+  var sourceName = '';
+
+  if (candidateOrTitle && typeof candidateOrTitle === 'object') {
+    title = candidateOrTitle.title || '';
+    desc = candidateOrTitle.description || candidateOrTitle.dek || '';
+    body = Array.isArray(candidateOrTitle.content) ? candidateOrTitle.content.join(' ') : (candidateOrTitle.content || '');
+    sourceUrl = candidateOrTitle.sourceUrl || candidateOrTitle.url || '';
+    sourceName = candidateOrTitle.sourceName || '';
+  } else {
+    title = candidateOrTitle || '';
+    desc = optDesc || '';
+    body = Array.isArray(optContent) ? optContent.join(' ') : (optContent || '');
+    sourceUrl = optSourceUrl || '';
+    sourceName = optSourceName || '';
+  }
+
+  var headerText = title + ' ' + desc;
+
+  var isLegitJournalism = false;
+  for (var i = 0; i < LEGITIMATE_ASTRO_NEWS_PATTERNS.length; i++) {
+    if (LEGITIMATE_ASTRO_NEWS_PATTERNS[i].test(title) || LEGITIMATE_ASTRO_NEWS_PATTERNS[i].test(headerText)) {
+      isLegitJournalism = true;
+      break;
+    }
+  }
+
+  for (var j = 0; j < ASTROLOGY_SERVICE_PATTERNS.length; j++) {
+    if (ASTROLOGY_SERVICE_PATTERNS[j].test(headerText)) {
+      if (isLegitJournalism && !/\b(?:today['’]?s\s+horoscope|horoscope\s+today|daily\s+horoscope|know\s+your\s+today['’]?s\s+horoscope|rashifal\s+today)\b/i.test(title)) {
+        return false;
+      }
+      return true;
+    }
+  }
+
+  if (/\b(astrology|horoscope|rashifal|rashi)\b/i.test(sourceUrl) && /\b(horoscope|zodiac|predictions|forecast)\b/i.test(headerText)) {
+    return true;
+  }
+
+  return false;
+}
+
 var COMMERCIAL_RETAIL_PATTERNS = [
   /\b(?:coupon|coupon\s*code|promo\s*code|discount\s*code|discount\s*voucher)\b/i,
   /\b(?:subscribe\s*&\s*save|subscribe\s*and\s*save)\b/i,
@@ -486,43 +565,48 @@ function isEditoriallyAcceptable_(candidateOrTitle, optDesc, optContent, optSour
     return { acceptable: false, reason: 'Gambling / prediction market content' };
   }
 
-  // 3. Investment advice & stock advisory spam
+  // 3. Astrology, daily horoscopes, and fortune-telling guidance
+  if (isAstrologyContent_(title, desc, body, sourceUrl, sourceName)) {
+    return { acceptable: false, reason: 'ASTROLOGY / HOROSCOPE CONTENT' };
+  }
+
+  // 4. Investment advice & stock advisory spam
   var fullText = title + ' ' + desc + ' ' + body;
   if (STOCK_ADVISORY_PATTERN.test(fullText) || TICKER_MENTION_PATTERN.test(title) || CHAPTER_STOCK_PATTERN.test(title) || FINANCIAL_ADVICE_PATTERN.test(fullText)) {
     return { acceptable: false, reason: 'Investment advice / stock advisory content' };
   }
 
-  // 4. Wire summary dumps & ticker dumps
+  // 5. Wire summary dumps & ticker dumps
   if (isWireSummaryDump_(title) || isLowSubstance_(title)) {
     return { acceptable: false, reason: 'Wire summary dump / low-substance ticker content' };
   }
 
-  // 5. Syndicated PR wire & market research spam
+  // 6. Syndicated PR wire & market research spam
   if (isPressReleaseSpam_(title, desc, body)) {
     return { acceptable: false, reason: 'Syndicated PR wire / market research spam' };
   }
 
-  // 6. Game puzzle hints & streaming schedules
+  // 7. Game puzzle hints & streaming schedules
   if (isAggregatorOrGameHint_(title, desc)) {
     return { acceptable: false, reason: 'Game hint / streaming schedule content' };
   }
 
-  // 7. Listicles & generic blog formats
+  // 8. Listicles & generic blog formats
   if (isListicleFormat_(title)) {
     return { acceptable: false, reason: 'Listicle / generic blog format' };
   }
 
-  // 8. Self-promotional PR praise
+  // 9. Self-promotional PR praise
   if (isSelfPromotional_(title)) {
     return { acceptable: false, reason: 'Self-promotional corporate praise' };
   }
 
-  // 9. Leaked generation metadata inside visible text
+  // 10. Leaked generation metadata inside visible text
   if (body && LEAKED_METADATA_PATTERN.test(body)) {
     return { acceptable: false, reason: 'Leaked internal generation metadata in body' };
   }
 
-  // 10. Minimum substance check
+  // 11. Minimum substance check
   if (!title || title.trim().length < 15) {
     return { acceptable: false, reason: 'Title too short or empty' };
   }
