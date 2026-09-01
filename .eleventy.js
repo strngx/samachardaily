@@ -194,13 +194,19 @@ module.exports = function (eleventyConfig) {
     return JSON.stringify(obj);
   });
 
+  const defaultPathPrefix = process.env.PATH_PREFIX || "/";
+  const cleanPrefix = defaultPathPrefix === "/" ? "" : defaultPathPrefix.replace(/\/$/, "");
+
   eleventyConfig.addFilter("url", function (url) {
-    if (!url) return "/samachardaily/";
+    if (!url) return cleanPrefix ? `${cleanPrefix}/` : "/";
     if (typeof url !== "string") return url;
     if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("//")) return url;
-    if (url.startsWith("/samachardaily/")) return url;
-    if (url.startsWith("/")) return "/samachardaily" + url;
-    return "/samachardaily/" + url;
+    if (!cleanPrefix) {
+      return url.startsWith("/") ? url : `/${url}`;
+    }
+    if (url.startsWith(`${cleanPrefix}/`)) return url;
+    if (url.startsWith("/")) return `${cleanPrefix}${url}`;
+    return `${cleanPrefix}/${url}`;
   });
 
   function splitCategoryArticlesByAge(articles) {
@@ -413,7 +419,7 @@ module.exports = function (eleventyConfig) {
   });
 
   return {
-    pathPrefix: "/samachardaily/",
+    pathPrefix: process.env.PATH_PREFIX || "/",
     dir: {
       input: "src",
       includes: "_includes",

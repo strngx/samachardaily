@@ -2,18 +2,18 @@ module.exports = {
   name: "SamacharDaily",
   tagline: "News, Fast. Trends, Explained.",
   description: "SamacharDaily delivers fast, credible, and deeply explained news covering India, World, Business, Tech, and Sports. Zero clutter, pure journalism.",
-  url: "https://strngx.github.io/samachardaily",
-  domain: "strngx.github.io",
+  url: "https://thesamachardaily.in",
+  domain: "thesamachardaily.in",
   language: "en-IN",
   locale: "en_IN",
   author: {
     name: "SamacharDaily Editorial Team",
     email: "samachardaily.editorial@gmail.com",
-    url: "https://strngx.github.io/samachardaily/about/"
+    url: "https://thesamachardaily.in/about/"
   },
   publisher: {
     name: "SamacharDaily Media",
-    logo: "https://strngx.github.io/samachardaily/assets/images/logo.svg"
+    logo: "https://thesamachardaily.in/assets/images/logo.svg"
   },
   social: {
     instagram: "https://www.instagram.com/samachardaily.in",

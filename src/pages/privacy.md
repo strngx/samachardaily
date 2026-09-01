@@ -6,7 +6,7 @@ permalink: "/privacy/index.html"
 lastUpdated: "August 2026"
 ---
 
-At **SamacharDaily** (`https://strngx.github.io/samachardaily`), accessible from our website, one of our main priorities is the privacy of our visitors. This Privacy Policy document outlines the types of information that is collected and recorded by SamacharDaily and how we use it.
+At **SamacharDaily** (`https://thesamachardaily.in`), accessible from our website, one of our main priorities is the privacy of our visitors. This Privacy Policy document outlines the types of information that is collected and recorded by SamacharDaily and how we use it.
 
 ---
 
