@@ -1,10 +1,11 @@
-{% set videoStory = null %}
+{% set videoStories = [] %}
 {% for art in collections.articles %}
   {% set currentVid = art.data.videoId or art.data.video_id %}
-  {% if currentVid and currentVid != "" and currentVid != "null" and not videoStory %}
-    {% set videoStory = art %}
+  {% if currentVid and currentVid != "" and currentVid != "null" and videoStories.length == 0 %}
+    {% set videoStories = (videoStories.push(art), videoStories) %}
   {% endif %}
 {% endfor %}
+{% set videoStory = videoStories[0] %}
 
 {% if videoStory %}
 {% set activeVideoId = videoStory.data.videoId or videoStory.data.video_id %}
@@ -36,7 +37,7 @@
           </a>
         </div>
         <h4 class="video-caption-text">
-          <a href="{{ videoStory.url | url }}" class="video-caption-link">{{ videoStory.data.videoCaption or videoStory.data.video_caption or videoStory.data.title }}</a>
+          <a href="{{ videoStory.url | url }}" class="video-caption-link">{{ videoStory.data.title or videoStory.data.seoTitle or "Featured Story" }}</a>
         </h4>
         {% if videoStory.data.dek %}
           <p class="video-dek">
