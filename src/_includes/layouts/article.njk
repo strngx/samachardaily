@@ -109,6 +109,9 @@ layout: layouts/base.njk
       {% endif %}
     </div>
 
+    <!-- Social Follow CTA -->
+    {% include "partials/cta-social.njk" %}
+
     <!-- 12. Bottom "Also Read" Related Articles (Up to 3 stories) -->
     {% set relatedBottom = collections.articles | relatedArticles(page, 3) %}
     {% if relatedBottom.length > 0 %}

@@ -16,17 +16,17 @@
   "author": {
     "@type": "Person",
     "name": "{{ author or site.author.name }}",
-    "url": "{{ site.url }}/about/"
+    "url": "{{ site.author.url or (site.url + '/about/') }}"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "{{ site.name }}",
+    "name": "{{ site.publisher.name or site.name }}",
     "logo": {
       "@type": "ImageObject",
-      "url": "{{ site.url }}/assets/images/logo.svg"
+      "url": "{{ site.publisher.logo or (site.url + '/assets/images/logo.svg') }}"
     }
   },
-  "articleSection": "{{ category }}",
-  "inLanguage": "en-IN"
+  "articleSection": "{{ category or 'News' }}",
+  "inLanguage": "{{ site.language or 'en-IN' }}"
 }
 </script>
