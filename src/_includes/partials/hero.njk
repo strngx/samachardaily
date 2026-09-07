@@ -28,7 +28,9 @@
           src="{{ leadStory.data.image | url }}" 
           alt="{{ leadStory.data.imageAlt or leadStory.data.image_alt or leadStory.data.title }}" 
           class="lead-img" 
+          loading="eager"
           fetchpriority="high"
+          decoding="async"
           width="740" 
           height="416"
         >
@@ -70,10 +72,10 @@
   <!-- Chronological Latest News Stream -->
   <aside class="latest-wire-module" aria-label="Latest News Stream">
     <div class="module-header">
-      <h3 class="module-title">
+      <h2 class="module-title">
         <span class="live-dot" aria-hidden="true"></span>
         Latest News
-      </h3>
+      </h2>
       <span class="module-status">Continuous Wire</span>
     </div>
 
@@ -88,9 +90,9 @@
                 {{ item.data.category }}
               </a>
             </div>
-            <h4 class="wire-headline">
+            <h3 class="wire-headline">
               <a href="{{ item.url | url }}">{{ item.data.title }}</a>
-            </h4>
+            </h3>
           </div>
           {% if item.data.image %}
             <a href="{{ item.url | url }}" class="wire-thumb-wrap" aria-label="{{ item.data.title }}">

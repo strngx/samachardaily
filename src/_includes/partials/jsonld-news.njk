@@ -1,3 +1,7 @@
+{% set articleImg = image or (site.url + '/assets/images/default-hero.jpg') %}
+{% if image and not ('http://' in image or 'https://' in image) %}
+  {% set articleImg = site.url + image %}
+{% endif %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -6,21 +10,21 @@
     "@type": "WebPage",
     "@id": "{{ site.url }}{{ page.url }}"
   },
-  "headline": {{ title | json | safe }},
-  "description": {{ (dek or description or title) | json | safe }},
+  "headline": {{ (seoTitle or title or "SamacharDaily News") | json | safe }},
+  "description": {{ (dek or description or title or site.description or "") | json | safe }},
   "image": [
-    "{{ image or site.url + '/assets/images/default-hero.jpg' }}"
+    "{{ articleImg }}"
   ],
-  "datePublished": "{{ page.date | isoDate }}",
-  "dateModified": "{{ page.date | isoDate }}",
+  "datePublished": "{{ (date or page.date) | isoDate }}",
+  "dateModified": "{{ (modifiedDate or dateModified or date or page.date) | isoDate }}",
   "author": {
-    "@type": "Person",
-    "name": "{{ author or site.author.name }}",
+    "@type": "Organization",
+    "name": "{{ author or site.author.name or 'SamacharDaily Editorial Team' }}",
     "url": "{{ site.author.url or (site.url + '/about/') }}"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "{{ site.publisher.name or site.name }}",
+    "name": "{{ site.publisher.name or site.name or 'SamacharDaily Media' }}",
     "logo": {
       "@type": "ImageObject",
       "url": "{{ site.publisher.logo or (site.url + '/assets/images/logo.svg') }}"

@@ -25,7 +25,9 @@ layout: layouts/base.njk
           src="{{ image | url }}" 
           alt="{{ imageAlt or image_alt or title }}" 
           class="article-hero-img"
+          loading="eager"
           fetchpriority="high"
+          decoding="async"
           width="760" 
           height="428"
         >
@@ -112,16 +114,21 @@ layout: layouts/base.njk
     <!-- Social Follow CTA -->
     {% include "partials/cta-social.njk" %}
 
-    <!-- 12. Bottom "Also Read" Related Articles (Up to 3 stories) -->
-    {% set relatedBottom = collections.articles | relatedArticles(page, 3) %}
-    {% if relatedBottom.length > 0 %}
-      <div class="also-read-bottom" aria-label="Also Read Related Articles">
-        <div class="also-read-bottom-title">ALSO READ</div>
+    <!-- 12. Related Articles Block for Internal Linking (4 Most Recent in Same Category) -->
+    {% set catKey = (category or "India") | categorySlug %}
+    {% set catArticles = (collections.relatedArticlesByCategory and collections.relatedArticlesByCategory[catKey]) or [] %}
+    {% if catArticles.length > 1 or (catArticles.length == 1 and catArticles[0].url != page.url) %}
+      <div class="also-read-bottom" aria-label="Related Articles">
+        <div class="also-read-bottom-title">RELATED ARTICLES</div>
         <ul class="also-read-list">
-          {% for rel in relatedBottom %}
-            <li class="also-read-item">
-              <a href="{{ rel.url | url }}">{{ rel.data.title }}</a>
-            </li>
+          {% set count = 0 %}
+          {% for rel in catArticles %}
+            {% if rel.url != page.url and count < 4 %}
+              {% set count = count + 1 %}
+              <li class="also-read-item">
+                <a href="{{ rel.url | url }}">{{ rel.data.title }}</a>
+              </li>
+            {% endif %}
           {% endfor %}
         </ul>
       </div>

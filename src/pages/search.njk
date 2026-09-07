@@ -110,7 +110,7 @@ permalink: "/search/index.html"
             <article class="editorial-card">
               ${item.image ? `
                 <a href="${item.url}" class="card-thumb">
-                  <img src="${item.image}" alt="${item.title}" loading="lazy">
+                  <img src="${item.image}" alt="${item.title}" loading="lazy" decoding="async" width="400" height="225">
                 </a>
               ` : ''}
               <div>

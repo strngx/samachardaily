@@ -12,10 +12,10 @@
 <section class="video-journalism-section" aria-label="Watch The Story - Video Journalism">
   <div class="container">
     <div class="video-section-header">
-      <h3 class="video-section-title">
+      <h2 class="video-section-title">
         <span style="color: var(--color-brand);">Watch</span> The Story
-      </h3>
-      <span style="font-size: 0.8125rem; color: #9DA3AF; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;">Broadcast Coverage</span>
+      </h2>
+      <span style="font-size: 0.8125rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;">Broadcast Coverage</span>
     </div>
 
     <div class="video-grid">
@@ -36,9 +36,9 @@
             {{ videoStory.data.category }}
           </a>
         </div>
-        <h4 class="video-caption-text">
+        <h3 class="video-caption-text">
           <a href="{{ videoStory.url | url }}" class="video-caption-link">{{ videoStory.data.title or videoStory.data.seoTitle or "Featured Story" }}</a>
-        </h4>
+        </h3>
         {% if videoStory.data.dek %}
           <p class="video-dek">
             {{ videoStory.data.dek }}

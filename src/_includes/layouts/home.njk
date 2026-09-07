@@ -140,9 +140,9 @@ layout: layouts/base.njk
                   <a href="{{ ('/' + (article.data.category | categorySlug) + '/') | url }}" class="category-label">
                     {{ article.data.category }}
                   </a>
-                  <h4 class="trending-headline">
+                  <h3 class="trending-headline">
                     <a href="{{ article.url | url }}">{{ article.data.title }}</a>
-                  </h4>
+                  </h3>
                   <div class="meta-row" style="font-size: 0.75rem;">
                     <time datetime="{{ article.date | isoDate }}">{{ article.date | timeAgo }}</time>
                     <span>•</span>

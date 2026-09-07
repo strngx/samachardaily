@@ -5,6 +5,7 @@
         src="{{ article.data.image | url }}" 
         alt="{{ article.data.imageAlt or article.data.image_alt or article.data.title }}" 
         loading="lazy" 
+        decoding="async"
         width="400" 
         height="225"
       >

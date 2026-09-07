@@ -1409,8 +1409,8 @@ function rewriteWithGroq_(headline, category, config) {
     "Do not reference years, cycles, or 'upcoming' events using any year other than what's explicitly stated in the source headline/description — never infer or carry over a year from your own training data.\n\n" +
     'Editorial Requirements:\n' +
     '1. Craft a high-credibility, authoritative headline (60-90 characters) in sharp newsroom tone (no clickbait).\n' +
-    '2. Provide a concise seoTitle (50-55 characters max) optimized for search results, distinct from the main headline.\n' +
-    '3. Write a crisp "dek" (1-2 sentence executive summary).\n' +
+    '2. Provide a concise seoTitle (under 60 characters, ideally 45-58 characters) that front-loads the likely search query phrasing (topic + key entity + question/hook format) optimized for Google Search, distinct from the main headline.\n' +
+    '3. Write a complete, specific "dek" (140-160 characters) that answers "what happened" in the first sentence with concrete facts/entities, strictly avoiding generic filler (never use "Read more about...", "Find out what happened...", "Here is what you need to know").\n' +
     '4. Write the core story in at least 4-5 substantial paragraphs (350-450 words total). Include: the main event, relevant background/context that a reader unfamiliar with this topic would need to understand it, and specific named details (people, places, dates, numbers, organizations) drawn only from the source article. Do not write a short summary — write a full explanatory news article a reader could rely on without needing to read the original source.\n' +
     '5. Compose a 2-paragraph "why_it_matters" section analyzing institutional, policy, or market impact.\n' +
     '6. Provide "what_happens_next" (Fix 7): 1 short paragraph (40-70 words) on concrete next steps specific to THIS story — not generic boilerplate. If genuinely nothing concrete is known, write "No confirmed next steps reported yet."\n' +
@@ -1419,8 +1419,8 @@ function rewriteWithGroq_(headline, category, config) {
     'You MUST return ONLY a valid JSON object matching this exact structure:\n' +
     '{\n' +
     '  "title": "String (authoritative headline, 60-90 characters)",\n' +
-    '  "seoTitle": "String (concise, 50-55 characters max)",\n' +
-    '  "dek": "String (1-2 sentence executive summary)",\n' +
+    '  "seoTitle": "String (front-loaded query phrasing topic + key entity, strictly under 60 chars)",\n' +
+    '  "dek": "String (complete specific summary answering what happened in sentence 1, 140-160 characters, no generic filler)",\n' +
     '  "content": ["Paragraph 1 string...", "Paragraph 2 string...", "Paragraph 3 string..."],\n' +
     '  "why_it_matters": "Paragraph 1\\n\\nParagraph 2",\n' +
     '  "what_happens_next": "1 short paragraph (40-70 words) on concrete next steps specific to THIS story — not generic boilerplate. If genuinely nothing concrete is known, write \'No confirmed next steps reported yet.\'",\n' +
@@ -1492,7 +1492,7 @@ function rewriteWithGroq_(headline, category, config) {
       if (statusCode === 400) {
         var respText = resp.getContentText();
         if (respText.indexOf('json_validate_failed') !== -1) {
-          Logger.log('Groq 400 json_validate_failed encountered. Retrying with simplified fallback (max_tokens: 1500)...');
+          Logger.log('Groq 400 json_validate_failed encountered. Retrying with simplified fallback (max_tokens: 2200)...');
           var fallbackSystemPrompt = systemPrompt + '\nKeep all string values concise and ensure the JSON is complete and properly closed.';
           var fallbackPayload = {
             model: 'openai/gpt-oss-120b',
@@ -1502,7 +1502,7 @@ function rewriteWithGroq_(headline, category, config) {
             ],
             response_format: { type: 'json_object' },
             temperature: 0.2,
-            max_tokens: 1500
+            max_tokens: 2200
           };
           var fallbackOptions = {
             method: 'post',
@@ -1531,6 +1531,9 @@ function rewriteWithGroq_(headline, category, config) {
       if (statusCode === 429) {
         isGroq429 = true;
         groqError = new Error('Groq API rate limit (429): ' + resp.getContentText());
+      } else if (statusCode === 400) {
+        isGroq429 = true;
+        groqError = new Error('Groq API error (400 json_validate_failed after retry): ' + resp.getContentText());
       } else {
         groqError = new Error('Groq API error (' + statusCode + '): ' + resp.getContentText());
       }
@@ -1607,22 +1610,38 @@ function searchYouTubeVideo_(query, config) {
 // ============================================================================
 
 /**
- * Truncates headline to 55 characters at last full word for SEO title tag.
- * Leaves headroom for the " | SamacharDaily" brand suffix to stay under 60 chars.
+ * Sanitizes and caps SEO title strictly under 60 characters at word boundary.
  *
- * @param {string} title - Full headline string.
- * @returns {string} Truncated SEO title without trailing punctuation/ellipsis.
+ * @param {string} title - Raw SEO headline string.
+ * @returns {string} Cleaned SEO title strictly under 60 characters.
  */
 function generateSeoTitle_(title) {
   if (!title || typeof title !== 'string') return '';
-  var cleanTitle = title.trim();
-  if (cleanTitle.length <= 55) return cleanTitle;
-  var sub = cleanTitle.substring(0, 55);
+  var cleanTitle = title.trim().replace(/^["']|["']$/g, '');
+  if (cleanTitle.length < 60) return cleanTitle.replace(/[\s\-_:;,|]+$/, '');
+  var sub = cleanTitle.substring(0, 58);
   var lastSpace = sub.lastIndexOf(' ');
   if (lastSpace > 0) {
-    return sub.substring(0, lastSpace).trim();
+    cleanTitle = sub.substring(0, lastSpace).trim();
+  } else {
+    cleanTitle = sub.trim();
   }
-  return sub.trim();
+  return cleanTitle.replace(/[\s\-_:;,|]+$/, '');
+}
+
+/**
+ * Cleans dek to ensure specific summary without generic filler prefixes.
+ *
+ * @param {string} dek - Raw dek summary.
+ * @returns {string} Formatted dek.
+ */
+function cleanDek_(dek) {
+  if (!dek || typeof dek !== 'string') return '';
+  var clean = dek.trim().replace(/^["']|["']$/g, '');
+  // Strip common generic clickbait/filler prefixes
+  clean = clean.replace(/^(read more about|find out what happened with|here's what you need to know about|discover what happened when|get all the latest details on|in this article,? we explore)\s*:?\s*/i, '');
+  clean = clean.replace(/\s+/g, ' ').trim();
+  return clean;
 }
 
 /**
@@ -1669,11 +1688,17 @@ function buildMarkdown_(article, image, videos, sourceUrl, headline, isFeatured)
   var rawSeoTitle = article.seoTitle || article.title || '';
   var seoTitle = generateSeoTitle_(rawSeoTitle);
   var safeSeoTitle = seoTitle.replace(/"/g, '\\"');
-  var safeDek = (article.dek || '').replace(/"/g, '\\"');
+  var safeDek = cleanDek_(article.dek || '').replace(/"/g, '\\"');
   var safeImageAlt = (image && image.alt ? image.alt : safeTitle).replace(/"/g, '\\"');
   var safeImageCredit = (image && image.credit ? image.credit : 'SamacharDaily Desk').replace(/"/g, '\\"');
   var safeSourceName = (headline && headline.sourceName ? headline.sourceName : safeImageCredit).replace(/"/g, '\\"');
-  var safeWhyItMatters = (article.why_it_matters || '').trim();
+  var safeWhyItMatters = '';
+  if (Array.isArray(article.why_it_matters)) {
+    safeWhyItMatters = article.why_it_matters.join('\n\n');
+  } else if (typeof article.why_it_matters === 'string') {
+    safeWhyItMatters = article.why_it_matters;
+  }
+  safeWhyItMatters = safeWhyItMatters.trim();
   // Fix 7: Real what_happens_next
   var safeWhatHappensNext = (article.what_happens_next || 'No confirmed next steps reported yet.').replace(/"/g, '\\"');
 

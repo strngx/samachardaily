@@ -418,6 +418,79 @@ module.exports = function (eleventyConfig) {
     return pagedList;
   });
 
+  eleventyConfig.addCollection("relatedArticlesByCategory", function (collectionApi) {
+    const allArticles = collectionApi.getFilteredByGlob("src/articles/**/*.md").sort((a, b) => b.date - a.date);
+    const byCategory = {};
+    allArticles.forEach(item => {
+      const cat = (item.data.category || "India").toLowerCase().trim();
+      if (!byCategory[cat]) byCategory[cat] = [];
+      byCategory[cat].push(item);
+    });
+    return byCategory;
+  });
+
+  const fs = require("fs");
+  const path = require("path");
+  const crypto = require("crypto");
+
+  function getFileHash(relPath) {
+    try {
+      const fullPath = path.join(__dirname, "src", relPath);
+      if (fs.existsSync(fullPath)) {
+        const content = fs.readFileSync(fullPath, "utf8");
+        return crypto.createHash("md5").update(content).digest("hex").substring(0, 8);
+      }
+    } catch (e) {}
+    return "1";
+  }
+
+  const cssHash = getFileHash("assets/css/style.css");
+  const jsHash = getFileHash("assets/js/main.js");
+
+  eleventyConfig.addFilter("cacheBust", function (url) {
+    if (typeof url !== "string") return url;
+    if (url.includes("style.css")) {
+      return url.replace("style.css", `style.${cssHash}.css`);
+    }
+    if (url.includes("main.js")) {
+      return url.replace("main.js", `main.${jsHash}.js`);
+    }
+    return url;
+  });
+
+  eleventyConfig.on("eleventy.after", async ({ dir }) => {
+    const outDir = (dir && dir.output) || "_site";
+    
+    // 1. Minify and emit hashed style.css
+    const cssPath = path.join(__dirname, outDir, "assets", "css", "style.css");
+    if (fs.existsSync(cssPath)) {
+      let css = fs.readFileSync(cssPath, "utf8");
+      css = css
+        .replace(/\/\*[\s\S]*?\*\//g, "")
+        .replace(/\s+/g, " ")
+        .replace(/\s*([{}:;,>+~])\s*/g, "$1")
+        .replace(/;}/g, "}")
+        .trim();
+      fs.writeFileSync(cssPath, css, "utf8");
+      const hashedCssPath = path.join(__dirname, outDir, "assets", "css", `style.${cssHash}.css`);
+      fs.writeFileSync(hashedCssPath, css, "utf8");
+    }
+
+    // 2. Minify and emit hashed main.js
+    const jsPath = path.join(__dirname, outDir, "assets", "js", "main.js");
+    if (fs.existsSync(jsPath)) {
+      let js = fs.readFileSync(jsPath, "utf8");
+      js = js
+        .replace(/\/\*[\s\S]*?\*\//g, "")
+        .replace(/\/\/[^\n]*/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+      fs.writeFileSync(jsPath, js, "utf8");
+      const hashedJsPath = path.join(__dirname, outDir, "assets", "js", `main.${jsHash}.js`);
+      fs.writeFileSync(hashedJsPath, js, "utf8");
+    }
+  });
+
   return {
     pathPrefix: process.env.PATH_PREFIX || "/",
     dir: {

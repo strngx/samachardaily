@@ -32,13 +32,23 @@
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="{{ '/assets/images/favicon.svg' | url }}">
 
-  <!-- Google Fonts: Inter + Source Serif 4 (Loaded with font-display: swap) -->
+  <!-- Google Fonts: Inter + Source Serif 4 (Non-render-blocking via preload) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;0,8..60,900;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;0,8..60,900;1,8..60,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;0,8..60,900;1,8..60,400&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;0,8..60,900;1,8..60,400&display=swap">
+  </noscript>
 
-  <!-- Production Stylesheet -->
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | url }}">
+  <!-- Inlined Critical Above-The-Fold CSS -->
+  {% include "partials/critical-css.njk" %}
+
+  <!-- Production Stylesheet (Asynchronous Non-render-blocking with Content Hashing) -->
+  <link rel="preload" href="{{ ('/assets/css/style.css' | cacheBust) | url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="{{ ('/assets/css/style.css' | cacheBust) | url }}">
+  </noscript>
 
   <!-- Feeds -->
   <link rel="alternate" type="application/rss+xml" title="{{ site.name }} RSS Feed" href="{{ '/rss.xml' | url }}">
@@ -92,7 +102,7 @@
   <!-- Footer -->
   {% include "partials/footer.njk" %}
 
-  <!-- Client Script -->
-  <script src="{{ '/assets/js/main.js' | url }}" defer></script>
+  <!-- Client Script (Deferred with Content Hashing) -->
+  <script src="{{ ('/assets/js/main.js' | cacheBust) | url }}" defer></script>
 </body>
 </html>
