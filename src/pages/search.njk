@@ -133,10 +133,13 @@ permalink: "/search/index.html"
             performSearch(e.target.value);
           });
 
-          document.getElementById("main-search-form").addEventListener("submit", (e) => {
-            e.preventDefault();
-            performSearch(input.value);
-          });
+          const mainSearchForm = document.getElementById("main-search-form");
+          if (mainSearchForm) {
+            mainSearchForm.addEventListener("submit", (e) => {
+              e.preventDefault();
+              performSearch(input.value);
+            });
+          }
         }
       });
     </script>

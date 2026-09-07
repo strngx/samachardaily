@@ -71,7 +71,7 @@ layout: layouts/base.njk
 
     <!-- 9. Embedded YouTube Video (Inline right after body content) -->
     {% if video_id and video_id != "" and video_id != "null" %}
-      <div class="video-block-wrapper" aria-label="Related Video Coverage">
+      <section class="video-block-wrapper" aria-label="Related Video Coverage">
         <div class="video-caption-label">
           <div style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-brand, #C81E2C); flex-shrink: 0;">
@@ -93,7 +93,7 @@ layout: layouts/base.njk
             allowfullscreen
           ></iframe>
         </div>
-      </div>
+      </section>
     {% endif %}
 
     <!-- 10. Why It Matters Annotation -->
@@ -118,7 +118,7 @@ layout: layouts/base.njk
     {% set catKey = (category or "India") | categorySlug %}
     {% set catArticles = (collections.relatedArticlesByCategory and collections.relatedArticlesByCategory[catKey]) or [] %}
     {% if catArticles.length > 1 or (catArticles.length == 1 and catArticles[0].url != page.url) %}
-      <div class="also-read-bottom" aria-label="Related Articles">
+      <aside class="also-read-bottom" aria-label="Related Articles">
         <div class="also-read-bottom-title">RELATED ARTICLES</div>
         <ul class="also-read-list">
           {% set count = 0 %}
@@ -131,7 +131,7 @@ layout: layouts/base.njk
             {% endif %}
           {% endfor %}
         </ul>
-      </div>
+      </aside>
     {% endif %}
 
     <!-- 12. In-Article Ad Slot -->

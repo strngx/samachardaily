@@ -28,20 +28,24 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!navSheet) return;
     navSheet.classList.add("is-open");
     document.body.classList.add("nav-locked");
-    menuToggleBtn?.setAttribute("aria-expanded", "true");
+    if (menuToggleBtn) {
+      menuToggleBtn.setAttribute("aria-expanded", "true");
+    }
   }
 
   function closeMobileNav() {
     if (!navSheet) return;
     navSheet.classList.remove("is-open");
     document.body.classList.remove("nav-locked");
-    menuToggleBtn?.setAttribute("aria-expanded", "false");
+    if (menuToggleBtn) {
+      menuToggleBtn.setAttribute("aria-expanded", "false");
+    }
   }
 
   if (menuToggleBtn) {
     menuToggleBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      if (navSheet?.classList.contains("is-open")) {
+      if (navSheet && navSheet.classList.contains("is-open")) {
         closeMobileNav();
       } else {
         openMobileNav();
@@ -66,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Close when clicking any nav link inside mobile sheet
-    navSheet.querySelectorAll("a").forEach(link => {
+    navSheet.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", closeMobileNav);
     });
   }
@@ -76,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "Escape") {
       closeMobileNav();
       const searchDrawer = document.getElementById("search-drawer");
-      if (searchDrawer?.classList.contains("is-open")) {
+      if (searchDrawer && searchDrawer.classList.contains("is-open")) {
         searchDrawer.classList.remove("is-open");
       }
     }
@@ -105,7 +109,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const emailInput = form.querySelector('input[type="email"]');
       if (!emailInput || !emailInput.value || !emailInput.checkValidity()) {
-        if (emailInput) emailInput.reportValidity();
+        if (emailInput && typeof emailInput.reportValidity === "function") {
+          emailInput.reportValidity();
+        }
         return;
       }
 

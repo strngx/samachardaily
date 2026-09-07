@@ -1,6 +1,6 @@
 {% set vid = videoId or video_id %}
 {% if vid and vid != "" and vid != "null" %}
-<div class="video-block-wrapper" aria-label="Related Video Coverage">
+<section class="video-block-wrapper" aria-label="Related Video Coverage">
   <div class="video-caption-label">
     <div style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0;">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-brand, #C81E2C); flex-shrink: 0;">
@@ -22,5 +22,5 @@
       allowfullscreen
     ></iframe>
   </div>
-</div>
+</section>
 {% endif %}
