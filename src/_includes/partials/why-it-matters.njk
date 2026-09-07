@@ -3,8 +3,13 @@
   <div class="annotation-label" style="color: var(--cat-{{ category | categorySlug }}, var(--color-brand));">
     Why This Matters
   </div>
-  <p class="annotation-text">
-    {{ why_it_matters }}
-  </p>
+  {% set paragraphs = why_it_matters.split('\n\n') %}
+  {% for para in paragraphs %}
+    {% if para | trim %}
+      <p class="annotation-text" {% if not loop.last %}style="margin-bottom: 0.85rem;"{% endif %}>
+        {{ para | trim }}
+      </p>
+    {% endif %}
+  {% endfor %}
 </div>
 {% endif %}
