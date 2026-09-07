@@ -1585,7 +1585,7 @@ function searchYouTubeVideo_(query, config) {
   if (!config.YOUTUBE_API_KEY || !query) return [];
   try {
     var url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=' +
-      encodeURIComponent(query) + '&type=video&key=' + config.YOUTUBE_API_KEY;
+      encodeURIComponent(query) + '&type=video&eventType=completed&key=' + config.YOUTUBE_API_KEY;
     var resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
     if (resp.getResponseCode() === 200) {
       var data = JSON.parse(resp.getContentText());
