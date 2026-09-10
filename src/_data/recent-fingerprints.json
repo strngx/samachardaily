@@ -1,5 +1,34 @@
 [
   {
+    "title": "Wrongful death lawsuit filed against Amazon over deadly Miami cargo jet crash",
+    "normalizedTitle": "wrongful death lawsuit filed against amazon over deadly miami cargo jet crash",
+    "keywords": [
+      "air",
+      "airport",
+      "amazon",
+      "cargo",
+      "crash",
+      "deadly",
+      "death",
+      "entities",
+      "fatal",
+      "filed",
+      "following",
+      "international",
+      "jet",
+      "lawsuit",
+      "leasing",
+      "miami",
+      "several",
+      "wrongful"
+    ],
+    "category": "World",
+    "categoryKey": "world",
+    "slug": "families-sue-amazon-21-air-and-leasing-firms-over-miami-cargo-jet-crash",
+    "sourceUrl": "https://fox23.com/news/nation-world/wrongful-death-lawsuit-filed-against-amazon-over-deadly-miami-cargo-jet-crash-amazon-prime-air-flight-7598-miami-international-airport-miami-cargo-plane-crash-miami-plane-crash-wrongful-death-lawsuit-amazon-lawsuit-21-air-atlas-air-worldwide",
+    "timestamp": "2026-09-10T08:56:21.525Z"
+  },
+  {
     "title": "Manav Bhanot Vs. National Highway Authority of India – Supreme Court",
     "normalizedTitle": "manav bhanot vs national highway authority of india  supreme court",
     "keywords": [
@@ -13927,56 +13956,5 @@
     "slug": "lenny-krieg-joins-green-bay-packers-practice-squad-ahead-of-week-1",
     "sourceUrl": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQTENtVnE3X2YyU3gtcC14dFM1UGNseHJnRkFUb2lOTnJqS0ZvMk5iQVl6ck5qTjJITWZnOW1HYWdqN3BEMl93Ml9sWWk5UGE3a1JNM0ctVkxlQkRxVGlUaDhwLUVtUU1ZYlpaZHVpMEEyMHI0cFowczBMOWhWUWVvV3lPdEEtTDNyUTB3V2ZR?oc=5",
     "timestamp": "2026-09-03T09:08:13.803Z"
-  },
-  {
-    "title": "Tamil Nadu Food Festival at Novotel Vijayawada",
-    "normalizedTitle": "tamil nadu food festival at novotel vijayawada",
-    "keywords": [
-      "festival",
-      "food",
-      "nadu",
-      "novotel",
-      "tamil",
-      "vijayawada"
-    ],
-    "category": "India",
-    "categoryKey": "india",
-    "slug": "tamil-nadu-food-festival-launches-at-novotel-vijayawada-showcasing-regional-cuisine",
-    "sourceUrl": "https://hospitalitynews.in/events/tamil-nadus-flavours-take-centre-stage-at-novotel-vijayawada-varun",
-    "timestamp": "2026-09-03T08:55:52.221Z"
-  },
-  {
-    "title": "More data does not necessarily mean better AI",
-    "normalizedTitle": "more data does not necessarily mean better ai",
-    "keywords": [
-      "advanced",
-      "better",
-      "can",
-      "collect",
-      "collected",
-      "data",
-      "difficult",
-      "even",
-      "fill",
-      "flawed",
-      "gap",
-      "help",
-      "mean",
-      "necessarily",
-      "produce",
-      "real",
-      "results",
-      "scientifically",
-      "sufficient",
-      "synthetic",
-      "systems",
-      "unavailable",
-      "world"
-    ],
-    "category": "Tech",
-    "categoryKey": "tech",
-    "slug": "researchers-warn-more-data-does-not-guarantee-better-ai-outcomes",
-    "sourceUrl": "https://www.thehansindia.com/news/cities/visakhapatnam/more-data-does-not-necessarily-mean-better-ai-1117176",
-    "timestamp": "2026-09-03T08:48:03.470Z"
   }
 ]
