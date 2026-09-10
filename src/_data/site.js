@@ -58,6 +58,7 @@ module.exports = {
   ],
   footerNav: [
     { title: "About", url: "/about/" },
+    { title: "Editorial Policy", url: "/editorial/" },
     { title: "Contact", url: "/contact/" },
     { title: "Privacy Policy", url: "/privacy/" },
     { title: "Terms of Service", url: "/terms/" }

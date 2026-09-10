@@ -1,3 +1,5 @@
+{% if adCode %}
 <aside class="ad-slot-wrapper" aria-label="Advertisement Banner">
-  <div class="ad-slot-container banner-728"></div>
+  <div class="ad-slot-container banner-728">{{ adCode | safe }}</div>
 </aside>
+{% endif %}

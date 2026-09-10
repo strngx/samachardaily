@@ -618,8 +618,12 @@ function isNewsworthyEditorialContent_(candidateOrTitle, optDesc, optContent, op
     return { reject: true, acceptable: false, reason: 'PR / CORPORATE SELF-PROMOTION CONTENT' };
   }
 
-  // 11. Leaked generation metadata inside visible text
-  if (body && LEAKED_METADATA_PATTERN.test(body)) {
+  // 11. Leaked generation metadata inside visible text (strip YAML frontmatter if evaluating raw markdown)
+  var visibleBody = body || '';
+  if (visibleBody) {
+    visibleBody = visibleBody.replace(/^---\r?\n[\s\S]*?\r?\n---\s*/, '');
+  }
+  if (visibleBody && LEAKED_METADATA_PATTERN.test(visibleBody)) {
     return { reject: true, acceptable: false, reason: 'LEAKED GENERATION METADATA' };
   }
 
@@ -1335,37 +1339,74 @@ function rewriteWithOpenRouter_(systemPrompt, userPrompt, config) {
 }
 
 /**
- * FIX 3: Groq TPD (Tokens Per Day) Guardrail.
- * Checks tracked token counter in Script Properties. Resets every 24h.
- * If within 5,000 tokens of 200,000 (i.e. >= 195,000), skips Groq to avoid 429.
+ * Conservative estimate of prompt token count for Groq.
+ * Approximates tokens using ~3.0 characters per token plus safety margin and base formatting overhead.
+ * Fails safely by returning a conservative high estimate if an error occurs.
  *
- * @returns {boolean} True if within safe limit; false if limit exceeded.
+ * @param {string} systemPrompt - System prompt string.
+ * @param {string} userPrompt - User prompt string.
+ * @returns {number} Conservative estimate of prompt tokens.
  */
-function checkGroqTpdLimit_() {
+function estimateGroqPromptTokens_(systemPrompt, userPrompt) {
+  try {
+    var text = (systemPrompt || '') + (userPrompt || '');
+    // Standard English is ~3.5-4 chars/token. We use 3.0 chars/token + 10% safety margin + 50 base tokens for JSON wrapper/role formatting.
+    return Math.ceil((text.length / 3.0) * 1.1) + 50;
+  } catch (e) {
+    Logger.log('Error estimating Groq prompt tokens: ' + e);
+    return 3000;
+  }
+}
+
+/**
+ * FIX 3: Groq TPD (Tokens Per Day) Guardrail.
+ * Checks whether a Groq request can be safely accommodated within the remaining daily TPD budget.
+ * Accounts for 24-hour reset window, current tracked usage, estimated prompt tokens,
+ * maximum possible completion tokens, and a safety margin.
+ *
+ * @param {number} estimatedPromptTokens - Estimated input token count.
+ * @param {number} maxCompletionTokens - Maximum output tokens for the request.
+ * @returns {boolean} True if within safe limit; false if limit would be exceeded.
+ */
+function canReserveGroqTpd_(estimatedPromptTokens, maxCompletionTokens) {
   try {
     var props = PropertiesService.getScriptProperties();
     var now = Date.now();
     var lastResetStr = props.getProperty('groq_tpd_reset_time');
     var lastReset = lastResetStr ? parseInt(lastResetStr, 10) : 0;
     var ONE_DAY_MS = 24 * 60 * 60 * 1000;
+    var DAILY_LIMIT = 200000;
+    var SAFETY_MARGIN = 1000;
 
     if (!lastReset || (now - lastReset) >= ONE_DAY_MS) {
       props.setProperty('groq_tpd_used', '0');
       props.setProperty('groq_tpd_reset_time', now.toString());
-      return true;
+      var estTotal = (estimatedPromptTokens || 0) + (maxCompletionTokens || 0) + SAFETY_MARGIN;
+      return estTotal <= DAILY_LIMIT;
     }
 
     var usedStr = props.getProperty('groq_tpd_used') || '0';
     var usedTokens = parseInt(usedStr, 10) || 0;
-    if (usedTokens >= 195000) {
-      Logger.log('Groq TPD guardrail active: used ' + usedTokens + ' / 200,000 tokens. Skipping Groq to prevent 429.');
+    var requiredBudget = (estimatedPromptTokens || 0) + (maxCompletionTokens || 0) + SAFETY_MARGIN;
+
+    if ((usedTokens + requiredBudget) > DAILY_LIMIT) {
+      Logger.log('Groq TPD guardrail active: used ' + usedTokens + ' + needed ' + requiredBudget + ' > ' + DAILY_LIMIT + '. Skipping Groq to prevent 429.');
       return false;
     }
     return true;
   } catch (e) {
     Logger.log('Error checking Groq TPD counter: ' + e);
-    return true;
+    return false; // Fail safe: skip Groq to protect limit and let fallback waterfall handle
   }
+}
+
+/**
+ * Backward-compatible helper for Groq TPD limit check.
+ *
+ * @returns {boolean} True if within safe limit; false if limit exceeded.
+ */
+function checkGroqTpdLimit_() {
+  return canReserveGroqTpd_(2000, 2048);
 }
 
 /**
@@ -1444,12 +1485,15 @@ function rewriteWithGroq_(headline, category, config) {
   var isGroq429 = false;
   var groqError = null;
 
-  // Tier 1: Groq (Primary) - with FIX 3 TPD Guardrail
-  var isGroqTpdAllowed = checkGroqTpdLimit_();
+  var maxTokens = 2048;
+  var estimatedPromptTokens = estimateGroqPromptTokens_(systemPrompt, userPrompt);
+
+  // Tier 1: Groq (Primary) - with FIX 3 TPD Guardrail & Reservation Check
+  var isGroqTpdAllowed = canReserveGroqTpd_(estimatedPromptTokens, maxTokens);
   if (!isGroqTpdAllowed) {
-    Logger.log('Groq daily token limit reached (TPD >= 195,000). Skipping directly to Tier 2 (Gemini)...');
+    Logger.log('Groq daily token limit reached or insufficient budget (est. prompt: ' + estimatedPromptTokens + ', max completion: ' + maxTokens + '). Skipping directly to Tier 2 (Gemini)...');
     isGroq429 = true;
-    groqError = new Error('Groq daily token limit reached (TPD guardrail >= 195,000).');
+    groqError = new Error('Groq daily token limit reached (TPD guardrail).');
   } else if (!config.GROQ_API_KEY) {
     Logger.log('Missing GROQ_API_KEY in script properties. Triggering fallback waterfall...');
     isGroq429 = true;
@@ -1463,7 +1507,7 @@ function rewriteWithGroq_(headline, category, config) {
       ],
       response_format: { type: 'json_object' },
       temperature: 0.2,
-      max_tokens: 2048
+      max_tokens: maxTokens
     };
 
     var options = {
@@ -1492,29 +1536,35 @@ function rewriteWithGroq_(headline, category, config) {
       if (statusCode === 400) {
         var respText = resp.getContentText();
         if (respText.indexOf('json_validate_failed') !== -1) {
-          Logger.log('Groq 400 json_validate_failed encountered. Retrying with simplified fallback (max_tokens: 2200)...');
+          var retryMaxTokens = 2200;
           var fallbackSystemPrompt = systemPrompt + '\nKeep all string values concise and ensure the JSON is complete and properly closed.';
-          var fallbackPayload = {
-            model: 'openai/gpt-oss-120b',
-            messages: [
-              { role: 'system', content: fallbackSystemPrompt },
-              { role: 'user', content: userPrompt }
-            ],
-            response_format: { type: 'json_object' },
-            temperature: 0.2,
-            max_tokens: 2200
-          };
-          var fallbackOptions = {
-            method: 'post',
-            contentType: 'application/json',
-            headers: {
-              'Authorization': 'Bearer ' + config.GROQ_API_KEY
-            },
-            payload: JSON.stringify(fallbackPayload),
-            muteHttpExceptions: true
-          };
-          resp = UrlFetchApp.fetch('https://api.groq.com/openai/v1/chat/completions', fallbackOptions);
-          statusCode = resp.getResponseCode();
+          var retryPromptTokens = estimateGroqPromptTokens_(fallbackSystemPrompt, userPrompt);
+          if (canReserveGroqTpd_(retryPromptTokens, retryMaxTokens)) {
+            Logger.log('Groq 400 json_validate_failed encountered. Retrying with simplified fallback (max_tokens: ' + retryMaxTokens + ')...');
+            var fallbackPayload = {
+              model: 'openai/gpt-oss-120b',
+              messages: [
+                { role: 'system', content: fallbackSystemPrompt },
+                { role: 'user', content: userPrompt }
+              ],
+              response_format: { type: 'json_object' },
+              temperature: 0.2,
+              max_tokens: retryMaxTokens
+            };
+            var fallbackOptions = {
+              method: 'post',
+              contentType: 'application/json',
+              headers: {
+                'Authorization': 'Bearer ' + config.GROQ_API_KEY
+              },
+              payload: JSON.stringify(fallbackPayload),
+              muteHttpExceptions: true
+            };
+            resp = UrlFetchApp.fetch('https://api.groq.com/openai/v1/chat/completions', fallbackOptions);
+            statusCode = resp.getResponseCode();
+          } else {
+            Logger.log('Groq TPD budget insufficient for 400 json_validate_failed retry. Skipping retry and falling back to Tier 2 (Gemini)...');
+          }
         }
       }
 

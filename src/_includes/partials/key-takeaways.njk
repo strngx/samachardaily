@@ -1,14 +1,20 @@
 <aside class="key-takeaways-box" aria-label="Key Takeaways Summary">
   <div class="takeaways-title">Key Takeaways & Quick Context</div>
   <ul class="takeaways-list">
+    {% if dek or title %}
     <li>
       <strong>The Development:</strong> {{ dek or title }}
     </li>
+    {% endif %}
+    {% if why_it_matters %}
     <li>
-      <strong>Strategic Significance:</strong> {{ (why_it_matters or "Key developments impact policy, infrastructure, and institutional roadmaps across the sector.") | truncateWords(25) }}
+      <strong>Strategic Significance:</strong> {{ why_it_matters | truncateWords(25) }}
     </li>
+    {% endif %}
+    {% if what_happens_next %}
     <li>
-      <strong>Next Phase:</strong> {{ what_happens_next or "Initial phase rollouts, regulatory milestones, and key stakeholder deployment scheduled over the coming quarter." }}
+      <strong>Next Phase:</strong> {{ what_happens_next }}
     </li>
+    {% endif %}
   </ul>
 </aside>
