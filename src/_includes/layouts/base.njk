@@ -7,6 +7,9 @@
   
   <meta name="description" content="{{ (dek or description or site.description) | truncate(155) }}">
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  {% if noindex %}
+  <meta name="robots" content="noindex, follow">
+  {% endif %}
   
   <!-- Open Graph / Social Meta -->
   <meta property="og:type" content="{% if layout == 'layouts/article.njk' %}article{% else %}website{% endif %}">

@@ -1,5 +1,6 @@
 ---
 title: "Bob’s Famous Donuts shuts Bethany factory amid rising production costs"
+noindex: true
 category: "Business"
 date: 2026-08-30T00:41:53Z
 image: "https://www.bethanyclipper.com/wp-content/uploads/2026/08/N2607P48020C.jpeg"

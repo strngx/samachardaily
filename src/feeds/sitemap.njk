@@ -36,6 +36,7 @@ eleventyExcludeFromCollections: true
 
   <!-- Articles -->
   {% for article in collections.articles %}
+  {% if not article.data.noindex %}
   <url>
     <loc>{{ site.url }}{{ article.url }}</loc>
     <lastmod>{{ article.date | isoDate }}</lastmod>
@@ -50,5 +51,6 @@ eleventyExcludeFromCollections: true
       <news:title>{{ article.data.title | escape }}</news:title>
     </news:news>
   </url>
+  {% endif %}
   {% endfor %}
 </urlset>

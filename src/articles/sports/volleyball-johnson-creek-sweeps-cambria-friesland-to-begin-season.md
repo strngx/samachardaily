@@ -1,5 +1,6 @@
 ---
 title: "Johnson Creek sweeps Cambria-Friesland 3-0 in season‑opening volleyball match"
+noindex: true
 category: "Sports"
 date: 2026-08-29T10:19:39Z
 image: "https://images.pexels.com/photos/17591648/pexels-photo-17591648.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"

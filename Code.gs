@@ -129,17 +129,17 @@ function isNonEnglishTitle_(title) {
   var lower = ' ' + cleanTitle.toLowerCase().replace(/[^a-z0-9\s]/g, ' ') + ' ';
   var foreignStopwords = [
     // Spanish / Portuguese
-    ' el ', ' la ', ' los ', ' las ', ' un ', ' una ', ' unos ', ' unas ',
+    ' el ', ' la ', ' los ', ' las ', ' una ', ' unos ', ' unas ',
     ' de ', ' del ', ' para ', ' por ', ' con ', ' sobre ', ' entre ',
     ' que ', ' como ', ' pero ', ' mas ', ' mais ', ' este ', ' esta ',
     ' são ', ' não ', ' um ', ' uma ', ' pelos ', ' pelas ', ' após ',
     ' até ', ' contra ', ' seus ', ' suas ', ' foi ', ' foram ',
-    ' em ', ' no ', ' na ', ' nos ', ' nas ', ' ao ', ' aos ', ' declara ',
+    ' na ', ' nos ', ' nas ', ' ao ', ' aos ', ' declara ',
     ' culpado ', ' ex presidente ', ' caso de ',
     // French
-    ' le ', ' les ', ' du ', ' des ', ' dans ', ' pour ', ' avec ', ' sur ',
+    ' le ', ' les ', ' du ', ' des ', ' dans ', ' pour ', ' avec ',
     // German
-    ' der ', ' die ', ' das ', ' und ', ' für ', ' mit ', ' auf ', ' von ',
+    ' der ', ' das ', ' und ', ' für ', ' mit ', ' auf ', ' von ',
     // Italian
     ' gli ', ' nella ', ' delle ', ' sono ', ' alla '
   ];
@@ -191,15 +191,15 @@ function isNonEnglishText_(text) {
   // 3. Foreign stopword frequency test
   var lower = ' ' + clean.toLowerCase().replace(/[^a-z0-9\s]/g, ' ') + ' ';
   var foreignStopwords = [
-    ' o ', ' a ', ' os ', ' as ', ' um ', ' uma ', ' uns ', ' umas ',
-    ' de ', ' do ', ' da ', ' dos ', ' das ', ' no ', ' na ', ' nos ', ' nas ',
+    ' o ', ' os ', ' um ', ' uma ', ' uns ', ' umas ',
+    ' de ', ' do ', ' da ', ' dos ', ' das ', ' na ', ' nos ', ' nas ',
     ' pelo ', ' pela ', ' pelos ', ' pelas ', ' em ', ' para ', ' por ', ' com ',
     ' que ', ' como ', ' mais ', ' mas ', ' este ', ' esta ', ' estes ', ' estas ',
     ' são ', ' não ', ' após ', ' até ', ' contra ', ' seus ', ' suas ', ' foi ',
-    ' foram ', ' era ', ' eram ', ' caso ', ' corrupção ', ' governo ', ' tribunal ',
+    ' foram ', ' eram ', ' caso ', ' corrupção ', ' governo ', ' tribunal ',
     ' el ', ' la ', ' los ', ' las ', ' del ', ' sobre ', ' entre ', ' pero ',
     ' le ', ' la ', ' les ', ' du ', ' des ', ' dans ', ' pour ', ' avec ', ' sur ',
-    ' der ', ' die ', ' das ', ' ein ', ' eine ', ' und ', ' für ', ' mit '
+    ' der ', ' das ', ' ein ', ' eine ', ' und ', ' für ', ' mit '
   ];
 
   var matchCount = 0;
@@ -1444,27 +1444,38 @@ function rewriteWithGroq_(headline, category, config) {
     ? '\nCRITICAL REQUIREMENT: Output MUST be 100% written in fluent, standard journalistic English. Never output Portuguese, Spanish, French, German, or non-English text for title, seoTitle, dek, or content under any circumstances.\n'
     : '\nCRITICAL REQUIREMENT: All output fields (title, seoTitle, dek, content, why_it_matters, what_happens_next) MUST be written in 100% fluent English even if source dispatches contain foreign-language text.\n';
 
-  var systemPrompt = 'You are a senior investigative and wire editor at SamacharDaily, a high-velocity Indian and international digital news publication.\n' +
+  var systemPrompt = 'You are a senior wire and investigative news editor at SamacharDaily, an authoritative Indian and international digital news publication.\n' +
     "Today's date is " + todayDateStr + '.\n' +
     englishEnforceRule +
-    "Do not reference years, cycles, or 'upcoming' events using any year other than what's explicitly stated in the source headline/description — never infer or carry over a year from your own training data.\n\n" +
+    'CRITICAL FACTUAL GROUNDING & HUMAN-EDITOR STANDARDS:\n' +
+    '1. SOURCE FIDELITY: The supplied source dispatch is the absolute factual boundary. Use ONLY facts explicitly supported by the source. Never invent names, dates, years, numbers, statistics, quotations, historical events, company history, tournament history, previous results, future events, locations, affiliations, or claims about people or organizations.\n' +
+    '2. NO HALLUCINATION OR MISSING SPECIFICS: Never use model training knowledge to fill in missing specifics or turn general knowledge into claims about this specific event. If a specific fact is not in the source, stay general or omit it.\n' +
+    '3. ACCURACY OVER LENGTH: A shorter, 100% accurate factual article is strictly preferred over an artificially expanded article with padding or unsupported claims. Never manufacture context or padding just to reach a word count.\n' +
+    '4. HUMAN-EDITOR STANDARD: Write like a seasoned newsroom editor improving and contextualizing a news report, not like an AI expanding text.\n' +
+    "5. TEMPORAL ACCURACY: Never reference years, cycles, or 'upcoming' events using any year other than what is explicitly stated in the source dispatch.\n\n" +
     'Editorial Requirements:\n' +
-    '1. Craft a high-credibility, authoritative headline (60-90 characters) in sharp newsroom tone (no clickbait).\n' +
-    '2. Provide a concise seoTitle (under 60 characters, ideally 45-58 characters) that front-loads the likely search query phrasing (topic + key entity + question/hook format) optimized for Google Search, distinct from the main headline.\n' +
-    '3. Write a complete, specific "dek" (140-160 characters) that answers "what happened" in the first sentence with concrete facts/entities, strictly avoiding generic filler (never use "Read more about...", "Find out what happened...", "Here is what you need to know").\n' +
-    '4. Write the core story in at least 4-5 substantial paragraphs (350-450 words total). Include: the main event, relevant background/context that a reader unfamiliar with this topic would need to understand it, and specific named details (people, places, dates, numbers, organizations) drawn only from the source article. Do not write a short summary — write a full explanatory news article a reader could rely on without needing to read the original source.\n' +
-    '5. Compose a 2-paragraph "why_it_matters" section analyzing institutional, policy, or market impact.\n' +
-    '6. Provide "what_happens_next" (Fix 7): 1 short paragraph (40-70 words) on concrete next steps specific to THIS story — not generic boilerplate. If genuinely nothing concrete is known, write "No confirmed next steps reported yet."\n' +
-    '7. Provide a targeted "image_keyword" for editorial photo search (e.g. "semiconductor cleanroom", "cricket stadium floodlights").\n' +
-    '8. Provide a concise "video_query" for broadcast coverage search.\n\n' +
+    '1. Headline: Craft a high-credibility, authoritative headline (60-90 characters) in sharp newsroom tone (strictly no clickbait, no unsupported facts).\n' +
+    '2. seoTitle: Provide a concise SEO title (strictly under 60 characters, ideally 45-58 chars) front-loading key search phrasing and entity names, distinct from the main headline (do not simply copy the headline).\n' +
+    '3. dek: Write a concise factual summary of max 30 words (target 120-150 characters) capturing the core event without generic filler. Do NOT repeat or paraphrase the dek in the opening paragraph or anywhere else in the article.\n' +
+    '4. content: Write original editorial reporting in multiple clean paragraphs (typically 2-4 paragraphs when supported, shorter if source is thin). Every paragraph must add NEW information, context, or explanation—never repeat a sentence or rephrase an earlier paragraph. Paragraph 1 must open with fresh narrative development using facts from the source, NOT a repetition of the dek.\n' +
+    '5. Originality & Value: Include at least 2 genuinely original contextual/explanatory sentences that help the reader understand the event, without copying source wording or manufacturing unsupported specific claims.\n' +
+    '6. why_it_matters: Write 60-90 words providing NEW analytical takeaway, explaining institutional, policy, market, tech, or sporting significance directly warranted by the facts. Do NOT repeat the dek or content paragraphs, and avoid empty filler (e.g., "This could have significant implications" unless immediately followed by specific explanation).\n' +
+    '7. what_happens_next: Write 50-80 words ONLY when concrete next steps (future dates, hearings, decisions, votes, timelines) are explicitly supported by the source. If no confirmed next step exists, output exactly: "No confirmed next steps reported yet." Never invent future events.\n' +
+    '8. Anti-Repetition Gate: Internally verify that no two sections repeat substantially the same information before outputting JSON.\n' +
+    '9. image_keyword: Provide a concise, specific visual search query based only on the supplied story.\n' +
+    '10. video_query: Provide a concise broadcast news search query based only on the supplied story.\n\n' +
     'You MUST return ONLY a valid JSON object matching this exact structure:\n' +
     '{\n' +
-    '  "title": "String (authoritative headline, 60-90 characters)",\n' +
-    '  "seoTitle": "String (front-loaded query phrasing topic + key entity, strictly under 60 chars)",\n' +
-    '  "dek": "String (complete specific summary answering what happened in sentence 1, 140-160 characters, no generic filler)",\n' +
-    '  "content": ["Paragraph 1 string...", "Paragraph 2 string...", "Paragraph 3 string..."],\n' +
-    '  "why_it_matters": "Paragraph 1\\n\\nParagraph 2",\n' +
-    '  "what_happens_next": "1 short paragraph (40-70 words) on concrete next steps specific to THIS story — not generic boilerplate. If genuinely nothing concrete is known, write \'No confirmed next steps reported yet.\'",\n' +
+    '  "title": "String",\n' +
+    '  "seoTitle": "String",\n' +
+    '  "dek": "String",\n' +
+    '  "content": [\n' +
+    '    "Paragraph 1",\n' +
+    '    "Paragraph 2",\n' +
+    '    "Paragraph 3"\n' +
+    '  ],\n' +
+    '  "why_it_matters": "String",\n' +
+    '  "what_happens_next": "String",\n' +
     '  "image_keyword": "String",\n' +
     '  "video_query": "String"\n' +
     '}';
