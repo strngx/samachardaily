@@ -1,5 +1,43 @@
 [
   {
+    "title": "House will vote on legislation shielding consumers from data center energy costs (Politico)",
+    "normalizedTitle": "house will vote on legislation shielding consumers from data center energy costs politico",
+    "keywords": [
+      "according",
+      "associated",
+      "center",
+      "centers",
+      "companies",
+      "compel",
+      "consumers",
+      "costs",
+      "data",
+      "designed",
+      "energy",
+      "floor",
+      "gop",
+      "house",
+      "infrastructure",
+      "leaders",
+      "legislation",
+      "next",
+      "offices",
+      "pay",
+      "politico",
+      "put",
+      "shielding",
+      "sucking",
+      "tech",
+      "vote",
+      "week"
+    ],
+    "category": "Business",
+    "categoryKey": "business",
+    "slug": "house-to-vote-on-bill-forcing-tech-firms-to-cover-datacenter-energy-costs",
+    "sourceUrl": "https://www.memeorandum.com/260910/p120",
+    "timestamp": "2026-09-11T10:56:15.647Z"
+  },
+  {
     "title": "Anthropic says it blocked possible efforts to build biological weapons",
     "normalizedTitle": "anthropic says it blocked possible efforts to build biological weapons",
     "keywords": [
@@ -14616,31 +14654,5 @@
     "slug": "graham-alexander-accepts-fan-boos-demands-focus-ahead-of-mansfield-test",
     "sourceUrl": "https://www.thetelegraphandargus.co.uk/sport/sportlatest/26518329.bradford-citiy-manager-say-boos-home-defeat/",
     "timestamp": "2026-09-04T11:05:45.614Z"
-  },
-  {
-    "title": "Nvidia to buy Hugging Face for $13 billion in open-source push",
-    "normalizedTitle": "nvidia to buy hugging face for 13 billion in opensource push",
-    "keywords": [
-      "biggest",
-      "billion",
-      "broaden",
-      "buy",
-      "buying",
-      "face",
-      "hugging",
-      "moves",
-      "nvidia",
-      "one",
-      "open",
-      "push",
-      "source",
-      "uptake",
-      "yet"
-    ],
-    "category": "Tech",
-    "categoryKey": "tech",
-    "slug": "nvidia-acquires-hugging-face-for-13-billion-in-massive-open-source-ai-push",
-    "sourceUrl": "https://www.reporterherald.com/2026/09/03/nvidia-hugging-face/",
-    "timestamp": "2026-09-04T10:48:15.462Z"
   }
 ]
