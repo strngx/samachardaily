@@ -1,5 +1,33 @@
 [
   {
+    "title": "Anthropic says it blocked possible efforts to build biological weapons",
+    "normalizedTitle": "anthropic says it blocked possible efforts to build biological weapons",
+    "keywords": [
+      "anthropic",
+      "biological",
+      "blocked",
+      "build",
+      "describing",
+      "determine",
+      "efforts",
+      "legitimate",
+      "misuses",
+      "models",
+      "nefarious",
+      "possible",
+      "purpose",
+      "research",
+      "served",
+      "weapons",
+      "whether"
+    ],
+    "category": "Tech",
+    "categoryKey": "tech",
+    "slug": "anthropic-blocks-ai-model-queries-linked-to-potential-biological-weapons-development",
+    "sourceUrl": "https://www.seattletimes.com/business/anthropic-says-it-blocked-possible-efforts-to-build-biological-weapons/",
+    "timestamp": "2026-09-11T10:45:46.244Z"
+  },
+  {
     "title": "Last year's row in mind, govt says won't reduce med PG cut-off",
     "normalizedTitle": "last years row in mind govt says wont reduce med pg cutoff",
     "keywords": [
@@ -14614,38 +14642,5 @@
     "slug": "nvidia-acquires-hugging-face-for-13-billion-in-massive-open-source-ai-push",
     "sourceUrl": "https://www.reporterherald.com/2026/09/03/nvidia-hugging-face/",
     "timestamp": "2026-09-04T10:48:15.462Z"
-  },
-  {
-    "title": "LV Petroleum Closes Out July with Restaurant Openings and Travel Center Acquisition Across Four States",
-    "normalizedTitle": "lv petroleum closes out july with restaurant openings and travel center acquisition across four states",
-    "keywords": [
-      "acquisition",
-      "across",
-      "arizona",
-      "bojangles",
-      "center",
-      "closes",
-      "company",
-      "extend",
-      "footprint",
-      "four",
-      "growth",
-      "july",
-      "nationwide",
-      "nevada",
-      "ohio",
-      "openings",
-      "petroleum",
-      "restaurant",
-      "sbarro",
-      "states",
-      "texas",
-      "travel"
-    ],
-    "category": "Business",
-    "categoryKey": "business",
-    "slug": "lv-petroleum-expands-footprint-across-four-states-with-new-qsr-outlets-and-travel-cen",
-    "sourceUrl": "https://www.rdrnews.com/online_features/press_releases/lv-petroleum-closes-out-july-with-restaurant-openings-and-travel-center-acquisition-across-four-states/article_ea6602db-a013-54d0-af1b-22f1bb5fc23c.html",
-    "timestamp": "2026-09-04T10:45:00.172Z"
   }
 ]
