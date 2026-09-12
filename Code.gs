@@ -544,14 +544,16 @@ var SELF_PROMO_PATTERN = /\b(success at|shines at|showcases? (its|their)|proud t
  * @param {string|Array} [optContent] - Body content.
  * @param {string} [optSourceUrl] - Source URL.
  * @param {string} [optSourceName] - Source Name.
+ * @param {boolean} [optIsSynthesized] - Set to true when validating synthesized article output.
  * @returns {Object} { reject: boolean, acceptable: boolean, reason: string }
  */
-function isNewsworthyEditorialContent_(candidateOrTitle, optDesc, optContent, optSourceUrl, optSourceName) {
+function isNewsworthyEditorialContent_(candidateOrTitle, optDesc, optContent, optSourceUrl, optSourceName, optIsSynthesized) {
   var title = '';
   var desc = '';
   var body = '';
   var sourceUrl = '';
   var sourceName = '';
+  var isSynthesized = (optIsSynthesized === true);
 
   if (candidateOrTitle && typeof candidateOrTitle === 'object') {
     title = candidateOrTitle.title || '';
@@ -559,6 +561,9 @@ function isNewsworthyEditorialContent_(candidateOrTitle, optDesc, optContent, op
     body = Array.isArray(candidateOrTitle.content) ? candidateOrTitle.content.join(' ') : (candidateOrTitle.content || '');
     sourceUrl = candidateOrTitle.sourceUrl || candidateOrTitle.url || '';
     sourceName = candidateOrTitle.sourceName || '';
+    if (candidateOrTitle.isSynthesized === true) {
+      isSynthesized = true;
+    }
   } else {
     title = candidateOrTitle || '';
     desc = optDesc || '';
@@ -621,15 +626,32 @@ function isNewsworthyEditorialContent_(candidateOrTitle, optDesc, optContent, op
   // 11. Leaked generation metadata inside visible text (strip YAML frontmatter if evaluating raw markdown)
   var visibleBody = body || '';
   if (visibleBody) {
-    visibleBody = visibleBody.replace(/^---\r?\n[\s\S]*?\r?\n---\s*/, '');
+    visibleBody = visibleBody.replace(/^---\r?\n[\s\S]*?\r?\n---\s*/, '').trim();
   }
   if (visibleBody && LEAKED_METADATA_PATTERN.test(visibleBody)) {
     return { reject: true, acceptable: false, reason: 'LEAKED GENERATION METADATA' };
   }
 
-  // 12. Minimum substance check
+  // 12. Minimum substance check on headline
   if (!title || title.trim().length < 15) {
     return { reject: true, acceptable: false, reason: 'LOW-SUBSTANCE / TITLE EMPTY' };
+  }
+
+  // 13. Substantive content check on SYNTHESIZED article body (ONLY applied to generated articles, never raw source candidates)
+  if (isSynthesized && visibleBody) {
+    var bodyWords = visibleBody.split(/\s+/).filter(function(w) { return w.length > 0; });
+    
+    // Catch empty or near-empty generated body output (under 30 words)
+    if (bodyWords.length < 30) {
+      return { reject: true, acceptable: false, reason: 'LOW-SUBSTANCE / BODY UNDER 30 WORDS' };
+    }
+
+    // Catch cases where the generated body merely duplicates the headline
+    var titleClean = title.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').trim();
+    var bodyClean = visibleBody.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').trim();
+    if (bodyClean.length > 0 && titleClean.length > 20 && bodyClean === titleClean) {
+      return { reject: true, acceptable: false, reason: 'LOW-SUBSTANCE / BODY DUPLICATES TITLE' };
+    }
   }
 
   return { reject: false, acceptable: true, reason: 'PASSED EDITORIAL NEWSWORTHINESS TEST' };
@@ -638,8 +660,8 @@ function isNewsworthyEditorialContent_(candidateOrTitle, optDesc, optContent, op
 /**
  * Editorial Quality Gate compatibility wrapper.
  */
-function isEditoriallyAcceptable_(candidateOrTitle, optDesc, optContent, optSourceUrl, optSourceName) {
-  return isNewsworthyEditorialContent_(candidateOrTitle, optDesc, optContent, optSourceUrl, optSourceName);
+function isEditoriallyAcceptable_(candidateOrTitle, optDesc, optContent, optSourceUrl, optSourceName, optIsSynthesized) {
+  return isNewsworthyEditorialContent_(candidateOrTitle, optDesc, optContent, optSourceUrl, optSourceName, optIsSynthesized);
 }
 
 var GAME_HINTS_AND_STREAM_PATTERN = /\b(quordle|wordle|connections|crossword|strands|spelling bee|octordle|contexto)\s+(hints?|clues?|answers?|today|daily)|today's\s+(quordle|wordle|connections|crossword|strands)|(wordle|connections|quordle)\s+answer\s+today\b|\b(how to watch|where to watch|watch\s+.+\s+live\s+stream|streaming details|live stream channel|live stream online|air time and tv channel|game walkthrough|game hints|daily puzzle answers)\b/i;
@@ -1452,14 +1474,20 @@ function rewriteWithGroq_(headline, category, config) {
     '2. NO HALLUCINATION OR MISSING SPECIFICS: Never use model training knowledge to fill in missing specifics or turn general knowledge into claims about this specific event. If a specific fact is not in the source, stay general or omit it.\n' +
     '3. ACCURACY OVER LENGTH: A shorter, 100% accurate factual article is strictly preferred over an artificially expanded article with padding or unsupported claims. Never manufacture context or padding just to reach a word count.\n' +
     '4. HUMAN-EDITOR STANDARD: Write like a seasoned newsroom editor improving and contextualizing a news report, not like an AI expanding text.\n' +
-    "5. TEMPORAL ACCURACY: Never reference years, cycles, or 'upcoming' events using any year other than what is explicitly stated in the source dispatch.\n\n" +
+    "5. TEMPORAL ACCURACY: Never reference years, cycles, or 'upcoming' events using any year other than what is explicitly stated in the source dispatch.\n" +
+    '6. SOURCE STRUCTURE INDEPENDENCE: After extracting the supported facts from the source dispatch, independently organize those facts into a clear newsroom structure. Do not mechanically preserve the source wire\'s sentence order, clause order, or paragraph sequence when a clearer journalistic structure is possible. Lead with the most important verified development, then progress through distinct supporting facts, developments, explanations, or consequences. Use original transitions and sentence construction. Structural independence must NEVER require adding, guessing, or changing facts.\n' +
+    '7. SOURCE-LIMITED CONTEXTUALIZATION: Originality means original organization, transitions, explanation, and journalistic framing—not invented information. Any contextual or explanatory sentence must be directly warranted by facts contained in the supplied source. Never introduce outside knowledge simply to make the article appear more complete or more original.\n' +
+    '8. SHORT-SOURCE HANDLING: When the source dispatch is very short (approximately 30–80 words), produce the strongest possible standalone news brief from the available verified facts. Preserve all material names, entities, dates, numbers, locations, decisions, statements, and other supported specifics. Use 2–3 concise paragraphs when the source contains enough distinct information to support them. Paragraphs should have distinct purposes rather than repeating the same fact. If the source does not contain enough distinct information for multiple paragraphs, remain concise rather than padding the article.\n' +
+    '9. SHORT-SOURCE ZERO-PADDING RULE: Never invent background, historical context, quotations, reactions, statistics, comparisons, motives, consequences, timelines, or future developments merely because the source is short. A short accurate brief is always preferable to a longer article containing unsupported material.\n' +
+    '10. INDEPENDENT PARAGRAPH PROGRESSION: Each paragraph must advance the story with a different supported fact, development, explanation, or directly warranted significance. Do not split one source sentence into multiple paragraphs merely to increase paragraph count.\n' +
+    '11. FINAL ORIGINALITY CHECK: Before returning JSON, internally verify that the article is both factually faithful and structurally independent from the source. If the article follows the source\'s wording or sequence too closely, rewrite its structure and transitions without introducing any new facts.\n\n' +
     'Editorial Requirements:\n' +
     '1. Headline: Craft a high-credibility, authoritative headline (60-90 characters) in sharp newsroom tone (strictly no clickbait, no unsupported facts).\n' +
     '2. seoTitle: Provide a concise SEO title (strictly under 60 characters, ideally 45-58 chars) front-loading key search phrasing and entity names, distinct from the main headline (do not simply copy the headline).\n' +
     '3. dek: Write a concise factual summary of max 30 words (target 120-150 characters) capturing the core event without generic filler. Do NOT repeat or paraphrase the dek in the opening paragraph or anywhere else in the article.\n' +
-    '4. content: Write original editorial reporting in multiple clean paragraphs (typically 2-4 paragraphs when supported, shorter if source is thin). Every paragraph must add NEW information, context, or explanation—never repeat a sentence or rephrase an earlier paragraph. Paragraph 1 must open with fresh narrative development using facts from the source, NOT a repetition of the dek.\n' +
-    '5. Originality & Value: Include at least 2 genuinely original contextual/explanatory sentences that help the reader understand the event, without copying source wording or manufacturing unsupported specific claims.\n' +
-    '6. why_it_matters: Write 60-90 words providing NEW analytical takeaway, explaining institutional, policy, market, tech, or sporting significance directly warranted by the facts. Do NOT repeat the dek or content paragraphs, and avoid empty filler (e.g., "This could have significant implications" unless immediately followed by specific explanation).\n' +
+    '4. content: Write thorough, original editorial reporting in multiple clean paragraphs (typically 2-4 paragraphs when supported, shorter if source is thin). Prioritize factual completeness: preserve all useful source details (names, titles, organizations, figures, prices, dates, percentages, locations, official statements, and technical/legal status) rather than compressing them into a brief summary. Every paragraph must add NEW information, context, or explanation—never repeat a sentence or rephrase an earlier paragraph. Paragraph 1 must open with fresh narrative development using facts from the source, NOT a repetition of the dek.\n' +
+    '5. Originality & Value: Answer the fundamental journalistic questions clearly (What happened, Who was involved, When and Where it occurred, and What specific details are established). Include genuinely original contextual/explanatory sentences that help the reader understand the significance and mechanics of the event, without copying source wording or manufacturing unsupported specific claims.\n' +
+    '6. why_it_matters: Write 60-90 words providing NEW analytical takeaway, explaining institutional, policy, market, tech, consumer, or sporting significance directly warranted by the facts. Explain what this means for key stakeholders (citizens, consumers, investors, regulators, teams). Do NOT repeat the dek or content paragraphs, and avoid empty filler (e.g., "This could have significant implications" unless immediately followed by specific explanation).\n' +
     '7. what_happens_next: Write 50-80 words ONLY when concrete next steps (future dates, hearings, decisions, votes, timelines) are explicitly supported by the source. If no confirmed next step exists, output exactly: "No confirmed next steps reported yet." Never invent future events.\n' +
     '8. Anti-Repetition Gate: Internally verify that no two sections repeat substantially the same information before outputting JSON.\n' +
     '9. image_keyword: Provide a concise, specific visual search query based only on the supplied story.\n' +
@@ -2227,7 +2255,7 @@ function runPipelineForCategory_(categoryKey) {
   }
 
   // Stage 3: Post-Synthesis Editorial Quality Gate
-  var stage3Quality = isEditoriallyAcceptable_(article.title, article.dek, article.content, selectedCandidate.sourceUrl, selectedCandidate.sourceName);
+  var stage3Quality = isEditoriallyAcceptable_(article.title, article.dek, article.content, selectedCandidate.sourceUrl, selectedCandidate.sourceName, true);
   if (!stage3Quality.acceptable) {
     Logger.log('REJECTED — EDITORIAL QUALITY GATE (Stage 3 Post-Synthesis): "' + (article.title || selectedCandidate.title) + '" [' + stage3Quality.reason + ']');
     return { success: false, reason: 'Synthesized article rejected by editorial quality gate: ' + stage3Quality.reason };
@@ -2252,7 +2280,7 @@ function runPipelineForCategory_(categoryKey) {
   var markdownContent = buildMarkdown_(article, imageObj, videos, selectedCandidate.sourceUrl, selectedCandidate, isFeatured);
 
   // Stage 4: Pre-Publish Final Editorial Quality Gate
-  var stage4Quality = isEditoriallyAcceptable_(article.title, article.dek, markdownContent, selectedCandidate.sourceUrl, selectedCandidate.sourceName);
+  var stage4Quality = isEditoriallyAcceptable_(article.title, article.dek, markdownContent, selectedCandidate.sourceUrl, selectedCandidate.sourceName, true);
   if (!stage4Quality.acceptable) {
     Logger.log('REJECTED — EDITORIAL QUALITY GATE (Stage 4 Pre-Publish): "' + (article.title || selectedCandidate.title) + '" [' + stage4Quality.reason + ']');
     return { success: false, reason: 'Final markdown rejected by editorial quality gate: ' + stage4Quality.reason };
