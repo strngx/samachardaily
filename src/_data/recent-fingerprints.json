@@ -1,5 +1,44 @@
 [
   {
+    "title": "Five-day campaign to protest limiting ‘Vande Mataram’ rendition",
+    "normalizedTitle": "fiveday campaign to protest limiting vande mataram rendition",
+    "keywords": [
+      "across",
+      "assembly",
+      "bjp",
+      "campaign",
+      "constituencies",
+      "decision",
+      "events",
+      "five",
+      "government",
+      "karnataka",
+      "limit",
+      "limiting",
+      "mataram",
+      "official",
+      "organise",
+      "padayatra",
+      "party",
+      "president",
+      "protest",
+      "rendition",
+      "saturday",
+      "september",
+      "stanzas",
+      "state",
+      "tuesday",
+      "two",
+      "vande",
+      "vijayendra"
+    ],
+    "category": "India",
+    "categoryKey": "india",
+    "slug": "bjp-launches-fiveday-karnataka-padayatra-to-contest-twostanza-vande-mataram-limit",
+    "sourceUrl": "https://www.thehindu.com/news/national/karnataka/five-day-campaign-to-protest-limiting-vande-mataram-rendition/article71460718.ece",
+    "timestamp": "2026-09-13T03:10:09.223Z"
+  },
+  {
     "title": "Alexander Zverev causes a stir with Carlos Alcaraz statement hours before US Open final",
     "normalizedTitle": "alexander zverev causes a stir with carlos alcaraz statement hours before us open final",
     "keywords": [
@@ -15875,33 +15914,5 @@
     "slug": "bihar-government-announces-cash-relief-for-flooddisplaced-new-mothers",
     "sourceUrl": "https://timesofindia.indiatimes.com/city/patna/flood-hit-new-mothers-to-get-cash-relief-govt/articleshow/133807294.cms",
     "timestamp": "2026-09-06T03:55:56.552Z"
-  },
-  {
-    "title": "Russell set the pace in final practice at Italian GP",
-    "normalizedTitle": "russell set the pace in final practice at italian gp",
-    "keywords": [
-      "clashed",
-      "evoked",
-      "final",
-      "grand",
-      "hamilton",
-      "italian",
-      "lewis",
-      "max",
-      "memories",
-      "pace",
-      "practice",
-      "prix",
-      "russell",
-      "scrap",
-      "set",
-      "title",
-      "verstappen"
-    ],
-    "category": "Sports",
-    "categoryKey": "sports",
-    "slug": "russell-tops-final-practice-at-italian-gp-as-hamilton-verstappen-feud-reignites",
-    "sourceUrl": "https://www.espn.co.uk/f1/story/_/id/49813188/lewis-hamilton-max-verstappen-clash-monza-george-russell-sets-pace-italian-grand-prix-formula-1-monza",
-    "timestamp": "2026-09-06T03:05:36.784Z"
   }
 ]
