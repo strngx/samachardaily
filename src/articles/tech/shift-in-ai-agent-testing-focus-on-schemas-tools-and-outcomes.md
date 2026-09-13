@@ -28,6 +28,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   A testing approach centered on functional intent and result verification can better ensure AI agents behave reliably across varied contexts, reducing the risk of unexpected failures in real‑world deployments.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Industry observers are calling for a fundamental change in how AI agents are evaluated, warning that treating them like ordinary software functions leads to fragile results.
 

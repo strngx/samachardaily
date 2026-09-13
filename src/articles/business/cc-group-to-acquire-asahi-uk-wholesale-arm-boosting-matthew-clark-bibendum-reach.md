@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   By absorbing Asahi UK’s wholesale arm, C&C Group broadens its distribution reach and diversifies its customer portfolio, potentially increasing market share and bargaining power with suppliers, while offering retailers a wider product assortment.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 C&C Group has confirmed it will purchase the wholesale business of Asahi UK, adding the latter’s distribution assets to its portfolio.
 

@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The incident highlights how quickly visual anomalies can spread online, prompting public scrutiny of vehicle safety and identification systems. If the disappearance is a technical glitch, a prank, or a deliberate alteration, it underscores gaps in monitoring on high‑speed corridors like the Pune‑Mumbai Expressway and may pressure authorities to investigate and reassure motorists, and ensure that road‑law enforcement can reliably track vehicles.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 A video posted online shows a luxury car cruising on the Pune‑Mumbai Expressway when its number plate appears to vanish mid‑drive.
 

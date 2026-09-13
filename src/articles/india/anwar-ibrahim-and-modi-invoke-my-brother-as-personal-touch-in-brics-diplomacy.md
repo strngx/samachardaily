@@ -28,6 +28,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The use of a familial term by two heads of state adds a personal dimension to their diplomatic engagement, potentially easing negotiations and fostering goodwill within the BRICS framework. Such rapport can influence bilateral cooperation, trade talks, and coordinated positions on global issues, benefiting both nations and the broader group.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Anwar Ibrahim and Narendra Modi used the phrase “My Brother” while engaging in diplomatic dialogue linked to the BRICS forum, according to Currents Wire.
 

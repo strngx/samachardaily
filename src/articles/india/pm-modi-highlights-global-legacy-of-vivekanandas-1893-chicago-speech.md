@@ -28,6 +28,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   Modi’s reference to Vivekananda signals the government’s intent to foreground historic Indian contributions as part of contemporary national identity, reinforcing the narrative of India’s longstanding cultural influence abroad.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Prime Minister Narendra Modi recalled Swami Vivekananda’s iconic 1893 address at the World Parliament of Religions in Chicago, describing it as a historic moment that projected Indian thought onto the world stage.
 

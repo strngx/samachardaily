@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   A detailed map of lunar ice, craters and volcanic features can deepen scientific understanding of the Moon’s history and inform future exploration efforts.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 NASA and IBM have unveiled an open‑source artificial‑intelligence model designed to chart the Moon’s surface. The model, built on decades of lunar mission data, automatically identifies ice deposits, impact craters and volcanic formations.
 

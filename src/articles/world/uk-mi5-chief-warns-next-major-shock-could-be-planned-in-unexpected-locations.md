@@ -25,6 +25,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The statement highlights a reassessment of threat priorities within UK security circles, indicating that officials are preparing for potential attacks beyond historically monitored targets.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Speaking in London on Sept. 11, the head of Britain’s domestic security service warned that intelligence agencies should not linger on previous threats but must accept the possibility of a new strategic shock being planned where they are not looking.
 

@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The meeting underscores the deepening strategic partnership between India and Indonesia, two of the Global South's largest economies. Their coordinated stance at the BRICS forum could shape the bloc's agenda on trade, technology and sustainable development, offering both nations greater influence in multilateral decision‑making.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Indonesian President Prabowo Subianto arrived in New Delhi to attend the 18th BRICS Summit.
 

@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   By flagging India as a primary driver of global expansion, the IMF signals that the country’s robust output could shape trade flows, investment decisions and policy priorities worldwide, offering a stabilising influence amid a generally sluggish international growth outlook.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 IMF spokesperson Julie Kozack said India’s 7.8% growth in the second quarter outpaced expectations, describing the nation as a "key engine of global growth" and highlighting its economic resilience.
 

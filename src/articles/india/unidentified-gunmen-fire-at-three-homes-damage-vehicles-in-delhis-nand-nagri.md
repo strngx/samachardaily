@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The incident underscores growing security challenges in Delhi's residential districts, prompting heightened scrutiny of police response capabilities and community safety measures. Residents and local authorities may demand stronger preventive actions, while the event could influence broader discussions on urban crime prevention across the capital.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 On Friday night, unidentified persons opened fire outside three residences in the Nand Nagri neighbourhood of Northeast Delhi, simultaneously vandalising vehicles parked nearby.
 

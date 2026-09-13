@@ -28,6 +28,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The defeat highlights the limits of Newsom’s influence over state tax policy and may affect his credibility as a national contender. A billionaire tax could reshape California’s revenue streams, while the campaign’s visibility will test voter appetite for wealth‑targeted reforms and signal how the governor’s agenda aligns with broader Democratic priorities.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 California Governor Gavin Newsom worked to prevent a proposed billionaire tax from appearing on the state ballot, but his effort did not succeed.
 

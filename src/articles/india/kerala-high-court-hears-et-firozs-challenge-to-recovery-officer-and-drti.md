@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The hearing underscores the role of higher courts in overseeing debt recovery mechanisms, potentially influencing how tribunals enforce creditor rights and protect debtors, which can affect lenders, borrowers, and the broader financial stability in India.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 The Kerala High Court recently heard the case titled E.T Firoz Vs. Recovery Officer, Debts Recovery Tribunal‑I and Ors., in which petitioner E.T Firoz contested actions taken by the Recovery Officer and the tribunal overseeing debt recovery.
 

@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   Meena’s achievement illustrates how extreme altitude adds a layer of difficulty to ultra‑marathons, prompting athletes from other regions to invest in specialized preparation. It also draws attention to Ladakh’s growing reputation as a destination for high‑altitude endurance events, potentially boosting tourism and local economies.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Suraj Meena, a non‑Ladakhi athlete, finished second in the Silk Route Ultra Ladakh Marathon, a 122‑kilometre high‑altitude race, on Friday.
 

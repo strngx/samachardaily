@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   Leach’s candid remarks bring attention to the importance of regular smear testing, a preventive measure that can detect abnormalities before they develop into serious disease. When a well‑known figure highlights personal health actions, it can reduce stigma, motivate viewers to schedule screenings, and potentially improve public health outcomes.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Ellie Leach, best known for her role on Coronation Street, has spoken publicly about a recent cancer scare and the medical procedure she underwent as a result.
 

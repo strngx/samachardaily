@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   McCarthy's repeat victory demonstrates his continued competitiveness in the regional senior golf scene, reinforcing his reputation among peers.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Kevin McCarthy secured his second Westmoreland County Golf Super‑Senior championship on Thursday, finishing at Greensburg Country Club.
 

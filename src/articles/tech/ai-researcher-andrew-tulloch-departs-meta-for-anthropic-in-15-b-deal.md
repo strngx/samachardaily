@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   Tulloch’s departure signals how fiercely tech giants are vying for AI expertise, potentially reshaping resource allocation and research priorities at both Meta and Anthropic, while illustrating the broader market pressure to secure cutting‑edge talent.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Andrew Tulloch, an AI researcher, has left Meta to join Anthropic, with reports indicating a compensation package valued at $1.5 billion.
 

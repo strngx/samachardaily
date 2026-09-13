@@ -28,6 +28,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The incident highlights how personal property disputes can rapidly turn violent, raising concerns about domestic safety and the need for effective conflict resolution mechanisms. It also underscores law enforcement's role in swiftly addressing homicide cases to maintain public confidence.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Police say a man was beaten to death in Goregaon, a suburb of Mumbai, after his friend allegedly used his clothes and other personal items without permission, leading to a fatal confrontation.
 

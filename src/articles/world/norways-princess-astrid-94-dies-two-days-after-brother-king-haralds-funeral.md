@@ -22,6 +22,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The passing of Princess Astrid, a senior member of Norway’s royal family, comes at a time of national mourning following King Harald’s funeral, underscoring a period of transition for the monarchy and prompting public reflection on the royal household’s role in national identity.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Princess Astrid of Norway, aged 94, died on Friday, the royal palace said in an official statement.
 

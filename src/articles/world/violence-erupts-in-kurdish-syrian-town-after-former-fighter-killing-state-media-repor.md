@@ -28,6 +28,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The incident highlights the precarious security environment in Syria's Kurdish regions, where the death of a former combatant can quickly trigger public disorder, potentially affecting broader stability and prompting heightened vigilance from security forces and humanitarian agencies.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Syrian state media reported that violent clashes broke out in a Kurdish-majority town following the killing of a former fighter, prompting immediate unrest in the area.
 

@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The crash highlights the scrutiny elite athletes face when personal mishaps intersect with public roads, raising questions about driver safety, vehicle security and potential legal repercussions for high‑profile individuals.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Hull City midfielder Sorba Thomas was involved in a traffic incident on Friday morning when his Land Rover overturned on a residential street, according to reports.
 

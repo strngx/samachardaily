@@ -25,6 +25,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The outperformance indicates that audiences are currently favoring the spiritual drama over the Yash‑led action title, a trend that could influence distributors' scheduling and promotional strategies.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 The spiritual drama 'Hanuman Ansh' recorded higher box‑office receipts than Yash’s latest release 'Toxic' on Thursday, extending its lead in the current market.
 

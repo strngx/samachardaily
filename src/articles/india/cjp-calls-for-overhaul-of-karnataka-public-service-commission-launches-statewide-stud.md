@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   An overhaul of the KPSC could reshape the recruitment and selection process for Karnataka’s civil services, potentially improving transparency and meritocracy. By mobilizing students, the CJP seeks to generate grassroots pressure on policymakers, signalling broader public concern over the commission’s functioning. The combined push may influence legislative scrutiny, prompt administrative reviews, and affect future employment prospects for aspiring public servants in the state.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 The CJP has publicly demanded a thorough reform of the Karnataka Public Service Commission (KPSC), citing the need for systemic changes.
 

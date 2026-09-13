@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The arrest addresses a high‑profile homicide involving a Black woman, a demographic historically underrepresented in homicide investigations. It signals law‑enforcement responsiveness and may influence community confidence in the justice process, while also highlighting ongoing concerns about racially motivated violence.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Jackson, Mississippi – Law enforcement officials disclosed on Friday that they have taken a man into custody in relation to the fatal hanging of Tasia Fortune.
 

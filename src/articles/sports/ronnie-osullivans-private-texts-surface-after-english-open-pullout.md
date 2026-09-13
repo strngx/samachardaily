@@ -22,6 +22,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The emergence of O'Sullivan’s private correspondence keeps the spotlight on his role in shaping player dynamics and media narratives, reinforcing his status as a pivotal figure whose actions influence tournament storylines and fan engagement.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 World snooker champion Ronnie O'Sullivan, known as The Rocket, pulled out of this season’s English Open, and private text messages he sent to a fellow player have now been made public.
 

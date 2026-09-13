@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The Royals' victory marks Boston's third consecutive loss, intensifying pressure on a Red Sox squad fighting for a playoff berth. At the same time, Seth Lugo's first career win against the Red Sox offers a confidence boost for the pitcher and adds momentum to the Royals' pitching staff. It also underscores the Royals' ability to capitalize on Boston's struggles, potentially shifting the early-season dynamics in the American League Central.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 The Kansas City Royals defeated the Boston Red Sox, handing Boston its third straight loss.
 

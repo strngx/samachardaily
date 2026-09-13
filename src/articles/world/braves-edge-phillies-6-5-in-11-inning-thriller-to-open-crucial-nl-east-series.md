@@ -28,6 +28,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   By clinching the opener of a pivotal NL East series, the Braves not only secure a morale‑boosting extra‑inning victory but also gain a foothold in a division where every game matters. The win puts Atlanta ahead in the head‑to‑head battle with Philadelphia, potentially influencing the standings as the season heads toward its playoff stretch, while the Phillies must regroup quickly to stay within striking distance.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 The Atlanta Braves defeated the Philadelphia Phillies 6‑5 in an 11‑inning contest on Friday, sealing the victory when Drake Baldwin delivered a double to center field that brought Ha‑Seong Kim home from first base.
 

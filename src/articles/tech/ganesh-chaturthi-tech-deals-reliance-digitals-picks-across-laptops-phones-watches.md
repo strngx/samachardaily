@@ -28,6 +28,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The festive rollout gives price‑sensitive consumers access to newer technology while reinforcing Reliance Digital’s presence in a competitive retail landscape. By bundling multiple device categories, the retailer aims to capture a larger share of seasonal demand and boost overall sales volumes during a key shopping window.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Reliance Digital has launched a set of Ganesh Chaturthi promotions covering three core product categories: laptops, smartphones and smartwatches.
 

@@ -28,6 +28,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   Tensions between the United States and Canada could disrupt the integrated supply chains and cross‑border commerce that underpin both economies, prompting businesses and consumers to face higher costs or regulatory uncertainty, while also testing the durability of long‑standing political cooperation.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 The bilateral relationship between the United States and Canada is under heightened strain, marking a notable shift 25 years after the September 11 attacks.
 

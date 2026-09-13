@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   Accurate datum design bridges the gap between casting and subsequent machining, ensuring parts meet dimensional tolerances and reducing rework. By clarifying how foundries interpret machining datums, the article offers manufacturers insight into improving drawing communication, streamlining production, and enhancing product quality across the supply chain. It also highlights the role of precise datum placement in minimizing tooling wear and accelerating time‑to‑market for automotive and aerospace components.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Abnewswire published a piece titled "Casting Datum Design: How Foundries Read Machining Datums on a Drawing," focusing on the technical aspects of datum design in casting.
 

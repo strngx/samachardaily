@@ -28,6 +28,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   Imam’s choice highlights how Indian celebrities are reassessing their digital habits, potentially influencing fans and peers to consider the balance between online presence and personal wellbeing.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 Mumbai, Sep 11 – Television actor Zain Imam announced that he has removed the Instagram application from his mobile device.
 

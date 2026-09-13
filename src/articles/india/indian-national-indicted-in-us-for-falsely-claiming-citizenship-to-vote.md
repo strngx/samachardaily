@@ -28,6 +28,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The case reflects ongoing federal law enforcement actions targeting non-citizen voter registration and voting allegations in United States elections.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 A federal grand jury in the District of Minnesota has returned a two-count indictment against an Indian national for allegedly making a false claim of United States citizenship to vote in the 2024 election.
 
