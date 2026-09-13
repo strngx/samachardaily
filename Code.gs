@@ -603,6 +603,12 @@ function isNewsworthyEditorialContent_(candidateOrTitle, optDesc, optContent, op
     return { reject: true, acceptable: false, reason: 'SYNDICATED PR WIRE / MARKET RESEARCH SPAM' };
   }
 
+  // 6b. Inaccessible / Paywall-blocked source notices
+  var PAYWALL_SOURCE_PATTERN = /\b(remains? behind (?:a )?paywall|behind a paywall|article is behind (?:a )?paywall|subscription required|subscriber[- ]only (?:content|article|story|access)|exclusive to subscribers|full story is available to subscribers|login required to view|available only to (?:paid )?subscribers|this content is for subscribers only)\b/i;
+  if (PAYWALL_SOURCE_PATTERN.test(fullText)) {
+    return { reject: true, acceptable: false, reason: 'PAYWALL-BLOCKED / INACCESSIBLE SOURCE NOTICE' };
+  }
+
   // 7. Entertainment filler / "what to watch" / streaming lists
   if (ENTERTAINMENT_FILLER_PATTERN.test(title + ' ' + desc)) {
     return { reject: true, acceptable: false, reason: 'ENTERTAINMENT FILLER / WHAT TO WATCH CONTENT' };
@@ -773,7 +779,10 @@ function isRelevantCandidate_(headline, category) {
   var excludePatterns = [
     /\bhigh school\b/, /\bfactory closes\b/, /\bfactory closing\b/,
     /\blocal home sales\b/, /\bmost expensive home\b/, /\bsingle-family\b/,
-    /\bdonut\b/, /\bhometown\b/, /\bfreshman quarterback\b/
+    /\bdonut\b/, /\bhometown\b/, /\bfreshman quarterback\b/,
+    /\byouth (?:golf|soccer|baseball|basketball|hockey|tennis|sports?|tournament|league)\b/,
+    /\b(?:little league|pee[- ]wee|junior varsity|\bjv\b|middle school|prep roundup)\b/,
+    /\b(?:county supersenior|country club championship|park district|city rec league|community sports corner|amateur (?:softball|baseball|golf|league))\b/
   ];
   for (var i = 0; i < excludePatterns.length; i++) {
     if (excludePatterns[i].test(text)) return false;
