@@ -664,6 +664,34 @@ function isEditoriallyAcceptable_(candidateOrTitle, optDesc, optContent, optSour
   return isNewsworthyEditorialContent_(candidateOrTitle, optDesc, optContent, optSourceUrl, optSourceName, optIsSynthesized);
 }
 
+/**
+ * Calculates real word count of candidate source material without double-counting duplicate fields.
+ */
+function countCandidateSourceWords_(candidate) {
+  if (!candidate) return 0;
+
+  var desc = (candidate.description || '')
+    .replace(/<[^>]*>/g, ' ')
+    .trim();
+
+  var content = (candidate.content || '')
+    .replace(/<[^>]*>/g, ' ')
+    .trim();
+
+  var combined = desc;
+
+  // Do NOT double-count APIs where content is identical to description.
+  if (content && content !== desc) {
+    combined += ' ' + content;
+  }
+
+  return combined
+    ? combined.split(/\s+/).filter(function(w) {
+        return w.length > 0;
+      }).length
+    : 0;
+}
+
 var GAME_HINTS_AND_STREAM_PATTERN = /\b(quordle|wordle|connections|crossword|strands|spelling bee|octordle|contexto)\s+(hints?|clues?|answers?|today|daily)|today's\s+(quordle|wordle|connections|crossword|strands)|(wordle|connections|quordle)\s+answer\s+today\b|\b(how to watch|where to watch|watch\s+.+\s+live\s+stream|streaming details|live stream channel|live stream online|air time and tv channel|game walkthrough|game hints|daily puzzle answers)\b/i;
 
 /**
@@ -2196,6 +2224,20 @@ function runPipelineForCategory_(categoryKey) {
     c.categoryName = catCfg.name;
     // Compute trend score before selection
     c.trendingMatch = scoreAgainstTrends_(c, catCfg.trendGeo);
+
+    // Source Material Substance Gate: reject thin source material (<70 words) unless trending
+    var sourceWordCount = countCandidateSourceWords_(c);
+    if (sourceWordCount < 70 && c.trendingMatch !== 'yes') {
+      Logger.log(
+        'REJECTED — THIN SOURCE MATERIAL (<70 words, ' +
+        sourceWordCount +
+        'w): "' +
+        c.title +
+        '"'
+      );
+      continue;
+    }
+
     validCandidates.push(c);
   }
 
