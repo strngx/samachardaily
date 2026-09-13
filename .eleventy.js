@@ -477,15 +477,10 @@ module.exports = function (eleventyConfig) {
       fs.writeFileSync(hashedCssPath, css, "utf8");
     }
 
-    // 2. Minify and emit hashed main.js
+    // 2. Emit hashed main.js cleanly
     const jsPath = path.join(__dirname, outDir, "assets", "js", "main.js");
     if (fs.existsSync(jsPath)) {
-      let js = fs.readFileSync(jsPath, "utf8");
-      js = js
-        .replace(/\/\*[\s\S]*?\*\//g, "")
-        .replace(/\/\/[^\n]*/g, "")
-        .replace(/\s+/g, " ")
-        .trim();
+      const js = fs.readFileSync(jsPath, "utf8");
       fs.writeFileSync(jsPath, js, "utf8");
       const hashedJsPath = path.join(__dirname, outDir, "assets", "js", `main.${jsHash}.js`);
       fs.writeFileSync(hashedJsPath, js, "utf8");
