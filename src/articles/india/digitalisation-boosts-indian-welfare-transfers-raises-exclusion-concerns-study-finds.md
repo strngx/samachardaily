@@ -4,7 +4,7 @@ seoTitle: "India digital welfare transfers and exclusion risks"
 category: "India"
 date: 2026-09-15T16:30:33Z
 image: "https://images.pexels.com/photos/6289170/pexels-photo-6289170.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Isometric image of online money transfer via mobile phones on light background \"
+imageAlt: "Isometric image of online money transfer via mobile phones on light background"
 imageCredit: "Monstera Production"
 trending: false
 featured: false
