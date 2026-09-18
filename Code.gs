@@ -647,9 +647,9 @@ function isNewsworthyEditorialContent_(candidateOrTitle, optDesc, optContent, op
   if (isSynthesized && visibleBody) {
     var bodyWords = visibleBody.split(/\s+/).filter(function(w) { return w.length > 0; });
     
-    // Catch empty or near-empty generated body output (under 30 words)
-    if (bodyWords.length < 30) {
-      return { reject: true, acceptable: false, reason: 'LOW-SUBSTANCE / BODY UNDER 30 WORDS' };
+    // Catch empty or near-empty generated body output (under 70 words)
+    if (bodyWords.length < 70) {
+      return { reject: true, acceptable: false, reason: 'LOW-SUBSTANCE / BODY UNDER 70 WORDS' };
     }
 
     // Catch cases where the generated body merely duplicates the headline
@@ -1514,7 +1514,7 @@ function rewriteWithGroq_(headline, category, config) {
     "5. TEMPORAL ACCURACY: Never reference years, cycles, or 'upcoming' events using any year other than what is explicitly stated in the source dispatch.\n" +
     '6. SOURCE STRUCTURE INDEPENDENCE: After extracting the supported facts from the source dispatch, independently organize those facts into a clear newsroom structure. Do not mechanically preserve the source wire\'s sentence order, clause order, or paragraph sequence when a clearer journalistic structure is possible. Lead with the most important verified development, then progress through distinct supporting facts, developments, explanations, or consequences. Use original transitions and sentence construction. Structural independence must NEVER require adding, guessing, or changing facts.\n' +
     '7. SOURCE-LIMITED CONTEXTUALIZATION: Originality means original organization, transitions, explanation, and journalistic framing—not invented information. Any contextual or explanatory sentence must be directly warranted by facts contained in the supplied source. Never introduce outside knowledge simply to make the article appear more complete or more original.\n' +
-    '8. SHORT-SOURCE HANDLING: When the source dispatch is very short (approximately 30–80 words), produce the strongest possible standalone news brief from the available verified facts. Preserve all material names, entities, dates, numbers, locations, decisions, statements, and other supported specifics. Use 2–3 concise paragraphs when the source contains enough distinct information to support them. Paragraphs should have distinct purposes rather than repeating the same fact. If the source does not contain enough distinct information for multiple paragraphs, remain concise rather than padding the article.\n' +
+    '8. SUBSTANTIVE JOURNALISTIC REPORTING: Produce substantive, structured coverage across 2–4 comprehensive paragraphs (targeting approximately 200–350 words when supported by source material). Preserve all material names, entities, dates, numbers, locations, decisions, statements, and other supported specifics. Paragraphs should have distinct purposes rather than repeating the same fact. If source information is insufficient to support multiple paragraphs, keep the brief concise without padding, but ensure all supported specifics are clearly explained.\n' +
     '9. SHORT-SOURCE ZERO-PADDING RULE: Never invent background, historical context, quotations, reactions, statistics, comparisons, motives, consequences, timelines, or future developments merely because the source is short. A short accurate brief is always preferable to a longer article containing unsupported material.\n' +
     '10. INDEPENDENT PARAGRAPH PROGRESSION: Each paragraph must advance the story with a different supported fact, development, explanation, or directly warranted significance. Do not split one source sentence into multiple paragraphs merely to increase paragraph count.\n' +
     '11. FINAL ORIGINALITY CHECK: Before returning JSON, internally verify that the article is both factually faithful and structurally independent from the source. If the article follows the source\'s wording or sequence too closely, rewrite its structure and transitions without introducing any new facts.\n\n' +
@@ -2234,9 +2234,9 @@ function runPipelineForCategory_(categoryKey) {
     // Compute trend score before selection
     c.trendingMatch = scoreAgainstTrends_(c, catCfg.trendGeo);
 
-    // Source Material Substance Gate: reject thin source material (<70 words) unless trending
+    // Source Material Substance Gate: reject thin source material (<70 words)
     var sourceWordCount = countCandidateSourceWords_(c);
-    if (sourceWordCount < 70 && c.trendingMatch !== 'yes') {
+    if (sourceWordCount < 70) {
       Logger.log(
         'REJECTED — THIN SOURCE MATERIAL (<70 words, ' +
         sourceWordCount +

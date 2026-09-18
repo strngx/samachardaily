@@ -253,6 +253,16 @@ module.exports = function (eleventyConfig) {
     return diff <= (3 * 60 * 60 * 1000);
   });
 
+  // Check if article is published within last 48 hours for Google News sitemap compliance
+  eleventyConfig.addFilter("isRecentNews", function (date) {
+    if (!date) return false;
+    const artTime = new Date(date).getTime();
+    if (isNaN(artTime)) return false;
+    const now = new Date().getTime();
+    const diff = now - artTime;
+    return diff >= 0 && diff <= (48 * 60 * 60 * 1000);
+  });
+
   // Homepage Priority Scoring & Unified Feed Filter
   function getArticleScore(art) {
     const isTrending = art.data && (art.data.trending === true || art.data.trending === "true");

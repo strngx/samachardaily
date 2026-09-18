@@ -1,17 +1,3 @@
-{% set vid = videoId or video_id %}
-{% if vid and vid != "" and vid != "null" %}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "VideoObject",
-  "name": {{ (videoCaption or video_caption or title) | json | safe }},
-  "description": {{ (dek or title) | json | safe }},
-  "thumbnailUrl": [
-    "https://img.youtube.com/vi/{{ vid }}/maxresdefault.jpg",
-    "https://img.youtube.com/vi/{{ vid }}/hqdefault.jpg"
-  ],
-  "uploadDate": "{{ page.date | isoDate }}",
-  "embedUrl": "https://www.youtube.com/embed/{{ vid }}"
-}
-</script>
-{% endif %}
+{# VideoObject structured data is intentionally disabled on standard text news articles.
+   Google requires VideoObject to only be present on dedicated watch pages where the video
+   is the primary content. The visible YouTube video embed remains active via video-embed.njk. #}

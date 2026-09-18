@@ -42,6 +42,7 @@ eleventyExcludeFromCollections: true
     <lastmod>{{ article.date | isoDate }}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+    {% if article.date | isRecentNews %}
     <news:news>
       <news:publication>
         <news:name>{{ site.name }}</news:name>
@@ -50,6 +51,7 @@ eleventyExcludeFromCollections: true
       <news:publication_date>{{ article.date | isoDate }}</news:publication_date>
       <news:title>{{ article.data.title | escape }}</news:title>
     </news:news>
+    {% endif %}
   </url>
   {% endif %}
   {% endfor %}
