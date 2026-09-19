@@ -1,5 +1,28 @@
 [
   {
+    "title": "Trump bans CNN, other 'fake news' from White House",
+    "normalizedTitle": "trump bans cnn other fake news from white house",
+    "keywords": [
+      "bans",
+      "barring",
+      "cnn",
+      "donald",
+      "fake",
+      "house",
+      "msnow",
+      "politico",
+      "president",
+      "reporters",
+      "trump",
+      "white"
+    ],
+    "category": "World",
+    "categoryKey": "world",
+    "slug": "trump-bars-cnn-msnow-politico-from-white-house-labels-them-fake-news",
+    "sourceUrl": "https://www.blayneychronicle.com.au/story/9353356/trump-bans-cnn-other-fake-news-from-white-house/?src=rss",
+    "timestamp": "2026-09-19T14:43:32.216Z"
+  },
+  {
     "title": "Google joins OpenAI, Anthropic, Meta in disclosing AI hacks",
     "normalizedTitle": "google joins openai anthropic meta in disclosing ai hacks",
     "keywords": [
@@ -17393,32 +17416,5 @@
     "slug": "foundries-decode-machining-datums-inside-casting-datum-design",
     "sourceUrl": "https://www.abnewswire.com/pressreleases/casting-datum-design-how-foundries-read-machining-datums-on-a-drawing_835424.html",
     "timestamp": "2026-09-12T14:56:00.572Z"
-  },
-  {
-    "title": "18th BRICS Summit To Begin In New Delhi Today",
-    "normalizedTitle": "18th brics summit to begin in new delhi today",
-    "keywords": [
-      "18th",
-      "begin",
-      "bharat",
-      "brics",
-      "bringing",
-      "delhi",
-      "host",
-      "india",
-      "leaders",
-      "mandapam",
-      "saturday",
-      "september",
-      "summit",
-      "sunday",
-      "today",
-      "together"
-    ],
-    "category": "India",
-    "categoryKey": "india",
-    "slug": "india-launches-18th-brics-summit-at-new-delhis-bharat-mandapam-on-sept-12",
-    "sourceUrl": "https://ommcomnews.com/india-news/18th-brics-summit-to-begin-in-new-delhi-today/",
-    "timestamp": "2026-09-12T14:10:15.583Z"
   }
 ]
