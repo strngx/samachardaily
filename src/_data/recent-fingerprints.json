@@ -1,5 +1,27 @@
 [
   {
+    "title": "Now Trump says he's creating an AI Force",
+    "normalizedTitle": "now trump says hes creating an ai force",
+    "keywords": [
+      "agency",
+      "announce",
+      "creating",
+      "czar",
+      "force",
+      "made",
+      "newly",
+      "president",
+      "run",
+      "soon",
+      "trump"
+    ],
+    "category": "Tech",
+    "categoryKey": "tech",
+    "slug": "trump-announces-plans-for-new-ai-force-agency-and-upcoming-ai-czar",
+    "sourceUrl": "https://www.engadget.com/2263237/now-trump-says-hes-creating-an-ai-force/",
+    "timestamp": "2026-09-20T07:24:07.320Z"
+  },
+  {
     "title": "Clemson vs UNC football weather updates: Lightning delays Tigers-Tar Heels game",
     "normalizedTitle": "clemson vs unc football weather updates lightning delays tigerstar heels game",
     "keywords": [
@@ -16221,38 +16243,5 @@
     "slug": "hyderabad-man-defrauded-of-rs-35-crore-in-extended-dating-app-scam",
     "sourceUrl": "https://newsable.asianetnews.com/india/man-loses-crores-in-shocking-dating-app-scam-in-hyderabad-articleshow-50kq3qg",
     "timestamp": "2026-09-13T08:10:08.933Z"
-  },
-  {
-    "title": "Hungary's PM to scrap Orban-era ban on gay adoption",
-    "normalizedTitle": "hungarys pm to scrap orbanera ban on gay adoption",
-    "keywords": [
-      "adoption",
-      "ban",
-      "banned",
-      "change",
-      "couples",
-      "effectively",
-      "era",
-      "former",
-      "gay",
-      "government",
-      "hungary",
-      "legislation",
-      "lesbian",
-      "magyar",
-      "minister",
-      "orban",
-      "passed",
-      "peter",
-      "prime",
-      "regime",
-      "scrap",
-      "viktor"
-    ],
-    "category": "World",
-    "categoryKey": "world",
-    "slug": "hungarys-pm-pledges-to-repeal-2020-ban-on-gay-and-lesbian-adoption",
-    "sourceUrl": "https://www.riverineherald.com.au/world/hungarys-pm-to-scrap-orban-era-ban-on-gay-adoption/",
-    "timestamp": "2026-09-13T07:23:55.270Z"
   }
 ]
