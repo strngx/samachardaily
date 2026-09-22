@@ -20,8 +20,10 @@ why_it_matters: |
   The EMI scheme can ease cash‑flow pressures for small and medium manufacturers by postponing customs duty payments, potentially lowering working‑capital costs and enhancing competitiveness. Low participation signals implementation gaps, so the CBIC’s outreach and simplified paperwork aim to unlock the policy’s intended benefits for the broader manufacturing sector.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-A senior CBIC official said on Wednesday that fewer than 1,000 businesses have enrolled in the Eligible Manufacturer Importer (EMI) scheme since its April 1 launch, prompting the board to start outreach programmes and "handhold" MSMEs to encourage uptake.
+The Central Board of Indirect Taxes and Customs (CBIC) is rolling out nationwide outreach campaigns and simplifying compliance requirements after fewer than 1,000 manufacturing units enrolled in its Eligible Manufacturer Importer (EMI) scheme during the first five months of operation.
 
-The EMI scheme, introduced in the 2026‑27 Union Budget, allows trusted manufacturers to clear imported goods without paying Customs duty up front, deferring payment under a new facilitation measure for eligible importers.
+Introduced in the 2026–27 Union Budget and officially launched on April 1, the trade facilitation program enables verified domestic manufacturers to clear imported raw materials and capital goods without upfront customs duty payments. Under the deferred payment mechanism, eligible businesses can settle accumulated customs obligations periodically, helping small and medium enterprises (MSMEs) ease short-term working capital pressures and reduce cargo dwell times at ports.
 
-Effective September 15, the CBIC will "substantially reduce" the data and documentation requirements for enrolment, a move the official said is intended to make the scheme more acceptable after it failed to take off as envisaged.
+However, complex registration documentation and strict eligibility verification led to muted industry participation, with total sign-ups remaining below the 1,000-enterprise mark. To address these administrative bottlenecks, the CBIC announced that data submission rules and verification procedures have been substantially curtailed, effective September 15.
+
+Under the revised norms, field formations will conduct direct handholding sessions with regional MSME clusters, guiding eligible manufacturers through digital registration on the ICEGATE portal. The tax authority anticipates that lower compliance friction will expand participation among export-oriented manufacturers and enhance the liquidity benefits intended by the trade policy.

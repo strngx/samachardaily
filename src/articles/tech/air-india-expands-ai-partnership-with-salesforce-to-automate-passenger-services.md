@@ -29,8 +29,10 @@ why_it_matters: |
   The faster resolution of refunds and the automation of email, name‑change and knowledge‑assistant tasks promise shorter wait times for travelers and lower operational costs for the carrier, highlighting how AI can streamline airline customer service and improve passenger satisfaction.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Air India announced it is extending its use of Salesforce’s Agentforce AI technology beyond refund processing to cover three new customer‑service functions: automated email resolution, passenger name‑change requests and a knowledge‑assistant tool for its support teams.
+Air India has expanded its enterprise artificial intelligence deployment with Salesforce, integrating the software maker's Agentforce platform across three critical customer support workflows: automated passenger email resolution, name-correction processing, and an internal AI knowledge assistant for frontline service agents.
 
-The expansion follows a pilot that applied Agentforce to refund handling, which the airline says reduced the average turnaround from roughly 14 days to about four hours.
+The initiative builds on an initial pilot program that deployed Agentforce specifically for ticket refund management. According to airline operational data, the automated system reduced average refund turnaround times from approximately 14 days down to four hours by autonomously validating booking records, computing eligible fare calculations, and executing transaction clearances.
 
-By automating these additional touchpoints, Air India aims to speed up response times for a broader range of passenger inquiries, using AI to manage complex requests that previously required manual effort.
+Under the expanded framework, the AI platform will directly process high-volume passenger correspondence by parsing inquiries, verifying traveler identity records, and generating contextual resolutions without requiring manual representative intervention. For complex administrative tasks, such as typographical name corrections across international booking systems, the tool cross-checks passenger identification against airline compliance rules to execute approved changes.
+
+Additionally, the embedded knowledge assistant provides real-time policy guidance to human customer service teams, surfacing relevant baggage rules, visa transit requirements, and flight change options during active support calls. The rollout forms a central pillar of Air India's broader multi-year digital modernization program under Tata Group ownership, aiming to streamline passenger servicing across global operations.

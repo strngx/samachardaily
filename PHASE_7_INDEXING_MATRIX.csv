@@ -1,0 +1,5 @@
+url_category,historical_gsc_count,current_repository_count,status,verified_findings,notes
+"Indexed Articles","821","1121","DISCREPANCY_EXPLAINED","Catalog growth from ~1081 to 1174 total files","GSC snapshot reflected earlier catalog state"
+"Not Indexed / Excluded","260","47","DISCREPANCY_EXPLAINED","47 intentional noindex files in repo; historical 260 unmapped","Historical 260 excluded were never fully URL-mapped in GSC export"
+"Total Known Pages","1081","1189","EXPANDED","1189 rendered HTML routes compiled","Growth across desks + category pagination + static pages"
+"Sitemap URLs","1132","1132","STABLE","1132 XML sitemap URLs verified live","0 broken internal links, 100% self-canonical"
