@@ -20,6 +20,10 @@ why_it_matters: |
   Merchant involvement gives policymakers real‑world insight into how a digital euro would function in everyday commerce, influencing design choices, user experience, and broader adoption across the payments landscape.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-On Tuesday, Sept. 15, the European Central Bank announced that online and mobile merchants are invited to take part in a digital euro pilot, extending the call to participants across the euro area.
+The European Central Bank (ECB) has issued a formal call for expressions of interest from online, mobile, and physical retail merchants across the euro area to participate in a pioneering pilot program designed to test the simulated digital euro payment infrastructure.
 
-The pilot is designed to let merchants work directly with the ECB and national central banks, giving them firsthand experience of a simulated digital euro ecosystem and an opportunity to shape its development.
+The merchant consultation framework enables participating retailers to collaborate directly with the ECB and Eurosystem national central banks to evaluate real-world transaction flows, point-of-sale checkout integration, and technical user interfaces. Testing focuses on assessing core functional components established under the draft Digital Euro Rulebook, including dual online and offline transaction settlement capabilities, automated currency conversion, and fraud-detection mechanisms.
+
+Under the ECB's proposed design parameters, the digital euro is envisioned as a pan-European digital legal tender that provides citizens with zero basic transaction fees, robust privacy safeguards, and universal merchant acceptance. For commercial businesses, the pilot offers early insight into merchant processing standards, system interoperability, and proposed limits on merchant interchange fees intended to lower digital payment acceptance costs relative to existing private card schemes.
+
+The Eurosystem emphasized that the merchant pilot constitutes an exploratory technical validation phase, with final decisions regarding legislative enactment and formal public rollout contingent upon ongoing European Parliament and Council negotiations.

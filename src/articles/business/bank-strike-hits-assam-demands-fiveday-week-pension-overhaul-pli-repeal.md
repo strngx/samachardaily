@@ -29,8 +29,10 @@ why_it_matters: |
   The strike halts routine banking services, affecting customers and businesses that rely on daily transactions. It also spotlights mounting pressure on the financial sector to reform work schedules, pension policies, and incentive schemes, potentially prompting regulatory review and influencing future labour negotiations.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-On Friday, bank employees staged a strike that disrupted banking operations nationwide, with a pronounced impact reported in Assam.
+Banking operations across India experienced widespread disruption following a nationwide walkout by public sector bank employees, with significant operational halts reported across branches and regional clearing operations in Assam.
 
-Unions leading the walkout are pressing for three core changes: the introduction of a five‑day banking week, a revision of pension structures, and the withdrawal of the Performance Linked Incentive (PLI) scheme.
+The strike action, spearheaded by constituent unions under the United Forum of Bank Unions (UFBU), centers on three long-standing administrative and labor demands: the formal implementation of a five-day banking week, a comprehensive revision of pension formulas, and the immediate withdrawal of the Performance Linked Incentive (PLI) framework.
 
-The demands are described by unions as long‑pending, signalling broader discontent within the sector and increasing pressure on banks and regulators to address these labour concerns.
+Union representatives highlighted that the five-day workweek proposal had previously received in-principle consensus during bipartite settlement discussions with the Indian Banks' Association (IBA), but remains pending final government notification. On retirement benefits, unions are pressing for regular pension updation aligned with wage revisions, particularly addressing disparities faced by pre-November 2002 retirees. Additionally, employee groups voiced strong opposition to the variable PLI structure, arguing that performance matrix allocations create undue operational pressure on branch staff.
+
+In Assam, routine counter services, cash deposits, and interbank cheque clearances were substantially constrained, while digital banking and automated teller networks operated independently. Union leadership reiterated that sustained industry engagement will be necessary to resolve the pending labor grievances and finalize working-hour agreements.
