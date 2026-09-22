@@ -1,0 +1,1480 @@
+{
+  "phase": "2C-1A",
+  "mode": "read_only",
+  "total_p0": 28,
+  "validation_summary": {
+    "a_enrich": 28,
+    "b_keep_short": 0,
+    "c_source_required": 0,
+    "d_manual_review": 0,
+    "sources_verified": 28,
+    "temporal_conflicts": 0,
+    "cannibalization_checked": 28,
+    "cannibalization_overlap_managed": 1
+  },
+  "articles": [
+    {
+      "path": "src/articles/tech/apple-iphone-17-pro-max-price-falls-to-rs-74990-at-croma-adds-exchange-bonus-free-cas.md",
+      "title": "Apple iPhone 17 Pro Max price falls to Rs 74,990 at Croma, adds exchange bonus, free case",
+      "publication_timestamp": "2026-09-15T17:24:02Z",
+      "current_body_words": 57,
+      "intent": "Croma retail deal query: iPhone 17 Pro Max effective ₹74,990 festive discount, exchange bonus structure, and bank card cashback",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "Croma Retail / Google News Wire",
+            "url": "https://news.google.com/rss/articles/CBMimAJBVV95cUxQb2VjWEZVV0JYYUJYQUF4SXNDZFhLd0gtSXVhWXNnakJPYU1rUzlJY0RNbVk0SEZjQV9iTS1SN0c3TXVfU0lVVVNjMmlBalJZRkN6dUk3TjgzTUw4a0VzV1F6RXJkeU50Xzg4MW5KTWtZbXp1cUdKc3U3MU9XbTJfek51TG92dFpjQWpyUmJUV29waU1iOVlaNWp6TG9RUGNSNmJIX1l2dVdtanRNRXB0eE1iRkRJRTBzblBLZnJSOEZCRk9mZU5EbXNydkZjSFFKU3NsWmpSSlY5RjM4bWNKeVlHeWpGWTFxUHFWbzluckREZklPa0RxRjhuQ1cxcHg4ZmUzbExTTm54c0F5T3hreGdfVTN0d2Ux0gGeAkFVX3lxTE5wVWQ0b1hfVzVHSWFlQnBuTWVBSEFHejhRTHZZNUJfc3p3bGNNeVl2bGJ0c0JyanUxWk9KN1Q4TFJiUV83S0s0U2NVOVo0MHVtTEhTd0hQT2FlOXBGczBDdHQxbjlPZGozUFYxU2hvU2tzSDlzdV9NQWUxNnhTNlN2dG0xTXpJTkpCNmEzVURHMXA4RU1RTW5PVkM3ZzJQYXBYVjJfWUd3SjN0cEQtVnZncXFWb2NKNzZXUTZIWE02c0pDc2hZM2VPQkZuR2FzNnFPaFd1RkotejV1T1Q1c0d4TlBZaXpzYlVUY2drRmprdzYtZHo5bU9hZk9WNjBiRkM2dDU0emw3QW1sSEN2ZnpMT2lVX29RdlNKdzJ4TXc?oc=5",
+            "date": "2026-09-15",
+            "type": "Secondary (Retail Aggregator Wire)",
+            "supported_claims": [
+              "Listed drop to ₹74,990",
+              "Exchange bonus offering",
+              "Free protective case bundle",
+              "10% store card discount"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Exchange bonus mechanism: Up to ₹10,000 additional trade-in value on functional iPhone 15/16 Pro devices.",
+          "source": "Croma Festive Electronics Campaign Dispatches",
+          "source_date": "2026-09-15",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Clarifies how the ₹74,990 effective price is calculated from the base MRP."
+        },
+        {
+          "fact": "Bank card eligibility: 10% instant discount up to ₹5,000 on ICICI and HDFC Bank credit/debit card EMI transactions.",
+          "source": "Croma Offer Terms",
+          "source_date": "2026-09-15",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Provides actionable terms for buyers."
+        }
+      ],
+      "rejected_additions": [
+        "Unverified future Diwali flash sales",
+        "Comparisons to US retail pricing"
+      ],
+      "final_word_range": {
+        "min": 180,
+        "max": 220
+      },
+      "risk_flags": [],
+      "cannibalization_notes": [
+        "Keep focus strictly on Croma retail terms; do not turn into general iPhone review."
+      ]
+    },
+    {
+      "path": "src/articles/tech/lava-unveils-virat-curve-5g-smartphone-at-19999-launch-price.md",
+      "title": "Lava Unveils Virat Curve 5G Smartphone at ₹19,999 Launch Price",
+      "publication_timestamp": "2026-09-22T05:24:04Z",
+      "current_body_words": 54,
+      "intent": "Lava Virat Curve 5G smartphone specifications: launch price ₹19,999, MediaTek Dimensity 7100, 120Hz curved AMOLED, 6,000mAh battery",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "Google News / Lava Mobiles Press Wire",
+            "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPekVLR0FqOHJJdGxjSTQ3dThlVXNKYUJFNlQwc2N3bWd2YVNhTlQ1Rno4aTBjTF82eElFRXNIV3YwT185dkktX3d0bFM0R1VjLTZ3OFFoOEJHanM0UzM1bUhrQ0F5MUlKdHNpeDY1QTczbk1GVVRTMEQyUndyN2lRa0NEOTgzbTNnUHBXaFZzZF80S0RVaUZ4b3pLbEZadkdPZEFOMDRvWS1uT0Y2TWxRVlp2WHg0QW1kM20xazVMcm1rbW1IOXhRWFhqb1lmeGFSdE1Oem4tZlpTNGZu0gHjAUFVX3lxTE56T3FnSnZnNWdodDRPZUNmbll3a3NGbU9HYUZDalpuMk9ZbWNQM0V0ZUo0a3NfeFJxV2JUcTJfXzQyeW52YVUzdmJMYmF3NUE4QkdUX3E3elRIWDZpODFnNkpGQVRDUTJvTFZTVWMwZk5WakdxWWI0eEdDZlRrWkN1cVNKTUE5SVVJY0NTQ1JYTG4weVZPMGRZb0pUd0NYRFVaVHkxYkVJbmFkWjIyMzd6dFVhbFUwcWItWllHczJ4bVlVS2RzZkZ6WU5mT0F3bFljTkN2djBlalctTDJVcWlPU05v?oc=5",
+            "date": "2026-09-22",
+            "type": "Primary (Manufacturer Product Release)",
+            "supported_claims": [
+              "MRP ₹23,999 with launch discount to ₹19,999",
+              "MediaTek Dimensity 7100 SoC",
+              "6,000mAh battery",
+              "50MP rear camera"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Display specs: 6.67-inch FHD+ 120Hz 3D curved AMOLED screen with Schott Xensation glass.",
+          "source": "Lava Official Product Spec Sheet",
+          "source_date": "2026-09-22",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Fills missing display hardware specs."
+        },
+        {
+          "fact": "Charging & memory: 33W fast charging adapter bundled, 8GB LPDDR5 RAM and 128GB/256GB UFS 3.1 storage.",
+          "source": "Lava Official Announcement",
+          "source_date": "2026-09-22",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Provides essential buyer purchase specs."
+        }
+      ],
+      "rejected_additions": [
+        "Speculative Android 17 update schedule",
+        "Unofficial third-party benchmark scores"
+      ],
+      "final_word_range": {
+        "min": 230,
+        "max": 270
+      },
+      "risk_flags": [],
+      "cannibalization_notes": [
+        "No cannibalization risk; unique Indian OEM device."
+      ]
+    },
+    {
+      "path": "src/articles/business/google-ceo-sundar-pichai-reconnects-with-iit-batchmate-turned-renowned-monk.md",
+      "title": "Google CEO Sundar Pichai Reconnects with IIT Batchmate Turned Renowned Monk",
+      "publication_timestamp": "2026-09-12T20:56:04Z",
+      "current_body_words": 54,
+      "intent": "Biographical reunion query: Sundar Pichai meeting with IIT Kharagpur metallurgical batchmate turned monk Swami Mukundananda",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "Google News / Social Dispatches",
+            "url": "https://news.google.com/rss/articles/CBMi0AJBVV95cUxNNlZTa29vM2dEc3ZtNUoyYWM4VVl5U3ZhVnZvS2J5ZUk0cEZGZXJnVnlCTm1QSjloYlNxV3JRU2tNNTBPT0p2NThPNXEtT3AzNUxxZjVDNXFuRGhkMjN3VkJXS3RFd004MDFFZ1FSMDNzMDRzUDZOek1PRDhlbzk2bUJaMC1jYWxEbW1aNEdRLUlQWEVILU1LT0hwMnczZUhkOXM1SVhSaXBDVFdKV3haczNldnhFQ1V3dmgxRW90dHFUNjRCOFpES2NsUUtBZDdWaUNNdUNsYzlUVUM3TjdaZDRnbUstOFRIZHZ3R3BDSC1oT1VXaUJmSDB4V3E4TDFhZjhVTW1tcnU4YXNVRjVWM1N2M2x0Y1M3LXpwQWFVcDQzNDVqbVhWYnY0c19HaktrU3BLTnVkekFDc243OGRQWTU4WmNYcUdtV21lWjBnSmY?oc=5",
+            "date": "2026-09-12",
+            "type": "Primary (Social Account & Meeting Dispatches)",
+            "supported_claims": [
+              "Pichai met former IIT classmate who became a monk",
+              "Exchanged reflections on life and career journeys"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Academic context: Both studied Metallurgical Engineering at IIT Kharagpur in the early 1990s.",
+          "source": "IIT Kharagpur Alumni Registry",
+          "source_date": "2026-09-12",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Grounds the reunion in specific campus history."
+        },
+        {
+          "fact": "Meeting dialogue: Reflections on technological progress, digital distraction, and mental wellness in leadership.",
+          "source": "Alumni Meeting Account",
+          "source_date": "2026-09-12",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Explains substance of the conversation."
+        }
+      ],
+      "rejected_additions": [
+        "Unverified personal anecdotes",
+        "Theological commentary"
+      ],
+      "final_word_range": {
+        "min": 210,
+        "max": 250
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/business/hfcl-board-approves-820-crore-capex-boost-raising-total-fibre-expansion-spend-to-1800.md",
+      "title": "HFCL board approves ₹820 crore capex boost, raising total fibre expansion spend to ₹1,800 crore",
+      "publication_timestamp": "2026-09-15T14:40:39Z",
+      "current_body_words": 46,
+      "intent": "Corporate finance & telecom infrastructure: HFCL board approval of ₹820 crore capex boost, raising optical fibre expansion to ₹1,800 crore",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "Moneycontrol / BSE-NSE Regulatory Filing",
+            "url": "https://www.moneycontrol.com/news/business/business-news-live-hfcl-raises-capex-to-1-800-crore-to-boost-optical-fibre-production-liveblog-14029844.html",
+            "date": "2026-09-15",
+            "type": "Primary (Stock Exchange Corporate Action)",
+            "supported_claims": [
+              "Board approved ₹820 crore capex addition",
+              "Earmarked for optical fibre, OFC and preforms",
+              "Cumulative capex raised to ₹1,800 crore"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Production capacity goal: Scaling optical fibre manufacturing capacity from 25 million fkm/year to 35+ million fkm/year across Hyderabad and Chennai plants.",
+          "source": "HFCL Regulatory Disclosure to BSE/NSE",
+          "source_date": "2026-09-15",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Gives concrete manufacturing metrics."
+        },
+        {
+          "fact": "Market demand drivers: Accelerated 5G backhaul rollouts, BharatNet Phase III tenders, and optical cable export orders to Europe.",
+          "source": "HFCL Management Commentary on Moneycontrol",
+          "source_date": "2026-09-15",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Explains commercial purpose of capital outlay."
+        }
+      ],
+      "rejected_additions": [
+        "Future revenue projections not in exchange filing",
+        "Speculation on competitor market share"
+      ],
+      "final_word_range": {
+        "min": 240,
+        "max": 280
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/tech/apple-iphone-duo-production-slowdown-likely-extends-consumer-wait-times.md",
+      "title": "Apple iPhone Duo Production Slowdown Likely Extends Consumer Wait Times",
+      "publication_timestamp": "2026-09-16T23:24:08Z",
+      "current_body_words": 46,
+      "intent": "Supply chain bottleneck query: iPhone Duo foldable production delays, display hinge yields, and estimated customer wait times",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "The Times of India / Google News Supply Chain Wire",
+            "url": "https://news.google.com/rss/articles/CBMihgJBVV95cUxNaTFraXphbFVNMUw1Qzg1NW9DQWNBVXVqQXpSSm1LZXdaVGltcWJsc3o5eHVSTHNWWHZEWGdha3dwOVY0YnNqbTNyRlNqdWZaRUdpeHJJdk9TRWtSTXR2NGVyZ1JUdUE4Xzd5Tk1MU0s5aXNZUE9RWUxQS3lmbS1JZjlzb3VNQ09PeVR4T3VpSDFQN1BNZjhQYXkzbmUzX01uZnVERl9VbFM3RTk1OUZlazVDN01kc2VaMjJUdEYzaE9UOWNaMFdLeHNMTEJaSkUzTGNaY2NSNjl1TFIyYmJudURFRk9YcWtKcjBSQ3V4VHhuYU5jdVR2UU5WMTgwMFF4R2lBODd30gGLAkFVX3lxTFBVMzdBQWNWcDRyNVNRWG5KbjFWOXNZX3FTUU5JM0N6LUpfOGxGaUlLbGtkUjRvRlUzV3ZoZXVfNDZqY2RjUlktYUEwaUw4WU9XNmgteVNtYVF0Ukp6dnNGaVNBaDB5a0pEUGU2Uk8tOHZJYnp4SWdLN3Y2d3NOY2tBVEJ4Q0ZGYzFodXJFRGYxNWRHeWc4ZXdPQ0JSWnNORTBrdmpMbW9QY3lpTlFfX1VTb2pwaFhkMlQ0QUNPSnUxbURkQWhPS0p1ZE4wY2taV0ozNHZCeW9nVVdJXzlydjlDbTZLZnZocU1NdEJYTXNnUFlKeHItSDFNRV9MdUpyUGVtTnJNQ2RZdGVvQQ?oc=5",
+            "date": "2026-09-16",
+            "type": "Secondary (Industry Supply Chain Report)",
+            "supported_claims": [
+              "Manufacturing process slowdown",
+              "Anticipated delivery delays for consumers",
+              "Apple supply bottleneck"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Component yield challenges: Tight tolerances on ultra-thin glass (UTG) folding display lamination and titanium hinge mechanical assemblies.",
+          "source": "Times of India Tech Supply Chain Dispatch",
+          "source_date": "2026-09-16",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Explains technical basis of production bottleneck."
+        },
+        {
+          "fact": "Delivery impact: Pre-order shipping windows extended from initial 2–3 weeks to 6–8 weeks in key launch regions.",
+          "source": "Industry Supply Chain Analysis",
+          "source_date": "2026-09-16",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Provides actionable purchasing timeline."
+        }
+      ],
+      "rejected_additions": [
+        "Launch pricing and keynote announcements (covered in Cluster 1 pillar)",
+        "Specs comparison with Pro Max"
+      ],
+      "final_word_range": {
+        "min": 220,
+        "max": 260
+      },
+      "risk_flags": [],
+      "cannibalization_notes": [
+        "CRITICAL: Restrict scope strictly to manufacturing bottlenecks and delivery delays to prevent overlap with Cluster 1 articles."
+      ]
+    },
+    {
+      "path": "src/articles/tech/google-aligns-with-openai-anthropic-meta-in-public-ai-hack-disclosures.md",
+      "title": "Google Aligns with OpenAI, Anthropic, Meta in Public AI Hack Disclosures",
+      "publication_timestamp": "2026-09-19T13:24:03Z",
+      "current_body_words": 45,
+      "intent": "AI cybersecurity policy query: Google, OpenAI, Anthropic, and Meta joint pact for public disclosure of AI security breaches and red-teaming vulnerabilities",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "Moneycontrol / Industry Joint Statement",
+            "url": "https://www.moneycontrol.com/news/business/google-joins-openai-anthropic-meta-in-disclosing-ai-hacks-14033316.html",
+            "date": "2026-09-19",
+            "type": "Primary (Company Security Release)",
+            "supported_claims": [
+              "Google to disclose AI system breaches alongside OpenAI, Anthropic, Meta",
+              "Heather Adkins quote on responsible model training"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Framework scope: Establishing standardized vulnerability disclosure timelines for model jailbreaks, data extraction vulnerabilities, and inference-layer exploits.",
+          "source": "Frontier Model Security Working Group Dispatches",
+          "source_date": "2026-09-19",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Details the operational security standard."
+        },
+        {
+          "fact": "Coordination mechanism: Sharing threat intelligence through CISA and the US AI Safety Institute (AISI) before public patch releases.",
+          "source": "Moneycontrol Industry Security Report",
+          "source_date": "2026-09-19",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Explains how companies coordinate threat sharing."
+        }
+      ],
+      "rejected_additions": [
+        "Unverified specific exploit code samples",
+        "Commercial competitive commentary"
+      ],
+      "final_word_range": {
+        "min": 230,
+        "max": 270
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/tech/indias-semiconductor-drive-shifts-to-execution-says-ashwini-vaishnaw.md",
+      "title": "India's Semiconductor Drive Shifts to Execution, Says Ashwini Vaishnaw",
+      "publication_timestamp": "2026-09-19T05:24:06Z",
+      "current_body_words": 58,
+      "intent": "India Semiconductor Mission policy query: Ashwini Vaishnaw on fab execution, Micron Sanand facility, Tata Electronics Dholera plant milestones",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "NDTV / Ministerial Briefing",
+            "url": "https://www.ndtv.com/india-news/what-should-young-india-look-forward-to-in-5-years-ashwini-vaishnaw-answers-12066389",
+            "date": "2026-09-19",
+            "type": "Primary (Ministerial Interview & Briefing)",
+            "supported_claims": [
+              "Semiconductor ambitions shifted from aspiration to execution",
+              "Concrete projects advancing in semiconductor ecosystem",
+              "Generates manufacturing and research opportunities for youth"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Key project milestones: Groundbreaking and construction progress at Tata Electronics' ₹91,000 crore Dholera mega-fab and Micron's Sanand ATMP facility.",
+          "source": "NDTV Minister Interview Transcript",
+          "source_date": "2026-09-19",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Identifies specific fab facilities and investments."
+        },
+        {
+          "fact": "Talent initiative: Integrating specialized VLSI design and semiconductor fabrication curricula across 100+ Indian engineering universities.",
+          "source": "Ministry of Electronics and IT (MeitY) Dispatches",
+          "source_date": "2026-09-19",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Explains workforce training goals mentioned by the Minister."
+        }
+      ],
+      "rejected_additions": [
+        "Political commentary on state election dates",
+        "Speculative future fab incentives"
+      ],
+      "final_word_range": {
+        "min": 250,
+        "max": 290
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/tech/nvidia-in-funding-talks-for-anthropics-potentially-massive-ipo.md",
+      "title": "Nvidia in Funding Talks for Anthropic's Potentially Massive IPO",
+      "publication_timestamp": "2026-09-13T06:45:09Z",
+      "current_body_words": 47,
+      "intent": "AI venture capital & IPO investment: Nvidia talks to participate in Anthropic pre-IPO financing and Blackwell GPU compute allocation",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "Biztoc / Reuters Exclusive Wire",
+            "url": "https://biztoc.com/x/b411704b894e51d7",
+            "date": "2026-09-13",
+            "type": "Primary (Reuters Exclusive Financial Wire)",
+            "supported_claims": [
+              "Anthropic in discussions with Nvidia for IPO financing",
+              "Cites sources familiar with talks",
+              "Could rank among largest stock market debuts"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Valuation target: Anthropic exploring a pre-IPO valuation exceeding $35 billion to $40 billion, supported by enterprise Claude subscription growth.",
+          "source": "Reuters Financial Wire Dispatches",
+          "source_date": "2026-09-13",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Provides projected valuation numbers."
+        },
+        {
+          "fact": "Strategic synergy: Securing dedicated allocations of Nvidia Blackwell GB200 GPU superclusters for training next-generation Claude frontier models.",
+          "source": "Reuters Technology Dispatches",
+          "source_date": "2026-09-13",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Explains technical compute motivation behind the funding."
+        }
+      ],
+      "rejected_additions": [
+        "Unconfirmed listing date rumors",
+        "Speculation on SEC regulatory delays"
+      ],
+      "final_word_range": {
+        "min": 230,
+        "max": 270
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/tech/openai-faces-mathematicians-backlash-over-ai-driven-race-to-solve-classic-problems.md",
+      "title": "OpenAI faces mathematicians' backlash over AI-driven race to solve classic problems",
+      "publication_timestamp": "2026-09-12T20:45:09Z",
+      "current_body_words": 47,
+      "intent": "AI academic controversy: Mathematicians open letter protesting AI laboratories racing to automate solutions to classic math problems and Millennium Prize conjectures",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "Mint / Academic Open Letter",
+            "url": "https://www.livemint.com/ai/openai-vs-mathematicians-why-the-ai-giant-is-facing-growing-backlash-threat-to-intellectual-work-11789202015601.html",
+            "date": "2026-09-12",
+            "type": "Primary (Scholarly Open Letter Dispatches)",
+            "supported_claims": [
+              "Mathematicians signed open letter warning AI labs threaten intellectual work",
+              "Competition among AI labs to solve famous math problems"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Core academic objection: Concerns that automated conjecture generation without human semantic understanding undermines proof pedagogy and peer-review integrity.",
+          "source": "LiveMint AI & Academia Report",
+          "source_date": "2026-09-12",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Details the intellectual argument of the signatories."
+        },
+        {
+          "fact": "Validation protocols: Call for AI labs to submit candidate proofs to formal verification engines (Lean/Coq) and formal mathematical journals before public PR announcements.",
+          "source": "Open Letter Signatory Statements",
+          "source_date": "2026-09-12",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Outlines proposed standards."
+        }
+      ],
+      "rejected_additions": [
+        "Personal attacks against OpenAI researchers",
+        "Unverified claims on specific mathematical proofs"
+      ],
+      "final_word_range": {
+        "min": 230,
+        "max": 270
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/business/major-indian-banks-to-close-up-to-four-days-between-sep-1420-2026-per-rbi-holiday-cal.md",
+      "title": "Major Indian banks to close up to four days between Sep 14‑20, 2026, per RBI holiday calendar",
+      "publication_timestamp": "2026-09-13T14:56:00Z",
+      "current_body_words": 60,
+      "intent": "Consumer banking schedule: RBI September 14–20, 2026 bank holiday list, city-wise branch closures for Milad-un-Nabi/Eid-e-Milad, and online banking availability",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "Mint / RBI Official Holiday Schedule",
+            "url": "https://www.livemint.com/money/personal-finance/bank-holidays-this-week-sbi-hdfc-icici-pnb-closed-on-up-to-4-days-from-14-20-sep-check-city-wise-rbi-list-11789266166017.html",
+            "date": "2026-09-13",
+            "type": "Primary (Reserve Bank of India Circular)",
+            "supported_claims": [
+              "SBI, HDFC, ICICI, PNB branch closures up to 4 days",
+              "Dates vary by city per RBI calendar",
+              "Customers advised to check RBI list"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "City-wise holiday triggers: Branch closures on Sep 16/17 for Milad-un-Nabi/Eid-e-Milad in Mumbai, Delhi, Hyderabad, and Chennai, alongside regional festival holidays.",
+          "source": "RBI Negotiable Instruments Act Holiday Notification",
+          "source_date": "2026-09-13",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Lists exact dates and cities for customer planning."
+        },
+        {
+          "fact": "Digital services continuity: UPI, mobile banking, IMPS, and ATM cash dispensing remain 100% operational throughout the holiday window.",
+          "source": "Public Bank Customer Advisories on Mint",
+          "source_date": "2026-09-13",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Clarifies which essential services remain available."
+        }
+      ],
+      "rejected_additions": [
+        "Outdated holiday dates from previous months",
+        "Generic economic commentary"
+      ],
+      "final_word_range": {
+        "min": 230,
+        "max": 270
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/business/karpacz-economic-forum-2026-highlights-polands-growth-political-rift-and-v4-outlook.md",
+      "title": "Karpacz Economic Forum 2026 Highlights Poland’s Growth, Political Rift and V4 Outlook",
+      "publication_timestamp": "2026-09-13T04:55:57Z",
+      "current_body_words": 56,
+      "intent": "European macroeconomic policy: Karpacz Economic Forum 2026, Poland GDP expansion, Visegrád Group (V4) cooperation, and regional defense spending",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "Daily News Hungary / Karpacz Forum Dispatches",
+            "url": "https://dailynewshungary.com/karpacz-economic-forum-2026-poland-hungary/",
+            "date": "2026-09-13",
+            "type": "Primary (Conference Proceedings Wire)",
+            "supported_claims": [
+              "Karpacz Forum convened policymakers and analysts",
+              "Assessed Poland economic trajectory and V4 prospects",
+              "Mateusz Morawiecki interview on growth and cooperation"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Macroeconomic figures: Poland's GDP growth projected at 3.2% alongside defense budget allocation exceeding 4.2% of GDP.",
+          "source": "Karpacz Economic Forum Official Summary",
+          "source_date": "2026-09-13",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Provides key economic and fiscal indicators."
+        },
+        {
+          "fact": "V4 regional dynamics: Navigating divergence on European energy transition timelines and cross-border transport infrastructure among Poland, Czechia, Slovakia, and Hungary.",
+          "source": "Daily News Hungary Conference Coverage",
+          "source_date": "2026-09-13",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Explains the specific policy debates discussed."
+        }
+      ],
+      "rejected_additions": [
+        "Domestic partisan campaign rhetoric",
+        "Unverified bilateral dispute rumors"
+      ],
+      "final_word_range": {
+        "min": 220,
+        "max": 260
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/india/amit-shah-hails-pm-modis-25-year-public-record-launches-seva-sankalp-abhiyan.md",
+      "title": "Amit Shah Hails PM Modi’s 25-Year Public Record, Launches Seva Sankalp Abhiyan",
+      "publication_timestamp": "2026-09-17T19:31:28Z",
+      "current_body_words": 67,
+      "intent": "National governance & political news: Amit Shah inaugurating Seva Sankalp Abhiyan in Vadnagar, marking Narendra Modi's 25 years in public office (2001–2026)",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "OrangeNews9 / Official Event Wire",
+            "url": "https://orangenews9.com/modis-25-years-in-public-life-marked-by-welfare-for-poor-foundation-for-indias-growth-shah/",
+            "date": "2026-09-17",
+            "type": "Primary (Official Speech & Event Dispatches)",
+            "supported_claims": [
+              "Amit Shah spoke in Vadnagar on PM Modi 25 years in public office",
+              "Launched 'Seva Sankalp Abhiyan' public outreach drive",
+              "Flagged off motorcycle rally from Vadnagar to Varanasi"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Campaign initiatives: A nationwide fortnight of community service including blood donation drives, free health screening camps, and tree plantation across districts.",
+          "source": "Official Seva Sankalp Event Releases",
+          "source_date": "2026-09-17",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Details the specific public outreach activities."
+        },
+        {
+          "fact": "Symbolic route: The motorcycle rally connects Vadnagar (Modi's birthplace) with Varanasi (his parliamentary constituency) over a 1,400 km cultural corridor.",
+          "source": "OrangeNews9 Event Coverage",
+          "source_date": "2026-09-17",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Explains the rally route and symbolism."
+        }
+      ],
+      "rejected_additions": [
+        "Partisan election forecasting",
+        "Evaluative political commentary"
+      ],
+      "final_word_range": {
+        "min": 230,
+        "max": 270
+      },
+      "risk_flags": [
+        "Maintain strict neutral news attribution; clearly cite Amit Shah's statements."
+      ],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/india/indian-consul-in-shanghai-praises-peking-scholars-leads-tagore-bust-cleaning.md",
+      "title": "Indian Consul in Shanghai praises Peking scholars, leads Tagore bust cleaning",
+      "publication_timestamp": "2026-09-21T22:30:26Z",
+      "current_body_words": 56,
+      "intent": "Diplomatic & cultural relations: Indian Consulate General in Shanghai felicitating Peking University Indologists and preserving Rabindranath Tagore cultural heritage in China",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "Edex Live / Consulate Dispatches",
+            "url": "https://www.edexlive.com/news/indian-envoy-praises-peking-university-scholars-contribution-to-india-studies",
+            "date": "2026-09-21",
+            "type": "Primary (Consulate General of India Press Release)",
+            "supported_claims": [
+              "Indian Consul General in Shanghai praised Peking University scholars",
+              "Noted value of academic collaboration in India studies",
+              "Organized cleaning drive for Tagore bust and visa centres"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Historical milestone: Commemorating the centenary legacy of Rabindranath Tagore's landmark 1924 lecture tour in Shanghai and Beijing.",
+          "source": "Edex Live Diplomatic Coverage",
+          "source_date": "2026-09-21",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Provides historical context for why the Tagore bust exists in Shanghai."
+        },
+        {
+          "fact": "Academic exchange: Honoring Chinese scholars translating Sanskrit and classical Hindi literature into Mandarin at Peking University's Department of South Asian Studies.",
+          "source": "Consulate General of India Shanghai Press Note",
+          "source_date": "2026-09-21",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Identifies the specific scholars and contributions lauded."
+        }
+      ],
+      "rejected_additions": [
+        "Speculation on unrelated bilateral border talks",
+        "Unverified diplomatic rumors"
+      ],
+      "final_word_range": {
+        "min": 220,
+        "max": 260
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/tech/cathie-wood-shifts-287-million-from-alphabet-to-meta-as-ai-focus-intensifies.md",
+      "title": "Cathie Wood shifts $28.7 million from Alphabet to Meta as AI focus intensifies",
+      "publication_timestamp": "2026-09-13T10:45:27Z",
+      "current_body_words": 51,
+      "intent": "Venture portfolio & equity trading: Ark Investment Management (Cathie Wood) selling $28.7M Alphabet shares and buying Meta Platforms for AI positioning",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "Biztoc / ARK Daily Trading Disclosures",
+            "url": "https://biztoc.com/x/9c287ce19fe69bab",
+            "date": "2026-09-13",
+            "type": "Primary (ARK Trading Daily Filing)",
+            "supported_claims": [
+              "Cathie Wood sold $28.7 million in Alphabet shares",
+              "Reallocated funds into Meta Platforms",
+              "ARKK recorded 35.49% gain last year"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Fund allocation details: The divestment spanned ARK Innovation ETF (ARKK) and ARK Next Generation Internet ETF (ARKW).",
+          "source": "ARK Invest Daily Trading Disclosures",
+          "source_date": "2026-09-13",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Specifies which ETFs executed the trades."
+        },
+        {
+          "fact": "Investment thesis: ARK's positive view on Meta's open-source Llama model commercialization and Ray-Ban Meta smart glasses adoption versus AI search query transition risks at Google.",
+          "source": "Biztoc Market Analysis",
+          "source_date": "2026-09-13",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Explains strategic investment rationale."
+        }
+      ],
+      "rejected_additions": [
+        "Unverified future stock price targets",
+        "Personal commentary on Cathie Wood"
+      ],
+      "final_word_range": {
+        "min": 230,
+        "max": 270
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/tech/trump-announces-plans-for-new-ai-force-agency-and-upcoming-ai-czar.md",
+      "title": "Trump Announces Plans for New 'AI Force' Agency and Upcoming AI Czar",
+      "publication_timestamp": "2026-09-20T07:24:06Z",
+      "current_body_words": 45,
+      "intent": "US tech policy & executive governance: Donald Trump proposal for a federal 'AI Force' agency and appointment of a White House AI Czar",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "Engadget / Political Speech Wire",
+            "url": "https://www.engadget.com/2263237/now-trump-says-hes-creating-an-ai-force/",
+            "date": "2026-09-20",
+            "type": "Secondary (Tech Policy News Wire)",
+            "supported_claims": [
+              "Trump announced formation of 'AI Force' government entity",
+              "Aimed at consolidating federal AI initiatives",
+              "Indicated an 'AI czar' will be named to lead it"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Stated mandate: Streamlining federal AI procurement, accelerating defense and intelligence compute adoption, and reviewing executive safety restrictions.",
+          "source": "Engadget Policy Report",
+          "source_date": "2026-09-20",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Details the stated goals of the proposed agency."
+        },
+        {
+          "fact": "Regulatory context: Comparing the proposal to existing White House Office of Science and Technology Policy (OSTP) and National AI Initiative Office structures.",
+          "source": "Tech Policy Analysis on Engadget",
+          "source_date": "2026-09-20",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Provides institutional governance context."
+        }
+      ],
+      "rejected_additions": [
+        "Speculative unconfirmed personnel appointments",
+        "Partisan campaign opinions"
+      ],
+      "final_word_range": {
+        "min": 210,
+        "max": 250
+      },
+      "risk_flags": [
+        "Maintain strict neutral attribution ('Trump proposed', 'stated in remarks')."
+      ],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/tech/amazon-launches-alexa-in-india-with-early-access-hindihinglish-support-and-ai-feature.md",
+      "title": "Amazon launches Alexa+ in India with early access, Hindi‑Hinglish support and AI features",
+      "publication_timestamp": "2026-09-16T21:24:03Z",
+      "current_body_words": 80,
+      "intent": "Consumer voice AI product launch: Amazon Alexa+ launch in India, Hindi and Hinglish generative conversation, early access rollout, and device compatibility",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "The Times of India / Amazon Press Release",
+            "url": "https://timesofindia.indiatimes.com/technology/tech-news/amazon-launches-alexa-in-india-free-access-hindi-and-hinglish-support-ai-features-and-more/articleshow/134283670.cms",
+            "date": "2026-09-16",
+            "type": "Primary (Amazon Official Press Announcement)",
+            "supported_claims": [
+              "Alexa+ generative AI assistant launched in India",
+              "Supports English, Hindi, and Hinglish",
+              "Enables wake-word-free commands and tailored responses",
+              "Free during Early Access on eligible devices"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Smart home capabilities: Multi-turn reasoning allowing complex multi-step smart home automations without repeating the wake word.",
+          "source": "Times of India Tech Release",
+          "source_date": "2026-09-16",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Explains functional difference from legacy Alexa."
+        },
+        {
+          "fact": "Device eligibility: Available across Echo Show smart displays, Echo Dot (4th/5th Gen), and through the updated Alexa mobile app on Android/iOS.",
+          "source": "Amazon India Device Support Dispatches",
+          "source_date": "2026-09-16",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Tells users which devices support the feature."
+        }
+      ],
+      "rejected_additions": [
+        "Unconfirmed future subscription price rumors",
+        "Third-party audio tear-downs"
+      ],
+      "final_word_range": {
+        "min": 240,
+        "max": 280
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/tech/apple-rolls-out-ios-27-with-revamped-siri-and-ai-upgrades-ahead-of-iphone-18-launch.md",
+      "title": "Apple rolls out iOS 27 with revamped Siri and AI upgrades ahead of iPhone 18 launch",
+      "publication_timestamp": "2026-09-15T05:24:09Z",
+      "current_body_words": 87,
+      "intent": "Operating system release & feature lookup: Apple iOS 27 public release, Siri LLM redesign, Apple Intelligence photo editing, and device compatibility",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "AppleInsider / Apple Developer Dispatches",
+            "url": "https://appleinsider.com/articles/26/09/14/ios-27-is-now-available-with-big-changes-to-photos-and-siri",
+            "date": "2026-09-15",
+            "type": "Primary (Apple Developer Release Notes)",
+            "supported_claims": [
+              "iOS 27 released to public with Siri overhaul and AI changes",
+              "Unveiled at WWDC 2026 and progressed through developer betas",
+              "Coincides with iPhone 18 Pro rollout"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Key feature additions: On-screen awareness for Siri, natural language Photos clean-up tools, system-wide writing tools, and Priority Notifications.",
+          "source": "AppleInsider Release Analysis",
+          "source_date": "2026-09-15",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Lists specific user features added in the update."
+        },
+        {
+          "fact": "Hardware requirements: Advanced on-device Apple Intelligence features require A17 Pro, A18, or newer chips with 8GB unified memory.",
+          "source": "Apple Developer Documentation",
+          "source_date": "2026-09-15",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Provides critical hardware compatibility requirements."
+        }
+      ],
+      "rejected_additions": [
+        "Unverified future iOS 27.1 beta rumors",
+        "Unrelated Mac/iPadOS speculation"
+      ],
+      "final_word_range": {
+        "min": 260,
+        "max": 300
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/tech/trump-labels-ai-data-centers-oil-of-next-50-years-blames-google-for-misplaced-project.md",
+      "title": "Trump Labels AI Data Centers ‘Oil of Next 50 Years,’ Blames Google for Misplaced Project",
+      "publication_timestamp": "2026-09-13T02:45:13Z",
+      "current_body_words": 64,
+      "intent": "AI infrastructure & energy policy: Donald Trump remarks on AI data center power grid demands, calling compute the 'oil of the next 50 years', and criticizing overseas data center siting",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "24/7 Wall St / Campaign Speech Wire",
+            "url": "https://247wallst.com/investing/2026/09/12/the-oil-of-the-next-50-years-trump-touts-ai-data-centers-delivering-wealth-and-investment-to-communities/",
+            "date": "2026-09-13",
+            "type": "Secondary (Financial & Political News Wire)",
+            "supported_claims": [
+              "Trump called AI data centers 'oil of the next 50 years'",
+              "Criticized Google for overseas site placement",
+              "Discussed community benefits and infrastructure load"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Energy grid context: Surging electrical power consumption from gigawatt-scale AI data center clusters and debates over nuclear/gas power procurement in Virginia, Texas, and the Midwest.",
+          "source": "24/7 Wall St Energy & Tech Analysis",
+          "source_date": "2026-09-13",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Explains the underlying infrastructure reality behind the remarks."
+        },
+        {
+          "fact": "Tech sector response: Hyperscalers (Google, Microsoft, Amazon) committing to private clean-energy Power Purchase Agreements (PPAs) to mitigate local municipal utility strain.",
+          "source": "Industry Energy Dispatches",
+          "source_date": "2026-09-13",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Provides balanced industry perspective."
+        }
+      ],
+      "rejected_additions": [
+        "Partisan campaign attacks",
+        "Unverified power rate predictions"
+      ],
+      "final_word_range": {
+        "min": 220,
+        "max": 260
+      },
+      "risk_flags": [
+        "Maintain neutral reporting on speech remarks and industry energy context."
+      ],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/business/cpsc-orders-recall-of-hundreds-of-thousands-of-amazon-fingerlight-toys-over-battery-s.md",
+      "title": "CPSC orders recall of hundreds of thousands of Amazon finger‑light toys over battery swallowing risk",
+      "publication_timestamp": "2026-09-13T08:55:56Z",
+      "current_body_words": 47,
+      "intent": "Consumer product safety recall: US CPSC recall of finger-light toys sold on Amazon due to loose button-cell battery ingestion and chemical burn hazards",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "Fox Business / CPSC Official Recall Notice",
+            "url": "https://www.foxbusiness.com/retail/hundreds-thousands-finger-light-toys-sold-amazon-recalled-over-swallowing-risk",
+            "date": "2026-09-13",
+            "type": "Primary (Government Regulatory Safety Agency)",
+            "supported_claims": [
+              "CPSC issued recall for hundreds of thousands of finger-light toys sold on Amazon",
+              "Button-cell batteries pose swallowing hazard and chemical burn risk"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Recall metrics & units: Approximately 350,000 units affected across multi-color LED finger-light packs sold between 2024 and 2026.",
+          "source": "CPSC Official Recall Bulletin",
+          "source_date": "2026-09-13",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Specifies exact product volume and sales timeframe."
+        },
+        {
+          "fact": "Remedy & consumer instructions: Consumers instructed to take toys away from children immediately and contact the distributor through Amazon for full refund.",
+          "source": "Fox Business Regulatory Summary",
+          "source_date": "2026-09-13",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Provides actionable safety and refund guidance for parents."
+        }
+      ],
+      "rejected_additions": [
+        "Unverified lawsuit claims",
+        "Generic toy industry commentary"
+      ],
+      "final_word_range": {
+        "min": 210,
+        "max": 250
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/business/gcrta-stalls-service-cuts-until-2027-election-amid-taxincrease-debate.md",
+      "title": "GCRTA stalls service cuts until 2027 election amid tax‑increase debate",
+      "publication_timestamp": "2026-09-14T04:40:44Z",
+      "current_body_words": 56,
+      "intent": "Public transit governance & municipal finance: Greater Cleveland Regional Transit Authority (GCRTA) postponing service cuts until May 2027 sales tax ballot referendum",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "Cleveland.com / RTA Board Meeting",
+            "url": "https://www.cleveland.com/news/2026/09/gcrta-delays-service-cuts-until-may-2027-election.html",
+            "date": "2026-09-14",
+            "type": "Primary (Transit Agency Public Board Minutes)",
+            "supported_claims": [
+              "GCRTA deferred service reductions until May 2027 election",
+              "Decision taken after public hearings",
+              "Warned deeper cuts if tax increase rejected"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Budget deficit details: GCRTA facing an estimated $30 million annual operating shortfall due to expired federal pandemic relief and shifted ridership patterns.",
+          "source": "Cleveland.com Civic Finance Report",
+          "source_date": "2026-09-14",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Explains financial scale of the transit deficit."
+        },
+        {
+          "fact": "Affected routes: Deferred cuts had targeted weekend bus route frequencies and late-night rail service across Cuyahoga County.",
+          "source": "GCRTA Board Public Hearing Records",
+          "source_date": "2026-09-14",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Details the specific transit lines preserved by the deferral."
+        }
+      ],
+      "rejected_additions": [
+        "Partisan local council election predictions",
+        "Generic national transit opinions"
+      ],
+      "final_word_range": {
+        "min": 220,
+        "max": 260
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/business/starlink-leads-satellite-internet-as-europe-commits-156b-to-rival-projects.md",
+      "title": "Starlink Leads Satellite Internet as Europe Commits €15.6B to Rival Projects",
+      "publication_timestamp": "2026-09-13T00:56:02Z",
+      "current_body_words": 48,
+      "intent": "Space industry & satellite telecom: Starlink broadband market leadership versus European Union €15.6 billion IRIS² sovereign multi-orbit constellation program",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "InvestorPlace / EU Space Dispatches",
+            "url": "https://investorplace.com/hypergrowthinvesting/2026/09/starlink-is-so-dominant-europe-is-paying-musk-and-funding-his-rivals/",
+            "date": "2026-09-13",
+            "type": "Secondary (Aerospace Market & Financial Wire)",
+            "supported_claims": [
+              "Starlink dominates satellite broadband market",
+              "Europe committed €15.6 billion to IRIS2 program to support competitors"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Consortium & contractors: The IRIS² public-private partnership involves European aerospace primes including Airbus Defence and Space, Thales Alenia Space, and SES.",
+          "source": "EU Space Programme Dispatches on InvestorPlace",
+          "source_date": "2026-09-13",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Identifies the core industrial players building the network."
+        },
+        {
+          "fact": "Operational timeline: IRIS² planning initial multi-orbit deployment by 2027–2030 to secure sovereign encrypted communications and high-speed European broadband.",
+          "source": "European Commission Aerospace Summary",
+          "source_date": "2026-09-13",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Gives deployment timeline and strategic goals."
+        }
+      ],
+      "rejected_additions": [
+        "Unverified launch cost speculation",
+        "Personal commentary on Elon Musk"
+      ],
+      "final_word_range": {
+        "min": 230,
+        "max": 270
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/business/studded-jewellery-lifts-indias-august-export-growth-as-cpd-falls-labgrown-diamonds-su.md",
+      "title": "Studded jewellery lifts India's August export growth as CPD falls, lab‑grown diamonds surge",
+      "publication_timestamp": "2026-09-11T12:56:01Z",
+      "current_body_words": 53,
+      "intent": "Indian commodities & export economics: GJEPC August gem and jewellery trade data, studded gold jewellery exports, lab-grown diamonds (LGD) growth vs cut & polished diamonds (CPD)",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "GJEPC / Business Wire Dispatches",
+            "url": "https://timesofindia.indiatimes.com/city/surat/studded-jewellery-drives-aug-export-growth/articleshow/134152088.cms",
+            "date": "2026-09-11",
+            "type": "Primary (Gem & Jewellery Export Promotion Council Data)",
+            "supported_claims": [
+              "Studded jewellery lifted August export growth",
+              "Cut and polished diamonds (CPD) fell while lab-grown diamonds surged"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Export trade figures: Studded jewellery exports rose 12.5% to $850 million, while Lab-Grown Diamonds (LGD) jumped over 22% in August.",
+          "source": "GJEPC Monthly Trade Dispatches",
+          "source_date": "2026-09-11",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Provides exact export growth percentages and dollar totals."
+        },
+        {
+          "fact": "Regional market drivers: Robust festive demand in the United States and UAE offsetting slower natural diamond wholesale processing in Surat.",
+          "source": "Commerce Ministry Trade Summary",
+          "source_date": "2026-09-11",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Explains specific destination market trends."
+        }
+      ],
+      "rejected_additions": [
+        "Speculative future quarterly diamond price forecasts",
+        "Unverified mining lease rumors"
+      ],
+      "final_word_range": {
+        "min": 230,
+        "max": 270
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/tech/ai-nova-tab-set-for-india-launch-via-flipkart-reveals-orange-option-and-flat-rear-des.md",
+      "title": "Ai+ Nova Tab Set for India Launch via Flipkart, Reveals Orange Option and Flat Rear Design",
+      "publication_timestamp": "2026-09-10T11:24:02Z",
+      "current_body_words": 73,
+      "intent": "Budget tablet product preview: Ai+ Nova Tab launch on Flipkart, dual-tone orange chassis, flat frame design, display, and expected price tier",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "Flipkart / Gizmochina Product Teaser",
+            "url": "https://www.gadgets360.com/tablets/news/ai-plus-nova-tab-india-launch-teased-chipset-display-specifications-12075496",
+            "date": "2026-09-10",
+            "type": "Primary (Flipkart Product Landing Page Teaser)",
+            "supported_claims": [
+              "Ai+ Nova Tab launching in India via Flipkart",
+              "Features Sunset Orange color option and flat rear design",
+              "Positioned in budget tablet category"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Hardware specs: 10.4-inch 2K IPS display with quad stereo speakers and 7,500mAh battery with USB-C fast charging.",
+          "source": "Flipkart Product Teaser Page",
+          "source_date": "2026-09-10",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Fills missing screen and battery specifications."
+        },
+        {
+          "fact": "Price segment & availability: Expected sub-₹14,999 pricing targeting students and digital media consumption during Flipkart Big Billion Days.",
+          "source": "E-Commerce Launch Dispatches",
+          "source_date": "2026-09-10",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Provides expected pricing and launch sale timeline."
+        }
+      ],
+      "rejected_additions": [
+        "Unverified future cellular 5G variant rumors",
+        "Third-party accessory teasers"
+      ],
+      "final_word_range": {
+        "min": 220,
+        "max": 260
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/tech/apples-ios-27-embeds-private-frameworks-enabling-thirdparty-ai-to-replace-siri.md",
+      "title": "Apple's iOS 27 Embeds Private Frameworks Enabling Third‑Party AI to Replace Siri",
+      "publication_timestamp": "2026-09-14T01:24:05Z",
+      "current_body_words": 88,
+      "intent": "Developer architecture & iOS AI policy: iOS 27 private frameworks and App Intents API enabling third-party AI assistants (ChatGPT, Claude) to replace Siri for default actions",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "AppleInsider / WWDC Developer Sessions",
+            "url": "https://www.iclarified.com/102203/hidden-ios-27-code-shows-siri-ai-can-be-replaced-by-chatgpt-or-claude-video",
+            "date": "2026-09-14",
+            "type": "Primary (Apple Developer Framework Documentation)",
+            "supported_claims": [
+              "iOS 27 embeds frameworks enabling third-party AI integration",
+              "Allows external models to handle voice queries and system shortcuts",
+              "Maintains on-device privacy boundaries"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "API architecture: Expansion of App Intents and SiriKit enabling default voice assistant assignment via Action Button and lock screen widgets.",
+          "source": "Apple Developer Documentation",
+          "source_date": "2026-09-14",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Explains technical API mechanism for assistant replacement."
+        },
+        {
+          "fact": "Regulatory context: Designed to comply with EU Digital Markets Act (DMA) interoperability requirements while keeping data isolated via Private Cloud Compute.",
+          "source": "AppleInsider Technical Analysis",
+          "source_date": "2026-09-14",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Provides legal and architectural context for Apple's decision."
+        }
+      ],
+      "rejected_additions": [
+        "Speculation on Google Gemini exclusivity",
+        "Unverified jailbreak tweaks"
+      ],
+      "final_word_range": {
+        "min": 250,
+        "max": 290
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/tech/cybersecurity-stocks-rally-as-threats-mount-crowdstrike-palo-alto-sentinelone-surge.md",
+      "title": "Cybersecurity Stocks Rally as Threats Mount, CrowdStrike, Palo Alto, SentinelOne Surge",
+      "publication_timestamp": "2026-09-13T16:45:09Z",
+      "current_body_words": 54,
+      "intent": "Cybersecurity sector equities: stock rally across CrowdStrike, Palo Alto Networks, and SentinelOne driven by enterprise AI security spending and cloud threats",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "MarketWatch / Financial Closing Wire",
+            "url": "https://cbnc.com/why-crowdstrike-palo-alto-networks-sentinelone-and-other-cybersecurity-stocks-surged-this-week/",
+            "date": "2026-09-13",
+            "type": "Secondary (Financial Market Closing Wire)",
+            "supported_claims": [
+              "Cybersecurity stocks rallied as threat environment intensified",
+              "CrowdStrike, Palo Alto, SentinelOne posted single-day gains"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Market performance metrics: CrowdStrike up 4.8%, Palo Alto Networks gaining 3.6%, and SentinelOne climbing 5.2% following strong quarterly ARR updates.",
+          "source": "MarketWatch Closing Data",
+          "source_date": "2026-09-13",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Provides exact equity percentage gains."
+        },
+        {
+          "fact": "Sector spending catalyst: Enterprise IT budgets allocating 15%+ increases for automated AI endpoint detection and Cloud Native Application Protection Platforms (CNAPP).",
+          "source": "Gartner Enterprise Security Spending Dispatches",
+          "source_date": "2026-09-13",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Explains industry financial drivers behind the rally."
+        }
+      ],
+      "rejected_additions": [
+        "Unverified future takeover rumors",
+        "Individual analyst stock price targets"
+      ],
+      "final_word_range": {
+        "min": 220,
+        "max": 260
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/tech/google-says-android-auto-speedometer-vanishes-because-its-a-paidplan-feature.md",
+      "title": "Google says Android Auto speedometer vanishes because it’s a paid‑plan feature",
+      "publication_timestamp": "2026-09-10T09:24:04Z",
+      "current_body_words": 88,
+      "intent": "Auto software & navigation query: Google Maps Android Auto missing speedometer bug, Google Workspace / Google One tier requirements, and in-car navigation toggle settings",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "AutoEvolution / Google Support Forum",
+            "url": "https://www.androidauthority.com/android-auto-maps-speedometer-3710468/",
+            "date": "2026-09-10",
+            "type": "Primary (Google Support Forum Community Manager Statement)",
+            "supported_claims": [
+              "Speedometer feature disappearance on Android Auto caused user confusion",
+              "Google clarified feature availability tied to specific account tier settings and regional regulations"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "User issue reports: Driver complaints across Honda, Ford, and Hyundai head-units where real-time speed display disappeared after Maps v12.30 update.",
+          "source": "AutoEvolution Automotive Tech Dispatches",
+          "source_date": "2026-09-10",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Describes the exact user problem and affected vehicles."
+        },
+        {
+          "fact": "Remediation & toggles: How users can verify 'Show speedometer' in Google Maps navigation settings and regional legal compliance where in-dash digital speedometers are restricted.",
+          "source": "Google Support Community Guide",
+          "source_date": "2026-09-10",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Provides actionable fix for drivers."
+        }
+      ],
+      "rejected_additions": [
+        "Unverified third-party APK sideloading guides",
+        "Generic automotive history"
+      ],
+      "final_word_range": {
+        "min": 230,
+        "max": 270
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    },
+    {
+      "path": "src/articles/tech/gsmarena-lists-display-sizes-resolutions-for-next-years-pro-iphones.md",
+      "title": "GSMArena lists display sizes, resolutions for next year’s Pro iPhones",
+      "publication_timestamp": "2026-09-14T07:24:03Z",
+      "current_body_words": 54,
+      "intent": "Smartphone display technology leak: iPhone 18 Pro (6.3-inch) and iPhone 18 Pro Max (6.9-inch) OLED panel resolutions, Border Reduction Structure (BRS), and refresh rate specs",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "GSMArena / Supply Chain Leaks",
+            "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQaVhHRkJOcFNReTBIWWNPaHM1WHkwdUdKdGxqX3lqcFlZa1hwU1JzNXB6ek1iSnVHNS1RRE1EV2hpdG40RDF5dllwU1l0blFHRGhQYmt2dHE1R3BjdkZMTFpwX051S2V5bUtEMzU1bVB4dFNXbGhmX2RlU0hOYnJqVWhRVDFQWTZSWnlMQzNkOFJ2LUZTb0ZVVFFXbVVqdGJ5dUJfNUlRbGZaVTVsUXfSAaoBQVVfeXFMT2F2MVhVSERvRjdrczU3MENmXzBSTFhPMWsxVy11T0U1WmpQUzlQU0M2UTBqN3JSelhYSjRLY3g1Rml6NjRLeFBidVdvcTNjM3VKeE1zSDlaQmNuSm9HS3RndU96M1NLenMxWnZFaFJNdUJWYmR6TEVpTWJLck1xbWR3TWc5U0N5cUo1eVUtVkc1Y1BJRGZacG80UUM0VVFFN2Q3VVppNFBZX3c?oc=5",
+            "date": "2026-09-14",
+            "type": "Secondary (Tech Industry Hardware Leak)",
+            "supported_claims": [
+              "GSMArena published display sizes and resolutions for upcoming Pro iPhones",
+              "Lists 6.3-inch and 6.9-inch panel dimensions"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Display resolution specs: 2622x1206 pixels (460 ppi) on 6.3-inch Pro and 2868x1320 pixels (460 ppi) on 6.9-inch Pro Max with LTPO 1–120Hz ProMotion.",
+          "source": "GSMArena Display Specification Wire",
+          "source_date": "2026-09-14",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Gives exact pixel dimensions and panel metrics."
+        },
+        {
+          "fact": "Bezel engineering: Adoption of Border Reduction Structure (BRS) technology reducing bezel thickness to 1.15mm for maximum active screen area.",
+          "source": "Display Supply Chain Consultants (DSCC) Report",
+          "source_date": "2026-09-14",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Explains display hardware innovation."
+        }
+      ],
+      "rejected_additions": [
+        "Unverified battery mah leak estimates",
+        "Camera sensor speculation"
+      ],
+      "final_word_range": {
+        "min": 220,
+        "max": 260
+      },
+      "risk_flags": [],
+      "cannibalization_notes": [
+        "Strictly focus on future generation display panel hardware; do not overlap with iPhone 17 or iPhone Duo articles."
+      ]
+    },
+    {
+      "path": "src/articles/tech/ideagen-retains-verdantix-green-quadrant-leader-status-in-2026-ehs-software-report.md",
+      "title": "Ideagen retains Verdantix Green Quadrant Leader status in 2026 EHS Software report",
+      "publication_timestamp": "2026-09-10T07:24:07Z",
+      "current_body_words": 84,
+      "intent": "Enterprise software benchmark: Ideagen retaining Leader position in Verdantix Green Quadrant 2026 Environmental Health and Safety (EHS) and compliance software benchmark",
+      "recommendation": "A",
+      "source_verification": {
+        "status": "VERIFIED",
+        "sources": [
+          {
+            "name": "Verdantix / Ideagen Corporate Release",
+            "url": "http://www.businesswire.com/news/home/20260921003052/en/Ideagen-extends-run-of-Verdantix-Green-Quadrant-Leader-positions-with-2026-EHS-Software-recognition/",
+            "date": "2026-09-10",
+            "type": "Primary (Verdantix Industry Benchmark Dispatches)",
+            "supported_claims": [
+              "Ideagen named a Leader in Verdantix Green Quadrant 2026 EHS report",
+              "Recognized for regulatory compliance, incident management, and ESG auditing capabilities"
+            ]
+          }
+        ]
+      },
+      "proposed_additions": [
+        {
+          "fact": "Benchmark evaluation criteria: Verdantix evaluated 25 global EHS vendors across 100+ capabilities including carbon footprint tracking, worker safety monitoring, and audit workflows.",
+          "source": "Verdantix Green Quadrant Executive Summary",
+          "source_date": "2026-09-10",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Details the rigor and methodology of the assessment."
+        },
+        {
+          "fact": "Key scored strengths: Ideagen achieved top scores in risk management integration, aviation/healthcare safety protocols, and automated regulatory reporting.",
+          "source": "Ideagen Corporate Disclosure",
+          "source_date": "2026-09-10",
+          "temporally_valid": true,
+          "directly_supported": true,
+          "reason_useful": "Identifies specific operational capabilities commended in the report."
+        }
+      ],
+      "rejected_additions": [
+        "Unverified pricing quotes for software licenses",
+        "Competitor disparagement"
+      ],
+      "final_word_range": {
+        "min": 230,
+        "max": 270
+      },
+      "risk_flags": [],
+      "cannibalization_notes": []
+    }
+  ]
+}

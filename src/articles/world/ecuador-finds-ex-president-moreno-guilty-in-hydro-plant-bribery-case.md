@@ -1,5 +1,5 @@
 ---
-title: "Ecuadorian court convicts former President Lenín Moreno in hydroelectric plant bribery case"
+title: "Ecuador Court Sentences Ex-President Lenín Moreno in Coca-Codo Sinclair Bribery Case"
 category: "World"
 date: 2026-08-29T08:13:43Z
 image: "https://staticprintenglish.theprint.in/wp-content/uploads/2026/08/Ecuador_363.jpg"
@@ -10,7 +10,7 @@ video_caption: "Lenín Moreno condenado: Las claves de la sentencia por sobornos
 slug: "ecuador-finds-ex-president-moreno-guilty-in-hydro-plant-bribery-case"
 sourceUrl: "https://theprint.in/world/ecuador-finds-ex-president-moreno-guilty-in-hydro-plant-bribery-case/3028088/"
 sourceName: "ThePrint"
-dek: "A Quito court on Friday found ex‑president Lenín Moreno guilty of taking bribes linked to the construction of Ecuador’s largest hydroelectric project, the Coca‑Codo Sinclair plant."
+dek: "Quito's criminal court has found former President Lenín Moreno guilty of receiving illegal payments funneled through shell companies during construction of the Coca-Codo Sinclair hydroelectric plant."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The conviction of a former head of state underscores Ecuador’s ongoing struggle to curb corruption that has long undermined public trust and hindered economic progress. By targeting a project as visible as the Coca‑Codo Sinclair plant, the judiciary sends a clear message that even the highest officials are not immune to legal scrutiny, which could improve investor confidence in future infrastructure ventures. However, the ruling also risks deepening political polarisation, especially as the country prepares for local elections later this year, potentially influencing voter sentiment and party dynamics.

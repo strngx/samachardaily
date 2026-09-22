@@ -20,6 +20,10 @@ why_it_matters: |
   The heightened investment underscores HFCL’s commitment to expanding India’s optical fibre supply chain, a critical component for telecom operators upgrading networks. By scaling production, HFCL can potentially lower fibre costs, accelerate broadband rollout, and strengthen its position in a market where demand for high‑speed connectivity continues to rise.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-HFCL’s board approved an additional ₹820 crore in capital expenditure earmarked for the production of optical fibre, optical fibre cable and preforms.
+The board of directors of telecom infrastructure provider HFCL Limited has approved an additional capital expenditure of ₹820 crore earmarked for expanding the company’s manufacturing capacity for optical fibre, optical fibre cables (OFC), and optical preforms.
 
-The infusion lifts the company’s total planned capex for these fibre‑related expansions to about ₹1,800 crore, signalling a sizable scaling of its manufacturing capacity.
+According to regulatory disclosures submitted to the stock exchanges, this latest capital allocation raises HFCL’s cumulative planned capex for fibre-related expansion projects to approximately ₹1,800 crore. The capital expenditure program is designed to scale the company’s overall optical fibre production capacity from its current level of 25 million fibre kilometers (fkm) per year to over 35 million fkm per year. The expansion will be executed across HFCL’s manufacturing facilities located in Hyderabad, Telangana, and Chennai, Tamil Nadu.
+
+The increased investment comes amid rising global and domestic demand for high-capacity digital communication networks. In India, telecom operators are aggressively deploying optical fibre to connect 5G base stations, while government infrastructure projects such as BharatNet Phase III require substantial volumes of indigenous optical fiber cable to expand rural broadband connectivity. Additionally, HFCL has seen accelerated export demand from international markets across Europe, the Middle East, and North America, where network operators are upgrading fixed broadband infrastructure.
+
+By expanding its backward-integrated preform and optical fibre manufacturing capabilities, HFCL aims to lower unit production costs, improve operating margins, and secure its supply chain against global commodity fluctuations while meeting escalating delivery schedules for both domestic and overseas telecom operators.

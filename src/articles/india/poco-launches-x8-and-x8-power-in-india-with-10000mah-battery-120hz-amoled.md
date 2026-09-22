@@ -1,6 +1,6 @@
 ---
-title: "POCO launches X8 and X8 Power in India with 10,000mAh battery, 120Hz AMOLED"
-seoTitle: "POCO X8 and X8 Power launch in India – specs, price,"
+title: "POCO X8 and X8 Power Launched in India: Price, 120Hz AMOLED, and Retail Availability"
+seoTitle: "POCO X8 and X8 Power Launched in India - Price and Retail Availability"
 category: "India"
 date: 2026-09-05T00:55:52Z
 image: "https://images.pexels.com/photos/33001497/pexels-photo-33001497.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"

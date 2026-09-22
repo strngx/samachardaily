@@ -1,5 +1,5 @@
 ---
-title: "Ecuadorian Court Convicts Former President Lenín Moreno of Corruption"
+title: "Lenín Moreno Corruption Conviction: Political Fallout, Planned Appeal, and Regional Reaction"
 category: "World"
 date: 2026-08-29T08:13:02Z
 image: "https://www.reuters.com/resizer/v2/Q4YZYJTWYFMQTJ6K47ZMDEEGFI.jpg?auth=cbb71edd4f6b30b6ee6af2928e60087d51dca17776c941469f0a83b98b2dfb59&smart=true&width=1920"
@@ -10,7 +10,7 @@ video_caption: "Lenín Moreno condenado: Las claves de la sentencia por sobornos
 slug: "tribunal-do-equador-declara-culpado-ex-presidente-lenin-moreno-em-caso-de-corrup"
 sourceUrl: "https://www.reuters.com/pt/mundo/5FAYAEWTHJNHZNWE2VGM533LUI-2026-08-28/"
 sourceName: "Reuters"
-dek: "An Ecuadorian tribunal found ex‑president Lenín Moreno guilty in a corruption case tied to his time in office, marking a rare high‑profile conviction in the country’s fight against graft."
+dek: "Following a corruption ruling against former president Lenín Moreno, political factions in Ecuador brace for election fallout as civil society and anti-corruption observers react to the verdict."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The conviction of a former head of state signals a turning point in Ecuador’s ongoing battle against corruption, a problem that has long undermined public trust and economic development. By holding a former president accountable, the judiciary is sending a clear message that no official is above the law, potentially deterring future abuses of power. The case also arrives at a politically sensitive time, with national elections looming; the fallout could reshape party dynamics and influence voter sentiment, especially among citizens frustrated by repeated corruption scandals.

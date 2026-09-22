@@ -60,3 +60,19 @@
   ]
 }
 </script>
+{% set vid = videoId or video_id %}
+{% if enable_video_object and vid and vid != "" and vid != "null" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": {{ (video_title or videoCaption or video_caption or title) | json | safe }},
+  "description": {{ (video_description or videoCaption or video_caption or dek or title) | json | safe }},
+  "thumbnailUrl": [
+    "https://i.ytimg.com/vi/{{ vid }}/hqdefault.jpg"
+  ],
+  "uploadDate": "{{ (date or page.date) | isoDate }}",
+  "embedUrl": "https://www.youtube.com/embed/{{ vid }}"
+}
+</script>
+{% endif %}

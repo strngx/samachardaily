@@ -8,6 +8,7 @@ imageAlt: "Man reviewing paperwork in Hindi during a seminar, showcasing focus a
 imageCredit: "Vijay Krishnawat"
 trending: false
 featured: false
+enable_video_object: true
 video_id: "faM-lfvqFOM"
 video_caption: "LIVE: PM Modi distributes appointment letters under Rozgar Mela"
 videos:

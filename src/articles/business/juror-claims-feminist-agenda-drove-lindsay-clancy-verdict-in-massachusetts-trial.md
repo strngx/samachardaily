@@ -5,7 +5,7 @@ category: "Business"
 date: 2026-09-15T08:40:50Z
 image: "https://images.pexels.com/photos/34817106/pexels-photo-34817106.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
 imageAlt: "Confident woman in white suit presenting a case in an elegant courtroom setting."
-imageCredit: "khezez  | خزاز"
+imageCredit: "khezez (Pexels)"
 trending: false
 featured: false
 video_id: "8rieP4yUmuY"

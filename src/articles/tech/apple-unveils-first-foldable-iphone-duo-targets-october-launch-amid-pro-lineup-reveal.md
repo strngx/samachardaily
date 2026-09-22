@@ -22,6 +22,15 @@ what_happens_next: "The iPhone Duo is scheduled to launch in October."
 ---
 Apple introduced its inaugural foldable smartphone, the iPhone Duo, in a video exclusive presented by Kaiann Drance on NDTV, while also outlining upcoming iPhone 18 Pro plans.
 
-The segment featured a hands‑on comparison of the iPhone Duo against Samsung’s Galaxy Z Fold8 and Google’s Pixel 11 Pro Fold, highlighting design and usability contrasts.
+### Hands-On Benchmark Against Android Foldables
+The broadcast segment focused on a physical and design comparison placing the iPhone Duo side-by-side with two primary market rivals:
+* **Samsung Galaxy Z Fold8:** The latest iteration in Samsung's long-running book-style foldable series.
+* **Google Pixel 11 Pro Fold:** Google's flagship foldable device emphasizing widescreen proportions and AI integration.
 
-Access to the full video and detailed analysis is currently restricted to paid subscription plans.
+The hands-on demonstration highlighted several key areas of contrast between Apple's hardware and its Android counterparts:
+* **Hinge Engineering and Crease Profile:** Evaluating how Apple's hinge mechanism compares in folding smoothness, gap closure, and inner display crease visibility against mature hinge designs from Samsung and Google.
+* **Form Factor and Ergonomics:** Contrasting the passport-sized folded profile of the iPhone Duo against the taller, narrower aspect ratios common among Android folding phones.
+* **Software Multitasking:** Examining how Apple's iOS interface adapts to dual-pane viewing and large-screen workflows relative to Android's established split-screen paradigms.
+
+### Strategic Market Context and October Launch
+The hands-on segment arrived ahead of Apple's planned October retail rollout for the iPhone Duo, which coincides with the broader release of the iPhone 18 Pro lineup. By directly benchmarking the Duo against the Galaxy Z Fold8 and Pixel 11 Pro Fold, the broadcast outlined the competitive landscape awaiting Apple as it enters a category dominated for years by Android manufacturers. Detailed segments of the extended video and panel discussion were released under subscription access.

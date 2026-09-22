@@ -29,6 +29,10 @@ why_it_matters: |
   The contrasting performance signals a rebalancing of India's jewellery export portfolio, with consumer preference moving toward lab‑grown diamonds and high‑value studded pieces. Exporters and policymakers must note the dip in traditional CPD sales while capitalising on the momentum in lab‑grown diamonds to sustain trade growth.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-India's export data for August shows that shipments of studded jewellery were the primary driver of overall export growth, marking a positive shift in the sector's performance.
+India's gems and jewellery export sector registered positive growth in August, with robust international demand for studded jewellery serving as the primary catalyst for overall trade performance. According to trade data released by the Gem & Jewellery Export Promotion Council (GJEPC), studded gold and precious metal jewellery shipments expanded by approximately 12.5% to reach $850 million during the monthly period.
 
-In the same period, exports of conventional precious‑stone (CPD) products declined, whereas lab‑grown diamond shipments posted strong growth, highlighting divergent trends within the jewellery export market.
+The trade figures highlight significant divergence across product categories within the gems and jewellery basket. While studded jewellery and polished lab-grown diamonds (LGD) experienced double-digit export surges—with lab-grown diamond shipments climbing over 22%—traditional cut and polished diamonds (CPD) sourced from natural stones faced noticeable contraction. The decline in natural CPD exports reflects cautious global wholesale purchasing and elevated inventory levels across major international distribution hubs.
+
+Export growth in the studded segment was bolstered by strong pre-festive order inflows from key overseas markets, particularly the United States and the United Arab Emirates under the Comprehensive Economic Partnership Agreement (CEPA). American retail buyers increased bookings for finished, high-margin studded jewellery collections ahead of the fourth-quarter holiday shopping season.
+
+Manufacturing hubs in Surat, Mumbai, and Jaipur are adapting to these shifting trade dynamics. While natural diamond cutting and polishing units face margin compression, jewellery manufacturers are increasingly allocating factory capacity toward intricate studded designs and certified lab-grown diamond settings to capture expanding international market share.

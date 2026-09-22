@@ -1,6 +1,6 @@
 ---
-title: "Anthropic CEO Urges Slower AI Development; OpenAI and Musk Echo Concerns"
-seoTitle: "Anthropic CEO calls for slower AI development"
+title: "Sam Altman and Elon Musk Back Anthropic CEO's Call for AI Governance and Safeguards"
+seoTitle: "Tech Leaders Back Amodei AI Safeguards Call"
 category: "Tech"
 date: 2026-09-13T23:24:00Z
 image: "https://images.pexels.com/photos/16027824/pexels-photo-16027824.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
@@ -17,7 +17,7 @@ videos:
 slug: "anthropic-ceo-urges-slower-ai-development-openai-and-musk-echo-concerns"
 sourceUrl: "https://www.livemint.com/videos/viral-anthropic-ceo-dario-amodei-sounds-alarm-over-pace-of-ai-development-11789298251974.html"
 sourceName: "Mint"
-dek: "Anthropic chief Dario Amodei published an essay urging the AI sector to temper the speed of model upgrades, a stance quickly backed by OpenAI’s Sam Altman and Elon Musk."
+dek: "OpenAI's Sam Altman and Elon Musk back Dario Amodei's essay calling for the AI industry to use a slower pace of capability upgrades to strengthen independent oversight and safety safeguards."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The coordinated warning from leading AI figures underscores mounting unease about rapid capability gains outpacing safety measures. Their call could push firms to prioritize risk mitigation, shape forthcoming regulatory frameworks, and influence investor scrutiny of AI development practices.

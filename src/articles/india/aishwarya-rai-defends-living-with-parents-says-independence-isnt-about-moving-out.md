@@ -5,21 +5,12 @@ category: "India"
 date: 2026-09-14T16:30:26Z
 image: "https://images.pexels.com/photos/36799056/pexels-photo-36799056.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
 imageAlt: "A family engaging in conversation over a traditional meal, fostering connection."
-imageCredit: "khezez  | خزاز"
+imageCredit: "khezez (Pexels)"
 trending: false
 featured: false
-video_id: "MrfRXwC8gt4"
-video_caption: "ఆమె అసలు క్యారెక్టర్‌ ఇదే! 🔴LIVE : Actress Aishwarya Husband Shocking Facts | RTV"
-videos:
-  - video_id: "MrfRXwC8gt4"
-    title: "ఆమె అసలు క్యారెక్టర్‌ ఇదే! 🔴LIVE : Actress Aishwarya Husband Shocking Facts | RTV"
-    channel: "RTV "
-  - video_id: "ZlNLnFQpIEU"
-    title: "Aishwarya Rai Bachchan, daughter Aaradhya discharged from Nanavati Hospital after testing negative"
-    channel: "Shudh Manoranjan"
-  - video_id: "rImLLqNiar4"
-    title: "🔴LIVE: கர்ப்பிணினு கூட பாக்காம வயித்துலயே உதைக்கிறார் | Divya Shocking Interview | Arnav"
-    channel: "Cineulagam"
+video_id: ""
+video_caption: ""
+videos: []
 slug: "aishwarya-rai-defends-living-with-parents-says-independence-isnt-about-moving-out"
 sourceUrl: "https://morungexpress.com/when-aishwarya-rai-spoke-about-choosing-to-live-with-her-parents-as-successful-woman"
 sourceName: "Morungexpress"

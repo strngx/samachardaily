@@ -1,6 +1,6 @@
 ---
-title: "Anthropic CEO urges slowdown of AI development amid rising safety concerns"
-seoTitle: "Anthropic CEO calls for AI slowdown"
+title: "Anthropic CEO Dario Amodei Warns of AI Safety Risks and Urges Slower Industry Pace"
+seoTitle: "Dario Amodei AI Safety Warning and Development Pace"
 category: "Tech"
 date: 2026-09-13T00:45:12Z
 image: "https://images.pexels.com/photos/23496927/pexels-photo-23496927.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
@@ -17,7 +17,7 @@ videos:
 slug: "anthropic-ceo-urges-slowdown-of-ai-development-amid-rising-safety-concerns"
 sourceUrl: "https://www.nbcphiladelphia.com/news/national-international/anthropic-ceo-calls-for-slowing-ai-race/4462046/"
 sourceName: "Nbc10 Philadelphia"
-dek: "Anthropic co‑founder and CEO Dario Amodei urges the industry to temper AI development as safety concerns intensify."
+dek: "Anthropic co‑founder and CEO Dario Amodei issues a public warning regarding mounting safety risks, urging the artificial intelligence industry to temper its development pace."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   Amodei's appeal highlights that senior AI leaders are acknowledging heightened safety risks, which may pressure companies to adopt more cautious development practices and could shape forthcoming regulatory discussions.

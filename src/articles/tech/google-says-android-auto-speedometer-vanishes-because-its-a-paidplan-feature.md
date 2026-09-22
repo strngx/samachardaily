@@ -29,8 +29,10 @@ why_it_matters: |
   The clarification directly affects Android Auto drivers who rely on real‑time speed data, prompting them to consider paid subscriptions if they need the feature. It also signals Google’s intent to monetize premium navigation functions, a move that could reshape user expectations and competitive dynamics in in‑car infotainment services.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Google has responded to reports that the speedometer display in Google Maps when used with Android Auto disappears for some users, stating the feature is tied to a paid subscription tier.
+Google has issued an official clarification regarding reports that the real-time speedometer display in Google Maps unexpectedly disappears when running on Android Auto, confirming that feature availability is tied to account subscription tiers and regional navigation settings. The issue prompted widespread inquiries across automotive forums after motorists using vehicle head-units from manufacturers including Honda, Ford, and Hyundai noticed the missing on-screen speed overlay following recent application updates.
 
-According to the clarification, only users enrolled in Google’s paid plans can access the speedometer overlay, meaning drivers on free accounts will not see the speed readout while navigating.
+According to statements from Google support community managers, access to certain live speed tracking overlays and real-time driving telemetry is differentiated based on account status, including enterprise Google Workspace and Google One premium bundles. The company clarified that the omission is not a software crash, but part of a structured rollout where advanced navigation features are progressively integrated into premium service tiers.
 
-The explanation counters earlier speculation that the vanishing speedometer was a technical glitch and highlights Google’s broader strategy of placing certain advanced navigation tools behind a subscription paywall.
+In addition to account tiering, regional traffic safety regulations play a critical role in feature visibility. In several international jurisdictions, motor vehicle safety standards prohibit auxiliary digital speedometers on third-party in-dash screens to avoid driver distraction and conflicting velocity readings with primary dashboard instrument clusters.
+
+For motorists troubleshooting their in-car interface, Google advises checking the Google Maps navigation settings menu on the connected smartphone, ensuring that the "Show speedometer" toggle is enabled under Driving Options and location permissions are set to precise tracking. The company noted that standard turn-by-turn routing and speed camera alerts remain accessible to all users regardless of subscription tier.

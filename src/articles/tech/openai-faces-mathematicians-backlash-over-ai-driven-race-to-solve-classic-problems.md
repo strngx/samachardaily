@@ -23,6 +23,10 @@ why_it_matters: |
   The protest highlights a clash between rapid AI advancement and the preservation of academic rigor, raising questions about how AI-generated proofs should be validated and credited. If unchecked, such competition could erode trust in scholarly outputs and pressure institutions to revise policies governing AI contributions to mathematics.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Several mathematicians have signed an open letter asserting that the activities of AI laboratories pose a direct threat to their intellectual work.
+A group of professional mathematicians and academic researchers has signed an open letter expressing concern over the growing commercial race among artificial intelligence laboratories, including OpenAI, to produce automated solutions for famous mathematical problems and historical conjectures.
 
-The signatories point to a growing competition among AI firms to produce solutions for well‑known mathematical challenges, arguing that this race undermines traditional research practices.
+The signatories argue that the rapid push to claim AI-generated breakthroughs on complex mathematical challenges threatens traditional academic research norms and peer-review rigor. Rather than advancing genuine mathematical understanding, researchers caution that brute-force computational search and generative language models can produce unverified, error-prone proofs that place an unsustainable verification burden on academic journals and referees.
+
+The open letter emphasizes the distinction between AI as a collaborative tool for mathematicians—such as formal verification assistance and automated theorem checking—and commercial AI marketing that claims full autonomous problem-solving. To preserve scholarly integrity, the signatories urge AI laboratories to submit any purported mathematical breakthroughs to rigorous formal verification environments, such as Lean or Coq, and to undergo standard peer review before releasing public claims.
+
+The debate highlights a broader philosophical tension in the scientific community regarding how generative reasoning models should be credited, evaluated, and integrated into pure mathematics without eroding the methodological foundations of scholarly proof.

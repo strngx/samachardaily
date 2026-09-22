@@ -8,6 +8,7 @@ imageAlt: "Senior couple bonding over movie night with popcorn and laptop in coz
 imageCredit: "SHVETS production"
 trending: false
 featured: false
+enable_video_object: true
 video_id: "wPpKb2tcqpI"
 video_caption: "Will Baby Boomers Crash the Stock Market? | Portfolio Rescue 56"
 videos:

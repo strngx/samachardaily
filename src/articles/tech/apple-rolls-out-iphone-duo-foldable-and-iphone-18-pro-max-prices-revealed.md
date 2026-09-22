@@ -31,4 +31,16 @@ what_happens_next: "No confirmed next steps reported yet."
 ---
 Apple has launched two flagship smartphones—the iPhone Duo, a foldable device, and the iPhone 18 Pro Max, a conventional high‑end model—each targeting a different user experience.
 
-Both phones run on Apple’s A20 Pro processor and include the Apple Intelligence suite, but they diverge on display and price: the Duo features a 7.6‑inch foldable screen and is priced at INR 2,99,900, while the 18 Pro Max retains a 6.9‑inch display with a starting price of INR 1,79,900.
+### Price and Market Positioning
+In the Indian market, the price difference between the two flagships represents a significant tier division. The iPhone 18 Pro Max begins at a starting price of INR 1,79,900, maintaining Apple's established pricing structure for its large-screen Pro models. In contrast, the iPhone Duo enters the market at INR 2,99,900, commanding a premium of INR 1,20,000 over the Pro Max. This premium establishes the foldable as a luxury, high-tier halo product positioned above traditional smartphones.
+
+### Display and Form Factor Differences
+The defining distinction between the two devices lies in their screen technology and portability:
+* **iPhone Duo:** Features a 7.6-inch flexible OLED interior display that folds down into a pocket-friendly form factor. The expanded screen enables enhanced multitasking and large-format media consumption.
+* **iPhone 18 Pro Max:** Retains a traditional 6.9-inch rigid display, offering maximum screen real estate within a standard unibody chassis without hinge mechanisms.
+
+### Shared Silicon and Software Architecture
+Despite their physical divergence, Apple has ensured performance parity across both flagship devices. Both the iPhone Duo and iPhone 18 Pro Max are powered by Apple's next-generation A20 Pro processor and fully integrate the Apple Intelligence suite. This ensures that generative AI tools, on-device processing capabilities, and operating system updates perform consistently regardless of which form factor users select.
+
+### Choosing Between the Flagships
+The choice between the two models centers on ergonomic preference versus form-factor innovation. The iPhone 18 Pro Max delivers familiar ergonomics and maximum performance at a proven price point. The iPhone Duo offers users an expansive folding canvas for productivity and media, designed for early adopters willing to invest in Apple's first foldable generation.

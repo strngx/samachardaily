@@ -5,7 +5,7 @@ category: "India"
 date: 2026-09-06T16:57:35Z
 image: "https://images.pexels.com/photos/28583897/pexels-photo-28583897.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
 imageAlt: "Two medical professionals operate in a Syrian hospital room, focused and equipped."
-imageCredit: "محمد عزام الشيخ يوسف"
+imageCredit: "Mohamed Azzam (Pexels)"
 trending: false
 featured: false
 video_id: "Q0vEimNtQ2M"

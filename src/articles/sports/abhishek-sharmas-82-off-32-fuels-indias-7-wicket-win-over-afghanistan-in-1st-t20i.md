@@ -8,6 +8,7 @@ imageAlt: "Cricket batsman facing bowler with wicketkeeper and fielder outdoors.
 imageCredit: "Anil  Sharma"
 trending: true
 featured: false
+enable_video_object: true
 video_id: "xBpqTlBs5qI"
 video_caption: "IND Vs UAE Highlights: India Vs United Arab Emirates Highlights I Asia Cup 2025 I UAE Vs IND Live"
 videos:

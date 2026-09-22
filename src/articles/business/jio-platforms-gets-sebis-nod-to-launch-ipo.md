@@ -1,5 +1,5 @@
 ---
-title: "SEBI Clears Jio Platforms to Proceed with IPO"
+title: "SEBI Clears Jio Platforms IPO: Regulatory Roadshow Timeline and Listing Process"
 category: "Business"
 date: 2026-08-28T23:37:10Z
 image: "https://images.news18.com/ibnlive/uploads/2025/02/jio-reliance-2025-02-213b2412c6dd83944e4e6cf8fac9c814-3x2.jpg"
@@ -10,7 +10,7 @@ video_caption: "Jio Platforms IPO Gets SEBI Nod | What’s The Timeline To Go Pu
 slug: "jio-platforms-gets-sebis-nod-to-launch-ipo"
 sourceUrl: "https://www.news18.com/business/economy/jio-platforms-gets-sebis-nod-to-launch-ipo-10298433.html"
 sourceName: "News18"
-dek: "India’s telecom and digital services powerhouse Jio Platforms received regulatory approval from SEBI to launch its initial public offering, moving the company closer to what could become one of the country’s biggest listings."
+dek: "SEBI has cleared Jio Platforms' draft red‑herring prospectus, removing the primary regulatory hurdle for investor roadshows and its forthcoming domestic stock market listing."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The SEBI nod is significant for India’s capital markets because a Jio Platforms listing would inject a massive amount of fresh capital, potentially reshaping the country’s equity landscape. A successful IPO could set a benchmark for valuations of Indian tech and telecom firms, encouraging other high‑growth companies to consider public listings. For investors, the offering presents exposure to a business that has rapidly transformed India’s digital connectivity and continues to expand into new verticals.

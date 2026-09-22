@@ -1,5 +1,5 @@
 ---
-title: "SEBI clears Jio Platforms IPO, paving way for $4 bn public issue"
+title: "Jio Platforms Targets $4 Billion Public Issue for 5G and Cloud Expansion Following SEBI Nod"
 category: "Business"
 date: 2026-08-29T14:50:02Z
 image: "https://images.pexels.com/photos/10958530/pexels-photo-10958530.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
@@ -21,7 +21,7 @@ videos:
     channel: "MyFin TV"
 slug: "mukesh-ambani-led-jio-platforms-ipo-receives-sebi-approval"
 sourceUrl: "https://telecomlive.in/web/2026/08/29/mukesh-ambani-led-jio-platforms-ipo-receives-sebi-approval/"
-dek: "SEBI gave final approval on Aug 28 for Jio Platforms' IPO, which aims to raise about $4 bn, potentially the biggest Indian public issue."
+dek: "Following SEBI's final observations, Jio Platforms is preparing a $4 billion (Rs 37,700 crore) public issue to accelerate 5G infrastructure, cloud services, and digital growth."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The IPO could reshape India’s capital markets by setting a new scale for tech listings, encouraging deeper participation from global investors and enhancing market depth. It also offers Reliance a pathway to diversify its capital base, reducing reliance on debt and strengthening its balance sheet for next‑generation digital investments.

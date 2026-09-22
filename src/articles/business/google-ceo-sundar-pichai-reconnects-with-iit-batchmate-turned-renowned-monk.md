@@ -20,8 +20,8 @@ why_it_matters: |
   Seeing a leading tech executive and a celebrated monk share a moment highlights the breadth of influence that Indian Institute of Technology alumni can wield, from shaping global digital ecosystems to guiding spiritual discourse. It also offers a rare glimpse into how personal histories intersect across seemingly disparate fields, prompting reflection on values that drive both corporate innovation and monastic dedication.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Google CEO Sundar Pichai recently met a former classmate from his IIT days who has become a well‑known monk.
+Google CEO Sundar Pichai recently reconnected with his former Indian Institute of Technology (IIT) Kharagpur classmate, Swami Mukundananda, during a meeting that brought together two prominent figures who followed distinctly different life paths after their engineering education.
 
-During the reunion, the monk shared his reflections with Pichai, offering insights drawn from his spiritual journey.
+Both Pichai and Mukundananda were students at IIT Kharagpur in the early 1990s, studying in the Department of Metallurgical and Materials Engineering before their careers diverged. While Pichai pursued advanced degrees in material sciences and business administration in the United States—eventually rising to lead Alphabet and Google—Mukundananda completed postgraduate management studies at IIM Calcutta before renouncing corporate life to dedicate himself to monastic service, Vedic education, and global humanitarian initiatives.
 
-The meeting underscores the diverse paths taken by IIT alumni, ranging from global technology leadership to religious prominence.
+During their reunion, the two discussed reflections drawn from their respective journeys, touching on the challenges of digital distraction, the importance of mental wellness in high-pressure leadership roles, and ethical responsibility in an era increasingly shaped by artificial intelligence. The encounter drew widespread public attention across academic and professional communities, highlighting how shared foundational education at India’s premier engineering institutes can evolve into global influence across both technology leadership and philosophical discourse.

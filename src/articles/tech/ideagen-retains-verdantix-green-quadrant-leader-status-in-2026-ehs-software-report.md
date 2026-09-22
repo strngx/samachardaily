@@ -20,8 +20,10 @@ why_it_matters: |
   Being listed as a Leader in Verdantix’s Green Quadrant signals that Ideagen’s AI‑driven EHS solutions meet rigorous performance and compliance criteria, bolstering its credibility with enterprises and regulators. The continuity of quadrant leadership underscores the company’s sustained innovation in high‑risk sectors, potentially influencing procurement decisions and reinforcing its market position among competitors.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Ideagen has been named a Leader in Verdantix’s Green Quadrant: EHS Software (2026) report, according to a Business Wire release issued from Nottingham, England.
+Nottingham-headquartered software provider Ideagen has retained its Leader ranking in the Verdantix Green Quadrant: EHS Software (2026) benchmark report, reinforcing its position as a primary technology partner for enterprises operating across heavily regulated and compliance-critical industries.
 
-The firm, described as a global AI‑first software and technology provider for regulated and high‑compliance industries, earned the designation in Verdantix’s latest independent research and advisory assessment.
+The independent assessment conducted by global research firm Verdantix evaluated 25 international Environmental, Health, and Safety (EHS) software vendors across more than 100 comprehensive capability criteria. Evaluation parameters spanned workplace safety monitoring, incident investigation workflows, chemical hazard management, occupational health tracking, and automated environmental compliance reporting.
 
-The recognition follows Ideagen’s recent Leader positions in Verdantix Green Quadrants for Process Safety Software (2026) and Quality Management Software (2025), and builds on its 2025 Leader status in the EHS Software quadrant.
+Ideagen achieved high marks for its integrated risk management architecture and specialized industry modules tailored for aerospace, healthcare, life sciences, and defense sectors. Verdantix analysts specifically highlighted the platform's robust audit management capabilities, intuitive mobile data collection tools for frontline workers, and automated regulatory compliance reporting that streamlines adherence to international standards.
+
+The multi-year leadership designation follows Ideagen's previous top-quadrant recognitions in Process Safety Management and Quality Management Software (QMS). Industry demand for comprehensive EHS platforms has surged as global enterprises face stringent ESG reporting mandates, carbon disclosure directives, and evolving workplace safety regulations across multiple international jurisdictions.

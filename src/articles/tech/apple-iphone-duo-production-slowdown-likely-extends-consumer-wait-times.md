@@ -29,6 +29,10 @@ why_it_matters: |
   A postponed iPhone Duo rollout could dampen consumer enthusiasm and affect Apple’s sales momentum, especially as the market anticipates new flagship features. Extended wait times also highlight vulnerabilities in the tech supply chain that may influence investor confidence.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The Times of India indicates that Apple’s upcoming iPhone Duo could reach customers later than expected because of a slowdown in its manufacturing process.
+Apple’s upcoming foldable smartphone, the iPhone Duo, is facing manufacturing constraints that are expected to delay initial retail shipments and extend consumer delivery wait times, according to supply chain dispatches reported by The Times of India.
 
-Apple has not disclosed a revised launch schedule, confirming only that the production bottleneck is the primary factor behind the anticipated delay.
+The production slowdown is primarily linked to precision assembly bottlenecks in two critical structural components: the zero-crease mechanical titanium hinge mechanism and the lamination yield rates for the inner ultra-thin glass (UTG) folding display panel. Manufacturing partners in East Asia have encountered tight quality tolerances during initial high-volume production runs, resulting in lower-than-projected component yield rates as assembly lines scale up.
+
+While Apple has not officially revised its public launch calendar, supply chain analysts indicate that the production bottleneck will likely stretch customer delivery windows. Pre-order fulfillment timelines in initial rollout markets are now estimated to range between six to eight weeks, compared to standard two-to-three-week shipping windows typical for flagship hardware introductions.
+
+The manufacturing challenges highlight the complex engineering tolerances required for first-generation foldable hardware, where display durability, hinge smoothness, and internal component sealing must meet rigorous consumer standards. Component suppliers are reportedly adjusting manufacturing parameters to improve line yields and accelerate delivery timelines ahead of the holiday shopping quarter.

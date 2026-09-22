@@ -8,6 +8,7 @@ imageAlt: "A focused technician repairs a circuit board in a high-tech electroni
 imageCredit: "Multitech Institute"
 trending: true
 featured: false
+enable_video_object: true
 video_id: "SEck7YHy1HA"
 video_caption: "LIVE: IT minister Ashwini Vaishnaw holds briefing on India Semiconductor Mission (ISM) 2.0"
 videos:
@@ -29,8 +30,10 @@ why_it_matters: |
   Transitioning semiconductor ambitions to execution indicates tangible progress in a sector critical for technological self‑reliance, job creation and skill development, directly affecting India's future innovators and the economy.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-In a recent interview, Ashwini Vaishnaw said India's semiconductor ambitions have moved from aspiration to execution.
+In a detailed policy interview, Union Minister for Electronics and Information Technology Ashwini Vaishnaw stated that India’s national semiconductor drive has officially transitioned from the strategic planning phase into active physical execution across multiple states.
 
-His comment signals a shift from earlier planning stages to the rollout of concrete projects within the semiconductor ecosystem.
+Vaishnaw noted that projects approved under the ₹76,000 crore India Semiconductor Mission (ISM) are now advancing through construction and equipment installation milestones. Key developments include Tata Electronics’ ₹91,000 crore commercial wafer fabrication facility in Dholera, Gujarat—being established in partnership with Taiwan’s Powerchip Semiconductor Manufacturing Corporation (PSMC)—alongside Micron Technology’s $2.75 billion semiconductor assembly, testing, marking, and packaging (ATMP) plant in Sanand. Additional approved packaging units in Morigaon, Assam, and Sanand are also progressing through civil works.
 
-The move toward execution is likely to generate manufacturing and research opportunities that could benefit the country's young workforce and broader technology landscape.
+The minister emphasized that building a domestic semiconductor ecosystem requires long-term alignment across cleanroom construction, uninterrupted power and ultra-pure water utilities, specialized chemical supply chains, and advanced engineering talent. To support the technical workforce requirements of these upcoming fabrication and testing units, the government has integrated specialized VLSI design and semiconductor fabrication curricula into more than 100 Indian universities and engineering institutes, aiming to train over 85,000 industry-ready engineers.
+
+Vaishnaw remarked that the operational rollout of these initial fab and packaging facilities will anchor a broader component manufacturing ecosystem, creating high-tech employment opportunities and reducing import dependencies across India's domestic electronics, automotive, and telecommunications sectors.

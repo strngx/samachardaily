@@ -1,5 +1,5 @@
 ---
-title: "Poco X8 Power 5G Set to Debut in India on September 4 with 10,000mAh Battery"
+title: "Poco X8 Power 5G Specs Breakdown: 10,000mAh Battery, Snapdragon Chipset, and 50MP Camera"
 category: "Tech"
 date: 2026-08-28T22:56:46Z
 image: "https://st1.latestly.com/wp-content/uploads/2026/08/POCO-X8-Power-5G.jpg"

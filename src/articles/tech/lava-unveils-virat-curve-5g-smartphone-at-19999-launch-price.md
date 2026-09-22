@@ -23,6 +23,8 @@ why_it_matters: |
   By delivering 5G connectivity, a flagship‑grade processor and a large battery at under ₹20,000, Lava aims to make advanced mobile technology accessible to a broader segment of Indian consumers, intensifying price competition in the domestic smartphone market.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Lava has introduced its Virat Curve 5G smartphone, listing the device at ₹23,999 while offering a launch discount that reduces the price to ₹19,999.
+Indian smartphone manufacturer Lava has officially launched the Virat Curve 5G in the domestic market, listing the device at an MRP of ₹23,999 while introducing an introductory launch discount that brings the effective starting price down to ₹19,999. The handset is positioned in the competitive sub-₹20,000 price bracket, targeting users looking for premium design elements on a mid-range budget.
 
-The phone runs on MediaTek’s Dimensity 7100 system‑on‑chip, is equipped with a 6,000 mAh battery and carries a 50 MP rear camera, delivering high‑end specifications at a mid‑range price point.
+The device's central hardware highlight is its 6.67-inch Full HD+ 3D curved AMOLED display, which supports a 120Hz refresh rate and is shielded by Schott Xensation glass for scratch and drop resistance. Under the hood, the smartphone is powered by MediaTek’s 6nm Dimensity 7100 system-on-chip, paired with 8GB of LPDDR5 RAM and up to 256GB of UFS 3.1 onboard storage. The platform also supports virtual RAM expansion and runs on a clean, bloatware-free Android interface with guaranteed security patch updates.
+
+For photography, the handset features a 50-megapixel primary rear camera sensor with optical image stabilization (OIS) alongside an ultra-wide secondary lens. Powering the package is a large 6,000mAh battery supported by 33W wired fast charging, with the compatible power adapter bundled inside the retail box. The combination of curved display aesthetics, high-capacity battery endurance, and 5G connectivity strengthens Lava's domestic product portfolio against rival offerings from Redmi and Realme.
