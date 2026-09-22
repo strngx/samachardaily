@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% if (seoTitle or title) %}{{ (seoTitle or title) | shortTitle }} | {{ site.name }}{% else %}{{ site.name }} — {{ site.tagline }}{% endif %}</title>
+  <title>{% if page.url == '/' or layout == 'layouts/home.njk' %}{{ title or (site.name + ' — ' + site.tagline) }}{% elif (seoTitle or title) %}{{ (seoTitle or title) | shortTitle }} | {{ site.name }}{% else %}{{ site.name }} — {{ site.tagline }}{% endif %}</title>
   
   <meta name="description" content="{{ (dek or description or site.description) | truncate(155) }}">
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
@@ -13,11 +13,11 @@
   
   <!-- Open Graph / Social Meta -->
   <meta property="og:type" content="{% if layout == 'layouts/article.njk' %}article{% else %}website{% endif %}">
-  <meta property="og:title" content="{% if (seoTitle or title) %}{{ (seoTitle or title) | shortTitle }} | {{ site.name }}{% else %}{{ site.name }}{% endif %}">
+  <meta property="og:title" content="{% if page.url == '/' or layout == 'layouts/home.njk' %}{{ title or (site.name + ' — ' + site.tagline) }}{% elif (seoTitle or title) %}{{ (seoTitle or title) | shortTitle }} | {{ site.name }}{% else %}{{ site.name }}{% endif %}">
   <meta property="og:description" content="{{ (dek or description or site.description) | truncate(155) }}">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
   <meta property="og:site_name" content="{{ site.name }}">
-  <meta property="og:image" content="{{ image or site.url + '/assets/images/default-hero.jpg' }}">
+  <meta property="og:image" content="{{ image or (site.url + '/assets/images/default-hero.jpg') }}">
   <meta property="og:locale" content="{{ site.locale }}">
   {% if layout == 'layouts/article.njk' %}
   <meta property="article:published_time" content="{{ page.date | isoDate }}">
@@ -28,9 +28,9 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="{{ site.social.twitter }}">
-  <meta name="twitter:title" content="{% if (seoTitle or title) %}{{ (seoTitle or title) | shortTitle }} | {{ site.name }}{% else %}{{ site.name }}{% endif %}">
+  <meta name="twitter:title" content="{% if page.url == '/' or layout == 'layouts/home.njk' %}{{ title or (site.name + ' — ' + site.tagline) }}{% elif (seoTitle or title) %}{{ (seoTitle or title) | shortTitle }} | {{ site.name }}{% else %}{{ site.name }}{% endif %}">
   <meta name="twitter:description" content="{{ (dek or description or site.description) | truncate(155) }}">
-  <meta name="twitter:image" content="{{ image or site.url + '/assets/images/default-hero.jpg' }}">
+  <meta name="twitter:image" content="{{ image or (site.url + '/assets/images/default-hero.jpg') }}">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="{{ '/assets/images/favicon.svg' | url }}">

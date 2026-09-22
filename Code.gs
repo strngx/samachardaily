@@ -638,12 +638,17 @@ function isNewsworthyEditorialContent_(candidateOrTitle, optDesc, optContent, op
     return { reject: true, acceptable: false, reason: 'LEAKED GENERATION METADATA' };
   }
 
-  // 12. Minimum substance check on headline
+  // 12. Search query operators and AI prompt leakage detection
+  if (hasSearchQueryOrPromptLeak_(title) || hasSearchQueryOrPromptLeak_(visibleBody)) {
+    return { reject: true, acceptable: false, reason: 'SEARCH QUERY / PROMPT INSTRUCTION LEAK DETECTED' };
+  }
+
+  // 13. Minimum substance check on headline
   if (!title || title.trim().length < 15) {
     return { reject: true, acceptable: false, reason: 'LOW-SUBSTANCE / TITLE EMPTY' };
   }
 
-  // 13. Substantive content check on SYNTHESIZED article body (ONLY applied to generated articles, never raw source candidates)
+  // 14. Substantive content check on SYNTHESIZED article body (ONLY applied to generated articles, never raw source candidates)
   if (isSynthesized && visibleBody) {
     var bodyWords = visibleBody.split(/\s+/).filter(function(w) { return w.length > 0; });
     
@@ -661,6 +666,16 @@ function isNewsworthyEditorialContent_(candidateOrTitle, optDesc, optContent, op
   }
 
   return { reject: false, acceptable: true, reason: 'PASSED EDITORIAL NEWSWORTHINESS TEST' };
+}
+
+var PROMPT_AND_SEARCH_QUERY_LEAK_PATTERN = /\b(site:|intitle:|inurl:|filetype:|before:\d{4}|after:\d{4}|system prompt|as an ai language model|as a large language model|json_validate_failed|json_object|rewrite the following|system instructions|instruction prompt)\b|\b(AND|OR|NOT)\s+["']?[a-zA-Z0-9_-]+["']?\s+(AND|OR|NOT)\b/i;
+
+/**
+ * Checks if a string contains search operator patterns, prompt leaks, or raw JSON.
+ */
+function hasSearchQueryOrPromptLeak_(text) {
+  if (!text || typeof text !== 'string') return false;
+  return PROMPT_AND_SEARCH_QUERY_LEAK_PATTERN.test(text);
 }
 
 /**
@@ -1697,11 +1712,10 @@ function rewriteWithGroq_(headline, category, config) {
 
 // ============================================================================
 // 6. YOUTUBE VIDEO SEARCH (Fix 6)
-// ============================================================================
-
 /**
  * Searches YouTube Data API v3 for relevant broadcast videos.
  * Returns up to top 3 videos as an array for video-grid frontend presentation.
+ * Filters results to English-only broadcast coverage and validates title integrity.
  *
  * @param {string} query - Search query.
  * @param {Object} config - Configuration object.
@@ -1710,19 +1724,31 @@ function rewriteWithGroq_(headline, category, config) {
 function searchYouTubeVideo_(query, config) {
   if (!config.YOUTUBE_API_KEY || !query) return [];
   try {
-    var url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=' +
-      encodeURIComponent(query) + '&type=video&eventType=completed&key=' + config.YOUTUBE_API_KEY;
+    var cleanQuery = query.replace(/[^\w\s-]/g, ' ').trim();
+    if (!cleanQuery) return [];
+    var url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=' +
+      encodeURIComponent(cleanQuery) + '&type=video&eventType=completed&relevanceLanguage=en&safeSearch=moderate&key=' + config.YOUTUBE_API_KEY;
     var resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
     if (resp.getResponseCode() === 200) {
       var data = JSON.parse(resp.getContentText());
       if (data.items && data.items.length > 0) {
-        return data.items.slice(0, 3).map(function(v) {
-          return {
-            video_id: v.id.videoId,
-            title: v.snippet.title,
-            channel: v.snippet.channelTitle
-          };
-        });
+        var validVideos = [];
+        for (var i = 0; i < data.items.length; i++) {
+          var item = data.items[i];
+          if (!item.id || !item.id.videoId || !item.snippet) continue;
+          var title = (item.snippet.title || '').trim();
+          var channel = (item.snippet.channelTitle || '').trim();
+          if (!title || isNonEnglishTitle_(title)) {
+            continue;
+          }
+          validVideos.push({
+            video_id: item.id.videoId,
+            title: title,
+            channel: channel || 'Broadcast News'
+          });
+          if (validVideos.length >= 3) break;
+        }
+        return validVideos;
       }
     }
   } catch (err) {
@@ -2053,10 +2079,12 @@ function fetchImage_(keyword, config) {
         var data = JSON.parse(resp.getContentText());
         if (data.photos && data.photos.length > 0) {
           var photo = data.photos[0];
+          var rawCredit = (photo.photographer || '').trim();
+          var credit = (rawCredit.length > 0) ? rawCredit : 'Image via Pexels';
           return {
             url: photo.src.large || photo.src.medium || photo.src.landscape,
             alt: photo.alt || keyword,
-            credit: photo.photographer || 'Pexels Contributor'
+            credit: credit
           };
         }
       }
