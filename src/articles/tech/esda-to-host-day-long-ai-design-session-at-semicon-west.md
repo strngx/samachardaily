@@ -20,8 +20,10 @@ why_it_matters: |
   By gathering leading design houses, manufacturers, and AI specialists, the session highlights how artificial intelligence can compress chip development cycles, lower costs, and improve alignment between design intent and manufacturing reality. Stakeholders—from silicon foundries to equipment suppliers—stand to gain competitive advantage as AI tools become integral to next‑generation semiconductor production.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The Electronic System Design Alliance (ESDA), a SEMI technology organization, is staging a day-long design session at SEMICON West titled “Bridging Design and Manufacturing with AI.” The program aims to connect semiconductor design and production workflows through artificial‑intelligence approaches.
+The Electronic System Design Alliance (ESDA), a SEMI technology community, has scheduled a dedicated day-long technical session at SEMICON West titled “Bridging Design and Manufacturing with AI.” The specialized program focuses on uniting semiconductor design automation with modern wafer manufacturing workflows through advanced artificial intelligence and machine learning methodologies.
 
-A senior executive from TSMC will open the event with a keynote called “Scaling Leadership Silicon with AI,” followed by nine technical presentations covering recent advances in AI‑driven chip development.
+The event opens with a keynote address from a senior executive at Taiwan Semiconductor Manufacturing Company (TSMC) titled “Scaling Leadership Silicon with AI.” Following the keynote, the agenda features nine technical presentations analyzing practical implementations of AI-driven electronic design automation (EDA), automated layout routing, physical verification, and fabrication yield optimization across cutting-edge process nodes.
 
-The agenda also includes an IEEE‑hosted panel on “True Value and Cost of Agentic AI in SoC Design and Manufacturing,” a McKinsey briefing titled “Design at AI Speed,” and speakers representing EDA, IP, memory, storage, AI hardware firms, and an equipment manufacturer that will complete the program.
+The session also includes an expert panel organized in collaboration with IEEE, titled “True Value and Cost of Agentic AI in SoC Design and Manufacturing,” as well as a management briefing from McKinsey & Company on “Design at AI Speed.”
+
+By assembling participants from commercial foundries, silicon IP providers, memory architects, AI accelerator developers, and semiconductor equipment manufacturers, the conference explores how autonomous AI tools can compress product development cycles and minimize tape-out defects in increasingly complex System-on-Chip (SoC) architectures.
