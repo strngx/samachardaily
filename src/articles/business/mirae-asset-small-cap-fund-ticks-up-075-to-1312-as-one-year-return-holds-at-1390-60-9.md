@@ -1,5 +1,5 @@
 ---
-title: "Mirae Asset Small Cap Fund ticks up 0.75% to ₹13.12 as one-year return holds at 13.90% (60-90 chars - 78 chars) - need to adjust. Let me recount: 'Mirae Asset Small Cap Fund ticks up 0.75% to ₹13.12 as one-year return holds at 13.90%' - that's 84 characters. Good. But let me make it more punchy in wire-service tone."
+title: "Mirae Asset Small Cap Fund Ticks Up 0.75% to ₹13.12 as One-Year Return Holds at 13.90%"
 seoTitle: "Mirae Asset Small Cap Fund NAV at ₹13.12, 1-year"
 category: "Business"
 date: 2026-09-04T18:45:06Z

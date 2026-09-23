@@ -668,7 +668,7 @@ function isNewsworthyEditorialContent_(candidateOrTitle, optDesc, optContent, op
   return { reject: false, acceptable: true, reason: 'PASSED EDITORIAL NEWSWORTHINESS TEST' };
 }
 
-var PROMPT_AND_SEARCH_QUERY_LEAK_PATTERN = /\b(site:|intitle:|inurl:|filetype:|before:\d{4}|after:\d{4}|system prompt|as an ai language model|as a large language model|json_validate_failed|json_object|rewrite the following|system instructions|instruction prompt)\b|\b(AND|OR|NOT)\s+["']?[a-zA-Z0-9_-]+["']?\s+(AND|OR|NOT)\b/i;
+var PROMPT_AND_SEARCH_QUERY_LEAK_PATTERN = /\b(site:|intitle:|inurl:|filetype:|before:\d{4}|after:\d{4}|system prompt|user prompt|as an ai language model|as a large language model|json_validate_failed|json_object|rewrite the following|system instructions|instruction prompt|let me recount|need to adjust|60-90 chars|wire-service tone)\b|\b(AND|OR|NOT)\s+["']?[a-zA-Z0-9_-]+["']?\s+(AND|OR|NOT)\b/i;
 
 /**
  * Checks if a string contains search operator patterns, prompt leaks, or raw JSON.
@@ -1280,6 +1280,139 @@ function testCompetitorAngle() {
 }
 
 /**
+ * Deterministic validation to reject AI scratchpad, drafting notes, or prompt leakage in headlines.
+ * Protects legitimate news headlines containing normal journalistic words (e.g. 'assistant coach', 'software developer').
+ *
+ * @param {string} headline - Headline candidate string.
+ * @returns {Object} { valid: boolean, reason: string }
+ */
+function isCleanGeneratedHeadline_(headline) {
+  if (!headline || typeof headline !== 'string') {
+    return { valid: false, reason: 'Headline is empty or not a string' };
+  }
+  var trimmed = headline.trim();
+  if (trimmed.length < 15) {
+    return { valid: false, reason: 'Headline too short (<15 chars)' };
+  }
+  if (trimmed.length > 200) {
+    return { valid: false, reason: 'Headline unusually long (>200 chars)' };
+  }
+
+  // Obvious markdown or JSON/code syntax leakage
+  if (/```|\{|\}|\[|\]/i.test(trimmed)) {
+    return { valid: false, reason: 'Contains code fences or JSON braces' };
+  }
+
+  // Scratchpad, character counting, and drafting self-correction patterns
+  var SCRATCHPAD_HEADLINE_PATTERNS = [
+    /\b(?:let me|let\'s)\s+(?:recount|make|adjust|shorten|rewrite|check|ensure|craft|add|write)\b/i,
+    /\bneed to\s+(?:adjust|shorten|rewrite|recount|rephrase|trim|expand)\b/i,
+    /\b(?:60-90\s*chars?|under\s*60\s*chars?|\d+\s*chars?\s*-\s*\d+\s*chars?)\b/i,
+    /\b(?:\(\s*\d+\s*chars?|\(\s*\d+\s*characters?)\b/i,
+    /\bthat\'?s\s+\d+\s+(?:chars?|characters?)\b/i,
+    /\b(?:character\s*count|character\s*limit|char\s*count)\b/i,
+    /\b(?:wire-service\s*tone|more\s*punchy|punchy\s*headline|punchy\s*tone)\b/i,
+    /\b(?:seo\s*title|seo\s*headline|suggested\s*headline|alternative\s*headline)\b/i,
+    /\b(?:system\s*prompt|user\s*prompt|system\s*instructions?|prompt\s*instructions?)\b/i,
+    /\b(?:as\s*an\s*ai(?:\s*assistant)?|i['’]m\s+an\s+ai|i\s+am\s+an\s+ai|as\s*a\s*large\s*language\s*model)\b/i,
+    /\b(?:output\s*format|return\s*only|do\s*not\s*include|json\s*object)\b/i,
+    /\b(?:headline\s*should|headline\s*must|write\s*a\s*headline|rewrite\s*this)\b/i
+  ];
+
+  for (var i = 0; i < SCRATCHPAD_HEADLINE_PATTERNS.length; i++) {
+    if (SCRATCHPAD_HEADLINE_PATTERNS[i].test(trimmed)) {
+      return { valid: false, reason: 'Matched scratchpad/prompt pattern: ' + SCRATCHPAD_HEADLINE_PATTERNS[i].toString() };
+    }
+  }
+
+  return { valid: true, reason: 'Clean headline' };
+}
+
+/**
+ * Deterministic validation to reject prompt leakage or generation artifacts in article bodies.
+ *
+ * @param {string|Array<string>} body - Article body string or array of paragraphs.
+ * @returns {Object} { valid: boolean, reason: string }
+ */
+function isCleanGeneratedBody_(body) {
+  if (!body) return { valid: false, reason: 'Body content is empty' };
+  var bodyText = Array.isArray(body) ? body.join('\n\n') : String(body);
+  var trimmed = bodyText.trim();
+
+  if (trimmed.length < 100) {
+    return { valid: false, reason: 'Body content too short (<100 chars)' };
+  }
+
+  if (/^```(?:json)?/im.test(trimmed)) {
+    return { valid: false, reason: 'Body contains unparsed markdown code blocks' };
+  }
+
+  var SCRATCHPAD_BODY_PATTERNS = [
+    /\b(?:system\s*prompt|user\s*prompt|system\s*instructions?|instruction\s*prompt)\b/i,
+    /\b(?:as\s*an\s*ai\s*language\s*model|as\s*a\s*large\s*language\s*model)\b/i,
+    /\b(?:json_validate_failed|json_object|return\s*only\s*a\s*valid\s*json)\b/i,
+    /\b(?:let\s*me\s*recount|need\s*to\s*adjust|let\s*me\s*make\s*it\s*more\s*punchy)\b/i,
+    /\b(?:60-90\s*chars?|\d+\s*chars?\s*-\s*\d+\s*chars?)\b/i
+  ];
+
+  for (var j = 0; j < SCRATCHPAD_BODY_PATTERNS.length; j++) {
+    if (SCRATCHPAD_BODY_PATTERNS[j].test(trimmed)) {
+      return { valid: false, reason: 'Matched body scratchpad/prompt pattern: ' + SCRATCHPAD_BODY_PATTERNS[j].toString() };
+    }
+  }
+
+  return { valid: true, reason: 'Clean body' };
+}
+
+/**
+ * Comprehensive pre-publish output structure validator.
+ * Ensures all required fields exist, are non-empty, and pass deterministic leak guards.
+ *
+ * @param {Object} article - Parsed JSON article object.
+ * @returns {Object} { valid: boolean, reason: string }
+ */
+function validateArticleOutputStructure_(article) {
+  if (!article || typeof article !== 'object') {
+    return { valid: false, reason: 'Article output is not a valid object' };
+  }
+
+  // 1. Headline validation
+  var headlineCheck = isCleanGeneratedHeadline_(article.title);
+  if (!headlineCheck.valid) {
+    return { valid: false, reason: 'Title check failed: ' + headlineCheck.reason };
+  }
+
+  // 2. SEO Title validation (if provided)
+  if (article.seoTitle) {
+    var seoCheck = isCleanGeneratedHeadline_(article.seoTitle);
+    if (!seoCheck.valid && seoCheck.reason !== 'Headline too short (<15 chars)') {
+      return { valid: false, reason: 'seoTitle check failed: ' + seoCheck.reason };
+    }
+  }
+
+  // 3. Body validation
+  var bodyCheck = isCleanGeneratedBody_(article.content);
+  if (!bodyCheck.valid) {
+    return { valid: false, reason: 'Body check failed: ' + bodyCheck.reason };
+  }
+
+  // 4. Dek validation (if provided)
+  if (article.dek) {
+    var dekText = String(article.dek);
+    if (/```|\{|\}|\[|\]/i.test(dekText) || /\b(system prompt|as an ai|json_object)\b/i.test(dekText)) {
+      return { valid: false, reason: 'Dek contains prompt/JSON artifacts' };
+    }
+  }
+
+  // 5. why_it_matters validation
+  if (!article.why_it_matters || (typeof article.why_it_matters === 'string' && article.why_it_matters.trim().length < 20)) {
+    return { valid: false, reason: 'why_it_matters is missing or too short' };
+  }
+
+  return { valid: true, reason: 'Valid article structure' };
+}
+
+/**
  * Helper to safely extract and validate JSON article object from AI text responses.
  *
  * @param {string} rawText - Raw string content returned by AI provider.
@@ -1295,6 +1428,13 @@ function parseArticleJson_(rawText) {
   if (!parsed.title || !parsed.content) {
     throw new Error('AI response JSON missing required fields (title or content).');
   }
+
+  // Hard output validation gate
+  var validation = validateArticleOutputStructure_(parsed);
+  if (!validation.valid) {
+    throw new Error('AI output validation failed: ' + validation.reason);
+  }
+
   return parsed;
 }
 
@@ -1687,9 +1827,14 @@ function rewriteWithGroq_(headline, category, config) {
     }
   }
 
-  // Tier 2 & 3: Fallback Waterfall on 429 / TPD limit
-  if (isGroq429) {
-    Logger.log('Groq rate limited (429). Falling back to Tier 2 (Gemini 3.6 Flash)...');
+  // Tier 2 & 3: Fallback Waterfall on 429 / TPD limit / Validation failure
+  var isGroqValidationFailure = (groqError && groqError.message && groqError.message.indexOf('validation failed') !== -1);
+  if (isGroq429 || isGroqValidationFailure) {
+    if (isGroqValidationFailure) {
+      Logger.log('Groq output failed validation (' + groqError.message + '). Falling back to Tier 2 (Gemini 3.6 Flash)...');
+    } else {
+      Logger.log('Groq rate limited (429). Falling back to Tier 2 (Gemini 3.6 Flash)...');
+    }
     try {
       var geminiArticle = rewriteWithGemini_(systemPrompt, userPrompt, config);
       Logger.log('Generated via: Gemini (Groq fallback)');
@@ -2334,7 +2479,13 @@ function runPipelineForCategory_(categoryKey) {
     }
   }
 
-  // Stage 3: Post-Synthesis Editorial Quality Gate
+  // Stage 3: Post-Synthesis Editorial Quality Gate & Hard Validation
+  var outputValidation = validateArticleOutputStructure_(article);
+  if (!outputValidation.valid) {
+    Logger.log('HEADLINE_VALIDATION_FAILED article=' + (selectedCandidate.slug || 'candidate') + ' reason="' + outputValidation.reason + '" action=ABORT_PUBLICATION');
+    return { success: false, reason: 'Synthesized article failed hard output validation: ' + outputValidation.reason };
+  }
+
   var stage3Quality = isEditoriallyAcceptable_(article.title, article.dek, article.content, selectedCandidate.sourceUrl, selectedCandidate.sourceName, true);
   if (!stage3Quality.acceptable) {
     Logger.log('REJECTED — EDITORIAL QUALITY GATE (Stage 3 Post-Synthesis): "' + (article.title || selectedCandidate.title) + '" [' + stage3Quality.reason + ']');
