@@ -32,8 +32,14 @@
   <meta name="twitter:description" content="{{ (dek or description or site.description) | truncate(155) }}">
   <meta name="twitter:image" content="{{ image or (site.url + '/assets/images/default-hero.jpg') }}">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="{{ '/assets/images/favicon.svg' | url }}">
+  <!-- Favicon Suite & Web Manifest -->
+  <link rel="icon" href="{{ '/favicon.ico' | url }}" sizes="48x48">
+  <link rel="icon" href="{{ '/assets/images/favicon.svg' | url }}" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/images/favicon-32x32.png' | url }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/images/favicon-16x16.png' | url }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ '/apple-touch-icon.png' | url }}">
+  <link rel="manifest" href="{{ '/site.webmanifest' | url }}">
+  <meta name="theme-color" content="#C81E2C">
 
   <!-- Google Fonts: Inter + Source Serif 4 (Non-render-blocking via preload) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -72,16 +78,59 @@
   <!-- Structured Data JSON-LD -->
   {% if layout == 'layouts/article.njk' %}
     {% include "partials/jsonld-news.njk" %}
+  {% elif page.url == '/' or layout == 'layouts/home.njk' %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "{{ site.url }}/#website",
+          "name": "{{ site.name }}",
+          "alternateName": [
+            "Samachar Daily",
+            "The Samachar Daily",
+            "thesamachardaily"
+          ],
+          "url": "{{ site.url }}/",
+          "description": "{{ site.description }}",
+          "inLanguage": "{{ site.language }}",
+          "publisher": {
+            "@id": "{{ site.url }}/#organization"
+          }
+        },
+        {
+          "@type": "NewsMediaOrganization",
+          "@id": "{{ site.url }}/#organization",
+          "name": "{{ site.name }}",
+          "url": "{{ site.url }}/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "{{ site.url }}/assets/images/logo.svg"
+          },
+          "sameAs": [
+            "https://x.com/SamacharDaily",
+            "https://www.instagram.com/samachardaily.in"
+          ]
+        }
+      ]
+    }
+    </script>
   {% else %}
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "NewsMediaOrganization",
+      "@id": "{{ site.url }}/#organization",
       "name": "{{ site.name }}",
-      "url": "{{ site.url }}",
-      "logo": "{{ site.url }}/assets/images/logo.svg",
+      "url": "{{ site.url }}/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ site.url }}/assets/images/logo.svg"
+      },
       "sameAs": [
-        "https://twitter.com/SamacharDaily"
+        "https://x.com/SamacharDaily",
+        "https://www.instagram.com/samachardaily.in"
       ]
     }
     </script>

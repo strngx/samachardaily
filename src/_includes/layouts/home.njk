@@ -3,6 +3,7 @@ layout: layouts/base.njk
 ---
 
 <div class="container">
+  <h1 class="visually-hidden">SamacharDaily — News, Fast. Trends, Explained.</h1>
   {% set homepageArticles = collections.articles | homepageFeed %}
   {% set leadStory = homepageArticles[0] %}
   {% set wireStories = collections.articles | filterExcludedArticles([leadStory]) | limit(5) %}

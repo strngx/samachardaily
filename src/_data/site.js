@@ -12,12 +12,11 @@ module.exports = {
     url: "https://thesamachardaily.in/about/"
   },
   publisher: {
-    name: "SamacharDaily Media",
+    name: "SamacharDaily",
     logo: "https://thesamachardaily.in/assets/images/logo.svg"
   },
   social: {
     instagram: "https://www.instagram.com/samachardaily.in",
-    youtube: "https://youtube.com/@SamacharDaily",
     email: "mailto:samachardaily.editorial@gmail.com",
     twitter: "@SamacharDaily"
   },

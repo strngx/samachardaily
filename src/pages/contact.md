@@ -26,7 +26,7 @@ Thank you for your interest in **SamacharDaily**. Whether you have a news tip, f
 
 ## Editorial Location & Identity
 
-**SamacharDaily Media**  
+**SamacharDaily**  
 Digital news publication based in India  
 Editorial inquiries: [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
 
