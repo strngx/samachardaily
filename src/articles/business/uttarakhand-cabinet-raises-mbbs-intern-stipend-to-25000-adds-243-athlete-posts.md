@@ -17,11 +17,13 @@ sourceName: "The Free Press Journal"
 dek: "Uttarakhand cabinet approved raising MBBS interns' monthly honorarium from ₹17,000 to ₹25,000 and cleared 243 out‑of‑turn posts for medal‑winning athletes under the 2021 Sports Policy."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  Boosting the intern stipend addresses financial pressures faced by early‑career doctors, potentially improving retention and the quality of care in public hospitals. Simultaneously, allocating posts to medal‑winning athletes demonstrates a policy commitment to honor sporting achievements and integrate athletes into the public sector, which may encourage broader participation in sports across the state.
-what_happens_next: "No confirmed next steps reported yet."
+  Raising intern honorariums directly addresses cost-of-living concerns for trainee doctors staffing emergency wards and rural clinical rotations across Uttarakhand's mountainous terrain. Concurrently, establishing structured out-of-turn public sector appointments for international and national medalists institutionalizes career security for athletes, creating formal recruitment pipelines across state administrative departments.
+what_happens_next: "The state Medical Health and Family Welfare Department and the Department of Sports will issue formal government orders notifying the revised pay structures and initiating candidate roster verification for the 243 athlete posts."
 ---
-The Uttarakhand Cabinet approved an increase in the monthly honorarium for MBBS interns serving in state government medical colleges, lifting the payment from Rs 17,000 to Rs 25,000.
+The Uttarakhand Cabinet has officially approved a significant increase in the monthly honorarium for MBBS interns serving across state government medical colleges, raising the payment from ₹17,000 to ₹25,000 per month.
 
-In the same decision, the cabinet cleared 243 out‑of‑turn posts across six departments for medal‑winning athletes, invoking the provisions of the state's Sports Policy‑2021.
+The decision, chaired during a cabinet meeting in Dehradun, applies to undergraduate medical interns completing mandatory one-year clinical rotations at state institutions, including Government Doon Medical College, Veer Chandra Singh Garhwali Government Institute of Medical Science and Research in Srinagar, and Soban Singh Jeena Government Institute in Almora. The revision aligns the state's medical internship compensation closer to central institutional benchmarks.
 
-The dual measures underscore the government's focus on strengthening healthcare staffing while also creating dedicated employment pathways for distinguished sportspersons.
+In a parallel employment decision, the cabinet sanctioned 243 out-of-turn government posts dedicated to medal-winning sportspersons under the provisions of the Uttarakhand Sports Policy-2021. The special recruitment drive spans six major state departments, including Police, Youth Welfare, Forest, Education, Transport, and Panchayati Raj.
+
+Under the policy framework, athletes who have secured medals at the Olympics, Asian Games, Commonwealth Games, National Games, or recognized international championships will receive direct appointments into designated grade posts based on their achievement tiers, fulfilling long-standing demands for post-competitive career security.
