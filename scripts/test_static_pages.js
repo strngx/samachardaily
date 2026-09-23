@@ -7,7 +7,8 @@ const staticPages = [
   'contact/index.html',
   'privacy/index.html',
   'terms/index.html',
-  'editorial/index.html'
+  'editorial/index.html',
+  'authors/samachardaily-editorial-team/index.html'
 ];
 
 console.log('--- AUDITING STATIC PAGES ---');

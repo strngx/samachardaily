@@ -34,6 +34,14 @@ eleventyExcludeFromCollections: true
     {% endif %}
   {% endfor %}
 
+  <!-- Editorial Profiles -->
+  <url>
+    <loc>{{ site.url }}/authors/samachardaily-editorial-team/</loc>
+    <lastmod>{{ "now" | isoDate }}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
   <!-- Articles -->
   {% for article in collections.articles %}
   {% if not article.data.noindex %}

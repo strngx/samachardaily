@@ -19,11 +19,13 @@
   "dateModified": "{{ (modifiedDate or dateModified or date or page.date) | isoDate }}",
   "author": {
     "@type": "Organization",
+    "@id": "{{ site.url }}/authors/samachardaily-editorial-team/#organization",
     "name": "{{ author or site.author.name or 'SamacharDaily Editorial Team' }}",
-    "url": "{{ site.author.url or (site.url + '/about/') }}"
+    "url": "{{ site.author.url or (site.url + '/authors/samachardaily-editorial-team/') }}"
   },
   "publisher": {
     "@type": "NewsMediaOrganization",
+    "@id": "{{ site.url }}/#organization",
     "name": "{{ site.publisher.name or site.name or 'SamacharDaily' }}",
     "url": "{{ site.url }}/",
     "logo": {

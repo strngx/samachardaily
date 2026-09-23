@@ -42,6 +42,7 @@ At SamacharDaily, we believe in complete transparency regarding the modern techn
 
 ## Contact Editorial
 
+- **Editorial Team Profile:** [SamacharDaily Editorial Team]({{ '/authors/samachardaily-editorial-team/' | url }})
 - **Editorial Inquiries:** [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
 - **Corrections & Clarifications:** [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
 - **General Inquiries:** Visit our [Contact Page]({{ '/contact/' | url }}).

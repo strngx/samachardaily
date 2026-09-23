@@ -49,9 +49,19 @@ layout: layouts/base.njk
 
     <!-- 6. Byline Row -->
     <div class="article-byline-bar">
-      <span>By <span class="byline-strong">{{ author or site.author.name }}</span></span>
+      {% set authorName = author or site.author.name %}
+      {% if authorName == "SamacharDaily Editorial Team" or not author %}
+        <span>By <a href="{{ '/authors/samachardaily-editorial-team/' | url }}" class="byline-strong">{{ authorName }}</a></span>
+      {% else %}
+        <span>By <span class="byline-strong">{{ authorName }}</span></span>
+      {% endif %}
       <span>•</span>
       <time datetime="{{ date | isoDate }}">{{ date | readableDate }}</time>
+      {% set modDate = modifiedDate or dateModified or updated %}
+      {% if modDate and (modDate | isoDate) != (date | isoDate) %}
+        <span>•</span>
+        <span class="byline-updated">Updated: <time datetime="{{ modDate | isoDate }}">{{ modDate | readableDate }}</time></span>
+      {% endif %}
       <span>•</span>
       <span>{{ content | readTime }}</span>
     </div>

@@ -60,5 +60,6 @@ When reporting on fast-moving or developing events where complete details have n
 ## 6. Editorial Contact & Inquiries
 
 For questions regarding our editorial standards, coverage policies, or corrections:
-- **Editorial Desk:** [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
+- **Editorial Desk:** [SamacharDaily Editorial Team]({{ '/authors/samachardaily-editorial-team/' | url }})
+- **Editorial Email:** [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
 - **General Inquiries:** Visit our [Contact Page]({{ '/contact/' | url }}) or [About Page]({{ '/about/' | url }}).

@@ -9,7 +9,7 @@ module.exports = {
   author: {
     name: "SamacharDaily Editorial Team",
     email: "samachardaily.editorial@gmail.com",
-    url: "https://thesamachardaily.in/about/"
+    url: "https://thesamachardaily.in/authors/samachardaily-editorial-team/"
   },
   publisher: {
     name: "SamacharDaily",

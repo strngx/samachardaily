@@ -61,7 +61,12 @@
       <p class="lead-dek">{{ leadStory.data.dek }}</p>
     {% endif %}
     <div class="meta-row">
-      <span>By {{ leadStory.data.author or site.author.name }}</span>
+      {% set authorName = leadStory.data.author or site.author.name %}
+      {% if authorName == "SamacharDaily Editorial Team" or not leadStory.data.author %}
+        <span>By <a href="{{ '/authors/samachardaily-editorial-team/' | url }}">{{ authorName }}</a></span>
+      {% else %}
+        <span>By {{ authorName }}</span>
+      {% endif %}
       <span>•</span>
       <time datetime="{{ leadStory.date | isoDate }}">{{ leadStory.date | timeAgo }}</time>
       <span>•</span>
