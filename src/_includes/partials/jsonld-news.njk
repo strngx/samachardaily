@@ -20,8 +20,8 @@
   "author": {
     "@type": "Organization",
     "@id": "{{ site.url }}/authors/samachardaily-editorial-team/#organization",
-    "name": "{{ author or site.author.name or 'SamacharDaily Editorial Team' }}",
-    "url": "{{ site.author.url or (site.url + '/authors/samachardaily-editorial-team/') }}"
+    "name": "{% if (authorName or author or site.author.name) == 'SamacharDaily Editorial Team' or not (authorName or author) %}Samachar Daily{% else %}{{ authorName or author or site.author.name or 'Samachar Daily' }}{% endif %}",
+    "url": "{{ authorUrl or site.author.url or (site.url + '/authors/samachardaily-editorial-team/') }}"
   },
   "publisher": {
     "@type": "NewsMediaOrganization",
@@ -31,6 +31,10 @@
     "logo": {
       "@type": "ImageObject",
       "url": "{{ site.publisher.logo or (site.url + '/assets/images/logo.svg') }}"
+    },
+    "founder": {
+      "@type": "Person",
+      "name": "Arjun Khatri"
     }
   },
   "articleSection": "{{ category or 'News' }}",

@@ -7,7 +7,7 @@ module.exports = {
   language: "en-IN",
   locale: "en_IN",
   author: {
-    name: "SamacharDaily Editorial Team",
+    name: "Samachar Daily",
     email: "samachardaily.editorial@gmail.com",
     url: "https://thesamachardaily.in/authors/samachardaily-editorial-team/"
   },

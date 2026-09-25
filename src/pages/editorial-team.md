@@ -1,7 +1,7 @@
 ---
 layout: layouts/page.njk
-title: "SamacharDaily Editorial Team"
-description: "Institutional editorial profile of the SamacharDaily Editorial Team, covering India, World, Business, Tech, and Sports."
+title: "SamacharDaily Editorial Profile"
+description: "Editorial governance, solo-publisher structure, and transparent AI-assisted workflow disclosure for SamacharDaily."
 permalink: "/authors/samachardaily-editorial-team/index.html"
 eleventyNavigation:
   key: EditorialTeam
@@ -10,54 +10,94 @@ eleventyNavigation:
 
 <div class="editorial-profile-header" style="margin-bottom: var(--space-6);">
   <p class="lead" style="font-size: 1.125rem; line-height: 1.7; color: var(--color-body); margin-bottom: var(--space-4);">
-    The <strong>SamacharDaily Editorial Team</strong> is the collective institutional newsroom desk responsible for researching, structuring, synthesizing, and publishing verified news dispatches across <strong>India, World, Business, Tech, and Sports</strong>.
+    <strong>Samachar Daily</strong> is an independent digital news publication founded, owned, and operated by <strong>Arjun Khatri</strong>, covering verified news developments across <strong>India, World, Business, Tech, and Sports</strong>.
   </p>
 </div>
 
 ---
 
-## Editorial Role & Mission
+## Founder & Owner
 
-The SamacharDaily Editorial Team operates under an explanatory journalism framework designed to provide readers with fast, factual, and noise-free reporting. Our work is organized around three foundational questions for every major development:
+Samachar Daily was founded and is owned by **Arjun Khatri**. The publication operates under Arjun Khatri's ownership as a solo-publisher and solo-developer project.
 
-1. **What happened?** Clear, factual reporting based strictly on verified developments and attributed primary sources.
-2. **Why does it matter?** Objective strategic, economic, regulatory, or civic context explaining the broader significance.
-3. **What happens next?** Forward-looking proceedings, official timelines, and announced subsequent milestones.
+All aspects of Samachar Daily—including editorial oversight, software engineering, automated data pipelines, publishing workflows, and reader grievance handling—are directed and maintained by the founder.
 
 ---
 
-## Publishing Methodology & AI-Assisted Workflow
+## Operating Model & Institutional Attribution
 
-In alignment with our public [Editorial Policy & Standards]({{ '/editorial/' | url }}), SamacharDaily uses modern technology to maintain high-velocity, accurate coverage:
+Samachar Daily operates strictly as a solo-publisher digital news publication.
 
-- **Source Ingestion:** Our automated systems monitor real-time dispatches from verified global and national news wires, institutional press releases, government gazettes, and official regulatory filings.
-- **AI-Assisted Synthesis:** We utilize advanced artificial intelligence models to assist in parsing complex source texts, generating concise executive summaries, and structuring contextual analysis.
-- **Factual Restraint:** Our systems operate under strict algorithmic and editorial constraints prohibiting the fabrication of names, dates, quotes, statistics, or events. If a candidate story lacks verifiable substance, it is discarded.
-- **Attribution & Transparency:** Every published dispatch contains an explicit citation of the primary source outlet with a direct link to the original release.
-- **Licensed Media:** Visual assets are sourced exclusively through licensed photography platforms (such as Pexels) with photographer attribution. Video reports are embedded directly from authorized broadcast networks via YouTube.
+To maintain honest, transparent journalism without manufacturing a fictional newsroom or creating synthetic reporter personas:
+- Samachar Daily does **not** employ a traditional staff of reporters, correspondents, bureau journalists, or multi-tiered editorial desks.
+- Routine news reporting, wire syntheses, and explanatory briefings are issued under our institutional publication identity: **Samachar Daily**.
+- AI-assisted software tools are used to assist with dispatch parsing, structural formatting, and quality gating. However, automated software tools are **never** represented as human reporters, journalists, or staff members.
+
+Our editorial mission is to deliver fast, clear, and noise-free explanatory reporting structured around three foundational questions:
+
+1. **What happened?** Factual summary derived directly from verified source dispatches.
+2. **Why does it matter?** Objective strategic, economic, regulatory, or civic context.
+3. **What happens next?** Announced proceedings, regulatory timelines, and official subsequent milestones.
+
+---
+
+## 5-Stage Publishing Workflow & AI Transparency
+
+In accordance with our public [Editorial Policy & Standards]({{ '/editorial/' | url }}), Samachar Daily clearly discloses each stage of its publishing pipeline:
+
+### 1. Source Ingestion
+Automated systems monitor verified national and international news wires, regulatory bulletins, and institutional press releases across our five core categories.
+
+### 2. AI-Assisted Synthesis
+Advanced large language models assist in parsing incoming dispatches, translating complex developments into clear English, and structuring concise executive summaries.
+
+### 3. Automated Quality & Factuality Gating
+Before any dispatch can proceed, it must satisfy strict programmatic quality filters:
+- **Substance Floor:** Candidate dispatches lacking sufficient verifiable detail or falling below minimum word thresholds are discarded.
+- **Anti-Hallucination Guardrails:** Systems are prohibited from fabricating quotes, names, statistics, dates, or events not present in the cited source material.
+- **Structural Integrity:** Dispatches are screened to eliminate prompt residue, search operator syntax, duplicate headlines, and commercial marketing text.
+
+### 4. Publisher Review & Editorial Oversight
+Editorial review is conducted directly by Founder & Owner Arjun Khatri and applied to two dedicated pathways:
+- **Sensitive Topic Staging:** Ingested dispatches touching sensitive domains—specifically medical and health claims, fatal accidents, criminal allegations, and electoral disputes—are automatically routed to draft staging for manual verification by the publisher prior to publication.
+- **Reader Corrections & Clarifications:** Reader-submitted factual corrections, grievance notices, and clarifying evidence are directly reviewed and acted upon by Arjun Khatri daily between 08:00 AM and 10:00 PM IST.
+
+### 5. Static Publishing & Archival
+Verified content is compiled via our static site engine into clean, accessible, lightweight HTML with transparent source attribution and no tracking scripts.
+
+---
+
+## Truthful Operational Boundaries & Limitations
+
+Readers deserve honest disclosure regarding what our operation is—and what it is not:
+
+- **Solo-Publisher Operation:** Samachar Daily is built and operated by a single founder-developer. We do not have a conventional multi-person newsroom.
+- **Wire Synthesis & Secondary Reporting:** Standard news dispatches are synthesized from attributed primary source material and accredited wire services. We do not deploy field correspondents or conduct independent on-the-ground investigative reporting.
+- **Source-Dependent Accuracy:** Factual accuracy relies on the veracity of cited primary sources and strict prompt fidelity. Where an accredited wire dispatch contains an error, our primary mechanism of resolution is rapid reader notification and prompt retroactive errata notices.
+- **No Universal Pre-Publication Line Editing:** Standard, non-sensitive wire dispatches that pass automated quality gates are published programmatically. We do not claim that every published dispatch undergoes individual manual line-editing.
 
 ---
 
 ## Core Coverage Desks
 
-The Editorial Team oversees five dedicated reporting desks:
+The publication organizes coverage across five topical desks:
 
-- [**India News Desk**]({{ '/india/' | url }}): National policy, civic developments, governance, and judicial proceedings.
-- [**World News Desk**]({{ '/world/' | url }}): Global geopolitics, international relations, diplomacy, and major world events.
-- [**Business News Desk**]({{ '/business/' | url }}): Financial markets, macroeconomic trends, corporate earnings, and regulatory actions.
-- [**Tech News Desk**]({{ '/tech/' | url }}): Artificial intelligence, cybersecurity, consumer electronics, and digital policy.
-- [**Sports News Desk**]({{ '/sports/' | url }}): Cricket tournament coverage, international athletics, and major sporting competitions.
+- [**India Desk**]({{ '/india/' | url }}): National governance, civic developments, economic policy, and judicial rulings.
+- [**World Desk**]({{ '/world/' | url }}): International diplomacy, global geopolitics, cross-border trade, and major world events.
+- [**Business Desk**]({{ '/business/' | url }}): Corporate earnings, capital markets, fiscal policy, startups, and macroeconomics.
+- [**Tech Desk**]({{ '/tech/' | url }}): Artificial intelligence development, cybersecurity, consumer electronics, and digital privacy.
+- [**Sports Desk**]({{ '/sports/' | url }}): Tournament reporting, international cricket, athletics, and major sporting competitions.
 
 ---
 
-## Corrections & Editorial Contact
+## Corrections & Reader Feedback
 
-The SamacharDaily Editorial Team is committed to prompt corrections if any factual error or ambiguity is identified:
+If you spot a factual error, incorrect figure, or misleading statement in our reporting, please contact us:
 
-- **Editorial Inquiries & News Tips:** [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
-- **Corrections & Grievances:** [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
-- **Operating Hours:** 08:00 AM – 10:00 PM IST (UTC+5:30)
-- **General Inquiries:** Visit our [Contact & Grievances Page]({{ '/contact/' | url }}) or read our full [About Page]({{ '/about/' | url }}).
+- **Editorial Email:** [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
+- **Corrections Protocol:** Review our 5-step submission guide on the [Contact & Grievances Page]({{ '/contact/' | url }}).
+- **Review Hours:** 08:00 AM – 10:00 PM IST (UTC+5:30), monitored by the publisher.
+- **Standards:** Read our comprehensive [Editorial Policy & Standards]({{ '/editorial/' | url }}).
 
 <script type="application/ld+json">
 {
@@ -66,14 +106,18 @@ The SamacharDaily Editorial Team is committed to prompt corrections if any factu
   "mainEntity": {
     "@type": "Organization",
     "@id": "{{ site.url }}/authors/samachardaily-editorial-team/#organization",
-    "name": "SamacharDaily Editorial Team",
+    "name": "Samachar Daily",
     "url": "{{ site.url }}/authors/samachardaily-editorial-team/",
-    "description": "The SamacharDaily Editorial Team prepares and publishes news summaries based on attributed source material and verified dispatches across India, World, Business, Tech, and Sports.",
+    "description": "Samachar Daily is an independent digital news publication founded, owned, and operated by Arjun Khatri covering India, World, Business, Tech, and Sports under a solo-publisher model.",
     "parentOrganization": {
       "@type": "NewsMediaOrganization",
       "@id": "{{ site.url }}/#organization",
       "name": "SamacharDaily",
-      "url": "{{ site.url }}/"
+      "url": "{{ site.url }}/",
+      "founder": {
+        "@type": "Person",
+        "name": "Arjun Khatri"
+      }
     }
   }
 }

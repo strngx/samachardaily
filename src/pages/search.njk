@@ -69,7 +69,7 @@ noindex: true
         const emptyState = document.getElementById("search-empty-state");
 
         if (window.SEARCH_INDEX.length === 0) {
-          emptyState.innerHTML = "<p>No stories published to search yet. As the newsroom publishes articles, they will be searchable here.</p>";
+          emptyState.innerHTML = "<p>No stories published to search yet. As new articles are published, they will be searchable here.</p>";
         }
 
         function performSearch(q) {
@@ -78,7 +78,7 @@ noindex: true
             resultsContainer.style.display = "none";
             emptyState.style.display = "block";
             if (window.SEARCH_INDEX.length === 0) {
-              emptyState.innerHTML = "<p>No stories published to search yet. As the newsroom publishes articles, they will be searchable here.</p>";
+              emptyState.innerHTML = "<p>No stories published to search yet. As new articles are published, they will be searchable here.</p>";
             } else {
               emptyState.innerHTML = "<p>Enter keywords above to find verified reporting across our categories.</p>";
             }

@@ -62,8 +62,8 @@
     {% endif %}
     <div class="meta-row">
       {% set authorName = leadStory.data.author or site.author.name %}
-      {% if authorName == "SamacharDaily Editorial Team" or not leadStory.data.author %}
-        <span>By <a href="{{ '/authors/samachardaily-editorial-team/' | url }}">{{ authorName }}</a></span>
+      {% if authorName == "SamacharDaily Editorial Team" or authorName == "Samachar Daily" or not leadStory.data.author %}
+        <span>By <a href="{{ '/authors/samachardaily-editorial-team/' | url }}">Samachar Daily</a></span>
       {% else %}
         <span>By {{ authorName }}</span>
       {% endif %}
@@ -129,8 +129,8 @@
   </aside>
 </section>
 {% else %}
-<!-- Subtle Compact Newsroom Empty State -->
-<section class="empty-newsroom-state" aria-label="Newsroom Status">
+<!-- Subtle Compact Empty State -->
+<section class="empty-newsroom-state" aria-label="Publication Status">
   <div class="empty-newsroom-box">
     <div class="empty-badge">SAMACHARDAILY · TODAY'S EDITION</div>
     <h1 class="empty-title">{{ title or "Today's edition is being prepared." }}</h1>

@@ -7,13 +7,13 @@ layout: layouts/base.njk
     <!-- 1. Clean Breadcrumbs -->
     <nav class="article-breadcrumbs" aria-label="Breadcrumb">
       <a href="{{ '/' | url }}">Home</a>
-      <span>/</span>
+      <span class="crumb-separator" aria-hidden="true">/</span>
       <a href="{{ ('/' + (category | categorySlug) + '/') | url }}">{{ category }}</a>
     </nav>
 
     <!-- 2. Category Tag -->
-    <div>
-      <a href="{{ ('/' + (category | categorySlug) + '/') | url }}" class="category-label">
+    <div class="article-category-wrap">
+      <a href="{{ ('/' + (category | categorySlug) + '/') | url }}" class="category-label category-tag-{{ category | categorySlug }}">
         {{ category }}
       </a>
     </div>
@@ -33,7 +33,11 @@ layout: layouts/base.njk
         >
         {% if imageCredit or image_credit %}
           <figcaption class="photo-caption-bar">
-            Photo: {{ imageCredit or image_credit }}
+            <svg class="caption-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+              <circle cx="12" cy="13" r="4"/>
+            </svg>
+            <span>Photo: {{ imageCredit or image_credit }}</span>
           </figcaption>
         {% endif %}
       </figure>
@@ -49,22 +53,94 @@ layout: layouts/base.njk
 
     <!-- 6. Byline Row -->
     <div class="article-byline-bar">
-      {% set authorName = author or site.author.name %}
-      {% if authorName == "SamacharDaily Editorial Team" or not author %}
-        <span>By <a href="{{ '/authors/samachardaily-editorial-team/' | url }}" class="byline-strong">{{ authorName }}</a></span>
-      {% else %}
-        <span>By <span class="byline-strong">{{ authorName }}</span></span>
-      {% endif %}
-      <span>•</span>
-      <time datetime="{{ date | isoDate }}">{{ date | readableDate }}</time>
-      {% set modDate = modifiedDate or dateModified or updated %}
-      {% if modDate and (modDate | isoDate) != (date | isoDate) %}
-        <span>•</span>
-        <span class="byline-updated">Updated: <time datetime="{{ modDate | isoDate }}">{{ modDate | readableDate }}</time></span>
-      {% endif %}
-      <span>•</span>
-      <span>{{ content | readTime }}</span>
+      <div class="byline-author-group">
+        {% set authorName = author or site.author.name %}
+        <span class="byline-author">
+          By
+          {% if authorName == "SamacharDaily Editorial Team" or authorName == "Samachar Daily" or not author %}
+            <a href="{{ '/authors/samachardaily-editorial-team/' | url }}" class="byline-strong">Samachar Daily</a>
+          {% else %}
+            <span class="byline-strong">{{ authorName }}</span>
+          {% endif %}
+        </span>
+        {% if authorRole %}
+          <span class="byline-role-badge">{{ authorRole }}</span>
+        {% else %}
+          <span class="byline-role-badge">Founded &amp; Operated by Arjun Khatri</span>
+        {% endif %}
+      </div>
+      <div class="byline-meta-group">
+        <span class="byline-dot" aria-hidden="true">•</span>
+        <span class="byline-date-wrap">
+          <time datetime="{{ date | isoDate }}" class="byline-date">{{ date | readableDate }}</time>
+        </span>
+        {% set modDate = modifiedDate or dateModified or updated %}
+        {% if modDate and (modDate | isoDate) != (date | isoDate) %}
+          <span class="byline-dot" aria-hidden="true">•</span>
+          <span class="byline-updated">
+            <span class="byline-label">Updated:</span>
+            <time datetime="{{ modDate | isoDate }}">{{ modDate | readableDate }}</time>
+          </span>
+        {% endif %}
+        <span class="byline-dot" aria-hidden="true">•</span>
+        <span class="byline-readtime">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span>{{ content | readTime }}</span>
+        </span>
+      </div>
     </div>
+
+    <!-- 6b. Editorial Trust & Transparency Bar -->
+    <div class="article-trust-bar">
+      <div class="trust-badge-group">
+        {% if aiAssisted != false %}
+          <span class="trust-badge trust-badge-editorial" title="Synthesized with AI models from attributed primary wire dispatches">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            AI-Assisted Wire Synthesis
+          </span>
+        {% endif %}
+        {% if corroboration_status == "corroborated" or corroborationStatus == "corroborated" %}
+          <span class="trust-badge trust-badge-corroborated" title="Corroborated across multiple independent reporting sources">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Multi-Source Corroborated
+          </span>
+        {% endif %}
+        <span class="trust-badge trust-badge-automated" title="Validated against automated structural and factual guardrails">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Automated Verification
+        </span>
+        {% if humanReviewed or human_reviewed %}
+          <span class="trust-badge trust-badge-reviewed" title="Reviewed by publisher prior to publication or following correction request">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            Human Reviewed
+          </span>
+        {% endif %}
+      </div>
+      <div class="trust-policy-link-wrap">
+        <a href="{{ '/editorial/' | url }}" class="trust-policy-link">
+          Editorial Standards &amp; Disclosure <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 6c. Factual Correction Notice (Renders ONLY if correction metadata exists) -->
+    {% set articleCorrection = correction or correction_notice or corrections %}
+    {% if articleCorrection %}
+      <aside class="article-correction-box" aria-label="Editorial Correction Notice">
+        <div class="correction-inner">
+          <div class="correction-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>CORRECTION &amp; CLARIFICATION</span>
+          </div>
+          <div class="correction-body">
+            <p>{{ articleCorrection }}</p>
+          </div>
+        </div>
+      </aside>
+    {% endif %}
 
     <!-- 7. Key Takeaways Box -->
     {% include "partials/key-takeaways.njk" %}
@@ -85,17 +161,100 @@ layout: layouts/base.njk
     <!-- 10. Why It Matters Annotation -->
     {% include "partials/why-it-matters.njk" %}
 
+    <!-- 10b. Health & Dietary Information Disclaimer -->
+    {% include "partials/health-disclaimer.njk" %}
+
     <!-- 11. Source Attribution -->
     {% set currentSourceName = sourceName or source_name %}
     {% set currentSourceUrl = sourceUrl or source_url %}
-    <div class="source-citation">
-      <span>Reporting based on verified dispatches from <strong>{{ currentSourceName or "Official Wire Services" }}</strong>.</span>
-      {% if currentSourceUrl %}
-        <span style="margin-left: 8px;">
-          <a href="{{ currentSourceUrl }}" rel="nofollow noopener noreferrer" target="_blank">View primary release ↗</a>
-        </span>
-      {% endif %}
-    </div>
+    <aside class="source-citation" aria-label="Source and Reporting Disclosure">
+      <div class="source-citation-inner">
+        <svg class="source-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <div class="source-citation-text">
+          {% if sources and sources.length > 0 %}
+            <div class="multi-source-header">
+              <span>Reporting synthesized from <strong>{{ sources.length }} attributed sources</strong>{% if corroboration_status == "corroborated" or corroborationStatus == "corroborated" %} with cross-source corroboration{% endif %}:</span>
+            </div>
+            <ul class="multi-source-list">
+              {% for s in sources %}
+                <li class="multi-source-item">
+                  <span class="source-outlet-name"><strong>{{ s.name }}</strong></span>
+                  {% if s.role == "primary_reporting" %}
+                    <span class="source-role-tag primary">Primary Dispatch</span>
+                  {% elif s.role == "independent_corroboration" %}
+                    <span class="source-role-tag corroborating">Independent Corroboration</span>
+                  {% elif s.role == "wire_dispatch" or s.role == "syndicated_copy" %}
+                    <span class="source-role-tag wire">Wire Coverage</span>
+                  {% endif %}
+                  {% if s.url %}
+                    <a href="{{ s.url }}" rel="nofollow noopener noreferrer" target="_blank" class="source-external-link">
+                      View report <span aria-hidden="true">↗</span>
+                    </a>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <span>Reporting based on verified dispatches from <strong>{{ currentSourceName or "Official Wire Services" }}</strong>.</span>
+            {% if currentSourceUrl %}
+              <span class="source-link-wrap">
+                <a href="{{ currentSourceUrl }}" rel="nofollow noopener noreferrer" target="_blank" class="source-external-link">
+                  View primary release <span aria-hidden="true">↗</span>
+                </a>
+              </span>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </aside>
+
+    <!-- 11b. Institutional Author & Editorial Transparency Card -->
+    {% set authorName = author or site.author.name %}
+    <aside class="article-editorial-profile" aria-label="About the Publisher and Editorial Workflow">
+      <div class="editorial-profile-inner">
+        <div class="profile-header">
+          <div class="profile-avatar" aria-hidden="true">SD</div>
+          <div class="profile-meta">
+            <div class="profile-name">
+              {% if authorName == "SamacharDaily Editorial Team" or authorName == "Samachar Daily" or not author %}
+                <a href="{{ '/authors/samachardaily-editorial-team/' | url }}">Samachar Daily</a>
+                <span class="profile-role">Solo-Publisher Digital News</span>
+              {% else %}
+                <span>{{ authorName }}</span>
+                <span class="profile-role">{{ authorRole or "Solo-Publisher Digital News" }}</span>
+              {% endif %}
+            </div>
+            <p class="profile-bio">
+              {{ authorBio or "Samachar Daily is an independent digital news publication founded, owned, and operated by Arjun Khatri under a solo-publisher model. Reporting and explanatory briefings are synthesized from attributed primary sources and public wire dispatches using AI assistance, evaluated against automated factual guardrails, and published under transparent editorial oversight." }}
+            </p>
+          </div>
+        </div>
+        <div class="profile-workflow-grid">
+          <div class="workflow-item">
+            <span class="workflow-label">Founder &amp; Owner:</span>
+            <span class="workflow-val">Arjun Khatri</span>
+          </div>
+          <div class="workflow-item">
+            <span class="workflow-label">Operating Model:</span>
+            <span class="workflow-val">Solo Publisher &amp; Developer</span>
+          </div>
+          <div class="workflow-item">
+            <span class="workflow-label">Editorial Process:</span>
+            <span class="workflow-val">{{ "Human Reviewed by Publisher" if (humanReviewed or human_reviewed) else "AI-Assisted Wire Synthesis with Automated Quality Gating" }}</span>
+          </div>
+          <div class="workflow-item">
+            <span class="workflow-label">Standards:</span>
+            <a href="{{ '/editorial/' | url }}" class="workflow-link">Editorial Policy &amp; AI Disclosure</a>
+          </div>
+          <div class="workflow-item">
+            <span class="workflow-label">Corrections:</span>
+            <a href="{{ '/contact/' | url }}" class="workflow-link">Report Inaccuracy / Grievance</a>
+          </div>
+        </div>
+      </div>
+    </aside>
 
     <!-- Social Follow CTA -->
     {% include "partials/cta-social.njk" %}
