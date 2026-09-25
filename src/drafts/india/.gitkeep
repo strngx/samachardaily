@@ -1,0 +1,2 @@
+# India Desk Drafts Staging Directory (Human Review Pilot)
+# Draft articles in this directory are intentionally excluded from the production Eleventy build, sitemap, and RSS feeds until manually reviewed and moved to src/articles/india/.

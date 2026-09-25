@@ -8,3 +8,14 @@ yarn-debug.log*
 yarn-error.log*
 .system_generated/
 scratch/
+
+# Temporary SEO Audit & Phase Artifacts
+PHASE_*
+SEO_PHASE_*
+SEO_BASELINE_*
+SEO_CHANGE_*
+SEO_ROLLBACK_*
+phase_*.json
+scripts/
+screenshot*.png
+CLEANUP_*
