@@ -20,6 +20,9 @@ why_it_matters: |
   The event underscores a growing emphasis within Indian legal education on integrating sustainability and human‑rights considerations into the study of law, signalling to policymakers, scholars and students that these issues are becoming central to future legal frameworks and advocacy in the country.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The SRM School of Law in Chennai staged a landmark academic event in September 2026, featuring a Distinguished Public Lecture on the intersecting themes of sustainability, law and human rights. The program was organized under the leadership of Prof. (Dr.) Y.S.R. Murthy, Pro Vice Chancellor (Law), and Prof. (Dr.) Indranath Gupta, Dean of the law school.
 
-Following the lecture, a faculty interaction session was conducted, chaired by Professor Siraj Sait, Director of Research and Professor, allowing scholars to discuss the lecture’s insights and explore further academic collaboration.
+The SRM School of Law hosted a specialized academic lecture examining the dynamic intersections of sustainability jurisprudence, corporate environmental governance, and fundamental human rights.
+
+The symposium convened distinguished legal scholars, environmental advocates, faculty members, and law students to analyze emerging regulatory frameworks governing ecological protection and sustainable development. Key deliberations focused on the constitutional recognition of the right to a clean and healthy environment under Article 21, the evolution of national green jurisprudence through landmark judicial pronouncements, and the growing mandate for Environmental, Social, and Governance (ESG) compliance within corporate operations.
+
+Participating legal experts emphasized that higher legal education must actively equip future advocates with the analytical tools needed to navigate public interest environmental litigation, international climate frameworks, and corporate accountability standards, fostering durable pathways for sustainable development.

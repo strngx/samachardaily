@@ -2,9 +2,9 @@
 title: "India's July Industrial Output Rises 6.7% YoY, Outpacing Forecasts"
 category: "Business"
 date: 2026-08-28T22:41:04Z
-image: "https://www.reuters.com/resizer/v2/LYHUYOFLRBMCHGSIQNQEFKF4PM.jpg?auth=d17f4a6c344099656bef85bf38692c40cf0bade62d84748f1ed821d4b8650e4b&smart=true&width=1920"
-imageAlt: "India's July Industrial Output Rises 6.7% YoY, Outpacing Forecasts"
-imageCredit: "reuters_com"
+image: "https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Modern industrial manufacturing equipment and automated assembly line."
+imageCredit: "Chevanon Photography"
 video_id: "ikJ9WHdZmv8"
 video_caption: "Asia factory slowdown rattles growth hopes"
 slug: "indias-july-industrial-output-grows-67-yy"

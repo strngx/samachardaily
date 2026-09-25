@@ -2,9 +2,9 @@
 title: "India to introduce red hexagonal warnings on high‑sugar, salt and fat foods"
 category: "India"
 date: 2026-08-29T02:12:47Z
-image: "https://images.cnbctv18.com/uploads/2026/08/modified-infographic-img-0-2026-08-28t12-20-51180791-2026-08-ec16829f263dcfbec6b42f8659277d09.jpg"
-imageAlt: "India to introduce red hexagonal warnings on high‑sugar, salt and fat foods"
-imageCredit: "prashanth perumal"
+image: "https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Assorted packaged food items and groceries displayed on supermarket retail shelves."
+imageCredit: "Pixabay"
 video_id: "0ORJu3u0c4g"
 video_caption: "&quot;India Needs Warning Labels For Food&quot;: Revant Himatsingka&#39;s Big Push"
 slug: "india-may-soon-put-cigarette-style-warnings-on-unhealthy-foods-heres-what-it-mea"

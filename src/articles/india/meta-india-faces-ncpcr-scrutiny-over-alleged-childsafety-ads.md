@@ -3,9 +3,9 @@ title: "Meta India Faces NCPCR Scrutiny Over Alleged Child‑Safety Ads"
 seoTitle: "Meta India summoned by NCPCR over child ad probe"
 category: "India"
 date: 2026-09-09T19:47:54Z
-image: "https://images.pexels.com/photos/5668481/pexels-photo-5668481.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "From above of wooden gavel on round surface near folders on table in courtroom"
-imageCredit: "Sora Shimazaki"
+image: "https://images.pexels.com/photos/147413/twitter-facebook-together-exchange-of-information-147413.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Social media network application icons displayed on a smartphone screen."
+imageCredit: "Pixabay"
 trending: false
 featured: false
 video_id: ""

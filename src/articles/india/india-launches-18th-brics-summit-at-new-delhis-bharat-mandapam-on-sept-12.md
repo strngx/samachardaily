@@ -31,6 +31,6 @@ what_happens_next: "No confirmed next steps reported yet."
 ---
 The 18th BRICS Summit officially began today in New Delhi, with India serving as host. The two‑day meeting is being held at the Bharat Mandapam exhibition centre and runs through Sunday, September 13.
 
-The summit brings together the heads of state and government from the five BRICS countries—Brazil, Russia, India, China and South Africa—for discussions on shared economic, political and security interests.
+The summit brings together the heads of state and government from the five BRICS countries—Brazil, Russia, India, China and South Africa—alongside a [broad international delegation of world leaders attending the summit](/articles/world/from-xis-400-officials-to-putin-full-list-of-world-leaders-attending-brics-summi/) for discussions on shared economic, political and security interests.
 
 Hosting the summit highlights India’s diplomatic prominence within the grouping, giving it a central role in shaping the bloc’s agenda and fostering coordinated action among the members.

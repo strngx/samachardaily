@@ -51,7 +51,7 @@ function getConfig_() {
 var CATEGORY_CONFIG = {
   'india': {
     name: 'India',
-    folder: 'src/articles/india',
+    folder: 'src/drafts/india',
     newsDataCategory: 'top,politics,entertainment',
     newsDataCountry: 'in',
     currentsCategory: 'regional',
@@ -71,7 +71,7 @@ var CATEGORY_CONFIG = {
     name: 'Business',
     folder: 'src/articles/business',
     newsDataCategory: 'business',
-    newsDataCountry: 'in,us',
+    newsDataCountry: 'in',
     currentsCategory: 'business',
     currentsKeywords: 'Business economy markets',
     trendGeo: 'IN'
@@ -1137,16 +1137,13 @@ function isFingerprintDuplicate_(candidate, recentFingerprints) {
 }
 
 /**
- * Checks if exact slug already exists on GitHub repository.
+ * Helper to check if a specific file path exists on the GitHub repository.
  *
- * @param {string} slug - Article slug.
- * @param {string} categoryKey - Category identifier.
+ * @param {string} filePath - Repository-relative file path.
  * @param {Object} config - Configuration object.
  * @returns {boolean} True if file exists.
  */
-function isDuplicate_(slug, categoryKey, config) {
-  var catCfg = CATEGORY_CONFIG[categoryKey.toLowerCase()] || { folder: 'src/articles/' + categoryKey.toLowerCase() };
-  var filePath = catCfg.folder + '/' + slug + '.md';
+function checkGitHubPathExists_(filePath, config) {
   var url = 'https://api.github.com/repos/' + config.GITHUB_REPO + '/contents/' + filePath + '?ref=' + config.GITHUB_BRANCH;
   var headers = {
     'Accept': 'application/vnd.github.v3+json',
@@ -1163,12 +1160,65 @@ function isDuplicate_(slug, categoryKey, config) {
   }
 }
 
+/**
+ * Checks if exact slug already exists on GitHub repository.
+ * Checks both configured folder (e.g. draft folder) and canonical production article folder.
+ *
+ * @param {string} slug - Article slug.
+ * @param {string} categoryKey - Category identifier.
+ * @param {Object} config - Configuration object.
+ * @returns {boolean} True if file exists.
+ */
+function isDuplicate_(slug, categoryKey, config) {
+  var catCfg = CATEGORY_CONFIG[categoryKey.toLowerCase()] || { folder: 'src/articles/' + categoryKey.toLowerCase() };
+  var configuredPath = catCfg.folder + '/' + slug + '.md';
+  if (checkGitHubPathExists_(configuredPath, config)) {
+    return true;
+  }
+  var prodPath = 'src/articles/' + categoryKey.toLowerCase() + '/' + slug + '.md';
+  if (configuredPath !== prodPath && checkGitHubPathExists_(prodPath, config)) {
+    return true;
+  }
+  return false;
+}
+
 // ============================================================================
 // 4. IMAGE QUALITY GUARD (Fix 1)
 // ============================================================================
 
 /**
- * Validates article photo quality before publishing.
+ * Verifies if an image URL originates from an approved, licensed/open CDN host.
+ * Approved sources: Pexels, Unsplash, or local/SamacharDaily assets.
+ * Rejects third-party publisher wire CDNs, unverified hotlinks, and arbitrary external domains.
+ *
+ * @param {string} url - The image URL to check.
+ * @returns {boolean} True if from an approved source.
+ */
+function isApprovedImageHost_(url) {
+  if (!url || typeof url !== 'string') return false;
+  var trimmed = url.trim().toLowerCase();
+  if (trimmed.startsWith('/') && trimmed.startsWith('/assets/images/')) return true;
+  if (!/^https?:\/\//i.test(trimmed)) return false;
+  try {
+    var match = trimmed.match(/^https?:\/\/([^/?#:]+)/i);
+    if (!match) return false;
+    var host = match[1].toLowerCase();
+    return (
+      host === 'images.pexels.com' ||
+      host.endsWith('.pexels.com') ||
+      host === 'images.unsplash.com' ||
+      host.endsWith('.unsplash.com') ||
+      host === 'thesamachardaily.in' ||
+      host.endsWith('.thesamachardaily.in')
+    );
+  } catch (e) {
+    return false;
+  }
+}
+
+/**
+ * Validates article photo quality and provenance before publishing.
+ * - Enforces approved image host policy (Pexels, Unsplash, local assets).
  * - Strips or rejects forced-upscale CDN parameters (e.g. enlarge=true).
  * - Verifies HTTP availability and rejects thumbnails (< 15KB).
  *
@@ -1180,7 +1230,13 @@ function validateImage_(url) {
   var trimmed = url.trim();
   if (!/^https?:\/\//i.test(trimmed)) return null;
 
-  // 1. Strip or reject URLs containing forced-upscale query params
+  // 1. Enforce Approved Image Host Policy (reject arbitrary publisher wire CDNs)
+  if (!isApprovedImageHost_(trimmed)) {
+    Logger.log('Rejecting image from unapproved external host: ' + trimmed);
+    return null;
+  }
+
+  // 2. Strip or reject URLs containing forced-upscale query params
   var cleanedUrl = trimmed
     .replace(/([?&])enlarge=(?:true|1|yes)(&|$)/gi, '$1')
     .replace(/[?&]$/, '');
@@ -1190,13 +1246,13 @@ function validateImage_(url) {
     return null;
   }
 
-  // 2. Reject domains known to block cross-origin hotlinking (HTTP 403)
+  // 3. Reject domains known to block cross-origin hotlinking (HTTP 403)
   if (/\b(c\.ndtvimg\.com)\b/i.test(cleanedUrl)) {
     Logger.log('Rejecting image from domain with strict hotlinking protection: ' + cleanedUrl);
     return null;
   }
 
-  // 2. Perform HEAD / partial fetch check to verify byte size
+  // 4. Perform HEAD / partial fetch check to verify byte size
   try {
     var headOptions = {
       method: 'get',
@@ -1343,6 +1399,12 @@ function isCleanGeneratedBody_(body) {
     return { valid: false, reason: 'Body content too short (<100 chars)' };
   }
 
+  // Deterministic 70-word minimum substance gate on generated body
+  var wordCount = trimmed.split(/\s+/).filter(function(w) { return w.length > 0; }).length;
+  if (wordCount < 70) {
+    return { valid: false, reason: 'Generated body too short (<70 words, ' + wordCount + 'w)' };
+  }
+
   if (/^```(?:json)?/im.test(trimmed)) {
     return { valid: false, reason: 'Body contains unparsed markdown code blocks' };
   }
@@ -1381,12 +1443,18 @@ function validateArticleOutputStructure_(article) {
   if (!headlineCheck.valid) {
     return { valid: false, reason: 'Title check failed: ' + headlineCheck.reason };
   }
+  if (hasSearchQueryOrPromptLeak_(article.title)) {
+    return { valid: false, reason: 'Title contains prompt/search leak' };
+  }
 
   // 2. SEO Title validation (if provided)
   if (article.seoTitle) {
     var seoCheck = isCleanGeneratedHeadline_(article.seoTitle);
     if (!seoCheck.valid && seoCheck.reason !== 'Headline too short (<15 chars)') {
       return { valid: false, reason: 'seoTitle check failed: ' + seoCheck.reason };
+    }
+    if (hasSearchQueryOrPromptLeak_(article.seoTitle)) {
+      return { valid: false, reason: 'seoTitle contains prompt/search leak' };
     }
   }
 
@@ -1395,11 +1463,15 @@ function validateArticleOutputStructure_(article) {
   if (!bodyCheck.valid) {
     return { valid: false, reason: 'Body check failed: ' + bodyCheck.reason };
   }
+  var bodyText = Array.isArray(article.content) ? article.content.join('\n\n') : String(article.content || '');
+  if (hasSearchQueryOrPromptLeak_(bodyText)) {
+    return { valid: false, reason: 'Body contains prompt/search leak' };
+  }
 
   // 4. Dek validation (if provided)
   if (article.dek) {
     var dekText = String(article.dek);
-    if (/```|\{|\}|\[|\]/i.test(dekText) || /\b(system prompt|as an ai|json_object)\b/i.test(dekText)) {
+    if (/```|\{|\}|\[|\]/i.test(dekText) || hasSearchQueryOrPromptLeak_(dekText)) {
       return { valid: false, reason: 'Dek contains prompt/JSON artifacts' };
     }
   }
@@ -1407,6 +1479,14 @@ function validateArticleOutputStructure_(article) {
   // 5. why_it_matters validation
   if (!article.why_it_matters || (typeof article.why_it_matters === 'string' && article.why_it_matters.trim().length < 20)) {
     return { valid: false, reason: 'why_it_matters is missing or too short' };
+  }
+  if (hasSearchQueryOrPromptLeak_(String(article.why_it_matters))) {
+    return { valid: false, reason: 'why_it_matters contains prompt/search leak' };
+  }
+
+  // 6. what_happens_next validation (if provided)
+  if (article.what_happens_next && hasSearchQueryOrPromptLeak_(String(article.what_happens_next))) {
+    return { valid: false, reason: 'what_happens_next contains prompt/search leak' };
   }
 
   return { valid: true, reason: 'Valid article structure' };
@@ -1433,6 +1513,12 @@ function parseArticleJson_(rawText) {
   var validation = validateArticleOutputStructure_(parsed);
   if (!validation.valid) {
     throw new Error('AI output validation failed: ' + validation.reason);
+  }
+
+  // Unified post-synthesis editorial quality gate on parsed article
+  var editorialCheck = isEditoriallyAcceptable_(parsed.title, parsed.dek, parsed.content, null, null, true);
+  if (!editorialCheck.acceptable) {
+    throw new Error('AI output failed editorial quality gate: ' + editorialCheck.reason);
   }
 
   return parsed;
@@ -1828,10 +1914,10 @@ function rewriteWithGroq_(headline, category, config) {
   }
 
   // Tier 2 & 3: Fallback Waterfall on 429 / TPD limit / Validation failure
-  var isGroqValidationFailure = (groqError && groqError.message && groqError.message.indexOf('validation failed') !== -1);
+  var isGroqValidationFailure = (groqError && groqError.message && (groqError.message.indexOf('validation failed') !== -1 || groqError.message.indexOf('editorial quality gate') !== -1 || groqError.message.indexOf('missing required fields') !== -1));
   if (isGroq429 || isGroqValidationFailure) {
     if (isGroqValidationFailure) {
-      Logger.log('Groq output failed validation (' + groqError.message + '). Falling back to Tier 2 (Gemini 3.6 Flash)...');
+      Logger.log('FALLBACK VALIDATION: Groq output failed validation (' + groqError.message + '). Falling back to Tier 2 (Gemini 3.6 Flash)...');
     } else {
       Logger.log('Groq rate limited (429). Falling back to Tier 2 (Gemini 3.6 Flash)...');
     }
@@ -1840,14 +1926,14 @@ function rewriteWithGroq_(headline, category, config) {
       Logger.log('Generated via: Gemini (Groq fallback)');
       return geminiArticle;
     } catch (geminiErr) {
-      Logger.log('Gemini fallback failed: ' + geminiErr.message + '. Tier 3 fallback: OpenRouter...');
+      Logger.log('FALLBACK VALIDATION: Gemini fallback failed: ' + geminiErr.message + '. Tier 3 fallback: OpenRouter...');
       try {
         var openRouterArticle = rewriteWithOpenRouter_(systemPrompt, userPrompt, config);
         Logger.log('Generated via: OpenRouter (double fallback)');
         return openRouterArticle;
       } catch (openRouterErr) {
-        Logger.log('All 3 AI tiers (Groq, Gemini, OpenRouter) failed.');
-        throw new Error('Groq rate limit: ' + (groqError ? groqError.message : '429') + ' | Gemini error: ' + geminiErr.message + ' | OpenRouter error: ' + openRouterErr.message);
+        Logger.log('FALLBACK VALIDATION: All 3 AI tiers (Groq, Gemini, OpenRouter) failed.');
+        throw new Error('Groq failure: ' + (groqError ? groqError.message : '429') + ' | Gemini error: ' + geminiErr.message + ' | OpenRouter error: ' + openRouterErr.message);
       }
     }
   }
@@ -2225,13 +2311,17 @@ function fetchImage_(keyword, config) {
         var data = JSON.parse(resp.getContentText());
         if (data.photos && data.photos.length > 0) {
           var photo = data.photos[0];
-          var rawCredit = (photo.photographer || '').trim();
-          var credit = (rawCredit.length > 0) ? rawCredit : 'Image via Pexels';
-          return {
-            url: photo.src.large || photo.src.medium || photo.src.landscape,
-            alt: photo.alt || keyword,
-            credit: credit
-          };
+          var candidateUrl = photo.src.large || photo.src.medium || photo.src.landscape;
+          if (candidateUrl && isApprovedImageHost_(candidateUrl)) {
+            var rawCredit = (photo.photographer || '').trim();
+            var credit = (rawCredit.length > 0) ? rawCredit : 'Image via Pexels';
+            return {
+              url: candidateUrl,
+              alt: photo.alt || keyword,
+              credit: credit,
+              provider: 'Pexels'
+            };
+          }
         }
       }
     } catch (err) {
@@ -2240,9 +2330,9 @@ function fetchImage_(keyword, config) {
   }
 
   var fallbackImages = [
-    { url: 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=1200&q=80', alt: 'Global Newsroom and Editorial Reporting', credit: 'Unsplash' },
-    { url: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&q=80', alt: 'Daily News and Newspaper Headlines', credit: 'Unsplash' },
-    { url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80', alt: 'Technology and Global Connectivity', credit: 'Unsplash' }
+    { url: 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=1200&q=80', alt: 'Global Newsroom and Editorial Reporting', credit: 'Unsplash', provider: 'Unsplash' },
+    { url: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&q=80', alt: 'Daily News and Newspaper Headlines', credit: 'Unsplash', provider: 'Unsplash' },
+    { url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80', alt: 'Technology and Global Connectivity', credit: 'Unsplash', provider: 'Unsplash' }
   ];
   var randomIndex = Math.floor(Math.random() * fallbackImages.length);
   return fallbackImages[randomIndex];
@@ -2462,7 +2552,18 @@ function runPipelineForCategory_(categoryKey) {
 
   // Step 3: Editorial synthesis with Groq (Fixes 4 & 7)
   Logger.log('Synthesizing article with Groq Llama 3.3...');
-  var article = rewriteWithGroq_(selectedCandidate, catCfg.name, config);
+  var article = null;
+  try {
+    article = rewriteWithGroq_(selectedCandidate, catCfg.name, config);
+  } catch (synthesisErr) {
+    Logger.log('REJECTED — AI SYNTHESIS / FALLBACK VALIDATION FAILED: candidate="' + selectedCandidate.title + '" [' + synthesisErr.message + ']');
+    return { success: false, reason: 'AI synthesis failed: ' + synthesisErr.message };
+  }
+
+  if (!article || !article.title || !article.content) {
+    Logger.log('REJECTED — MALFORMED ARTICLE OBJECT: synthesis returned null or empty article object.');
+    return { success: false, reason: 'AI synthesis returned invalid article object' };
+  }
 
   // Fix 4: Validate output language AFTER synthesis, before commit
   if (!isArticleOutputEnglish_(article)) {
@@ -2473,7 +2574,7 @@ function runPipelineForCategory_(categoryKey) {
     } catch (retryErr) {
       Logger.log('Retry synthesis failed: ' + retryErr);
     }
-    if (!isArticleOutputEnglish_(article)) {
+    if (!article || !isArticleOutputEnglish_(article)) {
       Logger.log('Synthesized article failed language verification on retry. Discarding candidate to prevent foreign-language leak.');
       return { success: false, reason: 'Synthesized article output was not English' };
     }
@@ -2482,7 +2583,7 @@ function runPipelineForCategory_(categoryKey) {
   // Stage 3: Post-Synthesis Editorial Quality Gate & Hard Validation
   var outputValidation = validateArticleOutputStructure_(article);
   if (!outputValidation.valid) {
-    Logger.log('HEADLINE_VALIDATION_FAILED article=' + (selectedCandidate.slug || 'candidate') + ' reason="' + outputValidation.reason + '" action=ABORT_PUBLICATION');
+    Logger.log('STRUCTURE_VALIDATION_FAILED article=' + (selectedCandidate.slug || 'candidate') + ' reason="' + outputValidation.reason + '" action=ABORT_PUBLICATION');
     return { success: false, reason: 'Synthesized article failed hard output validation: ' + outputValidation.reason };
   }
 
@@ -2495,12 +2596,20 @@ function runPipelineForCategory_(categoryKey) {
   // Ensure slug is derived from clean English synthesized title
   selectedCandidate.slug = generateSlug_(article.title || selectedCandidate.title);
 
-  // Step 4: Media Enrichment (Stop hotlinking external publishers' images - Issue #5)
-  // Default exclusively to Pexels API and curated licensed editorial libraries for 100% of articles
+  // Step 4: Media Enrichment (Approved Sources Only: Pexels -> Curated Unsplash -> Safe Default Hero)
   var imageSearchKeyword = article.image_keyword || catCfg.name;
   var imageObj = fetchImage_(imageSearchKeyword, config);
-  var imageSourceLabel = 'pexels';
-  Logger.log('Using licensed editorial photography for: ' + imageSearchKeyword);
+  if (!imageObj || !imageObj.url || !isApprovedImageHost_(imageObj.url)) {
+    Logger.log('Image fetch did not return an approved image host. Applying safe default hero.');
+    imageObj = {
+      url: 'https://thesamachardaily.in/assets/images/default-hero.jpg',
+      alt: article.title || catCfg.name,
+      credit: 'SamacharDaily Desk',
+      provider: 'Local/Default'
+    };
+  }
+  var imageSourceLabel = imageObj.provider || 'Pexels';
+  Logger.log('Using approved image source (' + imageSourceLabel + ') for: ' + imageSearchKeyword);
 
   // Step 5: Video Search - Top 3 Videos (Fix 6)
   var videoQuery = article.video_query || selectedCandidate.title;
@@ -2510,16 +2619,27 @@ function runPipelineForCategory_(categoryKey) {
   // Step 6: Build Markdown & Frontmatter (Fixes 5, 6, 7)
   var markdownContent = buildMarkdown_(article, imageObj, videos, selectedCandidate.sourceUrl, selectedCandidate, isFeatured);
 
-  // Stage 4: Pre-Publish Final Editorial Quality Gate
+  // Stage 4: Pre-Publish Final Hard Editorial Quality Gate & Safety Validation
+  if (!markdownContent || markdownContent.trim().length < 200) {
+    Logger.log('REJECTED — FINAL MARKDOWN EMPTY OR TOO SHORT: "' + (article.title || selectedCandidate.title) + '"');
+    return { success: false, reason: 'Final markdown content too short or empty' };
+  }
+
   var stage4Quality = isEditoriallyAcceptable_(article.title, article.dek, markdownContent, selectedCandidate.sourceUrl, selectedCandidate.sourceName, true);
   if (!stage4Quality.acceptable) {
     Logger.log('REJECTED — EDITORIAL QUALITY GATE (Stage 4 Pre-Publish): "' + (article.title || selectedCandidate.title) + '" [' + stage4Quality.reason + ']');
     return { success: false, reason: 'Final markdown rejected by editorial quality gate: ' + stage4Quality.reason };
   }
 
-  // Step 7: Publish to GitHub
+  if (hasSearchQueryOrPromptLeak_(markdownContent)) {
+    Logger.log('REJECTED — PROMPT LEAK IN FINAL MARKDOWN: "' + (article.title || selectedCandidate.title) + '"');
+    return { success: false, reason: 'Prompt instruction leak detected in final markdown' };
+  }
+
+  // Step 7: Publish / Stage to GitHub
   var targetPath = catCfg.folder + '/' + selectedCandidate.slug + '.md';
-  var commitMsg = 'Auto-publish: ' + selectedCandidate.slug;
+  var isDraft = catCfg.folder.indexOf('src/drafts') === 0;
+  var commitMsg = (isDraft ? 'Stage draft (India review pilot): ' : 'Auto-publish: ') + selectedCandidate.slug;
   var publishResult = publishToGitHub_(targetPath, markdownContent, commitMsg, config);
 
   // Step 8: Update Rolling 7-Day Fingerprints Store on GitHub

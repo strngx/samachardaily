@@ -20,8 +20,9 @@ why_it_matters: |
   The multi‑sector approach highlighted by Pratham demonstrates a scalable pathway for addressing entrenched social issues in India, encouraging policymakers and funders to design partnerships that leverage the strengths of each stakeholder group, thereby accelerating progress toward universal education and broader systemic reforms.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Experience across several decades in India’s social sector has taught that complex problems cannot be solved in isolation; bringing together diverse actors is essential for lasting impact.
 
-For civil‑society organisations such as Pratham, which pursues the mission of universalising education, defining ‘society’ means identifying models that unite government, businesses, nonprofits and citizens around a common goal.
+Tackling deeply rooted social challenges requires sustained, multi-sector collaboration across government authorities, corporate partners, civil society organizations, and local communities, according to foundational learning insights shared by educational non-profit Pratham.
 
-When Pratham was founded in 1993 with the aim that every child should be in school, its founding structure deliberately combined representatives from the public, private and civil sectors, a practice that today underpins its focus on systems change.
+Drawing on decades of grassroots experience in delivering foundational literacy and numeracy programs across India, the organization emphasizes that complex developmental goals cannot be achieved through isolated, single-sector interventions. When established in 1993 with the mission of ensuring every child is in school and learning well, Pratham deliberately structured its operating model to unite public administration machinery, corporate resources, and grassroots civic action around shared educational outcomes.
+
+This collaborative approach demonstrates that meaningful systemic change relies on establishing cross-sector alignment, community ownership, and measurable benchmarks. The organization highlights that scaling quality education nationwide requires building durable public-private-civic partnerships that leverage existing government schooling infrastructure to deliver long-term societal impact.

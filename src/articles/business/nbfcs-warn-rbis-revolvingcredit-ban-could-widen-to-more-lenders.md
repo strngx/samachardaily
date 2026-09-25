@@ -29,7 +29,7 @@ why_it_matters: |
   
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The Reserve Bank of India (RBI) has imposed a ban on revolving‑credit facilities, a move that has already sent ripples through the country’s credit market. While the directive initially targeted specific loan categories, non‑bank financial companies (NBFCs) are warning that the prohibition could soon affect a broader set of lenders, potentially reshaping the landscape for short‑term financing.
+The Reserve Bank of India (RBI) has imposed a ban on revolving‑credit facilities amid broader [central bank market interventions](/articles/business/rbi-steps-up-intervention-as-rupee-remains-locked-in-narrow-range/) across the financial sector, a move that has already sent ripples through the country’s credit market. While the directive initially targeted specific loan categories, non‑bank financial companies (NBFCs) are warning that the prohibition could soon affect a broader set of lenders, potentially reshaping the landscape for short‑term financing.
 
 Industry bodies representing NBFCs have voiced concern that the ban’s language is ambiguous, leaving room for interpretation that could pull additional players into its scope. Their statements stress that many NBFCs rely on revolving‑credit structures to service small and medium‑enterprise (SME) borrowers, and an expanded ban could curtail access to working capital for a sizable segment of the economy.
 

@@ -3,9 +3,9 @@ title: "BRICS International Football Alliance Opens India Chapter to Boost Unity
 seoTitle: "BRICS Football Alliance launches India chapter"
 category: "Sports"
 date: 2026-09-13T23:17:18Z
-image: "https://images.pexels.com/photos/3926344/pexels-photo-3926344.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "The Indian national flag waves proudly against a clear blue sky in New Delhi."
-imageCredit: "Amit Rai"
+image: "https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Soccer ball resting on the grass turf of a football pitch."
+imageCredit: "Pixabay"
 trending: false
 featured: false
 video_id: ""

@@ -20,6 +20,9 @@ why_it_matters: |
   The incident highlights the growing danger of unapproved, counterfeit weight‑loss products circulating in the market, exposing consumers to severe health risks. It underscores the TGA's role in safeguarding public health and the need for heightened vigilance among buyers of experimental therapies.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The Therapeutic Goods Administration (TGA) issued an alert after a patient was hospitalised with a torn oesophagus, having taken a counterfeit product believed to be the experimental weight‑loss peptide retatrutide.
+Australia's Therapeutic Goods Administration (TGA) has issued an official health alert after a patient was hospitalised with a torn oesophagus following the consumption of a counterfeit product represented as the experimental weight-loss peptide retatrutide.
 
-Retatrutide has not received approval from the TGA or any overseas regulator and cannot be legally prescribed or sold in Australia, underscoring that any such product on the market is unlawful and potentially dangerous.
+According to the regulatory advisory, retatrutide is an unapproved investigational substance that has not received market authorisation from the TGA or any overseas medicines regulator. Because the peptide is not approved for therapeutic use, it cannot legally be manufactured, prescribed, dispensed, or sold within Australia.
+
+The TGA warned that any products marketed as retatrutide circulating through online platforms or unauthorized commercial channels are illicit and pose serious medical risks to the public. Health authorities reiterated that consumers should avoid unverified therapeutic substances and reported that investigations into counterfeit drug distribution networks remain ongoing.
+

@@ -3,9 +3,9 @@ title: "Andhra Pradesh Tragedy: Woman Rescued, 3 Missing After Family Jumps into
 seoTitle: "Andhra Pradesh River Jump: Woman Rescued, 3 Missing"
 category: "World"
 date: 2026-09-06T17:11:02Z
-image: "https://images.pexels.com/photos/12475573/pexels-photo-12475573.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Majestic view of the Havelock Bridge crossing the Godavari River in Rajamahendravaram, India."
-imageCredit: "Siri Surender"
+image: "https://images.pexels.com/photos/1761279/pexels-photo-1761279.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Wide flowing river surrounded by forest landscape."
+imageCredit: "Jacob Colvin"
 trending: false
 featured: false
 video_id: "4XJzWVQ285c"

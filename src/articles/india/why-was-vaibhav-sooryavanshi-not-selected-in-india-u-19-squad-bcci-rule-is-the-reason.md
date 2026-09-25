@@ -30,7 +30,7 @@ why_it_matters: |
   If the rule is perceived as overly rigid, it may prompt calls for a review of age‑cutoff dates or the introduction of a grace period, influencing future squad selections and the broader development strategy for junior cricket in the country.
 what_happens_next: "Vaibhav Sooryavanshi’s representatives have lodged a formal appeal with the BCCI’s Player Selection Committee, seeking a review of the eligibility determination. The board has scheduled a hearing within the next two weeks and will issue a final decision before the first U‑19 match against Australia."
 ---
-The Board of Control for Cricket in India (BCCI) unveiled a 15‑member India U‑19 squad for the upcoming home series against Australia, featuring Aaryavir Sehwag and Anvay Dravid – sons of former stalwarts Virender Sehwag and Rahul Dravid. Despite a solid domestic record, Vaibhav Sooryavanshi was omitted from the list.
+The Board of Control for Cricket in India (BCCI) unveiled a 15‑member India U‑19 squad for the home series against Australia—which ultimately culminated in the [India Under-19 squad's thrilling victory over Australia at Rajkot](/articles/india/india-u-19-defeats-australia-by-7-runs-in-rain-affected-thriller-at-rajkot/)—featuring Aaryavir Sehwag and Anvay Dravid, sons of former stalwarts Virender Sehwag and Rahul Dravid. Despite a solid domestic record, Vaibhav Sooryavanshi was omitted from the list.
 
 BCCI officials clarified that the omission was not a matter of form but of eligibility: the board’s rule requires all U‑19 players to be under 19 years of age as of September 1 of the preceding year. Sooryavanshi, born on August 15, 2007, turned 19 after the cutoff date, rendering him ineligible for this cycle.
 

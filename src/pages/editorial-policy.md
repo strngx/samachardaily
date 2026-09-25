@@ -37,7 +37,7 @@ SamacharDaily utilizes modern artificial intelligence technology to assist our n
 - **Ingestion & Synthesis:** AI models assist our editorial pipeline in ingesting complex wire dispatches, generating concise structured summaries, and organizing contextual analysis.
 - **Accuracy Constraints & Guardrails:** Automated systems operate under strict algorithmic guardrails. They are explicitly prohibited from inventing facts, quotes, statistics, historical dates, or events. If available source dispatches lack sufficient substance or verification, the candidate story is discarded.
 - **Editorial Tone & English Standards:** All published output undergoes automated and editorial language verification to ensure professional, fluent journalistic English.
-- **Licensed Media & Attribution:** Editorial photography is sourced exclusively through licensed platforms (including Pexels and verified stock libraries) with proper photographer credit. Embedded broadcast reports are sourced directly from authorized broadcast channels via official YouTube embeds.
+- **Licensed Media & Attribution:** Current editorial photography is sourced through licensed platforms (including Pexels and verified stock libraries) with photographer attribution, or hosted directly on our domain. For historical/archival dispatches, select articles retain publisher-attributed news wire imagery from original reporting feeds. All embedded broadcast reports are sourced directly from authorized channels via official YouTube embeds.
 
 ---
 
@@ -52,8 +52,8 @@ When reporting on fast-moving or developing events where complete details have n
 ## 5. Corrections & Clarifications Policy
 
 - **Prompt Corrections:** If a factual error, inaccuracy, or misleading statement is identified in any of our published articles, our editorial desk updates the story promptly.
-- **Reader Feedback & Corrections:** Readers, organizations, and stakeholders are encouraged to submit factual corrections, grievance notices, or news tips directly to our editorial team at [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com).
-- **Review Protocol:** All correction requests submitted via email are reviewed by our team between 08:00 AM and 10:00 PM IST.
+- **Reader Feedback & Corrections:** Readers, organizations, and stakeholders are encouraged to submit factual corrections, grievance notices, or news tips directly to our editorial team at [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com). Detailed step-by-step submission instructions are available on our [Contact & Grievances Page]({{ '/contact/' | url }}).
+- **Review Protocol:** All correction requests submitted via email are reviewed by our team between 08:00 AM and 10:00 PM IST (UTC+5:30).
 
 ---
 
@@ -62,4 +62,4 @@ When reporting on fast-moving or developing events where complete details have n
 For questions regarding our editorial standards, coverage policies, or corrections:
 - **Editorial Desk:** [SamacharDaily Editorial Team]({{ '/authors/samachardaily-editorial-team/' | url }})
 - **Editorial Email:** [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
-- **General Inquiries:** Visit our [Contact Page]({{ '/contact/' | url }}) or [About Page]({{ '/about/' | url }}).
+- **General Inquiries & Grievances:** Visit our [Contact & Grievances Page]({{ '/contact/' | url }}) or [About Page]({{ '/about/' | url }}).

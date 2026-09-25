@@ -26,6 +26,9 @@ why_it_matters: |
   Highlighting Goa’s inland heritage sites broadens tourist itineraries, encouraging visits to culturally and historically significant locales. This diversification can boost local economies, support preservation of architectural and religious landmarks, and reduce pressure on over‑crowded beaches.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Goa’s tourism narrative now extends beyond its celebrated coastline, with a focus on five inland locations that showcase the state’s cultural depth. Among these, the Portuguese‑influenced quarter of Fontainhas, the ancient Tambdi Surla Temple, and the massive Dudhsagar Waterfalls are highlighted as key attractions.
 
-Fontainhas offers a living tableau of Portuguese architecture, while Tambdi Surla Temple reflects centuries‑old religious artistry. Dudhsagar Waterfalls, one of the region’s most dramatic natural spectacles, adds a striking natural dimension to the cultural itinerary, together underscoring Goa’s diverse heritage beyond the beach.
+Goa's cultural and tourism landscape extends well beyond its world-renowned coastal beaches, with inland heritage circuits and natural landmarks offering visitors rich historical, architectural, and ecological experiences across the state's interior.
+
+Among the standout interior destinations is the historic Latin Quarter of Fontainhas in Panaji, celebrated for its preserved 18th-century Portuguese-influenced architecture, narrow winding streets, and brightly colored colonial houses. In the foothills of the Western Ghats, the 12th-century Tambdi Surla Mahadev Temple stands as an enduring masterpiece of Kadamba stone architecture set within dense forest surroundings. Further inland along the Mandovi River, the dramatic four-tiered Dudhsagar Waterfalls provides one of the region's most spectacular natural landmarks.
+
+These inland heritage locations highlight the state's multifaceted cultural geography, combining centuries of indigenous history, colonial architectural heritage, and Western Ghats biodiversity into an immersive cultural journey beyond conventional beach tourism.

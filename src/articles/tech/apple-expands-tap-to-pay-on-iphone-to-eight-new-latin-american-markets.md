@@ -29,8 +29,8 @@ why_it_matters: |
   The rollout brings Apple’s hardware‑free payment solution to key Latin American economies, giving small and medium‑sized businesses a low‑cost way to accept digital payments and deepening Apple’s presence in the region’s growing mobile‑commerce market.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Apple announced that its Tap to Pay on iPhone service is now available in eight additional countries: Argentina, Colombia, Costa Rica, the Dominican Republic, Guatemala, Honduras, Panama and Peru.
+Apple has officially expanded its Tap to Pay on iPhone service to eight additional markets across Latin America, making the contactless payment technology available in Argentina, Colombia, Costa Rica, the Dominican Republic, Guatemala, Honduras, Panama, and Peru.
 
-The feature enables merchants to accept contactless payments directly on an iPhone, eliminating the need for traditional point‑of‑sale hardware; customers can tap their iPhone, Apple Watch, credit or debit card, or any other contactless payment method on the merchant’s device.
+The feature enables commercial merchants to accept in-person contactless payments securely using an iPhone, eliminating the necessity for standalone point-of-sale (POS) hardware terminals or additional dongles. Customers can complete transactions by tapping their contactless credit or debit card, an iPhone, an Apple Watch, or other compatible digital wallets directly against the merchant’s device.
 
-According to the source, Tap to Pay on iPhone is offered only through paid subscription plans.
+According to the release, Tap to Pay on iPhone integrates with participating payment platforms and commercial partner apps, available through merchant service configurations. The rollout delivers a hardware-free payment collection option for small and medium-sized businesses across the region, providing an accessible, low-cost digital payment solution for local merchants and expanding Apple's mobile commerce footprint across Latin American markets.

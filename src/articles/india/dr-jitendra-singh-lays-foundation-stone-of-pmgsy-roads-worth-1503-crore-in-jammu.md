@@ -2,9 +2,9 @@
 title: "Dr. Jitendra Singh inaugurates ₹1,503 crore PMGSY road projects in Jammu"
 category: "India"
 date: 2026-08-30T11:52:35Z
-image: "https://jansansadnews.in/wp-content/uploads/2026/08/jitendra-in-jammu.jpg"
-imageAlt: "Dr. Jitendra Singh inaugurates ₹1,503 crore PMGSY road projects in Jammu"
-imageCredit: "Jan Sansad News"
+image: "https://images.pexels.com/photos/2213443/pexels-photo-2213443.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Paved highway road winding through picturesque mountain valley landscapes."
+imageCredit: "Tobi (via Pexels)"
 trending: false
 featured: false
 video_id: "yVKaM24Ye2E"

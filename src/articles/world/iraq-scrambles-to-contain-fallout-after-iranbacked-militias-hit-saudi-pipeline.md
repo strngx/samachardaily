@@ -3,9 +3,9 @@ title: "Iraq Scrambles to Contain Fallout After Iran‑Backed Militias Hit Saudi
 seoTitle: "Iraq reacts to Iran‑backed militia attack on Saudi pipeline"
 category: "World"
 date: 2026-09-12T21:22:20Z
-image: "https://images.pexels.com/photos/36825977/pexels-photo-36825977.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "A detailed view of industrial pipelines in a Saudi Arabian factory setting."
-imageCredit: "Mumtaz  Niazi"
+image: "https://images.pexels.com/photos/279810/pexels-photo-279810.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Industrial metal pipeline infrastructure crossing an open landscape."
+imageCredit: "Pixabay"
 trending: false
 featured: false
 video_id: "68rLfQw9rPA"

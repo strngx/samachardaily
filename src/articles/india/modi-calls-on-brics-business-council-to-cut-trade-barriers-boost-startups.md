@@ -24,4 +24,4 @@ Speaking at a BRICS Business Council meeting, Prime Minister Narendra Modi said 
 
 He also called for a programme to support 100 BRICS‑origin startups each year, helping them expand into other member markets, and set a target of forging a thousand new business partnerships across the group.
 
-Modi framed the initiatives as part of a broader push to deepen intra‑BRICS trade, reduce friction, and create a more resilient supply chain, urging member governments to collaborate on implementation.
+Modi framed the initiatives as part of a broader push to deepen intra‑BRICS trade, reduce friction, and create a more resilient supply chain alongside [high-level bilateral talks at the New Delhi summit]({{ '/articles/india/modi-xi-meet-in-new-delhi-emphasize-border-peace-at-brics-2026/' | url }}), urging member governments to collaborate on implementation.

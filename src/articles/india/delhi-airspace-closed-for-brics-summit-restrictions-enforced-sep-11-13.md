@@ -37,6 +37,6 @@ The restrictions, announced by aviation and security officials, will create a te
 
 Air traffic controllers have been instructed to issue NOTAMs (Notice to Airmen) to airlines operating in and out of Indira Gandhi International Airport and nearby airfields. While exact flight cancellations have not been disclosed, carriers are advised to plan alternate routes or adjust schedules to avoid the restricted airspace, which will be monitored by military radar units.
 
-The BRICS summit, a gathering of the five major emerging economies, brings heightened diplomatic activity and large‑scale security planning. Historically, host nations have imposed similar airspace curbs to safeguard delegates, protect critical infrastructure, and prevent any aerial threats during high‑profile meetings.
+The BRICS summit, with [India hosting the expanded 11-nation BRICS Summit](/articles/india/india-hosts-2026-brics-summit-as-bloc-expands-to-11-nations-covering-47-of-world-popu/), brings heightened diplomatic activity and large‑scale security planning. Historically, host nations have imposed similar airspace curbs to safeguard delegates, protect critical infrastructure, and prevent any aerial threats during high‑profile meetings.
 
 Authorities have not released a detailed list of affected flights, but they have pledged real‑time updates through official channels. Passengers traveling to or from Delhi during the three‑day period are urged to check airline communications and remain prepared for possible delays or diversions.

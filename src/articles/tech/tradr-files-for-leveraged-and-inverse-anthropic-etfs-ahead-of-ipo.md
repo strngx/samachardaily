@@ -3,9 +3,9 @@ title: "Tradr Files for Leveraged and Inverse Anthropic ETFs Ahead of IPO"
 seoTitle: "Tradr Files Long and Short Anthropic ETFs: ANTT, ANTZ"
 category: "Tech"
 date: 2026-09-02T22:48:42Z
-image: "https://images.pexels.com/photos/16594725/pexels-photo-16594725.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Detailed financial trading screen with colorful charts and data representing market fluctuations."
-imageCredit: "Rômulo Queiroz"
+image: "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Computer programming code displayed across multiple monitor screens."
+imageCredit: "Luis Gomes"
 trending: false
 featured: false
 video_id: ""

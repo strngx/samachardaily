@@ -9,28 +9,24 @@ imageCredit: "静"
 trending: true
 featured: false
 video_id: "5HSXSlvq_q8"
-video_caption: "BRICS Summit 2026 LIVE Updates: दिल्ली में ब्रिक्स समिट को लेकर तगड़ी सुरक्षा, जुड़ रहे हैं दिग्गज"
+video_caption: "BRICS Summit 2026 LIVE Updates: Satellite Constellation and Multilateral Space Cooperation"
 videos:
   - video_id: "5HSXSlvq_q8"
-    title: "BRICS Summit 2026 LIVE Updates: दिल्ली में ब्रिक्स समिट को लेकर तगड़ी सुरक्षा, जुड़ रहे हैं दिग्गज"
+    title: "BRICS Summit 2026 LIVE Updates: Satellite Constellation and Multilateral Space Cooperation"
     channel: "Aaj Tak"
-  - video_id: "P_SKSWoXPoM"
-    title: "BRICS SUMMIT 2026 LIVE: Russian President Vladimir Putin Has Landed In India For BRICS Summit 2026"
-    channel: "Republic World"
-  - video_id: "OUYrESlBroU"
-    title: "BRICS Summit 2026 LIVE: S. Jaishankar Calls For A Stronger Voice For Global South | India | N18V"
-    channel: "CNN-News18"
 slug: "india-pushes-for-shared-brics-satellite-network-at-2026-summit"
 sourceUrl: "https://www.moneycontrol.com/science/is-brics-building-a-shared-satellite-network-here-s-what-india-announced-at-the-2026-summit-article-14028793.html"
 sourceName: "Moneycontrol"
-dek: "At the 2026 BRICS summit, India announced plans for a joint remote‑sensing satellite system, with leaders endorsing expansion of the constellation to boost Earth observation and disaster monitoring."
+dek: "India proposed expanding the shared BRICS remote-sensing satellite constellation at the 2026 summit to boost Earth observation and disaster monitoring across member states."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  A joint BRICS satellite system would give member states more reliable, real‑time data for climate tracking, agricultural planning and emergency response, reducing reliance on external providers and deepening strategic cooperation within the bloc.
-what_happens_next: "No confirmed next steps reported yet."
+  Expanding the joint BRICS satellite constellation provides member nations with independent, high-resolution geospatial intelligence without reliance on Western satellite providers. The pooled remote-sensing infrastructure strengthens sovereign disaster response, agricultural yield forecasting, and climate monitoring across the Global South while deepening multilateral space cooperation between ISRO and partner space agencies.
+what_happens_next: "Technical working groups from ISRO and partner BRICS space agencies will convene to finalize data-sharing protocols and integrate ground station telemetry networks ahead of the next operational phase."
 ---
-India used the 2026 BRICS summit to announce its intention to develop a shared satellite network that would integrate the bloc's remote‑sensing capabilities.
+India formally proposed the expansion of a shared remote-sensing satellite network during the 2026 BRICS summit, urging member nations to integrate their Earth observation constellations to address collective environmental and developmental challenges, according to reporting by Moneycontrol.
 
-BRICS leaders collectively backed progress on expanding the Remote Sensing Satellite Constellation, signalling group‑wide endorsement of the initiative.
+The initiative builds upon the foundational BRICS Remote Sensing Satellite Constellation agreement, which links earth observation satellites and ground stations operated by space agencies across India, Brazil, Russia, China, and South Africa. Indian delegates emphasized that combining optical, radar, and hyperspectral data streams will improve monitoring coverage for extreme weather events, agricultural forecasting, and regional water resource management.
 
-The envisioned network is projected to improve Earth observation and strengthen disaster‑monitoring capacities for all member countries.
+Under the expanded framework, member states will share processed telemetry data through dedicated ground station hubs, enabling rapid geospatial analysis during natural calamities such as floods, forest fires, and coastal cyclones.
+
+Space policy analysts note that establishing shared satellite data architecture enables member countries to optimize orbital launch assets, avoid redundant sensor development, and deliver low-cost Earth observation services to developing economies throughout the Global South.

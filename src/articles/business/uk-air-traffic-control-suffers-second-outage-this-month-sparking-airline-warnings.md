@@ -29,6 +29,8 @@ why_it_matters: |
   The repeated control failures jeopardise passenger travel plans, strain airline schedules and could trigger large‑scale compensation claims, prompting regulators to scrutinise the resilience of the UK’s air‑traffic infrastructure and its coordination with international partners.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Air traffic control systems in the United Kingdom experienced a second failure this month, leading to widespread flight delays and cancellations across major UK airports.
+Air traffic control infrastructure in the United Kingdom experienced a second technical system failure within a single month, causing extensive flight delays and cancellations across major British airports.
 
-Airlines have publicly urged authorities to address the recurring outages and have issued a compensation warning after two disruptions within a two‑week span, while similar control issues have also affected flights in the United States.
+Commercial airlines operating through UK airspace have called on transportation authorities to address recurring system vulnerabilities following the two separate disruptions within a two-week window. Major carriers also issued formal notices warning of mounting operational strains and prospective passenger compensation claims resulting from the sudden flight schedule cancellations.
+
+The technical disruption strained domestic aviation schedules and created knock-on delays for international flight corridors, with related air traffic control coordination issues also affecting flights in the United States. The recurring failures have prompted scrutiny regarding the resilience and contingency planning of national air traffic control networks.

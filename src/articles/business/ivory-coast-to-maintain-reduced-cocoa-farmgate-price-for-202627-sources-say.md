@@ -2,9 +2,9 @@
 title: "Ivory Coast to Keep Lower Cocoa Farmgate Price for 2026-27 Season"
 category: "Business"
 date: 2026-08-29T07:13:12Z
-image: "https://www.livemint.com/lm-img/img/2024/12/06/1600x900/logo/market3_1733466045716_1733466057117.png"
-imageAlt: "Ivory Coast to Keep Lower Cocoa Farmgate Price for 2026-27 Season"
-imageCredit: "list.metadata.agency"
+image: "https://images.pexels.com/photos/65451/pexels-photo-65451.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Close-up of dried organic cocoa beans ready for commodity trade and processing."
+imageCredit: "Pixabay"
 video_id: "dYCkFrhC_GQ"
 video_caption: "Ghana’s $1B Cocoa Crisis: New Price Reforms, Cocobod Debt Restructure &amp; 70% Farmer Guarantee "
 slug: "ivory-coast-to-maintain-reduced-cocoa-farmgate-price-for-202627-sources-say"

@@ -3,9 +3,9 @@ title: "Uttarakhand Cabinet Raises MBBS Intern Stipend to ₹25,000, Adds 243 At
 seoTitle: "Uttarakhand hikes MBBS intern honorarium to ₹25,000"
 category: "Business"
 date: 2026-09-12T22:55:58Z
-image: "https://images.pexels.com/photos/20200756/pexels-photo-20200756.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Wide view of a modern university building in Dehradun, India, highlighting architectural design and stairs."
-imageCredit: "LensWitzRaj ㅤ"
+image: "https://images.pexels.com/photos/40568/medical-appointment-doctor-healthcare-40568.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Medical stethoscope and clinical equipment on a doctor’s desk."
+imageCredit: "Pixabay"
 trending: false
 featured: false
 video_id: ""

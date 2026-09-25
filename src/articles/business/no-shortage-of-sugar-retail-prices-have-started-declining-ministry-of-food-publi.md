@@ -2,9 +2,9 @@
 title: "Ministry Says Sugar Supply Adequate as Retail Prices Begin to Fall"
 category: "Business"
 date: 2026-08-28T23:48:31Z
-image: "https://imgs.etvbharat.com/etvbharat/prod-images/28-08-2026/1200-675-27503385-thumbnail-16x9-sugar-aspera.jpg"
-imageAlt: "Ministry Says Sugar Supply Adequate as Retail Prices Begin to Fall"
-imageCredit: "etv bharat english team"
+image: "https://images.pexels.com/photos/6692095/pexels-photo-6692095.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Bowl of white refined granulated sugar with a wooden scoop."
+imageCredit: "Eva Elijas"
 video_id: "RYdflo2IA-Y"
 video_caption: "Sugar Price Surge: Centre Imposes Stock Limits On Bulk Buyers Ahead Of Festive Season | India Today"
 slug: "no-shortage-of-sugar-retail-prices-have-started-declining-ministry-of-food-publi"

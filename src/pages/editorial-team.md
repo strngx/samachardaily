@@ -57,7 +57,7 @@ The SamacharDaily Editorial Team is committed to prompt corrections if any factu
 - **Editorial Inquiries & News Tips:** [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
 - **Corrections & Grievances:** [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
 - **Operating Hours:** 08:00 AM – 10:00 PM IST (UTC+5:30)
-- **General Inquiries:** Visit our [Contact Page]({{ '/contact/' | url }}) or read our full [About Page]({{ '/about/' | url }}).
+- **General Inquiries:** Visit our [Contact & Grievances Page]({{ '/contact/' | url }}) or read our full [About Page]({{ '/about/' | url }}).
 
 <script type="application/ld+json">
 {

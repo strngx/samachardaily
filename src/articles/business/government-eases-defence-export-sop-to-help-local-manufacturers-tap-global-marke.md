@@ -2,9 +2,9 @@
 title: "India eases defence export procedures to aid local manufacturers in global markets"
 category: "Business"
 date: 2026-08-29T08:14:28Z
-image: "https://images.indianexpress.com/2026/08/shipping-cargo-containers-file-photo-express_20260828201220.jpg"
-imageAlt: "India eases defence export procedures to aid local manufacturers in global markets"
-imageCredit: "amrita nayak dutta"
+image: "https://images.pexels.com/photos/906494/pexels-photo-906494.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Commercial shipping containers stacked at an international freight terminal."
+imageCredit: "Chanaka"
 video_id: "mX1Tbw-PCqM"
 video_caption: "Indian Defence Updates : AMCA Mark-I By 2024,LCH Export Philippines,L&amp;T Enters Project P-75I"
 slug: "government-eases-defence-export-sop-to-help-local-manufacturers-tap-global-marke"

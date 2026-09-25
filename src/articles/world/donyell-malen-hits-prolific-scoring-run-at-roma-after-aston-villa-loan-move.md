@@ -3,9 +3,9 @@ title: "Donyell Malen Hits Prolific Scoring Run at Roma After Aston Villa Loan M
 seoTitle: "Donyell Malen Scores 19 Goals in 20 Games for Roma"
 category: "World"
 date: 2026-09-03T01:10:13Z
-image: "https://images.pexels.com/photos/38602682/pexels-photo-38602682.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Football players in black and white jerseys celebrate a goal on the field."
-imageCredit: "Mateo Franciosi"
+image: "https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Soccer match in action on a professional stadium pitch."
+imageCredit: "Pixabay"
 trending: false
 featured: false
 video_id: "qBXqp-doClM"

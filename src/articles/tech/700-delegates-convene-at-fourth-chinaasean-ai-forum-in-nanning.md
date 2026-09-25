@@ -20,8 +20,9 @@ why_it_matters: |
   Bringing together a large cohort of Chinese and ASEAN stakeholders signals a concerted push to harmonise AI development standards, foster collaborative research, and align regulatory frameworks, which could shape the region’s digital economy and competitive edge in emerging technologies.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-On September 16, Nanning in Guangxi province hosted the Fourth Forum on China‑ASEAN Artificial Intelligence Cooperation, positioned as an international science and technology exchange platform.
+More than 700 delegates from China and member states of the Association of Southeast Asian Nations (ASEAN) convened in Nanning, Guangxi province, on September 16 for the Fourth Forum on China-ASEAN Artificial Intelligence Cooperation.
 
-The gathering was listed among the cooperation initiatives for the series of leaders’ meetings on East Asia cooperation and drew more than 700 delegates representing China and ASEAN member states.
+Organised as a multilateral science and technology exchange platform, the event was listed among the key cooperation initiatives supporting the series of leaders' meetings on East Asia cooperation. The gathering brought together government representatives, technology researchers, and industry stakeholders to discuss cross-border AI development and governance.
 
-Its inclusion in the high‑level leaders’ agenda highlights the accelerating emphasis on joint AI research, policy dialogue, and technology sharing across the region.
+The forum's discussions centered on advancing joint artificial intelligence research, facilitating technological resource sharing, and exploring regulatory alignment across regional economies. By establishing collaborative dialogue on AI standards, the initiative is structured to support digital infrastructure growth and strengthen technological coordination throughout East and Southeast Asia.
+

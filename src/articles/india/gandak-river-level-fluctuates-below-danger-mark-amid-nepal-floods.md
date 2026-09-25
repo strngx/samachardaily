@@ -3,9 +3,9 @@ title: "Gandak River in Bihar stays below danger level despite Nepal flood‑dri
 seoTitle: "Gandak River flow below danger mark amid Nepal floods"
 category: "India"
 date: 2026-08-30T18:33:51Z
-image: "https://thenewsmill.com/wp-content/uploads/2026/08/gandak-river-level-fluctuates-below-danger-mark-amid-nepal-floods.jpg"
-imageAlt: "Gandak River in Bihar stays below danger level despite Nepal flood‑driven rise"
-imageCredit: "The News Mill"
+image: "https://images.pexels.com/photos/326058/pexels-photo-326058.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Wide river flowing steadily past green embankments during the monsoon season."
+imageCredit: "Pixabay (via Pexels)"
 trending: false
 featured: false
 video_id: "Xiui_x5SjRQ"

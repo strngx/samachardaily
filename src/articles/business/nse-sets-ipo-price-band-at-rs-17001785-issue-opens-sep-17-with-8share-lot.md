@@ -3,9 +3,9 @@ title: "NSE sets IPO price band at Rs 1,700‑1,785; issue opens Sep 17 with 8�
 seoTitle: "NSE IPO price band Rs 1,700-1,785 – when does it open?"
 category: "Business"
 date: 2026-09-11T12:55:59Z
-image: "https://images.pexels.com/photos/7947742/pexels-photo-7947742.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Detailed view of a stock report displaying a market performance graph with data trends."
-imageCredit: "RDNE Stock project"
+image: "https://images.pexels.com/photos/6801874/pexels-photo-6801874.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Financial candlestick stock charts and analytics displayed on a computer screen."
+imageCredit: "Nataliya Vaitkevich"
 trending: false
 featured: false
 video_id: "6bjqpIqmgCA"

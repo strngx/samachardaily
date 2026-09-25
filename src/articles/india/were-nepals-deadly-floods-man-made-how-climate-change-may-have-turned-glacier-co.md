@@ -2,9 +2,9 @@
 title: "Did climate change turn Nepal’s glacier burst into a man‑made disaster? Explained"
 category: "India"
 date: 2026-08-28T23:44:37Z
-image: "https://cdn.dnaindia.com/sites/default/files/styles/third/public/2026/08/28/2757279-nepal-flash-floods3.jpg"
-imageAlt: "Did climate change turn Nepal’s glacier burst into a man‑made disaster? Explained"
-imageCredit: "pramode mallik"
+image: "https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Glacial river flowing through a high-altitude mountain valley."
+imageCredit: "James Wheeler (via Pexels)"
 video_id: "Fk0BKOMQdIc"
 video_caption: "Absolute Devastation in Nepal; Major Landslide Triggers Deadly Flash Flood"
 slug: "were-nepals-deadly-floods-man-made-how-climate-change-may-have-turned-glacier-co"

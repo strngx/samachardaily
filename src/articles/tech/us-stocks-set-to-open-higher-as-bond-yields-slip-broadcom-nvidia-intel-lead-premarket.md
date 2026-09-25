@@ -3,9 +3,9 @@ title: "US Stocks Set to Open Higher as Bond Yields Slip; Broadcom, Nvidia, Inte
 seoTitle: "US Stocks to Open Higher; Broadcom, Nvidia Lead Movers"
 category: "Tech"
 date: 2026-09-03T20:47:50Z
-image: "https://images.pexels.com/photos/38412413/pexels-photo-38412413.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Monitors displaying stock market charts in a dimly lit room, perfect for finance and trading themes."
-imageCredit: "Rafael Minguet Delgado"
+image: "https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Silvery semiconductor microchip processor on an electronic circuit board."
+imageCredit: "Pok Rie"
 trending: false
 featured: false
 video_id: "aaN_-J9AsP0"

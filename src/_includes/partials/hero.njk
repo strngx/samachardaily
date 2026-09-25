@@ -34,7 +34,7 @@
           width="740" 
           height="416"
         >
-        {% if (leadStory.date | isJustIn(leadStory.data.featured)) %}
+        {% if (leadStory.date | isJustIn) %}
           <span class="badge-just-in">JUST IN</span>
         {% endif %}
       </a>
@@ -44,7 +44,7 @@
           <span class="placeholder-brand">Samachar<span class="brand-red">Daily</span></span>
           <span class="placeholder-category">{{ leadStory.data.category }}</span>
         </div>
-        {% if (leadStory.date | isJustIn(leadStory.data.featured)) %}
+        {% if (leadStory.date | isJustIn) %}
           <span class="badge-just-in">JUST IN</span>
         {% endif %}
       </a>
@@ -109,7 +109,7 @@
                 width="96" 
                 height="64"
               >
-              {% if (item.date | isJustIn(item.data.featured)) %}
+              {% if (item.date | isJustIn) %}
                 <span class="badge-just-in badge-just-in-sm">JUST IN</span>
               {% endif %}
             </a>
@@ -118,7 +118,7 @@
               <div class="placeholder-inner-sm">
                 <span>{{ item.data.category }}</span>
               </div>
-              {% if (item.date | isJustIn(item.data.featured)) %}
+              {% if (item.date | isJustIn) %}
                 <span class="badge-just-in badge-just-in-sm">JUST IN</span>
               {% endif %}
             </a>

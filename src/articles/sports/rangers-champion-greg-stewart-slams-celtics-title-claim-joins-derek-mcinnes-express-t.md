@@ -3,9 +3,9 @@ title: "Rangers champion Greg Stewart slams Celtic's title claim, joins Derek Mc
 seoTitle: "Greg Stewart attacks Celtic claim after Rangers title win"
 category: "Sports"
 date: 2026-09-09T19:19:47Z
-image: "https://images.pexels.com/photos/35755251/pexels-photo-35755251.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "A professional interview in a luxurious, historical room with rich decor and art."
-imageCredit: "Jitte Davidson"
+image: "https://images.pexels.com/photos/47730/the-ball-stadion-football-the-pitch-47730.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Football stadium pitch and ball under arena floodlights."
+imageCredit: "Pixabay"
 trending: false
 featured: false
 video_id: "g2KkLhDBaLg"

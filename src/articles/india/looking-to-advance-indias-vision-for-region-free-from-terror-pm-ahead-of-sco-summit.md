@@ -2,9 +2,9 @@
 title: "Modi to Advance India’s SCO Vision of Security, Connectivity, and Counter‑Terrorism"
 category: "India"
 date: 2026-08-29T16:51:12Z
-image: "https://orangenews9.com/wp-content/uploads/2026/08/Modi-13.jpg"
-imageAlt: "Modi to Advance India’s SCO Vision of Security, Connectivity, and Counter‑Terrorism"
-imageCredit: "Orangenews9"
+image: "https://images.pexels.com/photos/1181396/pexels-photo-1181396.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Empty international summit assembly hall with microphones and delegate seating."
+imageCredit: "Christina Morillo (via Pexels)"
 trending: false
 featured: false
 video_id: "7kiN-5EWwqQ"

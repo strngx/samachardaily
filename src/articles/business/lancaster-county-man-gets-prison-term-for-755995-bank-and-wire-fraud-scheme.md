@@ -3,9 +3,9 @@ title: "Lancaster County Man Gets Prison Term for $755,995 Bank and Wire Fraud S
 seoTitle: "Pennsylvania Man Sentenced in $755K Bank Fraud Case"
 category: "Business"
 date: 2026-09-02T06:45:21Z
-image: "https://images.pexels.com/photos/17630959/pexels-photo-17630959.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Interior view of an American courthouse in Kirksville, Missouri, featuring a judge's desk and flags."
-imageCredit: "Zachary Caraway"
+image: "https://images.pexels.com/photos/5668772/pexels-photo-5668772.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Wooden judge’s gavel resting beside legal case documents."
+imageCredit: "Sora Shimazaki"
 trending: true
 featured: false
 video_id: "K2-MSpPzzLg"

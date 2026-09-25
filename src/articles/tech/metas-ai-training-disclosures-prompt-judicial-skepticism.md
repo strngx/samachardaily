@@ -3,9 +3,9 @@ title: "Meta's AI Training Disclosures Prompt Judicial Skepticism"
 seoTitle: "Meta AI disclosures judge doubts"
 category: "Tech"
 date: 2026-09-10T14:57:00Z
-image: "https://images.pexels.com/photos/37730955/pexels-photo-37730955.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Close-up of a wooden podium with microphones in a Polish courtroom setting."
-imageCredit: "SHOX ART"
+image: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Futuristic robotic hand interacting with neural network data visualization."
+imageCredit: "Tara Winstead"
 trending: false
 featured: false
 video_id: ""
@@ -26,7 +26,7 @@ In a recent courtroom hearing, a federal judge signaled skepticism toward Meta's
 
 Meta had submitted a detailed filing outlining its AI training processes, claiming adherence to industry standards and internal ethical guidelines. However, the judge highlighted gaps in the documentation, particularly the lack of third‑party audits and limited insight into the datasets used to train large language models.
 
-Legal experts note that the judge's doubts could signal a broader judicial willingness to scrutinize tech giants' AI practices, especially as lawmakers worldwide push for stricter transparency requirements. The case forms part of a series of investigations into how major platforms develop and deploy AI technologies.
+Legal experts note that the judge's doubts could signal a broader judicial willingness to scrutinize tech giants' AI practices, paralleling [judicial evaluations of artificial intelligence applications in the legal system](/articles/tech/judge-rodriguez-weighs-in-on-artificial-intelligence-uses-in-the-judiciary/) as lawmakers worldwide push for stricter transparency requirements. The case forms part of a series of investigations into how major platforms develop and deploy AI technologies.
 
 Meta's legal team defended the disclosures, asserting that the company follows best practices and that proprietary considerations limit the extent of public detail. They also pointed to ongoing internal reviews aimed at enhancing accountability and mitigating bias.
 

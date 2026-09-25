@@ -3,9 +3,9 @@ title: "House to Vote on Bill Forcing Tech Firms to Cover Data‑Center Energy C
 seoTitle: "Will tech firms pay data‑center energy costs?"
 category: "Business"
 date: 2026-09-11T10:56:13Z
-image: "https://images.pexels.com/photos/17489163/pexels-photo-17489163.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Close-up of a modern server unit in a blue-lit data center environment."
-imageCredit: "panumas nikhomkhai"
+image: "https://images.pexels.com/photos/247763/pexels-photo-247763.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "High-voltage electric power transmission towers against a sunset sky."
+imageCredit: "Pixabay"
 trending: false
 featured: false
 video_id: "-jsUiK6rxq4"

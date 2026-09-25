@@ -23,8 +23,9 @@ why_it_matters: |
   Providing a broader, readily available beverage selection during the festive period gives Indian households convenient refreshment options, potentially boosting consumption at gatherings. For Coca‑Cola, the push strengthens brand visibility at a time of heightened spending, supporting sales growth and market share. Competitors may feel pressure to match similar outreach, while retailers benefit from increased footfall driven by the promotional presence.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Coca‑Cola India is rolling out a festive‑season drive that brings its full range of drinks closer to shoppers, positioning the brands as refreshment and hydration options for holiday celebrations.
 
-The campaign spans the various occasions that define the Indian festive calendar, offering consumers a choice of sodas, juices and other beverages to match different gatherings and meals.
+Coca‑Cola India has launched an extensive festive-season campaign aimed at bringing its full beverage portfolio closer to consumers during the country's peak celebration calendar.
 
-By expanding its on‑ground presence during this high‑spending period, Coca‑Cola aims to deepen engagement with consumers and reinforce its market footprint ahead of the celebrations.
+The multi-category beverage drive spans the company's sparkling soft drinks, packaged fruit juices, and hydration offerings, aligning specific product choices with traditional family gatherings, festive meals, and seasonal gifting. Through enhanced retail visibility, customized holiday packaging, and regional marketing activations, the company is positioning its beverage brands to cater to diverse refreshment preferences.
+
+The nationwide push capitalizes on the seasonal surge in festive consumer spending across urban and regional markets. By deepening its retail footprint across modern trade supermarkets, traditional kirana grocers, and quick-commerce delivery platforms, Coca‑Cola aims to maximize brand engagement throughout major cultural celebrations, including Navratri, Durga Puja, and Diwali.

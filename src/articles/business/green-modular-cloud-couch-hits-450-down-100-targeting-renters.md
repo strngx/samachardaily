@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   At $450 the couch offers a budget‑friendly entry into the viral "cloud" furniture trend, making high‑style modular seating accessible to renters who often face limited space and short‑term leases. The price cut may spur broader adoption of designer‑look furniture in the rental market, influencing retailers to package accessories and target subscription‑based shoppers.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 The Inventory reports that the green modular cloud couch, a deep‑seat sectional popular on social media, is now priced at $450, a $100 reduction from its previous $550 tag.
 

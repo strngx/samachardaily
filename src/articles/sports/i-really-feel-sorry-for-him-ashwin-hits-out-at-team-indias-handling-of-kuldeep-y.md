@@ -2,9 +2,9 @@
 title: "Ashwin slams India’s Test selection policy, says he feels sorry for Kuldeep Yadav"
 category: "Sports"
 date: 2026-08-28T23:32:25Z
-image: "https://www.hindustantimes.com/ht-img/img/2026/08/28/1600x900/logo/PTI08-18-2026-000445A-0_1787916497634_1787916506422_f551df8a-a0ea-4e49-8dc2-4bfc12ff4451.jpg"
-imageAlt: "Ashwin slams India’s Test selection policy, says he feels sorry for Kuldeep Yadav"
-imageCredit: "aditya maheshwari"
+image: "https://images.pexels.com/photos/3628912/pexels-photo-3628912.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Cricket ball and equipment placed on a cricket ground pitch."
+imageCredit: "Patrick Case (via Pexels)"
 video_id: "SXDmQ_TTi6I"
 video_caption: "🔥 Ashwin BLASTS Team India for Dropping Kuldeep Yadav! | “Play Your Best Bowler!”"
 slug: "i-really-feel-sorry-for-him-ashwin-hits-out-at-team-indias-handling-of-kuldeep-y"

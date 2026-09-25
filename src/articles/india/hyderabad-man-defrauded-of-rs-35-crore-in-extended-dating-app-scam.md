@@ -29,6 +29,8 @@ why_it_matters: |
   The case underscores the financial vulnerability of users on dating platforms and the ease with which scammers can exploit trust to siphon large sums, highlighting the need for heightened vigilance and stronger consumer protection measures in India's digital ecosystem.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-A man from Hyderabad reported a loss of Rs 3.5 crore after a fraudster he met on a dating application gained his confidence and moved their conversation to WhatsApp, where the deception unfolded.
+A resident of Hyderabad reported a financial loss of Rs 3.5 crore after falling victim to an extended online fraud that began on a dating application, according to details reported by Asianet Newsable.
 
-The fraudulent activity persisted for 55 days before the victim finally approached local police, prompting an official investigation into the scheme.
+The victim initially connected with the perpetrator through the dating platform, where the individual established rapport before transferring ongoing conversations to WhatsApp. Over a 55-day period, the fraudster sustained regular digital contact, gradually exploiting the established trust to facilitate multiple fraudulent financial transactions that eventually totaled Rs 3.5 crore.
+
+Upon realizing the deception after nearly two months of communication, the victim approached Hyderabad police authorities to lodge a formal complaint. Cybercrime investigators have registered the case and initiated an official inquiry to trace the communication channels and analyze the financial trail associated with the reported fraud.

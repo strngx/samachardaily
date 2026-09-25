@@ -3,9 +3,9 @@ title: "Kerala Leader of Opposition Vijayan says ED move targets CPI-M, not him"
 seoTitle: "Vijayan rejects ED case, says it targets CPI-M"
 category: "India"
 date: 2026-09-12T20:14:06Z
-image: "https://images.pexels.com/photos/15920138/pexels-photo-15920138.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Various microphones setup at a press conference in Kyiv, Ukraine."
-imageCredit: "Yunus Erdogdu"
+image: "https://images.pexels.com/photos/6077326/pexels-photo-6077326.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Golden scales of justice and legal documents on a wooden desk."
+imageCredit: "Ekaterina Bolovtsova"
 trending: false
 featured: false
 video_id: "xX9OPqn6Oic"

@@ -20,8 +20,9 @@ why_it_matters: |
   The protest underscores a growing clash between regional policy decisions and the BJP's emphasis on national symbols, potentially shaping public sentiment in Karnataka and influencing the party's political calculus ahead of future electoral contests.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The Bharatiya Janata Party announced a five‑day padayatra that will cover all 224 Assembly constituencies in Karnataka, beginning on Tuesday, September 15.
+The Bharatiya Janata Party (BJP) has announced a statewide five-day padayatra across Karnataka, scheduled to run from September 15 through September 19. The campaign is planned to cover all 224 Assembly constituencies in the state as part of a coordinated political demonstration.
 
-The march is intended to protest the Karnataka state government's decision to limit the rendition of the national song Vande Mataram to only two stanzas at official events.
+The march is organised in response to a policy directive by the Karnataka state government that limits the rendition of the national song, Vande Mataram, to two verses during official state events. State BJP leadership has opposed the two-stanza restriction, demanding that the full composition be permitted during public and administrative functions.
 
-Party State President B.Y. Vijayendra made the announcement on Saturday, stating that the BJP will mobilise the campaign across the state to oppose the restriction.
+BJP Karnataka State President B.Y. Vijayendra formally announced the campaign details, confirming that party representatives and grassroots cadres will mobilise demonstrations across every district. The statewide tour aims to raise public awareness regarding the government's protocol decision and petition for a reversal of the two-stanza limit across official state gatherings.
+

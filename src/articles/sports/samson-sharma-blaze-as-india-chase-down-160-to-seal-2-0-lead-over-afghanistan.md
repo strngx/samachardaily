@@ -3,9 +3,9 @@ title: "Samson, Sharma blaze as India chase down 160 to seal 2-0 lead over Afgha
 seoTitle: "India chase 160, win 2nd T20I vs Afghanistan"
 category: "Sports"
 date: 2026-09-16T05:17:23Z
-image: "https://images.pexels.com/photos/13509965/pexels-photo-13509965.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Cricket player in action, batting on a grass field in Gahunje, India."
-imageCredit: "Sandeep Singh"
+image: "https://images.pexels.com/photos/3628912/pexels-photo-3628912.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Cricket ball and wooden wickets positioned on a grassy sports field."
+imageCredit: "Suliman Sallehi"
 trending: false
 featured: false
 video_id: "DhJGCx_rm1I"

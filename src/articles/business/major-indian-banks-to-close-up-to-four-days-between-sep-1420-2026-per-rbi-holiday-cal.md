@@ -1,6 +1,6 @@
 ---
-title: "Major Indian banks to close up to four days between Sep 14‑20, 2026, per RBI holiday calendar"
-seoTitle: "Indian banks close up to 4 days Sep 14‑20, 2026"
+title: "Bank Holidays This Week: SBI, HDFC, ICICI and PNB Branches Closed Up to 4 Days (Sep 14–20) Under RBI Calendar"
+seoTitle: "Bank Holidays Sep 14–20, 2026: RBI Branch Closure Schedule"
 category: "Business"
 date: 2026-09-13T14:56:00Z
 image: "https://images.pexels.com/photos/14907356/pexels-photo-14907356.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
@@ -23,7 +23,7 @@ videos:
 slug: "major-indian-banks-to-close-up-to-four-days-between-sep-1420-2026-per-rbi-holiday-cal"
 sourceUrl: "https://www.livemint.com/money/personal-finance/bank-holidays-this-week-sbi-hdfc-icici-pnb-closed-on-up-to-4-days-from-14-20-sep-check-city-wise-rbi-list-11789266166017.html"
 sourceName: "Mint"
-dek: "SBI, HDFC, ICICI and PNB will be closed for up to four days between 14‑20 September 2026, with exact dates varying by city per the RBI holiday calendar."
+dek: "SBI, HDFC, ICICI, and PNB branches will observe up to 4 days of closures from Sep 14–20, 2026, per the RBI calendar; digital banking and UPI remain fully active."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The staggered closures affect retail and corporate customers who rely on branch services for cash withdrawals, cheque deposits and account queries. Checking the RBI calendar helps avoid missed transactions and plan alternative banking channels during the holiday window.

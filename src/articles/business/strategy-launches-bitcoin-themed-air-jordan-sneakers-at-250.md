@@ -1,6 +1,6 @@
 ---
 title: "Strategy Launches Bitcoin-Themed Air Jordan Sneakers at $250"
-seoTitle: "Strategy Bitcoin Air Jordans $250 Merch Store Now Live"
+seoTitle: "MicroStrategy (Strategy) Bitcoin Air Jordans at $250"
 category: "Business"
 date: 2026-09-05T02:46:17Z
 image: "https://images.pexels.com/photos/4914808/pexels-photo-4914808.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"

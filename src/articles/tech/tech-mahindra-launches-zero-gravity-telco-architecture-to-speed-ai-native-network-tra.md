@@ -3,9 +3,9 @@ title: "Tech Mahindra launches Zero Gravity Telco Architecture to speed AI-nativ
 seoTitle: "Tech Mahindra Zero Gravity Telco Architecture AI"
 category: "Tech"
 date: 2026-09-09T22:57:06Z
-image: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "A robotic hand reaching into a digital network on a blue background, symbolizing AI technology."
-imageCredit: "Tara Winstead"
+image: "https://images.pexels.com/photos/14488340/pexels-photo-14488340.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Cellular network telecommunications tower against an evening sky."
+imageCredit: "Sudipta Mondal"
 trending: false
 featured: false
 video_id: ""

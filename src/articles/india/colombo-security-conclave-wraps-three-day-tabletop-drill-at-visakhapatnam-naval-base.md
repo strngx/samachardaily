@@ -20,6 +20,8 @@ why_it_matters: |
   By simulating responses to illegal seaborne threats, the exercise strengthens coordination among regional maritime stakeholders, safeguarding vital trade routes and deterring activities that could destabilize the Indian Ocean's security environment.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The Colombo Security Conclave completed a three‑day tabletop exercise on Thursday, concluding its sessions at the Eastern Naval Command in Visakhapatnam.
+The Colombo Security Conclave successfully concluded a three-day maritime tabletop exercise at the headquarters of the Eastern Naval Command in Visakhapatnam.
 
-The drill centered on strategies to counter illicit maritime activities across the Indian Ocean Region, aiming to enhance cooperative security measures.
+The multilateral drill focused on developing operational strategies to counter illicit maritime activities and address shared maritime security challenges across the Indian Ocean Region. Participating delegations engaged in simulated response scenarios designed to enhance cooperative security measures, streamline communication protocols, and improve joint coordination among regional maritime law enforcement authorities.
+
+By simulating collaborative responses to seaborne security threats, the exercise aims to safeguard vital sea lines of communication and commercial shipping lanes throughout the Indian Ocean. Conclave stakeholders highlighted that regular joint exercises foster mutual operational familiarity, strengthen search and rescue coordination, and support a secure and stable maritime environment across the region.

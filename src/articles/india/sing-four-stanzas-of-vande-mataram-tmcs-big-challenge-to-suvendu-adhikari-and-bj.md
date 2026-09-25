@@ -2,9 +2,9 @@
 title: "TMC MP Kalyan Banerjee Challenges Suvendu Adhikari and BJP to Sing Full Vande Mataram at Kolkata Rally"
 category: "India"
 date: 2026-08-28T23:48:10Z
-image: "https://www.hindustantimes.com/ht-img/img/2026/08/28/1600x900/logo/Kalyan_Banerjee_Suvendu_1787917488266_1787917496498_56d6b023-282c-4f37-9a93-d2de838beca8.jpg"
-imageAlt: "TMC MP Kalyan Banerjee Challenges Suvendu Adhikari and BJP to Sing Full Vande Mataram at Kolkata Rally"
-imageCredit: "shivam pratap singh"
+image: "https://images.pexels.com/photos/7129713/pexels-photo-7129713.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Podium microphones at a public press conference and civic assembly."
+imageCredit: "Mikhail Nilov (via Pexels)"
 video_id: "TV0kEEI4j_Q"
 video_caption: "BJP’s New ‘Vande Mataram’ Challenge in Parliament: Mamata Faces a Religious Tightrope."
 slug: "sing-four-stanzas-of-vande-mataram-tmcs-big-challenge-to-suvendu-adhikari-and-bj"

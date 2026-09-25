@@ -1,6 +1,6 @@
 ---
 title: "Aishwarya Rai defends living with parents, says independence isn’t about moving out"
-seoTitle: "Aishwarya Rai on family living, independence"
+seoTitle: "Aishwarya Rai: Living With Parents Is Real Independence"
 category: "India"
 date: 2026-09-14T16:30:26Z
 image: "https://images.pexels.com/photos/36799056/pexels-photo-36799056.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"

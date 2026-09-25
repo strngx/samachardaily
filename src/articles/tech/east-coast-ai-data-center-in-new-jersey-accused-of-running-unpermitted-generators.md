@@ -3,9 +3,9 @@ title: "East Coast AI Data Center in New Jersey Accused of Running Unpermitted G
 seoTitle: "NJ AI Data Center Faces Federal Law Violation Claim"
 category: "Tech"
 date: 2026-09-01T14:47:36Z
-image: "https://images.pexels.com/photos/17489163/pexels-photo-17489163.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Close-up of a modern server unit in a blue-lit data center environment."
-imageCredit: "panumas nikhomkhai"
+image: "https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Rows of server racks and blinking lights in an enterprise cloud data center."
+imageCredit: "Manuel Geissinger"
 trending: false
 featured: false
 video_id: "0GA-WQRhIEc"

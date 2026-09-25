@@ -8,15 +8,9 @@ imageAlt: "A modern office building with a striking glass facade reflecting a bl
 imageCredit: "Tom Asito"
 trending: false
 featured: false
-video_id: "n_bsH6zRJ7w"
-video_caption: "LIVE: ABC News Live - Sunday, September 6 | ABC News"
-videos:
-  - video_id: "n_bsH6zRJ7w"
-    title: "LIVE: ABC News Live - Sunday, September 6 | ABC News"
-    channel: "ABC News"
-  - video_id: "GQHpvbaFMqA"
-    title: "LIVE: ABC News Live - Saturday, September 5 | ABC News"
-    channel: "ABC News"
+video_id: ""
+video_caption: ""
+videos: []
 slug: "pilgrims-pride-prices-senior-notes-offering-in-greeley-colorado"
 sourceUrl: "https://www.eagletribune.com/region/pilgrim-s-pride-prices-senior-notes-offering/article_71cc6b9f-da11-5012-b855-0e1bb230cdce.html"
 sourceName: "Eagletribune"

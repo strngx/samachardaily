@@ -26,6 +26,8 @@ why_it_matters: |
   Targeting a $13 trillion treasury market could dramatically expand the use of stablecoins in corporate cash management, offering firms a blockchain‑based alternative to traditional liquidity tools. For Ripple, the move leverages a sizable, under‑served segment, potentially boosting transaction volumes and reinforcing its position in the broader fintech ecosystem.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Ripple is positioning its stablecoin offering toward the corporate treasury sector, which it estimates to be worth $13 trillion. Senior Vice President of Stablecoins Jack McDonald told CoinDesk on Sept. 13 that the size of this market makes it one of the firm’s biggest opportunities.
+Ripple is directing its enterprise stablecoin strategy toward the corporate treasury sector, targeting an addressable market the firm estimates to be worth $13 trillion. Jack McDonald, Senior Vice President of Stablecoins at Ripple, stated in an interview with CoinDesk on Sept. 13 that corporate treasuries represent one of the company’s largest commercial expansion opportunities.
 
-The focus on corporate treasuries is anchored in Ripple Treasury, a suite built around the company’s $1 billion purchase of a treasury‑management software provider. The acquisition underpins Ripple’s strategy to embed stablecoins within existing treasury workflows.
+The initiative is anchored in the Ripple Treasury suite, a platform built around the company’s previous $1 billion acquisition of a treasury-management software provider. The acquisition serves as the foundation for Ripple’s strategy to embed digital stablecoins directly into existing corporate treasury and liquidity workflows.
+
+By targeting corporate cash management, the platform aims to offer institutional enterprises a blockchain-based alternative to traditional treasury tools. Integrating digital assets into standard treasury operations enables companies to manage cross-border corporate liquidity and settlement processes within their existing financial infrastructure, potentially expanding the role of stablecoins across the broader fintech and enterprise finance ecosystem.

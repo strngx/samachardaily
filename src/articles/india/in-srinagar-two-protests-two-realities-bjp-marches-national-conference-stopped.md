@@ -3,9 +3,9 @@ title: "In Srinagar, Two Protests, Two Realities: BJP Marches, National Conferen
 seoTitle: "Srinagar Protests: BJP Allowed To March, NC Stopped"
 category: "India"
 date: 2026-09-04T12:57:01Z
-image: "https://images.pexels.com/photos/11596940/pexels-photo-11596940.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Syrian protest with flags and signs showcasing activism and unity in the streets."
-imageCredit: "Noor Aldin  Alwan"
+image: "https://images.pexels.com/photos/3476860/pexels-photo-3476860.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Scenic mountain landscape and valley in Kashmir, India."
+imageCredit: "Aadil"
 trending: false
 featured: false
 video_id: "9UGywN80BAQ"

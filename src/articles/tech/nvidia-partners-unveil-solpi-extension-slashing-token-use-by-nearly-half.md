@@ -20,8 +20,9 @@ why_it_matters: |
   By halving token traffic and lowering API fees, SoL‑Pi can significantly reduce the operational costs for developers and enterprises that rely on the Pi coding agent, making large‑scale code generation more affordable without a major sacrifice in quality.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Nvidia, together with its partners, has launched SoL‑Pi, an MIT‑licensed extension designed for the Pi coding agent.
+Nvidia and its development partners have unveiled SoL-Pi, an MIT-licensed extension built for the company's Pi coding agent to improve operational efficiency during code generation.
 
-The tool reduces the volume of tokens processed by the agent by as much as 49% and cuts associated API costs by roughly 33%, while keeping output scores within about 6% of the original performance.
+The software extension decreases token consumption by up to 49%, cutting total token traffic nearly in half during automated programming tasks. This reduction in token volume corresponds to an estimated 33% decline in associated API operational expenses, allowing engineering teams to lower execution overhead.
 
-SoL‑Pi is currently offered only through the platform’s paid subscription plans.
+Despite the reduction in token processing, evaluations indicate that SoL-Pi maintains coding performance within 6% of baseline results. By decreasing API costs without causing a major degradation in generation quality, the tool aims to make large-scale code synthesis more economical for developers and enterprises using the Pi agent. The extension is currently available through the platform's paid subscription tiers.
+

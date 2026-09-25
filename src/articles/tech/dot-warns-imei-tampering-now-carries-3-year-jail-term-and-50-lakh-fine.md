@@ -3,9 +3,9 @@ title: "DoT Warns IMEI Tampering Now Carries 3-Year Jail Term and ₹50 Lakh Fin
 seoTitle: "DoT Warns Against IMEI Tampering Under Telecom Act"
 category: "Tech"
 date: 2026-09-01T12:48:35Z
-image: "https://images.pexels.com/photos/33440144/pexels-photo-33440144.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Close-up of a smartphone screen displaying account verification alert. Ideal for security and authenticity themes."
-imageCredit: "Zulfugar Karimov"
+image: "https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Close up of a modern smartphone device hardware and screen."
+imageCredit: "Adrianna Calvo"
 trending: false
 featured: false
 video_id: "XlGrMo3kxB0"
@@ -33,7 +33,7 @@ what_happens_next: "Telecom operators and law enforcement agencies will expand a
 ---
 The Department of Telecommunications (DoT) has issued a stern advisory warning citizens and vendors that altering International Mobile Equipment Identity (IMEI) numbers or misusing telecom identifiers is a severe legal offense. Under the provisions of the Telecommunications Act, 2023, individuals caught tampering with phone identifiers, using fake documents to obtain SIM cards, or spoofing Calling Line Identity (CLI) face up to three years of imprisonment and fines of up to ₹50 lakh.
 
-The government’s heightened crackdown comes in the wake of significant cybercrime busts across the country. Earlier in 2026, the Delhi Police dismantled an organized criminal syndicate that defrauded citizens of nearly ₹100 crore by constantly rotating IMEI numbers and utilizing SIM boxes to impersonate government officials. To date, enforcement agencies have blocked over 15 lakh fraudulent SIM cards and nearly 6 lakh tampered IMEIs linked to cybercrime networks, thwarting estimated financial scams worth more than ₹11,000 crore.
+The government’s heightened crackdown comes in the wake of significant cybercrime busts across the country and coincides with [judicial efforts to combat organized digital arrest scams](/articles/india/judiciary-proactively-tackling-digital-arrest-scams-cji-surya-kant/). Earlier in 2026, the Delhi Police dismantled an organized criminal syndicate that defrauded citizens of nearly ₹100 crore by constantly rotating IMEI numbers and utilizing SIM boxes to impersonate government officials. To date, enforcement agencies have blocked over 15 lakh fraudulent SIM cards and nearly 6 lakh tampered IMEIs linked to cybercrime networks, thwarting estimated financial scams worth more than ₹11,000 crore.
 
 An IMEI is a unique 15-digit code that acts as a digital fingerprint for mobile hardware, allowing network providers to trace calls, text messages, and data traffic back to specific devices. Criminal syndicates frequently overwrite these codes using illegal software or hardware modifications, making stolen or unauthorized devices appear legitimate. Fraudsters also deploy multi-slot SIM boxes to route international traffic as local calls or manipulate CLI details to fool victims into trusting fraudulent communications.
 

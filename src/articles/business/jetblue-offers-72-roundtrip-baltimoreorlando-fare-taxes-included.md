@@ -22,6 +22,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   At $72, the fare represents an unusually low cost for a cross‑country U.S. route, potentially expanding travel options for leisure and business passengers while highlighting competitive pricing strategies in the airline market.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 jetBlue is offering round‑trip economy tickets between Baltimore (BWI) and Orlando (MCO) for $72, with all taxes already incorporated into the price.
 

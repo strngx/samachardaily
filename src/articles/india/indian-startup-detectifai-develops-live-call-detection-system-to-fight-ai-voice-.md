@@ -2,9 +2,9 @@
 title: "DetectifAI Launches Real-Time Voice‑Trust System to Counter AI Deepfake Calls"
 category: "India"
 date: 2026-08-28T22:40:42Z
-image: "https://dharmakshethra.com/wp-content/uploads/2026/08/AI-Voice-Security-Interface.webp"
-imageAlt: "DetectifAI Launches Real-Time Voice‑Trust System to Counter AI Deepfake Calls"
-imageCredit: "kautilya"
+image: "https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Digital cybersecurity and mobile security data protection shield on digital screen."
+imageCredit: "Pixabay (via Pexels)"
 video_id: ""
 video_caption: ""
 slug: "indian-startup-detectifai-develops-live-call-detection-system-to-fight-ai-voice-"

@@ -19,6 +19,7 @@ author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The council’s willingness to allocate significant funds to an online sales push highlights a broader shift in the beef industry toward digital distribution channels. If the results prove strong, producers may see new market avenues, retailers could expand beef offerings online, and the sector might increase investment in similar e‑commerce initiatives.
 what_happens_next: "No confirmed next steps reported yet."
+noindex: true
 ---
 The Florida Beef Council announced the conclusion of a spring‑time digital e‑commerce program it funded with $50,000, partnering with one of the nation’s largest retailers.
 

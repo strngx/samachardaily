@@ -2,9 +2,9 @@
 title: "India Aims to Replicate Vietnam’s Manufacturing Rise as Vietnam Sets Sights on Becoming the Next China"
 category: "Business"
 date: 2026-08-28T23:29:58Z
-image: ""
-imageAlt: "India Aims to Replicate Vietnam’s Manufacturing Rise as Vietnam Sets Sights on Becoming the Next China"
-imageCredit: "swapnil karkare"
+image: "https://images.pexels.com/photos/3825586/pexels-photo-3825586.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Modern high-tech electronics manufacturing and industrial assembly line in Asia."
+imageCredit: "ThisIsEngineering"
 video_id: "PTTwYKGKXo8"
 video_caption: "Manufacturing Battle: India vs Vietnam – Who Wins the Global Factory Race? #manufacturinghub"
 slug: "india-wants-to-be-vietnam-vietnam-wants-to-be-china-the-reason-why"

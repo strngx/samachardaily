@@ -24,4 +24,4 @@ Vicor (NASDAQ: VICR) disclosed on Sept 11 that it is acquiring two New Hampshire
 
 The first parcel comprises a 334,000‑square‑foot building on 66 acres in Merrimack, while the second consists of 54 acres in Hooksett; together they will accommodate Fab‑2 and Fab‑3 with an anticipated combined footprint of nearly one million square feet.
 
-The new facilities will raise Vicor’s total ChiP fab capacity beyond the 320,000‑square‑foot Fab‑1 that sits on 16 acres, marking a significant scale‑up of its domestic manufacturing footprint.
+The new facilities will raise Vicor’s total ChiP fab capacity beyond the 320,000‑square‑foot Fab‑1 that sits on 16 acres, marking a significant scale‑up of its domestic manufacturing footprint as global semiconductor producers expand capacity alongside [national semiconductor initiatives like the India Semiconductor Mission](/articles/tech/indias-semiconductor-drive-shifts-to-execution-says-ashwini-vaishnaw/).

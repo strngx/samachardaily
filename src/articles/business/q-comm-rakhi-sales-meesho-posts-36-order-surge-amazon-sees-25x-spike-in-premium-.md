@@ -2,9 +2,9 @@
 title: "Quick‑Commerce Platforms See Surge in Rakhi Orders: Meesho Up 36%, Amazon Premium Gifting Jumps 2.5‑fold"
 category: "Business"
 date: 2026-08-29T04:13:23Z
-image: ""
-imageAlt: "Quick‑Commerce Platforms See Surge in Rakhi Orders: Meesho Up 36%, Amazon Premium Gifting Jumps 2.5‑fold"
-imageCredit: "press trust of india"
+image: "https://images.pexels.com/photos/4391470/pexels-photo-4391470.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Courier delivery parcels and e-commerce packaging ready for rapid dispatch."
+imageCredit: "Karolina Kaboompics"
 video_id: ""
 video_caption: ""
 slug: "q-comm-rakhi-sales-meesho-posts-36-order-surge-amazon-sees-25x-spike-in-premium-"

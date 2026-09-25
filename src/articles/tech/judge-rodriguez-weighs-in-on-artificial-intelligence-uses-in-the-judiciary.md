@@ -3,9 +3,9 @@ title: "Judge Rodriguez Weighs In on Artificial Intelligence Uses in the Judicia
 seoTitle: "Judge Rodriguez Explores AI Impact on Legal Practice"
 category: "Tech"
 date: 2026-09-02T08:48:28Z
-image: "https://images.pexels.com/photos/5668772/pexels-photo-5668772.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Crop concentrated Asian male judge in formal clothes sitting using modern netbook while working in law office"
-imageCredit: "Sora Shimazaki"
+image: "https://images.pexels.com/photos/8112198/pexels-photo-8112198.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Legal documents, laptop computer, and law books on a contemporary office desk."
+imageCredit: "Mikhail Nilov"
 trending: false
 featured: false
 video_id: "fQA9b_0GBgg"

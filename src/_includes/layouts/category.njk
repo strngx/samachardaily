@@ -6,8 +6,6 @@ layout: layouts/base.njk
 {% set pageArticles = pagedData.articles if pagedData else collections[category.slug] %}
 {% set currentPage = pagedData.pageNumber if pagedData else 1 %}
 {% set totalPages = pagedData.totalPages if pagedData else 1 %}
-{% set mainArticles = pagedData.mainArticles if (pagedData and pagedData.mainArticles) else (pageArticles | mainCategoryArticles) %}
-{% set archiveArticles = pagedData.archiveArticles if (pagedData and pagedData.archiveArticles) else (pageArticles | archiveCategoryArticles) %}
 
 <div class="container">
   <!-- Category Masthead (Monochrome, No "Desk" suffix) -->
@@ -18,31 +16,18 @@ layout: layouts/base.njk
   </header>
 
   <!-- Category Articles -->
-  {% if (mainArticles and mainArticles.length > 0) or (archiveArticles and archiveArticles.length > 0) %}
-    <!-- Main List (Articles < 2 weeks old, consistent card grid, newest first) -->
-    {% if mainArticles.length > 0 %}
-      <div class="category-grid" style="margin-bottom: var(--space-8);">
-        {% for article in mainArticles %}
-          {% include "partials/card.njk" %}
-        {% endfor %}
-      </div>
-    {% endif %}
+  {% if pageArticles and pageArticles.length > 0 %}
+    <!-- Main List (Current pagination slice, newest first) -->
+    <div class="category-grid" style="margin-bottom: var(--space-8);">
+      {% for article in pageArticles %}
+        {% set isLeadCard = loop.first and (currentPage == 1) %}
+        {% include "partials/card.njk" %}
+      {% endfor %}
+    </div>
 
     <!-- Ad Slot -->
     {% set slotName = "category-mid" %}
     {% include "partials/ad-slot.njk" %}
-
-    <!-- Archive List (Articles 2+ weeks old, newest first within group) -->
-    {% if archiveArticles.length > 0 %}
-      <div style="margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid var(--color-border);">
-        <h2 style="font-size: 1.5rem; margin-bottom: var(--space-6);">Latest {{ category.name }} Archive</h2>
-        <div class="category-grid">
-          {% for article in archiveArticles %}
-            {% include "partials/card.njk" %}
-          {% endfor %}
-        </div>
-      </div>
-    {% endif %}
 
     <!-- Numbered Pagination (Rendered when multiple pages exist) -->
     {% if totalPages > 1 %}
@@ -75,3 +60,4 @@ layout: layouts/base.njk
     </div>
   {% endif %}
 </div>
+

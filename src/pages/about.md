@@ -27,16 +27,16 @@ At SamacharDaily, we believe in complete transparency regarding the modern techn
 - **Sourcing & Ingestion:** Our systems monitor real-time verified news wires and institutional press releases across our five categories.
 - **AI-Assisted Synthesis:** We utilize advanced artificial intelligence models to assist in processing complex wire dispatches, generating executive summaries, and structuring deep explanatory context.
 - **Editorial Quality Standards:** Automated systems are constrained by strict journalistic guidelines. They are strictly prohibited from fabricating quotes, statistics, or events. If source dispatches lack sufficient factual context, the story is not published.
-- **Visuals & Media:** Editorial photography is sourced exclusively through licensed photography platforms (including Pexels and curated stock libraries) with proper photographer attribution. Embedded video reports are linked directly to authorized broadcast networks.
+- **Visuals & Media:** Editorial photography is sourced through licensed photography platforms (including Pexels and curated stock collections) with proper photographer attribution, or hosted directly on our domain. For select archival articles, historical dispatches retain publisher-attributed news wire imagery. Embedded video reports are linked directly to authorized broadcast networks.
 - **Transparent Attribution:** Every article includes a clear citation of the primary wire services and releases that informed the coverage.
 
 ---
 
 ## Verification & Correction Policy
 
-- **Fact Sourcing:** We cross-reference primary sources before publishing explanatory briefings.
+- **Fact Sourcing:** We cross-reference primary sources before publishing explanatory briefings in accordance with our [Editorial Policy & Standards]({{ '/editorial/' | url }}).
 - **Prompt Corrections:** If any factual error or ambiguity is discovered in our reporting, we promptly update the article and document the correction.
-- **Reader Feedback:** We encourage readers to submit feedback, factual clarifications, or news inquiries.
+- **Reader Feedback & Grievances:** We encourage readers, organizations, and stakeholders to submit feedback, factual clarifications, or news inquiries. Step-by-step submission guidelines are available on our [Contact & Grievances Page]({{ '/contact/' | url }}).
 
 ---
 
@@ -44,5 +44,5 @@ At SamacharDaily, we believe in complete transparency regarding the modern techn
 
 - **Editorial Team Profile:** [SamacharDaily Editorial Team]({{ '/authors/samachardaily-editorial-team/' | url }})
 - **Editorial Inquiries:** [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
-- **Corrections & Clarifications:** [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
-- **General Inquiries:** Visit our [Contact Page]({{ '/contact/' | url }}).
+- **Corrections & Grievances:** [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
+- **General Inquiries:** Visit our [Contact & Grievances Page]({{ '/contact/' | url }}).

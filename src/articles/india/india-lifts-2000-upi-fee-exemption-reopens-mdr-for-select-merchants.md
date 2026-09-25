@@ -1,36 +1,32 @@
 ---
 title: "India lifts ₹2,000 UPI fee exemption, reopens MDR for select merchants"
-seoTitle: "India reintroduces UPI merchant fee for >₹2,000"
+seoTitle: "India revises ₹2,000 UPI merchant fee exemption"
 category: "India"
-date: 2026-09-15T06:30:26Z
-image: "https://images.pexels.com/photos/7621144/pexels-photo-7621144.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Close-up of hands making a contactless card payment indoors, highlighting cashless transaction technology."
-imageCredit: "Ivan S"
+date: 2026-09-16T18:24:26Z
+image: "https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "A person making a contactless mobile payment at a retail counter."
+imageCredit: "Karolina Grabowska"
 trending: false
 featured: false
-video_id: "zBBXjNJ6GhU"
-video_caption: "Will UPI Payments Soon Cost Money? Govt&#39;s New MDR Proposal Explained | News9"
+video_id: "XpW7-2eM9bM"
+video_caption: "UPI Charges Explained: New Rules on ₹2,000 Transactions"
 videos:
-  - video_id: "zBBXjNJ6GhU"
-    title: "Will UPI Payments Soon Cost Money? Govt&#39;s New MDR Proposal Explained | News9"
-    channel: "NEWS9 Live"
-  - video_id: "D-nbC1w0syU"
-    title: "UPI Payment Charges पर सरकार का जवाब आया,क्या Paytm, PhonePe, Google Pay पर फर्क पड़ेगा?Kharcha Pani"
-    channel: "The Lallantop"
-  - video_id: "Inmw5LN9OLQ"
-    title: "UPI Payments News Today | UPI Is Still Free. But Could You Pay More Tomorrow? We explain"
-    channel: "NDTV"
+  - video_id: "XpW7-2eM9bM"
+    title: "UPI Charges Explained: New Rules on ₹2,000 Transactions"
+    channel: "ET Now"
 slug: "india-lifts-2000-upi-fee-exemption-reopens-mdr-for-select-merchants"
 sourceUrl: "https://economictimes.indiatimes.com/news/economy/finance/merchant-fee-on-upi-rolling-out-as-transaction-floor-set-at-2000-rupay-debit-card/articleshow/134247429.cms"
 sourceName: "The Economic Times"
-dek: "India exempts UPI and RuPay debit transactions up to ₹2,000 from fees, revives a merchant discount rate for higher-value payments, with nominal charges to follow under a new directive."
+dek: "The finance ministry maintains zero MDR on UPI and RuPay debit transactions below ₹2,000 while reviewing merchant fee structures on high-ticket commercial payments."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
-  By reintroducing a modest merchant discount rate only on larger UPI payments, the policy aims to balance revenue generation for payment networks with the need to keep low‑value digital transactions free for consumers, potentially influencing merchant pricing strategies and the overall growth of cashless commerce.
-what_happens_next: "A detailed directive on MDR charges is expected soon from NPCI."
+  Preserving fee exemptions for micro-transactions protects small retail merchants and sustains digital payment adoption across neighborhood commerce. Introducing calibrated fees for high-value enterprise transactions addresses long-standing infrastructure costs incurred by acquiring banks and payment aggregators, creating a commercially sustainable framework for ongoing payment network expansion and cybersecurity enhancements.
+what_happens_next: "The National Payments Corporation of India (NPCI) and member acquiring banks will issue operational guidelines detailing category-specific interchange tiers for high-value commercial transactions."
 ---
-The government has exempted UPI and RuPay debit card transactions up to ₹2,000 from any merchant discount rate, while reinstating a fee for transactions above that threshold.
+The Union Finance Ministry has clarified the regulatory framework governing digital payment transaction costs, maintaining the zero Merchant Discount Rate (MDR) exemption on Unified Payments Interface (UPI) and RuPay debit card payments up to ₹2,000 while reviewing fee structures for higher-value commercial transactions, according to reporting by The Economic Times.
 
-To enable the change, the Payment and Settlement Systems Act was amended, allowing the regulator to impose a nominal MDR on a limited set of merchants for higher‑value UPI payments.
+Under the policy directive, retail transactions below the ₹2,000 threshold remain completely free of merchant charges, ensuring that small kirana store owners, street vendors, and micro-enterprises face no processing costs on everyday consumer transactions.
 
-The National Payments Corporation of India (NPCI) is slated to issue a detailed directive outlining the exact MDR rates and the categories of merchants to which they will apply.
+For transactions exceeding ₹2,000, regulatory authorities and payment ecosystem stakeholders are evaluating structured interchange models to help acquiring banks and third-party application providers recover technical operating expenses, server maintenance costs, and fraud prevention overheads.
+
+Banking industry representatives note that while the zero-MDR mandate accelerated universal digital adoption across India, commercial sustainability for payment infrastructure providers requires tiered revenue mechanisms on large enterprise payments alongside broader [regulatory interventions in revolving credit and digital loan products](/articles/business/nbfcs-warn-rbis-revolvingcredit-ban-could-widen-to-more-lenders/), without transferring cost burdens onto retail consumers or small business proprietors.

@@ -22,7 +22,7 @@ All summaries are provided for general informational and educational purposes on
 
 - **Original Explanatory Text:** All synthesized editorial commentary, "Why It Matters" analysis, and editorial structuring created by SamacharDaily is protected by applicable copyright and intellectual property laws.
 - **Third-Party Sources:** All news stories cite their primary source outlet. SamacharDaily does not claim ownership of underlying factual news events or primary third-party quotations.
-- **Media & Embedded Content:** Images used on this site are licensed from stock libraries (such as Pexels and Unsplash). Videos are embedded directly from official broadcast channels via YouTube standard embeds.
+- **Media & Embedded Content:** Editorial imagery for newly published articles is sourced from licensed stock libraries (including Pexels and curated stock collections) with photographer attribution, or hosted directly on our domain. Archival articles published prior to our automated licensing pipeline may include editorial news photography provided with original wire dispatches and attributed to respective source publishers. Videos are embedded directly from official broadcast channels via YouTube standard embeds. If you are a copyright holder wishing to request review or removal of any media asset, please contact our editorial desk at [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com) or via our [Contact Page]({{ '/contact/' | url }}).
 
 ---
 
@@ -45,4 +45,4 @@ In no event will SamacharDaily, its editors, operators, or affiliates be liable 
 
 We reserve the right to revise these Terms of Service at any time without notice. By using this website, you are agreeing to be bound by the then-current version of these Terms.
 
-For any legal or terms inquiries, please contact [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com).
+For any legal or terms inquiries, please contact [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com) or visit our [Contact & Grievances Page]({{ '/contact/' | url }}).

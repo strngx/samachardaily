@@ -3,9 +3,9 @@ title: "CJP Calls for Overhaul of Karnataka Public Service Commission, Launches 
 seoTitle: "CJP demands KPSC overhaul, student campaign in Karnataka"
 category: "India"
 date: 2026-09-12T12:10:11Z
-image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80"
-imageAlt: "Technology and Global Connectivity"
-imageCredit: "Unsplash"
+image: "https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "University students and applicants gathering for academic examinations and civil service."
+imageCredit: "Pixabay"
 trending: false
 featured: false
 video_id: ""

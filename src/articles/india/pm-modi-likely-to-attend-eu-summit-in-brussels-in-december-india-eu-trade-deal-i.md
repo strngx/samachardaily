@@ -2,9 +2,9 @@
 title: "PM Modi expected to attend EU summit in Brussels in December as India‑EU trade deal looms"
 category: "India"
 date: 2026-08-29T07:13:01Z
-image: "https://images.firstpost.com/uploads/2026/08/Representational-image-67-2026-08-b4d300d955a196ce037fbf48ee5ad044-1200x675.jpg"
-imageAlt: "PM Modi expected to attend EU summit in Brussels in December as India‑EU trade deal looms"
-imageCredit: "sonam chauhan"
+image: "https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "European Union flags waving outside official summit building in Brussels."
+imageCredit: "Pixabay (via Pexels)"
 video_id: "53DwS1msuPE"
 video_caption: "EU Prez Ursula Von Der Leyen to begin India visit: FTA, India-EU trade and tech council on agenda"
 slug: "pm-modi-likely-to-attend-eu-summit-in-brussels-in-december-india-eu-trade-deal-i"

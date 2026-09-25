@@ -20,10 +20,8 @@ why_it_matters: |
   Bringing high‑profile, politically aligned social media stars into the Pentagon signals a shift toward using celebrity influence to engage service members and the public. While the visit may aim to boost morale and attract younger audiences, it also raises questions about the appropriateness of politicized figures in a traditionally apolitical military setting and how such outreach could affect perceptions of the Department of Defense.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-On Thursday, Defense Secretary Pete Hegseth arranged a visit to the Pentagon for internet personalities Logan and Jake Paul, allowing the brothers to tour the facility and interact with active-duty personnel.
+United States Defense Secretary Pete Hegseth hosted online personalities Logan Paul and Jake Paul at the Pentagon on Thursday, facilitating an official tour of the military headquarters and arranged meetings with active-duty service members.
 
-The Paul brothers, known for their reality‑TV and political‑leaning online content, have previously been described as MAGA‑friendly influencers; their presence was framed as a chance to ‘meet with our warriors.’
+The Paul brothers, recognized for their digital video channels and reality entertainment content, participated in facility walkthroughs framed by defense officials as an opportunity to interact directly with military personnel. Following the visit, Logan Paul published a video on Sunday describing the tour as a privileged experience at the defense complex.
 
-Logan Paul posted a video on Sunday describing the experience as a ‘cool’ and ‘privileged’ tour, highlighting the novelty of the Pentagon visit for the former YouTubers.
-
-Hegseth, who has referred to himself as the ‘Secretary of War,’ positioned the event as a morale‑boosting outreach to younger audiences.
+Hegseth, who has informally referred to his role as Secretary of War, characterized the event as a morale-focused initiative designed to expand military public outreach toward younger demographics. The high-profile visit forms part of a broader communications approach by defense leadership to connect service members with prominent digital creators, according to reporting by The Daily Beast.

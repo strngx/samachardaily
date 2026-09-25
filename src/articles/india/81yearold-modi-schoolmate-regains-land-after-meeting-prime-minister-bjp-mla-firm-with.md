@@ -20,8 +20,9 @@ why_it_matters: |
   The episode highlights how personal ties to political leaders can accelerate resolution of long‑standing grievances, raising questions about equity in administrative processes and the influence of patronage in land disputes that affect ordinary citizens.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Mira Road pensioner Asgar Ali, 81, secured the return of a parcel of land he had been contesting after a brief meeting with Prime Minister Narendra Modi at the state secretariat.
+Asgar Ali, an 81-year-old pensioner from Mira Road, has recovered a contested plot of land following a meeting with Prime Minister Narendra Modi at the Maharashtra state secretariat.
 
-Ali had pursued the same land dispute through Maharashtra government offices for 15 years without any resolution, despite repeated applications and appeals.
+Ali, who was a school classmate of Modi, had pursued the property dispute through various state administrative departments for 15 years without reaching a settlement, despite submitting multiple petitions and appeals. The contested land was subject to a competing claim from a commercial firm connected to a local Bharatiya Janata Party (BJP) legislator.
 
-The meeting, arranged after Ali reconnected with his former schoolmate Modi, led the firm associated with a BJP legislator to withdraw its claim, allowing the land to be handed back to him in a single sitting.
+Following the secretariat meeting between Ali and the Prime Minister, the firm associated with the legislator withdrew its legal claim over the parcel. The withdrawal enabled state revenue officials to clear the property title and return the land to Ali. The administrative development concluded the prolonged property dispute between the pensioner and the commercial entity.
+

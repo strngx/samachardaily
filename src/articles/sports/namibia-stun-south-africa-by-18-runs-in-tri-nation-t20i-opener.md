@@ -2,9 +2,9 @@
 title: "Namibia Upset South Africa by 18 Runs in Tri‑nation T20I Opener"
 category: "Sports"
 date: 2026-08-29T05:13:18Z
-image: "https://i0.wp.com/www.socialnews.xyz/wp-content/uploads/2026/08/28/202608283922197.jpg?fit=1600%2C900&quality=80&zoom=1&ssl=1"
-imageAlt: "Namibia Upset South Africa by 18 Runs in Tri‑nation T20I Opener"
-imageCredit: "gopi"
+image: "https://images.pexels.com/photos/1661950/pexels-photo-1661950.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Panoramic view of an illuminated sports stadium pitch during a cricket match."
+imageCredit: "Flo Dahm (via Pexels)"
 video_id: ""
 video_caption: ""
 slug: "namibia-stun-south-africa-by-18-runs-in-tri-nation-t20i-opener"

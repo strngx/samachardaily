@@ -20,8 +20,9 @@ why_it_matters: |
   Requiring annual parking plans could help mitigate congestion in residential neighborhoods, protect community parking availability, and impose new compliance costs on short‑term rental operators, influencing both local residents and the rental market.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Chatham County commissioners are currently examining a set of proposed short‑term vacation rental (STVR) ordinances that would add a mandatory parking component to the licensing framework.
+Chatham County commissioners are evaluating draft ordinances governing short-term vacation rentals (STVR) that would introduce a mandatory parking compliance rule into the county's licensing process.
 
-Under the draft rules, each short‑term rental owner would have to submit a detailed parking plan at the time of application, and the plan would need to be refreshed and resubmitted every year thereafter.
+Under the proposed regulatory framework, property owners operating short-term rentals would be required to submit an official parking plan when applying for a business license. In addition to the initial filing, operators would need to refresh and resubmit their parking plans annually to maintain active municipal permits.
 
-The commission says the measure is intended to address local traffic and parking concerns, but it has not yet voted on the proposal, leaving the final requirements uncertain.
+County officials designed the requirement to address parking congestion in residential neighborhoods and protect available street parking for local residents. While the draft measure imposes new administrative documentation procedures on rental operators, the Board of Commissioners has not yet conducted a final vote on the ordinance, leaving the permanent regulatory standards pending further review.
+

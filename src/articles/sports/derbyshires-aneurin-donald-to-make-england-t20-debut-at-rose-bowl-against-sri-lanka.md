@@ -29,8 +29,9 @@ why_it_matters: |
   Donald’s selection injects fresh power hitting into England’s opening partnership, highlighting the strength of the domestic circuit in supplying international talent and offering a new option for the team’s limited‑overs strategy.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Aneurin Donald, 29, will step onto the international stage for England in the opening T20 against Sri Lanka at the Rose Bowl on Tuesday, partnering Jos Buttler at the top of the order.
 
-The Derbyshire batter, who began his career at Glamorgan, secured the call‑up after a spell of blistering domestic form and becomes the county’s first home‑grown international since 2005 Ashes hero Simon Jones.
+Derbyshire batter Aneurin Donald has been selected to make his England international debut in the opening Twenty20 International against Sri Lanka at the Rose Bowl in Southampton.
 
-Renowned for his raw power, Donald topped this year’s Vitality Blast six‑hitting tally with 37 sixes, cementing his reputation as one of the most destructive hitters in English cricket.
+The 29-year-old explosive top-order batter earned his maiden senior national call-up following an outstanding domestic white-ball campaign with Derbyshire, where he established himself as one of English cricket's most destructive ball-strikers. Donald led the season's Vitality Blast six-hitting table with 37 maximums, combining aggressive strokeplay with an exceptional strike rate that caught the attention of national team selectors.
+
+Opening the batting alongside England captain Jos Buttler, Donald becomes the first Derbyshire player to earn an England senior men's cap since 2005 Ashes-winning fast bowler Simon Jones, marking a significant personal milestone and a proud moment for his county club.

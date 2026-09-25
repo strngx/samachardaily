@@ -78,7 +78,7 @@ layout: layouts/base.njk
             {% if topTrend.data.image %}
               <a href="{{ topTrend.url | url }}" class="card-thumb" aria-label="{{ topTrend.data.title }}">
                 <img src="{{ topTrend.data.image | url }}" alt="{{ topTrend.data.imageAlt or topTrend.data.title }}" loading="lazy" width="640" height="360">
-                {% if (topTrend.date | isJustIn(topTrend.data.featured)) %}
+                {% if (topTrend.date | isJustIn) %}
                   <span class="badge-just-in">JUST IN</span>
                 {% endif %}
               </a>
@@ -88,7 +88,7 @@ layout: layouts/base.njk
                   <span class="placeholder-brand">Samachar<span class="brand-red">Daily</span></span>
                   <span class="placeholder-category">{{ topTrend.data.category }}</span>
                 </div>
-                {% if (topTrend.date | isJustIn(topTrend.data.featured)) %}
+                {% if (topTrend.date | isJustIn) %}
                   <span class="badge-just-in">JUST IN</span>
                 {% endif %}
               </a>
@@ -123,7 +123,7 @@ layout: layouts/base.njk
                 {% if article.data.image %}
                   <a href="{{ article.url | url }}" class="trending-thumb-wrap" aria-label="{{ article.data.title }}">
                     <img src="{{ article.data.image | url }}" alt="{{ article.data.imageAlt or article.data.title }}" class="trending-thumb" loading="lazy" width="120" height="80">
-                    {% if (article.date | isJustIn(article.data.featured)) %}
+                    {% if (article.date | isJustIn) %}
                       <span class="badge-just-in badge-just-in-sm">JUST IN</span>
                     {% endif %}
                   </a>
@@ -132,7 +132,7 @@ layout: layouts/base.njk
                     <div class="placeholder-inner-sm">
                       <span>{{ article.data.category }}</span>
                     </div>
-                    {% if (article.date | isJustIn(article.data.featured)) %}
+                    {% if (article.date | isJustIn) %}
                       <span class="badge-just-in badge-just-in-sm">JUST IN</span>
                     {% endif %}
                   </a>

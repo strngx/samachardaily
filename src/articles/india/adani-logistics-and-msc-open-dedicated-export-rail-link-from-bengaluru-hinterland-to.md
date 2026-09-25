@@ -20,6 +20,8 @@ why_it_matters: |
   The new rail corridor offers Karnataka exporters a faster, rail‑based route to a major seaport, potentially lowering logistics costs and easing road congestion. By linking inland industrial clusters directly to Ennore, the service strengthens India's multimodal freight network and could boost export competitiveness for the region.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Adani Logistics Limited, in partnership with Mediterranean Shipping Company, has launched a dedicated export rake service that connects the Adani ICD Malur hub near Bengaluru with the Adani Ennore Container Terminal.
+Adani Logistics Limited, in partnership with Mediterranean Shipping Company (MSC), has officially inaugurated a dedicated export container rail service connecting the Bengaluru industrial hinterland to Kamarajar Port in Ennore, Tamil Nadu.
 
-The inaugural rake establishes a new rail‑linked export corridor, enabling cargo from Bengaluru and other industrial hubs across Karnataka to move directly to Ennore’s on‑dock facilities.
+The direct rail freight service originates from Adani’s Inland Container Depot (ICD) located at Malur near Bengaluru and runs directly to the Adani Ennore Container Terminal. This dedicated rake establishes a scheduled rail corridor designed to transport export cargo seamlessly from manufacturing clusters across Karnataka to on-dock seaport facilities in Tamil Nadu.
+
+By linking inland industrial zones directly to maritime export infrastructure, the service provides Karnataka shippers with a reliable, rail-based alternative to long-distance road haulage. Transporting containerized goods by rail helps alleviate highway congestion, reduces cargo transit dwell times, and strengthens multimodal freight connectivity across the southern industrial corridor. The streamlined logistics route is positioned to enhance regional trade efficiency and support export supply chains operating out of the Bengaluru hinterland.

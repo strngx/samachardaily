@@ -3,9 +3,9 @@ title: "CJI Surya Kant Urges Courts to Counter Digital Arrest Scams Without Legi
 seoTitle: "CJI Surya Kant Calls for Court Action on Digital Scams"
 category: "India"
 date: 2026-08-30T17:33:52Z
-image: "https://images.pexels.com/photos/37730955/pexels-photo-37730955.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Close-up of a wooden podium with microphones in a Polish courtroom setting."
-imageCredit: "SHOX ART"
+image: "https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Cybersecurity lock icon representing digital safety and scam prevention."
+imageCredit: "Pixabay"
 trending: false
 featured: false
 video_id: "CmddpkVXeQ4"

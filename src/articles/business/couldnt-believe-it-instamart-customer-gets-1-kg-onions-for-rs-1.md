@@ -2,9 +2,9 @@
 title: "Instamart’s Rs 1 Onion Surprise Leaves Customer Stunned"
 category: "Business"
 date: 2026-08-28T22:59:54Z
-image: ""
-imageAlt: "Instamart’s Rs 1 Onion Surprise Leaves Customer Stunned"
-imageCredit: "nikita nikhil"
+image: "https://images.pexels.com/photos/144206/pexels-photo-144206.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Fresh red onions displayed for grocery market retail shopping."
+imageCredit: "Pixabay"
 video_id: "6hRhWIg33Lo"
 video_caption: "Ambani ke jio mart ki income reality😨😨"
 slug: "couldnt-believe-it-instamart-customer-gets-1-kg-onions-for-rs-1"

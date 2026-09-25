@@ -1,6 +1,6 @@
 ---
-title: "Apple iPhone 17 Pro Max price falls to Rs 74,990 at Croma, adds exchange bonus, free case"
-seoTitle: "iPhone 17 Pro Max price drops to Rs 74,990 at Croma"
+title: "Apple iPhone 17 Pro Max Effective Price Drops to ₹74,990 at Croma with Exchange and Bank Offers"
+seoTitle: "iPhone 17 Pro Max Drops to ₹74,990 at Croma with Offers"
 category: "Tech"
 date: 2026-09-15T17:24:02Z
 image: "https://images.pexels.com/photos/35271266/pexels-photo-35271266.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
@@ -23,7 +23,7 @@ videos:
 slug: "apple-iphone-17-pro-max-price-falls-to-rs-74990-at-croma-adds-exchange-bonus-free-cas"
 sourceUrl: "https://news.google.com/rss/articles/CBMimAJBVV95cUxQb2VjWEZVV0JYYUJYQUF4SXNDZFhLd0gtSXVhWXNnakJPYU1rUzlJY0RNbVk0SEZjQV9iTS1SN0c3TXVfU0lVVVNjMmlBalJZRkN6dUk3TjgzTUw4a0VzV1F6RXJkeU50Xzg4MW5KTWtZbXp1cUdKc3U3MU9XbTJfek51TG92dFpjQWpyUmJUV29waU1iOVlaNWp6TG9RUGNSNmJIX1l2dVdtanRNRXB0eE1iRkRJRTBzblBLZnJSOEZCRk9mZU5EbXNydkZjSFFKU3NsWmpSSlY5RjM4bWNKeVlHeWpGWTFxUHFWbzluckREZklPa0RxRjhuQ1cxcHg4ZmUzbExTTm54c0F5T3hreGdfVTN0d2Ux0gGeAkFVX3lxTE5wVWQ0b1hfVzVHSWFlQnBuTWVBSEFHejhRTHZZNUJfc3p3bGNNeVl2bGJ0c0JyanUxWk9KN1Q4TFJiUV83S0s0U2NVOVo0MHVtTEhTd0hQT2FlOXBGczBDdHQxbjlPZGozUFYxU2hvU2tzSDlzdV9NQWUxNnhTNlN2dG0xTXpJTkpCNmEzVURHMXA4RU1RTW5PVkM3ZzJQYXBYVjJfWUd3SjN0cEQtVnZncXFWb2NKNzZXUTZIWE02c0pDc2hZM2VPQkZuR2FzNnFPaFd1RkotejV1T1Q1c0d4TlBZaXpzYlVUY2drRmprdzYtZHo5bU9hZk9WNjBiRkM2dDU0emw3QW1sSEN2ZnpMT2lVX29RdlNKdzJ4TXc?oc=5"
 sourceName: "Google News"
-dek: "Apple’s flagship iPhone 17 Pro Max is now priced at Rs 74,990 at Croma, featuring an exchange bonus, a complimentary case and a 10% discount."
+dek: "Croma cuts the effective price of Apple's iPhone 17 Pro Max to ₹74,990 through trade-in exchange bonuses, bank discounts, and a complimentary protective case."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The price cut makes Apple’s top‑tier smartphone more financially accessible in a price‑sensitive market, potentially boosting sales during the festive season and pressuring competitors to revisit their pricing strategies. It also signals Apple’s response to consumer demand for cost‑effective premium devices, which could influence the broader high‑end smartphone segment in India.

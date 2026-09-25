@@ -20,8 +20,9 @@ why_it_matters: |
   Identifying Mushika in a canonical epic provides scholars with a rare textual anchor for the kingdom’s location and cultural context, enriching the study of South Indian history and the Mahabharata’s geographic imagination.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The clearest literary reference to the ancient Mushika kingdom appears in the Bhishma Parva of the Mahabharata, where the text situates the realm beneath Ezhimala and along the Arabian Sea coast.
 
-Within a sweeping catalogue of Bharatavarsha’s peoples, the epic names the Dravidas, Keralas, Prachyas, Mushikas, Vanavashikas, followed by Karanatakas, Mahishakas, Kuntalas, Cholas and others, thereby placing the Mushikas firmly in the southern geographical world recognized by the scripture.
+The Bhishma Parva of the Mahabharata provides one of the clearest early literary references to the ancient Mushika kingdom, geographically anchoring the northern Malabar realm beneath the prominent coastal landmark of Ezhimala (Mount Deli) along the Arabian Sea.
 
-This placement not only confirms the historical existence of a northern Malabar polity but also aligns the kingdom’s geographic identity with the epic’s broader mapping of ancient Indian territories.
+Within the epic's comprehensive geographical catalogue of Bharatavarsha's regional peoples and ruling polities, the text explicitly lists the Mushikas alongside southern and coastal communities, including the Dravidas, Keralas, Prachyas, and Vanavashikas, followed by the Karnatakas, Mahishakas, Kuntalas, and Cholas. This textual placement situates the northern Kerala coastal polity firmly within the broader sacred and political geography recognized by ancient Indian literature.
+
+Historical and epigraphic scholarship connects this ancient textual reference with regional dynastic traditions, such as the Sanskrit epic poem *Mushika-vamsa* and medieval Kolathunadu inscriptions. The textual documentation confirms the deep antiquity and distinct geographical identity of northern Malabar's coastal settlements in early classical records.

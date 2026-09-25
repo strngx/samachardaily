@@ -64,7 +64,7 @@
 }
 </script>
 {% set vid = videoId or video_id %}
-{% if enable_video_object and vid and vid != "" and vid != "null" %}
+{% if vid and vid != "" and vid != "null" %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

@@ -3,9 +3,9 @@ title: "Former ESPN reporter Britt McHenry appointed as State Department communi
 seoTitle: "Britt McHenry State Dept communications role"
 category: "World"
 date: 2026-09-10T18:56:12Z
-image: "https://images.pexels.com/photos/15920138/pexels-photo-15920138.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Various microphones setup at a press conference in Kyiv, Ukraine."
-imageCredit: "Yunus Erdogdu"
+image: "https://images.pexels.com/photos/208603/pexels-photo-208603.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "The United States Capitol building dome in Washington, D.C."
+imageCredit: "Pixabay"
 trending: false
 featured: false
 video_id: ""

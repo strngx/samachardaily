@@ -5,6 +5,9 @@ module.exports = function (eleventyConfig) {
   // Plugins
   eleventyConfig.addPlugin(pluginRss);
 
+  // Exclude drafts staging directory from build
+  eleventyConfig.ignores.add("src/drafts/**");
+
   // Prevent html-transformer from double-prefixing URLs that explicitly use the url filter
   if (eleventyConfig.transforms) {
     delete eleventyConfig.transforms["@11ty/eleventy/html-transformer"];
@@ -218,47 +221,16 @@ module.exports = function (eleventyConfig) {
     return `${cleanPrefix}/${url}`;
   });
 
-  function splitCategoryArticlesByAge(articles) {
-    if (!Array.isArray(articles) || articles.length === 0) {
-      return { mainList: [], archiveList: [] };
-    }
 
-    const now = new Date();
-    const TWO_WEEKS_MS = 14 * 24 * 60 * 60 * 1000;
-
-    const mainList = [];
-    const archiveList = [];
-
-    articles.forEach(art => {
-      const artDate = art.date ? new Date(art.date) : now;
-      const ageMs = now.getTime() - artDate.getTime();
-      if (ageMs >= TWO_WEEKS_MS) {
-        archiveList.push(art);
-      } else {
-        mainList.push(art);
-      }
-    });
-
-    return { mainList, archiveList };
-  }
-
-  eleventyConfig.addFilter("mainCategoryArticles", (articles) => {
-    return splitCategoryArticlesByAge(articles).mainList;
-  });
-
-  eleventyConfig.addFilter("archiveCategoryArticles", (articles) => {
-    return splitCategoryArticlesByAge(articles).archiveList;
-  });
 
   // Check if article is within last 3 hours
-  eleventyConfig.addFilter("isJustIn", function (date, featured) {
-    if (featured === true || featured === "true") return true;
+  eleventyConfig.addFilter("isJustIn", function (date) {
     if (!date) return false;
     const artTime = new Date(date).getTime();
     if (isNaN(artTime)) return false;
     const now = new Date().getTime();
-    const diff = Math.abs(now - artTime);
-    return diff <= (3 * 60 * 60 * 1000);
+    const diff = now - artTime;
+    return diff >= 0 && diff <= (3 * 60 * 60 * 1000);
   });
 
   // Check if article is published within last 48 hours for Google News sitemap compliance
@@ -381,8 +353,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("pagedCategoryArticles", function (collectionApi) {
     const site = require("./src/_data/site.js");
     const PAGE_SIZE = 60;
-    const TWO_WEEKS_MS = 14 * 24 * 60 * 60 * 1000;
-    const now = new Date();
     const pagedList = [];
 
     site.categories.forEach(cat => {
@@ -390,25 +360,12 @@ module.exports = function (eleventyConfig) {
         .filter(item => (item.data.category || "").toLowerCase() === cat.slug.toLowerCase())
         .sort((a, b) => b.date - a.date);
 
-      const mainList = [];
-      const archiveList = [];
-
-      categoryArticles.forEach(art => {
-        const artDate = art.date ? new Date(art.date) : now;
-        const ageMs = now.getTime() - artDate.getTime();
-        if (ageMs >= TWO_WEEKS_MS) {
-          archiveList.push(art);
-        } else {
-          mainList.push(art);
-        }
-      });
-
-      const totalMain = mainList.length;
-      const totalPages = Math.max(Math.ceil(totalMain / PAGE_SIZE), 1);
+      const totalArticles = categoryArticles.length;
+      const totalPages = Math.max(Math.ceil(totalArticles / PAGE_SIZE), 1);
 
       for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
         const startIndex = (pageNum - 1) * PAGE_SIZE;
-        const pageMainArticles = mainList.slice(startIndex, startIndex + PAGE_SIZE);
+        const pageArticles = categoryArticles.slice(startIndex, startIndex + PAGE_SIZE);
 
         const permalink = pageNum === 1
           ? `/${cat.slug}/index.html`
@@ -422,10 +379,8 @@ module.exports = function (eleventyConfig) {
           category: cat,
           pageNumber: pageNum,
           totalPages: totalPages,
-          articles: pageMainArticles,
-          mainArticles: pageMainArticles,
-          archiveArticles: pageNum === 1 ? archiveList : [],
-          totalArticles: totalMain,
+          articles: pageArticles,
+          totalArticles: totalArticles,
           permalink: permalink,
           url: url,
           prevPageUrl: pageNum > 1 ? (pageNum === 2 ? `/${cat.slug}/` : `/${cat.slug}/${pageNum - 1}/`) : null,

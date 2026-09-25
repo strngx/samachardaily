@@ -32,6 +32,6 @@ noindex: true
 ---
 Anwar Ibrahim and Narendra Modi used the phrase “My Brother” while engaging in diplomatic dialogue linked to the BRICS forum, according to Currents Wire.
 
-The exchange was presented as a personal gesture that complemented the broader agenda of the BRICS meeting, signalling a friendly tone between the two leaders.
+The exchange was presented as a personal gesture that complemented the broader agenda of the BRICS meeting, including [multilateral proposals for a shared BRICS satellite network](/articles/india/india-pushes-for-shared-brics-satellite-network-at-2026-summit/), signalling a friendly tone between the two leaders.
 
 Currents Wire highlighted the wording as a notable element of the bilateral interaction, framing it as a human‑focused aspect of the diplomatic talks.
