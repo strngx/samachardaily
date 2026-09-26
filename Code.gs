@@ -2031,6 +2031,709 @@ function validateArticleDepthAndQuality_(article, factSheet, evidenceDensity, sh
   };
 }
 
+// ============================================================================
+// PHASE 4D: INDEPENDENT ARTICLE QUALITY / FACTUALITY AUDITOR & PUBLICATION GATE
+// ============================================================================
+
+/**
+ * Extracts numbers, metrics, currency values, and percentages from text.
+ * @param {string} text - Raw string content.
+ * @returns {Array<string>} Array of unique normalized number/figure tokens.
+ */
+function auditExtractNumbers_(text) {
+  if (!text || typeof text !== 'string') return [];
+  var regex = /\b(?:(?:Rs\.?|INR|USD|\$|€|£)\s*\d+(?:[.,]\d+)*(?:\s*(?:lakh|crore|million|billion|trillion))?|\d+(?:\.\d+)?%|\d+(?:\.\d+)?\s*(?:percent|kmph|mph|kg|tonnes|runs|wickets|overs|seats|votes|bps)|\d{2,})\b/gi;
+  var matches = text.match(regex);
+  if (!matches) return [];
+  var unique = {};
+  var result = [];
+  for (var i = 0; i < matches.length; i++) {
+    var clean = matches[i].trim().toLowerCase().replace(/\s+/g, ' ');
+    if (!unique[clean] && clean !== '2026' && clean !== '24' && clean !== '48') {
+      unique[clean] = true;
+      result.push(clean);
+    }
+  }
+  return result;
+}
+
+/**
+ * Extracts explicit quotations from article content.
+ * @param {string} text - Raw article text.
+ * @returns {Array<string>} Array of extracted quote strings.
+ */
+function auditExtractQuotes_(text) {
+  if (!text || typeof text !== 'string') return [];
+  var quotes = [];
+  var regex = /["“]([^"”]{10,})["”]/g;
+  var match;
+  while ((match = regex.exec(text)) !== null) {
+    var q = match[1].trim();
+    if (q.length >= 10) {
+      quotes.push(q);
+    }
+  }
+  return quotes;
+}
+
+/**
+ * Builds a single aggregated text corpus of all collected evidence.
+ * @param {Object} factSheet - Phase 4B Fact Sheet.
+ * @param {Object} cluster - Phase 4B Source Cluster.
+ * @param {Object} candidate - Ingested lead candidate.
+ * @returns {string} Aggregated evidence text.
+ */
+function buildEvidenceCorpusText_(factSheet, cluster, candidate) {
+  var parts = [];
+  if (candidate) {
+    if (candidate.title) parts.push(candidate.title);
+    if (candidate.description) parts.push(candidate.description);
+    if (candidate.content) parts.push(candidate.content);
+  }
+  if (cluster && Array.isArray(cluster.boundedSources)) {
+    for (var i = 0; i < cluster.boundedSources.length; i++) {
+      var s = cluster.boundedSources[i];
+      if (s.title) parts.push(s.title);
+      if (s.description) parts.push(s.description);
+      if (s.content) parts.push(s.content);
+    }
+  }
+  if (factSheet && Array.isArray(factSheet.claims)) {
+    for (var c = 0; c < factSheet.claims.length; c++) {
+      var cl = factSheet.claims[c];
+      if (cl && cl.statement) parts.push(cl.statement);
+    }
+  }
+  return parts.join('\n\n');
+}
+
+/**
+ * Phase 4D: Independent Article Quality & Factuality Auditor
+ * Evaluates the generated article independently against collected evidence across 16 core dimensions.
+ * Logical independence: Does NOT reuse writer self-scores or flags. Evaluates directly against evidence.
+ *
+ * @param {Object} article - Generated article object {title, dek, content, why_it_matters, what_happens_next, author, ...}.
+ * @param {Object} factSheet - Phase 4B Fact Sheet.
+ * @param {Object} cluster - Phase 4B Source Cluster.
+ * @param {Object} candidate - Ingested lead candidate.
+ * @param {Object} options - Options {isRetry: boolean, previousAudit: Object}.
+ * @returns {Object} Structured audit result {auditStatus, overall, dimensions, issues, publicationGate, revisionInstructions}.
+ */
+function auditArticleQualityAndFactuality_(article, factSheet, cluster, candidate, options) {
+  options = options || {};
+  var isRetry = !!options.isRetry;
+
+  var issues = [];
+  var dimensions = {};
+  var score = 100;
+
+  // Assemble article text
+  var bodyParagraphs = [];
+  if (Array.isArray(article.content)) {
+    bodyParagraphs = article.content.slice();
+  } else if (typeof article.content === 'string') {
+    bodyParagraphs = article.content.split(/\n\n+/);
+  }
+  var bodyText = bodyParagraphs.join('\n\n');
+  var fullArticleText = (article.title || '') + '\n' + (article.dek || '') + '\n' + bodyText;
+
+  // Build aggregate evidence corpus
+  var evidenceText = buildEvidenceCorpusText_(factSheet, cluster, candidate);
+  var evidenceLower = evidenceText.toLowerCase();
+
+  // Helper to record an issue
+  function recordIssue(severity, category, claim, reason, evidence, action) {
+    issues.push({
+      severity: severity,
+      category: category,
+      claim: claim,
+      reason: reason,
+      evidence: evidence || '',
+      action: action
+    });
+    if (severity === 'HARD_FAIL') score -= 40;
+    else if (severity === 'MAJOR') score -= 20;
+    else score -= 5;
+  }
+
+  // --------------------------------------------------------------------------
+  // DIMENSION 1: Evidence Support & Hallucination Defense
+  // --------------------------------------------------------------------------
+  var artKeywords = extractKeywords_(fullArticleText);
+  var evKeywords = extractKeywords_(evidenceText);
+  var evKeySet = {};
+  for (var k = 0; k < evKeywords.length; k++) evKeySet[evKeywords[k]] = true;
+
+  var matchedKws = 0;
+  for (var a = 0; a < artKeywords.length; a++) {
+    if (evKeySet[artKeywords[a]]) matchedKws++;
+  }
+  var overlapRatio = artKeywords.length > 0 ? (matchedKws / artKeywords.length) : 1.0;
+
+  // Severe hallucination: Near-zero lexical/factual overlap with evidence (< 15%)
+  if (artKeywords.length >= 25 && overlapRatio < 0.15) {
+    recordIssue(
+      'HARD_FAIL',
+      'severe_hallucination',
+      article.title,
+      'Severe hallucination: Article content has near-zero overlap (' + Math.round(overlapRatio * 100) + '%) with collected evidence',
+      evidenceText.substring(0, 200),
+      'BLOCK'
+    );
+    dimensions.evidenceSupport = { pass: false, score: 0, details: 'Severe hallucination detected' };
+  } else if (artKeywords.length >= 20 && overlapRatio < 0.30) {
+    recordIssue(
+      'MAJOR',
+      'unsupported_claim',
+      'Multiple unsupported topical claims',
+      'Low evidence overlap (' + Math.round(overlapRatio * 100) + '%): Substantive assertions cannot be found in collected evidence',
+      evidenceText.substring(0, 200),
+      isRetry ? 'HUMAN_REVIEW' : 'REVISION'
+    );
+    dimensions.evidenceSupport = { pass: false, score: 40, details: 'Low evidence support' };
+  } else {
+    dimensions.evidenceSupport = { pass: true, score: Math.round(overlapRatio * 100), details: 'Evidence overlap: ' + Math.round(overlapRatio * 100) + '%' };
+  }
+
+  // Check specific unevidenced factual claims if present
+  if (factSheet && Array.isArray(factSheet.unsupported_claims_flagged)) {
+    for (var u = 0; u < factSheet.unsupported_claims_flagged.length; u++) {
+      var unsupp = factSheet.unsupported_claims_flagged[u];
+      if (bodyText.toLowerCase().indexOf(unsupp.toLowerCase()) !== -1) {
+        recordIssue(
+          'MAJOR',
+          'unsupported_claim',
+          unsupp,
+          'Unsupported factual claim present in article: "' + unsupp + '"',
+          '',
+          isRetry ? 'HUMAN_REVIEW' : 'REVISION'
+        );
+      }
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // DIMENSION 2: Claim Coverage & Source Conflicts
+  // --------------------------------------------------------------------------
+  var coveragePercent = 100;
+  if (factSheet && Array.isArray(factSheet.claims) && factSheet.claims.length >= 2) {
+    var matchedClaims = 0;
+    var lowerBody = bodyText.toLowerCase();
+    for (var cl = 0; cl < factSheet.claims.length; cl++) {
+      var claimObj = factSheet.claims[cl];
+      if (claimObj && claimObj.statement) {
+        var claimWords = extractKeywords_(claimObj.statement);
+        var foundW = 0;
+        for (var cw = 0; cw < claimWords.length; cw++) {
+          if (lowerBody.indexOf(claimWords[cw]) !== -1) foundW++;
+        }
+        if (claimWords.length > 0 && (foundW / claimWords.length) >= 0.40) {
+          matchedClaims++;
+        }
+      }
+    }
+    coveragePercent = Math.round((matchedClaims / factSheet.claims.length) * 100);
+  }
+
+  // Source conflicts: If fact sheet notes material conflicts or cluster has disputed status
+  if (factSheet && (factSheet.material_conflicts_found === true || factSheet.overall_corroboration_status === 'disputed')) {
+    recordIssue(
+      'HARD_FAIL',
+      'source_conflict',
+      'Disputed source claims',
+      'Material conflict between sources detected (' + ((factSheet.material_conflicts && factSheet.material_conflicts.join('; ')) || 'conflicting facts reported') + '); requires human review',
+      (factSheet.material_conflicts && factSheet.material_conflicts.join('; ')) || '',
+      'HUMAN_REVIEW'
+    );
+    dimensions.claimCoverage = { pass: false, score: 50, coveragePercent: coveragePercent, details: 'Source conflict requires human review' };
+  } else {
+    dimensions.claimCoverage = { pass: true, score: coveragePercent, coveragePercent: coveragePercent, details: 'Coverage: ' + coveragePercent + '%' };
+  }
+
+  // --------------------------------------------------------------------------
+  // DIMENSION 3: Source Traceability & Attribution
+  // --------------------------------------------------------------------------
+  var hasAttribution = /\b(?:according\s+to|reported\s+by|said|stated|announced|in\s+a\s+statement|disclosed|confirmed\s+by|noted|per|told|spokesperson)\b/i.test(bodyText);
+  var shortFormat = classifyShortFormatType_(candidate);
+  if (!hasAttribution && !shortFormat.isShortFormat && bodyText.length > 250) {
+    recordIssue(
+      'MAJOR',
+      'attribution_failure',
+      'Missing source attribution',
+      'Article presents third-party facts without standard journalistic attribution phrasing (e.g., "according to", "stated")',
+      candidate ? candidate.sourceName : '',
+      isRetry ? 'HUMAN_REVIEW' : 'REVISION'
+    );
+    dimensions.sourceTraceability = { pass: false, score: 50, details: 'Attribution missing' };
+  } else {
+    dimensions.sourceTraceability = { pass: true, score: 100, details: 'Attribution verified' };
+  }
+
+  // --------------------------------------------------------------------------
+  // DIMENSION 4: Source Independence & Anti-False Corroboration
+  // --------------------------------------------------------------------------
+  var isSingleOrSyndicated = (cluster && (cluster.corroborationStatus === 'single_source' || cluster.corroborationStatus === 'syndicated' || (cluster.independentCount !== undefined && cluster.independentCount <= 1)));
+  var claimsFalseIndependence = /\b(?:multiple\s+independent\s+(?:sources|newsrooms|outlets)|independently\s+confirmed\s+by\s+(?:multiple|several)|corroborated\s+across\s+independent)\b/i.test(fullArticleText);
+
+  if (isSingleOrSyndicated && claimsFalseIndependence) {
+    recordIssue(
+      'HARD_FAIL',
+      'false_independence',
+      'Falsely claimed multi-source corroboration',
+      'Article presents a single-source or syndicated story as broadly independently corroborated',
+      'Source count: 1 independent origin',
+      'BLOCK'
+    );
+    dimensions.sourceIndependence = { pass: false, score: 0, details: 'False independence claim' };
+  } else {
+    dimensions.sourceIndependence = { pass: true, score: 100, details: 'Source independence respected' };
+  }
+
+  // --------------------------------------------------------------------------
+  // DIMENSION 5: Quote Integrity
+  // --------------------------------------------------------------------------
+  var articleQuotes = auditExtractQuotes_(bodyText);
+  var quoteIntegrityPass = true;
+  var quoteDetails = 'No quotes present';
+
+  if (articleQuotes.length > 0) {
+    for (var q = 0; q < articleQuotes.length; q++) {
+      var quoteStr = articleQuotes[q];
+      var quoteWords = extractKeywords_(quoteStr);
+      var qMatched = 0;
+      for (var qw = 0; qw < quoteWords.length; qw++) {
+        if (evidenceLower.indexOf(quoteWords[qw]) !== -1) qMatched++;
+      }
+      var quoteRatio = quoteWords.length > 0 ? (qMatched / quoteWords.length) : 0;
+      if (quoteRatio < 0.60) {
+        quoteIntegrityPass = false;
+        recordIssue(
+          'HARD_FAIL',
+          'fabricated_quote',
+          quoteStr,
+          'Fabricated or materially altered quote detected: "' + quoteStr + '" cannot be corroborated in evidence',
+          '',
+          'BLOCK'
+        );
+      }
+    }
+    quoteDetails = quoteIntegrityPass ? (articleQuotes.length + ' quotes verified') : 'Fabricated quote detected';
+  }
+  dimensions.quoteIntegrity = { pass: quoteIntegrityPass, score: quoteIntegrityPass ? 100 : 0, details: quoteDetails };
+
+  // --------------------------------------------------------------------------
+  // DIMENSION 6: Numerical Accuracy
+  // --------------------------------------------------------------------------
+  var articleNumbers = auditExtractNumbers_(fullArticleText);
+  var numPass = true;
+  var failedNumbers = [];
+
+  for (var n = 0; n < articleNumbers.length; n++) {
+    var numToken = articleNumbers[n];
+    if (evidenceLower.indexOf(numToken) === -1) {
+      var digitsMatch = numToken.match(/\d+/g);
+      var digitsFound = false;
+      if (digitsMatch) {
+        for (var dm = 0; dm < digitsMatch.length; dm++) {
+          if (digitsMatch[dm].length >= 2 && evidenceLower.indexOf(digitsMatch[dm]) !== -1) {
+            digitsFound = true;
+            break;
+          }
+        }
+      }
+      if (!digitsFound) {
+        numPass = false;
+        failedNumbers.push(numToken);
+        recordIssue(
+          'HARD_FAIL',
+          'unsupported_number',
+          numToken,
+          'Numerical claim (' + numToken + ') cannot be found in collected evidence',
+          '',
+          'BLOCK'
+        );
+      }
+    }
+  }
+  dimensions.numericalAccuracy = { pass: numPass, score: numPass ? 100 : 0, details: numPass ? 'All numbers verified' : ('Unsupported: ' + failedNumbers.join(', ')) };
+
+  // --------------------------------------------------------------------------
+  // DIMENSION 7: Chronology & Temporal Consistency
+  // --------------------------------------------------------------------------
+  var hasAnachronisticYear = /\b(?:202[0-4])\b/.test(article.title || '');
+  if (hasAnachronisticYear && evidenceLower.indexOf((article.title || '').match(/\b(?:202[0-4])\b/)[0]) === -1) {
+    recordIssue(
+      'MAJOR',
+      'chronology_error',
+      'Anachronistic year in title',
+      'Historical year mentioned in title without source evidence',
+      '',
+      isRetry ? 'HUMAN_REVIEW' : 'REVISION'
+    );
+    dimensions.chronology = { pass: false, score: 40, details: 'Temporal inconsistency' };
+  } else {
+    dimensions.chronology = { pass: true, score: 100, details: 'Chronology verified' };
+  }
+
+  // --------------------------------------------------------------------------
+  // DIMENSION 8: Title / Dek Accuracy & Alignment
+  // --------------------------------------------------------------------------
+  var titleKws = extractKeywords_(article.title || '');
+  var bodyLower = bodyText.toLowerCase();
+  var titleMatchedKws = 0;
+  for (var tk = 0; tk < titleKws.length; tk++) {
+    if (bodyLower.indexOf(titleKws[tk]) !== -1) titleMatchedKws++;
+  }
+  var titleSupportRatio = titleKws.length > 0 ? (titleMatchedKws / titleKws.length) : 1.0;
+
+  var titlePass = true;
+  if (titleKws.length >= 3 && titleSupportRatio < 0.40) {
+    titlePass = false;
+    recordIssue(
+      'MAJOR',
+      'title_mismatch',
+      article.title,
+      'Headline and body topical mismatch (Title keyword support in body ' + Math.round(titleSupportRatio * 100) + '% < 40%)',
+      '',
+      isRetry ? 'HUMAN_REVIEW' : 'REVISION'
+    );
+  }
+
+  var CLICKBAIT_SUPERLATIVES = /\b(?:shocking|mind-blowing|unbelievable|miraculous|you\s+won't\s+believe|apocalyptic)\b/i;
+  var cbMatch = (article.title || '').match(CLICKBAIT_SUPERLATIVES);
+  if (cbMatch && evidenceLower.indexOf(cbMatch[0].toLowerCase()) === -1) {
+    titlePass = false;
+    recordIssue(
+      'MAJOR',
+      'title_mismatch',
+      article.title,
+      'Sensationalist/clickbait terminology ("' + cbMatch[0] + '") not substantiated by evidence',
+      '',
+      isRetry ? 'HUMAN_REVIEW' : 'REVISION'
+    );
+  }
+  dimensions.titleAccuracy = { pass: titlePass, score: titlePass ? 100 : 50, details: titlePass ? 'Title matches body and evidence' : 'Title mismatch or exaggeration' };
+
+  // --------------------------------------------------------------------------
+  // DIMENSION 9: Originality & Reader Value
+  // --------------------------------------------------------------------------
+  var rawCandidateText = (candidate ? ((candidate.title || '') + ' ' + (candidate.description || '') + ' ' + (candidate.content || '')) : '');
+  var candWords = extractKeywords_(rawCandidateText);
+  var artBodyWords = extractKeywords_(bodyText);
+  var verbatimSim = calculateJaccardSimilarity_(candWords, artBodyWords);
+
+  if (candWords.length >= 30 && verbatimSim > 0.85) {
+    recordIssue(
+      'MAJOR',
+      'low_originality',
+      'Verbatim wire reproduction',
+      'Article reproduces raw candidate text verbatim (' + Math.round(verbatimSim * 100) + '% similarity) without original editorial framing',
+      '',
+      isRetry ? 'HUMAN_REVIEW' : 'REVISION'
+    );
+    dimensions.originality = { pass: false, score: 30, details: 'Verbatim reproduction' };
+  } else {
+    dimensions.originality = { pass: true, score: 100, details: 'Original journalistic structure' };
+  }
+
+  // --------------------------------------------------------------------------
+  // DIMENSION 10: Structure & Story Format
+  // --------------------------------------------------------------------------
+  var hasParagraphs = bodyParagraphs.length >= 2;
+  if (!hasParagraphs && !shortFormat.isShortFormat) {
+    recordIssue(
+      'MAJOR',
+      'poor_structure',
+      'Inadequate paragraphing',
+      'Article lacks multi-paragraph journalistic structure',
+      '',
+      isRetry ? 'HUMAN_REVIEW' : 'REVISION'
+    );
+    dimensions.structure = { pass: false, score: 50, details: 'Single paragraph' };
+  } else {
+    dimensions.structure = { pass: true, score: 100, details: 'Sound news structure' };
+  }
+
+  // --------------------------------------------------------------------------
+  // DIMENSION 11: Length & Evidence Density
+  // --------------------------------------------------------------------------
+  var wordCount = bodyText.split(/\s+/).filter(function(w) { return w.length > 0; }).length;
+  var density = evaluateEvidenceDensity_(factSheet, cluster, candidate);
+  var densityPass = true;
+
+  if (!shortFormat.isShortFormat) {
+    if (density.tier === 'HIGH_DENSITY' && wordCount < 450) {
+      densityPass = false;
+      recordIssue(
+        'MAJOR',
+        'thin_evidence',
+        'Under-generation on rich evidence',
+        'Article under-generated (' + wordCount + 'w < 450w minimum threshold for HIGH_DENSITY evidence)',
+        'Evidence density tier: ' + density.tier,
+        isRetry ? 'HUMAN_REVIEW' : 'REVISION'
+      );
+    } else if (density.tier === 'MODERATE_DENSITY' && wordCount < 300) {
+      densityPass = false;
+      recordIssue(
+        'MAJOR',
+        'thin_evidence',
+        'Under-generation on moderate evidence',
+        'Article under-generated (' + wordCount + 'w < 300w threshold for MODERATE_DENSITY evidence)',
+        'Evidence density tier: ' + density.tier,
+        isRetry ? 'HUMAN_REVIEW' : 'REVISION'
+      );
+    }
+  }
+  dimensions.evidenceDensity = { pass: densityPass, score: densityPass ? 100 : 50, wordCount: wordCount, details: wordCount + ' words (' + density.tier + ')' };
+
+  // --------------------------------------------------------------------------
+  // DIMENSION 12: Language Quality & AI Clichés / Anti-Padding
+  // --------------------------------------------------------------------------
+  var PROHIBITED_PADDING_PATTERNS = [
+    /\bin\s+a\s+major\s+development\b/i,
+    /\bin\s+a\s+significant\s+development\b/i,
+    /\bthis\s+comes\s+amid\b/i,
+    /\bthe\s+development\s+marks\s+a\s+significant\b/i,
+    /\bmarks\s+a\s+significant\b/i,
+    /\bit\s+remains\s+to\s+be\s+seen\b/i,
+    /\bhighlights\s+the\s+importance\b/i,
+    /\bas\s+the\s+industry\s+continues\s+to\s+evolve\b/i,
+    /\bgame\s+changer\b/i,
+    /\btransform\s+the\s+industry\b/i,
+    /\bconsumers\s+will\s+benefit\s+significantly\b/i
+  ];
+  var clichéMatches = 0;
+  var matchedClichés = [];
+  for (var p = 0; p < PROHIBITED_PADDING_PATTERNS.length; p++) {
+    var matchP = bodyText.match(PROHIBITED_PADDING_PATTERNS[p]);
+    if (matchP) {
+      clichéMatches++;
+      matchedClichés.push(matchP[0]);
+    }
+  }
+
+  var hasRepetition = false;
+  if (bodyParagraphs.length >= 2) {
+    for (var p1 = 0; p1 < bodyParagraphs.length; p1++) {
+      var w1 = bodyParagraphs[p1].toLowerCase().replace(/[^\w\s]/g, ' ').split(/\s+/).filter(function(w) { return w.length > 3; });
+      for (var p2 = p1 + 1; p2 < bodyParagraphs.length; p2++) {
+        var w2 = bodyParagraphs[p2].toLowerCase().replace(/[^\w\s]/g, ' ').split(/\s+/).filter(function(w) { return w.length > 3; });
+        var sim = calculateJaccardSimilarity_(w1, w2);
+        if (sim >= 0.65 && w1.length >= 15 && w2.length >= 15) {
+          hasRepetition = true;
+          break;
+        }
+      }
+      if (hasRepetition) break;
+    }
+  }
+
+  var languagePass = true;
+  if (clichéMatches > 1 || hasRepetition) {
+    languagePass = false;
+    var langReason = hasRepetition ? 'Excessive paragraph repetition' : ('Prohibited AI clichés: ' + matchedClichés.join(', '));
+    recordIssue(
+      'MAJOR',
+      'ai_cliche_filler',
+      matchedClichés.join(', ') || 'Paragraph repetition',
+      langReason,
+      '',
+      isRetry ? 'HUMAN_REVIEW' : 'REVISION'
+    );
+  }
+  dimensions.languageQuality = { pass: languagePass, score: languagePass ? 100 : 50, details: languagePass ? 'Clean natural language' : 'Clichés/repetition detected' };
+
+  // --------------------------------------------------------------------------
+  // DIMENSION 13: Unsupported Inference
+  // --------------------------------------------------------------------------
+  var INFERENCE_PATTERNS = [
+    /\b(?:is\s+guaranteed\s+to\s+win|will\s+definitely\s+win|poised\s+for\s+a\s+landslide|guaranteed\s+to\s+(?:dominate|succeed|fail)|stock\s+will\s+(?:skyrocket|surge|crash))\b/i,
+    /\b(?:the\s+best\s+(?:in\s+the\s+world|car|phone|product|deal)|safest\s+(?:car|vehicle|product)\s+on\s+earth)\b/i,
+    /\b(?:acted\s+out\s+of\s+(?:fear|panic|greed)|secretly\s+plotted)\b/i
+  ];
+  var inferencePass = true;
+  for (var ip = 0; ip < INFERENCE_PATTERNS.length; ip++) {
+    var infMatch = fullArticleText.match(INFERENCE_PATTERNS[ip]);
+    if (infMatch && evidenceLower.indexOf(infMatch[0].toLowerCase()) === -1) {
+      inferencePass = false;
+      recordIssue(
+        'MAJOR',
+        'unsupported_inference',
+        infMatch[0],
+        'Prohibited unsupported inference or speculative claim: "' + infMatch[0] + '"',
+        '',
+        isRetry ? 'HUMAN_REVIEW' : 'REVISION'
+      );
+      break;
+    }
+  }
+  dimensions.unsupportedInference = { pass: inferencePass, score: inferencePass ? 100 : 50, details: inferencePass ? 'No unsupported inferences' : 'Speculative inference detected' };
+
+  // --------------------------------------------------------------------------
+  // DIMENSION 14: Sensitive Governance & Political Neutrality
+  // --------------------------------------------------------------------------
+  var sensitiveInfo = classifySensitiveTopic_(article);
+  var candSensitive = candidate ? classifySensitiveTopic_(candidate) : { sensitive: false, categories: [] };
+  var isSensitive = sensitiveInfo.sensitive || candSensitive.sensitive;
+  var allSensitiveCats = [];
+  var sCatMap = {};
+  var cats = (sensitiveInfo.categories || []).concat(candSensitive.categories || []);
+  for (var sc = 0; sc < cats.length; sc++) {
+    if (!sCatMap[cats[sc]]) {
+      sCatMap[cats[sc]] = true;
+      allSensitiveCats.push(cats[sc]);
+    }
+  }
+
+  var POLITICAL_BIAS_PATTERNS = /\b(?:vote\s+for|must\s+elect|corrupt\s+regime|dictatorial\s+regime|discredited\s+party|landslide\s+victory\s+guaranteed)\b/i;
+  var biasMatch = fullArticleText.match(POLITICAL_BIAS_PATTERNS);
+  if (biasMatch) {
+    recordIssue(
+      'HARD_FAIL',
+      'political_neutrality_violation',
+      biasMatch[0],
+      'Political neutrality violation: Partisan advocacy or bias detected ("' + biasMatch[0] + '")',
+      '',
+      'HUMAN_REVIEW'
+    );
+    dimensions.sensitiveGovernance = { pass: false, score: 0, details: 'Political neutrality violation' };
+  } else if (isSensitive) {
+    recordIssue(
+      'MAJOR',
+      'sensitive_review_required',
+      'Sensitive topic: ' + allSensitiveCats.join(', '),
+      'Mandatory human review required for sensitive categories (' + allSensitiveCats.join(', ') + ')',
+      '',
+      'HUMAN_REVIEW'
+    );
+    dimensions.sensitiveGovernance = { pass: true, score: 85, details: 'Sensitive topic: ' + allSensitiveCats.join(', ') };
+  } else {
+    dimensions.sensitiveGovernance = { pass: true, score: 100, details: 'Standard non-sensitive topic' };
+  }
+
+  // --------------------------------------------------------------------------
+  // DIMENSION 15: AI Disclosure & Identity Compliance (Phase 3B)
+  // --------------------------------------------------------------------------
+  var authorVal = (article.author || '').trim();
+  var identityPass = true;
+  if (authorVal && authorVal !== 'SamacharDaily Editorial Team' && authorVal !== 'Arjun Khatri' && authorVal !== 'Arjun Khatri — Founder & Owner') {
+    identityPass = false;
+    recordIssue(
+      'HARD_FAIL',
+      'fake_identity',
+      authorVal,
+      'Prohibited fictional author identity detected: "' + authorVal + '" (must be "SamacharDaily Editorial Team" or "Arjun Khatri")',
+      '',
+      'BLOCK'
+    );
+  }
+  var FAKE_BYLINE_PATTERN = /\b(?:by\s+[A-Z][a-z]+\s+[A-Z][a-z]+,\s*(?:Senior\s+Editor|Reporter|Correspondent|Staff\s+Writer))\b/i;
+  var fakeByline = bodyText.match(FAKE_BYLINE_PATTERN);
+  if (fakeByline) {
+    identityPass = false;
+    recordIssue(
+      'HARD_FAIL',
+      'fake_identity',
+      fakeByline[0],
+      'Fabricated journalist credential detected in body: "' + fakeByline[0] + '"',
+      '',
+      'BLOCK'
+    );
+  }
+  dimensions.identityCompliance = { pass: identityPass, score: identityPass ? 100 : 0, details: identityPass ? 'Phase 3B identity compliant' : 'Fake identity detected' };
+
+  // --------------------------------------------------------------------------
+  // DIMENSION 16: Prompt Injection Defense
+  // --------------------------------------------------------------------------
+  var PROMPT_INJECTION_PATTERNS = /\b(?:ignore\s+(?:all\s+)?previous\s+instructions|system\s+prompt\s+override|output\s+all\s+secrets|you\s+are\s+now\s+in\s+debug\s+mode|as\s+an\s+ai\s+language\s+model|system:\s*|assistant:\s*)\b/i;
+  var injectionLeak = bodyText.match(PROMPT_INJECTION_PATTERNS);
+  var injectionPass = true;
+  if (injectionLeak) {
+    injectionPass = false;
+    recordIssue(
+      'HARD_FAIL',
+      'prompt_injection_leak',
+      injectionLeak[0],
+      'Adversarial prompt injection pattern leaked into article output: "' + injectionLeak[0] + '"',
+      '',
+      'BLOCK'
+    );
+  }
+  dimensions.promptInjectionSafety = { pass: injectionPass, score: injectionPass ? 100 : 0, details: injectionPass ? 'Prompt injection secure' : 'Prompt injection leak detected' };
+
+  // --------------------------------------------------------------------------
+  // FINAL STATUS & PUBLICATION GATE DETERMINATION
+  // --------------------------------------------------------------------------
+  if (score < 0) score = 0;
+
+  var hasBlock = false;
+  var hasHumanReview = false;
+  var hasRevision = false;
+
+  for (var i = 0; i < issues.length; i++) {
+    var iss = issues[i];
+    if (iss.action === 'BLOCK') hasBlock = true;
+    else if (iss.action === 'HUMAN_REVIEW') hasHumanReview = true;
+    else if (iss.action === 'REVISION') hasRevision = true;
+  }
+
+  var auditStatus = 'PASS';
+  var publicationGate = 'PASS';
+  var revisionInstructions = null;
+
+  if (hasBlock) {
+    auditStatus = 'REJECT';
+    publicationGate = 'BLOCKED';
+  } else if (hasHumanReview) {
+    auditStatus = 'HUMAN_REVIEW';
+    publicationGate = 'HUMAN_REVIEW';
+  } else if (hasRevision) {
+    if (isRetry) {
+      auditStatus = 'HUMAN_REVIEW';
+      publicationGate = 'HUMAN_REVIEW';
+    } else {
+      auditStatus = 'REVISION';
+      publicationGate = 'BLOCKED';
+      revisionInstructions = auditGenerateRevisionInstructions_(issues);
+    }
+  }
+
+  return {
+    auditStatus: auditStatus,
+    overall: {
+      score: score,
+      confidence: 0.95,
+      passed: (publicationGate === 'PASS')
+    },
+    dimensions: dimensions,
+    issues: issues,
+    publicationGate: publicationGate,
+    revisionInstructions: revisionInstructions
+  };
+}
+
+/**
+ * Generates structured, precise revision instructions for AI revision retry.
+ * @param {Array<Object>} issues - List of audit issues.
+ * @returns {string} Formatted revision instructions.
+ */
+function auditGenerateRevisionInstructions_(issues) {
+  var lines = [
+    'MANDATORY EDITORIAL REVISION REQUIRED BY INDEPENDENT AUDITOR:',
+    'The following specific factual/quality defects were detected and MUST be corrected:'
+  ];
+  for (var i = 0; i < issues.length; i++) {
+    var iss = issues[i];
+    lines.push((i + 1) + '. [' + iss.category.toUpperCase() + '] ' + iss.reason + (iss.claim ? ' (Target: "' + iss.claim + '")' : ''));
+  }
+  lines.push('REVISION RULES:');
+  lines.push('- Resolve these exact issues strictly using the verified evidence.');
+  lines.push('- NEVER invent new facts, figures, quotes, or claims to resolve an issue.');
+  lines.push('- Do NOT alter unrelated accurate portions of the article.');
+  lines.push('- Ensure clear journalistic source attribution is present.');
+  return lines.join('\n');
+}
+
 /**
  * Helper to safely extract and validate JSON article object from AI text responses.
  *
@@ -2283,16 +2986,20 @@ function rewriteWithGroq_(headline, category, config, cluster, factSheet) {
     ? '\nCRITICAL REQUIREMENT: Output MUST be 100% written in fluent, standard journalistic English. Never output Portuguese, Spanish, French, German, or non-English text for title, seoTitle, dek, or content under any circumstances.\n'
     : '\nCRITICAL REQUIREMENT: All output fields (title, seoTitle, dek, content, why_it_matters, what_happens_next) MUST be written in 100% fluent English even if source dispatches contain foreign-language text.\n';
 
-  // Phase 4C: Evaluate Evidence Density for Depth Contract
+  // Phase 4C & 4D: Evaluate Evidence Density & Revision Instructions
   var evidenceDensity = evaluateEvidenceDensity_(factSheet, cluster, headline);
   var depthEnforceRule = (headline && headline.enforceDepth)
     ? '\nDEPTH ENFORCEMENT NOTICE: The previous synthesis was too brief given the available evidence. Provide comprehensive, detailed reporting across structured sections (target ' + evidenceDensity.targetWords.min + '–' + evidenceDensity.targetWords.max + ' words). Address all documented facts, technical/operational details, background context, and stakeholder responses. Do NOT omit documented evidence; do NOT invent new facts.\n'
+    : '';
+  var revisionRule = (headline && headline.revisionInstructions)
+    ? '\nEDITORIAL AUDIT REVISION INSTRUCTIONS: The previous generation failed the independent quality/factuality audit:\n' + headline.revisionInstructions + '\nStrictly resolve these exact failed claims/issues. Do not invent any facts to satisfy this revision. Do not alter unrelated accurate portions of the article.\n'
     : '';
 
   var systemPrompt = 'You are a senior wire and investigative news editor at SamacharDaily, an authoritative Indian and international digital news publication.\n' +
     "Today's date is " + todayDateStr + '.\n' +
     englishEnforceRule +
     depthEnforceRule +
+    revisionRule +
     'CRITICAL FACTUAL GROUNDING & HUMAN-EDITOR STANDARDS:\n' +
     '1. SOURCE FIDELITY & FACT SHEET GROUNDING: The supplied Fact Sheet and source dispatches are the absolute factual boundary. Use ONLY facts explicitly supported by the evidence. Never invent names, dates, years, numbers, statistics, quotations, historical events, company history, tournament history, previous results, future events, locations, affiliations, or claims about people or organizations.\n' +
     '2. NO HALLUCINATION OR MISSING SPECIFICS: Never use model training knowledge to fill in missing specifics or turn general knowledge into claims about this specific event. If a specific fact is not in the source, stay general or omit it. The governing rule is: USEFUL VERIFIED INFORMATION > WORD COUNT.\n' +
@@ -2685,13 +3392,22 @@ function buildMarkdown_(article, image, videos, sourceUrl, headline, isFeatured,
     'featured: ' + featuredFlag
   ];
 
-  // Phase 15P-1 & Phase 15P-4: Standardize draft frontmatter schema & sensitive governance routing
+  // Phase 15P-1, 15P-4 & Phase 4D: Standardize draft frontmatter schema & sensitive governance routing
   var sensitiveInfo = classifySensitiveTopic_(article);
-  if (isDraft || (article && article.status === 'draft') || sensitiveInfo.sensitive) {
+  var isForcedDraft = headline && (headline._forceDraft === true);
+  if (isDraft || (article && article.status === 'draft') || sensitiveInfo.sensitive || isForcedDraft) {
     mdLines.push('status: draft');
+    mdLines.push('review_required: true');
+  }
+  if (headline && headline._auditStatus) {
+    mdLines.push('audit_status: "' + headline._auditStatus.replace(/"/g, '\\"') + '"');
+  } else if (!isDraft && !isForcedDraft && !sensitiveInfo.sensitive) {
+    mdLines.push('audit_status: "PASS"');
+  }
+  if (headline && headline._auditReason) {
+    mdLines.push('audit_reason: "' + headline._auditReason.replace(/"/g, '\\"') + '"');
   }
   if (sensitiveInfo.sensitive) {
-    mdLines.push('review_required: true');
     mdLines.push('sensitive_categories: [' + sensitiveInfo.categories.map(function(c) { return '"' + c + '"'; }).join(', ') + ']');
     if (sensitiveInfo.categories.indexOf('health_medicine') !== -1 || sensitiveInfo.categories.indexOf('diet_nutrition_wellness') !== -1) {
       mdLines.push('health_disclaimer: true');
@@ -3791,40 +4507,53 @@ function runPipelineForCategory_(categoryKey) {
     return { success: false, reason: 'Synthesized article rejected by editorial quality gate: ' + stage3Quality.reason };
   }
 
-  // Phase 4C: Depth & Anti-Padding Quality Gate (with single controlled retry)
-  var shortFormat = classifyShortFormatType_(selectedCandidate);
-  var evidenceDensity = evaluateEvidenceDensity_(factSheet, winningCluster, selectedCandidate);
-  var depthQuality = validateArticleDepthAndQuality_(article, factSheet, evidenceDensity, shortFormat.formatType, false);
+  // Phase 4D: Independent Article Quality & Factuality Auditor + Final Publication Gate
+  var auditResult = auditArticleQualityAndFactuality_(article, factSheet, winningCluster, selectedCandidate, { isRetry: false });
+  Logger.log('INDEPENDENT AUDIT: status=' + auditResult.auditStatus + ' gate=' + auditResult.publicationGate + ' score=' + auditResult.overall.score + ' issues=' + auditResult.issues.length);
 
-  if (!depthQuality.valid && depthQuality.action === 'retry_depth') {
-    Logger.log('DEPTH QUALITY GATE: Under-generation detected on rich evidence (' + depthQuality.reason + '). Attempting single controlled depth retry...');
-    selectedCandidate.enforceDepth = true;
+  if (auditResult.auditStatus === 'REVISION') {
+    var issueReasons = auditResult.issues.map(function(i) { return i.reason; }).join('; ');
+    Logger.log('INDEPENDENT AUDIT: Article requires revision (' + issueReasons + '). Attempting single controlled revision...');
+    selectedCandidate.revisionInstructions = auditResult.revisionInstructions;
     try {
-      var retryArticle = rewriteWithGroq_(selectedCandidate, catCfg.name, config, winningCluster, factSheet);
-      if (retryArticle && retryArticle.title && retryArticle.content && isArticleOutputEnglish_(retryArticle) && validateArticleOutputStructure_(retryArticle).valid) {
-        var retryStage3 = isEditoriallyAcceptable_(retryArticle.title, retryArticle.dek, retryArticle.content, selectedCandidate.sourceUrl, selectedCandidate.sourceName, true);
-        if (retryStage3.acceptable) {
-          article = retryArticle;
-          var retryDepthQuality = validateArticleDepthAndQuality_(article, factSheet, evidenceDensity, shortFormat.formatType, true);
-          if (!retryDepthQuality.valid || retryDepthQuality.action === 'stage_draft') {
-            Logger.log('DEPTH QUALITY GATE: Under-generation persisted after depth retry (' + retryDepthQuality.reason + '). Forcing draft staging.');
-            selectedCandidate._forceDraft = true;
-          }
-        } else {
-          Logger.log('DEPTH QUALITY GATE: Retry article failed editorial quality gate (' + retryStage3.reason + '). Retaining initial article and forcing draft staging.');
+      var revisedArticle = rewriteWithGroq_(selectedCandidate, catCfg.name, config, winningCluster, factSheet);
+      if (revisedArticle && revisedArticle.title && revisedArticle.content && isArticleOutputEnglish_(revisedArticle) && validateArticleOutputStructure_(revisedArticle).valid) {
+        var retryAudit = auditArticleQualityAndFactuality_(revisedArticle, factSheet, winningCluster, selectedCandidate, { isRetry: true, previousAudit: auditResult });
+        Logger.log('INDEPENDENT AUDIT (POST-REVISION): status=' + retryAudit.auditStatus + ' gate=' + retryAudit.publicationGate + ' score=' + retryAudit.overall.score);
+        if (retryAudit.publicationGate === 'PASS') {
+          article = revisedArticle;
+          auditResult = retryAudit;
+        } else if (retryAudit.publicationGate === 'HUMAN_REVIEW' || retryAudit.auditStatus === 'REVISION') {
+          article = revisedArticle;
+          auditResult = retryAudit;
           selectedCandidate._forceDraft = true;
+          selectedCandidate._auditReason = retryAudit.issues.map(function(i) { return i.reason; }).join('; ');
+          selectedCandidate._auditStatus = 'HUMAN_REVIEW';
+        } else {
+          Logger.log('INDEPENDENT AUDIT (POST-REVISION): Hard fail on revision. Aborting publication.');
+          return { success: false, reason: 'Revised article blocked by publication gate: ' + retryAudit.issues.map(function(i) { return i.reason; }).join('; ') };
         }
       } else {
-        Logger.log('DEPTH QUALITY GATE: Retry article failed validation. Retaining initial article and forcing draft staging.');
         selectedCandidate._forceDraft = true;
+        selectedCandidate._auditReason = 'Revision synthesis failed structure or language validation';
+        selectedCandidate._auditStatus = 'HUMAN_REVIEW';
       }
-    } catch (retryDepthErr) {
-      Logger.log('DEPTH QUALITY GATE: Retry failed with error: ' + retryDepthErr + '. Retaining initial article and forcing draft staging.');
+    } catch (revisionErr) {
+      Logger.log('INDEPENDENT AUDIT: Revision attempt failed: ' + revisionErr + '. Routing to draft staging.');
       selectedCandidate._forceDraft = true;
+      selectedCandidate._auditReason = 'Revision attempt failed: ' + revisionErr.toString();
+      selectedCandidate._auditStatus = 'HUMAN_REVIEW';
     }
-  } else if (!depthQuality.valid && depthQuality.action === 'stage_draft') {
-    Logger.log('DEPTH QUALITY GATE: Article flagged for review (' + depthQuality.reason + '). Forcing draft staging.');
+  } else if (auditResult.publicationGate === 'HUMAN_REVIEW') {
+    var reviewReasons = auditResult.issues.map(function(i) { return i.reason; }).join('; ');
+    Logger.log('INDEPENDENT AUDIT: Routing to draft staging for human review (' + reviewReasons + ').');
     selectedCandidate._forceDraft = true;
+    selectedCandidate._auditReason = reviewReasons;
+    selectedCandidate._auditStatus = 'HUMAN_REVIEW';
+  } else if (auditResult.publicationGate === 'BLOCKED' || auditResult.auditStatus === 'REJECT') {
+    var blockReasons = auditResult.issues.map(function(i) { return i.reason; }).join('; ');
+    Logger.log('INDEPENDENT AUDIT: Hard fail detected. Publication BLOCKED: ' + blockReasons);
+    return { success: false, reason: 'Publication blocked by independent quality gate: ' + blockReasons };
   }
 
   // Ensure slug is derived from clean English synthesized title
