@@ -19,3 +19,7 @@ phase_*.json
 scripts/
 screenshot*.png
 CLEANUP_*
+
+# Local generated editorial dashboard artifacts
+tools/editorial-control-center/article-quality-index.json
+
