@@ -24,6 +24,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/favicon.ico": "favicon.ico" });
   eleventyConfig.addPassthroughCopy({ "src/favicon-16x16.png": "favicon-16x16.png" });
   eleventyConfig.addPassthroughCopy({ "src/favicon-32x32.png": "favicon-32x32.png" });
+  eleventyConfig.addPassthroughCopy({ "src/favicon-96x96.png": "favicon-96x96.png" });
   eleventyConfig.addPassthroughCopy({ "src/apple-touch-icon.png": "apple-touch-icon.png" });
   eleventyConfig.addPassthroughCopy({ "src/android-chrome-192x192.png": "android-chrome-192x192.png" });
   eleventyConfig.addPassthroughCopy({ "src/android-chrome-512x512.png": "android-chrome-512x512.png" });
@@ -485,6 +486,10 @@ module.exports = function (eleventyConfig) {
       const hashedJsPath = path.join(__dirname, outDir, "assets", "js", `main.${jsHash}.js`);
       fs.writeFileSync(hashedJsPath, js, "utf8");
     }
+
+    // 3. Emit dynamic 1200x630 Open Graph social cards
+    const { generateOgImages } = require("./tools/generate-og-images");
+    await generateOgImages({ outputDir: path.join(__dirname, outDir, "assets", "og") });
   });
 
   return {
