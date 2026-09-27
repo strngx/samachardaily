@@ -3,9 +3,9 @@ title: "Apple Discontinues iPhone 17 Pro, AirPods 4, and Watch Models Post-Launc
 seoTitle: "Apple Drops 6 Older Devices After iPhone 18 Pro Launch"
 category: "Tech"
 date: 2026-09-11T02:45:41Z
-image: "https://images.pexels.com/photos/12963520/pexels-photo-12963520.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "A colorful display of fresh fruits on grocery store shelves, including apples, mangoes, and more."
-imageCredit: "Alexis Ricardo Alaurin"
+image: "https://images.pexels.com/photos/16757985/pexels-photo-16757985.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "Aerial view of Apple Park in Cupertino, representing Apple product line operations."
+imageCredit: "Zetong Li"
 trending: false
 featured: false
 video_id: "_u0dJ7-d1d4"

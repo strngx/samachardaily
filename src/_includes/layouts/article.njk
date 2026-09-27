@@ -54,20 +54,29 @@ layout: layouts/base.njk
     <!-- 6. Byline Row -->
     <div class="article-byline-bar">
       <div class="byline-author-group">
-        {% set authorName = author or site.author.name %}
+        {% set rawAuthor = (author or site.author.name or "") | trim %}
+        {% if rawAuthor == "Arjun Khatri" %}
+          {% set authorName = "Arjun Khatri" %}
+          {% set authorUrl = "/authors/samachardaily-editorial-team/" %}
+          {% set authorRoleBadge = authorRole or "Founder & Owner" %}
+          {% set authorProfileRole = authorRole or "Founder & Owner" %}
+        {% elif rawAuthor == "SamacharDaily Editorial Team" or rawAuthor == "Samachar Daily" or not author %}
+          {% set authorName = "Samachar Daily" %}
+          {% set authorUrl = "/authors/samachardaily-editorial-team/" %}
+          {% set authorRoleBadge = authorRole or "Founded & Operated by Arjun Khatri" %}
+          {% set authorProfileRole = "Solo-Publisher Digital News" %}
+        {% else %}
+          {# Unknown / legacy / arbitrary author: safe fallback to Editorial Team #}
+          {% set authorName = "Samachar Daily" %}
+          {% set authorUrl = "/authors/samachardaily-editorial-team/" %}
+          {% set authorRoleBadge = "Founded & Operated by Arjun Khatri" %}
+          {% set authorProfileRole = "Solo-Publisher Digital News" %}
+        {% endif %}
         <span class="byline-author">
           By
-          {% if authorName == "SamacharDaily Editorial Team" or authorName == "Samachar Daily" or not author %}
-            <a href="{{ '/authors/samachardaily-editorial-team/' | url }}" class="byline-strong">Samachar Daily</a>
-          {% else %}
-            <span class="byline-strong">{{ authorName }}</span>
-          {% endif %}
+          <a href="{{ authorUrl | url }}" class="byline-strong">{{ authorName }}</a>
         </span>
-        {% if authorRole %}
-          <span class="byline-role-badge">{{ authorRole }}</span>
-        {% else %}
-          <span class="byline-role-badge">Founded &amp; Operated by Arjun Khatri</span>
-        {% endif %}
+        <span class="byline-role-badge">{{ authorRoleBadge }}</span>
       </div>
       <div class="byline-meta-group">
         <span class="byline-dot" aria-hidden="true">•</span>
@@ -211,20 +220,14 @@ layout: layouts/base.njk
     </aside>
 
     <!-- 11b. Institutional Author & Editorial Transparency Card -->
-    {% set authorName = author or site.author.name %}
     <aside class="article-editorial-profile" aria-label="About the Publisher and Editorial Workflow">
       <div class="editorial-profile-inner">
         <div class="profile-header">
           <div class="profile-avatar" aria-hidden="true">SD</div>
           <div class="profile-meta">
             <div class="profile-name">
-              {% if authorName == "SamacharDaily Editorial Team" or authorName == "Samachar Daily" or not author %}
-                <a href="{{ '/authors/samachardaily-editorial-team/' | url }}">Samachar Daily</a>
-                <span class="profile-role">Solo-Publisher Digital News</span>
-              {% else %}
-                <span>{{ authorName }}</span>
-                <span class="profile-role">{{ authorRole or "Solo-Publisher Digital News" }}</span>
-              {% endif %}
+              <a href="{{ authorUrl | url }}">{{ authorName }}</a>
+              <span class="profile-role">{{ authorProfileRole }}</span>
             </div>
             <p class="profile-bio">
               {{ authorBio or "Samachar Daily is an independent digital news publication founded, owned, and operated by Arjun Khatri under a solo-publisher model. Reporting and explanatory briefings are synthesized from attributed primary sources and public wire dispatches using AI assistance, evaluated against automated factual guardrails, and published under transparent editorial oversight." }}

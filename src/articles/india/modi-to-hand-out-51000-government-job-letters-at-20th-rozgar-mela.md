@@ -30,8 +30,18 @@ why_it_matters: |
   Distributing over 51,000 government job letters underscores the government's commitment to tackling youth unemployment and showcases policy tools—such as FTAs and a broadened startup landscape—that aim to diversify career prospects across India, not just in metropolitan hubs. The move signals a tangible boost for young professionals entering the public sector and reinforces the political narrative of inclusive growth, potentially shaping future fiscal allocations toward skill development and regional job creation.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Prime Minister Narendra Modi is set to distribute more than 51,000 appointment letters to newly appointed youth at the 20th Rozgar Mela, scheduled for tomorrow.
+Prime Minister Narendra Modi distributed more than 51,000 government appointment letters to newly recruited youth across India at the 20th edition of the National Rozgar Mela.
 
-The letters will formalise government positions for the youth, reflecting the administration's drive to expand public‑sector employment.
+## What happened
 
-Modi also highlighted that recent free‑trade agreements are creating fresh career avenues for Indian graduates and that the country's startup ecosystem is now thriving beyond the major metros.
+According to the Press Information Bureau (PIB) official release and reporting by The Economic Times, PM Modi addressed the recruits via videoconferencing during the 20th Rozgar Mela event. The appointment letters covered positions across central government ministries and departments — spanning roles in the income tax department, postal services, defence, railways, and other public sector bodies.
+
+The 20th edition of the Rozgar Mela was held simultaneously at approximately 40 locations across India, enabling recruits from different states to receive their letters in a coordinated national event.
+
+## Background
+
+The National Rozgar Mela (Employment Fair) is a central government initiative to directly hand appointment letters to recruits at public events, providing a visible demonstration of public-sector hiring. The programme has been held periodically since 2022 and had distributed over 10 lakh (one million) appointment letters cumulatively by mid-2026.
+
+## What PM Modi said
+
+Modi highlighted that recent free-trade agreements signed by India are creating fresh career avenues for Indian graduates, and noted that the country's startup ecosystem is now thriving beyond the major metropolitan centres. He framed the Rozgar Mela as part of a broader commitment to expanding public-sector employment for India's youth population.

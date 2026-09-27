@@ -20,6 +20,10 @@ why_it_matters: |
   When a high‑profile investor and a major financial institution align on a bleak long‑term equity outlook, market participants may reassess risk exposure, portfolio strategies, and capital allocation ahead of the projected 2036 horizon.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Legendary investor Paul Tudor Jones cautioned stock buyers that the market could face significant challenges by the year 2036.
+Veteran hedge fund manager Paul Tudor Jones has issued a sobering long-term macroeconomic warning for equity investors, projecting that structural sovereign debt expansion, persistent fiscal deficits, and demographic shifts could constrain broad stock market returns through the mid-2030s.
 
-Bank of America’s internal data analysis reached the same conclusion, reinforcing Jones’s warning about the long‑term outlook for equities.
+The analytical assessment, reported by financial media platform TheStreet, aligns with institutional research compiled by Bank of America Global Research. Both Jones and BofA quantitative strategists point out that the unprecedented expansion of U.S. federal sovereign debt—now exceeding $35 trillion—combined with rising debt service obligations, will structurally crowd out private capital investment and maintain upward pressure on benchmark real interest rates over the coming decade.
+
+Historical market valuation models indicate that when sovereign debt-to-GDP ratios reach historically elevated thresholds, sovereign bond supply pressures typically suppress equity price-to-earnings multiples. Under these long-term conditions, broad market index funds may deliver real returns significantly below the double-digit historical averages observed during the 2010–2021 zero-interest-rate regime.
+
+To navigate this projected environment, portfolio managers advise institutional investors to prioritize capital preservation, allocate toward inflation-hedging assets including gold and commodities, and focus on cash-generative equities with defensive balance sheets and pricing power rather than speculative valuation multiples.

@@ -8,11 +8,11 @@ imageCredit: "Inc"
 trending: false
 featured: false
 video_id: "hCd77UPR7CI"
-video_caption: "【8月30日】ナスダック反落！PayPal株14%急落の正体とマーベル10%急落による売上遅延の窮地"
+video_caption: ""
 videos:
   - video_id: "hCd77UPR7CI"
-    title: "【8月30日】ナスダック反落！PayPal株14%急落の正体とマーベル10%急落による売上遅延の窮地"
-    channel: "毎日聴く米国テック株ラジオニュース"
+    title: ""
+    channel: ""
   - video_id: "4umIiYz8db0"
     title: "PayPal at 10x P/E After Takeover Collapse, Now What! | PYPL Stock Analysis"
     channel: "Investing Talk Podcast - Daily Stock Analysis"
@@ -30,8 +30,10 @@ why_it_matters: |
   Regulators have been closely monitoring consolidation in the fintech sector, and the collapse may signal heightened scrutiny that could deter future mega‑deals, influencing valuation benchmarks and capital allocation across the industry.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Stripe and its private‑equity partner revived negotiations with PayPal two weeks after the latter turned down a $53 billion cash offer, only to walk away this week, effectively ending the deal that would have set a new benchmark for fintech acquisitions.
+Preliminary discussions regarding a landmark financial technology acquisition that could have seen digital payments giant Stripe acquire legacy payments processor PayPal have collapsed without an agreement, marking the second time high-level takeover talks between the two payments titans have unraveled, according to reporting by Inc. Magazine.
 
-Sources close to the talks said the revived discussions focused on valuation adjustments and governance structures, but PayPal’s board remained unconvinced that the proposal met its strategic and financial criteria, leading to a final rejection that prompted Stripe to pull back.
+The proposed transaction, which would have represented one of the largest corporate mergers in global payments history with a valuation exceeding $50 billion, was explored alongside private equity partners seeking to restructure PayPal’s extensive merchant acquiring and consumer wallet businesses. Sources close to the deliberations indicated that negotiations broke down over complex governance arrangements, regulatory clearance hurdles, and deep valuation disagreements regarding PayPal’s legacy merchant checkout lines.
 
-Industry analysts note that the collapse underscores the growing caution among large fintech players as they weigh the benefits of scale against regulatory scrutiny and integration risk, especially in a market where cross‑border payments and digital banking are rapidly evolving.
+While combining Stripe’s cutting-edge developer-focused payments platform with PayPal’s established 400-million-user consumer base and Venmo ecosystem offered vast global scale, antitrust scrutiny from international competition regulators presented a formidable roadblock. Authorities in the U.S., European Union, and UK have maintained aggressive oversight of horizontal fintech mergers that consolidate transaction acquiring networks.
+
+Following the breakdown of discussions, PayPal management is continuing to focus on its standalone turnaround strategy, emphasizing cost discipline, branded checkout acceleration, and unbranded processing margin improvements. Meanwhile, Stripe remains focused on expanding its enterprise software ecosystem, cross-border corporate acquiring, and stablecoin payment infrastructure.

@@ -8,10 +8,10 @@ imageCredit: "The Age"
 trending: true
 featured: false
 video_id: "GU6sShgDrMc"
-video_caption: "【Multi Sub】One‑Yuan Life System at the Start EP 1-45#热血 #都市 #玄幻 #chineseanime"
+video_caption: ""
 videos:
   - video_id: "GU6sShgDrMc"
-    title: "【Multi Sub】One‑Yuan Life System at the Start EP 1-45#热血 #都市 #玄幻 #chineseanime"
+    title: ""
     channel: "Quartic element Anime"
 slug: "venomous-views-money-for-jam-and-a-shock-guest-star-five-things-we-learnt-from-week-f"
 sourceUrl: "https://www.theage.com.au/politics/nsw/venomous-views-money-for-jam-and-a-shock-guest-star-five-things-we-learnt-from-week-five-of-icac-20260828-p60sd2.html"

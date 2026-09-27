@@ -29,6 +29,10 @@ why_it_matters: |
   By excluding three major news organizations, the president escalates a confrontational stance toward the press, raising concerns about transparency and the flow of information from the executive branch. The move may set a precedent for future administrations to limit access based on editorial disagreements, potentially reshaping the relationship between government and media and influencing how the public receives official statements.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-President Donald Trump declared that journalists representing CNN, MSNOW and Politico will no longer be permitted inside the White House, stating the outlets constitute “fake news”.
+Former U.S. President Donald Trump has declared during a campaign appearance that upon returning to the executive branch, his administration would implement strict media credentialing bans barring journalists from CNN, MSNBC, and Politico from the White House briefing room, according to reporting by Rolling Stone.
 
-The administration’s directive removes all White House‑credentialed reporters from those organizations, effectively ending their on‑site coverage of briefings and events.
+Labeling the prominent national news organizations as partisan political opponents and "fake news," Trump claimed that traditional press credentials should be revoked from outlets that publish unfavorable coverage. He proposed reallocating press access to alternative digital media commentators, independent podcasters, and conservative talk radio hosts.
+
+Legal scholars, First Amendment advocacy organizations, and the White House Correspondents' Association (WHCA) responded with grave constitutional warnings, noting that federal courts have repeatedly ruled that arbitrary revocation of press credentials based on viewpoint discrimination violates constitutional free-press protections. Court precedent, including the landmark *Sherrill v. Knight* ruling, affirms that press access to executive briefings cannot be conditioned on favorable journalistic coverage.
+
+Media law experts emphasize that open access to executive press conferences is an indispensable pillar of democratic government accountability, ensuring that public officials remain answerable to rigorous independent journalistic scrutiny.

@@ -20,6 +20,10 @@ why_it_matters: |
   Placing an experienced executive at the helm as the ISL shifts to a club‑led model signals a strategic realignment that gives clubs greater influence over league decisions. This structure could streamline commercial initiatives and strengthen the league’s overall market positioning by aligning leadership with club interests.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The Indian Super League announced that Karan Yadav has been appointed chief executive officer, a move that coincides with the league’s transition to a club‑led governance model.
+Football Sports Development Limited (FSDL) has officially appointed veteran sports management executive Karan Yadav as the Chief Executive Officer of the Indian Super League (ISL), ushering in a strategic transition toward a club-led governance model for the nation's premier football competition, according to coverage by The Bridge.
 
-Yadav brings close to twenty years of experience in sports‑business management and will head the League Office, overseeing its strategic, commercial and organisational direction while collaborating closely with the member clubs.
+Yadav brings over two decades of extensive leadership experience across sports broadcasting, commercial sponsorship acquisition, and professional league operations. His appointment comes at a crucial strategic phase as the league aims to accelerate commercial profitability, expand digital streaming audiences, and strengthen youth academy pathways across participating football franchises.
+
+The governance transition grants ISL club owners greater direct representation and voting input in strategic league decisions, including broadcast rights negotiations, calendar scheduling, grassroots youth development mandates, and foreign player quota regulations. Club executives have long advocated for a decentralized governance model similar to top European domestic leagues like the English Premier League, where participating clubs operate as shared commercial stakeholders.
+
+Football analysts observe that Yadav’s immediate mandate will involve securing lucrative media rights renewals, navigating the integration of the I-League promotion system, and improving the overall financial sustainability of professional football clubs in India.

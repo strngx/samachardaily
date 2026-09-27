@@ -20,6 +20,23 @@ why_it_matters: |
   By breaking AI assessment into four concrete decisions, Sancheti’s model gives businesses a clear roadmap to justify spend, manage risk, and assign accountability, which are critical for scaling AI responsibly in a market where hype often outpaces measurable outcomes.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-On September 15 in New Delhi, Comprint founder Pankaj Sancheti shared a practical framework for evaluating artificial‑intelligence investments, drawing on more than three decades of experience in the technology sector.
+Pankaj Sancheti, founder of Comprint Computers, shared a practical framework for evaluating artificial intelligence investments, presenting a four-step decision model designed to help businesses separate viable AI applications from unproductive ones.
 
-His approach hinges on four decisive questions: which specific task the AI should improve, how the system will be tested, the total cost required to get the solution right, and who will assume responsibility once the AI is deployed.
+## The four-step framework
+
+According to the Asian News International (ANI) Business Wire dispatch, which recorded Sancheti's remarks from a September 15 event in New Delhi, his evaluation method is built on four sequential questions:
+
+1. **Task identification:** Which specific task should the AI improve, and is it actually a bottleneck?
+2. **Verification testing:** How will the AI system be tested to confirm it delivers the promised capability?
+3. **Total cost calculation:** What is the complete cost of implementing the solution to a production-ready state?
+4. **Post-deployment accountability:** Who assumes responsibility for the AI system's outputs and errors once it is live?
+
+Sancheti, who has more than three decades of experience in the Indian technology sector through Comprint, framed the questions as a discipline for cutting through vendor hype and focusing investment decisions on measurable operational outcomes.
+
+## Background
+
+Comprint Computers is a technology distribution and systems integration company that has operated in India's IT sector since the 1990s. Sancheti's framework represents an executive practitioner's perspective on AI investment, rather than an academic or research finding.
+
+## Why it matters
+
+As AI adoption accelerates across Indian enterprises, the challenge of distinguishing high-value applications from poorly-scoped deployments is commercially significant. A structured evaluation method grounded in task specificity, testability, and cost realism offers businesses a discipline that complements broader strategic AI assessments, particularly for mid-sized enterprises without dedicated AI research teams.

@@ -20,6 +20,17 @@ why_it_matters: |
   By reorienting credit assessment toward cash‑flow viability and channeling funds into long‑term sectors, the financial system can unlock the capital required for large‑scale infrastructure, manufacturing capacity, urban growth, clean‑energy projects and innovative ventures, thereby strengthening India’s economic foundation and reducing reliance on short‑term financing cycles. It also signals a need for varied capital instruments tailored to each sector, supporting the emergence of next‑generation enterprises that can drive sustainable growth.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-On Wednesday, Principal Secretary to the Prime Minister P K Mishra told reporters that the financial sector should stop concentrating solely on financing near‑term growth and instead direct resources toward the next generation of Indian enterprises.
+Principal Secretary to the Prime Minister P.K. Mishra has called upon Indian commercial banks, non-banking financial companies (NBFCs), and capital market institutions to realign credit deployment towards high-impact, next-generation enterprises rather than prioritizing short-term cyclical returns.
 
-He said credit assessment must shift from a collateral‑centric model to one based on cash‑flow performance, and that the system needs to mobilise large pools of capital to meet the distinct financing needs of infrastructure, manufacturing, urbanisation, the energy transition and innovation, each requiring different forms of capital.
+### Shifting from Collateral to Cash-Flow Financing
+Speaking at a financial industry forum reported by *The Economic Times*, Mishra emphasized that long-term economic expansion requires modernizing traditional banking practices:
+* **Cash-flow underwriting:** Urging lenders to move away from rigid, collateral-heavy balance sheet assessments toward dynamic cash-flow evaluations that reflect actual operating performance and scalability.
+* **Supporting innovation:** Encouraging financial institutions to provide flexible growth capital to technology startups, advanced manufacturers, and green energy innovators that lack traditional immovable property collateral.
+
+### Capital Mobilization Across Five Strategic Pillars
+Mishra outlined five core economic domains requiring differentiated, patient capital structures:
+1. **Core Infrastructure:** Long-gestation roads, railways, ports, and multimodal logistics corridors.
+2. **High-Tech Manufacturing:** Electronics fabrication, semiconductor ecosystems, and precision engineering.
+3. **Urbanisation:** Smart transit networks, water recycling plants, and urban renewal projects.
+4. **Energy Transition:** Solar arrays, green hydrogen production, grid battery storage, and transmission links.
+5. **Applied Innovation:** Research and development commercialization across artificial intelligence, biotechnology, and agricultural automation.

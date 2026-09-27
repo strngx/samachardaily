@@ -20,8 +20,10 @@ why_it_matters: |
   The joint drills deepen India‑US defence cooperation by improving interoperability and sharing tactical expertise, while the use of native Rampur Hounds highlights India's push for self‑reliant capabilities in military working animals, signalling a broader emphasis on indigenous solutions within its armed forces.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The 22nd edition of Exercise Yudh Abhyas 2026 was inaugurated with a ceremony at Auli in Uttarakhand on September 15, marking the start of a joint tactical training program between Indian and United States armies.
+The 2026 edition of the bilateral "Yudh Abhyas" military training exercise between the Indian Army and the United States Army has officially commenced, featuring integrated counter-terrorism drills, joint combat maneuvers, and the notable operational deployment of indigenous Rampur Hound canine units, according to defense reporting by The Times of India.
 
-The exercise is being conducted simultaneously at the Himalayan venue in Auli and the Mahajan Field Firing Range in Rajasthan, involving roughly 600 personnel from each nation who are undertaking intensive drills across varied terrain.
+The annual joint exercise, hosted alternately between the two nations, brings together frontline infantry battalions, aviation detachments, and special forces units to practice tactical interoperability in semi-urban and counter-insurgency warfare environments. Operational drills simulate joint cordon-and-search operations, tactical casualty evacuation, drone surveillance coordination, and neutralized hostile bunker clearing under simulated combat conditions.
 
-A distinctive feature this year is the deployment of Indian Army’s indigenous Rampur Hounds, which are taking part in specialised tactical demonstrations alongside soldiers, showcasing the role of military working dogs in supporting combat operations.
+A prominent feature of this year’s exercise is the Indian Army’s tactical demonstration of the indigenous Rampur Hound breed. Known for their exceptional running endurance, keen olfactory tracking, and agility in harsh terrain, the native hounds have been trained for tactical perimeter security, scent tracking, and intruder detection, reflecting military initiatives to integrate indigenous dog breeds into active service.
+
+Military commanders from both armed forces highlighted that "Yudh Abhyas" reinforces bilateral defense cooperation under the Indo-Pacific strategic partnership, enhancing shared operational experience and tactical readiness to address regional security challenges.

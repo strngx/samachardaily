@@ -1,4 +1,5 @@
 ---
+noindex: true
 title: "Actress Samantha Ruth Prabhu dons gold Kanjivaram at traditional baby shower"
 seoTitle: "Samantha Ruth Prabhu in gold saree at baby shower"
 category: "India"

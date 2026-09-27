@@ -3,9 +3,9 @@ title: "Eight Tamil Nadu Engineering Students Killed After Car Crashes Into Park
 seoTitle: "Eight Tamil Nadu Students Die in Kerala Car Crash"
 category: "India"
 date: 2026-09-05T11:57:33Z
-image: "https://images.pexels.com/photos/29271763/pexels-photo-29271763.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "A thrilling car stunt crash with a red car flipped onto a black vehicle in an outdoor setting."
-imageCredit: "jordan besson"
+image: "https://images.pexels.com/photos/2213443/pexels-photo-2213443.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "A highway road winding through a landscape, illustrating regional highway transit."
+imageCredit: "Tobi (via Pexels)"
 trending: false
 featured: false
 video_id: "Gn9Q4nRdxzs"

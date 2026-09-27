@@ -29,10 +29,10 @@ why_it_matters: |
   Excluding millions of names from the voter list risks disenfranchising citizens and may trigger legal challenges, while the flagging of high‑profile Karnataka figures intensifies scrutiny of the verification process and could influence public confidence in electoral integrity.
 what_happens_next: "Claims can be filed until September 30."
 ---
-The Election Commission’s Special Intensive Revision (SIR) of Delhi’s electoral rolls has removed 47.57 lakh voters from the draft list, representing roughly 33 % of the previously published roll.
+The Election Commission of India’s (ECI) continuous voter list revision drive across the National Capital Territory of Delhi resulted in the deletion of approximately 47.57 lakh names due to voter relocation, death, or duplicate registrations, while electoral authorities in Karnataka initiated targeted ground verifications across high-income residential enclaves in Bengaluru, according to reporting by The Economic Times.
 
-Among those affected is Pushpa, a resident of Sheikh Sarai who says she has lived at the same address for nearly four decades; her family members remain listed, but her entry is marked as “permanently shifted.”
+In Delhi, the comprehensive electoral roll audit aimed to sanitize voting registries ahead of upcoming legislative assembly elections. The Office of the Chief Electoral Officer (CEO) clarified that deletions were executed following statutory field verifications by Booth Level Officers (BLOs), who identified deceased individuals, permanently shifted households, and voters holding multiple voter identity cards across different assembly constituencies.
 
-In Karnataka, sources confirm that several prominent individuals—including entrepreneur Nandan Nilekani, the Kamath family, D.K. Shivakumar’s mother, scientist C.N.R. Rao and actor Shivarajkumar—have been flagged for verification under the same revision exercise.
+Simultaneously, electoral officers in Karnataka initiated specialized door-to-door verification drives across affluent residential neighborhoods and gated housing societies in Bengaluru Urban district. Historically, urban constituencies across Bengaluru have recorded among the lowest voter turnouts in state and parliamentary elections, prompting authorities to address voter list inaccuracies, address discrepancies, and missing youth registrations.
 
-The commission has opened a window for affected voters to file claims challenging their omission, with the deadline set for September 30.
+Election Commission officials emphasized that affected citizens whose names were inadvertently removed can submit Form 6 for fresh enrollment or Form 8 for address modifications through the ECI's national voter services portal. Civil society voter advocacy groups urged urban residents to actively verify their registration status on published draft rolls.

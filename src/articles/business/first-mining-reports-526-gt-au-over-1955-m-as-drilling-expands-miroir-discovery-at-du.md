@@ -9,10 +9,10 @@ imageCredit: "IslandHopper X"
 trending: false
 featured: false
 video_id: "jMAX-OcPvyE"
-video_caption: "🎧 Лучший русский рэп в южном стиле | Лучшие треки в стиле Каспийский Груз, TGK, ЮГ"
+video_caption: ""
 videos:
   - video_id: "jMAX-OcPvyE"
-    title: "🎧 Лучший русский рэп в южном стиле | Лучшие треки в стиле Каспийский Груз, TGK, ЮГ"
+    title: ""
     channel: "S4VΛ"
 slug: "first-mining-reports-526-gt-au-over-1955-m-as-drilling-expands-miroir-discovery-at-du"
 sourceUrl: "https://investingnews.com/first-mining-reports-5-26-g-t-au-over-19-55-m-as-drilling-expands-miroir-discovery-at-the-duparquet-project/"

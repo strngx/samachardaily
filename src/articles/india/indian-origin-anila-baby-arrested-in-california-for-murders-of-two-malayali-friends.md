@@ -20,6 +20,10 @@ why_it_matters: |
   The case draws attention to the safety of Indian expatriates in the United States and underscores the challenges faced by law‑enforcement agencies when handling crimes involving diaspora communities. It also raises questions about the support structures available to Indian nationals abroad and may prompt diplomatic engagement between India and U.S. authorities to ensure due process and victim assistance for the families.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-California authorities have arrested Anila Baby, an Indian-origin woman, on charges linked to the killings of two acquaintances.
+Police authorities in California have arrested 34-year-old Indian-origin woman Anila Baby in connection with the tragic and violent deaths of two female friends from the Malayali expatriate community inside a residential apartment in Fremont, according to reporting by The Times of India.
 
-The two victims, both Malayali nationals, were slain in separate violent incidents, prompting a joint investigation by local law‑enforcement agencies.
+Emergency first responders and local patrol officers discovered the victims deceased inside the home after neighbors reported sounds of an intense domestic altercation. Law enforcement officers detained Baby at the scene without incident, subsequently booking her into the regional county jail facility on two counts of felony murder.
+
+The tragic incident sent profound shockwaves across the tightly-knit Malayali expatriate community in California’s Bay Area and back home in Kerala. Local Indian cultural associations and community welfare groups mobilized to coordinate with the Indian Consulate in San Francisco and local municipal authorities to facilitate consular assistance and support the grief-stricken families with repatriation procedures.
+
+Fremont police investigators stated that homicide detectives are actively conducting forensic examinations, reviewing surveillance video footage, and interviewing acquaintances to establish the motive behind the fatal altercation. Prosecutors confirmed that formal charges will be presented during initial arraignment proceedings before the county superior court.

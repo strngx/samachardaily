@@ -12,6 +12,7 @@ video_caption: ""
 videos: []
 slug: "kiren-rijiju-to-lead-indian-delegation-at-65th-anniversary-of-nam-summit-in-belgrade"
 sourceUrl: "https://www.socialnews.xyz/2026/08/29/kiren-rijiju-to-lead-indian-delegation-at-65th-anniversary-of-nam-summit-in-belgrade/"
+sourceName: "Social News Xyz"
 dek: "Parliamentary Affairs Minister Kiren Rijiju will lead India’s high‑level team at the 65th anniversary meeting of the Non‑Aligned Movement in Belgrade from Aug 31‑Sep 1."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |

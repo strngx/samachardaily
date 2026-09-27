@@ -30,8 +30,10 @@ why_it_matters: |
   By publicly recognizing the team’s achievement, Hockey India aims to boost the sport’s visibility, attract sponsorship, and lay groundwork for sustained investment in women’s hockey infrastructure.
 what_happens_next: "Hockey India has scheduled an award ceremony for early September, during which the cash will be transferred directly to players’ bank accounts. The federation will also announce a new high‑performance camp in Bengaluru to prepare the squad for the Asian Games later this year."
 ---
-Hockey India confirmed that each member of the women's national team will receive a share of a ₹50 lakh cash award, marking the highest monetary recognition ever given to the side for a World Cup performance.
+Hockey India has announced a substantial cash reward of ₹50 lakh for the Indian Senior Women’s Hockey Team and support staff in recognition of their commendable fifth-place finish at the international FIH Women’s World Cup, according to an official sports bulletin reported by The Times of India.
 
-The team’s fifth‑place finish in the tournament, held in Spain, is the best ever by an Indian women’s squad at a senior World Cup, surpassing the previous best of seventh place in 2018 and signalling a rapid rise in competitiveness on the global stage.
+Under the declared incentive framework, each player in the playing squad will receive ₹2.5 lakh, while members of the coaching and technical support contingent will receive ₹1 lakh each. Hockey India leadership commended the team's tactical discipline, high physical conditioning, and resilience against world-leading European and Pan-American opposition throughout the tournament.
 
-Officials said the reward underscores the federation’s commitment to rewarding excellence and will be disbursed ahead of the upcoming Asian Games, with the remaining funds earmarked for grassroots development and high‑performance training programmes.
+The fifth-place finish represents one of the Indian women's team's strongest performances in modern tournament history, highlighted by defensive solidity and dynamic counter-attacking play. The team registered hard-fought victories over higher-ranked international rivals in the knockout qualification rounds, demonstrating significant progress in set-piece execution and penalty corner defense.
+
+Hockey India President and executive committee members affirmed that the financial recognition forms part of the national federation's ongoing commitment to parity, player welfare, and grass-roots infrastructure investment. Sports administrators expressed confidence that the squad’s upward competitive trajectory positions them strongly for upcoming Asian Games and Olympic qualifying tournaments.

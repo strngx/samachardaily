@@ -20,6 +20,10 @@ why_it_matters: |
   By monetising transaction data, Citi adds a fresh revenue stream while offering advertisers highly granular audience targeting. Brands gain direct access to spend‑driven consumers, potentially reshaping how financial institutions participate in digital advertising and influencing where ad budgets are allocated.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Citi is converting its insight into consumer spending into a new advertising venture by launching Citi Commerce Media. The platform draws on billions of transaction data points from the bank's U.S. card portfolio to link consumer brands directly with cardholders.
+Citigroup has officially announced the launch of Citi Commerce Media, a dedicated retail media network that enables institutional brands and retail partners to deliver targeted marketing promotions directly to millions of Citi credit and debit cardholders.
 
-Ads will appear within Citi's mobile app and website, giving brands a channel to reach customers based on actual purchase behavior. The move marks Citi's entry into the advertising market through its card business.
+The financial technology initiative, reported by PaymentsJournal, marks a major expansion of banking-led retail advertising, capitalizing on first-party transaction intelligence to offer precision marketing solutions. Citi Commerce Media allows participating merchants to present personalized cash-back offers, dynamic card-linked discounts, and digital advertisements across Citi's proprietary mobile banking app, online portal, and merchant partner checkout ecosystems.
+
+Unlike traditional third-party cookie tracking platforms that face increasing web privacy restrictions, bank-operated retail media networks rely on aggregated, privacy-compliant consumer spending data across retail categories. Citigroup emphasized that customer account details and personal financial records remain strictly insulated, with data tokenized to prevent the transfer of personally identifiable information to advertisers.
+
+Financial analysts note that commercial retail media represents a high-margin revenue stream for global card issuers facing macroeconomic pressures on interchange fees and consumer credit balances. By bridging merchant marketing budgets with cardholder rewards programs, Citi aims to drive customer engagement and lift card transaction volumes across retail and travel categories.

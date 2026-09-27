@@ -20,8 +20,20 @@ why_it_matters: |
   By targeting the most restrictive trade obstacles and nurturing a pipeline of startups, the proposals aim to accelerate economic integration within BRICS, opening new markets for Indian firms and enhancing the bloc's collective competitiveness. A thousand fresh partnerships could spur cross‑border investment, diversify supply chains, and strengthen diplomatic ties, while the startup support scheme promises technology transfer and job creation across member economies.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Speaking at a BRICS Business Council meeting, Prime Minister Narendra Modi said that as the bloc moves into its third decade, the council should prepare a report identifying the ten most significant trade barriers among member nations.
+Prime Minister Narendra Modi addressed the BRICS Business Council meeting in New Delhi, calling on member nations to take concrete steps to reduce trade friction, support startup ecosystems, and forge new business partnerships across the bloc.
 
-He also called for a programme to support 100 BRICS‑origin startups each year, helping them expand into other member markets, and set a target of forging a thousand new business partnerships across the group.
+## What PM Modi said
 
-Modi framed the initiatives as part of a broader push to deepen intra‑BRICS trade, reduce friction, and create a more resilient supply chain alongside [high-level bilateral talks at the New Delhi summit]({{ '/articles/india/modi-xi-meet-in-new-delhi-emphasize-border-peace-at-brics-2026/' | url }}), urging member governments to collaborate on implementation.
+According to the Press Information Bureau (PIB) official release and DD News diplomatic coverage, Modi made three specific proposals at the council:
+
+1. **Trade barriers report:** He asked the Business Council to prepare a report identifying the ten most significant trade barriers among BRICS member nations, with the goal of systematically addressing the most restrictive obstacles to intra-bloc commerce.
+2. **Startup support programme:** He called for an annual programme to support 100 BRICS-origin startups, helping them expand into other member markets through shared resources, mentorship, and regulatory facilitation.
+3. **Business partnership target:** He set a goal of forging 1,000 new business partnerships across the BRICS group, aiming to diversify supply chains and deepen cross-border investment flows.
+
+## Background
+
+The BRICS Business Council, established in 2013, brings together private sector representatives from Brazil, Russia, India, China, and South Africa — and, since 2023, the expanded BRICS+ member states — to facilitate business-to-business engagement alongside formal diplomatic meetings.
+
+## Why it matters
+
+Modi's proposals represent an effort to turn the BRICS Business Council from a dialogue forum into an action-oriented trade facilitation body. By targeting specific friction points — the top-10 barriers, 100 startups, 1,000 partnerships — the proposals aim to produce measurable outcomes from a grouping that critics have sometimes dismissed as aspirational rather than commercially effective.

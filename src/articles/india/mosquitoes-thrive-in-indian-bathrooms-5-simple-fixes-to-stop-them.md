@@ -29,8 +29,13 @@ why_it_matters: |
   Because bathrooms provide the damp, humid conditions mosquitoes love, addressing these hotspots with low‑cost, routine actions can curb indoor mosquito numbers, reducing reliance on chemical sprays and improving household comfort.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The Times of India has published a short guide outlining five simple tips to keep mosquitoes out of bathrooms, noting that the bathroom is one of the worst offenders for mosquito activity in Indian homes.
+In residential buildings across Indian towns and cities, bathrooms frequently become the most persistent indoor breeding hotspots and entry points for mosquitoes. High humidity, warm temperatures, and recurring standing water provide optimal conditions for insect reproduction.
 
-The article points out that damp corners, humid air and water that sits still for longer than anyone realises create an ideal breeding environment, yet these problems are entirely fixable with regular attention rather than expensive intervention.
+### Five Simple Fixes to Eliminate Bathroom Mosquitoes
+A domestic maintenance guide published by *The Times of India* outlines five straightforward, non-toxic practices homeowners can implement without costly chemical pest treatments:
 
-By following the five genuinely effective measures presented, homeowners can maintain a mosquito‑free bathroom for good, avoiding the nuisance that these insects bring into the household.
+1. **Cover and Seal Floor Drain Grates:** Mosquitoes frequently enter through sewage lines and plumbing traps. Installing fine-mesh drain covers or silicone one-way flap valves prevents mosquitoes from flying up through drainpipes.
+2. **Eliminate Hidden Water Stagnation:** Small pools of standing water under washing machines, behind toilet cisterns, or inside leaking faucet trays allow larvae to develop within 48 to 72 hours. Regular squeegeeing stops this cycle.
+3. **Empty Uncovered Buckets and Mugs:** Storing open buckets filled with water offers prime breeding sites. Keep containers inverted when dry or securely fitted with tight lids.
+4. **Improve Ventilation and Dry Air:** Operating exhaust fans regularly reduces interior humidity, deterring species like *Culex* and *Aedes* that thrive in damp, stagnant air.
+5. **Use Natural Repellent Diffusers:** Placing camphor tablets, eucalyptus oil, or lemongrass diffusers near bathroom ventilators provides an eco-friendly deterrence barrier without toxic aerosols.

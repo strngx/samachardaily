@@ -1,4 +1,5 @@
 ---
+noindex: true
 title: "Windsor sees $822,000 single‑family home lead list of seven priciest sales last week"
 category: "Business"
 date: 2026-08-30T02:42:04Z

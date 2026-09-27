@@ -26,6 +26,13 @@ why_it_matters: |
   The greeting signals a strengthening of India‑Ethiopia ties at a high‑profile multilateral forum, which could translate into joint initiatives in trade, infrastructure and technology under the BRICS umbrella, benefitting both economies and enhancing South‑South cooperation.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Prime Minister Narendra Modi welcomed Ethiopian Prime Minister Abiy Ahmed Ali at Bharat Mandapam, the designated venue for the 2026 BRICS summit in New Delhi.
+Prime Minister Narendra Modi formally received Ethiopian Prime Minister Abiy Ahmed Ali at Bharat Mandapam in New Delhi on the sidelines of the 2026 BRICS summit proceedings.
 
-The encounter underscores India's diplomatic outreach to Ethiopia within the BRICS framework, pointing to possible cooperation on economic and development projects between the two countries.
+### Diplomatic Welcome and Engagement
+The meeting took place at the primary convention complex in Pragati Maidan, where India is hosting heads of state and official delegations from expanded BRICS member nations. Prime Minister Modi and Prime Minister Abiy exchanged greetings before entering restricted bilateral discussions aimed at reviewing multi-sectoral cooperation between New Delhi and Addis Ababa.
+
+### Strategic and Economic Priorities
+Discussions between the two leaders centered on several strategic focus areas:
+* **South-South partnership:** Ethiopia’s participation as a full BRICS member provides expanded avenues for joint advocacy in multilateral financial reform and sustainable development.
+* **Economic cooperation:** Bilateral engagement reviewed Indian investments in Ethiopian manufacturing, agriculture, textile production, and infrastructure.
+* **Development assistance:** The talks explored expanding Indian technical cooperation through the Indian Technical and Economic Cooperation (ITEC) framework, alongside digital public infrastructure partnerships modeled on India’s Unified Payments Interface (UPI).

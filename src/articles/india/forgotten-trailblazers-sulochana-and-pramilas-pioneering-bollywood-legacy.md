@@ -20,6 +20,10 @@ why_it_matters: |
   Highlighting Sulochana and Pramila brings early female contributions to Indian cinema into focus, offering a fuller picture of Bollywood’s formative years and the economic value placed on star power long before the talkies era. Recognizing these pioneers helps scholars, audiences, and industry stakeholders appreciate the roots of celebrity culture and gender dynamics in Indian film history.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The Hans India reports a feature that uncovers little‑known facts about Bollywood pioneers Sulochana and Pramila, emphasizing Sulochana’s prominence during the silent‑film era.
+A cinematic retrospective published by The Times of India revisits the extraordinary lives and pioneering contributions of early Indian silent and sound cinema legends Sulochana (Ruby Myers) and Pramila (Esther Victoria Abraham), celebrating their barrier-breaking achievements as the nation's earliest female cinematic superstars and independent producers.
 
-The piece also notes that Pramila became India’s first Miss India and that both women commanded notable salaries for their time, highlighting early commercial success in Indian cinema.
+During the 1920s and 1930s, when conservative societal conventions largely discouraged Indian women from performing on stage and screen, Anglo-Jewish and Baghdadi Jewish actresses including Sulochana stepped forward to shape early Indian cinema. Sulochana became the highest-paid star of the silent era, renowned for her roles in silent classics such as "Cinema Queen" (1925) and "Madhuri" (1928), and famously made a successful transition to talkies by mastering Hindi and Urdu dialogue delivery.
+
+Similarly, Pramila made cinematic history not only by winning the inaugural Miss India pageant in 1947 but also by establishing her own film production company, Silver Productions, producing sixteen commercially successful feature films. Her fearless portrayal of modern, independent female characters challenged patriarchal archetypes and laid foundational blueprints for cinematic female empowerment in Indian storytelling.
+
+Film historians and preservationists highlight Sulochana and Pramila’s enduring legacies as foundational pillars of the Indian film industry, noting that their artistic courage, business acumen, and creative independence helped establish cinema as an acceptable and respected profession for Indian women.

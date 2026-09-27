@@ -21,6 +21,7 @@ videos:
     channel: "All in One by Digvijay Bonawate"
 slug: "toxic-box-office-collection-day-3-live-updates-yash-film-eyes-rs-30-cr-day-4-after-ea"
 sourceUrl: "https://indianexpress.com/article/entertainment/regional/toxic-box-office-collection-day-3-worldwide-total-live-updates-yash-rs-221-cr-film-crashes-10853764/"
+sourceName: "The Indian Express"
 dek: "The film earned Rs 26.60 cr on Friday, taking its Indian gross to Rs 197.70 cr and worldwide total to Rs 221.45 cr, as trade analysts gauge its Day 4 trajectory."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |

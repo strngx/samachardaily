@@ -19,7 +19,7 @@ videos:
     channel: "AI & Technology News Daily"
   - video_id: "3_eWgBgK7_k"
     title: "DOJ Backs AI Training as Fair Use / OpenAI Astra Hits Critical|2026.09.03 #Shorts"
-    channel: "藍 | ニュースインサイト"
+    channel: ""
 slug: "openais-astra-becomes-first-model-to-hit-critical-cybersecurity-threshold"
 sourceUrl: "https://telecomlive.in/web/2026/09/03/openais-astra-crosses-a-critical-cybersecurity-threshold-heres-why-it-matters/"
 sourceName: "Telecomliveweb"

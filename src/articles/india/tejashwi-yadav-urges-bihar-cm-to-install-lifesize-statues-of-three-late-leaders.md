@@ -20,8 +20,13 @@ why_it_matters: |
   The request underscores the RJD’s strategy to reinforce its image as a cross‑community platform by publicly commemorating leaders who appealed to varied voter bases. If approved, the statues could bolster the party’s grassroots credibility and influence future discussions on how political heritage is celebrated in Bihar’s public spaces.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-RJD chief Tejashwi Yadav sent a formal letter to Bihar chief minister Nitish Kumar, requesting that the state erect life‑size statues of three deceased political figures – Ram Vilas Paswan, Sharad Yadav and Raghuvansh Singh.
+Rashtriya Janata Dal (RJD) leader and former Bihar Deputy Chief Minister Tejashwi Yadav has written a formal letter to Chief Minister Nitish Kumar, urging the state government to commission and install life-size statues of three prominent late political figures in Patna.
 
-In the correspondence, Yadav framed the proposal as part of the Rashtriya Janata Dal’s broader inclusive vision, arguing that honoring leaders from diverse backgrounds would reflect the party’s commitment to all communities in the state.
+### Three Leaders Proposed for Commemoration
+As reported by *The Hindu*, Yadav’s communication requests state honors for:
+* **Ram Vilas Paswan:** Founder of the Lok Janshakti Party (LJP) and longstanding Union Minister, recognized for his contributions to socialist politics and Dalit empowerment.
+* **Sharad Yadav:** Veteran socialist parliamentarian and former Union Cabinet minister who played a pivotal role in national coalition politics.
+* **Raghuvansh Prasad Singh:** Respected RJD leader, academic, and former Union Minister of Rural Development, celebrated for drafting and implementing the Mahatma Gandhi National Rural Employment Guarantee Act (MGNREGA).
 
-The appeal arrives amid ongoing debates in Bihar over public memorials and the symbolic representation of political legacies, highlighting how parties use statues to signal ideological continuity and community outreach.
+### Political and Symbolic Context
+In his letter, Yadav framed the proposal as an acknowledgment of leaders whose contributions transcended partisan divides to shape modern Bihar's socio-political history. The appeal highlights ongoing discussions in Bihar regarding the commemoration of socialist stalwarts and community representation ahead of upcoming state electoral contests.

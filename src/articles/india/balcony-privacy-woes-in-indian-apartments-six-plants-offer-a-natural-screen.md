@@ -1,4 +1,5 @@
 ---
+noindex: true
 title: "Balcony privacy woes in Indian apartments? Six plants offer a natural screen"
 seoTitle: "Six plants for balcony privacy in India"
 category: "India"

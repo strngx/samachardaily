@@ -1,4 +1,5 @@
 ---
+noindex: true
 title: "Dragon fruit surges in Indian kitchens, offering low‑calorie, fibre‑rich nutrition"
 seoTitle: "Dragon fruit gains popularity in India with health benefits"
 category: "India"

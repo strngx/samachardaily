@@ -13,7 +13,7 @@ video_caption: "NVIDIA to Buy Hugging Face for $12.93B / OpenAI Rolls Out GPT-6 
 videos:
   - video_id: "Cl77psMkVCg"
     title: "NVIDIA to Buy Hugging Face for $12.93B / OpenAI Rolls Out GPT-6 Astra / Sanders Bill|2026.09.04"
-    channel: "藍 | ニュースインサイト"
+    channel: ""
   - video_id: "S6ARRmZQpE0"
     title: "OpenAI Just Released GPT-6 Astra and Said &#39;Welcome to the AGI Era&#39; —The Most Powerful AI Ever Built"
     channel: "AI News"

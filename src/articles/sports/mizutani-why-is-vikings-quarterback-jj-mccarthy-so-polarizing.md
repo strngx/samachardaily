@@ -18,6 +18,7 @@ videos:
     channel: "The Football Corner"
 slug: "mizutani-why-is-vikings-quarterback-jj-mccarthy-so-polarizing"
 sourceUrl: "https://www.mitchellrepublic.com/sports/pro/mizutani-why-is-vikings-quarterback-j-j-mccarthy-so-polarizing"
+sourceName: "Mitchell Daily Republic"
 dek: "J.J. McCarthy, the Vikings’ touted franchise quarterback, has become a flashpoint among fans and analysts, with his on‑field decisions and leadership style drawing sharp praise and criticism alike."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |

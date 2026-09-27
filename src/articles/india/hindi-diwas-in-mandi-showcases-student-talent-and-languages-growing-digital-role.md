@@ -29,10 +29,8 @@ why_it_matters: |
   The Mandi celebrations signal a concerted effort to embed Hindi more deeply into modern spheres such as journalism and digital content, reinforcing cultural identity while equipping students with language skills relevant to contemporary careers. By spotlighting student talent, the event also encourages broader community support for Hindi, potentially influencing curriculum decisions and media production in the region, and fostering a sense of pride among youth.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Hindi Diwas was observed in the hill town of Mandi, where schools and colleges organized a series of cultural activities and competitions to mark the language’s day.
+Hindi Diwas was observed across government senior secondary schools and Vallabh Government College in the hill town of Mandi, Himachal Pradesh, with students taking part in speech and essay writing competitions organised to mark the occasion.
 
-Students took part in speech contests, essay writing and poetry recitations, displaying a range of talents that were judged and celebrated by teachers and peers.
+Participants displayed a range of oratory and literary talents judged by teachers and academic staff. Organisers and invited speakers noted Hindi's expanding role in formal education, digital media, and emerging online content creation, urging students to take pride in their linguistic heritage while exploring new avenues for expression.
 
-Organisers and invited speakers stressed Hindi’s rising importance in formal education, journalism and emerging digital media, noting its capacity to connect younger audiences.
-
-The events aimed to push Hindi learning beyond classroom walls, urging participants to take pride in their linguistic heritage and explore new avenues for creative expression.
+*The events were reported by local Himachal Pradesh media. Independent national-level corroboration of specific event details was not available for this report.*

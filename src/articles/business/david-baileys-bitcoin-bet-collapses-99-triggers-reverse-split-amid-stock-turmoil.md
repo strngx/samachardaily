@@ -9,11 +9,11 @@ imageCredit: "Rafael Minguet Delgado"
 trending: false
 featured: false
 video_id: "aS-ckoKaOSU"
-video_caption: "🧐👉 治鴉片診所變比特幣公司，股價暴跌99%的真相 #QixNewsCrypto"
+video_caption: ""
 videos:
   - video_id: "aS-ckoKaOSU"
-    title: "🧐👉 治鴉片診所變比特幣公司，股價暴跌99%的真相 #QixNewsCrypto"
-    channel: "QixNews 快克新聞"
+    title: ""
+    channel: ""
 slug: "david-baileys-bitcoin-bet-collapses-99-triggers-reverse-split-amid-stock-turmoil"
 sourceUrl: "https://www.ibtimes.com/trump-crypto-ally-david-baileys-bitcoin-bet-lost-99-its-stock-value-now-hes-rebuilding-3807077"
 sourceName: "International Business Times"

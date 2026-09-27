@@ -13,7 +13,7 @@ video_caption: "⚽ Brighton 3-0 Arsenal [HIGHLIGHTS] Premier League 26/27 ✅ |
 videos:
   - video_id: "ybUC3KRj7Ro"
     title: "⚽ Brighton 3-0 Arsenal [HIGHLIGHTS] Premier League 26/27 ✅ | Match Simulation/Recreation"
-    channel: "十Loork Football"
+    channel: "Loork Football"
   - video_id: "ppkqwnrpcG8"
     title: "Arsenal SMASHED by Brighton! Brighton 3-0 Arsenal Highlights"
     channel: "The Football Terrace"

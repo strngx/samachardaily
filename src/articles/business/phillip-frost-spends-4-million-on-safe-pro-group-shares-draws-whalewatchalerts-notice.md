@@ -20,6 +20,18 @@ why_it_matters: |
   The purchase signals strong confidence from a seasoned billionaire investor, potentially influencing Safe Pro’s governance and market perception, while the lack of new share issuance avoids dilution, preserving existing shareholder value.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Billionaire investor Dr. Phillip Frost bought 1 million restricted shares of Safe Pro Group Inc. (NASDAQ: SPAI) at $4 per share, a transaction valued at $4 million, directly from the company’s chairman and CEO, Daniyel Erdberg.
+Billionaire investor Dr. Phillip Frost acquired shares of Safe Pro Group Inc. (NASDAQ: SPAI) in a privately negotiated transaction disclosed through a Schedule 13D filing with the US Securities and Exchange Commission.
 
-In addition to the initial purchase, Frost obtained an option to acquire a further 1 million shares at $6 each. Because the shares were sourced from Erdberg’s existing holdings, the deal did not create any new shares, meaning there was no immediate dilution for other shareholders.
+## What the SEC records show
+
+Dr. Frost, acting through Frost Gamma Investments Trust, purchased 1,000,000 restricted shares of SPAI directly from the company's chairman and chief executive officer, Daniyel Erdberg, at a price of $4.00 per share — a total consideration of $4,000,000.
+
+In addition to the initial purchase, Frost secured a 2-year option to acquire a further 1,000,000 shares at $6.00 per share. Because the shares were sourced from Erdberg's existing holdings rather than newly issued stock, the transaction did not create any new shares, meaning existing shareholders faced no immediate dilution. The transaction gave Frost Gamma Investments Trust a beneficial ownership stake of approximately 9.82% of SPAI.
+
+## Background
+
+Safe Pro Group is a defence and security technology company focused on AI-driven threat detection and demining solutions. The transaction was flagged by the automated market-monitoring service WhaleWatchAlerts, which tracks large insider and institutional movements in smaller-cap equities.
+
+## Why it matters
+
+A direct share purchase of this size from a billionaire investor of Frost's profile — he has previously built and sold major pharmaceutical and financial companies — serves as a significant signal of confidence in SPAI's commercial trajectory. The structure as a non-dilutive secondary purchase, combined with a six-dollar option, aligns Frost's incentive with long-term price appreciation.

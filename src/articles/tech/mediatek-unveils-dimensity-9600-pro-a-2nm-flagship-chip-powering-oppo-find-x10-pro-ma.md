@@ -23,6 +23,23 @@ why_it_matters: |
   The 2nm Dimensity 9600 Pro places MediaTek at the forefront of cutting‑edge mobile silicon, promising higher performance and efficiency for flagship devices. Its adoption by OPPO signals strong market confidence and could intensify competition with other chipmakers, potentially accelerating the rollout of next‑generation smartphone capabilities.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-MediaTek announced the Dimensity 9600 Pro, its new flagship mobile processor fabricated on TSMC's 2nm technology, marking the company's first entry into the most advanced semiconductor node for smartphones.
+MediaTek officially announced the Dimensity 9600 Pro, its latest flagship mobile processor fabricated on TSMC's 2nm N2P manufacturing process — the most advanced semiconductor node commercially deployed at scale for smartphones.
 
-The chip combines Arm's C2 CPU cores with a Mali‑G2 Ultra NX GPU and will be the core component of OPPO's upcoming Find X10 Pro Max, which is set for a global debut.
+## What was announced
+
+According to MediaTek's official press release, the Dimensity 9600 Pro was announced on **September 15, 2026**. Key technical specifications include:
+
+- **Process node:** TSMC 2nm N2P
+- **CPU architecture:** All-Big-Core design using Arm's **C2-Ultra** cores — Arm's most advanced mobile CPU core generation
+- **GPU:** **Mali-G2 Ultra NX** — the latest Ultra series graphics unit
+- **Launch device:** OPPO Find X10 Pro Max, confirmed for global debut in late September 2026
+
+GSMArena's hardware database confirmed the chip's integration into the OPPO Find X10 Pro Max specifications.
+
+## What the 2nm process means
+
+TSMC's 2nm N2P process offers improved power efficiency and transistor density compared to the previous 3nm generation, enabling higher performance at lower thermal output. For smartphone users, this translates to longer battery life under heavy workloads, faster sustained compute performance for AI features, and improved thermal management in thin device form factors.
+
+## Why it matters
+
+The Dimensity 9600 Pro places MediaTek at the frontier of mobile silicon alongside Apple's A-series chips, which had been among the first to adopt sub-3nm manufacturing. OPPO's decision to launch its flagship Find X10 Pro Max with the new MediaTek chip — rather than Qualcomm's competing Snapdragon series — signals strong OEM confidence in MediaTek's high-end product roadmap and intensifies competition at the top of the Android flagship market.

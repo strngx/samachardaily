@@ -9,10 +9,10 @@ imageCredit: "İrfan Simsar"
 trending: false
 featured: false
 video_id: "AT2SagZSnQs"
-video_caption: "미 부통령 “상선 공격 중단해야 대화 가능”…‘미군 사망자 실언’ 후폭풍 / KBS 2026.09.04."
+video_caption: ""
 videos:
   - video_id: "AT2SagZSnQs"
-    title: "미 부통령 “상선 공격 중단해야 대화 가능”…‘미군 사망자 실언’ 후폭풍 / KBS 2026.09.04."
+    title: ""
     channel: "KBS News"
   - video_id: "fZiaU8LXubw"
     title: "Vice President JD Vance: Expect Strait of Hormuz to be opened &#39;in a toll-free way for the long term&#39;"

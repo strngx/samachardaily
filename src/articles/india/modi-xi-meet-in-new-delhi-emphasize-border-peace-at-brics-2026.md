@@ -29,8 +29,14 @@ why_it_matters: |
   Stability on the 3,488‑km India‑China frontier is critical to preventing escalation that could disrupt regional security and trade flows. By foregrounding peace in their BRICS‑stage dialogue, Modi and Xi signal a willingness to manage disputes through predictability, which may ease tensions for neighboring states and investors. The emphasis also aligns with BRICS’ collective push for a balanced geopolitical order, making the bilateral tone a barometer for future cooperation across security and economic domains.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The bilateral meeting between Indian Prime Minister Narendra Modi and Chinese President Xi Jinping took place on the sidelines of the BRICS 2026 summit in New Delhi, marking a high‑level dialogue within the multilateral gathering.
+Prime Minister Narendra Modi and Chinese President Xi Jinping held a bilateral meeting on the sidelines of the 18th BRICS summit in New Delhi, holding direct talks focused on bilateral relations and border disengagement.
 
-Modi used the encounter to stress that peace and stability along the India‑China border remain paramount, calling for greater predictability and cooperation to improve bilateral ties.
+The meeting represented a significant diplomatic encounter between the leaders of India and China, taking place within the multilateral framework of the summit hosted by India.
 
-The talks were set against the broader framework of BRICS cooperation, with both sides noting regional security, trade and wider geopolitical developments as part of the dialogue.
+During the dialogue, Prime Minister Modi emphasized that maintaining peace and tranquility along the India-China border remains an essential requirement for the stabilization and positive development of bilateral relations. Modi stressed that mutual respect, mutual sensitivity, and mutual interests must serve as the foundation of ties between the two neighbors, calling for predictability and adherence to existing bilateral agreements.
+
+The discussions addressed the ongoing diplomatic and military efforts to resolve lingering friction points along the Line of Actual Control (LAC) in eastern Ladakh, where bilateral relations had been strained following the 2020 military standoff. Both leaders reviewed the progress of Corps Commander-level meetings and diplomatic mechanisms established under the Working Mechanism for Consultation and Coordination on India-China Border Affairs (WMCC).
+
+President Xi noted the shared responsibilities of India and China as large developing nations and major emerging economies, emphasizing the importance of managing differences cooperatively and contributing to regional stability and multipolar global governance within forums like BRICS.
+
+While both governments affirmed their willingness to maintain dialogue across military and diplomatic channels, official statements reflected that comprehensive normalization of trade, investment, and bilateral exchanges remains linked to verified, sustained stability along the border frontier.

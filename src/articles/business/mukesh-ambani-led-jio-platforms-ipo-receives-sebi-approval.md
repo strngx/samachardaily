@@ -21,6 +21,7 @@ videos:
     channel: "MyFin TV"
 slug: "mukesh-ambani-led-jio-platforms-ipo-receives-sebi-approval"
 sourceUrl: "https://telecomlive.in/web/2026/08/29/mukesh-ambani-led-jio-platforms-ipo-receives-sebi-approval/"
+sourceName: "Telecomliveweb"
 dek: "Following SEBI's final observations, Jio Platforms is preparing a $4 billion (Rs 37,700 crore) public issue to accelerate 5G infrastructure, cloud services, and digital growth."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |

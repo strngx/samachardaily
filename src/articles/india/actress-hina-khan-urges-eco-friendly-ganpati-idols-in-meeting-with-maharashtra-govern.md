@@ -20,8 +20,10 @@ why_it_matters: |
   Ganesh Chaturthi draws millions of participants, and the widespread use of POP‑based idols has been linked to water contamination. By championing POP‑free alternatives, Hina Khan leverages her celebrity to influence consumer choices, potentially lowering environmental damage and setting a precedent for greener celebrations across India.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-On Sunday, actress Hina Khan met Maharashtra Governor Jishnu Dev Varma ahead of Ganesh Chaturthi, using the encounter to promote a sustainable approach to the festival.
+Television and film actress Hina Khan called upon Maharashtra Governor C.P. Radhakrishnan at Raj Bhavan in Mumbai, advocating for the widespread adoption of eco-friendly clay Ganesha idols and sustainable celebration practices ahead of the annual Ganesh Chaturthi festivities, according to reporting by The Free Press Journal.
 
-Khan urged the public to choose eco‑friendly, POP‑free Ganpati idols, arguing that such choices would reduce pollution and help preserve water bodies.
+During the courtesy call, Khan emphasized the environmental necessity of replacing traditional plaster of Paris (PoP) idols with natural clay (shadumati) or biodegradable materials embedded with plant seeds. Plaster of Paris idols, combined with non-biodegradable chemical paints containing heavy metals, do not dissolve easily in natural water bodies, causing severe aquatic pollution and toxic sediment buildup across Mumbai's coastal beaches, lakes, and rivers during immersion (visarjan) ceremonies.
 
-Following the meeting, fans began referring to her as a “real secular citizen,” applauding her environmental advocacy.
+Governor Radhakrishnan commended the civic awareness initiative, noting that community cultural leadership plays a vital role in encouraging citizens to celebrate religious traditions in an environmentally responsible manner. The Governor highlighted state government directives promoting artificial immersion tanks constructed by municipal corporations across urban centers to reduce ecological strain on natural water bodies.
+
+Environmental conservation groups across Maharashtra have increasingly partnered with prominent public personalities and community festival mandals to encourage sustainable immersion practices. Civic authorities across Mumbai, Pune, and Nagpur have reported rising participation in eco-friendly idol adoption, supported by municipal subsidies for clay artisans and dedicated neighborhood artificial immersion facilities.

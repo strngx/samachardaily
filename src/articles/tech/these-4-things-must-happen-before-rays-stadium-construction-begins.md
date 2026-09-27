@@ -21,6 +21,7 @@ videos:
     channel: "Twin Home Experts"
 slug: "these-4-things-must-happen-before-rays-stadium-construction-begins"
 sourceUrl: "https://biztoc.com/x/81c9a141527714bb"
+sourceName: "Biztoc"
 dek: "The Hillsborough County Commission and Tampa City Council cleared the $2.3 billion Rays stadium proposal, but four key steps—financing, land lease, environmental clearance, and design finalization—must be completed before construction can start."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |

@@ -1,143 +1,287 @@
-# SamacharDaily (समाचार डेली)
+# Samachar Daily
 
-> An automated, AI-powered Indian & global news platform delivering fast, verified, and deeply contextualized reporting.
+> A solo-publisher digital newsroom built around transparent editorial workflows, source attribution, human review, and a modern Eleventy-based publishing stack.
 
 [![Build and Deploy Eleventy Site](https://github.com/strngx/samachardaily/actions/workflows/deploy.yml/badge.svg)](https://github.com/strngx/samachardaily/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Live Site](https://img.shields.io/badge/Live_Site-strngx.github.io%2Fsamachardaily-C81E2C?style=flat&logo=googlechrome&logoColor=white)](https://strngx.github.io/samachardaily/)
+[![Website](https://img.shields.io/badge/Website-thesamachardaily.in-C81E2C?style=flat&logo=googlechrome&logoColor=white)](https://thesamachardaily.in/)
 
 ---
 
-### 🌐 Live Publication
-Explore the live, continuously updating newsroom:  
-👉 **[https://strngx.github.io/samachardaily/](https://strngx.github.io/samachardaily/)**
+## 🌐 Public Website
+
+Explore the live, public news publication:  
+👉 **[https://thesamachardaily.in/](https://thesamachardaily.in/)**
 
 ---
 
-## 📖 Overview
+## 📸 Website Preview
 
-**SamacharDaily** is a modern, zero-cost digital news publication engineered for editorial credibility, rapid scanning, and search discoverability. Covering five core editorial desks — **India, World, Business, Tech, and Sports** — the platform autonomously ingests real-time wire dispatches, synthesizes high-quality journalistic briefings using large language models, enriches stories with verified media, and publishes directly to a static web frontend on an automated schedule.
+### Desktop Homepage
+![Samachar Daily Desktop Homepage](docs/screenshots/homepage-desktop.png)
 
-![SamacharDaily Homepage Preview](docs/homepage-preview.png)
+### Navigation & Editorial Masthead
+![Samachar Daily Navigation and Masthead](docs/screenshots/navigation-desktop.png)
 
----
+### Public Article Experience (Desktop & Mobile)
+| Desktop Article View | Mobile Article View |
+| :---: | :---: |
+| ![Desktop Article Page](docs/screenshots/article-desktop.png) | ![Mobile Article Page](docs/screenshots/article-mobile.png) |
 
-## ✨ Features
-
-- 🤖 **Autonomous Editorial Pipeline**: End-to-end automated news ingestion, duplicate detection, content-quality filtering, LLM-driven synthesis, and direct GitHub commit publishing.
-- ⚡ **High-Performance Static Frontend**: Built with [Eleventy (11ty)](https://www.11ty.dev/) for instant page loads, zero database overhead, and resilient static hosting via GitHub Pages.
-- 📰 **Structured Journalistic Story Format**: Every published article follows a rigorous editorial blueprint:
-  - Authoritative headline & 1-2 sentence executive summary (*dek*)
-  - 2-3 paragraph core factual synthesis
-  - Dedicated **"Why It Matters"** analytical callout explaining strategic/market context
-  - Forward-looking **"What Happens Next"** timeline
-  - Validated 16:9 photography with photographer credit
-  - Relevant broadcast video coverage with responsive YouTube embeds
-  - Transparent primary wire source attribution
-- 🔍 **Strict Content Quality & Policy Filters**: Automated guardrails to reject gambling/betting content, ticker-dumps, syndicated PR-wire spam, listicles, and non-English text.
-- 🚀 **SEO & Discovery Ready**: Fully structured JSON-LD (`NewsArticle` and `VideoObject`), dynamic XML sitemaps, RSS 2.0 feeds, and OpenGraph/Twitter social cards.
-- 💰 **Zero-Cost Architecture**: Built entirely on generous free tiers across Google Apps Script, Groq, News APIs, and GitHub Pages.
+### Mobile Homepage
+<p align="center">
+  <img src="docs/screenshots/homepage-mobile.png" alt="Samachar Daily Mobile Homepage" width="390" />
+</p>
 
 ---
 
-## 🛠️ Tech Stack
+## 📖 Project Overview
 
-| Component | Technology / Service | Role in Pipeline |
-| :--- | :--- | :--- |
-| **Static Site Generator** | [Eleventy (11ty) v3](https://www.11ty.dev/) | Compiles Markdown and Nunjucks templates into ultra-fast static HTML |
-| **Orchestration & Automation** | [Google Apps Script](https://developers.google.com/apps-script) | Serverless cron scheduling, candidate filtering, and GitHub REST API integration |
-| **AI Editorial Synthesis** | [Groq](https://groq.com/) (Llama 3.3 / GPT-OSS) | High-velocity editorial rewriting, fact extraction, and analytical summaries |
-| **News Sourcing** | [NewsData.io](https://newsdata.io/) & [Currents API](https://currentsapi.services/) | Real-time global wire ingestion across 5 focus desks |
-| **Visual Media** | [Pexels API](https://www.pexels.com/api/) | High-resolution landscape photography with attribution metadata |
-| **Video Journalism** | [YouTube Data API v3](https://developers.google.com/youtube/v3) | Broadcast journalism and video coverage search integration |
-| **Hosting & CI/CD** | [GitHub Pages](https://pages.github.com/) & [GitHub Actions](https://github.com/features/actions) | Continuous deployment with 100% automated build pipeline |
+**Samachar Daily** is an independent digital news publication delivering verified, fast, and deeply contextualized journalism across India and the globe.
 
----
-
-## 🔄 How It Works
-
-```mermaid
-flowchart LR
-    A[News Data APIs] --> B[Google Apps Script Pipeline]
-    B --> C{Quality & Spam Guards}
-    C -->|Pass| D[Groq AI Synthesis]
-    C -->|Fail| X[Discard Candidate]
-    D --> E[Image & Video Enrichment]
-    E --> F[Publish Markdown to GitHub Repo]
-    F --> G[GitHub Actions CI/CD]
-    G --> H[Eleventy Build & Deploy to GitHub Pages]
-```
-
-1. **Ingestion & Guardrails**: On an automated hourly/bi-hourly trigger, Google Apps Script fetches breaking dispatches from verified news wires and applies strict duplicate, language, spam, and policy filters.
-2. **Editorial Synthesis**: A date-anchored Groq prompt synthesizes the dispatch into an objective news report complete with executive summary, analytical context, and forward-looking milestones.
-3. **Media Enrichment**: The system validates source photography against hotlink and dimension constraints (falling back to Pexels when needed) and queries YouTube Data API for relevant broadcast reports.
-4. **Autonomous Publishing**: The compiled Markdown article is committed directly to the appropriate category folder in GitHub via the GitHub REST API.
-5. **Static Site Build**: The commit automatically triggers GitHub Actions, which builds the Eleventy static site and deploys it live to GitHub Pages in under 30 seconds.
+- **Solo-Publisher Model:** Founded, owned, and engineered by **Arjun Khatri**. The platform operates under an independent solo-publisher and solo-developer model, with technical architecture, editorial standards, and publishing pipelines managed directly by the founder.
+- **Institutional Byline:** Published articles carry the institutional byline of the **[Samachar Daily Editorial Team](https://thesamachardaily.in/authors/samachardaily-editorial-team/)**.
+- **AI as an Editorial Assistant:** Artificial intelligence is utilized strictly as an editorial assistant—accelerating dispatch synthesis, generating structured summaries, and organizing contextual timelines. It is never used as an autonomous reporter or fictitious author.
+- **Human-in-the-Loop Review:** The editorial workflow incorporates human review checkpoints to evaluate factual fidelity, journalistic tone, and ethical compliance prior to publication.
+- **Source Attribution:** Every published report clearly attributes the primary wire services, official statements, or research materials that informed the coverage.
+- **Safeguards for Sensitive Topics:** Topics involving public health, civic grievances, or sensitive news events receive additional editorial review, dedicated disclaimers, and strict verification gates.
 
 ---
 
-## 📁 Repository Structure
+## 🏛️ Public Website Sections
+
+The publication features five dedicated editorial desks alongside comprehensive institutional governance pages:
+
+- **[India](https://thesamachardaily.in/india/):** National developments, governance, civic infrastructure, and legal analysis.
+- **[World](https://thesamachardaily.in/world/):** International diplomacy, geopolitics, global trade, and strategic partnerships.
+- **[Business](https://thesamachardaily.in/business/):** Financial markets, macroeconomic trends, corporate earnings, and policy shifts.
+- **[Tech](https://thesamachardaily.in/tech/):** Artificial intelligence, consumer hardware, cybersecurity, software, and digital regulations.
+- **[Sports](https://thesamachardaily.in/sports/):** Cricket, tournament coverage, athletics, and international competitive sports.
+- **Article Pages:** High-readability typography, structured executive summaries, analytical *"Why It Matters"* breakdowns, and forward-looking *"What Happens Next"* timelines.
+- **Governance & Legal:**
+  - [About Us](https://thesamachardaily.in/about/)
+  - [Editorial Policy & Standards](https://thesamachardaily.in/editorial/)
+  - [Contact & Grievances](https://thesamachardaily.in/contact/)
+  - [Privacy Policy](https://thesamachardaily.in/privacy/)
+  - [Terms of Service](https://thesamachardaily.in/terms/)
+  - [Search](https://thesamachardaily.in/search/)
+
+---
+
+## 🛠️ Technology Stack
+
+The project relies on a clean, modern, zero-database static architecture:
+
+- **Static Site Generator:** [Eleventy (11ty) v3](https://www.11ty.dev/) for high-speed static generation with zero client-side framework bloat.
+- **Templating:** [Nunjucks](https://mozilla.github.io/nunjucks/) (`.njk`) layouts and Markdown (`.md`) content files.
+- **Styling:** Semantic Vanilla CSS with custom typography, responsive CSS Grid / Flexbox layouts, and cohesive brand design tokens.
+- **Frontend Logic:** Lightweight vanilla JavaScript for interactive elements (such as search and navigation toggles).
+- **Automation Engine:** Google Apps Script (`Code.gs`) for serverless wire processing, candidate filtering, and dispatch enrichment.
+- **Hosting & Infrastructure:** [GitHub Pages](https://pages.github.com/) serving optimized static HTML, CSS, and SVG/PNG assets over HTTPS.
+- **CI/CD:** [GitHub Actions](https://github.com/features/actions) for automated build testing and production deployment.
+- **Validation Suite:** Custom Node.js validation scripts verifying schema markup, canonical links, sitemaps, and RSS feeds.
+
+---
+
+## 🔄 Editorial Workflow
 
 ```text
-SamacharDaily/
-├── .eleventy.js                     # Eleventy configuration, custom filters & collections
-├── package.json                     # Project scripts and dependencies
-├── Code.gs                          # Google Apps Script auto-blogger & orchestration engine
-├── src/
-│   ├── _data/
-│   │   ├── site.js                  # Global metadata, navigation & SEO config
-│   │   └── categories.js            # Category desk definitions & colors
-│   ├── _includes/
-│   │   ├── layouts/                 # Base, article, homepage & category layouts
-│   │   └── partials/                # Reusable UI components (header, footer, cards, embeds)
-│   ├── articles/                    # Published Markdown articles organized by desk
-│   │   ├── india/
-│   │   ├── world/
-│   │   ├── business/
-│   │   ├── tech/
-│   │   └── sports/
-│   ├── categories/                  # Dynamic category pages with pagination
-│   ├── pages/                       # About, Contact, Privacy, Terms & Search pages
-│   ├── feeds/                       # Dynamic XML Sitemap and RSS feeds
-│   └── assets/                      # Production CSS tokens, client JS & brand assets
-└── docs/                            # Documentation and repository preview assets
+  [Verified News Sources & Wires]
+                 │
+                 ▼
+  [Research & Dispatch Cross-Checking]
+                 │
+                 ▼
+  [AI-Assisted Synthesis & Drafting]
+                 │
+                 ▼
+  [Automated Quality, Policy & Duplicate Filters]
+                 │
+                 ▼
+  [Human Editorial Review & Fact Verification]
+                 │
+                 ▼
+  [Local Promotion from Drafts to Production Articles]
+                 │
+                 ▼
+  [Git Commit & Push to Main Branch]
+                 │
+                 ▼
+  [GitHub Actions Build & Automated Deployment to GitHub Pages]
 ```
+
+1. **Source Ingestion:** Dispatches are gathered from established news services, verified wires, and institutional announcements.
+2. **Draft Generation:** Content is synthesized into structured journalistic reports with executive summaries, analytical context, and source citations.
+3. **Independent Checks:** Stories are screened against strict anti-duplication algorithms, clickbait filters, policy rules, and metadata schemas.
+4. **Editorial Review:** The publisher reviews drafts locally to ensure accuracy, proper tone, and context before publication.
+5. **Promotion & Release:** Approved stories are promoted from the local draft pipeline into the production article directories and committed to source control.
+6. **Static Compilation:** GitHub Actions builds the static site with Eleventy and deploys the output to GitHub Pages.
+
+---
+
+## 🛡️ Editorial Safeguards
+
+- **Primary Source Attribution:** All stories cite primary news agencies or authoritative public disclosures.
+- **No Fabricated Personas:** No artificial reporter bylines or invented personas are used.
+- **No Hallucinated Quotes:** All quotes must originate directly from verified source dispatches.
+- **Duplicate & Cannibalization Prevention:** Automated checks prevent publishing overlapping or redundant stories on the same event.
+- **Health & Sensitive Content Disclaimers:** Articles touching on health or public safety include explicit editorial disclaimers directing readers to qualified professionals.
+- **URL & Canonical Stability:** Permanent permalink structures and canonical link tags prevent search fragmentation.
+- **Draft-First Staging:** Unpublished stories remain isolated in local staging (`src/drafts/`) until reviewed.
 
 ---
 
 ## 💻 Local Development
 
 ### Prerequisites
-- **Node.js**: v18.0.0 or higher
+- **Node.js**: v18.0.0 or higher (v20+ recommended)
 - **npm**: v9.0.0 or higher
 
-### Getting Started
+### Installation & Commands
 
-1. **Clone the repository**:
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/strngx/samachardaily.git
    cd samachardaily
    ```
 
-2. **Install dependencies**:
+2. **Install dependencies:**
    ```bash
    npm install
    ```
 
-3. **Start local development server**:
+3. **Start local development server:**
    ```bash
    npm run dev
+   # or: npm run serve
    ```
-   Open `http://localhost:8080` in your browser to view the site with hot-reloading.
+   Open `http://localhost:8080` in your browser to view the site with automatic hot-reloading.
 
-4. **Build production bundle**:
+4. **Build production static site:**
    ```bash
    npm run build
    ```
-   Generates optimized static HTML/CSS/JS into the `_site/` directory.
+   Compiles optimized production HTML into the `_site/` directory.
+
+5. **Run production validation suite:**
+   ```bash
+   node tools/validate-build.js
+   ```
+   Validates canonical tags, `NewsArticle` JSON-LD schemas, sitemap entries, and RSS feed structure.
+
+6. **Launch local editorial dashboard:**
+   ```bash
+   npm run admin
+   ```
+   Starts a local-only preview environment with the internal editorial dashboard enabled.
 
 ---
 
-## 📄 License
+## 🔒 Editorial Dashboard Isolation
 
-This project is open source and available under the [MIT License](LICENSE).
+The repository contains an internal editorial control center (`src/admin/`) used for reviewing draft queues, monitoring story health, and evaluating content quality locally.
+
+**Key Security & Privacy Guarantees:**
+- **Local-Only by Design:** The editorial dashboard is exclusively intended for local publisher operation.
+- **Build Isolation:** In `.eleventy.js`, the production build process dynamically ignores `src/admin/**` unless the local development environment explicitly sets `SERVE_ADMIN=true`.
+- **Zero Production Footprint:** The dashboard is never compiled into `_site/` during production builds and is never deployed to GitHub Pages.
+- **Crawler Exclusion:** `src/robots.txt` explicitly disallows crawling of `/admin/`.
+- **Data Protection:** Internal quality metrics, draft queues, and editorial notes remain strictly confidential on the publisher's local workstation.
+
+---
+
+## 📁 Project Structure
+
+```text
+SamacharDaily/
+├── .eleventy.js                   # Eleventy SSG configuration & build isolation
+├── package.json                   # Project dependencies and development scripts
+├── Code.gs                        # Google Apps Script orchestration engine
+├── LICENSE                        # MIT License
+├── .github/
+│   └── workflows/
+│       └── deploy.yml             # GitHub Actions CI/CD deployment workflow
+├── docs/
+│   └── screenshots/               # Verified public website screenshots
+│       ├── homepage-desktop.png
+│       ├── homepage-mobile.png
+│       ├── article-desktop.png
+│       ├── article-mobile.png
+│       └── navigation-desktop.png
+├── scripts/                       # Draft review, promotion, and staging scripts
+│   ├── promote_draft.js
+│   ├── review_draft.js
+│   └── stage_article.js
+├── tools/                         # Build verification and QA scripts
+│   ├── validate-build.js
+│   ├── test-multi-source.js
+│   ├── editorial-control-center/
+│   └── seo-rehab-progress/
+└── src/
+    ├── _data/                     # Global site tokens, categories, and navigation
+    ├── _includes/                 # Reusable Nunjucks layouts and UI partials
+    │   ├── layouts/
+    │   └── partials/
+    ├── admin/                     # Local-only editorial dashboard (never published)
+    ├── articles/                  # Production articles organized by desk
+    │   ├── business/
+    │   ├── india/
+    │   ├── sports/
+    │   ├── tech/
+    │   └── world/
+    ├── assets/                    # Production CSS, client JS, and brand graphics
+    ├── categories/                # Dynamic category pages and pagination
+    ├── drafts/                    # Staged drafts awaiting human review
+    ├── feeds/                     # Dynamic XML sitemap and RSS feeds
+    ├── pages/                     # Trust and governance pages (About, Policy, etc.)
+    └── robots.txt                 # Search crawler instructions
+```
+
+---
+
+## 🚀 Deployment
+
+Deployment to production is handled entirely via **GitHub Actions** and **GitHub Pages**:
+
+1. Changes are tested and validated locally.
+2. Commits pushed to the `main` branch trigger the `.github/workflows/deploy.yml` workflow.
+3. The workflow installs dependencies, executes `npm run build`, and verifies that `_site/` is populated with valid static assets.
+4. The compiled `_site/` bundle is deployed automatically to GitHub Pages over HTTPS at `https://thesamachardaily.in/`.
+5. The deployment job notifies search engines via Google's sitemap ping service.
+
+---
+
+## 🧪 Validation & Quality Assurance
+
+Production readiness is verified using the repository's native validation tooling:
+
+```bash
+# 1. Clean production build
+npm run build
+
+# 2. Structural & schema validation
+node tools/validate-build.js
+```
+
+The validation suite verifies:
+- Production HTML generation for all core desks and article pages.
+- Presence of valid canonical URLs on all public documents.
+- Complete `NewsArticle` and `BreadcrumbList` JSON-LD structured data.
+- Correct XML formatting and URL inclusion in `_site/sitemap.xml`.
+- Valid RSS 2.0 feed formatting in `_site/rss.xml`.
+- Complete absence of `_site/admin/` from the production build output.
+
+---
+
+## 📊 Repository Status
+
+**Samachar Daily is actively maintained as a production static-news website.**
+
+---
+
+## 📄 License & Contact
+
+- **License:** Open source under the [MIT License](LICENSE).
+- **Founder & Owner:** Arjun Khatri
+- **Editorial Desk:** [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com)
+- **Corrections & Inquiries:** [Contact & Grievances Page](https://thesamachardaily.in/contact/)

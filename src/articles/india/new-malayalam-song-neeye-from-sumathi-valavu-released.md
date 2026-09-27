@@ -20,8 +20,14 @@ why_it_matters: |
   The release showcases emerging talent in Malayalam cinema music, offering audiences fresh vocal and compositional styles that could influence the soundtrack landscape for upcoming films and streaming platforms.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The Malayalam entertainment portal ETimes has published the video for 'Neeye', the latest song from the upcoming film Sumathi Valavu, featuring vocal performances by KS Harishankar and Nidhi Praveen.
+The makers of the upcoming Malayalam feature film *Sumathi Valavu* have released its latest romantic track, titled *Neeye*, through digital streaming platforms and entertainment portals including ETimes.
 
-The composition is credited to music director Rhithwik S Chand, while the lyrics were penned by Ajeesh Dasan, delivering a romantic and soulful melody that the outlet describes as immersive.
+### Musical Composition and Vocal Performances
+The romantic ballad features vocal duets by prominent playback singers KS Harishankar and Nidhi Praveen, whose harmonious performance delivers a warm, melodic atmosphere. 
 
-ETimes invites viewers to watch the video on its Malayalam music videos section, positioning the track alongside other recent releases in the regional music catalog.
+Key creative credits for the composition include:
+* **Music Composer:** Rhithwik S Chand, who arranged the orchestration combining contemporary acoustic textures with regional melodic arrangements.
+* **Lyricist:** Ajeesh Dasan, whose verses center on themes of companionship, emotional longing, and tender romantic devotion.
+
+### Release and Soundtrack Catalog
+ETimes published the full lyrical video in its regional Malayalam entertainment section, highlighting the track’s melodic structure and visual aesthetics. The song is featured as a pivotal soundtrack piece within *Sumathi Valavu*, which is gearing up for theatrical distribution across Kerala.

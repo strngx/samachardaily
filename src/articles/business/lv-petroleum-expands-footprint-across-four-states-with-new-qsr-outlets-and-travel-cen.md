@@ -18,7 +18,7 @@ videos:
     title: "QualityStocks Daily Video 10/12/2007"
     channel: "QualityStocks"
   - video_id: "wAP6YOSWn-I"
-    title: "Liar&#39;s Poker by Michael Lewis 讀你聽2.0 老千騙局"
+    title: ""
     channel: "CostasNarrativeXP"
 slug: "lv-petroleum-expands-footprint-across-four-states-with-new-qsr-outlets-and-travel-cen"
 sourceUrl: "https://www.rdrnews.com/online_features/press_releases/lv-petroleum-closes-out-july-with-restaurant-openings-and-travel-center-acquisition-across-four-states/article_ea6602db-a013-54d0-af1b-22f1bb5fc23c.html"

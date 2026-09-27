@@ -21,6 +21,7 @@ videos:
     channel: "Colorado Avalanche"
 slug: "ap-sports-summarybrief-at-848-pm-edt"
 sourceUrl: "https://www.hjnews.com/sports/nation/ap-sports-summarybrief-at-8-48-p-m-edt/article_362b0097-e71a-5043-80c5-77e1d9810541.html"
+sourceName: "Hjnews"
 dek: "Colorado’s star defenseman Cale Makar has agreed to an eight‑year, $163.2 million deal, the largest contract in NHL history, cementing the Avalanche’s core for the long term."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |

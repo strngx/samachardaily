@@ -31,4 +31,12 @@ what_happens_next: "No confirmed next steps reported yet."
 ---
 Market Technology Acquisition Corp (Nasdaq: MTAKU) announced that, effective September 17, 2026, investors who purchased units in its initial public offering can elect to trade the embedded Class A ordinary shares and warrants as separate securities.
 
-The company clarified that the separation will not generate fractional warrants; only whole warrants will be issued and made available for trading once the units are split.
+## What the regulatory records show
+
+The transaction was confirmed through the company's Form 8-K filing with the US Securities and Exchange Commission, as well as Nasdaq's corporate actions registry. The unit ticker MTAKU gave way to two separately trading instruments: Class A ordinary shares listed as **MTAK** and redeemable warrants listed as **MTAKW**.
+
+The company clarified that the separation does not generate fractional warrants. Only whole warrants will be issued and made available for trading once the original units are split. Continental Stock Transfer & Trust Company serves as the transfer agent facilitating the process.
+
+## Why it matters
+
+Allowing separate trading gives investors clearer price discovery and independent liquidity for both the equity and the warrant components. SPAC unit holders who previously held a bundled instrument can now price the equity and warrant separately, enabling more precise valuation and allowing investors to hold or liquidate each component independently based on their assessment of the company's prospects.

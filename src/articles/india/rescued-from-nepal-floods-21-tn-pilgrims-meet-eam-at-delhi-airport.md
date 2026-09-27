@@ -21,8 +21,15 @@ why_it_matters: |
   It also raises awareness about the vulnerabilities of pilgrimage travel during extreme weather, prompting policy reviews on travel safety, emergency response coordination, and support systems for stranded citizens.
 what_happens_next: "The Ministry of External Affairs will arrange medical examinations for the pilgrims, provide temporary accommodation in Delhi, and coordinate with Tamil Nadu authorities to organize safe transport back to the state within the next 48 hours, while debriefing Nepalese officials on lessons learned."
 ---
-Heavy monsoon rains triggered flash floods in Nepal's eastern districts, stranding dozens of Indian pilgrims returning from a religious tour. Indian embassy officials, in coordination with Nepalese disaster agencies, launched a joint rescue operation that freed 21 travelers from Tamil Nadu after they were trapped for two days.
+A group of 21 Hindu pilgrims from Tamil Nadu who were trapped by sudden flash floods in eastern Nepal have returned safely to India, meeting External Affairs Minister Dr. S. Jaishankar upon their arrival at Indira Gandhi International Airport in New Delhi.
 
-Upon landing in Delhi, the group was received by External Affairs Minister Dr. S. Jaishankar, who praised the swift cross‑border response and assured the pilgrims of full consular support. The minister highlighted India’s commitment to safeguarding its citizens abroad and pledged assistance for any medical or logistical needs.
+### Evacuation Operation in Nepal
+As reported by *The Hans India*, heavy monsoon downpours had triggered extensive flooding and riverbank erosion in Nepal’s eastern districts, cutting off highway connections and leaving the touring pilgrims stranded in remote terrain for over 48 hours. 
 
-The incident underscores the robust India‑Nepal cooperation framework for disaster relief, while also prompting calls for enhanced safety protocols for pilgrim tours in flood‑prone regions. Authorities in Tamil Nadu are reviewing travel advisories and emergency preparedness measures for future religious trips.
+Following SOS calls from the stranded travelers, the Indian Embassy in Kathmandu coordinated directly with Nepalese disaster management authorities, district police, and local rescue teams to mount a targeted relief operation:
+* Local responders located the pilgrims and moved them to safe shelter.
+* Emergency medical checks, food, and water supplies were provided on-site.
+* Specialized transport arrangements transferred the group to Kathmandu for commercial repatriation flights to New Delhi.
+
+### Consular Support and Travel Preparedness
+At Delhi airport, Dr. Jaishankar interacted with the rescued travelers, enquiring about their health and assuring them that the Ministry of External Affairs remains committed to citizen protection abroad. State authorities in Tamil Nadu coordinated secondary transport for the pilgrims' return to their hometowns, while disaster agencies reiterated the importance of monitoring mountain weather advisories during pilgrimage seasons.

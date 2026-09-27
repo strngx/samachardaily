@@ -17,7 +17,7 @@ videos:
     title: "UFC SHANGHAI LIVESTREAM NURMAGOMEDOV VS SONG FULL FIGHT NIGHT COMPANION &amp; PLAY BY PLAY"
     channel: "MMA EXPERTS"
   - video_id: "y7k8gBB4oTY"
-    title: "公式計量後のフェイスオフ💥バンタム級アオリ・チロン🆚朝倉海#朝倉海#UFCShanghai📅8月29日（土）⁣⏰️プレリム16時｜メインカード19時⁣📺 #UNEXT &amp; #UFCFightPass"
+    title: ""
     channel: "UFC Japan"
 slug: "asakura-ko-prop-tops-ufc-shanghai-weekend-lock"
 sourceUrl: "https://www.yardbarker.com/mma/articles/asakura_ko_prop_tops_ufc_shanghai_weekend_lock/s1_17349_44231966"

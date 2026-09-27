@@ -1,4 +1,5 @@
 ---
+noindex: true
 title: "Friendship dynamics: Some adults stay shallow after being the go‑to support"
 seoTitle: "Adults keep friendships shallow after being over‑relied on"
 category: "Business"
@@ -18,8 +19,8 @@ videos:
     title: "[As Promised...] 3 MUST-HAVES For Relationships Between Adults To Be Healthy"
     channel: "Dr. Rhoberta Shaler - Help for Toxic Relationships"
   - video_id: "OX5OEpGvtUk"
-    title: "Контрольные прокаты сборной России по фигурному катанию 2026. День 2"
-    channel: "Фигурное катание"
+    title: ""
+    channel: ""
 slug: "friendship-dynamics-some-adults-stay-shallow-after-being-the-goto-support"
 sourceUrl: "https://dmnews.com/dmn-one-reason-some-adults-keep-friendships-shallow-on-purpose-has-less-to-do-with-fear-of-intimacy-than-with-having-once-been-the-person-everyone-leaned-on-and-no-one-checked-on/"
 sourceName: "Dmnews"

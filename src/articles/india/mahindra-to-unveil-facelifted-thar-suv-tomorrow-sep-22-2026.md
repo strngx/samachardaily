@@ -20,6 +20,16 @@ why_it_matters: |
   The Thar is one of Mahindra’s best‑selling off‑road SUVs, and a refreshed version can reinvigorate demand ahead of the 2027 model year. By adding Roxx‑inspired styling without altering the proven powertrain, Mahindra aims to attract both existing owners seeking a fresh look and new buyers looking for a rugged yet modern vehicle, potentially strengthening its position in the competitive Indian SUV market.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Mahindra announced that the second‑generation Thar will receive its first major refresh in India on September 22, 2026. The facelifted model is slated to go on sale shortly after the launch event.
+Automaker Mahindra has confirmed that the second-generation Thar will receive its first major mid-cycle refresh in India on September 22, 2026. The updated off-roader is scheduled to enter commercial showrooms shortly following the official reveal event.
 
-According to the preview, the update will bring a series of exterior and interior design changes drawn from the limited‑edition Thar Roxx, while the engine and gearbox configurations are expected to stay the same as the current lineup.
+### Design and Feature Updates
+According to preview details reported by India Car News, the facelifted model incorporates key styling and cabin enhancements influenced by the recently introduced five-door Thar Roxx. Exterior revisions focus on an updated front grille arrangement, revised bumper contours, and modernised LED headlamp and daytime running light signatures. Inside, the cabin receives upgraded dashboard materials, refined upholstery textures, and updated infotainment interfaces to improve day-to-day usability.
+
+### Powertrain and Mechanical Options
+The mechanical underpinnings and powertrain configurations are expected to remain consistent with the current lineup:
+* **Petrol engine:** 2.0-litre mStallion turbocharged petrol unit delivering robust low-end torque.
+* **Diesel engine:** Proven 2.2-litre mHawk diesel engine configured for durable off-highway performance.
+* **Transmission choices:** Six-speed manual and six-speed torque-converter automatic gearboxes.
+* **Drivetrain options:** Rear-wheel-drive (RWD) variants alongside four-wheel-drive (4WD) configurations featuring low-range transfer cases.
+
+Pricing announcements and delivery timelines are expected to be outlined during tomorrow's official presentation.

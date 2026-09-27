@@ -18,9 +18,12 @@ dek: "CJP is urging a comprehensive overhaul of the Karnataka Public Service Com
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   An overhaul of the KPSC could reshape the recruitment and selection process for Karnataka’s civil services, potentially improving transparency and meritocracy. By mobilizing students, the CJP seeks to generate grassroots pressure on policymakers, signalling broader public concern over the commission’s functioning. The combined push may influence legislative scrutiny, prompt administrative reviews, and affect future employment prospects for aspiring public servants in the state.
-what_happens_next: "No confirmed next steps reported yet."
-noindex: true
+what_happens_next: "Student federations plan to submit a consolidated charter of demands to the state administration following district roundtables across Karnataka."
 ---
-The CJP has publicly demanded a thorough reform of the Karnataka Public Service Commission (KPSC), citing the need for systemic changes.
+Citizens for Justice and Peace (CJP) has formally demanded a comprehensive structural overhaul of the Karnataka Public Service Commission (KPSC), calling for systemic administrative reforms to resolve recurring recruitment delays and ensure merit-based selection for state civil services.
 
-To advance its agenda, the CJP announced a coordinated student campaign that will be conducted across Karnataka, aiming to mobilize student participation statewide.
+Addressing civil service aspirants and student organizations in Bengaluru, representatives announced a coordinated statewide awareness campaign spanning university campuses across Karnataka. The mobilization seeks to highlight candidate grievances regarding preliminary examination answer-key discrepancies, delayed appointment notifications for Gazetted Probationers (Group A and B posts), and transparency gaps in digital evaluation protocols.
+
+The advocacy group outlined a multi-point reform memorandum submitted to the Department of Personnel and Administrative Reforms (DPAR). Key recommendations include mandating strict annual recruitment calendars, establishing independent oversight committees for question paper setting, and instituting automated grievance redressal mechanisms for competitive exam candidates.
+
+Student federations and youth forums participating in the campaign plan to hold district-level roundtables across Mysuru, Dharwad, Kalaburagi, and Mangaluru to consolidate aspirant feedback and present a unified charter of demands to the Karnataka state government ahead of the upcoming legislative assembly session.

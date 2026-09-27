@@ -21,6 +21,7 @@ videos:
     channel: "MLB"
 slug: "yankees-nip-rival-red-sox-1-0-in-series-opener-behind-goldschmidt-bellinger-and-schli"
 sourceUrl: "https://theday.com/news/919241/yankees-nip-rival-red-sox-1-0-in-series-opener-behind-goldschmidt-bellinger-and-schlittler/"
+sourceName: "The Day"
 dek: "Paul Goldschmidt’s solo blast and Cody Bellinger’s game‑saving tag secured a 1‑0 win for New York in the first game of a four‑game showdown."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |

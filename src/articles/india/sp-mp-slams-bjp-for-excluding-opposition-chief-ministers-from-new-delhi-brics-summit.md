@@ -29,6 +29,12 @@ why_it_matters: |
   The criticism highlights growing friction between the BJP‑led centre and opposition‑run states, raising concerns about inclusive federal governance and the politicisation of international forums. If chief ministers are sidelined, collaborative policy discussions at the BRICS level could be compromised, affecting regional development initiatives and the perception of India’s democratic credentials. It also puts pressure on the BJP to justify its invitation criteria ahead of upcoming state elections.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-On Monday, September 14, 2026, Samajwadi Party MP Awadhesh Prasad raised questions in Lucknow about the absence of chief ministers from opposition‑ruled states at the BRICS meeting in New Delhi.
+Samajwadi Party Member of Parliament Awadhesh Prasad has criticized the central government for not extending invitations to chief ministers of opposition-ruled states for official events and gala functions surrounding the BRICS summit in New Delhi.
 
-Prasad said the exclusion reflects a "sign of the BJP's anti‑democratic mindset", alleging the ruling party deliberately did not invite states where it is not in power, aiming to weaken opposition influence.
+### Statements Made in Lucknow
+Speaking to media representatives in Lucknow, Prasad asserted that the absence of non-BJP chief ministers from national international events reflects an exclusionary political approach:
+* **Allegations of political exclusion:** Prasad described the decision as indicative of the ruling party’s partisan mindset, arguing that major international summits held in India should showcase collective federal representation.
+* **Federal cooperative structure:** The Faizabad MP maintained that state leaders represent significant populations and economic interests that contribute to India’s international profile, emphasizing that federal protocol should transcend party affiliations during global summits.
+
+### Political Discourse
+The comments follow broader debates between the treasury benches and opposition alliances concerning protocol norms, diplomatic hospitality, and federal inclusion during major international diplomatic summits hosted by the central government.

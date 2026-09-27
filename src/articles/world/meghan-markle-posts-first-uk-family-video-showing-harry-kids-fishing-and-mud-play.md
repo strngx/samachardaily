@@ -1,4 +1,5 @@
 ---
+noindex: true
 title: "Meghan Markle posts first UK family video, showing Harry, kids fishing and mud play"
 seoTitle: "Meghan Markle shares first UK family video"
 category: "World"

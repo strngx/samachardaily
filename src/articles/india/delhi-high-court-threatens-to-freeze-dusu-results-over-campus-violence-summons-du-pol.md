@@ -27,10 +27,12 @@ dek: "The Delhi High Court has asked Delhi University and the police for reports
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   The court's warning places judicial scrutiny squarely on campus electoral integrity, pressuring university authorities and police to address security lapses promptly. A potential freeze of DUSU results could alter student leadership outcomes and set a precedent for how Indian courts intervene in university governance when democratic processes are threatened.
-what_happens_next: "No confirmed next steps reported yet."
+what_happens_next: "The Delhi High Court will review compliance affidavits from Delhi University and Delhi Police at the next scheduled hearing before clearing final result declarations."
 ---
-The Delhi High Court has issued a directive seeking status reports from Delhi University and the Delhi Police concerning alleged incidents of violence, vandalism and unauthorized entry that occurred during the Delhi University Students' Union (DUSU) election period.
+The Delhi High Court has issued strong directives seeking comprehensive compliance and status reports from Delhi University (DU), the Municipal Corporation of Delhi (MCD), and Delhi Police regarding widespread public property defacement, unauthorized vehicular rallies, and campus clashes during the Delhi University Students' Union (DUSU) elections.
 
-The bench cautioned that if the institutions fail to furnish a satisfactory account of the actions taken, the court may impose a stay on the counting of votes and the declaration of election results.
+A division bench examining multiple public interest litigations regarding electoral misconduct cautioned that if university authorities and law enforcement fail to demonstrate rigorous enforcement of the Lyngdoh Committee guidelines, the court will place a formal stay on the counting of ballot boxes and withhold final result declarations. The bench expressed grave concern over the defacement of public infrastructure, noting that metro stations, university boundary walls, and bus shelters across North and South Campus had been covered in promotional banners and spray-painted graffiti.
 
-In its order, the court underscored the importance of safeguarding democratic student elections, signalling that any compromise to the electoral process could trigger judicial intervention.
+The court directed the DU Chief Election Officer and the Delhi Police Commissioner to submit detailed affidavits outlining the preventative steps taken against unauthorized convoys and candidate-sponsored disruptions. Furthermore, the bench ordered that candidates and student outfits responsible for defacement must bear the financial cost of municipal cleanup operations before election outcomes can be formally certified.
+
+The matter has been scheduled for follow-up compliance hearings, with the bench emphasizing that institutional accountability and strict adherence to election expenditure caps remain mandatory prerequisites for university democracy.

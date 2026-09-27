@@ -29,6 +29,10 @@ why_it_matters: |
   The measured approval of Trump's UNGA remarks indicates that his diplomatic tone can resonate within the traditionally formal United Nations arena, potentially easing U.S. engagement with member states and shaping future multilateral discussions.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-President Trump delivered a well‑crafted, calmly presented address to the United Nations General Assembly, with observers noting that the remarks stayed on target throughout.
+Former U.S. President Donald Trump’s address to the United Nations General Assembly in New York drew unexpected diplomatic commendation from international delegates for its measured, disciplined vocal delivery, earning rare applause across the historic hall, according to diplomatic reporting by The Hill.
 
-The speech prompted applause from the normally stoic UN audience on a couple of occasions, a rare response in that setting.
+Speaking before world leaders and foreign ministers, Trump delivered an address focused on national sovereignty, reciprocal trade frameworks, and sovereign border integrity. Observers noted that the speech diverged notably in tone from his typical rallies, adhering closely to formal diplomatic teleprompter remarks while emphasizing de-escalation in select international flashpoints.
+
+Diplomats in attendance remarked that the absence of off-the-cuff personal attacks and combative improvisation allowed foreign delegations to engage more constructively with the administration's stated foreign policy priorities. Key passages addressing international energy cooperation and bilateral conflict resolution garnered polite applause from European and Asian delegations.
+
+International affairs analysts noted that while profound disagreements persist between Trump’s "America First" diplomatic doctrine and multilateral UN priorities on climate change and global treaties, the composed presentation demonstrated a tactical effort to project statesmanship on the international stage.

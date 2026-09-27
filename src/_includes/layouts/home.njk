@@ -14,42 +14,62 @@ layout: layouts/base.njk
     {% set heroUsedStories = (heroUsedStories.push(item), heroUsedStories) %}
   {% endfor %}
 
-  {# 4 Trending Stories strictly excluding Hero leadStory to prevent duplication #}
-  {% set trendingCandidates = homepageArticles | filterExcludedArticles([leadStory]) %}
+  {# 4 Trending Stories strictly excluding Hero leadStory AND all wireStories to prevent duplication #}
+  {% set trendingCandidates = homepageArticles | filterExcludedArticles(heroUsedStories) %}
   {% if trendingCandidates.length < 4 %}
-    {% set trendingCandidates = collections.articles | filterExcludedArticles([leadStory]) %}
+    {% set trendingCandidates = collections.articles | filterExcludedArticles(heroUsedStories) %}
   {% endif %}
   {% set trendingStories = trendingCandidates | limit(4) %}
 
-  {# Master exclusion list for Live Feed: hero + wire + trending #}
-  {% set excludedFromFeed = [leadStory] %}
+  {# Master exclusion list for lower-page desk modules #}
+  {% set masterUsedStories = [leadStory] %}
   {% for item in wireStories %}
-    {% set excludedFromFeed = (excludedFromFeed.push(item), excludedFromFeed) %}
+    {%- set masterUsedStories = (masterUsedStories.push(item), masterUsedStories) -%}
   {% endfor %}
   {% for item in trendingStories %}
-    {% set excludedFromFeed = (excludedFromFeed.push(item), excludedFromFeed) %}
+    {%- set masterUsedStories = (masterUsedStories.push(item), masterUsedStories) -%}
   {% endfor %}
 
-  {# Primary 24h/48h prioritized feed #}
-  {% set feedArticles = homepageArticles | filterExcludedArticles(excludedFromFeed) %}
+  {# Five-Desk Broadsheet Representation (India, World, Business, Tech, Sports) #}
+  {% set indiaStories = [] %}
+  {% for art in collections.india | filterExcludedArticles(masterUsedStories) %}
+    {%- if indiaStories.length < 3 and not art.data.noindex and not art.data.draft and not art.data.redirect and not art.data.redirect_to -%}
+      {%- set indiaStories = (indiaStories.push(art), indiaStories) -%}
+      {%- set masterUsedStories = (masterUsedStories.push(art), masterUsedStories) -%}
+    {%- endif -%}
+  {% endfor %}
 
-  {# If fewer than 6 items remain in prioritized window, supplement with next chronological articles #}
-  {% if feedArticles.length < 6 %}
-    {% set extraArticles = collections.articles | filterExcludedArticles(excludedFromFeed) %}
-    {% for extra in extraArticles %}
-      {% if feedArticles.length < 24 %}
-        {% set isAlreadyInFeed = false %}
-        {% for existing in feedArticles %}
-          {% if existing.url == extra.url or (existing.data.slug and existing.data.slug == extra.data.slug) %}
-            {% set isAlreadyInFeed = true %}
-          {% endif %}
-        {% endfor %}
-        {% if not isAlreadyInFeed %}
-          {% set feedArticles = (feedArticles.push(extra), feedArticles) %}
-        {% endif %}
-      {% endif %}
-    {% endfor %}
-  {% endif %}
+  {% set worldStories = [] %}
+  {% for art in collections.world | filterExcludedArticles(masterUsedStories) %}
+    {%- if worldStories.length < 3 and not art.data.noindex and not art.data.draft and not art.data.redirect and not art.data.redirect_to -%}
+      {%- set worldStories = (worldStories.push(art), worldStories) -%}
+      {%- set masterUsedStories = (masterUsedStories.push(art), masterUsedStories) -%}
+    {%- endif -%}
+  {% endfor %}
+
+  {% set businessStories = [] %}
+  {% for art in collections.business | filterExcludedArticles(masterUsedStories) %}
+    {%- if businessStories.length < 3 and not art.data.noindex and not art.data.draft and not art.data.redirect and not art.data.redirect_to -%}
+      {%- set businessStories = (businessStories.push(art), businessStories) -%}
+      {%- set masterUsedStories = (masterUsedStories.push(art), masterUsedStories) -%}
+    {%- endif -%}
+  {% endfor %}
+
+  {% set techStories = [] %}
+  {% for art in collections.tech | filterExcludedArticles(masterUsedStories) %}
+    {%- if techStories.length < 3 and not art.data.noindex and not art.data.draft and not art.data.redirect and not art.data.redirect_to -%}
+      {%- set techStories = (techStories.push(art), techStories) -%}
+      {%- set masterUsedStories = (masterUsedStories.push(art), masterUsedStories) -%}
+    {%- endif -%}
+  {% endfor %}
+
+  {% set sportsStories = [] %}
+  {% for art in collections.sports | filterExcludedArticles(masterUsedStories) %}
+    {%- if sportsStories.length < 3 and not art.data.noindex and not art.data.draft and not art.data.redirect and not art.data.redirect_to -%}
+      {%- set sportsStories = (sportsStories.push(art), sportsStories) -%}
+      {%- set masterUsedStories = (masterUsedStories.push(art), masterUsedStories) -%}
+    {%- endif -%}
+  {% endfor %}
 
   <!-- 1. Newsroom Lead + Latest News Continuous Wire -->
   {% include "partials/hero.njk" %}
@@ -158,18 +178,52 @@ layout: layouts/base.njk
     </section>
     {% endif %}
 
-    <!-- 4. Unified Live News Feed -->
-    {% if feedArticles.length > 0 %}
-    <section class="editorial-category-section" aria-label="Unified Live News Feed">
+    <!-- 4. Five-Desk Newsroom Representation -->
+    {% if indiaStories.length > 0 %}
+    <section class="editorial-category-section" aria-label="India Desk">
       <div class="section-masthead">
         <div class="section-title-group">
-          <h2 class="section-masthead-title">Live News Feed</h2>
-          <span class="section-masthead-sub">Continuous dispatches across India, World, Business, Tech, and Sports</span>
+          <h2 class="section-masthead-title">India Desk</h2>
+          <span class="section-masthead-sub">National coverage, policy developments, and domestic affairs</span>
         </div>
+        <a href="{{ '/india/' | url }}" class="section-view-all">View All India →</a>
       </div>
-
       <div class="category-grid">
-        {% for article in feedArticles %}
+        {% for article in indiaStories %}
+          {% include "partials/card.njk" %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% if worldStories.length > 0 %}
+    <section class="editorial-category-section" aria-label="World Desk">
+      <div class="section-masthead">
+        <div class="section-title-group">
+          <h2 class="section-masthead-title">World Desk</h2>
+          <span class="section-masthead-sub">Global geopolitics, international relations, and overseas reports</span>
+        </div>
+        <a href="{{ '/world/' | url }}" class="section-view-all">View All World →</a>
+      </div>
+      <div class="category-grid">
+        {% for article in worldStories %}
+          {% include "partials/card.njk" %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% if businessStories.length > 0 %}
+    <section class="editorial-category-section" aria-label="Business Desk">
+      <div class="section-masthead">
+        <div class="section-title-group">
+          <h2 class="section-masthead-title">Business Desk</h2>
+          <span class="section-masthead-sub">Markets, economic policy, corporate developments, and finance</span>
+        </div>
+        <a href="{{ '/business/' | url }}" class="section-view-all">View All Business →</a>
+      </div>
+      <div class="category-grid">
+        {% for article in businessStories %}
           {% include "partials/card.njk" %}
         {% endfor %}
       </div>
@@ -180,7 +234,42 @@ layout: layouts/base.njk
     {% set slotName = "homepage-mid" %}
     {% include "partials/ad-slot.njk" %}
 
+    {% if techStories.length > 0 %}
+    <section class="editorial-category-section" aria-label="Tech Desk">
+      <div class="section-masthead">
+        <div class="section-title-group">
+          <h2 class="section-masthead-title">Tech Desk</h2>
+          <span class="section-masthead-sub">Artificial intelligence, cybersecurity, consumer tech, and digital frontiers</span>
+        </div>
+        <a href="{{ '/tech/' | url }}" class="section-view-all">View All Tech →</a>
+      </div>
+      <div class="category-grid">
+        {% for article in techStories %}
+          {% include "partials/card.njk" %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% if sportsStories.length > 0 %}
+    <section class="editorial-category-section" aria-label="Sports Desk">
+      <div class="section-masthead">
+        <div class="section-title-group">
+          <h2 class="section-masthead-title">Sports Desk</h2>
+          <span class="section-masthead-sub">Tournament action, athletic dispatches, squad updates, and match analysis</span>
+        </div>
+        <a href="{{ '/sports/' | url }}" class="section-view-all">View All Sports →</a>
+      </div>
+      <div class="category-grid">
+        {% for article in sportsStories %}
+          {% include "partials/card.njk" %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
     <!-- 6. Video Journalism Section -->
+    {% set usedHomepageStories = masterUsedStories %}
     {% include "partials/video-journalism.njk" %}
   {% endif %}
 </div>

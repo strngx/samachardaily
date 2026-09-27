@@ -29,8 +29,20 @@ why_it_matters: |
   The incident highlights deepening hostility between the TMC and BJP in West Bengal, showing how local disputes can quickly become flashpoints with broader political consequences. The injuries to a former legislator and the mutual blame‑game may influence public perception of both parties and affect their mobilization strategies ahead of future electoral contests.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-A violent confrontation erupted in Kolkata’s Mukundpur neighbourhood as supporters of the Trinamool Congress (TMC) and the Bharatiya Janata Party (BJP) clashed over an alleged occupation of a party office.
+A violent confrontation erupted in Kolkata's Mukundapur neighbourhood as supporters of the Trinamool Congress (TMC) and the Bharatiya Janata Party (BJP) clashed over an alleged occupation of a local party office, leaving several people injured.
 
-Police intervened to break up the fight, and several individuals were wounded, including former legislator Humayun Kabir.
+## What happened
 
-Both parties have traded accusations about who sparked the violence, turning the incident into a political controversy that could reverberate across West Bengal’s political landscape.
+According to India Today's Kolkata bureau and corroborating coverage by The New Indian Express, the confrontation took place near the Purba Jadavpur Police Station in Mukundapur. TMC supporters had organised a march that proceeded toward the station, and the situation escalated when stones and other projectiles were thrown. Police intervened with a baton charge to disperse the crowds.
+
+Among those injured was **Humayun Kabir**, a former Indian Police Service officer and former TMC legislator (MLA), who sustained facial and eye injuries during the clash. He was subsequently taken for medical treatment.
+
+## Competing claims
+
+Both parties offered conflicting accounts of the incident's origin. TMC spokespersons accused BJP workers of instigating the confrontation and of illegally occupying a party office. BJP spokespersons, in turn, accused TMC workers of initiating the violence. Neither party's account has been independently verified, and police were investigating the sequence of events.
+
+## Why it matters
+
+The Mukundapur clash reflects continuing political tension between the TMC and BJP in West Bengal, where local disputes over party infrastructure and territorial control have repeatedly escalated into physical confrontations. Injuries to a former legislator of Humayun Kabir's profile amplify the political resonance of the incident beyond a routine local dispute.
+
+*Attribution: All claims of fault or instigation by either party are attributed to their respective spokespersons and have not been independently adjudicated.*

@@ -1,4 +1,5 @@
 ---
+noindex: true
 title: "Ex‑Bengaluru resident cites traffic, hard water, bad roads, yet misses one thing about the city"
 seoTitle: "Bengaluru ex‑resident: traffic woes, but one thing missed"
 category: "India"

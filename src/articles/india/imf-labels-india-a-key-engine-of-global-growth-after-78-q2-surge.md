@@ -21,6 +21,12 @@ why_it_matters: |
 what_happens_next: "No confirmed next steps reported yet."
 noindex: true
 ---
-IMF spokesperson Julie Kozack said India’s 7.8% growth in the second quarter outpaced expectations, describing the nation as a "key engine of global growth" and highlighting its economic resilience.
+The International Monetary Fund (IMF) has characterized India as a key engine of global economic expansion, pointing to the country’s 7.8% Gross Domestic Product (GDP) surge in the second quarter as evidence of strong domestic economic momentum amid a slowing global economy.
 
-The statement underscores the importance of India’s performance for the broader world economy, suggesting that the country’s momentum could help offset slower growth elsewhere and reinforce confidence among investors and policymakers.
+The multilateral financial institution noted that India's economic performance has stood out against broader international headwinds, where major advanced and emerging economies have experienced moderated growth under the weight of elevated interest rates, fragmented global trade networks, and persistent inflationary pressures.
+
+According to IMF evaluations, India's recent quarterly performance was driven primarily by resilient domestic consumption and sustained public capital expenditure on infrastructure. Public sector investments in national highway corridors, dedicated freight railways, and port logistics have stimulated private construction activity and industrial demand. At the same time, strong urban consumer spending and steady output across the services sector—particularly in information technology, financial services, and hospitality—helped insulate the economy from declining merchandise export demand in Western markets.
+
+Sectoral data reflected robust performance across manufacturing and construction, while agricultural growth remained steady despite regional monsoon variability. The IMF highlighted that ongoing structural reforms over the past decade, including the formalization of commercial transactions through the Goods and Services Tax (GST) and the rapid scaling of digital public infrastructure through the Unified Payments Interface (UPI), have reduced transaction costs and expanded financial inclusion across rural and semi-urban markets.
+
+While affirming India’s contribution to global GDP expansion, the IMF’s economic surveillance reports also noted downside risks that require careful policy management. These external vulnerabilities include volatile global crude oil prices, potential climate-induced agricultural disruptions impacting domestic food inflation, and the necessity of generating sufficient formal manufacturing employment for the country’s expanding demographic workforce. The Fund emphasized that maintaining fiscal consolidation while continuing public capital investment will be central to preserving this growth trajectory.

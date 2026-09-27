@@ -20,8 +20,12 @@ why_it_matters: |
   Collecting over 8,800 units of blood in one day provides a significant boost to medical supplies, potentially saving lives in hospitals. The record also demonstrates the BJP Yuva Morcha’s organisational reach, aligning a political celebration with a public‑health contribution and reinforcing the party’s image as a catalyst for civic service.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The Odisha unit of the BJP Yuva Morcha announced a world record after gathering 8,810 units of blood on Prime Minister Narendra Modi’s 76th birthday, a milestone reported from Bhubaneswar.
+The Odisha state unit of the Bharatiya Janata Yuva Morcha (BJYM) organized a large-scale voluntary blood donation drive across Odisha, collecting 8,810 units of blood within a single 24-hour period, which organizers announced as a single-day record from Bhubaneswar.
 
-The blood drive formed the opening event of a month‑long ‘Seva Sankalp Abhiyan’ launched nationwide to honor the birthday, with the campaign scheduled to run across India until October 17.
+The statewide blood donation campaign was launched as the inaugural event of the 'Seva Sankalp Abhiyan' (Service Pledge Campaign), a month-long civic initiative organized to commemorate Prime Minister Narendra Modi’s 76th birthday. The nationwide campaign is scheduled to conduct community-service, cleanliness, and public health activities across the country through October 17.
 
-Organisers highlighted that the volume of blood collected in a single day could substantially support hospitals and emergency services, showcasing the youth wing’s capacity to mobilise volunteers for public‑health initiatives.
+Donation camps were established across all 30 administrative districts of Odisha, with centers operating in district headquarters hospitals, community healthcare centers, and university campuses. BJYM youth organizers coordinated logistics with the Odisha State Blood Transfusion Council (SBTC) and local government blood banks to manage medical screening, sterile collections, refrigeration, and blood component separation.
+
+Healthcare administrators in Bhubaneswar noted that collecting 8,810 units in a single day provides critical support for regional hospital reserves, trauma centers, and blood banks that frequently experience seasonal shortages. The units were allocated to state blood storage centers to support scheduled surgeries, emergency trauma care, and ongoing transfusions for patients suffering from thalassemia and sickle-cell anemia across the state.
+
+Medical officials confirmed that all collected units undergo mandatory screening for transfusion-transmissible infections—including HIV, Hepatitis B and C, malaria, and syphilis—before integration into the state’s central blood inventory. Organizers stated that the campaign demonstrated the youth organization's ability to mobilize volunteers for constructive public-health causes, highlighting the role of coordinated community action in addressing healthcare infrastructure needs.

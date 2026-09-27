@@ -20,6 +20,12 @@ why_it_matters: |
   Candidate selections by the Left set the stage for a competitive contest in two key West Bengal seats, while an internal split in the Trinamool Congress may weaken its electoral cohesion, potentially reshaping the state's political balance ahead of the bypolls.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The Left alliance announced its candidates for the upcoming West Bengal bypolls in the Nandigram and Rejinagar constituencies.
+The Left Front alliance in West Bengal has declared its official candidates for upcoming assembly by-elections in the politically significant constituencies of Nandigram and Rejinagar.
 
-Within the ruling Trinamool Congress, sources report a factional rift that could influence the party's campaign approach in these contests.
+### Left Front Candidate Announcement
+According to reporting from *ABP News*, the Left Front leadership finalized its nominations following consultations among coalition partners, aiming to present a focused alternative to the ruling Trinamool Congress (TMC) and the opposition Bharatiya Janata Party (BJP):
+* **Nandigram:** The historically high-profile rural constituency in Purba Medinipur remains a closely watched battleground following fiercely contested general and assembly polls.
+* **Rejinagar:** Located in Murshidabad district, the seat features a strong local electoral contest centered on agrarian concerns and minority community representation.
+
+### Internal Dynamics in Trinamool Congress
+The by-election campaigns unfold against reports of localized factional friction within the ruling Trinamool Congress in parts of the districts. Political observers note that party strategists are working to address organizational coordination across grassroots blocks to maintain unified campaign momentum ahead of voting day.

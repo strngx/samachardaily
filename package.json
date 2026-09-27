@@ -7,7 +7,8 @@
     "build": "npx @11ty/eleventy",
     "serve": "npx @11ty/eleventy --serve",
     "dev": "npx @11ty/eleventy --serve",
-    "test": "npx @11ty/eleventy"
+    "test": "npx @11ty/eleventy",
+    "admin": "npx @11ty/eleventy --serve"
   },
   "keywords": [
     "news",

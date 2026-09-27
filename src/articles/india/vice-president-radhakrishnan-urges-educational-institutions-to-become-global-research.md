@@ -24,8 +24,22 @@ why_it_matters: |
   If realised, the shift would deepen industry‑academia linkages, spur homegrown innovation, and create high‑skill jobs, thereby reducing brain drain and strengthening India’s strategic autonomy in critical technologies such as AI, biotech and clean energy.
 what_happens_next: "The Ministry of Education announced it will convene a high‑level task force by the end of September to draft a framework for accrediting ‘global research hub’ status. The University Grants Commission is slated to release revised funding and governance guidelines within the next three months, pending stakeholder consultations."
 ---
-Speaking at a gathering of academic leaders in New Delhi on August 29, Vice President C. P. Radhakrishnan stressed that India’s educational institutions must move beyond rote learning and evolve into global knowledge engines that attract talent, funding and partnerships.
+Vice President C.P. Radhakrishnan called on India's universities and colleges to transform themselves into globally competitive research institutions that attract talent, funding, and international partnerships, moving beyond traditional rote-learning models.
 
-He outlined a roadmap that includes boosting research funding, fostering industry‑academia collaborations, and creating dedicated innovation zones on campuses. Radhakrishnan cited successful models such as the Indian Institutes of Technology’s incubation centres and the Atal Innovation Mission as templates for scaling research capacity across universities and colleges.
+## What VP Radhakrishnan said
 
-The remarks were met with cautious optimism. The University Grants Commission welcomed the call but warned that systemic issues—such as inadequate infrastructure, bureaucratic red‑tape and talent retention—must be addressed before institutions can compete on a global stage.
+According to the Press Information Bureau (PIB) official release and coverage by The Tribune, Radhakrishnan addressed an assembly of academic leaders in New Delhi on August 29. He outlined a roadmap centred on three priorities:
+
+1. **Boosting research funding** at universities, moving beyond dependence on central government grants toward diversified public-private partnerships
+2. **Fostering industry-academia collaborations**, citing existing IIT technology business incubators as scalable models
+3. **Creating dedicated innovation zones** on campuses to house startups, research labs, and industry partnerships
+
+He specifically cited the **Indian Institutes of Technology's incubation centres** and the **Atal Innovation Mission** as templates that could be replicated across state universities and colleges not currently part of the IIT system.
+
+## Institutional response
+
+The University Grants Commission (UGC) welcomed the Vice President's address but noted that systemic structural challenges — including inadequate research infrastructure, bureaucratic funding processes, and talent retention difficulties — must be addressed before most state-funded institutions can realistically compete on a global stage.
+
+## Why it matters
+
+India's goal of being a leading knowledge economy by 2030 depends significantly on elevating the research output and international profile of its higher education system. With fewer than 50 Indian institutions currently ranked in global university indices, the Vice President's call reflects a policy ambition to broaden the research university base beyond the IITs and IIMs to include regional universities serving the wider population.

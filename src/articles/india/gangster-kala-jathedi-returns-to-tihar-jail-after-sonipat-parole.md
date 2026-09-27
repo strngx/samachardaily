@@ -3,9 +3,9 @@ title: "Gangster Kala Jathedi Returns to Tihar Jail After Sonipat Parole"
 seoTitle: "Kala Jathedi Sonipat Parole for Twins’ Naming"
 category: "India"
 date: 2026-09-21T15:31:21Z
-image: "https://images.pexels.com/photos/28928758/pexels-photo-28928758.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Vibrant African dancers with tribal drums showcase rich cultural traditions."
-imageCredit: "Safari  Consoler"
+image: "https://images.pexels.com/photos/10475157/pexels-photo-10475157.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "A police officer handcuffing a suspect through bars indoors, signifying arrest and law enforcement."
+imageCredit: "Ron Lach"
 trending: true
 featured: false
 video_id: ""

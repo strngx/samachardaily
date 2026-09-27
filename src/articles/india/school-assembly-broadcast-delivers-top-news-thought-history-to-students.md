@@ -20,6 +20,14 @@ why_it_matters: |
   Embedding a structured news briefing within school assemblies equips young learners with timely information, encourages analytical thinking, and reinforces cultural awareness, thereby supporting both civic education and academic development.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-On September 17, 2026, Edex Live aired a school assembly news program designed to provide students with a concise roundup of current events.
+Educational news portal Edex Live conducted its daily morning school assembly broadcast for September 17, 2026, delivering a structured informational bulletin designed to help school students stay informed about current affairs, historical milestones, and language enrichment.
 
-The broadcast featured top national, international and sports headlines, alongside a Thought of the Day, a Word of the Day, and a segment highlighting Indian history facts.
+### Structure of the Educational Program
+The morning assembly program is designed specifically for primary and secondary school classrooms, packaging essential knowledge into concise, age-appropriate segments:
+* **National and International News:** Top headlines covering key domestic governance updates, international developments, and scientific achievements.
+* **Sports Roundup:** Concise summaries of major cricket tournaments, track and field performances, and regional sporting events.
+* **Thought for the Day:** An inspirational quote paired with brief reflective context to encourage positive civic values, discipline, and perseverance among students.
+* **Word of the Day:** Vocabulary enhancement presenting a chosen English word, its grammatical definition, phonetics, and contextual sentence usage.
+* **Today in History:** A historical retrospect highlighting key events, national anniversaries, and notable births or milestones that occurred on September 17.
+
+The initiative provides educators with ready-to-use curriculum material for morning roll-call assemblies and school broadcast systems across the country.

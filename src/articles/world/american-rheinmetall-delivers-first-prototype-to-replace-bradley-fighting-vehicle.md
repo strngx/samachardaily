@@ -9,10 +9,10 @@ imageCredit: "Matias Luge"
 trending: false
 featured: false
 video_id: "e7oCSdw9eiM"
-video_caption: "[외신번역] K-방산은 이제 “존경의 영역” K9MH 미국 진출에 부러움 쏟아낸 일본? (993화)"
+video_caption: ""
 videos:
   - video_id: "e7oCSdw9eiM"
-    title: "[외신번역] K-방산은 이제 “존경의 영역” K9MH 미국 진출에 부러움 쏟아낸 일본? (993화)"
+    title: ""
     channel: "Kevin's Military Channel : KKMD !"
   - video_id: "Mx9lFziIsxk"
     title: "Chinese Tested GL6 APS Active Protection System!!"

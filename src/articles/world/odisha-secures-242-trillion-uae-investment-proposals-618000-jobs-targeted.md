@@ -29,8 +29,14 @@ why_it_matters: |
   The pledged capital and job creation could markedly boost Odisha’s economic landscape, attracting further foreign interest and potentially accelerating infrastructure and industrial development across the state.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Odisha’s chief minister, Mohan Charan Majhi, returned from a three‑day visit to the United Arab Emirates with investment proposals valued at ₹2.42 trillion and an estimated employment potential of 618,000 jobs.
+Odisha Chief Minister Mohan Charan Majhi concluded a three-day official trade delegation to the United Arab Emirates, securing non-binding investment proposals and expressions of commercial interest valued at ₹2.42 trillion (approximately $29 billion).
 
-During the trip the state signed eight memoranda of understanding and received 16 distinct investment intents covering a range of sectors.
+State government officials accompanying the delegation reported that the proposed projects carry an estimated employment potential of up to 618,000 direct and indirect jobs across Odisha if the commitments are converted into operational ventures.
 
-The breadth of the proposals, spanning multiple industries, signals a diversified interest from UAE investors in Odisha’s growth opportunities.
+During the visit, the Odisha government signed eight Memoranda of Understanding (MoUs) and documented 16 distinct investment intents with UAE-based industrial conglomerates, private equity funds, and logistics operators. The discussions focused on industrial sectors where Odisha has sought to expand beyond traditional mining, including green hydrogen production, renewable energy installations, port infrastructure, chemicals, textiles, and specialized food processing.
+
+State officials highlighted Odisha’s extensive coastline, deep-water ports at Paradip and Dhamra, and dedicated industrial land banks as attractive assets for Gulf investors seeking manufacturing and supply-chain hubs in eastern India. The outreach forms part of the state administration's campaign to attract global capital ahead of the biennial 'Utkarsh Odisha' business summit.
+
+The initiatives are facilitated under the state's Industrial Policy Resolution (IPR) framework, which provides customized incentives, capital subsidies, and institutional facilitation for large-scale external investments through the Industrial Promotion and Investment Corporation of Odisha (IPICOL).
+
+Government spokespersons emphasized that these MoUs represent non-binding declarations of intent. The realized economic impact will depend on subsequent feasibility studies, land allocation, environmental clearances, and formal financial closures by the participating investor groups over the coming fiscal periods.

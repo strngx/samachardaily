@@ -29,8 +29,10 @@ why_it_matters: |
   If the engineering gap remains unaddressed, Indian firms may struggle to scale AI solutions beyond pilots, limiting competitiveness in a market where rapid deployment is key. Closing this talent void is critical for turning research into revenue‑generating products and for sustaining the country’s broader AI ambitions.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Indian companies regularly highlight a shortage of AI talent, concentrating the conversation on data scientists, machine‑learning engineers and platform specialists.
+While India’s software services industry continues to produce significant numbers of data scientists and machine learning algorithm researchers, enterprise technology leaders warn that the domestic technology ecosystem faces an acute talent shortage in production-grade AI systems engineering, according to sector analysis from TechCircle.
 
-While those roles are essential, the industry acknowledges they represent only a portion of the workforce required to shift AI projects from experimental stages to full‑scale production.
+Industry experts emphasize that transitioning artificial intelligence models from experimental Jupyter notebooks into fault-tolerant enterprise production environments requires specialized software engineering competencies that differ substantially from statistical data modeling. These proficiencies include low-latency inference optimization, distributed model serving infrastructure, retrieval-augmented generation (RAG) pipeline design, and real-time observability.
 
-A less discussed shortfall is now emerging among engineers who can bridge the move from experimentation to production, a gap that could impede broader AI deployment.
+Technology recruitment executives note that Indian enterprises and multinational capability centers (GCCs) frequently struggle to hire engineers skilled in GPU resource allocation, vector database indexing, and automated evaluation frameworks. The resulting talent bottleneck often leads to prolonged enterprise deployment cycles and elevated cloud computing infrastructure expenditures.
+
+To bridge the engineering gap, leading Indian academic institutions and industry bodies such as NASSCOM are developing specialized curricula focused on applied AI infrastructure and MLOps. Technology executives stress that closing this engineering capability gap is essential for India to transition from an IT services hub into a global leader in scalable AI software products.

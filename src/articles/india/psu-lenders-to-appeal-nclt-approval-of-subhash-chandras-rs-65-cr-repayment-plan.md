@@ -30,8 +30,12 @@ why_it_matters: |
   For Subhash Chandra’s media ventures, a setback could delay cash inflows needed to service other obligations, potentially affecting operational stability and investor confidence in the Indian media sector.
 what_happens_next: "The three lenders will file their appeal with the NCLT appellate bench within the next two weeks, seeking a hearing date. The tribunal is expected to schedule arguments within a month, after which it will issue a verdict that could either uphold, modify, or overturn the original repayment plan."
 ---
-The National Company Law Tribunal (NCLT) on Saturday gave the green light to a Rs 6.5 crore repayment plan submitted by Subhash Chandra, the founder of the Zee media empire, to settle outstanding dues with a consortium of lenders.
+A consortium of public sector financial institutions has confirmed plans to challenge the National Company Law Tribunal’s (NCLT) approval of a Rs 6.5 crore debt repayment plan proposed by Subhash Chandra, former chairman of Essel Group and founder of Zee Entertainment.
 
-Three public‑sector lenders—LIC Housing Finance, Canara Bank and Union Bank of India—issued a joint statement that they will file an appeal, arguing that the plan undervalues the debt and fails to protect the interests of small‑ticket borrowers and the broader banking system.
+### NCLT Ruling and Lenders' Objections
+The NCLT sanctioned Chandra’s proposed settlement plan to resolve personal insolvency proceedings initiated by financial creditors. However, three prominent institutional lenders—Union Bank of India, Canara Bank, and LIC Housing Finance—have formally expressed dissent over the resolution framework.
 
-The appeal will be lodged with the NCLT’s appellate bench in New Delhi, where the lenders seek a revision of the repayment schedule, higher recovery amounts, and a review of the collateral valuation that underpins the plan.
+According to reporting by *Ommcom News*, the consortium intends to file a statutory appeal before the National Company Law Appellate Tribunal (NCLAT) in New Delhi on several legal grounds:
+* **Significant debt undervaluation:** The lenders argue that the approved settlement figure of Rs 6.5 crore represents an unacceptable haircut relative to total outstanding liabilities.
+* **Collateral valuation scrutiny:** The appeal requests a forensic re-evaluation of the underlying collateral, personal assets, and financial guarantees backing the original loans.
+* **Systemic banking integrity:** Lenders emphasize that permitting low-value settlements against substantial commercial credit exposure sets a detrimental precedent for debt recovery proceedings across the state-owned banking system.

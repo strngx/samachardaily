@@ -29,8 +29,10 @@ why_it_matters: |
   It also tests the government's ability to balance workers' cost‑of‑living pressures with the competitiveness of India's logistics sector, a key driver of trade and employment.
 what_happens_next: "Government officials will convene the joint meeting with Hamali union representatives within the next week at the Ministry of Labour headquarters. Both sides are expected to present detailed cost calculations, after which a recommendation will be forwarded to the state labour commissioner for final approval and possible amendment of the prevailing wage order."
 ---
-The Ministry of Labour has agreed to hold a joint meeting with the Hamali unions representing dock and warehouse workers, following the unions' demand to raise the loading and unloading wage from Rs 28 to Rs 40 per quintal.
+Agricultural market committee authorities and food civil supplies officials in Karnataka are preparing to convene a joint conciliation meeting with representatives of hamali (headload manual labor) worker unions to address long-standing demands for structured wage hikes and enhanced social security provisions, according to reporting by Deccan Herald.
 
-Union leaders argue that the current rate has been eroded by steep increases in petrol, diesel, cooking gas, essential commodities and electricity over the past two years, leaving workers unable to meet basic expenses.
+The upcoming negotiations follow statewide memorandums submitted by the Karnataka State Hamali Workers Federation, highlighting that rising essential commodity prices and living expenses have severely eroded workers' real incomes. Hamali workers perform arduous physical labor—including loading, unloading, weighing, and stacking heavy agricultural produce sacks across state Agricultural Produce Market Committees (APMCs) and government grain godowns.
 
-Officials said the meeting will review the wage structure in line with the Minimum Wages Act and recent inflation data, and will consider the financial impact on logistics firms and the broader supply chain.
+Union representatives are pressing for a 25% upward revision in standard per-bag handling rates, timely settlement of weighing charges, and the formal implementation of welfare board programs providing health insurance, disability compensation, and educational scholarships for workers' children under the Unorganised Workers' Social Security Act.
+
+State APMC administrators acknowledged the vital contribution of headload laborers in maintaining agricultural supply chain continuity, confirming that market committee chairpersons, trade representatives, and union leaders will work toward a fair, binding wage revision settlement before the peak post-monsoon harvest arrival season begins.

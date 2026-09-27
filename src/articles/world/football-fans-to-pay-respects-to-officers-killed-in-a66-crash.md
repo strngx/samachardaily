@@ -18,6 +18,7 @@ videos:
     channel: "workid1"
 slug: "football-fans-to-pay-respects-to-officers-killed-in-a66-crash"
 sourceUrl: "https://www.bucksfreepress.co.uk/news/national/26506171.football-fans-pay-respects-officers-killed-a66-crash/"
+sourceName: "Bucksfreepress Co Uk"
 dek: "Middlesbrough FC has asked supporters to observe a moment of silence for PC Matthew Blades and PC Tom Clough, who were killed in a collision on the A66."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |

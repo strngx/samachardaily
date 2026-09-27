@@ -1,11 +1,33 @@
-{% set videoStories = [] %}
-{% for art in collections.articles %}
-  {% set currentVid = art.data.videoId or art.data.video_id %}
-  {% if currentVid and currentVid != "" and currentVid != "null" and videoStories.length == 0 %}
-    {% set videoStories = (videoStories.push(art), videoStories) %}
+{# Select first qualifying video article not already used on the homepage #}
+{% set videoStory = null %}
+{% if collections.articles %}
+  {% for art in collections.articles %}
+    {% set currentVid = art.data.videoId or art.data.video_id %}
+    {% if currentVid and currentVid != "" and currentVid != "null" and not art.data.noindex and not art.data.draft and not videoStory %}
+      {% set isAlreadyUsed = false %}
+      {% if usedHomepageStories %}
+        {% for used in usedHomepageStories %}
+          {% if used.url == art.url or (used.data.slug and art.data.slug and used.data.slug == art.data.slug) %}
+            {% set isAlreadyUsed = true %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      {% if not isAlreadyUsed %}
+        {% set videoStory = art %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {# Fallback if all qualifying video stories were already used #}
+  {% if not videoStory %}
+    {% for art in collections.articles %}
+      {% set currentVid = art.data.videoId or art.data.video_id %}
+      {% if currentVid and currentVid != "" and currentVid != "null" and not videoStory %}
+        {% set videoStory = art %}
+      {% endif %}
+    {% endfor %}
   {% endif %}
-{% endfor %}
-{% set videoStory = videoStories[0] %}
+{% endif %}
 
 {% if videoStory %}
 {% set activeVideoId = videoStory.data.videoId or videoStory.data.video_id %}

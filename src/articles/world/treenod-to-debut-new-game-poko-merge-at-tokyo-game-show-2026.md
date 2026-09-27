@@ -20,6 +20,10 @@ why_it_matters: |
   The first‑time reveal of ‘Poko Merge’ at a premier industry event gives developers, investors, and gamers an early look at Treenod’s next project, shaping market expectations and competitive dynamics ahead of the game’s eventual release.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Treenod announced it will unveil its new title, “Poko Merge,” at the upcoming Tokyo Game Show 2026, marking the first public reveal of the game.
+South Korean mobile game developer Treenod has announced that it will officially debut its latest casual puzzle title, "Poko Merge," to international audiences at the Tokyo Game Show (TGS), according to reporting by Pocket Gamer.
 
-The Tokyo Game Show 2026 runs from September 17 to 21 at Makuhari Messe in Chiba Prefecture, Japan, providing the stage for Treenod’s announcement.
+The new title expands Treenod’s globally successful "Pokopang" intellectual property, which has amassed over 100 million downloads worldwide across titles including "Pokopang" and "PokoPoko." "Poko Merge" introduces dynamic object-combining puzzle mechanics blended with village-building simulation elements, featuring the franchise’s iconic animal characters in colorful, high-definition animations.
+
+Company representatives shared that the Tokyo Game Show showcase will feature interactive public demo stations and localized promotional events designed to engage Japanese mobile gamers, a key demographic that has historically demonstrated strong player retention and monetization for the Pokopang franchise.
+
+Mobile gaming analysts observe that merge-puzzle games have emerged as one of the fastest-growing casual gaming genres across global mobile app storefronts. Treenod’s strategic expansion of its established intellectual property reflects a broader push among Asian mobile developers to capture international market share through accessible, charming casual gaming experiences.

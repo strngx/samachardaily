@@ -27,8 +27,10 @@ dek: "World Labs Technologies CEO Fei‑Fei Li warns that AI’s existential dan
 author: "SamacharDaily Editorial Team"
 why_it_matters: |
   Li’s framing places responsibility for AI’s ultimate impact squarely on developers, policymakers and users, suggesting that safeguards must focus on human governance, ethical design and societal oversight rather than assuming external inevitabilities.
-what_happens_next: "No confirmed next steps reported yet."
+what_happens_next: "Stanford HAI and international safety consortia continue to publish updated policy benchmarks for human-centered AI governance."
 ---
-Fei‑Fei Li, chief executive of World Labs Technologies, addressed the growing debate over artificial intelligence’s long‑term dangers in a recent statement.
+Dr. Fei-Fei Li, renowned computer vision pioneer, co-director of the Stanford Institute for Human-Centered Artificial Intelligence (HAI), and chief executive of spatial intelligence startup World Labs, addressed global debates surrounding artificial intelligence safety, arguing that the primary existential risks of advanced computing stem directly from human agency, institutional choices, and deployment ethics rather than autonomous machine malice.
 
-She asserted that any threat to human society, including an existential one, originates within ourselves, implying that AI risk is fundamentally a product of human choices and behavior.
+Speaking on the trajectory of frontier artificial intelligence, Li emphasized that the technology reflects the values, incentives, and biases of its human creators and operators. She argued that public discourse often fixates on speculative science-fiction scenarios of autonomous systems turning against humanity, thereby diverting critical regulatory and academic attention from immediate real-world harms, such as algorithmic discrimination, labor disruption, digital disinformation, and the concentration of compute power among a handful of tech conglomerates.
+
+Li’s venture, World Labs, is pioneering large world models (LWMs) capable of perceiving, reasoning about, and interacting within three-dimensional physical environments. Throughout her research and public advocacy, she has consistently championed human-centered AI frameworks, urging international policymakers and research laboratories to prioritize public interest research, interdisciplinary governance boards, and rigorous safety standards that place human well-being and democratic oversight at the foundation of technological advancement.

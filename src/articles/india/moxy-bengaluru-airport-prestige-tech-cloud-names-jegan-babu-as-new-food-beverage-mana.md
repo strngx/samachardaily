@@ -20,6 +20,14 @@ why_it_matters: |
   The hire signals Moxy Bengaluru Airport's commitment to elevating its food and beverage service standards, leveraging Babu's extensive international background to potentially enhance guest experiences and strengthen the hotel's market positioning.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Moxy Bengaluru Airport Prestige Tech Cloud announced the appointment of Jegan Babu as its food and beverage manager.
+Moxy Bengaluru Airport Prestige Tech Cloud, a hospitality property under Marriott International located near Kempegowda International Airport, has announced the appointment of Jegan Babu as its new Food and Beverage Manager.
 
-Babu brings more than a decade of experience working with leading international hospitality brands to his new role.
+### Industry Background and Track Record
+As reported by *Fnbnews*, Babu brings over a decade of hands-on culinary management and operational hospitality experience to the North Bengaluru lifestyle hotel. His career portfolio includes tenures across international hotel chains and premium hospitality properties, specializing in:
+* Menu conceptualization and contemporary casual dining formats.
+* Large-scale banquet management and high-volume catering operations.
+* Sustainable sourcing, kitchen inventory optimization, and food-cost auditing.
+* Staff mentorship, beverage program design, and guest service standardisation.
+
+### Operational Focus at Prestige Tech Cloud
+In his new capacity, Babu will oversee all dining venues, cocktail lounge operations, 24/7 grab-and-go services, and event catering at Moxy Bengaluru Airport. His remit focuses on enhancing culinary consistency, elevating beverage programming, and catering to the distinct requirements of business travellers and transit passengers navigating the international airport corridor.

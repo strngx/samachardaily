@@ -20,8 +20,16 @@ why_it_matters: |
   The deal could give Spinnova downstream control over yarn production, extending its sustainable fibre technology into finished textile markets and strengthening its European footprint, which may attract investors seeking circular‑economy solutions.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-On September 17, 2026, Spinnova Plc announced it has signed a non‑binding letter of intent with Tearfil – Indústria Têxtil, S.A. and its shareholders to explore a full acquisition of all Tearfil shares.
+Finnish sustainable materials technology developer Spinnova Plc (Nasdaq First North Growth Market Finland: SPINN) announced on September 17, 2026, that it has signed a non-binding letter of intent (LOI) to explore the full acquisition of Portuguese yarn-spinning company Tearfil – Indústria Têxtil, S.A.
 
-Spinnova, listed on Nasdaq First North Growth Market Finland (ticker SPINN), develops textile fibre from wood pulp and waste streams, positioning itself as a sustainable materials technology firm.
+The letter of intent was executed between Spinnova, Tearfil, and Tearfil’s current shareholders, establishing a framework to negotiate the purchase of 100% of Tearfil’s issued share capital.
 
-Tearfil, a Portuguese yarn‑spinning company, is the target of the proposed deal, which also includes a related bridge loan financing of €1.5 million to support the transaction.
+Spinnova has developed a proprietary mechanical transformation technology that converts wood pulp and agricultural waste streams into textile fibre without using dissolving chemicals or harmful solvents. The company has focused on scaling its technology alongside commercial partners in the global apparel industry, seeking alternatives to conventional cotton and synthetic polyester fibres.
+
+Tearfil, based in northern Portugal’s textile manufacturing corridor, operates commercial spinning facilities specializing in open-end, ring, and vortex yarn production. The proposed acquisition is intended to provide Spinnova with in-house spinning capacity, enabling the direct production of commercial-grade yarns incorporating Spinnova’s sustainable fibres and accelerating product development cycles for partner fashion brands.
+
+The commercial rationale aligns with European Union environmental directives promoting circular textiles, which encourage fashion brands to incorporate verified sustainable materials with reduced carbon and water footprints. Integrating fiber innovation directly with yarn spinning allows Spinnova to demonstrate commercial scalability to international apparel partners.
+
+As part of the LOI framework, the transaction includes a proposed bridge loan financing facility of €1.5 million to support Tearfil's working capital and operational preparations during the transaction evaluation period.
+
+Spinnova emphasized that the letter of intent is non-binding and does not constitute a definitive purchase agreement. The completion of the acquisition remains subject to customary confirmatory due diligence, negotiation of final commercial terms, execution of definitive transaction agreements, and requisite regulatory approvals.

@@ -3,7 +3,7 @@ title: "Bengaluru hospital fined ₹1 lakh for illegal parking on NH-7 footpath"
 category: "India"
 date: 2026-08-29T13:39:07Z
 image: "https://img-cdn.publive.online/fit-in/1280x960/newsfirstprime/media/media_files/2026/08/29/gba-fine-2026-08-29-07-03-54.jpg"
-imageAlt: "Bengaluru hospital fined ₹1 lakh for illegal parking on NH-7 footpath"
+imageAlt: "Encroached footpath and unauthorized parking area on the NH-7 corridor in Bengaluru."
 imageCredit: "News First Prime"
 trending: false
 featured: false
@@ -21,6 +21,7 @@ videos:
     channel: "Sri Sapthagiri Constructions"
 slug: "1-lakh-fine-on-bengaluru-hospital-for-footpath-encroachment-on-nh-7"
 sourceUrl: "https://newsfirstprime.com/bengaluru/1-lakh-fine-on-bengaluru-hospital-for-footpath-encroachment-on-nh-7-12449313"
+sourceName: "News First Prime"
 dek: "The Bengaluru North City Corporation imposed a ₹1 lakh penalty on a private hospital in Sahakaranagar for allowing vehicles to park on National Highways Authority land, disrupting pedestrian movement along the Shkodigehalli Gate–Mall of Asia stretch."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |

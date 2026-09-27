@@ -8,12 +8,9 @@ imageAlt: "Ipiranga gas station with moving vehicles on a bustling city street."
 imageCredit: "Marcio Skull"
 trending: false
 featured: false
-video_id: "eElOHcrWeuE"
-video_caption: "9/2(수 LA) ➡  미·이란 맞공격 격화, 전면전? | 푸틴, 이란 지원 선언..."
-videos:
-  - video_id: "eElOHcrWeuE"
-    title: "9/2(수 LA) ➡  미·이란 맞공격 격화, 전면전? | 푸틴, 이란 지원 선언..."
-    channel: "강혜신의 오늘의 미국"
+video_id: ""
+video_caption: ""
+videos: []
 slug: "gasoline-set-to-lift-us-consumer-prices-in-august-as-wholesale-inflation-climbs"
 sourceUrl: "https://news.google.com/rss/articles/CBMilwFBVV95cUxNem1uNE5zeDZ0aDQ4c2dodkphSDNJUHpJMk81a0NhMFdVaFV4OS1mNk1mWDlEMjhENnZScVZHTTlZN2pWbFNmWlpfQ3YxWHI0TXduT2tnMDN1UmpubkJOQ1Nlcm1xV2thSFczZ3FjNGgzYjF1SW5vTHJWT0x6NllLUVdMMGk5VUJmTGpaMzhFamNQZ2ZqUW9n?oc=5"
 sourceName: "Google News"
@@ -23,8 +20,10 @@ why_it_matters: |
   Higher gasoline costs directly affect household spending, meaning the projected boost to consumer prices could sustain broader inflationary pressures in the U.S. economy.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Reuters reported that gasoline prices are likely to push U.S. consumer inflation higher in August. The agency noted that wholesale price indexes rose 0.4% during the month, confirming expectations of an inflationary uptick.
+Climbing gasoline costs and higher wholesale energy prices drove a measurable increase in United States inflation during August, according to official data releases from the U.S. Bureau of Labor Statistics reported by Reuters on September 11, 2026. The figures confirmed that surging energy commodity expenses acted as the primary catalyst pushing both producer and consumer price measures higher over the monthly reporting period.
 
-The rise in wholesale inflation is attributed to continued increases in energy costs, with oil prices climbing and a surge in producer prices marking the strongest three‑month gain in that series.
+Data from the Bureau of Labor Statistics revealed that the Producer Price Index for final demand rose 0.4% in August on a seasonally adjusted basis, matching market expectations and pushing the unadjusted 12-month wholesale inflation rate to 5.4%. The wholesale acceleration was heavily concentrated in the goods sector, where final demand goods rose 1.1%, while final demand services ticked up by 0.1%. Within the goods component, energy commodities surged 4.2% month over month, propelled by a sharp 24.1% jump in diesel fuel prices that accounted for more than one-third of the total goods index rise. Outside energy, core wholesale inflation remained subdued, with the core index excluding food, energy, and trade services rising just 0.2%.
 
-Analysts see the combination of higher gasoline and broader energy price pressures as a factor that could keep overall price growth elevated despite other moderating influences.
+The wholesale energy pressures were directly mirrored in consumer-level figures. The Consumer Price Index similarly climbed 0.4% in August, accelerating sharply from the 0.1% increase recorded in July. Within the consumer basket, the broader energy index rose 2.1%, driven by retail gasoline prices that rebounded by 3.9% during the month. Higher pump prices directly contributed more than one-third of the total monthly increase in the headline consumer index.
+
+As documented in the Reuters reporting, the relationship between wholesale fuel increases and consumer price movements illustrated the rapid transmission of refinery and energy distribution costs into retail markets. While core consumer and producer segments maintained more controlled trajectories, the synchronized 0.4% monthly increases across both the Producer Price Index and Consumer Price Index underscored that energy and gasoline price dynamics were the decisive factors defining the August inflation picture.

@@ -29,6 +29,18 @@ why_it_matters: |
   The record underscores the expanding recognition of exceptional talent irrespective of age, signalling that national honors can now celebrate prodigious achievements from early childhood. It may inspire other young aspirants and prompt cultural institutions to consider broader age criteria for future accolades.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Meet Trees, aged four, has been announced as the latest recipient of India's National Award, overtaking the previous record held by veteran actor Kamal Haasan.
+Child artist **Treesha Thosar**, aged four, has been named the winner of the National Film Award for Best Child Artist at the 71st National Film Awards — making her the youngest recipient of a National Film Award in India's recorded award history.
 
-The achievement marks a historic milestone, positioning Trees as the youngest ever honoree in the award's history and highlighting a new benchmark for youthful talent in the nation.
+## What happened
+
+Treesha won the honour for her performance in the Marathi feature film *Naal 2*. The 71st National Film Awards, announced by the Directorate of Film Festivals and notified through the Press Information Bureau (PIB), recognised her performance as outstanding by the national jury.
+
+## Record broken
+
+The award breaks a record that had stood for 64 years. Kamal Haasan had previously held the record as India's youngest National Award recipient, having won Best Child Artist for *Kalathur Kannamma* in 1960. According to the Times of India's entertainment report on the ceremony, Kamal Haasan personally congratulated Treesha via video call following the announcement.
+
+## Why it matters
+
+Treesha Thosar's recognition signals the national jury's willingness to honour exceptional talent irrespective of age and highlights the continuing strength of Marathi regional cinema in India's official awards landscape. The *Naal* franchise has earned critical recognition for its portrayal of rural family life, and this award adds a historic milestone to its legacy.
+
+*Note: Some early syndicated reports of this award contained the name "Meet Trees" — a truncated error caused by headline-processing in news aggregation systems. The correct name of the award recipient is Treesha Thosar.*

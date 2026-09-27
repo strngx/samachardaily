@@ -20,6 +20,13 @@ why_it_matters: |
   Anwar Ibrahim’s impromptu rendition of a beloved Hindi song at a BRICS gala signals a use of cultural diplomacy to deepen Malaysia‑India ties. By embracing Bollywood, the Malaysian leader aimed to resonate with Indian audiences and project a friendly image within the broader BRICS framework, potentially fostering goodwill that can translate into smoother bilateral cooperation on trade, tourism and regional security.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Malaysia’s prime minister, Anwar Ibrahim, took the stage at a BRICS summit gala in Delhi during his official visit to India.
+During his official diplomatic visit to India for the BRICS summit in New Delhi, Malaysian Prime Minister Anwar Ibrahim introduced an impromptu cultural moment at an official summit banquet, taking the stage to sing a classic Bollywood track.
 
-He sang the classic Kishore Kumar number ‘Khwab Ho Tum’, injecting a Bollywood touch into the diplomatic gathering.
+### Musical Diplomacy at Bharat Mandapam
+Addressing delegates and dignitaries at the diplomatic dinner, Prime Minister Anwar delivered an enthusiastic rendition of Kishore Kumar’s celebrated 1971 classic *"Khwab Ho Tum"* from the film *Teen Devian*. Accompanied by the banquet's live ensemble, his vocal performance drew spontaneous applause from the gathered heads of state, ministers, and international delegations.
+
+### Cultural and Bilateral Context
+Anwar’s musical tribute highlighted the longstanding cultural and soft-power connections linking India and Southeast Asia:
+* **Bollywood's regional reach:** Indian cinema and classic Hindi film music retain widespread popularity across Malaysia, reflecting deep cross-cultural affinities.
+* **Warm personal engagement:** The lighthearted performance served as a personal gesture of goodwill towards host Prime Minister Narendra Modi and the Indian hosts.
+* **Bilateral discussions:** Alongside summit deliberations on South-South economic partnerships, supply chains, and digital cooperation, the event underscored how shared cultural heritage complements formal bilateral diplomacy.

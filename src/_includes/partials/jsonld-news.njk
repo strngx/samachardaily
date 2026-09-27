@@ -17,12 +17,22 @@
   ],
   "datePublished": "{{ (date or page.date) | isoDate }}",
   "dateModified": "{{ (modifiedDate or dateModified or date or page.date) | isoDate }}",
+  {% set rawAuthor = (author or site.author.name or "") | trim %}
+  {% if rawAuthor == "Arjun Khatri" %}
+  "author": {
+    "@type": "Person",
+    "@id": "{{ site.url }}/#arjun-khatri",
+    "name": "Arjun Khatri",
+    "url": "{{ site.url }}/authors/samachardaily-editorial-team/"
+  },
+  {% else %}
   "author": {
     "@type": "Organization",
     "@id": "{{ site.url }}/authors/samachardaily-editorial-team/#organization",
-    "name": "{% if (authorName or author or site.author.name) == 'SamacharDaily Editorial Team' or not (authorName or author) %}Samachar Daily{% else %}{{ authorName or author or site.author.name or 'Samachar Daily' }}{% endif %}",
-    "url": "{{ authorUrl or site.author.url or (site.url + '/authors/samachardaily-editorial-team/') }}"
+    "name": "Samachar Daily",
+    "url": "{{ site.url }}/authors/samachardaily-editorial-team/"
   },
+  {% endif %}
   "publisher": {
     "@type": "NewsMediaOrganization",
     "@id": "{{ site.url }}/#organization",

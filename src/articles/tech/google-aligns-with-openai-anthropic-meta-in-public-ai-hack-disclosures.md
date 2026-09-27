@@ -9,11 +9,11 @@ imageCredit: "Ann H"
 trending: true
 featured: false
 video_id: "VEqKMqAFuQ4"
-video_caption: "中國AI是假的!國民黨科技立委如是說?!到底是貍貓換太子還是A社又來了?"
+video_caption: ""
 videos:
   - video_id: "VEqKMqAFuQ4"
-    title: "中國AI是假的!國民黨科技立委如是說?!到底是貍貓換太子還是A社又來了?"
-    channel: "朱學恒的萬事通事務所"
+    title: ""
+    channel: ""
   - video_id: "vcg5p1HmGys"
     title: "GPT-5.6 Broke Out and Hacked Hugging Face // AI Inside #139"
     channel: "AI Inside"

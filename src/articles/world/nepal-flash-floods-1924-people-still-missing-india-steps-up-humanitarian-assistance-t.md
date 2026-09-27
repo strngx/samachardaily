@@ -12,6 +12,7 @@ video_caption: ""
 videos: []
 slug: "nepal-flash-floods-1924-people-still-missing-india-steps-up-humanitarian-assistance-t"
 sourceUrl: "https://newsonair.gov.in/death-toll-in-nepal-flash-floods-rises-to-579-while-1924-people-still-missing-india-steps-up-humanitarian-assistance-to-neighbouring-country/"
+sourceName: "Newsonair"
 dek: "The death toll from flash floods in Nepal and Tibet has risen to 579, with 1,924 still missing; India has dispatched additional rescue teams and relief supplies to support Nepal’s response."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |

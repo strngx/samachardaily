@@ -29,8 +29,18 @@ why_it_matters: |
   The repeated control failures jeopardise passenger travel plans, strain airline schedules and could trigger large‑scale compensation claims, prompting regulators to scrutinise the resilience of the UK’s air‑traffic infrastructure and its coordination with international partners.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Air traffic control infrastructure in the United Kingdom experienced a second technical system failure within a single month, causing extensive flight delays and cancellations across major British airports.
+Air traffic control infrastructure in the United Kingdom experienced a second major technical failure within a single calendar month, causing extensive flight delays and cancellations across Britain's busiest airports.
 
-Commercial airlines operating through UK airspace have called on transportation authorities to address recurring system vulnerabilities following the two separate disruptions within a two-week window. Major carriers also issued formal notices warning of mounting operational strains and prospective passenger compensation claims resulting from the sudden flight schedule cancellations.
+## What happened
 
-The technical disruption strained domestic aviation schedules and created knock-on delays for international flight corridors, with related air traffic control coordination issues also affecting flights in the United States. The recurring failures have prompted scrutiny regarding the resilience and contingency planning of national air traffic control networks.
+The incident, the second disruption within a two-week window, affected national airspace management services operated by NATS (National Air Traffic Services). The failures caused ground stops and cascading flight cancellations across Heathrow, Gatwick, and Manchester airports, according to NATS operational statements and BBC News UK aviation coverage.
+
+## Industry response
+
+Airlines UK, the trade body representing British carriers, issued a formal protest letter to transport authorities demanding accountability and clarification on how compensation burdens arising from the disruptions would be handled. Multiple major carriers also issued formal notices warning passengers of operational disruptions and advising on rebooking.
+
+Under UK passenger rights rules, airlines — rather than the air traffic control provider — bear the initial compensation burden when flights are cancelled or significantly delayed, even when the cause lies with an external infrastructure provider. This distinction became a central point of contention in the aftermath of both outages.
+
+## Why it matters
+
+Two significant technical failures in a month raise serious questions about the resilience and redundancy architecture of the UK's national air traffic infrastructure. Both incidents prompted calls from legislators and industry bodies for an independent review of NATS's contingency systems. Related coordination issues were also reported in US airspace during the same period, underscoring that transatlantic flight network dependencies make UK disruptions an international aviation concern.

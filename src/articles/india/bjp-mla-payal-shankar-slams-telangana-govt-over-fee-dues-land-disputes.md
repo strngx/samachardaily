@@ -20,8 +20,10 @@ why_it_matters: |
   The MLA’s criticism highlights growing public frustration over financial and property issues, pressing the state government to improve transparency and responsiveness. Persistent fee and land grievances can erode trust in institutions and may compel policy revisions to safeguard citizens’ rights.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-During the current session of the Telangana Legislative Assembly, BJP legislator Payal Shankar publicly rebuked the state government for what she described as a failure to address public concerns, specifically citing outstanding fee dues and ongoing land disputes.
+Bharatiya Janata Party (BJP) MLA from Adilabad, Payal Shankar, has sharply criticized the Congress-led Telangana state administration, accusing the government of neglecting long-pending fee reimbursement arrears for higher education students and mishandling complex tribal land disputes across the erstwhile Adilabad district, according to coverage by The Hans India.
 
-Fee dues, which often involve unpaid charges for utilities or services, can place a heavy burden on households, while land disputes in the region frequently stem from ambiguous title records, leading to protracted legal battles for affected residents.
+Addressing a press conference in Adilabad, Shankar highlighted that hundreds of private degree and engineering colleges across northern Telangana face severe operational strain due to delays in the state treasury releasing post-matric scholarship and fee reimbursement funds. The legislator warned that delayed fund disbursements have placed thousands of students from underprivileged, Scheduled Caste, Scheduled Tribe, and backward-class communities at risk of academic disruption.
 
-Shankar’s remarks underscore the opposition’s strategy of using parliamentary debates to spotlight governance gaps, adding pressure on the Telangana administration that has faced similar criticism in recent sessions.
+Shankar also addressed escalating land ownership disputes involving traditional forest dwellers and the state forest department under the Scheduled Tribes and Other Traditional Forest Dwellers (Recognition of Forest Rights) Act. He alleged that legitimate tribal cultivators possess unverified podu land applications that remain unresolved by local revenue authorities, creating administrative friction and rural unrest.
+
+The opposition legislator demanded that the state cabinet convene a dedicated review session for tribal districts, expedite educational reimbursement allocations before the upcoming academic examinations, and order district collectors to conduct transparent ground surveys to ensure forest rights entitlements are honored without bureaucratic delay.

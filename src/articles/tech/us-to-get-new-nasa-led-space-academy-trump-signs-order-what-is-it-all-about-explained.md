@@ -29,11 +29,10 @@ why_it_matters: |
 
 what_happens_next: "NASA will convene a curriculum development board within the next 30 days while the Department of Defense will appoint a commanding officer for the academy. A site‑selection committee is expected to deliver a shortlist of three locations within 90 days after which Congress will review the funding request for final approval."
 ---
+A newly signed executive order directs the National Aeronautics and Space Administration (NASA) to establish a dedicated National Space Academy, creating a specialized federal educational institution designed to train the next generation of American aerospace engineers, commercial astronauts, and orbital technicians, according to a detailed explainer by The Indian Express.
 
-The order, announced Friday at the White House, creates a four‑year, federally funded institution that will operate under a joint NASA‑Department of Defense framework.  Its mandate is to develop a pipeline of officers skilled in orbital mechanics, satellite engineering, cyber‑defense and space‑law, directly feeding the U.S. Space Force.
+The policy directive establishes a premier technical academy modeled after traditional military service institutions, designed to provide undergraduate and advanced graduate instruction in aerospace engineering, orbital mechanics, planetary geology, and space cybersecurity. The institution will operate in close partnership with commercial space companies, federal national laboratories, and academic research universities.
 
-The academy will recruit high‑school graduates and offer a curriculum modeled on the service academies, emphasizing STEM, leadership and operational readiness.  Funding of $2.5 billion over five years has been earmarked, with site selection slated for an existing NASA research complex pending a federal review panel.
+The initiative aims to address a critical national security and economic workforce deficit as the global space economy expands rapidly toward a projected $1 trillion valuation. With the U.S. executing the Artemis lunar exploration program and accelerating private space station deployment in low Earth orbit, federal planners project severe shortages of qualified aerospace engineers and launch infrastructure technicians over the coming two decades.
 
-Lawmakers from both parties praised the move as a boost to national security, while some defense analysts warned of potential mission creep.  NASA officials said the academy will accelerate talent development, and aerospace firms welcomed the prospect of a larger, highly trained workforce.
-
-)
+The executive order directs NASA leadership, in coordination with the Department of Defense and the Department of Education, to present a comprehensive charter within 180 days outlining campus site selection, curriculum accreditation standards, and recruitment programs aimed at expanding STEM education across American secondary schools.

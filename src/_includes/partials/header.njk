@@ -18,7 +18,7 @@
   <div class="container header-main">
     <!-- Brand Logo -->
     <a href="{{ '/' | url }}" class="site-brand" aria-label="SamacharDaily Home">
-      Samachar<span class="brand-red">Daily</span>
+      <img src="{{ '/assets/images/logo.png' | url }}" alt="" class="site-brand-logo" width="266" height="36" loading="eager" decoding="async">
     </a>
 
     <!-- Desktop 5-Category Navigation (Monochrome, No "Desk" suffix) -->
@@ -26,6 +26,7 @@
       <a 
         href="{{ '/' | url }}" 
         class="nav-category-link {% if page.url == '/' | url or page.url == '/' %}is-active{% endif %}"
+        {% if page.url == '/' | url or page.url == '/' %}aria-current="page"{% endif %}
       >
         Home
       </a>
@@ -33,6 +34,7 @@
         <a 
           href="{{ ('/' + cat.slug + '/') | url }}" 
           class="nav-category-link {% if page.url == ('/' + cat.slug + '/') | url or page.url == '/' + cat.slug + '/' %}is-active{% endif %}"
+          {% if page.url == ('/' + cat.slug + '/') | url or page.url == '/' + cat.slug + '/' %}aria-current="page"{% endif %}
         >
           {{ cat.name }}
         </a>
@@ -80,8 +82,8 @@
 <div class="mobile-nav-sheet" id="mobile-nav-sheet" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
   <div class="mobile-nav-panel">
     <div class="mobile-nav-top">
-      <a href="{{ '/' | url }}" class="site-brand">
-        Samachar<span class="brand-red">Daily</span>
+      <a href="{{ '/' | url }}" class="site-brand" aria-label="SamacharDaily Home">
+        <img src="{{ '/assets/images/logo.png' | url }}" alt="" class="site-brand-logo" width="236" height="32" loading="eager" decoding="async">
       </a>
       <button type="button" class="menu-toggle-btn close-btn" id="close-mobile-nav" aria-label="Close navigation">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -95,11 +97,19 @@
 
     <!-- Five Locked Categories Only (Monochrome, No "Desk" suffix) -->
     <nav class="mobile-nav-links" aria-label="Mobile Sections">
-      <a href="{{ '/' | url }}" class="mobile-nav-item">
+      <a 
+        href="{{ '/' | url }}" 
+        class="mobile-nav-item {% if page.url == '/' | url or page.url == '/' %}is-active{% endif %}"
+        {% if page.url == '/' | url or page.url == '/' %}aria-current="page"{% endif %}
+      >
         Home
       </a>
       {% for cat in site.categories %}
-        <a href="{{ ('/' + cat.slug + '/') | url }}" class="mobile-nav-item">
+        <a 
+          href="{{ ('/' + cat.slug + '/') | url }}" 
+          class="mobile-nav-item {% if page.url == ('/' + cat.slug + '/') | url or page.url == '/' + cat.slug + '/' %}is-active{% endif %}"
+          {% if page.url == ('/' + cat.slug + '/') | url or page.url == '/' + cat.slug + '/' %}aria-current="page"{% endif %}
+        >
           {{ cat.name }}
         </a>
       {% endfor %}

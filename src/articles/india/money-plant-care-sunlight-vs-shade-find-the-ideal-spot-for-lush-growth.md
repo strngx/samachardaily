@@ -29,8 +29,16 @@ why_it_matters: |
   Proper placement of the money plant directly impacts its health and visual appeal, influencing homeowners who rely on its aesthetic and cultural value. Correct lighting ensures the plant remains robust, preserving the perceived benefits of prosperity and positive energy associated with it.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The money plant is a staple in Indian households, prized for its trailing vines and the traditional belief that it attracts prosperity and positive energy. It appears on moss poles, kitchen shelves, and even in water-filled jars on windowsills.
+The money plant (*Epipremnum aureum*), widely referred to as devil’s ivy or pothos, is among the most common houseplants in Indian homes, prized for its hardy trailing vines and cultural associations with prosperity and positive energy. While adaptable, optimizing light placement remains crucial for vibrant, healthy foliage.
 
-A common source of confusion is the plant’s sunlight needs. Direct, intense sunlight can scorch the leaves, causing them to fade, while insufficient light leads to a leggy, pale, and weak appearance.
+### Sunlight Needs: Direct Exposure vs Bright Indirect Light
+As detailed in gardening guidance from *The Times of India*, light exposure determines foliage density and leaf coloration:
+* **Risks of harsh direct sun:** Exposing money plants to intense afternoon sun causes solar leaf scorch, resulting in faded green pigments, yellowing patches, and crisp, brown margins.
+* **Dangers of deep shade:** Placing pots in dark corners or windowless hallways triggers excessive internodal stretching—known as "legginess"—where vines produce sparse, undersized leaves and lose their attractive golden-white variegation.
+* **The ideal placement:** Thriving money plants require bright, indirect daylight. Optimal locations include north-facing balconies, east-facing windowsills that receive only gentle early morning sun, or interior living spaces near sheer-curtained windows.
 
-Experts agree that finding the right light spot is the single most important factor that separates a thriving, vibrant money plant from one that looks half‑alive.
+### Practical Maintenance Tips
+To maintain lush growth, growers recommend:
+* Rotating pots fortnightly to ensure uniform vine density.
+* Using moss poles to support upward aerial root climbing, which naturally encourages larger leaf sizes.
+* Allowing topsoil to dry between waterings to prevent root rot.

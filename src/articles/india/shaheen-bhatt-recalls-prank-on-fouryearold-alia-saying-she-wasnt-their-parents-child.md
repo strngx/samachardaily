@@ -1,4 +1,5 @@
 ---
+noindex: true
 title: "Shaheen Bhatt recalls prank on four‑year‑old Alia, saying she ‘wasn’t their parents’ child’"
 seoTitle: "Shaheen Bhatt on childhood prank with Alia Bhatt"
 category: "India"

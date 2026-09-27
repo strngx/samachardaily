@@ -20,8 +20,10 @@ why_it_matters: |
   Filling the 20 SDA posts is crucial for the Karnataka High Court’s operational efficiency, providing essential support staff to manage case administration and court services. The recruitment offers a direct entry point for job seekers into the judicial system, potentially improving service delivery and reducing case backlogs.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The Karnataka High Court has announced that its Subordinate Development Assistant (SDA) recruitment for 2026 will close on the day of this release, with a total of 20 positions available for qualified candidates.
+The High Court of Karnataka is concluding its official application window today for the recruitment of Second Division Assistants (SDA) across its principal bench in Bengaluru and circuit benches in Dharwad and Kalaburagi, according to an employment notification reported by Careerindia.
 
-Applicants must satisfy the eligibility criteria set by the court, and the recruitment notice outlines an application fee as well as the salary range for the SDA posts, all of which are detailed on the official application portal.
+The recruitment drive offers 20 vacant clerical positions under the High Court Establishment service rules, providing qualified candidates with a competitive state pay scale ranging between ₹21,400 and ₹42,000, along with standard house rent allowance and civil service entitlements. Eligible applicants must possess a recognized degree in science, arts, commerce, or equivalent from an accredited university, along with certified computer proficiency.
 
-Prospective candidates are urged to review the full vacancy list, confirm their eligibility, and submit their applications before the deadline, as no extensions have been indicated.
+The selection process comprises a preliminary objective written examination evaluating general knowledge, legal aptitude, and language proficiency, followed by an operational computer typing speed test and a final personal interview. Candidates belonging to reserved categories (SC/ST/OBC) and persons with disabilities are entitled to age relaxation under Karnataka state civil service norms.
+
+Recruitment officials reminded registered applicants to complete their online application submissions and fee payments on the High Court’s official portal before the midnight deadline, noting that incomplete applications without verified educational certificates will be rejected during preliminary screening.

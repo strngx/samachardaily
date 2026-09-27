@@ -20,6 +20,14 @@ why_it_matters: |
   The appointment of a Special Investigation Team marks a formal escalation in the legal process against SGPC member Amarjit Singh Chawla. By mandating a dedicated team to investigate the Sri Anandpur Sahib case, the government aims to ensure an impartial examination of the allegations. This move could accelerate judicial proceedings and signal a stronger stance against potential counterfeiting-related misconduct, particularly given the recent legislative changes affecting enforcement mechanisms.
 what_happens_next: "No confirmed next steps beyond the SIT formation have been announced in the available report. The focus remains on establishing the SIT and conducting the investigation into the Sri Anandpur Sahib case, with outcomes expected to follow standard legal procedures once the team completes its mandate."
 ---
-On September 23, 2026, a delegation from the Shiromani Akali Dal (Punar Surjeet) met with Punjab Chief Minister Bhagwant Singh Mann in Chandigarh. The delegation formally requested the constitution of a Special Investigation Team (SIT) to conduct an impartial probe into allegations involving SGPC member Amarjit Singh Chawla tied to the Sri Anandpur Sahib case.
+A delegation representing the Shiromani Akali Dal (Punar Surjeet) met with Punjab Chief Minister Bhagwant Singh Mann at the civil secretariat in Chandigarh, submitting a formal memorandum regarding the Sri Anandpur Sahib case.
 
-The proposed SIT would examine the developments surrounding the Sri Anandpur Sahib case, focusing on the allegations against SGPC member Amarjit Singh Chawla. This action reflects ongoing legal proceedings where authorities seek to clarify the circumstances and evidence related to the charges.
+### Demand for Time-Bound SIT Investigation
+As reported by *Yes Punjab News*, the delegation formally requested the state government to constitute an independent Special Investigation Team (SIT) empowered to conduct a time-bound, 15-day inquiry. 
+
+The memorandum calls for an investigation into allegations concerning Shiromani Gurdwara Parbandhak Committee (SGPC) member Amarjit Singh Chawla in connection with administrative and financial affairs tied to Sri Anandpur Sahib:
+* **Timeframe requested:** A strict 15-day deadline for the SIT to complete witness testimonies, document seizures, and preliminary findings.
+* **Impartial scrutiny:** Ensuring that the investigation remains free from external institutional interference.
+* **Due legal process:** Clarifying factual circumstances surrounding the charges and evaluating all documentary evidence according to established statutory rules.
+
+The Chief Minister assured the visiting delegation that the state government would examine the contents of the memorandum in accordance with law.

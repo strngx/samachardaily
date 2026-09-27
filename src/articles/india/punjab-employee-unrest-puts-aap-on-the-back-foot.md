@@ -30,8 +30,15 @@ why_it_matters: |
   Politically, the AAP’s handling of the crisis will be a litmus test for its governance credibility; a misstep could cost it crucial seats in the assembly, altering the balance of power in a state that serves as a bellwether for the party’s national ambitions.
 what_happens_next: "The government’s committee is slated to meet union representatives within the next ten days to negotiate a phased settlement. Simultaneously, the state’s election commission has warned that any strike during the official campaign period could attract penalties, prompting officials to seek a quick resolution before the filing of nominations."
 ---
-Across Punjab, teachers, health‑sector staff and lower‑level clerks have staged coordinated walk‑outs and sit‑ins, demanding the settlement of salary arrears, timely promotions and a revised pension formula that were promised in the 2022 budget but remain unresolved.
+The Aam Aadmi Party (AAP) administration in Punjab is navigating widespread industrial unrest as government schoolteachers, healthcare workers, administrative staff, and municipal employees stage demonstrations and coordinate sit-in protests across the state.
 
-The unrest arrives at a critical juncture for the Aam Aadmi Party, which is seeking to consolidate its first term in the state. Analysts warn that employee dissatisfaction could erode the party’s pro‑development narrative and sway swing voters in the upcoming assembly election.
+### Core Grievances of State Employees
+As reported by *The Sunday Guardian*, employee unions have organized coordinated walkouts highlighting unfulfilled policy assurances made during the 2022 state budget:
+* **Salary and Dearness Allowance arrears:** Demands for the immediate disbursement of pending dearness allowance installments and revised pay scale increments.
+* **Restoration of Old Pension Scheme (OPS):** Labor bodies continue to demand operational guidelines and formal rollout for the Old Pension Scheme.
+* **Regularisation of contractual workers:** Demands for permanent cadre status for thousands of contractual and temporary workers in state departments.
 
-Chief Minister Bhagwant Mann’s administration has announced the formation of a high‑level committee to review the pending demands and has offered a limited concession on interim allowances, while also warning that any further disruption could trigger disciplinary action under the state service rules.
+### Government Response and Political Implications
+In response to escalating street protests, Chief Minister Bhagwant Mann’s government has set up a ministerial review committee to engage employee representatives while offering limited adjustments on interim allowances. However, the administration has also cautioned that prolonged public disruptions could lead to administrative consequences under civil service regulations.
+
+With assembly elections approaching, political observers note that lingering civil service dissatisfaction poses a significant administrative challenge to the ruling party's governance narrative.

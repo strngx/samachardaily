@@ -9,11 +9,11 @@ imageCredit: "https://kaboompics.com/"
 trending: false
 featured: false
 video_id: "iOh9rCUD1os"
-video_caption: "[강혜신의 오늘의 미국]  2026. 9.9 (수, LA): 이란·미국 서로 공격…한국도 끌려가나? | 캐나다의 반격, 트럼프 압박의 시험대"
+video_caption: ""
 videos:
   - video_id: "iOh9rCUD1os"
-    title: "[강혜신의 오늘의 미국]  2026. 9.9 (수, LA): 이란·미국 서로 공격…한국도 끌려가나? | 캐나다의 반격, 트럼프 압박의 시험대"
-    channel: "강혜신의 오늘의 미국"
+    title: ""
+    channel: ""
 slug: "anthropic-researcher-quits-warns-ai-industry-is-losing-human-control"
 sourceUrl: "https://www.wamc.org/2026-09-09/anthropic-researcher-resigns-amid-ai-safety-concerns"
 sourceName: "Wamc Northeast Public Radio"

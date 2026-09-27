@@ -29,6 +29,14 @@ why_it_matters: |
   Highlighting South Indian breads draws attention to the region’s rich culinary heritage, encouraging readers to explore flavors beyond naan and potentially influencing home cooking and restaurant menus across India.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The Times of India has published a feature that spotlights South Indian breads, positioning them as compelling alternatives to the widely known naan.
+While tandoori naan and rotis dominate conventional restaurant menus across north India, South Indian cuisine features an equally diverse and textured tradition of flatbreads, dosas, and griddle breads that offer distinctive textures and culinary profiles.
 
-The article notes that some of these breads are crisp and lacy, others are soft and layered, and a few are cooked directly over an open flame to develop a smoky, charred edge, underscoring the region’s culinary variety.
+### Distinct Textures and Cooking Techniques
+A culinary feature published by *The Times of India* highlights several traditional South Indian flatbread varieties that offer varied dining alternatives:
+* **Malabar Parotta:** Flaky, multi-layered flatbread from Kerala made from rolled dough brushed with oil, beaten, and cooked on a hot griddle to achieve crisp outer layers and soft interiors.
+* **Akki Rotti:** A rustic Karnataka specialty prepared with rice flour, finely chopped onions, green chilies, and fresh coriander, pressed thin directly onto tawa pans for a crisp finish.
+* **Ragi Rotti:** Wholesome finger-millet flatbread enriched with grated coconut and cumin, prized across rural Andhra Pradesh and Karnataka for high calcium and dietary fiber.
+* **Kothu Parotta and Veechu Rotti:** Stretched, tissue-thin dough folded into envelopes or shredded over flame-cooked woks with spices and vegetables for a smoky aroma.
+* **Appam and Kal Dosa:** Fermented rice-batter delicacies with spongy, airy centers and delicate, crisp edges.
+
+These regional breads illustrate the sophisticated use of rice, millets, and layered doughs across southern kitchens, providing diverse pairings for regional gravies and curries.

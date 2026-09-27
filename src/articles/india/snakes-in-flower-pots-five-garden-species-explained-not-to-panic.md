@@ -29,8 +29,19 @@ why_it_matters: |
   Understanding why snakes frequent flower pots helps homeowners manage fear, protect family members, and preserve beneficial wildlife that naturally controls garden pests, fostering safer, more informed urban gardening practices.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Gardeners across India often spot a coiled snake tucked among the leaves of a potted plant, prompting an immediate jolt of panic, but a Times of India feature notes the reality is far less alarming than popular perception.
+Home gardeners in suburban and urban India occasionally encounter small snakes curled within large flower pots or nestled beneath nursery planters, often prompting immediate alarm. However, herpetological guidance highlights that these encounters usually involve harmless species drawn by favorable microclimatic conditions.
 
-The article explains that loose soil, cool shade and steady moisture in flower pots create an ideal micro‑habitat for small reptiles and insects, which in turn draw snakes that hunt these prey items.
+### Why Snakes Shelter in Potted Plants
+As detailed in a feature by *The Times of India*, potted plants create an appealing micro-habitat:
+* **Moisture and cool soil:** Frequent watering keeps potting soil damp and cool, offering refuge during extreme summer heat or heavy monsoon rains.
+* **Abundant prey:** Soil insects, worms, frogs, and small geckos frequently inhabit planter trays, naturally attracting predatory reptiles looking for sustenance.
 
-It identifies five snake species that are most likely to turn up in such settings and offers practical advice on safe, calm responses to minimise risk while coexisting with these garden visitors.
+### Common Garden Species and Safe Responses
+The report highlights five harmless or mildly venomous species frequently spotted in gardens:
+* **Brahminy Blind Snake:** Tiny, harmless, earthworm-like reptiles that live in soil and feed on ant eggs and larvae.
+* **Common Wolf Snake:** Non-venomous, slender snakes frequently mistaken for kraits, which hunt domestic geckos.
+* **Indian Rat Snake (juvenile):** Active, non-venomous hunters that regulate rodent populations.
+* **Checkered Keelback:** Harmless water-loving snakes that shelter near moist plant pots.
+* **Common Trinket Snake:** Mild-mannered non-venomous colubrids that feed on small garden pests.
+
+Herpetologists advise gardeners to avoid panicking or harming the animals. Keeping pots slightly elevated on stands and using long garden tools to inspect dense foliage prevents unexpected surprises.

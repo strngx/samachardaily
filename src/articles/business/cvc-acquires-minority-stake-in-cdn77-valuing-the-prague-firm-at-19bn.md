@@ -20,6 +20,14 @@ why_it_matters: |
   By bringing external capital to CDN77 for the first time, the CVC investment could fund network expansion and product development, while the $1.9 billion valuation signals strong investor confidence in the region’s tech assets. As the biggest private‑equity tech deal in Central and Eastern Europe this year, it may encourage further significant ongoing PE activity in the area’s digital infrastructure market.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-London‑based private equity group CVC announced on Wednesday that it will purchase a minority stake in CDN77, the Prague‑headquartered internet infrastructure provider. The transaction values CDN77 at about $1.9 billion, according to a source familiar with the deal.
+Global private equity and investment firm CVC Capital Partners has entered into an agreement to acquire a minority stake in CDN77, an internet infrastructure and content delivery network provider based in Prague, Czech Republic.
 
-The companies did not disclose the exact percentage of the stake or the financial terms. CVC described the transaction as the largest private‑equity deal in Central and Eastern Europe’s technology sector this year.
+Sources familiar with the transaction stated that the investment establishes an enterprise valuation of approximately $1.9 billion for the technology company, representing its first external institutional capital round since its founding.
+
+CDN77, established in 2011 by Czech technology entrepreneur Zdeněk Cendra, operates a private global content delivery network (CDN) that routes internet traffic, accelerates video streaming delivery, and provides cybersecurity defenses against distributed denial-of-service (DDoS) attacks. Unlike many of its competitors who raised multiple rounds of venture capital, CDN77 operated as an entirely bootstrapped, profitable enterprise prior to CVC’s entry.
+
+The transaction parties did not disclose the precise financial terms, equity percentage, or total capital deployed. In a joint announcement, CVC described the acquisition as the largest private equity technology deal completed in Central and Eastern Europe during the current calendar year.
+
+The competitive landscape of the content delivery network industry has evolved rapidly, with independent infrastructure providers operating alongside publicly listed hyperscalers such as Cloudflare, Akamai Technologies, and Fastly. As global video traffic, software patch distribution, and live sports streaming demand continue to surge, edge delivery platforms require sustained capital investments in physical server clusters, peering agreements, and transatlantic network capacity to maintain competitive latency metrics.
+
+The capital and institutional network provided by CVC are intended to support CDN77’s continued investment in physical server infrastructure, global point-of-presence (PoP) network expansion, and enterprise software capabilities across international markets.

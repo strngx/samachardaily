@@ -21,8 +21,14 @@ why_it_matters: |
 what_happens_next: "No confirmed next steps reported yet."
 noindex: true
 ---
-C&C Group has confirmed it will purchase the wholesale business of Asahi UK, adding the latter’s distribution assets to its portfolio.
+Drinks manufacturer and distributor C&C Group plc has announced an agreement to acquire the wholesale operations of Asahi UK, integrating the Japanese brewer's British distribution network into its own commercial operations.
 
-Chief executive Roger White said the transaction will bring a number of new customers to C&C’s Matthew Clark Bibendum wholesale operation, expanding its client base.
+The transaction is structured to expand the client base and route density of C&C Group’s dedicated on-trade wholesaling division, Matthew Clark Bibendum. Matthew Clark Bibendum operates as one of the largest composite drinks distributors to pubs, bars, restaurants, and hotels throughout the United Kingdom, supplying thousands of independent and managed hospitality venues.
 
-The move integrates Asahi UK’s wholesale network with C&C’s existing distribution platform, strengthening the group’s position in the UK beverage market.
+Commenting on the announcement, C&C Group Chief Executive Roger White stated that the purchase will introduce a substantial portfolio of established on-trade accounts to the group’s logistics network. The integration allows C&C to streamline customer orders, combining Asahi’s premium beer brands with C&C’s existing distribution of ciders, wines, spirits, and non-alcoholic beverages across hospitality venues.
+
+Asahi UK’s portfolio includes widely distributed premium lager brands such as Peroni Nastro Azzurro, Asahi Super Dry, and Meantime. By transferring direct wholesaling and account fulfillment to C&C Group, Asahi can focus resources on brand marketing and brewing production while leveraging C&C’s nationwide depot network for physical delivery.
+
+The acquisition aligns with broader commercial trends across the UK hospitality sector, where independent and managed operators seek single-supplier solutions to reduce administrative overhead and streamline invoicing. For C&C Group, expanding Matthew Clark Bibendum’s customer volume increases warehouse utilization and route density across regional delivery depots, supporting operational efficiency across its British distribution footprint.
+
+The companies did not disclose the financial consideration or transaction multiples in their initial public statements. The completion of the deal remains subject to customary transition agreements and commercial closing protocols.

@@ -268,13 +268,31 @@ ul, ol {
 .site-brand {
   display: inline-flex;
   align-items: center;
-  font-family: var(--font-serif);
-  font-size: clamp(1.4rem, 4vw, 1.875rem);
-  font-weight: 900;
-  color: var(--color-ink);
-  letter-spacing: -0.03em;
   text-decoration: none;
   line-height: 1;
+}
+
+.site-brand-logo {
+  height: 32px;
+  width: auto;
+  max-width: 240px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
+@media (max-width: 360px) {
+  .site-brand-logo {
+    height: 28px;
+    max-width: 208px;
+  }
+}
+
+@media (min-width: 960px) {
+  .site-brand-logo {
+    height: 36px;
+    max-width: 266px;
+  }
 }
 
 .site-brand .brand-red, .brand-red {
@@ -303,8 +321,24 @@ ul, ol {
   position: relative;
 }
 
+.nav-category-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: transparent;
+  transition: background-color var(--transition-fast);
+}
+
 .nav-category-link.is-active {
   color: var(--color-brand);
+}
+
+.nav-category-link:hover::after,
+.nav-category-link.is-active::after {
+  background-color: var(--color-brand);
 }
 
 .header-controls {
@@ -1354,5 +1388,59 @@ ul, ol {
   color: var(--color-muted);
   max-width: 720px;
   margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Skip Navigation (WCAG 2.4.1 — IC-01)
+   -------------------------------------------------------------------------- */
+.skip-nav-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  padding: 8px 16px;
+  background: var(--color-brand);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.skip-nav-link:focus-visible {
+  top: 0;
+  outline: 3px solid var(--color-brand-dark);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Keyboard Focus Indicators (WCAG 2.4.7 — IC-02)
+   -------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 3px solid var(--color-brand);
+  outline-offset: 3px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--color-brand);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Reduced Motion (OBS-09)
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .live-pulse {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }
 </style>

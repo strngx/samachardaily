@@ -29,6 +29,20 @@ why_it_matters: |
   The lawsuit introduces legal risk for FuelCell Energy and its shareholders, potentially influencing the company’s stock price and prompting investors to assess exposure. Class actions can lead to settlements or judgments that affect market perception and may trigger broader scrutiny of the firm’s clean‑energy technologies.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Robbins LLP has notified investors that a class action lawsuit was filed on behalf of persons and entities who purchased or otherwise acquired FuelCell Energy, Inc. (NASDAQ: FCEL) securities between June 4, 2026 and September 1, 2026, inclusive.
+Law firm Robbins LLP has notified investors that a securities class action lawsuit was filed on behalf of persons who purchased or otherwise acquired FuelCell Energy, Inc. (NASDAQ: FCEL) securities during a defined class period.
 
-FuelCell Energy and its subsidiaries are engaged in the design, development, production, construction, operation, and servicing of high‑temperature fuel cells used for clean electric power generation.
+## What the litigation records show
+
+According to notices published by Robbins LLP's Shareholder Rights Center and a corresponding Business Wire legal advisory, the class action was filed in the US District Court for the District of Connecticut. The class period covers purchases made between **June 4, 2026 and September 1, 2026**, inclusive.
+
+The complaint centres on allegations regarding disclosures made by FuelCell Energy about its commercial fuel cell deployment timelines and associated business metrics during that period. As is standard in investor solicitation alerts, Robbins LLP invited affected shareholders to contact the firm ahead of any lead plaintiff motion deadline.
+
+## Background
+
+FuelCell Energy and its subsidiaries are engaged in the design, development, production, construction, operation, and servicing of high-temperature fuel cells used for clean electric power generation. The company has previously navigated shareholder scrutiny related to the pace of commercialisation of its carbon capture and fuel cell technologies.
+
+## Why it matters
+
+Securities class actions introduce legal risk and potential settlement costs for the named company, which can affect near-term stock price and investor confidence. Investors who purchased FCEL shares during the class period may have standing to participate. As of the date of this report, no findings of liability or wrongdoing have been established by any court.
+
+*This is an attorney notice. No court has found FuelCell Energy liable for any of the allegations contained in the complaint.*

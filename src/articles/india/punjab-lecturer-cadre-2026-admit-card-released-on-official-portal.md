@@ -29,6 +29,15 @@ why_it_matters: |
   Access to the admit card is essential for candidates to verify their exam schedule, location and shift, ensuring they can attend the test without procedural hurdles. The detailed instructions also help prevent last‑minute confusion, which could affect performance and eligibility for the lecturer positions in Punjab's education system.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The admit card for the Punjab Lecturer Cadre 2026 examination has been posted on the official website erd.punjab.gov.in, confirming its availability to all eligible candidates.
+The Department of School Education, Punjab, has officially released the admit cards for the Punjab Lecturer Cadre 2026 recruitment examination on its official education portal (erd.punjab.gov.in).
 
-The online document lists the scheduled exam dates, shift timings, step‑by‑step download instructions, required login details and the designated test centres, enabling aspirants to prepare for the upcoming assessment.
+### Verification and Hall Ticket Download
+As reported by *Kollegeapply News*, registered candidates can access and download their hall tickets by logging into the portal with their unique application registration numbers and passwords. 
+
+The admit card serves as mandatory verification documentation and contains vital examination particulars:
+* **Candidate details:** Full name, roll number, photograph, signature, and category classification.
+* **Exam logistics:** Assigned examination venue, reporting times, shift duration, and entry closing times.
+* **Examination day protocols:** Permissible items, mandatory government-issued photo ID requirements, and strict prohibitions against electronic devices or study aids inside testing centers.
+
+### Advice for Candidates
+Education authorities advise candidates to verify all printed details immediately upon downloading the admit card. Any clerical discrepancies regarding name spellings or subject designations should be reported promptly to the recruitment examination board helpdesk before the scheduled test date.

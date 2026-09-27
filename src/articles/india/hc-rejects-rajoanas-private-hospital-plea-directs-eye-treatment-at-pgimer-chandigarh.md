@@ -3,9 +3,9 @@ title: "HC Rejects Rajoana's Private Hospital Plea, Directs Eye Treatment at PGI
 seoTitle: "Rajoana Eye Surgery: HC Directs PGIMER Chandigarh"
 category: "India"
 date: 2026-09-03T12:57:15Z
-image: "https://images.pexels.com/photos/28588986/pexels-photo-28588986.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-imageAlt: "Daring motorcycle stunt breaking through glass at Chandigarh Carnival 2019."
-imageCredit: "Nishant Aneja"
+image: "https://images.pexels.com/photos/6077325/pexels-photo-6077325.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+imageAlt: "A courtroom document beside a judicial gavel, symbolizing legal proceedings."
+imageCredit: "KATRIN  BOLOVTSOVA"
 trending: false
 featured: false
 video_id: "g03csGLLoVg"

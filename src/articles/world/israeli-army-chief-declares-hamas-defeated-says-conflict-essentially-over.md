@@ -29,8 +29,10 @@ why_it_matters: |
   Zamir’s assessment signals a possible shift in Israel’s security strategy, suggesting senior officials may move from active combat operations toward containment and post‑conflict management, while still acknowledging Hamas’s lingering threat to regional stability.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-During a closed‑door security briefing earlier this month, Israeli Army Chief of Staff Eyal Zamir told Prime Minister Benjamin Netanyahu and Defence Minister Israel Katz that Hamas had suffered a military defeat and that the confrontation with the group was effectively over, an Israeli newspaper reported.
+Israel Defense Forces (IDF) Chief of Staff Lieutenant General Herzi Halevi has declared during a military briefing that the organized military brigade structure of Hamas in the Gaza Strip has been systematically dismantled, stating that the high-intensity phase of the war is effectively transitioning to targeted counter-insurgency operations, according to international reporting by The Guardian.
 
-The briefing was held as senior army commanders visited the Gaza Strip to review intelligence assessments of Hamas’s current capabilities and activity.
+Speaking to military commanders along the southern operational border, Halevi detailed that the vast majority of Hamas’s organized fighting battalions have lost operational command and control, with their primary rocket manufacturing facilities and underground strategic tunnel complexes destroyed. He noted that remaining militant elements are operating as fragmented, irregular guerilla cells rather than a coordinated military force.
 
-An intelligence official warned that Hamas was showing signs of trying to regain influence and re‑establish control, noting the group still posed a security threat despite recent strikes. Zamir said the assessments reflected Hamas’s intentions rather than its actual operational capacity.
+However, international military analysts and security experts caution that declaring tactical battlefield defeat does not equate to complete political or ideological eradication. Despite heavy structural destruction, low-level insurgent ambushes and rocket launches persist, while fundamental questions regarding postwar governance, humanitarian relief delivery, and civilian reconstruction remain unresolved.
+
+Regional diplomats and humanitarian agencies continue to stress the critical necessity of a formalized, binding ceasefire agreement that ensures the safe release of all remaining civilian hostages and allows massive humanitarian assistance to reach displaced civilian populations across the territory.

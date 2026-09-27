@@ -12,6 +12,7 @@ video_caption: ""
 videos: []
 slug: "tata-motors-rebranding-tmpv-remains-legal-entity-tata-showroom-new-look-tata-motors-b"
 sourceUrl: "https://www.etvbharat.com/kn/technology/tata-cars-to-replace-tmpv-branding-across-showrooms-service-and-digital-platforms-and-more-details-in-kannada-kas26082900504"
+sourceName: "Etv Bharat"
 dek: "The Indian automaker announced a fresh brand name for its passenger‑vehicle segment, introducing a new logo hue and revamped showroom aesthetics."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |

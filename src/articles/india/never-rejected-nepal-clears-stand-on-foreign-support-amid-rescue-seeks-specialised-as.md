@@ -30,8 +30,15 @@ why_it_matters: |
   Timely specialised assistance will affect the speed of economic recovery, agricultural output, and public health outcomes, while also setting a precedent for how South Asian nations collaborate on climate‑induced disasters.
 what_happens_next: "The Nepalese government is expected to submit formal aid proposals to New Delhi and Beijing within the next week, after which joint assessment teams from the two countries will be dispatched to evaluate on‑ground needs and coordinate the deployment of technical resources and equipment for reconstruction."
 ---
-Following the recent flash floods that devastated large swathes of Nepal's Terai region, the government faced circulating rumors that it had declined foreign assistance. Foreign Minister Shisir Khanal publicly refuted those claims, emphasizing that Nepal has consistently welcomed international support and that any suggestion of rejection was unfounded.
+Nepal’s Ministry of Foreign Affairs has refuted rumors alleging that the country declined external humanitarian assistance following catastrophic flash floods and landslides across the southern Terai plains and Kathmandu Valley.
 
-Khanal announced that Nepal is formally requesting specialised aid from both India and China to accelerate reconstruction of damaged infrastructure, restore agricultural lands, and bolster disaster‑response capabilities. The appeal includes technical expertise, equipment for de‑watering, and engineering support for rebuilding bridges and roads.
+### Clarification on External Assistance
+Foreign Minister Shisir Khanal issued a public clarification dismissing reports of declined aid as completely unfounded. The minister emphasized that the government of Nepal maintains an open, appreciative stance toward international solidarity during natural disasters and continues to coordinate closely with bilateral and multilateral partners.
 
-The minister also expressed gratitude for the assistance already provided by neighboring countries and multilateral agencies, noting that coordinated efforts are essential to mitigate the humanitarian impact and to prepare for future climate‑related emergencies.
+### Request for Specialized Technical Aid
+Rather than generic consignments, Minister Khanal clarified that Nepal has formally requested specific, highly specialized assistance from neighboring partners India and China:
+* **Heavy engineering and de-watering gear:** Specialized pumps and heavy machinery to drain submerged residential zones and clear major arterial highways blocked by massive mudslides.
+* **Structural restoration:** Technical expertise to evaluate and reconstruct damaged bridges, culverts, and power distribution towers.
+* **Public health and agricultural rehabilitation:** Supply of water purification units, field medical kits, and assistance to restore waterlogged agricultural tracts.
+
+Khanal expressed gratitude for emergency relief already supplied by international agencies and stressed that structured bilateral cooperation remains critical for long-term disaster resilience.

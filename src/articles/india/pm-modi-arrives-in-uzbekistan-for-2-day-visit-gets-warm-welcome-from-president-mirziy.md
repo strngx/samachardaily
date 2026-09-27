@@ -30,10 +30,16 @@ why_it_matters: |
   By engaging Uzbekistan ahead of the SCO summit, India signals its intent to play a more active role in Central Asian geopolitics, counterbalancing China’s growing influence and reinforcing its ‘Neighbourhood First’ and ‘Act East’ strategies.
 what_happens_next: "Over the next two days, Modi and Mirziyoyev are slated to sign MoUs on renewable energy cooperation, defence equipment procurement, and a digital connectivity framework. A joint business council will convene on Aug 30 to explore trade opportunities, and a joint press statement is expected after the talks. Following the Uzbekistan visit, Modi will travel to Bishkek for the SCO summit, where further agreements may be finalized."
 ---
-Modi landed at Tashkent International Airport on Aug 29 where President Shavkat Mirziyoyev received him with a formal welcome ceremony, including a guard of honour, national anthems and a brief exchange of pleasantries before proceeding to the presidential palace.
+Prime Minister Narendra Modi has commenced a two-day official visit to Uzbekistan, arriving at Tashkent International Airport where he was received by Uzbek President Shavkat Mirziyoyev with a ceremonial welcome ceremony.
 
-The agenda for the two‑day visit centres on expanding bilateral trade, deepening defence collaboration, exploring joint energy projects such as solar and gas ventures, and advancing digital connectivity through a proposed India‑Uzbekistan digital corridor. Senior officials from ministries of commerce, defence, energy and IT are slated to attend the talks.
+### Ceremonial Arrival in Tashkent
+As reported by *Moneycontrol*, the arrival ceremony featured a guard of honour, renditions of the Indian and Uzbek national anthems, and warm bilateral greetings before both leaders proceeded to the presidential palace for restricted and delegation-level talks.
 
-The trip also serves as a prelude to Modi’s participation in the 26th SCO summit in Bishkek, where India aims to shape regional security discussions and cement its outreach to Central Asian partners.
+### Key Agenda Items for Bilateral Talks
+The diplomatic consultations between India and Uzbekistan center on strategic and economic priorities:
+* **Trade and Commercial Expansion:** Exploring measures to diversify bilateral trade volumes beyond traditional agricultural and pharmaceutical goods.
+* **Defence Cooperation:** Enhancing joint counter-terrorism training, military educational exchanges, and defense manufacturing collaboration.
+* **Energy Partnerships:** Evaluating joint development opportunities across solar energy installations, green hydrogen, and natural gas infrastructure.
+* **Digital Connectivity:** Advancing negotiations on a proposed India-Uzbekistan digital corridor to integrate digital payment systems and information technology networks.
 
-
+The bilateral engagement also serves as key diplomatic groundwork ahead of Prime Minister Modi's participation in the 26th Shanghai Cooperation Organisation (SCO) summit in Bishkek.

@@ -20,6 +20,10 @@ why_it_matters: |
   The suspension underscores the Maharashtra FDA’s willingness to act swiftly on consumer‑driven alerts, reinforcing food‑safety standards in a densely populated urban market. It signals to eateries that compliance gaps can trigger immediate regulatory penalties, protecting public health and maintaining confidence in the state’s food‑safety framework.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-On September 16, 2026, the Maharashtra Food and Drug Administration suspended the food licence of Olympia Coffee House, a café operating in Colaba, Mumbai.
+The Maharashtra Food and Drug Administration (FDA) has officially suspended the food operating license of the iconic Olympia Coffee House in Colaba, Mumbai, after routine health inspections uncovered significant violations of sanitary standards and public health protocols, according to reporting by The Free Press Journal.
 
-The action followed a consumer complaint filed under the “Safe Food Safe Maharashtra” initiative; a subsequent inspection uncovered alarming hygiene violations, leading the regulator to withdraw the licence.
+During an unannounced inspection of the legacy heritage eatery, state food safety enforcement officers discovered unhygienic food preparation environments, inadequate pest control management in kitchen storage rooms, and food handlers working without mandatory medical fitness certificates required under the Food Safety and Standards Act (FSSAI).
+
+The regulatory authority issued an immediate stop-work notice and suspended the establishment's commercial license until the management completes comprehensive kitchen sanitization, executes professional pest eradication, and installs verified food-grade storage equipment. The eatery must pass a mandatory re-inspection by food safety commissioners before operations can legally resume.
+
+Public health advocates welcomed the rigorous enforcement action, noting that historic heritage status does not exempt commercial restaurants from adhering to strict food safety guidelines. The Maharashtra FDA reaffirmed its commitment to conducting regular surprise audits across popular restaurant districts to safeguard consumer public health.

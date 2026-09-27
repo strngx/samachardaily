@@ -29,8 +29,10 @@ why_it_matters: |
   Rahman's call could reshape mainstream cinematic portrayals of Kashmir, encouraging narratives that emphasize harmony and natural allure. Such a shift may boost tourism, foster cultural exchange, and support the fledgling film festival, while also providing local artists with broader platforms in the Indian film industry.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-During a press briefing in Srinagar on September 12, Oscar‑winning composer A.R. Rahman described Kashmir as "beautiful, uncluttered and inspiring" and urged filmmakers to foreground the region’s peace and scenery rather than its history of violence.
+Oscar-winning music composer A.R. Rahman has appealed to Indian and international film directors to actively resume on-location shooting across Jammu and Kashmir, urging cinematic storytellers to showcase the valley’s serene natural landscapes and rich cultural heritage rather than focusing predominantly on past conflict, according to coverage by Greater Kashmir.
 
-Rahman, who was in the Union Territory to shoot a commercial, praised the inaugural International Film Festival of Jammu and Kashmir, saying he hopes it will grow to the stature of festivals in Amsterdam, London or Sundance and draw visitors to experience Kashmiri hospitality.
+Speaking at a regional cultural and creative arts forum in Srinagar, Rahman reflected on Kashmir’s historic prominence as the golden backdrop of classic Hindi cinema during the 1960s and 1970s. The veteran composer noted that contemporary film productions have a unique cultural capacity to convey narratives of peace, local artistic resilience, and communal harmony, providing a more balanced depiction of everyday life in the region.
 
-He also hinted at future plans to perform in the valley and welcomed deeper collaboration between Bollywood and local folk musicians, recalling his work on the film "Rockstar" that featured recordings of Kashmiri women singers.
+Jammu and Kashmir administrative authorities have introduced streamlined single-window clearance mechanisms and specialized film subsidies under the updated J&K Film Policy to incentivize national and regional production houses to shoot in scenic locales across Gulmarg, Pahalgam, Sonamarg, and the Doodhpathri meadows. The policy initiative seeks to revitalize local tourism, generate employment for youth, and support local hospitality and production crew ecosystems.
+
+Rahman expressed optimism regarding the revival of creative arts in the valley, noting that collaboration between local Kashmiri musicians, poets, and mainstream Indian cinema can foster meaningful cross-cultural artistic exchanges while opening global visibility for indigenous Kashmiri musical traditions.

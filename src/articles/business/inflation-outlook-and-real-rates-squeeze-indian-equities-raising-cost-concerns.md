@@ -29,6 +29,10 @@ why_it_matters: |
   Higher inflation expectations and real rates can lift borrowing costs and raise discount rates, compressing corporate profit margins and dampening investor sentiment across Indian equities.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Investing India notes that heightened inflation expectations together with climbing real interest rates are exerting pressure on Indian stock markets.
+Indian equity markets are experiencing heightened valuation sensitivity as elevated real interest rates and an uncertain food inflation trajectory prompt institutional investors to recalibrate corporate earnings expectations across key consumer and industrial sectors.
 
-The outlet points out that investors are closely tracking these macro‑economic signals, as they directly influence equity valuations.
+According to market commentary published by Investing India, benchmark indices including the NSE Nifty 50 and BSE Sensex have faced localized consolidation as domestic real yields remain restrictive. With the Reserve Bank of India’s (RBI) Monetary Policy Committee (MPC) maintaining an alert stance on persistent food inflation pressures, borrowing costs across corporate credit markets have remained firm, dampening capital expenditure velocity among mid-market enterprises.
+
+Equity analysts note that prolonged high real interest rates disproportionately impact consumer discretionary and retail-dependent sectors, where retail financing costs directly influence consumer durable purchases and commercial vehicle financing. Additionally, corporate operating margins across manufacturing segments face dual pressure from elevated logistics expenses and selective raw material cost increases.
+
+Institutional fund flows reflect this selective environment, with domestic institutional investors (DIIs) providing steady structural liquidity through systematic investment plans (SIPs), while foreign portfolio investors (FPIs) adopt a more discerning approach across cyclical sectors. Market strategists anticipate that equity performance will remain stock-specific until clearer disinflation trends allow for broader monetary easing.

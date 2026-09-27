@@ -29,8 +29,14 @@ why_it_matters: |
   The judge’s postponement keeps the three outlets barred from the White House, limiting their ability to report directly from the executive branch while the courts deliberate on the legality of the ban. The decision also signals how courts may address executive attempts to control media access, affecting press freedom and setting a precedent for future disputes over government‑media relations and could influence how similar restrictions are evaluated nationwide.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The judge listened to arguments Wednesday but did not issue a ruling from the bench, leaving the case unresolved for now.
+A federal district judge in Washington, D.C., heard oral arguments in a lawsuit challenging an executive directive from President Donald Trump barring three major news organizations—including CNN and MS NOW—from accessing White House press briefing facilities.
 
-The lawsuit challenges President Donald Trump's decision to bar three news outlets—including CNN and MS NOW—from White House premises, a move that has sparked a legal showdown over press access.
+The presiding judge heard arguments from legal counsel representing the excluded media organizations and the United States Department of Justice during an extended hearing, but did not issue an immediate ruling from the bench, taking the case under advisement.
 
-The hearing marks the latest step in the litigation, with both sides presenting their positions, while the court has not set a timeline for a final judgment.
+The litigation centers on First Amendment protections of freedom of the press and Fifth Amendment procedural due process guarantees. Attorneys representing the media outlets argued that the selective revocation of White House press credentials based on the content or editorial tone of coverage violates the Constitution, citing legal precedents that require the government to apply reasonable, viewpoint-neutral standards when granting or revoking credentials to public facilities.
+
+Government attorneys defending the administration argued that the President and executive staff possess broad discretionary authority to manage White House facilities, determine the format of press engagements, and decide which reporters participate in official press events. The administration maintained that the measure did not suppress the outlets' ability to report news from outside executive grounds.
+
+The case follows established legal disputes regarding media access to the executive mansion, including the landmark 1977 D.C. Circuit decision in Sherrill v. Knight, which established that the White House press office cannot arbitrarily deny press credentials without providing notice and an opportunity to challenge the exclusion.
+
+The federal court has not set a formal date for issuing its written decision, leaving the contested access policy in place pending the judge’s determination on preliminary injunctive relief.

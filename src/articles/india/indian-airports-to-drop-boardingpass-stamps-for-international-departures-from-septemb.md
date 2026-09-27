@@ -24,7 +24,7 @@ slug: "indian-airports-to-drop-boardingpass-stamps-for-international-departures-
 sourceUrl: "https://timesofindia.indiatimes.com/technology/tech-news/starting-september-1-indian-airports-are-discontinuing-immigration-clearance-for-/articleshow/133633356.cms"
 sourceName: "The Times Of India, Google News"
 dek: "From September 1, immigration officers at Indian airports will no longer stamp boarding passes, allowing travelers to present digital or printed tickets and speeding up the departure process."
-author: "Pooja Nair | SamacharDaily Policy Desk"
+author: "SamacharDaily Editorial Team"
 why_it_matters: |
   Eliminating boarding‑pass stamps streamlines the departure experience for millions of international travellers, reducing congestion at immigration counters and improving overall airport capacity. Faster processing can also benefit airlines by shortening turnaround times, potentially leading to more on‑time departures and better utilization of limited runway slots.
   

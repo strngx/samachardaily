@@ -20,8 +20,14 @@ why_it_matters: |
   Counterfeit medicines pose a direct threat to public health and erode confidence in the healthcare system. Karnataka's multi‑state raids signal heightened regulatory vigilance and inter‑state cooperation to curb such illegal networks, which can affect patients nationwide and strain enforcement resources.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The Karnataka Special Investigation Team (SIT) carried out simultaneous raids at ten locations spread across six Indian states as part of a crackdown on a suspected counterfeit pharmaceutical operation.
+The Karnataka Special Investigation Team (SIT) has carried out coordinated, simultaneous search operations across ten locations in six Indian states as part of an expanding probe into an interstate counterfeit pharmaceutical manufacturing and distribution network.
 
-The raids are linked to a fake drug racket that first came to light in Dodderi, a suburb on the outskirts of Bengaluru, prompting the SIT to expand its probe beyond state borders.
+The multi-state enforcement action originated from an initial raid conducted in Dodderi, an industrial locality situated on the outskirts of Bengaluru, where state drug regulatory authorities first uncovered an unauthorized manufacturing unit producing spurious medicines under the labels of prominent commercial pharmaceutical brands.
 
-Authorities said the operation aims to dismantle the illicit supply chain and have not released further details on arrests, seizures or the identities of those involved.
+Following forensic testing confirming that the seized formulations contained incorrect active pharmaceutical ingredients (APIs) and sub-potent excipients, Karnataka authorities constituted the SIT to track the broader supply chain beyond state borders. The subsequent raids targeted supply depots, printing units manufacturing counterfeit packaging blisters, and wholesale distribution points across six states.
+
+Investigating officers reported that the counterfeit network operated a sophisticated logistics chain, distributing fake antibiotics, pain medications, and cardiovascular drugs through secondary wholesale channels to avoid scrutiny by primary hospital procurement systems. State authorities are coordinating with the Central Drugs Standard Control Organisation (CDSCO) and state police departments to seize bank records, inventory ledgers, and raw chemical stockpiles.
+
+Public health officials emphasized that counterfeit pharmaceuticals represent a critical threat to patient safety, particularly when substandard formulations fail to deliver active dosages required to treat acute bacterial infections or cardiovascular disease. State drug controllers reiterated advice for licensed pharmacies and hospital dispensaries to verify batch barcodes and purchase inventory solely from accredited primary distributors while the SIT investigation proceeds.
+
+The SIT has not released the specific identities of all detained individuals or final inventory valuation tallies, citing ongoing investigative operations and potential additional searches. Officials confirmed that charges are being filed under relevant provisions of the Drugs and Cosmetics Act, 1940, and the Bharatiya Nyaya Sanhita (BNS) covering cheating, forgery, and public endangerment.

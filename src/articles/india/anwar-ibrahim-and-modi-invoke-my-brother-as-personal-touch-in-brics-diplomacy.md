@@ -30,8 +30,17 @@ why_it_matters: |
 what_happens_next: "No confirmed next steps reported yet."
 noindex: true
 ---
-Anwar Ibrahim and Narendra Modi used the phrase “My Brother” while engaging in diplomatic dialogue linked to the BRICS forum, according to Currents Wire.
+Malaysian Prime Minister Datuk Seri Anwar Ibrahim and Indian Prime Minister Narendra Modi reaffirmed bilateral ties during a high-level meeting on the sidelines of the 18th BRICS Leaders' Summit in New Delhi on September 12, 2026. Meeting at Hyderabad House, the two leaders greeted each other warmly, with Anwar embracing Modi and using the personal greeting "My brother, so happy to meet you," setting a cordial tone for delegation-level discussions reported by the Malaysian national news agency Bernama.
 
-The exchange was presented as a personal gesture that complemented the broader agenda of the BRICS meeting, including [multilateral proposals for a shared BRICS satellite network](/articles/india/india-pushes-for-shared-brics-satellite-network-at-2026-summit/), signalling a friendly tone between the two leaders.
+### Bilateral Agenda at Hyderabad House
+The bilateral session focused on reviewing progress under the Comprehensive Strategic Partnership, which the two countries formally elevated during Anwar's official visit to India in August 2024. The New Delhi meeting followed a visit by Prime Minister Modi to Malaysia in February 2026, maintaining regular high-level diplomatic exchanges between Putrajaya and New Delhi.
 
-Currents Wire highlighted the wording as a notable element of the bilateral interaction, framing it as a human‑focused aspect of the diplomatic talks.
+During the talks, the leaders discussed expanding cooperation across several strategic and commercial sectors:
+* **Semiconductor supply chains:** Exploring collaborative opportunities in chip design, manufacturing resilience, and technology exchange.
+* **Energy and infrastructure:** Evaluating joint projects and investments to support sustainable infrastructure and energy security.
+* **Trade relations:** Reaffirming commercial ties, with India continuing as Malaysia's largest trading partner in South Asia, following bilateral trade of RM79.49 billion recorded in 2025.
+
+### BRICS Multilateral Setting
+The bilateral encounter occurred within the broader multilateral framework of the 18th BRICS Summit in New Delhi. Malaysia engaged in the proceedings as an official BRICS Partner Country, an association status established on January 1, 2025.
+
+The personal rapport demonstrated at Hyderabad House complemented summit-level discussions on South-South trade integration, digital connectivity, and [multilateral proposals for a shared BRICS satellite network](/articles/india/india-pushes-for-shared-brics-satellite-network-at-2026-summit/). Both sides noted that personal diplomatic engagement served to reinforce institutional cooperation across bilateral and regional forums.

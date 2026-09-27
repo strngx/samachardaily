@@ -21,6 +21,7 @@ videos:
     channel: "India Today"
 slug: "putin-to-meet-pm-modi-on-august-31-at-sco-summit-talks-to-continue-at-brics-summit"
 sourceUrl: "https://www.hindustantimes.com/india-news/pm-modi-putin-meet-on-august-31-at-sco-summit-india-russia-talks-brics-summit-101787971345112.html"
+sourceName: "Hindustan Times"
 dek: "Russian President Vladimir Putin will meet Indian Prime Minister Narendra Modi on August 31 during the Shanghai Cooperation Organisation summit, after a scheduled encounter with Chinese President Xi Jinping. The two leaders plan to extend discussions at the upcoming BRICS summit."
 author: "SamacharDaily Editorial Team"
 why_it_matters: |

@@ -8,6 +8,12 @@ module.exports = function (eleventyConfig) {
   // Exclude drafts staging directory from build
   eleventyConfig.ignores.add("src/drafts/**");
 
+  // Exclude internal editorial dashboard from production build (available locally via: npm run admin)
+  const isLocalAdmin = process.env.INCLUDE_ADMIN === "true" || process.env.npm_lifecycle_event === "admin";
+  if (!isLocalAdmin) {
+    eleventyConfig.ignores.add("src/admin/**");
+  }
+
   // Prevent html-transformer from double-prefixing URLs that explicitly use the url filter
   if (eleventyConfig.transforms) {
     delete eleventyConfig.transforms["@11ty/eleventy/html-transformer"];
@@ -193,8 +199,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("shortTitle", (str) => {
     if (!str || typeof str !== "string") return "";
     const cleanStr = str.trim();
-    if (cleanStr.length <= 60) return cleanStr;
-    const sub = cleanStr.slice(0, 60);
+    if (cleanStr.length <= 65) return cleanStr;
+    const sub = cleanStr.slice(0, 65);
     const lastSpace = sub.lastIndexOf(" ");
     if (lastSpace > 0) {
       return sub.slice(0, lastSpace).trim();

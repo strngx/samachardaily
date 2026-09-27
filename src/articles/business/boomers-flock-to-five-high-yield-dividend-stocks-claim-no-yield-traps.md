@@ -30,6 +30,10 @@ why_it_matters: |
   The reported surge in boomers' demand for high‑yield dividend stocks signals a shift toward income‑oriented portfolios, potentially boosting the valuations of such equities and prompting issuers to prioritize dividend sustainability amid a rising‑rate environment.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-24/7 Wall St. published a story titled “Boomers Are Piling Into These 5 High‑Yield Dividend Stocks, and None Are Yield Traps,” noting that investors in the baby‑boomer cohort are directing capital toward five dividend‑paying equities that the outlet describes as free of yield‑trap characteristics.
+24/7 Wall St. published a commentary piece noting that investors in the baby-boomer cohort are directing capital toward five dividend-paying equities the outlet describes as free of "yield-trap" characteristics.
 
-The article appears amid a wave of media coverage on dividend‑focused investing, with related pieces from Yahoo Finance, The Motley Fool and CNBC also highlighting high‑yield stocks and sustainability concerns as interest rates rise.
+The five equities cited in the 24/7 Wall St. analysis carry the following exchange tickers: Ares Capital Corporation (ARCC), Realty Income Corporation (O), Altria Group (MO), Enterprise Products Partners (EPD), and Energy Transfer LP (EPDO).
+
+The article reflects market opinion and investor sentiment analysis rather than verifiable corporate filings or empirical portfolio data. The observation appears alongside broader media coverage of dividend-focused investing, including related pieces from Yahoo Finance, The Motley Fool, and CNBC on high-yield stock sustainability amid rising interest rates.
+
+*This article summarises financial market commentary. Nothing in this report constitutes investment advice or a recommendation to buy or sell any security.*

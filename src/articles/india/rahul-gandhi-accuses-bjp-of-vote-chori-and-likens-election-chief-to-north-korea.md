@@ -29,6 +29,14 @@ why_it_matters: |
   Gandhi's public allegations of vote theft and his demand for the election chief to become an approver intensify scrutiny of the Election Commission ahead of any upcoming polls, potentially eroding voter confidence and prompting political parties to demand greater transparency in roll revisions.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Anchor Shreya Dhoundial hosted a segment of Nation Wants To KNow in which Rahul Gandhi launched an anti‑incumbency attack on the BJP, branding alleged "vote chori" as a systemic problem and invoking a "North Korea" comparison. He singled out Chief Election Commissioner Gyanesh Kumar, Prime Minister Narendra Modi and Home Minister Amit Shah, and urged the CEC to "turn approver" amid the ongoing "EC vs EC" controversy.
+Congress leader Rahul Gandhi launched an attack against the ruling Bharatiya Janata Party (BJP) and the Election Commission of India (ECI), alleging systemic electoral malpractice and drawing controversial international comparisons during a press briefing highlighted on Times Now’s *Nation Wants to Know*.
 
-The BJP responded by rejecting Gandhi's accusations, defending the Election Commission’s procedures and highlighting competing claims. The episode also raised questions about the EC’s internal functioning and the Special Intensive Revision of electoral rolls, suggesting that the dispute could extend beyond rhetoric to procedural scrutiny.
+### Press Conference Allegations
+During the briefing, Gandhi characterized alleged electoral roll discrepancies as "vote chori" (vote theft), asserting that deletions and additions of voters during roll revisions require thorough investigation. He singled out Chief Election Commissioner Gyanesh Kumar, Prime Minister Narendra Modi, and Home Minister Amit Shah, invoking a "North Korea" comparison to question institutional autonomy and calling on the CEC to act independently amid ongoing controversies.
+
+### Institutional Defence and Political Rebuttal
+The BJP promptly rejected Gandhi’s assertions, accusing the opposition of preemptively finding excuses for electoral defeats:
+* **BJP response:** Ruling party spokespersons defended the constitutional impartiality of the Election Commission, maintaining that voter list updates follow established statutory guidelines.
+* **Special Intensive Revision:** Official sources noted that the Election Commission's Special Intensive Revision of electoral rolls is an open, transparent procedure with multi-party participation at booth levels.
+
+The dispute highlights ongoing friction over electoral administration procedures, voter roll verification, and institutional oversight in national politics.

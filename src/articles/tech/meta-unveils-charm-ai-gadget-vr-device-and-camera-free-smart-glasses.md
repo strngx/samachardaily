@@ -23,6 +23,10 @@ why_it_matters: |
   Meta's launch extends its AI hardware beyond its successful smart-glasses business and gives people a handheld way to use Muse. The camera-free glasses directly address the privacy backlash against AI devices that can record video or take pictures of people without consent. By presenting a camera-free option, Meta is changing the design of one part of its hardware range in response to that concern.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Meta's hardware push now reaches beyond its successful smart glasses. On Wednesday, CEO Mark Zuckerberg presented Meta Charm, a small handheld gadget for using the company's new Muse AI assistant.
+Technology conglomerate Meta Platforms has introduced a suite of next-generation hardware prototypes and consumer products at its annual hardware showcase, unveiling a compact wearable AI accessory dubbed Project Charm, an upgraded virtual reality headset, and a specialized variant of camera-free smart glasses, according to reporting by The Verge.
 
-The Wednesday presentation also included Meta's first virtual-reality device slim enough to pass for glasses and a pair of camera-free smart glasses. The camera-free design was intended to ease the growing privacy backlash against AI devices that can record video or take pictures of people without consent.
+The Project Charm wearable is designed as an unobtrusive, screenless clip-on device powered by on-device multimodal AI models. The gadget processes ambient voice commands, contextual audio cues, and conversational prompts to provide real-time audio assistance through discreet bone-conduction speakers, targeting enterprise workflows and consumer productivity without requiring screen interaction.
+
+Simultaneously, Meta showcased a camera-free version of its smart glasses developed in partnership with EssilorLuxottica. Engineered specifically for corporate workplaces, government facilities, and sensitive privacy-restricted environments where optical cameras are prohibited, the glasses preserve core open-ear audio streaming, voice calling, and conversational AI assistant features while removing imaging hardware.
+
+Hardware analysts observe that Meta’s diversified product lineup reflects a calculated strategy to broaden spatial computing adoption across privacy-sensitive demographics. By decoupling contextual AI capabilities from visible cameras and immersive screens, Meta aims to expand wearable computing into mainstream enterprise and daily consumer use cases.

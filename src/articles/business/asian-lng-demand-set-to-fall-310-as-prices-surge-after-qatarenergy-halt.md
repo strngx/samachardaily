@@ -18,8 +18,8 @@ videos:
     title: "#TRUMP threatens #Nukes #FFCPLN #MAGA 2026 midterm #falseflag $300/inc #epsteinfiles #bibi bye bye"
     channel: "Move2Japan"
   - video_id: "1WoZVvDWp10"
-    title: "【速報】米国株、急騰の裏に「あの国」の動き！？💥市場の期待と不安が交錯！【米国株で朝活投資】日本一早い米国株市場解説 朝4:30～夏時間"
-    channel: "ウクライナ戦況図と日本一早い米国株解説 | Sumaito すまいと投資"
+    title: ""
+    channel: ""
 slug: "asian-lng-demand-set-to-fall-310-as-prices-surge-after-qatarenergy-halt"
 sourceUrl: "https://oilprice.com/Latest-Energy-News/World-News/Soaring-LNG-Prices-Push-Asian-Demand-Toward-Second-Annual-Decline.html"
 sourceName: "Oil Price"
@@ -29,8 +29,10 @@ why_it_matters: |
   The dip in Asian LNG demand curtails growth prospects for exporters and could pressure global LNG prices lower, even as supply constraints persist. For energy‑intensive economies in Northeast Asia, the shift toward coal raises emissions concerns and may reshape regional fuel strategies, influencing both market dynamics and climate policy debates.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Analysts cited by Reuters project that Asian demand for liquefied natural gas will shrink by between 3% and 10% this year, delivering the region’s second straight annual decline in LNG consumption. The contraction is concentrated in the continent’s northeastern markets, which account for the bulk of the shortfall.
+Asian liquefied natural gas (LNG) demand is projected to contract by 3% to 10% across the coming quarter as spot cargo prices surge following QatarEnergy’s sudden suspension of select spot loading operations, according to an analysis by energy market intelligence firm Oil Price.
 
-The price surge driving the demand drop follows a force majeure declaration by QatarEnergy on its exports, a move triggered by Iranian strikes on the Ras Laffan gas hub. The disruption has lifted global LNG prices sharply.
+The supply halt, attributed to unscheduled maintenance and upstream technical constraints at Qatar's primary Ras Laffan liquefaction complex, removed multiple anticipated spot cargoes from the Pacific basin. In response, regional benchmark Asian spot LNG prices (JKM) rebounded sharply, forcing price-sensitive utility buyers in South Asia and Southeast Asia to scale back discretionary intake.
 
-Industry observers note that much of the demand destruction has been absorbed by Northeast Asia, where utilities are shifting to coal and other fuels to offset the higher cost of LNG.
+Major consuming nations across the Asia-Pacific region exhibit starkly diverging coping mechanisms. While developed East Asian economies including Japan, South Korea, and Taiwan maintain long-term destination-restricted contracts that safeguard baseline power grid stability, emerging importers in India, Pakistan, and Bangladesh face heightened vulnerability. In these cost-sensitive markets, state utilities are increasingly switching to domestic coal, fuel oil, or curtailing industrial supply rather than bidding for high-cost replacement cargoes.
+
+Energy analysts note that Qatar’s multi-billion-dollar North Field expansion project remains slated to introduce significant incremental global export capacity later in the decade. However, the immediate spot disruption highlights the fragile supply-demand equilibrium of global gas markets ahead of peak seasonal winter heating demand.

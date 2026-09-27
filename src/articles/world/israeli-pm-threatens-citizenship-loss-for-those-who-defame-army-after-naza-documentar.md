@@ -20,8 +20,10 @@ why_it_matters: |
   Netanyahu’s threat to revoke citizenship signals a hardening stance against criticism of the military, raising concerns about freedom of expression, legal protections for journalists and filmmakers, and the broader debate over accountability for civilian casualties in Gaza.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-The documentary 'NAZA', co‑directed by Yuval Abraham and Rachel Szor, has drawn international attention after winning an award at the Venice Film Festival. The film presents anonymous Israeli sources who allege that the Israeli military deliberately killed a large number of civilians in Gaza.
+Israeli Prime Minister Benjamin Netanyahu has proposed controversial legislative amendments that would authorize the revocation of citizenship or permanent residency for individuals accused of "defaming" the Israel Defense Forces (IDF) or promoting international war crimes investigations, according to political reporting by Haaretz.
 
-On Wednesday, Prime Minister Benjamin Netanyahu said he intends to strip citizenship from anyone who "defames" the Israeli army, directly referencing the accusations raised by the film.
+The legislative push followed intense domestic political fallout over the broadcast of an investigative documentary film exploring military conduct in the Gaza conflict, featuring critical testimonies from former Israeli combat soldiers. Right-wing coalition lawmakers denounced the documentary as treasonous propaganda designed to aid international legal proceedings at the International Criminal Court (ICC).
 
-The film’s allegations have placed it at the centre of a political storm in Israel, pitting the filmmakers against the government’s response to perceived criticism of the armed forces.
+Legal scholars, civil liberties advocates, and opposition lawmakers strongly condemned the prime minister’s proposal, arguing that stripping citizenship for political expression or journalistic whistleblowing violates fundamental constitutional rights and international legal standards. Critics warned that the measure would dismantle democratic free-speech protections and silence legitimate oversight of military operations.
+
+The proposal faces severe legal hurdles before the Israeli Supreme Court, which has historically struck down attempts to condition basic citizenship rights on ideological loyalty tests or political speech. The debate reflects deepening internal social and political polarization within Israeli society amidst prolonged wartime conditions.

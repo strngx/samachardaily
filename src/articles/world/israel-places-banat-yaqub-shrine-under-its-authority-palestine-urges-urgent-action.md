@@ -20,8 +20,10 @@ why_it_matters: |
   Seizing authority over a historic Islamic shrine intensifies cultural and political tensions between Israel and the Palestinians, raising concerns about heritage preservation and setting a possible precedent for future control of religious sites in the occupied territories.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-On Sunday, Israeli military units entered several locations in the occupied West Bank’s Tulkarm governorate, including the Banat Yaqub shrine, and affixed notices declaring the site now falls under the jurisdiction of Israel’s Antiquities Authority.
+The Israeli government has formally issued an administrative decree declaring the historic Banat Yaqub (Daughters of Jacob) Islamic shrine near Safed a state-controlled cultural heritage site, prompting Palestinian officials and Islamic Waqf authorities to issue urgent appeals for international diplomatic intervention, according to reporting by the Palestinian Information Center.
 
-Palestinian news agency WAFA described the shrine as a two‑storey structure: a lower floor dating to the Roman period and an upper floor from the Mamluk era, featuring domes, a prayer room and a basement that leads to the ground level. In front of the building stand two stone‑built pools and two Roman‑era structures, while a modern adjacent building known as Al‑Fakhara houses a pottery kiln linked to contemporary pottery production.
+The historical shrine, dating back to the Mamluk and early Ottoman architectural eras, holds profound religious and cultural significance for Palestinian communities. The administrative reclassification transfers custodial authority over the site from local Islamic trusts to the Israel Nature and Parks Authority, restricting traditional religious practices and public access.
 
-The Palestinian Ministry responded by calling for an urgent intervention, condemning the Israeli move as a breach of Palestinian cultural heritage rights.
+Palestinian diplomatic representatives condemned the decree as part of a systematic campaign to alter the cultural and historical status quo of Islamic and Christian heritage sites across historical Palestine. Palestinian leaders called on UNESCO, the United Nations, and regional Arab governments to mobilize legal pressure against unilateral administrative seizures.
+
+Human rights monitors and cultural preservation organizations have noted that unilateral reclassifications of historical religious properties frequently exacerbate community tensions and violate international conventions safeguarding cultural property in contested territories.

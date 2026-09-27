@@ -9,11 +9,11 @@ imageCredit: "Optical Chemist"
 trending: false
 featured: false
 video_id: "iwU605MkIEU"
-video_caption: "[영상] 행정수도특별법 연내 처리 가능할까…강준현 “9월 심사, 연내 통과 추진”"
+video_caption: ""
 videos:
   - video_id: "iwU605MkIEU"
-    title: "[영상] 행정수도특별법 연내 처리 가능할까…강준현 “9월 심사, 연내 통과 추진”"
-    channel: "etv세종"
+    title: ""
+    channel: ""
 slug: "south-korea-to-open-sejong-presidential-office-by-2029-shifting-350-agencies-from-seo"
 sourceUrl: "https://www.usnews.com/news/world/articles/2026-09-02/south-korea-to-open-sejong-presidential-office-by-2029-move-350-institutions-from-seoul"
 sourceName: "Usnews"

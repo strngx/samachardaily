@@ -30,8 +30,18 @@ why_it_matters: |
   From a policy perspective, a successful launch reinforces the United States' leadership in space science amid growing international competition, potentially influencing future funding allocations for large‑scale observatories and related research programs.
 what_happens_next: "NASA’s launch team will proceed with the final countdown on Sunday, completing the pre‑launch checklist, fueling the rocket, and conducting a weather brief before the telescope is cleared for liftoff."
 ---
-On Saturday, NASA administrator Jared Isaacman conducted a low‑altitude flypast in a military jet over Launch Complex 39A at Kennedy Space Center, the historic pad slated for the launch of the agency's newest space telescope.
+NASA Administrator Jared Isaacman piloted a military jet in a low-altitude flight review over Launch Complex 39A at Kennedy Space Center (KSC), timing the maneuver the day before a significant space science launch from the historic pad.
 
-The maneuver, timed just hours before the scheduled liftoff, served both as a symbolic show of confidence in the launch infrastructure and as a final visual inspection of the pad’s readiness, complementing standard safety checks performed by ground crews.
+## What happened
 
-NASA officials highlighted the flyover as a morale‑boosting gesture for the thousands of engineers, technicians, and contractors who have worked for years on the telescope, while also providing live footage for public outreach and media coverage.
+According to NASA's Kennedy Space Center Newsroom official release, Administrator Isaacman — the 15th NASA Administrator and a commercial astronaut — completed the aerial flight readiness review over LC-39A. The flyover served as both a symbolic show of institutional confidence in the mission and a final visual inspection of the launch pad's readiness from the air, complementing standard ground-level safety checks carried out by NASA engineers and contractors.
+
+SatNews/Space Daily coverage corroborated the event, noting its significance as a pre-launch gesture by the administrator in the lead-up to the mission.
+
+## Context
+
+Launch Complex 39A at Kennedy Space Center has historic significance in American spaceflight: it was the launch pad for Apollo 11 and many Space Shuttle missions. SpaceX now operates the pad under a long-term lease agreement with NASA and uses it for Falcon Heavy and Starship launches.
+
+## Why it matters
+
+The administrator's personal involvement in the pre-launch flight review underscores the institutional importance placed on the mission, providing live footage for public outreach while boosting morale among the thousands of engineers, technicians, and contractors who contributed to the telescope's development. From a policy standpoint, a successful launch strengthens NASA's case for sustained Congressional appropriations for ambitious space science programmes at a time when the agency's budget is regularly scrutinised.

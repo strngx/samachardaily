@@ -20,8 +20,10 @@ why_it_matters: |
   The appeal highlights the delicate balance Maharashtra must strike between maintaining law and order and respecting the political expression of the Maratha community, a group with significant electoral influence. A forceful response could spark wider unrest, while dialogue may defuse tensions and preserve social stability.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-Abhijeet Dipke, the founder of the Centre for Justice and Policy (CJP), publicly urged the Maharashtra government to respond to the demands of Maratha activist Manoj Jarange, who is leading an agitation on behalf of the community.
+Prominent social activist and Citizens for Justice and Peace (CJP) founder Dipke has called upon the Maharashtra state government to initiate immediate, constructive dialogue with Maratha quota activist Manoj Jarange Patil, warning that any coercive administrative or police measures could inflame social unrest across rural Maharashtra, according to reporting by The Free Press Journal.
 
-Dipke emphasized that the state should open a dialogue with Jarange rather than resort to coercive measures, stressing that constructive engagement is essential for resolving the issues raised by the activist.
+Addressing media personnel in Mumbai, Dipke cautioned the state cabinet against adopting an adversarial posture toward the ongoing agitation centered in Jalna district. Jarange Patil has repeatedly undertaken indefinite hunger strikes demanding that the state government issue Kunbi caste certificates to all eligible Marathas in the Marathwada region, enabling them to access reservations under the Other Backward Classes (OBC) category.
 
-He warned that any forcible intervention in the agitation could heighten tensions and undermine democratic processes, urging authorities to prioritize negotiation over suppression.
+The quota demand has triggered complex social and political friction in Maharashtra, with established OBC organizations voicing intense resistance against any administrative dilution of the existing 27% OBC reservation pool. Legal scholars point out that previous legislative attempts by the state to institute separate Maratha quota laws were invalidated by the Supreme Court of India in 2021 for breaching the 50% reservation cap established in the landmark *Indra Sawhney* judgment.
+
+Dipke urged the state administration to constitute an all-party consultative committee and invite community leaders for transparent negotiations, emphasizing that durable solutions require consensus-building, rigorous empirical backwardness surveys, and judicial compatibility rather than short-term political assurances.

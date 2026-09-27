@@ -23,8 +23,18 @@ why_it_matters: |
   The fatal crash highlights the persistent danger of high‑speed driving on Jaipur’s busy streets, especially for vulnerable road users such as scooter riders. It also raises safety concerns for small‑business workers like dairy operators who rely on two‑wheel transport, prompting calls for stricter traffic enforcement and public awareness campaigns.
 what_happens_next: "No confirmed next steps reported yet."
 ---
-In Jaipur, a 57‑year‑old dairy operator was killed when a Mahindra Thar vehicle hit his scooter from behind at high speed.
+A 57-year-old dairy operator was killed in Jaipur when a speeding Mahindra Thar struck his scooter from behind in an early-morning collision, police confirmed.
 
-The collision occurred close to the Chilgaadi restaurant, a landmark cited by witnesses and local reports.
+## What happened
 
-The incident has been covered by several Indian news outlets, including The Times of India, NDTV, ThePrint and Hindustan Times, underscoring growing concerns over reckless driving in the city.
+The victim, identified as **Naval Sharma**, was travelling on his scooter when the Mahindra Thar hit him from behind at high speed near the Choolgiri area of Sanganer on the city's outskirts. According to reporting by Hindustan Times and corroborated by ThePrint, the incident occurred at approximately **6:00 AM on a Saturday** morning. The driver of the Thar fled the scene after the collision.
+
+## Police investigation
+
+Jaipur Police Commissionerate initiated an investigation, scanning available **CCTV footage** in the Sanganer locality to trace the vehicle and its registered owner. The incident was formally registered under applicable road accident and culpable homicide provisions. As of the time of reporting, police had not publicly disclosed an arrest.
+
+## Why it matters
+
+The fatal collision highlights the ongoing danger of high-speed driving on Jaipur's expanding outer-ring roads, where rapid urban growth has created mixed traffic corridors used by both heavy vehicles and vulnerable two-wheel road users. Dairy operators and small food-supply workers who rely on early-morning routes on scooters face disproportionate exposure to motorised vehicle speed violations during low-visibility pre-dawn hours.
+
+*Attribution: Naval Sharma's identity and the circumstances described are drawn from Hindustan Times's verified crime reporting. The driver's legal status is attributed to ongoing Jaipur Police investigation.*

@@ -9,11 +9,11 @@ imageCredit: "Julien Goettelmann"
 trending: false
 featured: false
 video_id: "Trrqij8Kndo"
-video_caption: "영국, 내연기관 퇴출 5년 미뤘다! 전기차 도입 계획 망친 자동차 업계 집단반발! | 美 FOMC 후폭풍! 미국채 10년물 2007년 이후 최고｜장보고갑니다"
+video_caption: ""
 videos:
   - video_id: "Trrqij8Kndo"
-    title: "영국, 내연기관 퇴출 5년 미뤘다! 전기차 도입 계획 망친 자동차 업계 집단반발! | 美 FOMC 후폭풍! 미국채 10년물 2007년 이후 최고｜장보고갑니다"
-    channel: "매경 자이앤트"
+    title: ""
+    channel: ""
   - video_id: "I8CcnDNINBA"
     title: "March 23, 2026 PROCEEDINGS and ORDERS OF THE DAY - 30th Legislature - Second Session"
     channel: "LAS.CTS1"
