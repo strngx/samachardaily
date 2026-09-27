@@ -1,4 +1,7 @@
-{% if what_happens_next and what_happens_next != "No confirmed next steps reported yet." %}
+{% if what_happens_next %}
+  {% set bodyWords = content | wordCount %}
+  {% set nextSteps = what_happens_next | trim %}
+  {% if bodyWords >= 280 and nextSteps and nextSteps != "No confirmed next steps reported yet." and nextSteps != "No next steps reported yet." and nextSteps.length > 25 and nextSteps != (title or "") and nextSteps != (dek or "") %}
 <aside class="key-takeaways-box" aria-label="Key Takeaways Summary">
   <div class="takeaways-header">
     <svg class="takeaways-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -9,8 +12,9 @@
   </div>
   <ul class="takeaways-list">
     <li class="takeaways-item">
-      <strong class="takeaways-lead">Next Phase:</strong> {{ what_happens_next }}
+      <strong class="takeaways-lead">Next Phase:</strong> {{ nextSteps }}
     </li>
   </ul>
 </aside>
+  {% endif %}
 {% endif %}

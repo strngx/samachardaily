@@ -58,25 +58,13 @@ layout: layouts/base.njk
         {% if rawAuthor == "Arjun Khatri" %}
           {% set authorName = "Arjun Khatri" %}
           {% set authorUrl = "/authors/samachardaily-editorial-team/" %}
-          {% set authorRoleBadge = authorRole or "Founder & Owner" %}
-          {% set authorProfileRole = authorRole or "Founder & Owner" %}
-        {% elif rawAuthor == "SamacharDaily Editorial Team" or rawAuthor == "Samachar Daily" or not author %}
-          {% set authorName = "Samachar Daily" %}
-          {% set authorUrl = "/authors/samachardaily-editorial-team/" %}
-          {% set authorRoleBadge = authorRole or "Founded & Operated by Arjun Khatri" %}
-          {% set authorProfileRole = "Solo-Publisher Digital News" %}
         {% else %}
-          {# Unknown / legacy / arbitrary author: safe fallback to Editorial Team #}
           {% set authorName = "Samachar Daily" %}
           {% set authorUrl = "/authors/samachardaily-editorial-team/" %}
-          {% set authorRoleBadge = "Founded & Operated by Arjun Khatri" %}
-          {% set authorProfileRole = "Solo-Publisher Digital News" %}
         {% endif %}
         <span class="byline-author">
-          By
-          <a href="{{ authorUrl | url }}" class="byline-strong">{{ authorName }}</a>
+          By <a href="{{ authorUrl | url }}" class="byline-strong">{{ authorName }}</a>
         </span>
-        <span class="byline-role-badge">{{ authorRoleBadge }}</span>
       </div>
       <div class="byline-meta-group">
         <span class="byline-dot" aria-hidden="true">•</span>
@@ -102,37 +90,17 @@ layout: layouts/base.njk
       </div>
     </div>
 
-    <!-- 6b. Editorial Trust & Transparency Bar -->
-    <div class="article-trust-bar">
-      <div class="trust-badge-group">
-        {% if aiAssisted != false %}
-          <span class="trust-badge trust-badge-editorial" title="Synthesized with AI models from attributed primary wire dispatches">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-            AI-Assisted Wire Synthesis
-          </span>
-        {% endif %}
-        {% if corroboration_status == "corroborated" or corroborationStatus == "corroborated" %}
-          <span class="trust-badge trust-badge-corroborated" title="Corroborated across multiple independent reporting sources">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Multi-Source Corroborated
-          </span>
-        {% endif %}
-        <span class="trust-badge trust-badge-automated" title="Validated against automated structural and factual guardrails">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Automated Verification
-        </span>
-        {% if humanReviewed or human_reviewed %}
-          <span class="trust-badge trust-badge-reviewed" title="Reviewed by publisher prior to publication or following correction request">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-            Human Reviewed
-          </span>
-        {% endif %}
-      </div>
-      <div class="trust-policy-link-wrap">
-        <a href="{{ '/editorial/' | url }}" class="trust-policy-link">
-          Editorial Standards &amp; Disclosure <span aria-hidden="true">&rarr;</span>
-        </a>
-      </div>
+    <!-- 6b. Compact Editorial Disclosure -->
+    <div class="article-disclosure-bar">
+      <span class="disclosure-item disclosure-ai">AI-assisted wire synthesis</span>
+      <span class="disclosure-dot" aria-hidden="true">·</span>
+      <span class="disclosure-item disclosure-verified">
+        {% if humanReviewed or human_reviewed %}Human reviewed{% elif corroboration_status == "corroborated" or corroborationStatus == "corroborated" %}Multi-source corroborated{% else %}Independently verified{% endif %}
+      </span>
+      <span class="disclosure-dot" aria-hidden="true">·</span>
+      <a href="{{ '/editorial/' | url }}" class="disclosure-link">
+        Editorial disclosure <span aria-hidden="true">&rarr;</span>
+      </a>
     </div>
 
     <!-- 6c. Factual Correction Notice (Renders ONLY if correction metadata exists) -->
@@ -218,49 +186,6 @@ layout: layouts/base.njk
         </div>
       </div>
     </aside>
-
-    <!-- 11b. Institutional Author & Editorial Transparency Card -->
-    <aside class="article-editorial-profile" aria-label="About the Publisher and Editorial Workflow">
-      <div class="editorial-profile-inner">
-        <div class="profile-header">
-          <div class="profile-avatar" aria-hidden="true">SD</div>
-          <div class="profile-meta">
-            <div class="profile-name">
-              <a href="{{ authorUrl | url }}">{{ authorName }}</a>
-              <span class="profile-role">{{ authorProfileRole }}</span>
-            </div>
-            <p class="profile-bio">
-              {{ authorBio or "Samachar Daily is an independent digital news publication founded, owned, and operated by Arjun Khatri under a solo-publisher model. Reporting and explanatory briefings are synthesized from attributed primary sources and public wire dispatches using AI assistance, evaluated against automated factual guardrails, and published under transparent editorial oversight." }}
-            </p>
-          </div>
-        </div>
-        <div class="profile-workflow-grid">
-          <div class="workflow-item">
-            <span class="workflow-label">Founder &amp; Owner:</span>
-            <span class="workflow-val">Arjun Khatri</span>
-          </div>
-          <div class="workflow-item">
-            <span class="workflow-label">Operating Model:</span>
-            <span class="workflow-val">Solo Publisher &amp; Developer</span>
-          </div>
-          <div class="workflow-item">
-            <span class="workflow-label">Editorial Process:</span>
-            <span class="workflow-val">{{ "Human Reviewed by Publisher" if (humanReviewed or human_reviewed) else "AI-Assisted Wire Synthesis with Automated Quality Gating" }}</span>
-          </div>
-          <div class="workflow-item">
-            <span class="workflow-label">Standards:</span>
-            <a href="{{ '/editorial/' | url }}" class="workflow-link">Editorial Policy &amp; AI Disclosure</a>
-          </div>
-          <div class="workflow-item">
-            <span class="workflow-label">Corrections:</span>
-            <a href="{{ '/contact/' | url }}" class="workflow-link">Report Inaccuracy / Grievance</a>
-          </div>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Social Follow CTA -->
-    {% include "partials/cta-social.njk" %}
 
     <!-- 12. Related Articles Block for Internal Linking (4 Most Recent in Same Category) -->
     {% set catKey = (category or "India") | categorySlug %}

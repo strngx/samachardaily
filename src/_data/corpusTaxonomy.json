@@ -1,0 +1,11 @@
+{
+  "total": 1303,
+  "counts": {
+    "cat1_retain_as_is": 376,
+    "cat2_high_value_core": 330,
+    "cat3_needs_review_enrichment": 326,
+    "cat4_thin_needs_pruning_rewrite": 271,
+    "cat5_historical_archive": 0
+  },
+  "timestamp": "2026-09-27T17:31:04.719Z"
+}

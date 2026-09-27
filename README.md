@@ -122,6 +122,10 @@ The project relies on a clean, modern, zero-database static architecture:
 ## 🛡️ Editorial Safeguards
 
 - **Primary Source Attribution:** All stories cite primary news agencies or authoritative public disclosures.
+- **Streamlined Article UX:** Articles feature a clean editorial hierarchy with compact byline metadata (`By Samachar Daily · Date · Read Time`) and a single transparent disclosure line (`AI-assisted wire synthesis · Verified · Editorial disclosure →`), avoiding heavy repeated publisher cards.
+- **Conditional & Evidence-Based Modules:** Analytical callouts (*Key Takeaways* and *Why This Matters*) render only when the story possesses substantive reporting depth and documented evidence; they are omitted from brief wire notices.
+- **Strict Video Relevance Guardrails:** Embedded media undergoes temporal and semantic validation. Stale historical footage, YouTube Shorts/Reels, commercial ads, and unrelated keyword collisions are automatically filtered out.
+- **5-Tier Corpus Taxonomy:** The historical article corpus (~1,300 stories) is audited and categorized into a structured editorial taxonomy (Retain As-Is, High-Value Core, Needs Enrichment, Thin/Pruning Queue, and Historical Archive) to ensure thin wire briefs do not dilute homepage presentation.
 - **No Fabricated Personas:** No artificial reporter bylines or invented personas are used.
 - **No Hallucinated Quotes:** All quotes must originate directly from verified source dispatches.
 - **Duplicate & Cannibalization Prevention:** Automated checks prevent publishing overlapping or redundant stories on the same event.

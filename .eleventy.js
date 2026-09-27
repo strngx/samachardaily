@@ -22,7 +22,6 @@ module.exports = function (eleventyConfig) {
   // Passthrough static assets
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/favicon.ico": "favicon.ico" });
-  eleventyConfig.addPassthroughCopy({ "src/favicon.svg": "favicon.svg" });
   eleventyConfig.addPassthroughCopy({ "src/favicon-16x16.png": "favicon-16x16.png" });
   eleventyConfig.addPassthroughCopy({ "src/favicon-32x32.png": "favicon-32x32.png" });
   eleventyConfig.addPassthroughCopy({ "src/apple-touch-icon.png": "apple-touch-icon.png" });
@@ -85,6 +84,11 @@ module.exports = function (eleventyConfig) {
     const words = content.replace(/<[^>]*>?/gm, "").split(/\s+/).length;
     const minutes = Math.ceil(words / wordsPerMinute);
     return `${minutes || 2} min read`;
+  });
+
+  eleventyConfig.addFilter("wordCount", (content) => {
+    if (!content) return 0;
+    return content.replace(/<[^>]*>?/gm, "").trim().split(/\s+/).filter(Boolean).length;
   });
 
   eleventyConfig.addFilter("categoryColor", (category) => {
@@ -249,13 +253,30 @@ module.exports = function (eleventyConfig) {
     return diff >= 0 && diff <= (48 * 60 * 60 * 1000);
   });
 
-  // Homepage Priority Scoring & Unified Feed Filter
+  // Homepage Quality Curation & Priority Scoring
   function getArticleScore(art) {
-    const isTrending = art.data && (art.data.trending === true || art.data.trending === "true");
-    const isFeatured = art.data && (art.data.featured === true || art.data.featured === "true");
-    if (isTrending) return 2;
-    if (isFeatured) return 1;
-    return 0;
+    if (!art || !art.data) return 0;
+    let score = 0;
+    const content = art.templateContent || "";
+    const words = content.replace(/<[^>]*>?/gm, "").trim().split(/\s+/).filter(Boolean).length;
+    
+    // Substantive reporting bonus (deprioritize thin stories from homepage)
+    if (words >= 250) score += 3;
+    else if (words < 180) score -= 3;
+
+    // Editorial verification bonus
+    if (art.data.humanReviewed || art.data.human_reviewed) score += 4;
+    if (art.data.corroboration_status === "corroborated" || art.data.corroborationStatus === "corroborated") score += 2;
+
+    // Sourced attribution & media bonus
+    if (art.data.sourceName || art.data.sourceUrl) score += 1;
+    if (art.data.image && art.data.imageAlt) score += 1;
+
+    // Trending & featured flags
+    if (art.data.trending === true || art.data.trending === "true") score += 2;
+    if (art.data.featured === true || art.data.featured === "true") score += 1;
+
+    return score;
   }
 
   function sortArticlesByPriority(articles) {

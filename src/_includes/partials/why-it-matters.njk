@@ -1,4 +1,8 @@
 {% if why_it_matters %}
+  {% set bodyWords = content | wordCount %}
+  {% set cleanMatters = why_it_matters | trim %}
+  {% set isGenericFiller = cleanMatters.startsWith("This could reshape") or cleanMatters.startsWith("This is expected to transform") or cleanMatters.startsWith("This could have major implications") %}
+  {% if bodyWords >= 280 and cleanMatters and cleanMatters.length > 40 and not isGenericFiller %}
 <aside class="why-matters-annotation" style="border-left-color: var(--color-cat-{{ category | categorySlug }}, var(--color-brand));" aria-label="Why This Matters Editorial Analysis">
   <div class="annotation-header">
     <svg class="annotation-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-cat-{{ category | categorySlug }}, var(--color-brand));" aria-hidden="true">
@@ -10,13 +14,14 @@
       Why This Matters
     </div>
   </div>
-  {% set paragraphs = why_it_matters.split('\n\n') %}
+  {% set paragraphs = cleanMatters.split('\n\n') %}
   {% for para in paragraphs %}
-    {% if para | trim %}
+    {% if para %}
       <p class="annotation-text"{% if not loop.last %} style="margin-bottom: 0.85rem;"{% endif %}>
-        {{ para | trim }}
+        {{ para }}
       </p>
     {% endif %}
   {% endfor %}
 </aside>
+  {% endif %}
 {% endif %}
