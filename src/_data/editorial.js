@@ -99,7 +99,23 @@ module.exports = function () {
             slug: slug,
             url: '/articles/' + cat + '/' + slug + '/',
             redirectTo: d.redirect_to || null,
-            articleType: 'redirect'
+            articleType: 'redirect',
+            dek: 'Consolidated into ' + (d.redirect_to || 'target article'),
+            image: null,
+            imageAlt: null,
+            hasImage: false,
+            video_id: '',
+            hasVideo: false,
+            hasSourceName: false,
+            hasSourceUrl: false,
+            sourceName: null,
+            sourceUrl: null,
+            author: null,
+            wordCount: 0,
+            date: d.date ? (d.date instanceof Date ? d.date.toISOString() : String(d.date)) : null,
+            noindex: true,
+            sensitiveTopic: null,
+            evidenceDensity: 'N/A (REDIRECT)'
           });
         } else {
           categoryCounts[cat]++;
@@ -131,6 +147,12 @@ module.exports = function () {
             wordCount: words,
             date: d.date ? (d.date instanceof Date ? d.date.toISOString() : String(d.date)) : null,
             author: d.author || null,
+            dek: d.dek || '',
+            image: d.image || null,
+            imageAlt: d.imageAlt || null,
+            hasImage: Boolean(d.image && String(d.image).trim() !== ''),
+            video_id: d.video_id || '',
+            hasVideo: Boolean(d.video_id && String(d.video_id).trim() !== ''),
             sourceName: d.sourceName || null,
             sourceUrl: d.sourceUrl || null,
             hasSourceName: hasSrc,
@@ -236,6 +258,144 @@ module.exports = function () {
     if (a.category !== b.category) return a.category.localeCompare(b.category);
     return a.slug.localeCompare(b.slug);
   });
+
+  // Master Article Corpus (100% of the 1,303 articles: active, noindexed, and redirects)
+  const masterArticles = [];
+  articles.forEach(a => masterArticles.push(a));
+  redirects.forEach(r => masterArticles.push(r));
+
+  // Sort masterArticles: date DESC, then title ASC
+  masterArticles.sort((a, b) => {
+    const tA = a.date ? new Date(a.date).getTime() : 0;
+    const tB = b.date ? new Date(b.date).getTime() : 0;
+    if (tA !== tB) return tB - tA;
+    return (a.title || '').localeCompare(b.title || '');
+  });
+
+  // Calculate publication recency
+  const nowMs = Date.now();
+  const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+  const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+
+  let publishedToday = 0;
+  let publishedThisWeek = 0;
+  let latestArticleDate = null;
+  let maxArtTime = 0;
+
+  masterArticles.forEach(art => {
+    if (art.date) {
+      const t = new Date(art.date).getTime();
+      if (!isNaN(t)) {
+        if (t > maxArtTime) {
+          maxArtTime = t;
+          latestArticleDate = art.date;
+        }
+        const diff = nowMs - t;
+        if (diff >= 0 && diff <= ONE_DAY_MS) publishedToday++;
+        if (diff >= 0 && diff <= ONE_WEEK_MS) publishedThisWeek++;
+      }
+    }
+  });
+
+  // Programmatically detect real problems across the corpus for "Needs Attention"
+  const needsAttentionList = [];
+  masterArticles.forEach(a => {
+    if (a.articleType === 'redirect') {
+      needsAttentionList.push({
+        id: a.id,
+        title: a.title,
+        slug: a.slug,
+        category: a.category,
+        url: a.url,
+        relPath: a.relPath,
+        problem: 'Consolidated Redirect Stub',
+        severity: 'INFO',
+        reason: 'Article was consolidated into a master story; forwards via 301/meta-refresh to ' + (a.redirectTo || 'target story'),
+        recommendedAction: 'Verify redirect destination remains active and relevant.'
+      });
+    } else if (a.noindex) {
+      needsAttentionList.push({
+        id: a.id,
+        title: a.title,
+        slug: a.slug,
+        category: a.category,
+        url: a.url,
+        relPath: a.relPath,
+        problem: 'Soft-Pruned (noindex: true)',
+        severity: 'MEDIUM',
+        reason: 'Article frontmatter explicitly contains noindex: true. It is live on disk but omitted from sitemap.xml and search engines.',
+        recommendedAction: 'Review whether content can be expanded or rehabilitated to regain indexation eligibility.'
+      });
+    } else if (a.wordCount < 100) {
+      needsAttentionList.push({
+        id: a.id,
+        title: a.title,
+        slug: a.slug,
+        category: a.category,
+        url: a.url,
+        relPath: a.relPath,
+        problem: 'Severe Thin Content (<100 words)',
+        severity: 'HIGH',
+        reason: `Article body has only ${a.wordCount} words. High risk of search engine low-value content penalty.`,
+        recommendedAction: 'Enrich with background context, why-it-matters analysis, or consolidate.'
+      });
+    } else if (a.wordCount < 150) {
+      needsAttentionList.push({
+        id: a.id,
+        title: a.title,
+        slug: a.slug,
+        category: a.category,
+        url: a.url,
+        relPath: a.relPath,
+        problem: 'Marginal Thin Content (100–149 words)',
+        severity: 'MEDIUM',
+        reason: `Article body has ${a.wordCount} words. Below the 250-word editorial standard for substantive news.`,
+        recommendedAction: 'Enrich with source corroboration or key takeaways.'
+      });
+    } else if (!a.hasImage) {
+      needsAttentionList.push({
+        id: a.id,
+        title: a.title,
+        slug: a.slug,
+        category: a.category,
+        url: a.url,
+        relPath: a.relPath,
+        problem: 'Missing Hero Photograph',
+        severity: 'LOW',
+        reason: 'Article lacks a valid hero image in frontmatter.',
+        recommendedAction: 'Attach a high-resolution photograph with proper credit attribution.'
+      });
+    } else if (!a.hasSourceName) {
+      needsAttentionList.push({
+        id: a.id,
+        title: a.title,
+        slug: a.slug,
+        category: a.category,
+        url: a.url,
+        relPath: a.relPath,
+        problem: 'Missing Primary Source Attribution',
+        severity: 'LOW',
+        reason: 'No sourceName specified in frontmatter.',
+        recommendedAction: 'Attach wire attribution or reporting agency source.'
+      });
+    }
+  });
+
+  // Sensitive Articles list for Safety tab
+  const sensitiveArticlesList = masterArticles
+    .filter(a => a.sensitiveTopic && a.sensitiveTopic.length > 0)
+    .map(a => ({
+      id: a.id,
+      title: a.title,
+      slug: a.slug,
+      category: a.category,
+      url: a.url,
+      relPath: a.relPath,
+      date: a.date,
+      wordCount: a.wordCount,
+      flags: a.sensitiveTopic,
+      source: a.sourceName || 'Unknown'
+    }));
 
   const nonRedirectCount = totalMarkdownFiles - redirectCount;
   const sourcePercent = nonRedirectCount > 0 ? Math.round((withSourceName / nonRedirectCount) * 100) : 100;
@@ -591,10 +751,19 @@ module.exports = function () {
   data.humanReviewQueue.stagedDrafts = drafts;
   data.humanReviewQueue.draftStats = draftStats;
 
-  // Attach quality index data
+  // Attach quality index data & Phase 3 Master Corpus
   data.corpusStats = corpusStats;
   data.corpusIndex = articles;
   data.redirectIndex = redirects;
+  data.masterArticles = masterArticles;
+  data.masterArticlesJson = JSON.stringify(masterArticles);
+  data.needsAttentionList = needsAttentionList;
+  data.needsAttentionJson = JSON.stringify(needsAttentionList);
+  data.sensitiveArticlesList = sensitiveArticlesList;
+  data.sensitiveArticlesJson = JSON.stringify(sensitiveArticlesList);
+  data.publishedTodayCount = publishedToday;
+  data.publishedWeeklyCount = publishedThisWeek;
+  data.latestArticleDate = latestArticleDate;
   data.draftIndex = drafts;
   data.corpusIndexJson = fullIndexJson;
   data.corpusArticlesJson = JSON.stringify(articles);

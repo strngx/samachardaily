@@ -1,0 +1,456 @@
+---
+permalink: /admin/index.html
+eleventyExcludeFromCollections: true
+noindex: true
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editorial Control Center Login — Samachar Daily</title>
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <style>
+    :root {
+      --color-brand: #C81E2C;
+      --color-brand-dark: #9e1420;
+      --color-ink: #0f172a;
+      --color-muted: #475569;
+      --color-subtle: #64748b;
+      --color-bg: #f8fafc;
+      --color-surface: #ffffff;
+      --color-border: #e2e8f0;
+      --color-border-focus: #C81E2C;
+      --color-danger: #b91c1c;
+      --color-danger-bg: #fef2f2;
+      --color-danger-border: #fecaca;
+      --color-success: #15803d;
+      --color-success-bg: #f0fdf4;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-serif: "Merriweather", Georgia, "Times New Roman", serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background-color: var(--color-bg);
+      color: var(--color-ink);
+      font-family: var(--font-stack);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Top Strip */
+    .utility-strip {
+      background-color: #042f2e;
+      color: #ccfbf1;
+      padding: 8px 20px;
+      font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #115e59;
+    }
+    .utility-badge {
+      background-color: #f59e0b;
+      color: #78350f;
+      font-weight: 800;
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Center Login Container */
+    .login-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    .login-header {
+      padding: 32px 32px 24px 32px;
+      border-bottom: 1px solid var(--color-border);
+      background: #ffffff;
+      text-align: center;
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-brand);
+      margin-bottom: 12px;
+    }
+    .brand-mark::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 16px;
+      background-color: var(--color-brand);
+      border-radius: 1px;
+    }
+
+    .login-title {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-ink);
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .login-subtitle {
+      font-size: 13px;
+      color: var(--color-muted);
+    }
+
+    .login-body {
+      padding: 32px;
+    }
+
+    .alert-box {
+      display: none;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    .alert-box.alert-error {
+      display: block;
+      background-color: var(--color-danger-bg);
+      border: 1px solid var(--color-danger-border);
+      color: var(--color-danger);
+    }
+    .alert-box.alert-success {
+      display: block;
+      background-color: var(--color-success-bg);
+      border: 1px solid #bbf7d0;
+      color: var(--color-success);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--color-ink);
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 44px;
+      padding: 0 14px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-stack);
+      font-size: 14px;
+      color: var(--color-ink);
+      background-color: #ffffff;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--color-brand);
+      box-shadow: 0 0 0 3px rgba(200, 30, 44, 0.15);
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+    .password-toggle {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-subtle);
+      cursor: pointer;
+      padding: 6px 8px;
+    }
+    .password-toggle:hover {
+      color: var(--color-ink);
+    }
+
+    .btn-submit {
+      width: 100%;
+      height: 44px;
+      background-color: var(--color-brand);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-stack);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--color-brand-dark);
+    }
+
+    .btn-submit:disabled {
+      background-color: #cbd5e1;
+      cursor: not-allowed;
+    }
+
+    .security-notice {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--color-subtle);
+    }
+
+    .security-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .security-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #10b981;
+    }
+
+    /* Footer */
+    .login-footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 11px;
+      color: var(--color-subtle);
+      border-top: 1px solid var(--color-border);
+    }
+
+    @media (max-width: 480px) {
+      .login-header { padding: 24px 20px 18px 20px; }
+      .login-body { padding: 24px 20px; }
+      .login-title { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Strip -->
+  <div class="utility-strip">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span class="utility-badge">Restricted Access</span>
+      <span>Samachar Daily Editorial Operations</span>
+    </div>
+    <div style="font-family: var(--font-mono); opacity: 0.8;">
+      Authentication Gateway
+    </div>
+  </div>
+
+  <div class="login-wrapper">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="brand-mark">SamacharDaily</div>
+        <h1 class="login-title">Editorial Control Center</h1>
+        <div class="login-subtitle">Internal Newsroom Management &amp; Diagnostics</div>
+      </div>
+
+      <div class="login-body">
+        <div id="login-alert" class="alert-box" role="alert"></div>
+
+        <form id="admin-login-form" onsubmit="handleLoginSubmit(event)">
+          <div class="form-group">
+            <label class="form-label" for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="form-input"
+              value="admin"
+              required
+              autocomplete="username"
+              autofocus
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <div class="password-wrap">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-input"
+                required
+                autocomplete="current-password"
+                placeholder="Enter newsroom password"
+              >
+              <button type="button" class="password-toggle" onclick="togglePasswordVisibility()">Show</button>
+            </div>
+          </div>
+
+          <button type="submit" id="submit-btn" class="btn-submit">
+            <span id="submit-text">Sign In to Control Center</span>
+          </button>
+        </form>
+
+        <div class="security-notice">
+          <div class="security-item">
+            <span class="security-dot"></span>
+            <span>Server-side scrypt authentication</span>
+          </div>
+          <div class="security-item">
+            <span class="security-dot"></span>
+            <span>Rate-limited brute-force lockout defense</span>
+          </div>
+          <div class="security-item">
+            <span class="security-dot"></span>
+            <span>HttpOnly &amp; SameSite session containment</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="login-footer">
+        Samachar Daily &bull; Internal Control Center &bull; Phase 3 Architecture
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 1. Check if user already has an active authenticated session
+    async function checkExistingSession() {
+      try {
+        const res = await fetch('/api/admin/session');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.authenticated) {
+            window.location.replace('/admin/editorial/');
+          }
+        }
+      } catch (e) {
+        // Dev server or network offline; stay on login page
+      }
+    }
+    checkExistingSession();
+
+    function togglePasswordVisibility() {
+      const input = document.getElementById('password');
+      const btn = event.target;
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.innerText = 'Hide';
+      } else {
+        input.type = 'password';
+        btn.innerText = 'Show';
+      }
+    }
+
+    function showAlert(msg, isError = true) {
+      const alert = document.getElementById('login-alert');
+      alert.className = isError ? 'alert-box alert-error' : 'alert-box alert-success';
+      alert.innerText = msg;
+    }
+
+    function clearAlert() {
+      const alert = document.getElementById('login-alert');
+      alert.className = 'alert-box';
+      alert.innerText = '';
+    }
+
+    async function handleLoginSubmit(event) {
+      event.preventDefault();
+      clearAlert();
+
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
+      const submitBtn = document.getElementById('submit-btn');
+      const submitText = document.getElementById('submit-text');
+
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value;
+
+      if (!username || !password) {
+        showAlert('Please enter both username and password.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitText.innerText = 'Verifying credentials...';
+
+      try {
+        const response = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          body: JSON.stringify({ username, password })
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          showAlert('Authentication successful. Redirecting...', false);
+          setTimeout(() => {
+            window.location.replace('/admin/editorial/');
+          }, 300);
+        } else {
+          submitBtn.disabled = false;
+          submitText.innerText = 'Sign In to Control Center';
+          showAlert(result.error || 'Invalid administrator credentials.');
+          passwordInput.value = '';
+          passwordInput.focus();
+        }
+      } catch (err) {
+        submitBtn.disabled = false;
+        submitText.innerText = 'Sign In to Control Center';
+        showAlert('Network or server error. Please ensure the local admin server is running.');
+      }
+    }
+  </script>
+</body>
+</html>

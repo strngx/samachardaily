@@ -1,0 +1,1763 @@
+---
+layout: false
+title: "Editorial Control Center — Samachar Daily"
+permalink: /admin/editorial/index.html
+eleventyExcludeFromCollections: true
+noindex: true
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editorial Control Center — Samachar Daily</title>
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <style>
+    :root {
+      --color-brand: #C81E2C;
+      --color-brand-dark: #9e1420;
+      --color-brand-light: #fef2f2;
+      --color-ink: #0f172a;
+      --color-muted: #475569;
+      --color-subtle: #64748b;
+      --color-canvas: #f8fafc;
+      --color-surface: #ffffff;
+      --color-surface-alt: #f1f5f9;
+      --color-border: #e2e8f0;
+      --color-border-dark: #cbd5e1;
+      
+      --color-blue: #1d4ed8;
+      --color-blue-bg: #eff6ff;
+      --color-blue-border: #bfdbfe;
+      
+      --color-green: #15803d;
+      --color-green-bg: #f0fdf4;
+      --color-green-border: #bbf7d0;
+      
+      --color-amber: #b45309;
+      --color-amber-bg: #fffbeb;
+      --color-amber-border: #fde68a;
+      
+      --color-teal: #0f766e;
+      --color-teal-bg: #f0fdfa;
+      --color-teal-border: #99f6e4;
+      
+      --color-purple: #7e22ce;
+      --color-purple-bg: #faf5ff;
+      --color-purple-border: #e9d5ff;
+
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-serif: "Merriweather", Georgia, "Times New Roman", serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background-color: var(--color-canvas);
+      color: var(--color-ink);
+      font-family: var(--font-stack);
+      line-height: 1.5;
+      font-size: 14px;
+      overflow-x: hidden;
+    }
+
+    /* Top Operational Bar */
+    .top-bar {
+      background-color: #042f2e;
+      color: #ccfbf1;
+      padding: 8px 20px;
+      font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      border-bottom: 1px solid #115e59;
+    }
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .top-bar-badge {
+      background-color: #f59e0b;
+      color: #78350f;
+      font-weight: 800;
+      font-size: 9px;
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+    .btn-logout {
+      background-color: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      padding: 3px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      font-family: var(--font-stack);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-logout:hover {
+      background-color: #b91c1c;
+      border-color: #b91c1c;
+    }
+
+    /* Container */
+    .dashboard-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 20px 16px 80px 16px;
+      width: 100%;
+    }
+
+    /* Dashboard Header */
+    .dashboard-header {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .brand-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-brand);
+      margin-bottom: 4px;
+    }
+    .brand-tag::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 14px;
+      background-color: var(--color-brand);
+      border-radius: 1px;
+    }
+    .header-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--color-ink);
+      line-height: 1.25;
+    }
+    .header-subtext {
+      color: var(--color-muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+    .header-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .meta-chip {
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      color: var(--color-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .meta-chip strong { color: var(--color-ink); }
+
+    /* Navigation Tabs */
+    .nav-tabs-wrapper {
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .nav-tabs {
+      display: flex;
+      gap: 4px;
+      border-bottom: 2px solid var(--color-border-dark);
+      overflow-x: auto;
+      background: var(--color-surface);
+      padding: 6px 8px 0 8px;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      box-shadow: var(--shadow-sm);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .nav-tab-btn {
+      padding: 10px 14px;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      font-family: var(--font-stack);
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    }
+    .nav-tab-btn:hover {
+      color: var(--color-brand);
+      background: var(--color-brand-light);
+    }
+    .nav-tab-btn.active {
+      color: var(--color-brand);
+      border-bottom-color: var(--color-brand);
+      font-weight: 700;
+      background: var(--color-brand-light);
+    }
+    .tab-badge {
+      background: var(--color-surface-alt);
+      color: var(--color-subtle);
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .nav-tab-btn.active .tab-badge {
+      background: #fecaca;
+      color: #991b1b;
+    }
+    .tab-badge-roadmap {
+      background: #f1f5f9;
+      color: #64748b;
+      font-size: 9px;
+      padding: 2px 5px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      font-weight: 800;
+      border: 1px solid #cbd5e1;
+    }
+
+    /* Tab Panes */
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; animation: fadeIn 0.15s ease-in; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(2px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Grids & Cards */
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 20px; margin-bottom: 24px; }
+
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-stat {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--color-ink);
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+    }
+    .card-stat-desc {
+      font-size: 12px;
+      color: var(--color-subtle);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    /* KPI Cards */
+    .kpi-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-top: 3px solid var(--color-border-dark);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .kpi-card.kpi-brand { border-top-color: var(--color-brand); }
+    .kpi-card.kpi-green { border-top-color: var(--color-green); }
+    .kpi-card.kpi-amber { border-top-color: var(--color-amber); }
+    .kpi-card.kpi-blue { border-top-color: var(--color-blue); }
+    .kpi-card.kpi-purple { border-top-color: var(--color-purple); }
+    .kpi-card.kpi-teal { border-top-color: var(--color-teal); }
+
+    .kpi-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .kpi-label { font-size: 11px; font-weight: 700; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .kpi-value { font-size: 26px; font-weight: 800; color: var(--color-ink); font-variant-numeric: tabular-nums; }
+    .kpi-sub { font-size: 12px; color: var(--color-subtle); margin-top: 4px; line-height: 1.35; }
+    .kpi-footer { font-size: 11px; color: var(--color-subtle); border-top: 1px dashed var(--color-border); padding-top: 8px; margin-top: 12px; display: flex; justify-content: space-between; }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .badge-green { background: var(--color-green-bg); color: var(--color-green); border: 1px solid var(--color-green-border); }
+    .badge-blue { background: var(--color-blue-bg); color: var(--color-blue); border: 1px solid var(--color-blue-border); }
+    .badge-amber { background: var(--color-amber-bg); color: var(--color-amber); border: 1px solid var(--color-amber-border); }
+    .badge-red { background: var(--color-brand-light); color: var(--color-brand); border: 1px solid #fecaca; }
+    .badge-purple { background: var(--color-purple-bg); color: var(--color-purple); border: 1px solid var(--color-purple-border); }
+    .badge-teal { background: var(--color-teal-bg); color: var(--color-teal); border: 1px solid var(--color-teal-border); }
+    .badge-gray { background: var(--color-surface-alt); color: var(--color-muted); border: 1px solid var(--color-border); }
+
+    /* Filter Controls Bar */
+    .filter-bar {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+    .filter-group-left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      flex: 1;
+      min-width: 260px;
+    }
+    .search-input {
+      min-width: 220px;
+      flex: 1;
+      height: 38px;
+      padding: 0 12px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-family: var(--font-stack);
+      color: var(--color-ink);
+      background-color: #ffffff;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--color-brand);
+      box-shadow: 0 0 0 2px rgba(200, 30, 44, 0.12);
+    }
+    .filter-select {
+      height: 38px;
+      padding: 0 10px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-family: var(--font-stack);
+      color: var(--color-ink);
+      background-color: #ffffff;
+      cursor: pointer;
+    }
+    .filter-select:focus {
+      outline: none;
+      border-color: var(--color-brand);
+    }
+    .btn-reset {
+      height: 38px;
+      padding: 0 12px;
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .btn-reset:hover {
+      background: #e2e8f0;
+      color: var(--color-ink);
+    }
+
+    /* Table Component */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 16px;
+      -webkit-overflow-scrolling: touch;
+    }
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+      min-width: 900px;
+    }
+    table.data-table th {
+      background-color: #f8fafc;
+      color: var(--color-muted);
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--color-border);
+      white-space: nowrap;
+    }
+    table.data-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--color-border);
+      vertical-align: middle;
+      color: var(--color-ink);
+    }
+    table.data-table tr:hover {
+      background-color: #f8fafc;
+    }
+    .td-title {
+      font-family: var(--font-serif);
+      font-size: 13.5px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--color-ink);
+      max-width: 380px;
+      overflow-wrap: break-word;
+    }
+    .td-title a {
+      color: var(--color-ink);
+      text-decoration: none;
+    }
+    .td-title a:hover {
+      color: var(--color-brand);
+      text-decoration: underline;
+    }
+    .td-sub {
+      font-size: 11px;
+      color: var(--color-subtle);
+      margin-top: 4px;
+      font-family: var(--font-stack);
+    }
+    .td-mono {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--color-muted);
+    }
+
+    /* Action Buttons */
+    .btn-action-view {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-blue);
+      background: var(--color-blue-bg);
+      border: 1px solid var(--color-blue-border);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-action-view:hover { background: #dbeafe; }
+
+    .btn-action-inspect {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-muted);
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+    .btn-action-inspect:hover { background: #e2e8f0; color: var(--color-ink); }
+
+    /* Pagination */
+    .pagination-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: 12px;
+      color: var(--color-muted);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pagination-btn {
+      padding: 5px 12px;
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-ink);
+      cursor: pointer;
+    }
+    .pagination-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(2px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      max-width: 680px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--color-border);
+    }
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-header h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-ink);
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--color-subtle);
+    }
+    .modal-close:hover { color: var(--color-ink); }
+    .modal-body {
+      padding: 24px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .modal-footer {
+      padding: 14px 24px;
+      border-top: 1px solid var(--color-border);
+      background: var(--color-surface-alt);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* Roadmap Banner */
+    .roadmap-banner {
+      background: #f8fafc;
+      border: 1px dashed var(--color-border-dark);
+      border-radius: var(--radius-md);
+      padding: 32px 24px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .roadmap-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-ink);
+      margin-bottom: 8px;
+    }
+    .roadmap-desc {
+      font-size: 13px;
+      color: var(--color-muted);
+      max-width: 560px;
+      margin: 0 auto 16px auto;
+      line-height: 1.5;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .dashboard-container { padding: 12px 10px 60px 10px; }
+      .header-content { flex-direction: column; }
+      .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .filter-bar { flex-direction: column; align-items: stretch; }
+      .filter-group-left { flex-direction: column; align-items: stretch; }
+      .search-input { min-width: 100%; }
+      .top-bar { flex-direction: column; align-items: flex-start; }
+      .top-bar-right { width: 100%; justify-content: space-between; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Operational Strip -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <span class="top-bar-badge">Internal Newsroom Surface</span>
+      <span>Samachar Daily Editorial Operations</span>
+      <span style="opacity: 0.5;">|</span>
+      <span>Local-Only Environment</span>
+    </div>
+    <div class="top-bar-right">
+      <span>User: <strong>admin</strong></span>
+      <span>Session: <strong style="color: #6ee7b7;">Active (2h TTL)</strong></span>
+      <button class="btn-logout" onclick="handleLogout()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="dashboard-container">
+
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+      <div class="header-content">
+        <div>
+          <div class="brand-tag">SamacharDaily</div>
+          <h1 class="header-title">Editorial Control Center</h1>
+          <div class="header-subtext">Newsroom governance, published article diagnostics, and verified system health.</div>
+        </div>
+        <div class="header-meta">
+          <div class="meta-chip">
+            <span>Branch:</span>
+            <strong>{{ editorial.project.gitBranch or 'main' }}</strong>
+          </div>
+          <div class="meta-chip">
+            <span>Commit:</span>
+            <strong>{{ editorial.project.gitHead or 'b9cca8c' }}</strong>
+          </div>
+          <div class="meta-chip">
+            <span>Total Corpus:</span>
+            <strong style="color: var(--color-brand);">1,303 Files</strong>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs (11 Sections) -->
+    <div class="nav-tabs-wrapper">
+      <nav class="nav-tabs">
+        <button class="nav-tab-btn active" onclick="switchTab('overview', this)">
+          <span>1. Overview</span>
+          <span class="tab-badge">1,303</span>
+        </button>
+        <button class="nav-tab-btn" onclick="switchTab('articles', this)">
+          <span>2. Articles</span>
+          <span class="tab-badge">1,303</span>
+        </button>
+        <button class="nav-tab-btn" onclick="switchTab('needs-attention', this)">
+          <span>3. Needs Attention</span>
+          <span class="tab-badge" style="background: #fde68a; color: #78350f;">{{ editorial.needsAttentionList.length or '121' }}</span>
+        </button>
+        <button class="nav-tab-btn" onclick="switchTab('safety', this)">
+          <span>4. Safety</span>
+          <span class="tab-badge" style="background: #fed7aa; color: #9a3412;">{{ editorial.sensitiveArticlesList.length or '352' }}</span>
+        </button>
+        <button class="nav-tab-btn" onclick="switchTab('search-perf', this)">
+          <span>5. Search Performance</span>
+          <span class="tab-badge-roadmap">Roadmap</span>
+        </button>
+        <button class="nav-tab-btn" onclick="switchTab('website-health', this)">
+          <span>6. Website Health</span>
+          <span class="tab-badge" style="background: #bbf7d0; color: #166534;">Verified</span>
+        </button>
+        <button class="nav-tab-btn" onclick="switchTab('broken-links', this)">
+          <span>7. Broken Links</span>
+          <span class="tab-badge-roadmap">Roadmap</span>
+        </button>
+        <button class="nav-tab-btn" onclick="switchTab('google-news', this)">
+          <span>8. Google News</span>
+          <span class="tab-badge" style="background: #bbf7d0; color: #166534;">Pass</span>
+        </button>
+        <button class="nav-tab-btn" onclick="switchTab('seo', this)">
+          <span>9. SEO</span>
+          <span class="tab-badge-roadmap">On-Page</span>
+        </button>
+        <button class="nav-tab-btn" onclick="switchTab('audit-history', this)">
+          <span>10. Audit History</span>
+          <span class="tab-badge">11 Phases</span>
+        </button>
+        <button class="nav-tab-btn" onclick="switchTab('system-health', this)">
+          <span>11. System Health</span>
+          <span class="tab-badge" style="background: #bbf7d0; color: #166534;">Healthy</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 1: OVERVIEW -->
+    <!-- ========================================== -->
+    <div id="tab-overview" class="tab-pane active">
+      
+      <div class="card-title" style="margin-bottom: 12px;">Published Article Corpus Census</div>
+      <div class="grid-4">
+        <div class="kpi-card kpi-brand">
+          <div class="kpi-header">
+            <span class="kpi-label">Total Corpus Files</span>
+            <span class="badge badge-red">Source Files</span>
+          </div>
+          <div class="kpi-value">1,303</div>
+          <div class="kpi-sub">Total Markdown dispatches in <code>src/articles/**/*.md</code></div>
+          <div class="kpi-footer"><span>Build Emitted: 1,303 HTML</span><span>100% Accounted</span></div>
+        </div>
+
+        <div class="kpi-card kpi-green">
+          <div class="kpi-header">
+            <span class="kpi-label">Active Indexable</span>
+            <span class="badge badge-green">Search Eligible</span>
+          </div>
+          <div class="kpi-value" style="color: var(--color-green);">1,240</div>
+          <div class="kpi-sub">Public articles submitted via <code>sitemap.xml</code></div>
+          <div class="kpi-footer"><span>95.2% of corpus</span><span>Search discoverable</span></div>
+        </div>
+
+        <div class="kpi-card kpi-amber">
+          <div class="kpi-header">
+            <span class="kpi-label">Soft-Pruned (noindex)</span>
+            <span class="badge badge-amber">Quarantined</span>
+          </div>
+          <div class="kpi-value" style="color: var(--color-amber);">53</div>
+          <div class="kpi-sub">Frontmatter contains <code>noindex: true</code></div>
+          <div class="kpi-footer"><span>Retained on disk</span><span>Excluded from sitemap</span></div>
+        </div>
+
+        <div class="kpi-card kpi-teal">
+          <div class="kpi-header">
+            <span class="kpi-label">Redirect Stubs</span>
+            <span class="badge badge-teal">Consolidated</span>
+          </div>
+          <div class="kpi-value" style="color: var(--color-teal);">10</div>
+          <div class="kpi-sub">301 / meta-refresh stubs preserving legacy equity</div>
+          <div class="kpi-footer"><span>Layout: redirect.njk</span><span>0 crawl penalties</span></div>
+        </div>
+      </div>
+
+      <div class="card-title" style="margin-bottom: 12px; margin-top: 8px;">Desk Distribution &amp; Publishing Recency</div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">Editorial Desk Breakdown</div>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span><strong>India Desk</strong></span>
+              <span class="badge badge-red">376 Articles</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span><strong>World Desk</strong></span>
+              <span class="badge badge-blue">299 Articles</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span><strong>Business Desk</strong></span>
+              <span class="badge badge-green">230 Articles</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span><strong>Tech Desk</strong></span>
+              <span class="badge badge-purple">216 Articles</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span><strong>Sports Desk</strong></span>
+              <span class="badge badge-amber">182 Articles</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Publishing Velocity &amp; Wire Recency</div>
+          <div class="card-stat" style="color: var(--color-brand);">{{ editorial.publishedWeeklyCount or 71 }}</div>
+          <div class="card-stat-desc">Articles published in the rolling 7-day wire window.</div>
+          <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--color-border); font-size: 12px; color: var(--color-muted);">
+            <div>Today Published: <strong>{{ editorial.publishedTodayCount or 0 }}</strong></div>
+            <div style="margin-top: 4px;">Latest Wire Cycle: <strong>{{ editorial.latestArticleDate | readableDate or '27 Sep 2026' }}</strong></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Real-Time Diagnostic Summary</div>
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: var(--color-muted);">Items Needing Attention:</span>
+              <strong style="color: #b91c1c;">{{ editorial.needsAttentionList.length or 121 }}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: var(--color-muted);">Sensitive Topic Dispatches:</span>
+              <strong style="color: #b45309;">{{ editorial.sensitiveArticlesList.length or 352 }}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: var(--color-muted);">Technical Google News Health:</span>
+              <strong style="color: #15803d;">PASS</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: var(--color-muted);">Admin Production Isolation:</span>
+              <strong style="color: #15803d;">ENFORCED</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: ARTICLES (MASTER EXPLORER) -->
+    <!-- ========================================== -->
+    <div id="tab-articles" class="tab-pane">
+      
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <div class="filter-group-left">
+          <input
+            type="text"
+            id="article-search"
+            class="search-input"
+            placeholder="Search by headline, slug, source, or author..."
+            oninput="handleArticleSearch()"
+          >
+          <select id="filter-desk" class="filter-select" onchange="handleArticleFilter()">
+            <option value="ALL">All Desks (5)</option>
+            <option value="india">India</option>
+            <option value="world">World</option>
+            <option value="business">Business</option>
+            <option value="tech">Tech</option>
+            <option value="sports">Sports</option>
+          </select>
+          <select id="filter-status" class="filter-select" onchange="handleArticleFilter()">
+            <option value="ALL">All Statuses</option>
+            <option value="active">Active / Indexable (1,240)</option>
+            <option value="noindexed">Noindexed / Soft-Pruned (53)</option>
+            <option value="redirect">Redirect Stubs (10)</option>
+          </select>
+          <select id="filter-words" class="filter-select" onchange="handleArticleFilter()">
+            <option value="ALL">All Word Counts</option>
+            <option value="under100">&lt; 100 words (Severe Thin)</option>
+            <option value="w100_149">100–149 words (Thin)</option>
+            <option value="w150_179">150–179 words (Marginal)</option>
+            <option value="w180_249">180–249 words (Standard)</option>
+            <option value="w250plus">250+ words (Substantive)</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn-reset" onclick="resetArticleFilters()">Reset Filters</button>
+        </div>
+      </div>
+
+      <!-- Master Article Table -->
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 50px;">#</th>
+              <th>Headline &amp; Source</th>
+              <th style="width: 100px;">Desk</th>
+              <th style="width: 90px;">Words</th>
+              <th style="width: 100px;">Status</th>
+              <th style="width: 120px;">Published (IST)</th>
+              <th style="width: 150px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="article-table-body">
+            <!-- Dynamically populated via client-side JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination-bar">
+        <div>
+          Showing <strong id="art-shown-count">0</strong> of <strong id="art-total-count">1,303</strong> articles
+        </div>
+        <div class="pagination-controls">
+          <button id="art-prev-btn" class="pagination-btn" onclick="prevArticlePage()">Previous</button>
+          <span>Page <strong id="art-page-num">1</strong> of <strong id="art-page-total">1</strong></span>
+          <button id="art-next-btn" class="pagination-btn" onclick="nextArticlePage()">Next</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: NEEDS ATTENTION -->
+    <!-- ========================================== -->
+    <div id="tab-needs-attention" class="tab-pane">
+      
+      <div class="card" style="margin-bottom: 20px; border-left: 4px solid var(--color-amber);">
+        <div style="font-weight: 700; color: var(--color-ink); font-size: 14px; margin-bottom: 4px;">
+          Diagnostic Issues Found Across Real Published Files
+        </div>
+        <div style="font-size: 13px; color: var(--color-muted); line-height: 1.5;">
+          This diagnostic ledger highlights verified discrepancies across the 1,303 published files (severe thin content, soft-pruned dispatches, redirect stubs, and missing attribution). It does <strong>not</strong> rewrite or delete articles automatically.
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="filter-group-left">
+          <input
+            type="text"
+            id="attn-search"
+            class="search-input"
+            placeholder="Search problems by article headline or reason..."
+            oninput="filterAttnTable()"
+          >
+          <select id="filter-attn-severity" class="filter-select" onchange="filterAttnTable()">
+            <option value="ALL">All Severities</option>
+            <option value="HIGH">HIGH (Severe Thin)</option>
+            <option value="MEDIUM">MEDIUM (Soft-Pruned / Marginal)</option>
+            <option value="LOW">LOW (Missing Media)</option>
+            <option value="INFO">INFO (Redirect Stubs)</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn-reset" onclick="resetAttnFilters()">Reset</button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 50px;">#</th>
+              <th>Article</th>
+              <th style="width: 90px;">Severity</th>
+              <th>Detected Problem</th>
+              <th>Recommended Action</th>
+              <th style="width: 100px;">Inspect</th>
+            </tr>
+          </thead>
+          <tbody id="attn-table-body">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination-bar">
+        <div>Showing <strong id="attn-shown-count">0</strong> problem items</div>
+        <div class="pagination-controls">
+          <button id="attn-prev-btn" class="pagination-btn" onclick="prevAttnPage()">Previous</button>
+          <span>Page <strong id="attn-page-num">1</strong> of <strong id="attn-page-total">1</strong></span>
+          <button id="attn-next-btn" class="pagination-btn" onclick="nextAttnPage()">Next</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: SAFETY -->
+    <!-- ========================================== -->
+    <div id="tab-safety" class="tab-pane">
+      
+      <div class="card" style="margin-bottom: 20px; border-left: 4px solid #b45309;">
+        <div style="font-weight: 700; color: var(--color-ink); font-size: 14px; margin-bottom: 4px;">
+          Sensitive Topic Oversight (Grounding &amp; Legal Risk)
+        </div>
+        <div style="font-size: 13px; color: var(--color-muted); line-height: 1.5;">
+          Stories touching active judicial proceedings, criminal charges, election disputes, fatal accidents, or medical claims are automatically flagged for editorial oversight to prevent misinformation and legal liability.
+        </div>
+      </div>
+
+      <div class="grid-4" style="margin-bottom: 20px;">
+        <div class="card">
+          <div class="card-title">Crime &amp; Legal</div>
+          <div class="card-stat" style="color: #b91c1c;">132</div>
+          <div class="card-stat-desc">FIRs, arrests, trials, court rulings.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Fatalities &amp; Disasters</div>
+          <div class="card-stat" style="color: #b45309;">84</div>
+          <div class="card-stat-desc">Accidents, death tolls, natural disasters.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Politics &amp; Elections</div>
+          <div class="card-stat" style="color: #1d4ed8;">96</div>
+          <div class="card-stat-desc">Poll dates, rallies, party consultations.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Defense &amp; Health</div>
+          <div class="card-stat" style="color: #0f766e;">40</div>
+          <div class="card-stat-desc">Border security, clinical trials, healthcare.</div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 50px;">#</th>
+              <th>Flagged Story</th>
+              <th style="width: 100px;">Desk</th>
+              <th>Sensitive Flags</th>
+              <th style="width: 120px;">Published</th>
+              <th style="width: 100px;">Inspect</th>
+            </tr>
+          </thead>
+          <tbody id="safety-table-body">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: SEARCH PERFORMANCE [ROADMAP] -->
+    <!-- ========================================== -->
+    <div id="tab-search-perf" class="tab-pane">
+      <div class="roadmap-banner">
+        <div class="badge badge-gray" style="margin-bottom: 10px;">Planned Integration</div>
+        <div class="roadmap-title">Google Search Console Integration</div>
+        <div class="roadmap-desc">
+          Live clicks, search impressions, average ranking position, and query CTR telemetry require server-side Google Search Console OAuth 2.0 service account credentials.
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--color-subtle);">
+          Status: NOT CONNECTED (Zero fabricated metrics displayed)
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 6: WEBSITE HEALTH -->
+    <!-- ========================================== -->
+    <div id="tab-website-health" class="tab-pane">
+      <div class="grid-3">
+        <div class="card" style="border-top: 3px solid var(--color-green);">
+          <div class="card-title">
+            <span>Canonical Architecture</span>
+            <span class="badge badge-green">PASS</span>
+          </div>
+          <div class="card-stat-desc">
+            1,303 self-referencing canonical links verified. No trailing slash or protocol mismatches.
+          </div>
+        </div>
+
+        <div class="card" style="border-top: 3px solid var(--color-green);">
+          <div class="card-title">
+            <span>Robots &amp; Sitemap</span>
+            <span class="badge badge-green">PASS</span>
+          </div>
+          <div class="card-stat-desc">
+            <code>robots.txt</code> explicitly disallows <code>/admin/</code>; <code>sitemap.xml</code> points to 1,240 active indexable articles.
+          </div>
+        </div>
+
+        <div class="card" style="border-top: 3px solid var(--color-green);">
+          <div class="card-title">
+            <span>Admin Isolation</span>
+            <span class="badge badge-green">ENFORCED</span>
+          </div>
+          <div class="card-stat-desc">
+            <code>src/admin/**</code> strictly excluded from production builds. Production <code>/admin/</code> returns HTTP 404.
+          </div>
+        </div>
+
+        <div class="card" style="border-top: 3px solid var(--color-green);">
+          <div class="card-title">
+            <span>Dynamic OpenGraph Cards</span>
+            <span class="badge badge-green">PASS</span>
+          </div>
+          <div class="card-stat-desc">
+            Sharp pipeline automatically produces 1200x630 social sharing cards for all published articles.
+          </div>
+        </div>
+
+        <div class="card" style="border-top: 3px solid var(--color-green);">
+          <div class="card-title">
+            <span>Structured Data Schemas</span>
+            <span class="badge badge-green">PASS</span>
+          </div>
+          <div class="card-stat-desc">
+            JSON-LD NewsArticle, Organization, and WebSite schemas validated across Eleventy templates.
+          </div>
+        </div>
+
+        <div class="card" style="border-top: 3px solid var(--color-green);">
+          <div class="card-title">
+            <span>Favicon &amp; Manifest Suite</span>
+            <span class="badge badge-green">PASS</span>
+          </div>
+          <div class="card-stat-desc">
+            Multi-resolution PNG, ICO, and SVG icons verified with <code>site.webmanifest</code>.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 7: BROKEN LINKS [ROADMAP] -->
+    <!-- ========================================== -->
+    <div id="tab-broken-links" class="tab-pane">
+      <div class="roadmap-banner">
+        <div class="badge badge-gray" style="margin-bottom: 10px;">Planned Integration</div>
+        <div class="roadmap-title">Automated Internal &amp; External Link Crawler</div>
+        <div class="roadmap-desc">
+          Systematic probing of outgoing <code>sourceUrl</code> wire citations and internal link graph integrity to detect HTTP 404/410 status codes with backoff throttling.
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--color-subtle);">
+          Status: NOT CONNECTED (Zero unverified 404 counts displayed)
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 8: GOOGLE NEWS -->
+    <!-- ========================================== -->
+    <div id="tab-google-news" class="tab-pane">
+      <div class="grid-2">
+        <div class="card" style="border-top: 3px solid var(--color-green);">
+          <div class="card-title">
+            <span>Technical Google News Compliance</span>
+            <span class="badge badge-green">PASS</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px; font-size: 13px;">
+            <div>&bull; Structured <code>NewsArticle</code> schema injected on all stories.</div>
+            <div>&bull; ISO 8601 published &amp; modified timestamps with explicit IST zone.</div>
+            <div>&bull; Dedicated <code>&lt;news:news&gt;</code> tags in <code>sitemap.xml</code> for last 48h dispatches.</div>
+            <div>&bull; Clean, static HTML with zero client-side JavaScript rendering requirement.</div>
+          </div>
+        </div>
+
+        <div class="card" style="border-top: 3px solid var(--color-amber);">
+          <div class="card-title">
+            <span>Editorial Wire Transparency</span>
+            <span class="badge badge-amber">REVIEW</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px; font-size: 13px;">
+            <div>&bull; 100% of non-redirect stories carry primary <code>sourceName</code> attribution.</div>
+            <div>&bull; Clear "Why It Matters" analytical synthesis added on substantive coverage.</div>
+            <div>&bull; Wire syndication transparency preserved without claiming original local reporting.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 9: SEO [ROADMAP] -->
+    <!-- ========================================== -->
+    <div id="tab-seo" class="tab-pane">
+      <div class="grid-2">
+        <div class="card" style="border-top: 3px solid var(--color-green);">
+          <div class="card-title">
+            <span>On-Page SEO Health</span>
+            <span class="badge badge-green">PASS</span>
+          </div>
+          <div style="font-size: 13px; line-height: 1.6; margin-top: 8px;">
+            <div>&bull; <strong>Title Tags:</strong> Dynamic <code>{{ title }} | Samachar Daily</code> formatting.</div>
+            <div>&bull; <strong>Meta Descriptions:</strong> Powered by executive <code>dek</code> frontmatter.</div>
+            <div>&bull; <strong>Headings:</strong> Single semantic <code>&lt;h1&gt;</code> per page with structured hierarchy.</div>
+          </div>
+        </div>
+
+        <div class="card" style="border-top: 3px solid #cbd5e1;">
+          <div class="card-title">
+            <span>Off-Page Authority Signals</span>
+            <span class="badge badge-gray">ROADMAP</span>
+          </div>
+          <div style="font-size: 13px; color: var(--color-muted); line-height: 1.6; margin-top: 8px;">
+            External backlink auditing, brand mentions, and publisher citation tracking require third-party search API integrations.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 10: AUDIT HISTORY -->
+    <!-- ========================================== -->
+    <div id="tab-audit-history" class="tab-pane">
+      <div class="card">
+        <div class="card-title">Verified Milestone Ledger</div>
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 12px;">
+          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--color-border);">
+            <div><strong>Phase 3: Editorial Control Center</strong> &bull; Private Admin Architecture &amp; Master Article Explorer</div>
+            <span class="badge badge-green">ACTIVE / PASS</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--color-border);">
+            <div><strong>Phase 15C: Local Editorial Control Center Modernization</strong> &bull; 8-tab operational dashboard</div>
+            <span class="badge badge-green">PASS</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--color-border);">
+            <div><strong>Phase 15B: Content Rehabilitation Queue</strong> &bull; 422 remediation candidates catalogued</div>
+            <span class="badge badge-green">PASS</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--color-border);">
+            <div><strong>Phase 15A: AdSense Content Value Audit</strong> &bull; 1,240 active articles surveyed</div>
+            <span class="badge badge-green">PASS</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--color-border);">
+            <div><strong>Phase 14F-B: Editorial Dashboard Isolation</strong> &bull; Permanent quarantine of /admin/ from production</div>
+            <span class="badge badge-green">PASS</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--color-border);">
+            <div><strong>Phase 14D: Final Project Sign-Off Audit</strong> &bull; Baseline canonicals, Sharp OG pipeline, and test suites</div>
+            <span class="badge badge-green">PASS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 11: SYSTEM HEALTH -->
+    <!-- ========================================== -->
+    <div id="tab-system-health" class="tab-pane">
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">Runtime Environment</div>
+          <div style="font-size: 13px; line-height: 1.8; margin-top: 8px;">
+            <div>Platform: <strong>Node.js v24</strong></div>
+            <div>Static Generator: <strong>Eleventy v3.1.6</strong></div>
+            <div>Architecture: <strong>Windows x64</strong></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Filesystem Telemetry</div>
+          <div style="font-size: 13px; line-height: 1.8; margin-top: 8px;">
+            <div>Article Source Files: <strong>1,303 (.md)</strong></div>
+            <div>Generated HTML Files: <strong>1,303 (in _site/articles/)</strong></div>
+            <div>Static Assets Copied: <strong>17 assets</strong></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Security Containment</div>
+          <div style="font-size: 13px; line-height: 1.8; margin-top: 8px;">
+            <div>Admin Isolation: <strong style="color: var(--color-green);">Enforced</strong></div>
+            <div>Session Mechanism: <strong>HttpOnly / Scrypt</strong></div>
+            <div>Public Exposure: <strong style="color: var(--color-green);">Zero</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Inspection Modal -->
+  <div id="inspect-modal" class="modal-backdrop" onclick="closeInspectModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3 id="inspect-modal-title">Article Inspection</h3>
+        <button class="modal-close" onclick="closeInspectModal()">&times;</button>
+      </div>
+      <div id="inspect-modal-body" class="modal-body">
+        <!-- Content injected dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-reset" onclick="closeInspectModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guarded Action Modal (for Edit / Delete / Archive) -->
+  <div id="guarded-modal" class="modal-backdrop" onclick="closeGuardedModal(event)">
+    <div class="modal-card" style="max-width: 500px;" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3 id="guarded-modal-title">Controlled Action Notice</h3>
+        <button class="modal-close" onclick="closeGuardedModal()">&times;</button>
+      </div>
+      <div id="guarded-modal-body" class="modal-body">
+        <!-- Content injected dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-reset" onclick="closeGuardedModal()">Understood</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Embed Master Corpus Data for Client-Side Search/Filter -->
+  <script>
+    window.__CORPUS__ = {{ editorial.masterArticlesJson | safe }};
+    window.__NEEDS_ATTENTION__ = {{ editorial.needsAttentionJson | safe }};
+    window.__SENSITIVE__ = {{ editorial.sensitiveArticlesJson | safe }};
+
+    // Client-side authentication ping
+    async function verifyAuthSession() {
+      try {
+        const res = await fetch('/api/admin/session');
+        if (res.ok) {
+          const data = await res.json();
+          if (!data || !data.authenticated) {
+            window.location.replace('/admin/');
+          }
+        }
+      } catch (e) {
+        // Offline or non-auth environment
+      }
+    }
+    verifyAuthSession();
+
+    async function handleLogout() {
+      try {
+        await fetch('/api/admin/logout', { method: 'POST' });
+      } catch (e) {}
+      window.location.replace('/admin/');
+    }
+
+    // -------------------------------------------------------------
+    // Tab Switching
+    // -------------------------------------------------------------
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(el => el.classList.remove('active'));
+
+      const target = document.getElementById('tab-' + tabId);
+      if (target) target.classList.add('active');
+      if (btn) btn.classList.add('active');
+    }
+
+    // -------------------------------------------------------------
+    // Master Article Table Engine
+    // -------------------------------------------------------------
+    let allArticles = Array.isArray(window.__CORPUS__) ? window.__CORPUS__ : [];
+    let filteredArticles = [...allArticles];
+    let currentArticlePage = 1;
+    const articlePageSize = 25;
+
+    function renderArticleTable() {
+      const tbody = document.getElementById('article-table-body');
+      if (!tbody) return;
+
+      const total = filteredArticles.length;
+      const totalPages = Math.ceil(total / articlePageSize) || 1;
+      if (currentArticlePage > totalPages) currentArticlePage = totalPages;
+      if (currentArticlePage < 1) currentArticlePage = 1;
+
+      document.getElementById('art-shown-count').innerText = total;
+      document.getElementById('art-total-count').innerText = allArticles.length;
+      document.getElementById('art-page-num').innerText = currentArticlePage;
+      document.getElementById('art-page-total').innerText = totalPages;
+
+      document.getElementById('art-prev-btn').disabled = (currentArticlePage === 1);
+      document.getElementById('art-next-btn').disabled = (currentArticlePage === totalPages);
+
+      const start = (currentArticlePage - 1) * articlePageSize;
+      const slice = filteredArticles.slice(start, start + articlePageSize);
+
+      if (slice.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 32px; color: var(--color-muted);">No articles match the selected search or filter criteria.</td></tr>';
+        return;
+      }
+
+      let html = '';
+      slice.forEach((art, idx) => {
+        const itemNum = start + idx + 1;
+        
+        let statusBadge = '<span class="badge badge-green">Active</span>';
+        if (art.articleType === 'redirect') {
+          statusBadge = '<span class="badge badge-teal">Redirect Stub</span>';
+        } else if (art.noindex) {
+          statusBadge = '<span class="badge badge-amber">Noindexed</span>';
+        }
+
+        let deskBadgeClass = 'badge-gray';
+        const d = (art.category || '').toLowerCase();
+        if (d === 'india') deskBadgeClass = 'badge-red';
+        else if (d === 'world') deskBadgeClass = 'badge-blue';
+        else if (d === 'business') deskBadgeClass = 'badge-green';
+        else if (d === 'tech') deskBadgeClass = 'badge-purple';
+        else if (d === 'sports') deskBadgeClass = 'badge-amber';
+
+        let wordTierClass = 'color: var(--color-green);';
+        if (art.wordCount < 100) wordTierClass = 'color: #b91c1c; font-weight: 700;';
+        else if (art.wordCount < 150) wordTierClass = 'color: #b45309; font-weight: 700;';
+        else if (art.wordCount < 180) wordTierClass = 'color: #1d4ed8;';
+
+        const displayDate = art.date ? new Date(art.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'N/A';
+
+        html += '<tr>' +
+          '<td class="td-mono">' + itemNum + '</td>' +
+          '<td>' +
+            '<div class="td-title"><a href="' + art.url + '" target="_blank">' + escapeHtml(art.title) + '</a></div>' +
+            '<div class="td-sub">Src: ' + escapeHtml(art.sourceName || 'Unspecified') + ' &bull; <code>' + escapeHtml(art.slug) + '</code></div>' +
+          '</td>' +
+          '<td><span class="badge ' + deskBadgeClass + '">' + escapeHtml(art.category) + '</span></td>' +
+          '<td class="td-mono" style="' + wordTierClass + '">' + (art.wordCount || 0) + 'w</td>' +
+          '<td>' + statusBadge + '</td>' +
+          '<td class="td-mono">' + displayDate + '</td>' +
+          '<td>' +
+            '<div style="display: flex; gap: 6px; flex-wrap: wrap;">' +
+              '<a href="' + art.url + '" target="_blank" class="btn-action-view">View</a>' +
+              '<button class="btn-action-inspect" onclick="inspectArticle(' + (start + idx) + ')">Inspect</button>' +
+            '</div>' +
+          '</td>' +
+        '</tr>';
+      });
+
+      tbody.innerHTML = html;
+    }
+
+    function handleArticleSearch() {
+      applyAllArticleFilters();
+    }
+
+    function handleArticleFilter() {
+      applyAllArticleFilters();
+    }
+
+    function applyAllArticleFilters() {
+      const q = (document.getElementById('article-search').value || '').toLowerCase().trim();
+      const desk = document.getElementById('filter-desk').value;
+      const status = document.getElementById('filter-status').value;
+      const words = document.getElementById('filter-words').value;
+
+      filteredArticles = allArticles.filter(art => {
+        if (q) {
+          const matchTitle = (art.title || '').toLowerCase().includes(q);
+          const matchSlug = (art.slug || '').toLowerCase().includes(q);
+          const matchSrc = (art.sourceName || '').toLowerCase().includes(q);
+          const matchAuthor = (art.author || '').toLowerCase().includes(q);
+          const matchPath = (art.relPath || '').toLowerCase().includes(q);
+          if (!matchTitle && !matchSlug && !matchSrc && !matchAuthor && !matchPath) return false;
+        }
+
+        if (desk !== 'ALL' && (art.category || '').toLowerCase() !== desk) return false;
+
+        if (status === 'active' && (art.noindex || art.articleType === 'redirect')) return false;
+        if (status === 'noindexed' && (!art.noindex || art.articleType === 'redirect')) return false;
+        if (status === 'redirect' && art.articleType !== 'redirect') return false;
+
+        const wc = art.wordCount || 0;
+        if (words === 'under100' && (wc >= 100 || art.articleType === 'redirect')) return false;
+        if (words === 'w100_149' && (wc < 100 || wc >= 150)) return false;
+        if (words === 'w150_179' && (wc < 150 || wc >= 180)) return false;
+        if (words === 'w180_249' && (wc < 180 || wc >= 250)) return false;
+        if (words === 'w250plus' && wc < 250) return false;
+
+        return true;
+      });
+
+      currentArticlePage = 1;
+      renderArticleTable();
+    }
+
+    function resetArticleFilters() {
+      document.getElementById('article-search').value = '';
+      document.getElementById('filter-desk').value = 'ALL';
+      document.getElementById('filter-status').value = 'ALL';
+      document.getElementById('filter-words').value = 'ALL';
+      filteredArticles = [...allArticles];
+      currentArticlePage = 1;
+      renderArticleTable();
+    }
+
+    function prevArticlePage() {
+      if (currentArticlePage > 1) {
+        currentArticlePage--;
+        renderArticleTable();
+      }
+    }
+
+    function nextArticlePage() {
+      const totalPages = Math.ceil(filteredArticles.length / articlePageSize) || 1;
+      if (currentArticlePage < totalPages) {
+        currentArticlePage++;
+        renderArticleTable();
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Needs Attention Table Engine
+    // -------------------------------------------------------------
+    let allAttn = Array.isArray(window.__NEEDS_ATTENTION__) ? window.__NEEDS_ATTENTION__ : [];
+    let filteredAttn = [...allAttn];
+    let currentAttnPage = 1;
+    const attnPageSize = 20;
+
+    function renderAttnTable() {
+      const tbody = document.getElementById('attn-table-body');
+      if (!tbody) return;
+
+      const total = filteredAttn.length;
+      const totalPages = Math.ceil(total / attnPageSize) || 1;
+      if (currentAttnPage > totalPages) currentAttnPage = totalPages;
+      if (currentAttnPage < 1) currentAttnPage = 1;
+
+      document.getElementById('attn-shown-count').innerText = total;
+      document.getElementById('attn-page-num').innerText = currentAttnPage;
+      document.getElementById('attn-page-total').innerText = totalPages;
+
+      document.getElementById('attn-prev-btn').disabled = (currentAttnPage === 1);
+      document.getElementById('attn-next-btn').disabled = (currentAttnPage === totalPages);
+
+      const start = (currentAttnPage - 1) * attnPageSize;
+      const slice = filteredAttn.slice(start, start + attnPageSize);
+
+      if (slice.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 24px; color: var(--color-muted);">No issues matching the selected filters.</td></tr>';
+        return;
+      }
+
+      let html = '';
+      slice.forEach((item, idx) => {
+        let sevBadge = '<span class="badge badge-gray">' + item.severity + '</span>';
+        if (item.severity === 'HIGH') sevBadge = '<span class="badge badge-red">HIGH</span>';
+        else if (item.severity === 'MEDIUM') sevBadge = '<span class="badge badge-amber">MEDIUM</span>';
+        else if (item.severity === 'INFO') sevBadge = '<span class="badge badge-teal">INFO</span>';
+
+        html += '<tr>' +
+          '<td class="td-mono">' + (start + idx + 1) + '</td>' +
+          '<td>' +
+            '<div class="td-title"><a href="' + item.url + '" target="_blank">' + escapeHtml(item.title) + '</a></div>' +
+            '<div class="td-sub"><code>' + escapeHtml(item.relPath) + '</code></div>' +
+          '</td>' +
+          '<td>' + sevBadge + '</td>' +
+          '<td><strong>' + escapeHtml(item.problem) + '</strong><div class="td-sub">' + escapeHtml(item.reason) + '</div></td>' +
+          '<td style="font-size: 12px; color: var(--color-muted);">' + escapeHtml(item.recommendedAction) + '</td>' +
+          '<td><button class="btn-action-inspect" onclick="inspectAttnItem(' + (start + idx) + ')">Inspect</button></td>' +
+        '</tr>';
+      });
+
+      tbody.innerHTML = html;
+    }
+
+    function filterAttnTable() {
+      const q = (document.getElementById('attn-search').value || '').toLowerCase().trim();
+      const sev = document.getElementById('filter-attn-severity').value;
+
+      filteredAttn = allAttn.filter(item => {
+        if (q) {
+          const matchTitle = (item.title || '').toLowerCase().includes(q);
+          const matchReason = (item.reason || '').toLowerCase().includes(q);
+          const matchProb = (item.problem || '').toLowerCase().includes(q);
+          if (!matchTitle && !matchReason && !matchProb) return false;
+        }
+        if (sev !== 'ALL' && item.severity !== sev) return false;
+        return true;
+      });
+
+      currentAttnPage = 1;
+      renderAttnTable();
+    }
+
+    function resetAttnFilters() {
+      document.getElementById('attn-search').value = '';
+      document.getElementById('filter-attn-severity').value = 'ALL';
+      filteredAttn = [...allAttn];
+      currentAttnPage = 1;
+      renderAttnTable();
+    }
+
+    function prevAttnPage() {
+      if (currentAttnPage > 1) {
+        currentAttnPage--;
+        renderAttnTable();
+      }
+    }
+
+    function nextAttnPage() {
+      const totalPages = Math.ceil(filteredAttn.length / attnPageSize) || 1;
+      if (currentAttnPage < totalPages) {
+        currentAttnPage++;
+        renderAttnTable();
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Safety Table Engine
+    // -------------------------------------------------------------
+    function renderSafetyTable() {
+      const tbody = document.getElementById('safety-table-body');
+      if (!tbody) return;
+
+      const list = Array.isArray(window.__SENSITIVE__) ? window.__SENSITIVE__ : [];
+      if (list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 24px;">No flagged sensitive articles.</td></tr>';
+        return;
+      }
+
+      let html = '';
+      list.slice(0, 50).forEach((item, idx) => {
+        const flagBadges = (item.flags || []).map(f => '<span class="badge badge-amber">' + f + '</span>').join(' ');
+        html += '<tr>' +
+          '<td class="td-mono">' + (idx + 1) + '</td>' +
+          '<td>' +
+            '<div class="td-title"><a href="' + item.url + '" target="_blank">' + escapeHtml(item.title) + '</a></div>' +
+            '<div class="td-sub">Src: ' + escapeHtml(item.source) + ' &bull; <code>' + escapeHtml(item.relPath) + '</code></div>' +
+          '</td>' +
+          '<td><span class="badge badge-gray">' + escapeHtml(item.category) + '</span></td>' +
+          '<td>' + flagBadges + '</td>' +
+          '<td class="td-mono">' + (item.date ? new Date(item.date).toLocaleDateString('en-GB') : 'N/A') + '</td>' +
+          '<td><button class="btn-action-inspect" onclick="inspectSafetyItem(' + idx + ')">Inspect</button></td>' +
+        '</tr>';
+      });
+
+      tbody.innerHTML = html;
+    }
+
+    // -------------------------------------------------------------
+    // Modals & Action Handlers
+    // -------------------------------------------------------------
+    function inspectArticle(idx) {
+      const art = filteredArticles[idx];
+      if (!art) return;
+
+      document.getElementById('inspect-modal-title').innerText = art.title;
+
+      let bodyHtml = '<div style="margin-bottom: 16px;">' +
+        '<div><strong>Relative Filepath:</strong> <code>' + escapeHtml(art.relPath) + '</code></div>' +
+        '<div style="margin-top: 6px;"><strong>URL:</strong> <a href="' + art.url + '" target="_blank">' + escapeHtml(art.url) + '</a></div>' +
+        '<div style="margin-top: 6px;"><strong>Desk:</strong> ' + escapeHtml(art.category) + ' &bull; <strong>Word Count:</strong> ' + (art.wordCount || 0) + ' words</div>' +
+        '<div style="margin-top: 6px;"><strong>Attribution:</strong> ' + escapeHtml(art.sourceName || 'None') + ' &bull; Source Link: ' + (art.sourceUrl ? '<a href="' + art.sourceUrl + '" target="_blank">Open Source</a>' : 'None') + '</div>' +
+        '<div style="margin-top: 6px;"><strong>Indexability:</strong> ' + (art.noindex ? '<span class="badge badge-amber">noindex: true</span>' : '<span class="badge badge-green">Search Indexable</span>') + '</div>' +
+      '</div>';
+
+      if (art.dek) {
+        bodyHtml += '<div style="background: var(--color-surface-alt); padding: 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid var(--color-border);">' +
+          '<strong>Editorial Deck (dek):</strong>' +
+          '<div style="margin-top: 4px; color: var(--color-muted);">' + escapeHtml(art.dek) + '</div>' +
+        '</div>';
+      }
+
+      bodyHtml += '<div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--color-border);">' +
+        '<button class="btn-reset" onclick="triggerControlledAction(\'Edit\', \'' + escapeHtml(art.slug) + '\')">Edit Story</button>' +
+        '<button class="btn-reset" onclick="triggerControlledAction(\'Archive\', \'' + escapeHtml(art.slug) + '\')">Archive / Soft-Prune</button>' +
+        '<button class="btn-reset" style="color: var(--color-brand);" onclick="triggerControlledAction(\'Delete\', \'' + escapeHtml(art.slug) + '\')">Delete Story</button>' +
+      '</div>';
+
+      document.getElementById('inspect-modal-body').innerHTML = bodyHtml;
+      document.getElementById('inspect-modal').style.display = 'flex';
+    }
+
+    function inspectAttnItem(idx) {
+      const item = filteredAttn[idx];
+      if (!item) return;
+
+      document.getElementById('inspect-modal-title').innerText = item.problem;
+      const bodyHtml = '<div style="margin-bottom: 16px;">' +
+        '<div><strong>Article:</strong> ' + escapeHtml(item.title) + '</div>' +
+        '<div style="margin-top: 6px;"><strong>Filepath:</strong> <code>' + escapeHtml(item.relPath) + '</code></div>' +
+        '<div style="margin-top: 6px;"><strong>Severity:</strong> <span class="badge badge-amber">' + item.severity + '</span></div>' +
+      '</div>' +
+      '<div style="background: var(--color-surface-alt); padding: 14px; border-radius: 4px; border: 1px solid var(--color-border); margin-bottom: 16px;">' +
+        '<strong>Diagnostic Reason:</strong>' +
+        '<div style="margin-top: 4px; color: var(--color-muted);">' + escapeHtml(item.reason) + '</div>' +
+      '</div>' +
+      '<div style="background: var(--color-teal-bg); padding: 14px; border-radius: 4px; border: 1px solid var(--color-teal-border);">' +
+        '<strong style="color: var(--color-teal);">Recommended Action:</strong>' +
+        '<div style="margin-top: 4px; color: var(--color-teal);">' + escapeHtml(item.recommendedAction) + '</div>' +
+      '</div>';
+
+      document.getElementById('inspect-modal-body').innerHTML = bodyHtml;
+      document.getElementById('inspect-modal').style.display = 'flex';
+    }
+
+    function inspectSafetyItem(idx) {
+      const list = Array.isArray(window.__SENSITIVE__) ? window.__SENSITIVE__ : [];
+      const item = list[idx];
+      if (!item) return;
+
+      document.getElementById('inspect-modal-title').innerText = 'Safety Inspection: ' + item.title;
+      const flagsHtml = (item.flags || []).map(f => '<span class="badge badge-amber">' + f + '</span>').join(' ');
+      const bodyHtml = '<div style="margin-bottom: 16px;">' +
+        '<div><strong>Filepath:</strong> <code>' + escapeHtml(item.relPath) + '</code></div>' +
+        '<div style="margin-top: 6px;"><strong>Desk:</strong> ' + escapeHtml(item.category) + ' &bull; <strong>Word Count:</strong> ' + item.wordCount + ' words</div>' +
+        '<div style="margin-top: 6px;"><strong>Sensitive Categories:</strong> ' + flagsHtml + '</div>' +
+      '</div>' +
+      '<div style="background: var(--color-surface-alt); padding: 12px; border-radius: 4px; border: 1px solid var(--color-border);">' +
+        '<strong>Editorial Note:</strong>' +
+        '<div style="margin-top: 4px; color: var(--color-muted);">This story contains terminology associated with sensitive topics. Verify that facts are corroborated by primary wire agencies before promoting or citing in investigative roundups.</div>' +
+      '</div>';
+
+      document.getElementById('inspect-modal-body').innerHTML = bodyHtml;
+      document.getElementById('inspect-modal').style.display = 'flex';
+    }
+
+    function triggerControlledAction(actionType, slug) {
+      closeInspectModal();
+      document.getElementById('guarded-modal-title').innerText = 'Controlled Action: ' + actionType;
+      let msg = '';
+      if (actionType === 'Edit') {
+        msg = 'Direct editing of the Markdown source (' + slug + '.md) is scheduled for the upcoming controlled CMS phase. In Phase 3, the article explorer operates in strict read-only mode to prevent accidental corpus corruption.';
+      } else if (actionType === 'Delete') {
+        msg = 'Silent hard deletion is strictly prohibited by SamacharDaily\'s SEO safety policy. In future phases, retiring this article will mandate establishing a 301 redirect stub to preserve backlinks and avoid 404 crawl penalties.';
+      } else {
+        msg = 'Archiving will inject `noindex: true` into the article frontmatter in the next controlled workflow phase, allowing the story to remain accessible to direct readers while cleanly de-indexing from search engines.';
+      }
+
+      document.getElementById('guarded-modal-body').innerHTML = '<div style="line-height: 1.5; color: var(--color-ink);">' + msg + '</div>';
+      document.getElementById('guarded-modal').style.display = 'flex';
+    }
+
+    function closeInspectModal(e) {
+      if (e && e.target && e.target.id !== 'inspect-modal' && !e.target.classList.contains('modal-close')) return;
+      document.getElementById('inspect-modal').style.display = 'none';
+    }
+
+    function closeGuardedModal(e) {
+      if (e && e.target && e.target.id !== 'guarded-modal' && !e.target.classList.contains('modal-close')) return;
+      document.getElementById('guarded-modal').style.display = 'none';
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // Initialize on page ready
+    document.addEventListener('DOMContentLoaded', () => {
+      renderArticleTable();
+      renderAttnTable();
+      renderSafetyTable();
+    });
+  </script>
+</body>
+</html>

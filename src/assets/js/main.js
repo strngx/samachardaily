@@ -23,13 +23,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const navSheet = document.getElementById("mobile-nav-sheet");
   const closeNavBtn = document.getElementById("close-mobile-nav");
   const closeNavActionBtn = document.getElementById("close-mobile-nav-action");
+  const searchToggleBtn = document.getElementById("search-toggle");
+  const searchDrawer = document.getElementById("search-drawer");
+  const searchInput = document.getElementById("search-input");
 
   function openMobileNav() {
     if (!navSheet) return;
+    // Close search if open
+    closeSearchDrawer();
     navSheet.classList.add("is-open");
     document.body.classList.add("nav-locked");
+    document.documentElement.classList.add("nav-locked");
     if (menuToggleBtn) {
+      menuToggleBtn.classList.add("is-active");
       menuToggleBtn.setAttribute("aria-expanded", "true");
+      menuToggleBtn.setAttribute("aria-label", "Close navigation menu");
     }
   }
 
@@ -37,8 +45,32 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!navSheet) return;
     navSheet.classList.remove("is-open");
     document.body.classList.remove("nav-locked");
+    document.documentElement.classList.remove("nav-locked");
     if (menuToggleBtn) {
+      menuToggleBtn.classList.remove("is-active");
       menuToggleBtn.setAttribute("aria-expanded", "false");
+      menuToggleBtn.setAttribute("aria-label", "Open navigation menu");
+    }
+  }
+
+  function openSearchDrawer() {
+    if (!searchDrawer) return;
+    // Close mobile nav if open
+    closeMobileNav();
+    searchDrawer.classList.add("is-open");
+    if (searchToggleBtn) {
+      searchToggleBtn.setAttribute("aria-expanded", "true");
+    }
+    if (searchInput) {
+      setTimeout(() => searchInput.focus(), 60);
+    }
+  }
+
+  function closeSearchDrawer() {
+    if (!searchDrawer) return;
+    searchDrawer.classList.remove("is-open");
+    if (searchToggleBtn) {
+      searchToggleBtn.setAttribute("aria-expanded", "false");
     }
   }
 
@@ -63,8 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (navSheet) {
     navSheet.addEventListener("click", (e) => {
-      // Close if clicking on the backdrop
-      if (e.target === navSheet) {
+      // Close if clicking outside the panel (e.g. backdrop overlay)
+      const panel = navSheet.querySelector(".mobile-nav-panel");
+      if (panel && !panel.contains(e.target)) {
+        closeMobileNav();
+      } else if (e.target === navSheet) {
         closeMobileNav();
       }
     });
@@ -75,31 +110,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 3. Escape Key Listener for Accessibility
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closeMobileNav();
-      const searchDrawer = document.getElementById("search-drawer");
-      if (searchDrawer && searchDrawer.classList.contains("is-open")) {
-        searchDrawer.classList.remove("is-open");
-      }
-    }
-  });
-
-  // 4. Search Drawer Toggle
-  const searchToggleBtn = document.getElementById("search-toggle");
-  const searchDrawer = document.getElementById("search-drawer");
-  const searchInput = document.getElementById("search-input");
-
+  // 3. Search Drawer Toggle
   if (searchToggleBtn && searchDrawer) {
-    searchToggleBtn.addEventListener("click", () => {
-      const isOpen = searchDrawer.classList.toggle("is-open");
-      searchToggleBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
-      if (isOpen && searchInput) {
-        setTimeout(() => searchInput.focus(), 60);
+    searchToggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (searchDrawer.classList.contains("is-open")) {
+        closeSearchDrawer();
+      } else {
+        openSearchDrawer();
+      }
+    });
+
+    // Close search drawer when clicking outside
+    document.addEventListener("click", (e) => {
+      if (searchDrawer.classList.contains("is-open")) {
+        if (!searchDrawer.contains(e.target) && !searchToggleBtn.contains(e.target)) {
+          closeSearchDrawer();
+        }
       }
     });
   }
+
+  // 4. Escape Key Listener for Accessibility (closes both nav and search)
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeMobileNav();
+      closeSearchDrawer();
+    }
+  });
 
   // 5. Newsletter Form Submission to Google Forms
   const newsletterForms = document.querySelectorAll(".newsletter-form-inline, #newsletter-form");
@@ -145,4 +183,176 @@ document.addEventListener("DOMContentLoaded", () => {
       form.replaceWith(successWrapper);
     });
   });
+
+  // 6. Dynamic Hero Carousel (Phase 2)
+  const heroCarousel = document.getElementById("hero-carousel");
+  if (heroCarousel) {
+    const track = document.getElementById("hero-carousel-track");
+    const slides = Array.from(heroCarousel.querySelectorAll(".hero-slide"));
+    const prevBtn = document.getElementById("hero-prev-btn");
+    const nextBtn = document.getElementById("hero-next-btn");
+    const dots = Array.from(heroCarousel.querySelectorAll(".carousel-dot"));
+
+    if (slides.length > 1) {
+      let currentIndex = 0;
+      let autoplayTimer = null;
+      let isPaused = false;
+      const AUTOPLAY_INTERVAL = 6000; // 6 seconds
+
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function syncArrowPosition() {
+        const activeMedia = heroCarousel.querySelector(".hero-slide.is-active .lead-media-wrap") || heroCarousel.querySelector(".lead-media-wrap");
+        if (activeMedia) {
+          const rect = activeMedia.getBoundingClientRect();
+          const carouselRect = heroCarousel.getBoundingClientRect();
+          const topOffset = (rect.top - carouselRect.top) + (rect.height / 2);
+          if (topOffset > 0) {
+            heroCarousel.style.setProperty("--hero-arrow-top", `${Math.round(topOffset)}px`);
+          }
+        }
+      }
+
+      function updateSlide(index) {
+        currentIndex = (index + slides.length) % slides.length;
+
+        if (track) {
+          track.style.transform = prefersReducedMotion 
+            ? "none" 
+            : `translateX(-${currentIndex * 100}%)`;
+        }
+
+        slides.forEach((slide, idx) => {
+          const isActive = idx === currentIndex;
+          slide.classList.toggle("is-active", isActive);
+          slide.setAttribute("aria-hidden", isActive ? "false" : "true");
+        });
+
+        dots.forEach((dot, idx) => {
+          const isActive = idx === currentIndex;
+          dot.classList.toggle("is-active", isActive);
+          dot.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+
+        syncArrowPosition();
+      }
+
+      function startAutoplay() {
+        if (prefersReducedMotion || isPaused) return;
+        stopAutoplay();
+        autoplayTimer = setInterval(() => {
+          updateSlide(currentIndex + 1);
+        }, AUTOPLAY_INTERVAL);
+      }
+
+      function stopAutoplay() {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      }
+
+      // Prev & Next Buttons
+      if (prevBtn) {
+        prevBtn.addEventListener("click", () => {
+          updateSlide(currentIndex - 1);
+          startAutoplay();
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener("click", () => {
+          updateSlide(currentIndex + 1);
+          startAutoplay();
+        });
+      }
+
+      // Clickable Slide Dots
+      dots.forEach((dot, idx) => {
+        dot.addEventListener("click", () => {
+          updateSlide(idx);
+          startAutoplay();
+        });
+      });
+
+      // Pause/Resume on Hover, Focus, Interaction
+      heroCarousel.addEventListener("mouseenter", () => {
+        isPaused = true;
+        stopAutoplay();
+      });
+
+      heroCarousel.addEventListener("mouseleave", () => {
+        isPaused = false;
+        startAutoplay();
+      });
+
+      heroCarousel.addEventListener("focusin", () => {
+        isPaused = true;
+        stopAutoplay();
+      });
+
+      heroCarousel.addEventListener("focusout", (e) => {
+        if (!heroCarousel.contains(e.relatedTarget)) {
+          isPaused = false;
+          startAutoplay();
+        }
+      });
+
+      // Touch / Swipe Navigation
+      let touchStartX = 0;
+      let touchStartY = 0;
+
+      heroCarousel.addEventListener("touchstart", (e) => {
+        isPaused = true;
+        stopAutoplay();
+        if (e.touches && e.touches.length > 0) {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+
+      heroCarousel.addEventListener("touchend", (e) => {
+        if (e.changedTouches && e.changedTouches.length > 0) {
+          const touchEndX = e.changedTouches[0].clientX;
+          const touchEndY = e.changedTouches[0].clientY;
+          const diffX = touchStartX - touchEndX;
+          const diffY = touchStartY - touchEndY;
+
+          if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+            if (diffX > 0) {
+              updateSlide(currentIndex + 1);
+            } else {
+              updateSlide(currentIndex - 1);
+            }
+          }
+        }
+        isPaused = false;
+        startAutoplay();
+      }, { passive: true });
+
+      // Keyboard Navigation (Left Arrow / Right Arrow)
+      heroCarousel.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          updateSlide(currentIndex - 1);
+          startAutoplay();
+        } else if (e.key === "ArrowRight") {
+          e.preventDefault();
+          updateSlide(currentIndex + 1);
+          startAutoplay();
+        }
+      });
+
+      // Resize handling to keep arrows vertically centered over the hero image
+      window.addEventListener("resize", syncArrowPosition);
+      if (typeof ResizeObserver !== "undefined") {
+        new ResizeObserver(syncArrowPosition).observe(heroCarousel);
+      }
+
+      // Initial state
+      updateSlide(0);
+      syncArrowPosition();
+      startAutoplay();
+    }
+  }
 });

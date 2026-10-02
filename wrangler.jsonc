@@ -1,0 +1,25 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "samachardaily",
+  "main": "worker/index.js",
+  "compatibility_date": "2024-09-23",
+  "assets": {
+    "directory": "./_site",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/admin",
+      "/admin/*",
+      "/api/admin/*"
+    ]
+  },
+  "ratelimits": [
+    {
+      "name": "LOGIN_RATE_LIMITER",
+      "namespace_id": "1001",
+      "simple": {
+        "limit": 5,
+        "period": 60
+      }
+    }
+  ]
+}

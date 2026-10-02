@@ -1,5 +1,6 @@
-{% set leadStory = leadStory or (collections.articles | homepageFeed | first) or collections.articles[0] %}
-{% set wireStories = wireStories or (collections.articles | filterExcludedArticles([leadStory]) | limit(5)) %}
+{% set heroStories = heroStories or (collections.articles | heroCarouselFeed(5)) %}
+{% set leadStory = heroStories[0] or (collections.articles | homepageFeed | first) or collections.articles[0] %}
+{% set wireStories = wireStories or (collections.articles | filterExcludedArticles(heroStories) | limit(5)) %}
 
 {% if leadStory %}
 <!-- Breaking News Ticker (Rendered ONLY if genuine breaking content exists) -->
@@ -18,61 +19,120 @@
 </div>
 {% endif %}
 
-<!-- Newsroom Hero: Dominant Lead + Chronological Latest Stream -->
-<section class="newsroom-hero" aria-label="Top Story & Latest Dispatches">
-  <!-- Primary Lead Story -->
-  <article class="lead-story-card">
-    {% if leadStory.data.image %}
-      <a href="{{ leadStory.url | url }}" class="lead-media-wrap" aria-label="{{ leadStory.data.title }}">
-        <img 
-          src="{{ leadStory.data.image | url }}" 
-          alt="{{ leadStory.data.imageAlt or leadStory.data.image_alt or leadStory.data.title }}" 
-          class="lead-img" 
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-          width="740" 
-          height="416"
+<!-- Newsroom Hero: Dynamic Featured Carousel + Chronological Latest Stream -->
+<section class="newsroom-hero" aria-label="Top Stories & Latest Dispatches">
+  <!-- Dynamic Featured News Carousel -->
+  <div class="hero-carousel" id="hero-carousel" role="region" aria-roledescription="carousel" aria-label="Featured News Carousel" tabindex="0">
+    <div class="hero-carousel-track-wrap">
+      <div class="hero-carousel-track" id="hero-carousel-track">
+        {% for slide in heroStories %}
+          <article class="hero-slide {% if loop.first %}is-active{% endif %}" role="group" aria-roledescription="slide" aria-label="{{ loop.index }} of {{ heroStories.length }}" data-slide-index="{{ loop.index0 }}">
+            <!-- Media -->
+            {% if slide.data.image %}
+              <a href="{{ slide.url | url }}" class="lead-media-wrap" aria-label="{{ slide.data.title }}">
+                <img 
+                  src="{{ slide.data.image | url }}" 
+                  alt="{{ slide.data.imageAlt or slide.data.image_alt or slide.data.title }}" 
+                  class="lead-img" 
+                  loading="{% if loop.first %}eager{% else %}lazy{% endif %}"
+                  {% if loop.first %}fetchpriority="high"{% endif %}
+                  decoding="async"
+                  width="740" 
+                  height="416"
+                >
+                {% if (slide.date | isJustIn) %}
+                  <span class="badge-just-in">JUST IN</span>
+                {% endif %}
+              </a>
+            {% else %}
+              <a href="{{ slide.url | url }}" class="lead-media-wrap card-thumb-placeholder category-bg-{{ slide.data.category | lower }}" aria-label="{{ slide.data.title }}">
+                <div class="placeholder-inner">
+                  <span class="placeholder-brand">Samachar<span class="brand-red">Daily</span></span>
+                  <span class="placeholder-category">{{ slide.data.category }}</span>
+                </div>
+                {% if (slide.date | isJustIn) %}
+                  <span class="badge-just-in">JUST IN</span>
+                {% endif %}
+              </a>
+            {% endif %}
+
+            <!-- Editorial Status & Category Hierarchy -->
+            <div class="hero-status-row">
+              {% if loop.first %}
+                <span class="hero-editorial-badge badge-top-story">TOP STORY</span>
+              {% endif %}
+              {% if (slide.date | isJustIn) %}
+                <span class="hero-editorial-badge badge-live"><span class="live-pulse" aria-hidden="true"></span>LIVE</span>
+              {% elif slide.data.trending %}
+                <span class="hero-editorial-badge badge-trending">TRENDING</span>
+              {% endif %}
+              <a href="{{ ('/' + (slide.data.category | categorySlug) + '/') | url }}" class="category-label hero-category-label">
+                {{ slide.data.category }}
+              </a>
+            </div>
+
+            <!-- Headline with Responsive Display Protection -->
+            <h2 class="lead-headline hero-carousel-headline">
+              <a href="{{ slide.url | url }}" title="{{ slide.data.title }}">{{ slide.data.title }}</a>
+            </h2>
+
+            <!-- Dek -->
+            {% if slide.data.dek %}
+              <p class="lead-dek hero-carousel-dek">{{ slide.data.dek }}</p>
+            {% endif %}
+
+            <!-- Meta Row -->
+            <div class="meta-row hero-meta-row">
+              {% set authorName = slide.data.author or site.author.name %}
+              {% if authorName == "SamacharDaily Editorial Team" or authorName == "Samachar Daily" or not slide.data.author %}
+                <span>By <a href="{{ '/authors/samachardaily-editorial-team/' | url }}">Samachar Daily</a></span>
+              {% else %}
+                <span>By {{ authorName }}</span>
+              {% endif %}
+              {% if slide.data.sourceName %}
+                <span>•</span>
+                <span class="hero-source">{{ slide.data.sourceName }}</span>
+              {% endif %}
+              <span>•</span>
+              <time datetime="{{ slide.date | isoDate }}">{{ slide.date | timeAgo }}</time>
+              <span>•</span>
+              <span>{{ slide.templateContent | readTime }}</span>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Carousel Navigation Arrows (Overlaying the image area) -->
+    <button type="button" class="carousel-nav-btn prev-btn hero-carousel-prev" id="hero-prev-btn" aria-label="Previous story">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+    </button>
+    <button type="button" class="carousel-nav-btn next-btn hero-carousel-next" id="hero-next-btn" aria-label="Next story">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </button>
+
+    <!-- Slide Indicators / Dots below content -->
+    <div class="carousel-indicators" role="tablist" aria-label="Choose story to display">
+      {% for slide in heroStories %}
+        <button 
+          type="button" 
+          role="tab" 
+          class="carousel-dot {% if loop.first %}is-active{% endif %}" 
+          aria-selected="{% if loop.first %}true{% else %}false{% endif %}" 
+          aria-label="Story {{ loop.index }}: {{ slide.data.title | truncate(35) }}"
+          data-index="{{ loop.index0 }}"
         >
-        {% if (leadStory.date | isJustIn) %}
-          <span class="badge-just-in">JUST IN</span>
-        {% endif %}
-      </a>
-    {% else %}
-      <a href="{{ leadStory.url | url }}" class="lead-media-wrap card-thumb-placeholder category-bg-{{ leadStory.data.category | lower }}" aria-label="{{ leadStory.data.title }}">
-        <div class="placeholder-inner">
-          <span class="placeholder-brand">Samachar<span class="brand-red">Daily</span></span>
-          <span class="placeholder-category">{{ leadStory.data.category }}</span>
-        </div>
-        {% if (leadStory.date | isJustIn) %}
-          <span class="badge-just-in">JUST IN</span>
-        {% endif %}
-      </a>
-    {% endif %}
-    <div>
-      <a href="{{ ('/' + (leadStory.data.category | categorySlug) + '/') | url }}" class="category-label">
-        {{ leadStory.data.category }}
-      </a>
+          <span class="visually-hidden">Story {{ loop.index }}</span>
+        </button>
+      {% endfor %}
     </div>
-    <h2 class="lead-headline">
-      <a href="{{ leadStory.url | url }}">{{ leadStory.data.title }}</a>
-    </h2>
-    {% if leadStory.data.dek %}
-      <p class="lead-dek">{{ leadStory.data.dek }}</p>
-    {% endif %}
-    <div class="meta-row">
-      {% set authorName = leadStory.data.author or site.author.name %}
-      {% if authorName == "SamacharDaily Editorial Team" or authorName == "Samachar Daily" or not leadStory.data.author %}
-        <span>By <a href="{{ '/authors/samachardaily-editorial-team/' | url }}">Samachar Daily</a></span>
-      {% else %}
-        <span>By {{ authorName }}</span>
-      {% endif %}
-      <span>•</span>
-      <time datetime="{{ leadStory.date | isoDate }}">{{ leadStory.date | timeAgo }}</time>
-      <span>•</span>
-      <span>{{ leadStory.templateContent | readTime }}</span>
-    </div>
-  </article>
+  </div>
 
   <!-- Chronological Latest News Stream -->
   <aside class="latest-wire-module" aria-label="Latest News Stream">

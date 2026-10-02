@@ -267,12 +267,20 @@ async function generateOgImages(options = {}) {
   console.log(`[OG Generator] Generating 1200x630 social cards in: ${outputDir}`);
   const startTime = Date.now();
 
-  // 1. Generate default / homepage OG image
-  const hpSvg = generateHomepageSvg();
-  const hpBuffer = Buffer.from(hpSvg);
-  await sharp(hpBuffer)
-    .png({ compressionLevel: 6 })
-    .toFile(path.join(outputDir, 'default.png'));
+  // 1. Default / homepage OG image
+  const customDefaultOg = path.join(process.cwd(), 'src', 'assets', 'og', 'default.png');
+  const customOgImage = path.join(process.cwd(), 'src', 'assets', 'images', 'og-image.png');
+  if (fs.existsSync(customDefaultOg)) {
+    fs.copyFileSync(customDefaultOg, path.join(outputDir, 'default.png'));
+  } else if (fs.existsSync(customOgImage)) {
+    fs.copyFileSync(customOgImage, path.join(outputDir, 'default.png'));
+  } else {
+    const hpSvg = generateHomepageSvg();
+    const hpBuffer = Buffer.from(hpSvg);
+    await sharp(hpBuffer)
+      .png({ compressionLevel: 6 })
+      .toFile(path.join(outputDir, 'default.png'));
+  }
 
   // 2. Discover articles
   const articlesDir = path.join(process.cwd(), 'src', 'articles');

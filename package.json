@@ -4,7 +4,7 @@
   "description": "SamacharDaily - Fast news, trends explained. A modern digital news publication and zero-cost auto-blogger.",
   "main": ".eleventy.js",
   "scripts": {
-    "build": "npx @11ty/eleventy",
+    "build": "npx @11ty/eleventy && node tools/build-worker-views.js",
     "serve": "npx @11ty/eleventy --serve",
     "dev": "npx @11ty/eleventy --serve",
     "test": "npx @11ty/eleventy",

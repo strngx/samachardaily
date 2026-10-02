@@ -4,17 +4,21 @@ layout: layouts/base.njk
 
 <div class="container">
   <h1 class="visually-hidden">SamacharDaily — News, Fast. Trends, Explained.</h1>
-  {% set homepageArticles = collections.articles | homepageFeed %}
-  {% set leadStory = homepageArticles[0] %}
-  {% set wireStories = collections.articles | filterExcludedArticles([leadStory]) | limit(5) %}
+  {% set heroStories = collections.articles | heroCarouselFeed(5) %}
+  {% set leadStory = heroStories[0] %}
+  {% set wireStories = collections.articles | filterExcludedArticles(heroStories) | limit(5) %}
   
-  {# Stories used in Hero + Wire #}
-  {% set heroUsedStories = [leadStory] %}
+  {# Stories used in Hero Carousel + Wire Stream #}
+  {% set heroUsedStories = [] %}
+  {% for item in heroStories %}
+    {% set heroUsedStories = (heroUsedStories.push(item), heroUsedStories) %}
+  {% endfor %}
   {% for item in wireStories %}
     {% set heroUsedStories = (heroUsedStories.push(item), heroUsedStories) %}
   {% endfor %}
 
-  {# 4 Trending Stories strictly excluding Hero leadStory AND all wireStories to prevent duplication #}
+  {# 4 Trending Stories strictly excluding all Hero Carousel stories AND wireStories to prevent duplication #}
+  {% set homepageArticles = collections.articles | homepageFeed %}
   {% set trendingCandidates = homepageArticles | filterExcludedArticles(heroUsedStories) %}
   {% if trendingCandidates.length < 4 %}
     {% set trendingCandidates = collections.articles | filterExcludedArticles(heroUsedStories) %}
@@ -22,8 +26,8 @@ layout: layouts/base.njk
   {% set trendingStories = trendingCandidates | limit(4) %}
 
   {# Master exclusion list for lower-page desk modules #}
-  {% set masterUsedStories = [leadStory] %}
-  {% for item in wireStories %}
+  {% set masterUsedStories = [] %}
+  {% for item in heroUsedStories %}
     {%- set masterUsedStories = (masterUsedStories.push(item), masterUsedStories) -%}
   {% endfor %}
   {% for item in trendingStories %}
@@ -188,10 +192,24 @@ layout: layouts/base.njk
         </div>
         <a href="{{ '/india/' | url }}" class="section-view-all">View All India →</a>
       </div>
-      <div class="category-grid">
-        {% for article in indiaStories %}
-          {% include "partials/card.njk" %}
-        {% endfor %}
+      <div class="desk-india-layout">
+        {% if indiaStories[0] %}
+          <div class="desk-india-lead">
+            {% set article = indiaStories[0] %}
+            {% set cardVariant = "desk-lead" %}
+            {% set isLeadCard = false %}
+            {% include "partials/card.njk" %}
+          </div>
+        {% endif %}
+        {% if indiaStories.length > 1 %}
+          <div class="desk-supporting-rail">
+            {% for article in indiaStories | skip(1) | limit(2) %}
+              {% set cardVariant = "desk-compact" %}
+              {% set isLeadCard = false %}
+              {% include "partials/card.njk" %}
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
     </section>
     {% endif %}
@@ -205,10 +223,24 @@ layout: layouts/base.njk
         </div>
         <a href="{{ '/world/' | url }}" class="section-view-all">View All World →</a>
       </div>
-      <div class="category-grid">
-        {% for article in worldStories %}
-          {% include "partials/card.njk" %}
-        {% endfor %}
+      <div class="desk-world-layout">
+        {% if worldStories[0] %}
+          <div class="desk-world-lead">
+            {% set article = worldStories[0] %}
+            {% set cardVariant = "desk-horizontal" %}
+            {% set isLeadCard = false %}
+            {% include "partials/card.njk" %}
+          </div>
+        {% endif %}
+        {% if worldStories.length > 1 %}
+          <div class="desk-world-subgrid">
+            {% for article in worldStories | skip(1) | limit(2) %}
+              {% set cardVariant = "desk-grid" %}
+              {% set isLeadCard = false %}
+              {% include "partials/card.njk" %}
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
     </section>
     {% endif %}
@@ -222,13 +254,26 @@ layout: layouts/base.njk
         </div>
         <a href="{{ '/business/' | url }}" class="section-view-all">View All Business →</a>
       </div>
-      <div class="category-grid">
+      <div class="desk-business-grid">
         {% for article in businessStories %}
+          {% if loop.first %}
+            {% set cardVariant = "desk-business-lead" %}
+          {% else %}
+            {% set cardVariant = "desk-grid" %}
+          {% endif %}
+          {% set isLeadCard = false %}
           {% include "partials/card.njk" %}
         {% endfor %}
       </div>
     </section>
     {% endif %}
+
+    <!-- Mid-Page Editorial Accent -->
+    <div class="newsroom-editorial-break" aria-hidden="true">
+      <span class="break-line"></span>
+      <span class="break-pill"><span class="break-bullet">◆</span> Specialist Desks & In-Depth Reporting <span class="break-bullet">◆</span></span>
+      <span class="break-line"></span>
+    </div>
 
     <!-- 5. Mid-Page Ad Slot -->
     {% set slotName = "homepage-mid" %}
@@ -243,10 +288,24 @@ layout: layouts/base.njk
         </div>
         <a href="{{ '/tech/' | url }}" class="section-view-all">View All Tech →</a>
       </div>
-      <div class="category-grid">
-        {% for article in techStories %}
-          {% include "partials/card.njk" %}
-        {% endfor %}
+      <div class="desk-tech-layout">
+        {% if techStories[0] %}
+          <div class="desk-tech-lead">
+            {% set article = techStories[0] %}
+            {% set cardVariant = "desk-lead" %}
+            {% set isLeadCard = false %}
+            {% include "partials/card.njk" %}
+          </div>
+        {% endif %}
+        {% if techStories.length > 1 %}
+          <div class="desk-tech-stream">
+            {% for article in techStories | skip(1) | limit(2) %}
+              {% set cardVariant = "desk-compact" %}
+              {% set isLeadCard = false %}
+              {% include "partials/card.njk" %}
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
     </section>
     {% endif %}
@@ -260,16 +319,170 @@ layout: layouts/base.njk
         </div>
         <a href="{{ '/sports/' | url }}" class="section-view-all">View All Sports →</a>
       </div>
-      <div class="category-grid">
-        {% for article in sportsStories %}
-          {% include "partials/card.njk" %}
-        {% endfor %}
+      <div class="desk-sports-layout">
+        {% if sportsStories[0] %}
+          <div class="desk-sports-lead">
+            {% set article = sportsStories[0] %}
+            {% set cardVariant = "desk-sports-lead" %}
+            {% set isLeadCard = false %}
+            {% include "partials/card.njk" %}
+          </div>
+        {% endif %}
+        {% if sportsStories.length > 1 %}
+          <div class="desk-sports-duo">
+            {% for article in sportsStories | skip(1) | limit(2) %}
+              {% set cardVariant = "desk-compact" %}
+              {% set isLeadCard = false %}
+              {% include "partials/card.njk" %}
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
     </section>
     {% endif %}
 
     <!-- 6. Video Journalism Section -->
-    {% set usedHomepageStories = masterUsedStories %}
-    {% include "partials/video-journalism.njk" %}
+    {% set videoStories = [] %}
+    {% for art in collections.articles %}
+      {% set currentVid = art.data.videoId or art.data.video_id %}
+      {% if currentVid and currentVid != "" and currentVid != "null" and not art.data.noindex and not art.data.draft and not art.data.redirect and not art.data.redirect_to and videoStories.length < 3 %}
+        {% set isAlreadyUsed = false %}
+        {% for used in masterUsedStories %}
+          {% if used.url == art.url or (used.data.slug and art.data.slug and used.data.slug == art.data.slug) %}
+            {% set isAlreadyUsed = true %}
+          {% endif %}
+        {% endfor %}
+        {% if not isAlreadyUsed %}
+          {% set videoStories = (videoStories.push(art), videoStories) %}
+          {% set masterUsedStories = (masterUsedStories.push(art), masterUsedStories) %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% if videoStories.length > 0 %}
+    {% set primaryVideo = videoStories[0] %}
+    {% set activeVideoId = primaryVideo.data.videoId or primaryVideo.data.video_id %}
+    <section class="video-journalism-section" aria-label="Watch The Story - Video Journalism">
+      <div class="container" style="padding-left: 0; padding-right: 0;">
+        <div class="video-section-header">
+          <h2 class="video-section-title">
+            <span style="color: var(--color-brand);">Watch</span> The Story
+          </h2>
+          <span style="font-size: 0.8125rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;">Broadcast Coverage</span>
+        </div>
+
+        {% if videoStories.length == 1 %}
+        <div class="video-grid">
+          <div class="video-player-wrap">
+            <iframe 
+              src="https://www.youtube.com/embed/{{ activeVideoId }}" 
+              title="{{ primaryVideo.data.videoCaption or primaryVideo.data.video_caption or primaryVideo.data.title }}" 
+              loading="lazy" 
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowfullscreen
+            ></iframe>
+          </div>
+          
+          <div class="video-meta-box">
+            <div>
+              <a href="{{ ('/' + (primaryVideo.data.category | categorySlug) + '/') | url }}" class="category-label">
+                {{ primaryVideo.data.category }}
+              </a>
+            </div>
+            <h3 class="video-caption-text">
+              <a href="{{ primaryVideo.url | url }}" class="video-caption-link">{{ primaryVideo.data.title or primaryVideo.data.seoTitle or "Featured Story" }}</a>
+            </h3>
+            {% if primaryVideo.data.dek %}
+              <p class="video-dek">
+                {{ primaryVideo.data.dek }}
+              </p>
+            {% endif %}
+            <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: auto;">
+              <a href="{{ primaryVideo.url | url }}" class="video-cta-link">
+                Read full accompanying article →
+              </a>
+              <a href="https://www.youtube.com/watch?v={{ activeVideoId }}" target="_blank" rel="noopener noreferrer" class="video-direct-link">
+                Watch on YouTube ↗
+              </a>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="video-enhanced-grid">
+          <div class="video-primary-column">
+            <div class="video-player-wrap">
+              <iframe 
+                src="https://www.youtube.com/embed/{{ activeVideoId }}" 
+                title="{{ primaryVideo.data.videoCaption or primaryVideo.data.video_caption or primaryVideo.data.title }}" 
+                loading="lazy" 
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="video-primary-meta">
+              <div>
+                <a href="{{ ('/' + (primaryVideo.data.category | categorySlug) + '/') | url }}" class="category-label">
+                  {{ primaryVideo.data.category }}
+                </a>
+              </div>
+              <h3 class="video-caption-text">
+                <a href="{{ primaryVideo.url | url }}" class="video-caption-link">{{ primaryVideo.data.title or primaryVideo.data.seoTitle or "Featured Story" }}</a>
+              </h3>
+              {% if primaryVideo.data.dek %}
+                <p class="video-dek">{{ primaryVideo.data.dek }}</p>
+              {% endif %}
+              <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: auto;">
+                <a href="{{ primaryVideo.url | url }}" class="video-cta-link">
+                  Read full accompanying article →
+                </a>
+                <a href="https://www.youtube.com/watch?v={{ activeVideoId }}" target="_blank" rel="noopener noreferrer" class="video-direct-link">
+                  Watch on YouTube ↗
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="video-supporting-column">
+            <h4 class="video-supporting-heading">More Broadcast Coverage</h4>
+            <div class="video-supporting-list">
+              {% for sup in videoStories | skip(1) | limit(2) %}
+                {% set supVid = sup.data.videoId or sup.data.video_id %}
+                <article class="video-supporting-item">
+                  <a href="{{ sup.url | url }}" class="video-supporting-thumb-wrap" aria-label="{{ sup.data.title }}">
+                    {% if sup.data.image %}
+                      <img src="{{ sup.data.image | url }}" alt="{{ sup.data.imageAlt or sup.data.title }}" class="video-supporting-thumb" loading="lazy" width="120" height="75">
+                    {% else %}
+                      <div class="video-supporting-placeholder category-bg-{{ sup.data.category | lower }}">
+                        <span>{{ sup.data.category }}</span>
+                      </div>
+                    {% endif %}
+                    <span class="video-play-badge" aria-hidden="true">▶</span>
+                  </a>
+                  <div class="video-supporting-info">
+                    <a href="{{ ('/' + (sup.data.category | categorySlug) + '/') | url }}" class="category-label">
+                      {{ sup.data.category }}
+                    </a>
+                    <h5 class="video-supporting-title">
+                      <a href="{{ sup.url | url }}">{{ sup.data.title }}</a>
+                    </h5>
+                    <div class="meta-row" style="font-size: 0.75rem; margin-top: auto;">
+                      <time datetime="{{ sup.date | isoDate }}">{{ sup.date | timeAgo }}</time>
+                      <span>•</span>
+                      <a href="https://www.youtube.com/watch?v={{ supVid }}" target="_blank" rel="noopener noreferrer" class="video-yt-link">
+                        Watch ↗
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+    {% endif %}
   {% endif %}
 </div>

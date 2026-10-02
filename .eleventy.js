@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const { DateTime } = require("luxon");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 
@@ -12,6 +14,12 @@ module.exports = function (eleventyConfig) {
   const isLocalAdmin = process.env.INCLUDE_ADMIN === "true" || process.env.npm_lifecycle_event === "admin";
   if (!isLocalAdmin) {
     eleventyConfig.ignores.add("src/admin/**");
+  } else {
+    // Register secure server-side admin authentication middleware
+    const { adminAuthMiddleware } = require("./tools/admin-auth");
+    eleventyConfig.setServerOptions({
+      middleware: [adminAuthMiddleware]
+    });
   }
 
   // Prevent html-transformer from double-prefixing URLs that explicitly use the url filter
@@ -22,12 +30,11 @@ module.exports = function (eleventyConfig) {
   // Passthrough static assets
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/favicon.ico": "favicon.ico" });
-  eleventyConfig.addPassthroughCopy({ "src/favicon-16x16.png": "favicon-16x16.png" });
-  eleventyConfig.addPassthroughCopy({ "src/favicon-32x32.png": "favicon-32x32.png" });
+  eleventyConfig.addPassthroughCopy({ "src/favicon.svg": "favicon.svg" });
   eleventyConfig.addPassthroughCopy({ "src/favicon-96x96.png": "favicon-96x96.png" });
   eleventyConfig.addPassthroughCopy({ "src/apple-touch-icon.png": "apple-touch-icon.png" });
-  eleventyConfig.addPassthroughCopy({ "src/android-chrome-192x192.png": "android-chrome-192x192.png" });
-  eleventyConfig.addPassthroughCopy({ "src/android-chrome-512x512.png": "android-chrome-512x512.png" });
+  eleventyConfig.addPassthroughCopy({ "src/web-app-manifest-192x192.png": "web-app-manifest-192x192.png" });
+  eleventyConfig.addPassthroughCopy({ "src/web-app-manifest-512x512.png": "web-app-manifest-512x512.png" });
   eleventyConfig.addPassthroughCopy({ "src/site.webmanifest": "site.webmanifest" });
   eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
   eleventyConfig.addPassthroughCopy({ "src/ads.txt": "ads.txt" });
@@ -234,14 +241,46 @@ module.exports = function (eleventyConfig) {
 
 
 
+  let latestStoryTime = 0;
+  try {
+    function scanLatestArtTime(dirPath) {
+      let maxT = 0;
+      const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+      for (const entry of entries) {
+        const fullP = path.join(dirPath, entry.name);
+        if (entry.isDirectory()) {
+          const subT = scanLatestArtTime(fullP);
+          if (subT > maxT) maxT = subT;
+        } else if (entry.name.endsWith(".md")) {
+          const content = fs.readFileSync(fullP, "utf8");
+          const m = content.match(/date:\s*([^\r\n]+)/);
+          if (m) {
+            const t = new Date(m[1].trim()).getTime();
+            if (t > maxT) maxT = t;
+          }
+        }
+      }
+      return maxT;
+    }
+    latestStoryTime = scanLatestArtTime(path.join(__dirname, "src/articles"));
+  } catch (err) {}
+
   // Check if article is within last 3 hours
   eleventyConfig.addFilter("isJustIn", function (date) {
     if (!date) return false;
     const artTime = new Date(date).getTime();
     if (isNaN(artTime)) return false;
     const now = new Date().getTime();
-    const diff = now - artTime;
-    return diff >= 0 && diff <= (3 * 60 * 60 * 1000);
+    const diffNow = now - artTime;
+    if (diffNow >= 0 && diffNow <= (3 * 60 * 60 * 1000)) {
+      return true;
+    }
+    // Preview / static reference: if within 3 hours of the latest story on the wire
+    if (latestStoryTime > 0) {
+      const diffLatest = latestStoryTime - artTime;
+      return diffLatest >= 0 && diffLatest <= (3 * 60 * 60 * 1000);
+    }
+    return false;
   });
 
   // Check if article is published within last 48 hours for Google News sitemap compliance
@@ -332,6 +371,59 @@ module.exports = function (eleventyConfig) {
     return sortArticlesByPriority(filtered);
   });
 
+  // Dynamic Featured-News Hero Carousel Filter (Phase 2)
+  // Ensures 5-desk diversity (India, World, Business, Tech, Sports) with image availability and priority scoring
+  eleventyConfig.addFilter("heroCarouselFeed", function (allArticles, limit = 5) {
+    if (!Array.isArray(allArticles) || allArticles.length === 0) return [];
+
+    const valid = allArticles.filter(art => {
+      if (!art || !art.data) return false;
+      if (art.data.draft || art.data.noindex || art.data.redirect || art.data.redirect_to) return false;
+      if (!art.data.image) return false;
+      return true;
+    });
+
+    if (valid.length === 0) return allArticles.slice(0, limit);
+
+    const sorted = sortArticlesByPriority(valid);
+
+    // Slide 1: Primary Lead Story (top priority overall)
+    const lead = sorted[0];
+    const selected = [lead];
+    const usedUrls = new Set([lead.url || (lead.data && lead.data.slug) || lead.fileSlug]);
+    const usedCategories = new Set([lead.data.category ? lead.data.category.toLowerCase() : ""]);
+
+    // Ensure 5-desk representation: India, World, Business, Tech, Sports
+    const allDesks = ["india", "world", "business", "tech", "sports"];
+    const remainingDesks = allDesks.filter(cat => !usedCategories.has(cat));
+
+    for (const desk of remainingDesks) {
+      if (selected.length >= limit) break;
+      const deskStory = sorted.find(art => {
+        const cat = (art.data.category || "").toLowerCase();
+        const key = art.url || (art.data && art.data.slug) || art.fileSlug;
+        return cat === desk && !usedUrls.has(key);
+      });
+      if (deskStory) {
+        selected.push(deskStory);
+        usedUrls.add(deskStory.url || (deskStory.data && deskStory.data.slug) || deskStory.fileSlug);
+        usedCategories.add(desk);
+      }
+    }
+
+    // Backfill remaining slots if needed
+    for (const art of sorted) {
+      if (selected.length >= limit) break;
+      const key = art.url || (art.data && art.data.slug) || art.fileSlug;
+      if (!usedUrls.has(key)) {
+        selected.push(art);
+        usedUrls.add(key);
+      }
+    }
+
+    return selected;
+  });
+
   eleventyConfig.addFilter("filterExcludedArticles", function (articles, excludedItems) {
     if (!Array.isArray(articles)) return [];
     if (!Array.isArray(excludedItems)) {
@@ -364,9 +456,13 @@ module.exports = function (eleventyConfig) {
 
   // Collections
   eleventyConfig.addCollection("articles", function (collectionApi) {
-    return collectionApi.getFilteredByGlob("src/articles/**/*.md").sort((a, b) => {
+    const list = collectionApi.getFilteredByGlob("src/articles/**/*.md").sort((a, b) => {
       return b.date - a.date;
     });
+    if (list.length > 0 && list[0].date) {
+      latestStoryTime = Math.max(latestStoryTime, new Date(list[0].date).getTime());
+    }
+    return list;
   });
 
   const categories = ["India", "World", "Business", "Tech", "Sports"];
@@ -431,8 +527,6 @@ module.exports = function (eleventyConfig) {
     return byCategory;
   });
 
-  const fs = require("fs");
-  const path = require("path");
   const crypto = require("crypto");
 
   function getFileHash(relPath) {
