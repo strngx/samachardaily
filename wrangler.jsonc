@@ -21,5 +21,12 @@
         "period": 60
       }
     }
-  ]
+  ],
+  "secrets": {
+    "required": [
+      "ADMIN_PASSWORD_HASH",
+      "ADMIN_SESSION_SECRET",
+      "GITHUB_CONTENTS_TOKEN"
+    ]
+  }
 }

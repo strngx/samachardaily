@@ -74,5 +74,32 @@ async function generateCredentials(plainPassword) {
   console.log('======================================================\n');
 }
 
-const args = process.argv.slice(2);
-generateCredentials(args[0]);
+const readline = require('readline');
+
+async function main() {
+  const args = process.argv.slice(2);
+  let password = args[0];
+
+  if (!password) {
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+
+    password = await new Promise((resolve) => {
+      rl.question('Enter administrator password: ', (ans) => {
+        rl.close();
+        resolve(ans);
+      });
+    });
+  }
+
+  if (!password || typeof password !== 'string' || !password.trim()) {
+    console.error('Error: Administrator password cannot be empty.');
+    process.exit(1);
+  }
+
+  await generateCredentials(password.trim());
+}
+
+main();

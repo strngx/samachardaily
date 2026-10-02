@@ -15,6 +15,59 @@
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
+const matter = require('gray-matter');
+
+// Strict path regex for article Markdown files
+const ARTICLE_PATH_REGEX = /^src\/articles\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+\.md$/;
+
+// Calculate Git blob SHA for consistent concurrency conflict checking
+function computeGitBlobSha(content) {
+  const normalized = (typeof content === 'string' ? content : content.toString('utf8')).replace(/\r\n/g, '\n');
+  const buf = Buffer.from(normalized, 'utf8');
+  const header = Buffer.from(`blob ${buf.length}\0`);
+  return crypto.createHash('sha1').update(Buffer.concat([header, buf])).digest('hex');
+}
+
+// Safe path resolver for article Markdown files
+function getArticleFilePath(relPath) {
+  if (!relPath || typeof relPath !== 'string') return null;
+  const forwardPath = relPath.replace(/\\/g, '/');
+  if (!ARTICLE_PATH_REGEX.test(forwardPath)) {
+    return null;
+  }
+  const fullPath = path.resolve(__dirname, '..', forwardPath);
+  const articlesRoot = path.resolve(__dirname, '..', 'src', 'articles');
+  if (!fullPath.startsWith(articlesRoot)) {
+    return null;
+  }
+  if (!fs.existsSync(fullPath)) {
+    return null;
+  }
+  return fullPath;
+}
+
+// Helper to safely parse incoming JSON body from Node HTTP request
+function parseJsonBody(req, maxBytes = 1048576) {
+  return new Promise((resolve, reject) => {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk;
+      if (body.length > maxBytes) {
+        req.destroy();
+        reject(new Error('Payload too large'));
+      }
+    });
+    req.on('end', () => {
+      try {
+        const parsed = JSON.parse(body || '{}');
+        resolve(parsed);
+      } catch (err) {
+        reject(new Error('Invalid JSON payload'));
+      }
+    });
+    req.on('error', reject);
+  });
+}
 
 // Configuration
 const SESSION_TTL_MS = 2 * 60 * 60 * 1000; // 2 hours
@@ -267,6 +320,344 @@ function adminAuthMiddleware(req, res, next) {
     } else {
       res.end(JSON.stringify({ authenticated: false }));
     }
+    return;
+  }
+
+  // 4. API: Get Article Content & SHA on-demand
+  if (pathname === '/api/admin/articles/get' && req.method === 'GET') {
+    const session = validateSession(req);
+    if (!session) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }));
+      return;
+    }
+
+    const relPath = parsedUrl.searchParams.get('relPath');
+    const filePath = getArticleFilePath(relPath);
+    if (!filePath) {
+      res.writeHead(404, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Target article source file not found or path invalid.' }));
+      return;
+    }
+
+    try {
+      const raw = fs.readFileSync(filePath, 'utf8');
+      const sha = computeGitBlobSha(raw);
+      const file = matter(raw, { cache: false });
+      const wordCount = (file.content || '').trim().split(/\s+/).filter(Boolean).length;
+
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({
+        success: true,
+        relPath: relPath,
+        sha: sha,
+        data: file.data,
+        body: (file.content || '').trim(),
+        wordCount: wordCount
+      }));
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Failed to read article: ' + err.message }));
+    }
+    return;
+  }
+
+  // 5. API: Save Article Changes
+  if (pathname === '/api/admin/articles/save' && req.method === 'POST') {
+    const session = validateSession(req);
+    if (!session) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }));
+      return;
+    }
+
+    parseJsonBody(req).then(payload => {
+      const { relPath, sha, title, dek, category, author, image, imageCredit, sourceName, sourceUrl, seoTitle, why_it_matters, what_happens_next, body } = payload;
+      const filePath = getArticleFilePath(relPath);
+      if (!filePath) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: 'Target article source file not found or path invalid.' }));
+        return;
+      }
+
+      try {
+        const raw = fs.readFileSync(filePath, 'utf8');
+        const currentSha = computeGitBlobSha(raw);
+
+        // Concurrency check: Compare client expected SHA with current SHA
+        if (sha && sha !== currentSha) {
+          res.writeHead(409, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            success: false,
+            error: 'This article changed in GitHub since you opened it. Reload before saving.',
+            conflict: true,
+            currentSha: currentSha
+          }));
+          return;
+        }
+
+        const file = matter(raw, { cache: false });
+
+        // Update ONLY supported editorial properties if provided; PRESERVE all others (slug, date, videos, etc.)
+        if (typeof title === 'string' && title.trim()) file.data.title = title.trim();
+        if (typeof dek === 'string') file.data.dek = dek.trim();
+        if (typeof category === 'string' && category.trim()) file.data.category = category.trim();
+        if (typeof author === 'string') file.data.author = author.trim();
+        if (image !== undefined) file.data.image = image ? String(image).trim() : null;
+        if (imageCredit !== undefined) file.data.imageCredit = imageCredit ? String(imageCredit).trim() : null;
+        if (sourceName !== undefined) file.data.sourceName = sourceName ? String(sourceName).trim() : null;
+        if (sourceUrl !== undefined) file.data.sourceUrl = sourceUrl ? String(sourceUrl).trim() : null;
+        if (seoTitle !== undefined) file.data.seoTitle = seoTitle ? String(seoTitle).trim() : null;
+        if (why_it_matters !== undefined) file.data.why_it_matters = why_it_matters ? String(why_it_matters).trim() : null;
+        if (what_happens_next !== undefined) file.data.what_happens_next = what_happens_next ? String(what_happens_next).trim() : null;
+
+        // Update body content if provided
+        if (typeof body === 'string') {
+          file.content = '\n' + body.trim() + '\n';
+        }
+
+        const newWordCount = file.content.trim().split(/\s+/).filter(Boolean).length;
+        const nowIso = new Date().toISOString();
+
+        // Write cleanly back to disk
+        const updatedMarkdown = matter.stringify(file.content, file.data);
+        fs.writeFileSync(filePath, updatedMarkdown, 'utf8');
+        const newSha = computeGitBlobSha(updatedMarkdown);
+
+        recordSecurityAudit('ARTICLE_SAVED', { relPath, title: file.data.title, ip });
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          success: true,
+          message: 'Saved successfully',
+          sha: newSha,
+          modified: nowIso,
+          wordCount: newWordCount,
+          article: {
+            ...file.data,
+            body: file.content.trim(),
+            relPath: relPath,
+            wordCount: newWordCount
+          }
+        }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: 'Failed to write article changes: ' + err.message }));
+      }
+    }).catch(err => {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    });
+    return;
+  }
+
+  // 6. API: Archive Article (Reversible soft-prune / noindex: true)
+  if (pathname === '/api/admin/articles/archive' && req.method === 'POST') {
+    const session = validateSession(req);
+    if (!session) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }));
+      return;
+    }
+
+    parseJsonBody(req).then(payload => {
+      const { relPath, sha } = payload;
+      const filePath = getArticleFilePath(relPath);
+      if (!filePath) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: 'Target article source file not found.' }));
+        return;
+      }
+
+      try {
+        const raw = fs.readFileSync(filePath, 'utf8');
+        const currentSha = computeGitBlobSha(raw);
+
+        if (sha && sha !== currentSha) {
+          res.writeHead(409, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            success: false,
+            error: 'This article changed in GitHub since you opened it. Reload before saving.',
+            conflict: true,
+            currentSha: currentSha
+          }));
+          return;
+        }
+
+        const file = matter(raw, { cache: false });
+        file.data.noindex = true;
+        const nowIso = new Date().toISOString();
+        const updatedMarkdown = matter.stringify(file.content, file.data);
+        fs.writeFileSync(filePath, updatedMarkdown, 'utf8');
+        const newSha = computeGitBlobSha(updatedMarkdown);
+
+        recordSecurityAudit('ARTICLE_ARCHIVED', { relPath, title: file.data.title, ip });
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          success: true,
+          message: 'Article archived successfully (set to noindex)',
+          noindex: true,
+          sha: newSha,
+          modified: nowIso
+        }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: 'Failed to archive article: ' + err.message }));
+      }
+    }).catch(err => {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    });
+    return;
+  }
+
+  // 7. API: Restore Article (Revert archive -> active/indexable)
+  if (pathname === '/api/admin/articles/restore' && req.method === 'POST') {
+    const session = validateSession(req);
+    if (!session) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }));
+      return;
+    }
+
+    parseJsonBody(req).then(payload => {
+      const { relPath, sha } = payload;
+      const filePath = getArticleFilePath(relPath);
+      if (!filePath) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: 'Target article source file not found.' }));
+        return;
+      }
+
+      try {
+        const raw = fs.readFileSync(filePath, 'utf8');
+        const currentSha = computeGitBlobSha(raw);
+
+        if (sha && sha !== currentSha) {
+          res.writeHead(409, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            success: false,
+            error: 'This article changed in GitHub since you opened it. Reload before saving.',
+            conflict: true,
+            currentSha: currentSha
+          }));
+          return;
+        }
+
+        const file = matter(raw, { cache: false });
+        delete file.data.noindex;
+        const nowIso = new Date().toISOString();
+        const updatedMarkdown = matter.stringify(file.content, file.data);
+        fs.writeFileSync(filePath, updatedMarkdown, 'utf8');
+        const newSha = computeGitBlobSha(updatedMarkdown);
+
+        recordSecurityAudit('ARTICLE_RESTORED', { relPath, title: file.data.title, ip });
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          success: true,
+          message: 'Article restored successfully (active/indexable)',
+          noindex: false,
+          sha: newSha,
+          modified: nowIso
+        }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: 'Failed to restore article: ' + err.message }));
+      }
+    }).catch(err => {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    });
+    return;
+  }
+
+  // 8. API: Delete Article (Guarded Destructive Action)
+  if (pathname === '/api/admin/articles/delete' && req.method === 'POST') {
+    const session = validateSession(req);
+    if (!session) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }));
+      return;
+    }
+
+    parseJsonBody(req).then(payload => {
+      const { relPath, confirmTitle, sha } = payload;
+      const filePath = getArticleFilePath(relPath);
+      if (!filePath) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: 'Target article source file not found.' }));
+        return;
+      }
+
+      try {
+        const raw = fs.readFileSync(filePath, 'utf8');
+        const currentSha = computeGitBlobSha(raw);
+
+        if (sha && sha !== currentSha) {
+          res.writeHead(409, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            success: false,
+            error: 'This article changed in GitHub since you opened it. Reload before saving.',
+            conflict: true,
+            currentSha: currentSha
+          }));
+          return;
+        }
+
+        const file = matter(raw, { cache: false });
+
+        // Guard 1: Protect against deleting redirect stubs
+        if (file.data.redirect || file.data.redirect_to || file.data.layout === 'redirect' || file.data.layout === 'layouts/redirect.njk') {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            success: false,
+            error: 'Cannot delete redirect stub. Redirect stubs protect canonical backlinks and prevent crawl penalties.'
+          }));
+          return;
+        }
+
+        // Guard 2: Protect against deleting protected articles
+        if (file.data.protected === true) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            success: false,
+            error: 'Cannot delete protected article.'
+          }));
+          return;
+        }
+
+        // Guard 3: Deliberate confirmation matching
+        const enteredConfirm = (confirmTitle || '').trim().toLowerCase();
+        if (enteredConfirm !== 'delete') {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            success: false,
+            error: 'Confirmation phrase mismatch. Please enter "DELETE" to confirm.'
+          }));
+          return;
+        }
+
+        // Permanent deletion of source file
+        fs.unlinkSync(filePath);
+
+        recordSecurityAudit('ARTICLE_DELETED', { relPath, title: file.data.title, ip });
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          success: true,
+          message: 'Article permanently deleted from source corpus.',
+          relPath: relPath
+        }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: 'Failed to delete article: ' + err.message }));
+      }
+    }).catch(err => {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
+    });
     return;
   }
 
