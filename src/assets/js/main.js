@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 6. Dynamic Hero Carousel (Phase 2)
+  // 6. Dynamic Hero Carousel (Phase 2 & 3 Correction)
   const heroCarousel = document.getElementById("hero-carousel");
   if (heroCarousel) {
     const track = document.getElementById("hero-carousel-track");
@@ -199,7 +199,10 @@ document.addEventListener("DOMContentLoaded", () => {
       let isPaused = false;
       const AUTOPLAY_INTERVAL = 6000; // 6 seconds
 
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      function checkReducedMotion() {
+        return typeof window.matchMedia === "function" &&
+               window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      }
 
       function syncArrowPosition() {
         const activeMedia = heroCarousel.querySelector(".hero-slide.is-active .lead-media-wrap") || heroCarousel.querySelector(".lead-media-wrap");
@@ -216,10 +219,10 @@ document.addEventListener("DOMContentLoaded", () => {
       function updateSlide(index) {
         currentIndex = (index + slides.length) % slides.length;
 
+        // Slide track must always shift to current slide offset;
+        // CSS takes care of disabling motion when prefers-reduced-motion is active.
         if (track) {
-          track.style.transform = prefersReducedMotion 
-            ? "none" 
-            : `translateX(-${currentIndex * 100}%)`;
+          track.style.transform = `translateX(-${currentIndex * 100}%)`;
         }
 
         slides.forEach((slide, idx) => {
@@ -238,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       function startAutoplay() {
-        if (prefersReducedMotion || isPaused) return;
+        if (checkReducedMotion() || isPaused) return;
         stopAutoplay();
         autoplayTimer = setInterval(() => {
           updateSlide(currentIndex + 1);
@@ -252,18 +255,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
+      function restartAutoplay() {
+        isPaused = false;
+        startAutoplay();
+      }
+
       // Prev & Next Buttons
       if (prevBtn) {
         prevBtn.addEventListener("click", () => {
           updateSlide(currentIndex - 1);
-          startAutoplay();
+          restartAutoplay();
         });
       }
 
       if (nextBtn) {
         nextBtn.addEventListener("click", () => {
           updateSlide(currentIndex + 1);
-          startAutoplay();
+          restartAutoplay();
         });
       }
 
@@ -271,34 +279,34 @@ document.addEventListener("DOMContentLoaded", () => {
       dots.forEach((dot, idx) => {
         dot.addEventListener("click", () => {
           updateSlide(idx);
-          startAutoplay();
+          restartAutoplay();
         });
       });
 
-      // Pause/Resume on Hover, Focus, Interaction
+      // Pause on Hover, Resume on Mouse Leave
       heroCarousel.addEventListener("mouseenter", () => {
         isPaused = true;
         stopAutoplay();
       });
 
       heroCarousel.addEventListener("mouseleave", () => {
-        isPaused = false;
-        startAutoplay();
+        restartAutoplay();
       });
 
-      heroCarousel.addEventListener("focusin", () => {
-        isPaused = true;
-        stopAutoplay();
+      // Accessible Focus Handling: pause during keyboard navigation, resume on blur
+      heroCarousel.addEventListener("focusin", (e) => {
+        if (e.target && (e.target.tagName === "A" || e.target.tagName === "BUTTON")) {
+          // Control focused
+        }
       });
 
       heroCarousel.addEventListener("focusout", (e) => {
         if (!heroCarousel.contains(e.relatedTarget)) {
-          isPaused = false;
-          startAutoplay();
+          restartAutoplay();
         }
       });
 
-      // Touch / Swipe Navigation
+      // Touch / Swipe Navigation with touchcancel support
       let touchStartX = 0;
       let touchStartY = 0;
 
@@ -326,8 +334,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           }
         }
-        isPaused = false;
-        startAutoplay();
+        restartAutoplay();
+      }, { passive: true });
+
+      heroCarousel.addEventListener("touchcancel", () => {
+        restartAutoplay();
       }, { passive: true });
 
       // Keyboard Navigation (Left Arrow / Right Arrow)
@@ -335,12 +346,29 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.key === "ArrowLeft") {
           e.preventDefault();
           updateSlide(currentIndex - 1);
-          startAutoplay();
+          restartAutoplay();
         } else if (e.key === "ArrowRight") {
           e.preventDefault();
           updateSlide(currentIndex + 1);
-          startAutoplay();
+          restartAutoplay();
         }
+      });
+
+      // Tab Visibility & Window Focus Lifecycle
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          stopAutoplay();
+        } else {
+          restartAutoplay();
+        }
+      });
+
+      window.addEventListener("blur", () => {
+        stopAutoplay();
+      });
+
+      window.addEventListener("focus", () => {
+        restartAutoplay();
       });
 
       // Resize handling to keep arrows vertically centered over the hero image

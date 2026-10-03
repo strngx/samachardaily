@@ -13,7 +13,10 @@ import {
   buildSessionCookie,
   buildClearCookie,
   getSecurityHeaders,
-  getClientIp
+  getClientIp,
+  getLockoutState,
+  recordFailedLogin,
+  resetLockoutState
 } from './auth.js';
 
 import { loginHtml, editorialHtml } from './admin-views.js';
@@ -210,15 +213,31 @@ export default {
         }
       }
 
-      // Verify Cloudflare Worker Secrets are configured
-      if (!env.ADMIN_PASSWORD_HASH || !env.ADMIN_SESSION_SECRET) {
+      // Verify Cloudflare Worker Secrets and KV Lockout Binding are configured
+      if (!env.ADMIN_PASSWORD_HASH || !env.ADMIN_SESSION_SECRET || !env.AUTH_KV) {
         return new Response(JSON.stringify({
           success: false,
-          error: 'Server authentication is not configured. Please configure ADMIN_PASSWORD_HASH and ADMIN_SESSION_SECRET in Cloudflare Worker Secrets.'
+          error: 'Server authentication or lockout storage is not configured. Please ensure ADMIN_PASSWORD_HASH, ADMIN_SESSION_SECRET, and AUTH_KV binding are configured in Cloudflare Workers.'
         }), {
           status: 500,
           headers: {
             'Content-Type': 'application/json',
+            ...getSecurityHeaders()
+          }
+        });
+      }
+
+      // Enforce 24-hour account lockout after 3 consecutive failed attempts
+      const lockout = await getLockoutState(env);
+      if (lockout.isLocked) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Too many failed login attempts. Try again later.'
+        }), {
+          status: 429,
+          headers: {
+            'Content-Type': 'application/json',
+            'Retry-After': '86400',
             ...getSecurityHeaders()
           }
         });
@@ -244,6 +263,9 @@ export default {
 
         const isPasswordValid = await verifyPassword(password, env.ADMIN_PASSWORD_HASH);
         if (username.toLowerCase() === 'admin' && isPasswordValid) {
+          // Reset consecutive failure counter upon successful authentication
+          await resetLockoutState(env);
+
           const sessionToken = await createSessionToken('admin', env.ADMIN_SESSION_SECRET);
           const cookieHeader = buildSessionCookie(sessionToken);
 
@@ -259,6 +281,22 @@ export default {
             }
           });
         } else {
+          // Record failed login attempt (activates 24-hour lockout on 3rd failure)
+          const postFailState = await recordFailedLogin(env);
+          if (postFailState.isLocked) {
+            return new Response(JSON.stringify({
+              success: false,
+              error: 'Too many failed login attempts. Try again later.'
+            }), {
+              status: 429,
+              headers: {
+                'Content-Type': 'application/json',
+                'Retry-After': '86400',
+                ...getSecurityHeaders()
+              }
+            });
+          }
+
           return new Response(JSON.stringify({
             success: false,
             error: 'Invalid administrator credentials.'

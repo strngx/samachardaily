@@ -371,27 +371,65 @@ module.exports = function (eleventyConfig) {
     return sortArticlesByPriority(filtered);
   });
 
-  // Dynamic Featured-News Hero Carousel Filter (Phase 2)
-  // Ensures 5-desk diversity (India, World, Business, Tech, Sports) with image availability and priority scoring
+  // Dynamic Featured-News Hero Carousel Filter (Phase 2 & 3 Correction)
+  // Ensures recency (72-hour primary window, 7-day fallback), strict exclusions,
+  // 5-desk diversity (India, World, Business, Tech, Sports), and editorial priority scoring.
   eleventyConfig.addFilter("heroCarouselFeed", function (allArticles, limit = 5) {
     if (!Array.isArray(allArticles) || allArticles.length === 0) return [];
 
-    const valid = allArticles.filter(art => {
+    function isEligibleArticle(art) {
       if (!art || !art.data) return false;
-      if (art.data.draft || art.data.noindex || art.data.redirect || art.data.redirect_to) return false;
-      if (!art.data.image) return false;
+      const d = art.data;
+      if (d.draft === true || d.draft === "true") return false;
+      if (d.noindex === true || d.noindex === "true") return false;
+      if (d.archived === true || d.archived === "true") return false;
+      if (d.redirect || d.redirect_to) return false;
+      if (!d.image || typeof d.image !== "string" || !d.image.trim()) return false;
+      if (!art.date) return false;
+      const t = new Date(art.date).getTime();
+      if (isNaN(t) || t <= 0) return false;
       return true;
+    }
+
+    const eligible = allArticles.filter(isEligibleArticle);
+    if (eligible.length === 0) return [];
+
+    const nowTime = Date.now();
+    let maxArtTime = 0;
+    eligible.forEach(a => {
+      const t = new Date(a.date).getTime();
+      if (t > maxArtTime) maxArtTime = t;
+    });
+    // Reference time anchoring newest published dispatch or build clock
+    const refTime = Math.max(nowTime, maxArtTime);
+
+    const MS_72H = 72 * 60 * 60 * 1000;
+    const MS_7D = 7 * 24 * 60 * 60 * 1000;
+
+    // Window 1: Primary candidate window (previous 72 hours)
+    let candidates = eligible.filter(art => {
+      const diff = refTime - new Date(art.date).getTime();
+      return diff >= 0 && diff <= MS_72H;
     });
 
-    if (valid.length === 0) return allArticles.slice(0, limit);
+    // Window 2: Expand to 7 days if fewer than limit (5) exist
+    if (candidates.length < limit) {
+      candidates = eligible.filter(art => {
+        const diff = refTime - new Date(art.date).getTime();
+        return diff >= 0 && diff <= MS_7D;
+      });
+    }
 
-    const sorted = sortArticlesByPriority(valid);
+    // If still fewer than limit, use available recent candidates (never fall back to 3-week-old stories)
+    if (candidates.length === 0) return [];
 
-    // Slide 1: Primary Lead Story (top priority overall)
+    const sorted = sortArticlesByPriority(candidates);
+
+    // Slide 1: Primary Lead Story (top priority overall among recent candidates)
     const lead = sorted[0];
     const selected = [lead];
-    const usedUrls = new Set([lead.url || (lead.data && lead.data.slug) || lead.fileSlug]);
-    const usedCategories = new Set([lead.data.category ? lead.data.category.toLowerCase() : ""]);
+    const usedKeys = new Set([lead.url || (lead.data && lead.data.slug) || lead.fileSlug]);
+    const usedCategories = new Set([lead.data.category ? lead.data.category.toLowerCase().trim() : ""]);
 
     // Ensure 5-desk representation: India, World, Business, Tech, Sports
     const allDesks = ["india", "world", "business", "tech", "sports"];
@@ -400,24 +438,24 @@ module.exports = function (eleventyConfig) {
     for (const desk of remainingDesks) {
       if (selected.length >= limit) break;
       const deskStory = sorted.find(art => {
-        const cat = (art.data.category || "").toLowerCase();
+        const cat = (art.data.category || "").toLowerCase().trim();
         const key = art.url || (art.data && art.data.slug) || art.fileSlug;
-        return cat === desk && !usedUrls.has(key);
+        return cat === desk && !usedKeys.has(key);
       });
       if (deskStory) {
         selected.push(deskStory);
-        usedUrls.add(deskStory.url || (deskStory.data && deskStory.data.slug) || deskStory.fileSlug);
+        usedKeys.add(deskStory.url || (deskStory.data && deskStory.data.slug) || deskStory.fileSlug);
         usedCategories.add(desk);
       }
     }
 
-    // Backfill remaining slots if needed
+    // Backfill remaining slots from recent sorted candidates if needed
     for (const art of sorted) {
       if (selected.length >= limit) break;
       const key = art.url || (art.data && art.data.slug) || art.fileSlug;
-      if (!usedUrls.has(key)) {
+      if (!usedKeys.has(key)) {
         selected.push(art);
-        usedUrls.add(key);
+        usedKeys.add(key);
       }
     }
 

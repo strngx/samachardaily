@@ -22,6 +22,12 @@
       }
     }
   ],
+  "kv_namespaces": [
+    {
+      "binding": "AUTH_KV",
+      "id": "d198e8084e74427a98b454199d8190a6"
+    }
+  ],
   "secrets": {
     "required": [
       "ADMIN_PASSWORD_HASH",

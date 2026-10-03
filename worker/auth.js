@@ -273,3 +273,114 @@ export function getClientIp(request) {
          request.headers.get('X-Forwarded-For') ||
          '127.0.0.1';
 }
+
+export const LOCKOUT_KEY = 'admin_lockout_state';
+export const MAX_FAILED_ATTEMPTS = 3;
+export const LOCKOUT_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours
+export const LOCKOUT_TTL_SECONDS = 24 * 60 * 60; // 86400s
+
+/**
+ * Check if the admin account is currently locked out
+ * @param {object} env Worker environment bindings
+ * @param {number} [currentTimeMs] Optional mock time for isolated testing
+ * @returns {Promise<{ isLocked: boolean, lockedUntil?: number, attempts: number }>}
+ */
+export async function getLockoutState(env, currentTimeMs = Date.now()) {
+  if (!env || !env.AUTH_KV) {
+    throw new Error('AUTH_KV binding is missing or unavailable.');
+  }
+
+  const raw = await env.AUTH_KV.get(LOCKOUT_KEY);
+  if (!raw) {
+    return { isLocked: false, attempts: 0 };
+  }
+  const state = JSON.parse(raw);
+  if (state.lockedUntil && currentTimeMs < state.lockedUntil) {
+    return {
+      isLocked: true,
+      lockedUntil: state.lockedUntil,
+      attempts: state.attempts || MAX_FAILED_ATTEMPTS
+    };
+  }
+  // Lockout expired automatically
+  if (state.lockedUntil && currentTimeMs >= state.lockedUntil) {
+    return { isLocked: false, attempts: 0 };
+  }
+  return {
+    isLocked: false,
+    attempts: state.attempts || 0
+  };
+}
+
+/**
+ * Record a failed login attempt; activates 24h lockout upon 3rd failure
+ * @param {object} env Worker environment bindings
+ * @param {number} [currentTimeMs] Optional mock time for isolated testing
+ * @returns {Promise<{ isLocked: boolean, lockedUntil?: number, attempts: number }>}
+ */
+export async function recordFailedLogin(env, currentTimeMs = Date.now()) {
+  if (!env || !env.AUTH_KV) {
+    throw new Error('AUTH_KV binding is missing or unavailable.');
+  }
+
+  const raw = await env.AUTH_KV.get(LOCKOUT_KEY);
+  let state = raw ? JSON.parse(raw) : null;
+  
+  // If account is already locked out, keep the existing lockout window (prevents DoS extension)
+  if (state && state.lockedUntil && currentTimeMs < state.lockedUntil) {
+    return {
+      isLocked: true,
+      lockedUntil: state.lockedUntil,
+      attempts: state.attempts || MAX_FAILED_ATTEMPTS
+    };
+  }
+
+  // If previous lockout expired, reset
+  if (state && state.lockedUntil && currentTimeMs >= state.lockedUntil) {
+    state = null;
+  }
+
+  const currentAttempts = (state ? state.attempts || 0 : 0) + 1;
+
+  if (currentAttempts >= MAX_FAILED_ATTEMPTS) {
+    const lockedUntil = currentTimeMs + LOCKOUT_DURATION_MS;
+    const newState = {
+      attempts: currentAttempts,
+      lockedUntil: lockedUntil,
+      lastFailureTime: currentTimeMs
+    };
+    await env.AUTH_KV.put(LOCKOUT_KEY, JSON.stringify(newState), {
+      expirationTtl: LOCKOUT_TTL_SECONDS
+    });
+    return {
+      isLocked: true,
+      lockedUntil: lockedUntil,
+      attempts: currentAttempts
+    };
+  } else {
+    const newState = {
+      attempts: currentAttempts,
+      lastFailureTime: currentTimeMs
+    };
+    await env.AUTH_KV.put(LOCKOUT_KEY, JSON.stringify(newState), {
+      expirationTtl: LOCKOUT_TTL_SECONDS
+    });
+    return {
+      isLocked: false,
+      attempts: currentAttempts
+    };
+  }
+}
+
+/**
+ * Reset lockout state upon successful authentication
+ * @param {object} env Worker environment bindings
+ * @returns {Promise<void>}
+ */
+export async function resetLockoutState(env) {
+  if (!env || !env.AUTH_KV) {
+    throw new Error('AUTH_KV binding is missing or unavailable.');
+  }
+  await env.AUTH_KV.delete(LOCKOUT_KEY);
+}
+
