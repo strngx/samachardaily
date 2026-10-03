@@ -442,6 +442,156 @@ export default {
       });
     }
 
+    // 5C. API ENDPOINTS: Authenticated Thin Content Queue (Phase 8)
+    if (pathname === '/api/admin/thin-queue' || pathname.startsWith('/api/admin/thin-queue/')) {
+      const token = getSessionTokenFromRequest(request);
+      const session = (token && env.ADMIN_SESSION_SECRET)
+        ? await verifySessionToken(token, env.ADMIN_SESSION_SECRET)
+        : null;
+
+      if (!session) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Unauthorized. Please log in.'
+        }), {
+          status: 401,
+          headers: {
+            'Content-Type': 'application/json',
+            ...getSecurityHeaders()
+          }
+        });
+      }
+
+      // 5C-1. POST /api/admin/thin-queue/review — Mark item as reviewed or dismissed
+      if (pathname === '/api/admin/thin-queue/review' && method === 'POST') {
+        try {
+          const body = await request.json();
+          const { slug, relPath, action, notes } = body || {};
+
+          if (!slug || typeof slug !== 'string' || !/^[a-zA-Z0-9_-]+$/.test(slug)) {
+            return new Response(JSON.stringify({
+              success: false,
+              error: 'Invalid or missing article slug.'
+            }), {
+              status: 400,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+
+          const allowedActions = ['reviewed', 'dismissed', 'reset'];
+          if (!action || !allowedActions.includes(action)) {
+            return new Response(JSON.stringify({
+              success: false,
+              error: 'Invalid action. Allowed actions: reviewed, dismissed, reset.'
+            }), {
+              status: 400,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+
+          const reviewKey = `thin_queue:rev:${slug}`;
+          const nowIso = new Date().toISOString();
+
+          let persisted = false;
+
+          if (action === 'reset') {
+            if (env && env.AUTH_KV && typeof env.AUTH_KV.delete === 'function') {
+              try {
+                await env.AUTH_KV.delete(reviewKey);
+                persisted = true;
+              } catch (kvErr) {
+                console.error('[Thin Queue KV Error] Failed to delete review state:', kvErr.message);
+              }
+            }
+          } else {
+            const reviewPayload = {
+              slug,
+              status: action,
+              reviewer: session.email || 'admin',
+              timestamp: nowIso,
+              notes: typeof notes === 'string' ? notes.slice(0, 500) : ''
+            };
+
+            if (env && env.AUTH_KV && typeof env.AUTH_KV.put === 'function') {
+              try {
+                await env.AUTH_KV.put(reviewKey, JSON.stringify(reviewPayload));
+                persisted = true;
+              } catch (kvErr) {
+                console.error('[Thin Queue KV Error] Failed to persist review state:', kvErr.message);
+              }
+            }
+          }
+
+          // Record Phase 6 audit event
+          try {
+            await recordAuditEvent(env, {
+              actor: session.email || 'admin',
+              action: 'thin_queue_review',
+              slug,
+              relPath: relPath || '',
+              summary: `Editorial action in Thin Content Queue: marked "${slug}" as ${action}`,
+              status: 'success'
+            });
+          } catch (auditErr) {
+            console.error('[Audit Error] Failed to record queue review audit event:', auditErr.message);
+          }
+
+          return new Response(JSON.stringify({
+            success: true,
+            persisted,
+            slug,
+            action,
+            timestamp: nowIso
+          }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        } catch (e) {
+          return new Response(JSON.stringify({
+            success: false,
+            error: 'Failed to process request: ' + e.message
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+      }
+
+      // 5C-2. GET /api/admin/thin-queue/reviews — Batch fetch review states for active queue
+      if (pathname === '/api/admin/thin-queue/reviews' && method === 'GET') {
+        const slugsParam = url.searchParams.get('slugs') || '';
+        const slugs = slugsParam.split(',').map(s => s.trim()).filter(Boolean).slice(0, 100);
+
+        const reviews = {};
+        if (env && env.AUTH_KV && typeof env.AUTH_KV.get === 'function') {
+          for (const s of slugs) {
+            if (/^[a-zA-Z0-9_-]+$/.test(s)) {
+              try {
+                const val = await env.AUTH_KV.get(`thin_queue:rev:${s}`);
+                if (val) {
+                  reviews[s] = JSON.parse(val);
+                }
+              } catch (_) {}
+            }
+          }
+        }
+
+        return new Response(JSON.stringify({
+          success: true,
+          count: Object.keys(reviews).length,
+          reviews
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      return new Response(JSON.stringify({ success: false, error: 'Endpoint not found' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+      });
+    }
+
     // 6. API ENDPOINTS: Authenticated Article Operations
     if (pathname.startsWith('/api/admin/articles/')) {
       const token = getSessionTokenFromRequest(request);

@@ -3,6 +3,7 @@ const path = require('path');
 const { execSync } = require('child_process');
 const crypto = require('crypto');
 const matter = require('gray-matter');
+const { analyzeCorpus } = require('../../tools/thin-content-analyzer.js');
 
 const SENSITIVE_PATTERNS = {
   crime_legal: /\b(?:murder|homicide|manslaughter|kidnapping|arrested|fir registered|criminal charges|court verdict|sentenced to|cbi|ed|ncb|bail denied)\b/i,
@@ -69,6 +70,7 @@ module.exports = function () {
   let missingSourceName = 0;
 
   // Scan published articles
+  const rawArticlesForAnalysis = [];
   if (fs.existsSync(articlesDir)) {
     categories.forEach(cat => {
       const catDir = path.join(articlesDir, cat);
@@ -88,6 +90,22 @@ module.exports = function () {
 
         const isRedirect = !!(d.redirect_to || d.layout === 'layouts/redirect.njk');
         const isNoindex = d.noindex === true;
+
+        rawArticlesForAnalysis.push({
+          id: cat + '/' + slug,
+          relPath: relPath,
+          title: d.title || slug,
+          category: cat,
+          slug: slug,
+          url: '/articles/' + cat + '/' + slug + '/',
+          date: d.date ? (d.date instanceof Date ? d.date.toISOString() : String(d.date)) : null,
+          sourceName: d.sourceName || null,
+          sourceUrl: d.sourceUrl || null,
+          noindex: isNoindex,
+          redirect_to: d.redirect_to || null,
+          layout: d.layout || null,
+          body: body
+        });
 
         if (isRedirect) {
           redirectCount++;
@@ -175,6 +193,9 @@ module.exports = function () {
       });
     });
   }
+
+  // Phase 8: Run deterministic Thin Content Analysis across complete corpus
+  const thinContentAnalysis = analyzeCorpus(rawArticlesForAnalysis);
 
   // Scan staged drafts
   if (fs.existsSync(draftsDir)) {
@@ -773,6 +794,12 @@ module.exports = function () {
   data.corpusArticlesJson = JSON.stringify(articles);
   data.draftStats = draftStats;
   data.draftsJson = JSON.stringify(drafts);
+
+  // Phase 8: Thin Content Queue Analysis Data
+  data.thinContentStats = thinContentAnalysis.stats;
+  data.thinContentStatsJson = JSON.stringify(thinContentAnalysis.stats);
+  data.thinContentQueue = thinContentAnalysis.queue;
+  data.thinContentQueueJson = JSON.stringify(thinContentAnalysis.queue);
 
   // Phase 4D: Independent Auditor & Publication Gate Diagnostics
   data.auditDiagnostics = {

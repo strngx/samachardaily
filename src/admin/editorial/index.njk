@@ -1404,6 +1404,23 @@ noindex: true
       .diagnostics-grid {
         grid-template-columns: 1fr;
       }
+      #view-thin-queue .table-container {
+        display: block !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .view-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .modal-box {
+        width: 95vw !important;
+        margin: 10px auto !important;
+      }
     }
   </style>
 </head>
@@ -1440,6 +1457,11 @@ noindex: true
           <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
           <span class="nav-item-label">Articles</span>
           <span class="nav-item-badge" id="side-art-count">...</span>
+        </button>
+        <button class="nav-item" data-view="thin-queue" onclick="navigate('thin-queue')">
+          <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="12" y2="17"></line><line x1="14" y1="2" x2="14" y2="8"></line><line x1="14" y1="8" x2="20" y2="8"></line><circle cx="17" cy="17" r="3"></circle><line x1="19.5" y1="19.5" x2="22" y2="22"></line></svg>
+          <span class="nav-item-label">Thin Content Queue</span>
+          <span class="nav-item-badge amber" id="side-thin-count">{{ editorial.thinContentStats.flaggedCount }}</span>
         </button>
         <button class="nav-item" data-view="attention" onclick="navigate('attention')">
           <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
@@ -2049,6 +2071,176 @@ noindex: true
         </section>
 
         <!-- ==================================================================
+             VIEW: THIN CONTENT QUEUE (PHASE 8)
+             ================================================================== -->
+        <section id="view-thin-queue" class="view-pane">
+          <div class="view-header">
+            <div class="view-title-group">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <h1>Thin Content Queue</h1>
+                <span class="badge badge-amber">Advisory Only</span>
+                <span class="badge badge-gray" style="font-family: var(--font-mono);">Phase 8</span>
+              </div>
+              <p>Deterministic multi-signal corpus analysis for editorial review. Identifies short, thin, overlapping, or low-value articles. Recommendations are advisory only; no automatic modifications occur.</p>
+            </div>
+            <div class="view-actions-group">
+              <span class="badge badge-purple" id="tq-corpus-status-badge">Complete Corpus Scanned</span>
+            </div>
+          </div>
+
+          <!-- Top Summary Cards (Prompt Section 4 & 1) -->
+          <div class="kpi-row" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+            <div class="kpi-card" onclick="filterThinQueueByClassification('ALL')">
+              <div class="kpi-card-header">
+                <span class="kpi-card-label">Articles Scanned</span>
+                <span class="badge badge-gray">Corpus</span>
+              </div>
+              <div class="kpi-card-val" id="tq-kpi-scanned">{{ editorial.thinContentStats.totalScanned }}</div>
+              <div class="kpi-card-sub" id="tq-kpi-scanned-sub">{{ editorial.thinContentStats.activeScanned }} active &middot; {{ editorial.thinContentStats.archivedExcluded }} archived &middot; {{ editorial.thinContentStats.redirectsExcluded }} redirects</div>
+            </div>
+
+            <div class="kpi-card" onclick="filterThinQueueByClassification('Enrich')">
+              <div class="kpi-card-header">
+                <span class="kpi-card-label">Potentially Thin</span>
+                <span class="badge badge-amber">Enrich</span>
+              </div>
+              <div class="kpi-card-val" id="tq-kpi-enrich" style="color: var(--color-amber);">{{ editorial.thinContentStats.classificationCounts.Enrich }}</div>
+              <div class="kpi-card-sub">Short with limited context</div>
+            </div>
+
+            <div class="kpi-card" onclick="filterThinQueueByClassification('Consolidate')">
+              <div class="kpi-card-header">
+                <span class="kpi-card-label">Potential Overlap</span>
+                <span class="badge badge-purple">Consolidate</span>
+              </div>
+              <div class="kpi-card-val" id="tq-kpi-consolidate" style="color: var(--color-purple);">{{ editorial.thinContentStats.classificationCounts.Consolidate }}</div>
+              <div class="kpi-card-sub">Shared vocabulary/event overlap</div>
+            </div>
+
+            <div class="kpi-card" onclick="filterThinQueueByClassification('Review')">
+              <div class="kpi-card-header">
+                <span class="kpi-card-label">Needs Review</span>
+                <span class="badge badge-blue">Review</span>
+              </div>
+              <div class="kpi-card-val" id="tq-kpi-review" style="color: var(--color-blue);">{{ editorial.thinContentStats.classificationCounts.Review }}</div>
+              <div class="kpi-card-sub">Mixed or ambiguous signals</div>
+            </div>
+
+            <div class="kpi-card" onclick="filterThinQueueByClassification('Keep Short')">
+              <div class="kpi-card-header">
+                <span class="kpi-card-label">Keep Short</span>
+                <span class="badge badge-green">Exempt</span>
+              </div>
+              <div class="kpi-card-val" id="tq-kpi-keep-short" style="color: var(--color-green);">{{ editorial.thinContentStats.classificationCounts['Keep Short'] }}</div>
+              <div class="kpi-card-sub">Concise breaking news updates</div>
+            </div>
+
+            <div class="kpi-card" onclick="filterThinQueueByClassification('LOW_VALUE')">
+              <div class="kpi-card-header">
+                <span class="kpi-card-label">Noindex / Prune</span>
+                <span class="badge badge-red">Low Value</span>
+              </div>
+              <div class="kpi-card-val" id="tq-kpi-low-value" style="color: var(--color-red);">{{ editorial.thinContentStats.classificationCounts.Noindex + editorial.thinContentStats.classificationCounts.Prune }}</div>
+              <div class="kpi-card-sub">{{ editorial.thinContentStats.classificationCounts.Noindex }} noindex &middot; {{ editorial.thinContentStats.classificationCounts.Prune }} prune</div>
+            </div>
+          </div>
+
+          <!-- Filter & Controls Toolbar -->
+          <div class="table-controls-wrapper" style="margin-top: 16px;">
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px;">
+              <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-subtle); margin-right: 4px;">Classification:</span>
+              <button class="btn-table-action active" id="tq-pill-all" onclick="filterThinQueueByClassification('ALL')">All (<span id="tq-count-pill-all">{{ editorial.thinContentStats.flaggedCount }}</span>)</button>
+              <button class="btn-table-action" id="tq-pill-enrich" onclick="filterThinQueueByClassification('Enrich')">Enrich (<span id="tq-count-pill-enrich">{{ editorial.thinContentStats.classificationCounts.Enrich }}</span>)</button>
+              <button class="btn-table-action" id="tq-pill-keep-short" onclick="filterThinQueueByClassification('Keep Short')">Keep Short (<span id="tq-count-pill-keep-short">{{ editorial.thinContentStats.classificationCounts['Keep Short'] }}</span>)</button>
+              <button class="btn-table-action" id="tq-pill-consolidate" onclick="filterThinQueueByClassification('Consolidate')">Consolidate (<span id="tq-count-pill-consolidate">{{ editorial.thinContentStats.classificationCounts.Consolidate }}</span>)</button>
+              <button class="btn-table-action" id="tq-pill-noindex" onclick="filterThinQueueByClassification('Noindex')">Noindex (<span id="tq-count-pill-noindex">{{ editorial.thinContentStats.classificationCounts.Noindex }}</span>)</button>
+              <button class="btn-table-action" id="tq-pill-prune" onclick="filterThinQueueByClassification('Prune')">Prune (<span id="tq-count-pill-prune">{{ editorial.thinContentStats.classificationCounts.Prune }}</span>)</button>
+              <button class="btn-table-action" id="tq-pill-review" onclick="filterThinQueueByClassification('Review')">Review (<span id="tq-count-pill-review">{{ editorial.thinContentStats.classificationCounts.Review }}</span>)</button>
+            </div>
+
+            <div class="table-search-row">
+              <div class="search-input-group" style="flex: 2; min-width: 220px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="tq-search-input" placeholder="Search flagged headlines or slugs..." oninput="handleThinQueueSearch(this.value)">
+              </div>
+
+              <div class="filter-dropdown-group" style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <select id="tq-filter-desk" class="saas-select" onchange="handleThinQueueDeskChange(this.value)">
+                  <option value="ALL">All Desks</option>
+                  <option value="india">India</option>
+                  <option value="world">World</option>
+                  <option value="business">Business</option>
+                  <option value="tech">Tech</option>
+                  <option value="sports">Sports</option>
+                </select>
+
+                <select id="tq-filter-words" class="saas-select" onchange="handleThinQueueWordsChange(this.value)">
+                  <option value="ALL">All Word Counts</option>
+                  <option value="under100">&lt; 100 words</option>
+                  <option value="100-199">100 – 199 words</option>
+                  <option value="200-299">200 – 299 words</option>
+                  <option value="300plus">300+ words</option>
+                </select>
+
+                <select id="tq-filter-review-status" class="saas-select" onchange="handleThinQueueReviewStatusChange(this.value)">
+                  <option value="ALL">All Statuses</option>
+                  <option value="unreviewed">Unreviewed Only</option>
+                  <option value="reviewed">Reviewed</option>
+                  <option value="dismissed">Dismissed</option>
+                </select>
+
+                <select id="tq-sort-select" class="saas-select" onchange="handleThinQueueSortChange(this.value)">
+                  <option value="confidence">Strongest Signal</option>
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                  <option value="shortest">Shortest First</option>
+                  <option value="longest">Longest First</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Queue Table Container -->
+          <div class="table-container" style="border-radius: var(--radius-md); margin-top: 12px;">
+            <table class="saas-table" id="tq-table">
+              <thead>
+                <tr>
+                  <th style="width: 320px;">Article Headline</th>
+                  <th style="width: 80px;">Desk</th>
+                  <th style="width: 95px;">Date</th>
+                  <th style="width: 70px;">Words</th>
+                  <th style="width: 140px;">Finding</th>
+                  <th style="width: 110px;">Classification</th>
+                  <th style="width: 90px;">Signal</th>
+                  <th>Primary Reason</th>
+                  <th style="width: 160px;">Related Overlap</th>
+                  <th style="width: 150px; text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="tq-table-body">
+                <!-- Rendered dynamically by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Bar -->
+          <div class="pagination-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--color-surface); border: 1px solid var(--color-border); border-top: none; border-radius: 0 0 var(--radius-md) var(--radius-md); font-size: 12px; color: var(--color-subtle);">
+            <div id="tq-pagination-info">Showing 0 to 0 of 0 flagged articles</div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <span>Rows per page:</span>
+              <select id="tq-page-size" class="saas-select" style="padding: 2px 6px; font-size: 12px;" onchange="handleThinQueuePageSizeChange(this.value)">
+                <option value="25" selected>25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+              <button class="btn-table-action" id="tq-btn-prev" onclick="prevThinQueuePage()">&larr; Previous</button>
+              <span id="tq-page-display" style="font-weight: 600; color: var(--color-ink);">Page 1 of 1</span>
+              <button class="btn-table-action" id="tq-btn-next" onclick="nextThinQueuePage()">Next &rarr;</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
              VIEW 3: NEEDS ATTENTION
              ================================================================== -->
         <section id="view-attention" class="view-pane">
@@ -2321,6 +2513,44 @@ noindex: true
     </div>
   </div>
 
+  <!-- Thin Content Queue Item Detail Modal (Phase 8) -->
+  <div id="thin-item-modal" class="modal-backdrop" onclick="closeThinDetailModal(event)">
+    <div class="modal-box preview-mode" onclick="event.stopPropagation()" style="max-width: 760px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="badge badge-amber" id="tq-modal-class-badge">Enrich</span>
+          <div class="modal-title" id="tq-modal-title">Thin Content Analysis Details</div>
+        </div>
+        <button class="btn-close-modal" type="button" onclick="closeThinDetailModal()">&times;</button>
+      </div>
+
+      <div id="tq-modal-meta-strip" style="padding: 12px 20px; font-size: 12px; color: var(--color-subtle); background: var(--color-surface-alt); border-bottom: 1px solid var(--color-border); display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+        <div><strong>Desk:</strong> <span id="tq-modal-desk">Tech</span></div>
+        <div><strong>Date:</strong> <span id="tq-modal-date">2026-09-20</span></div>
+        <div><strong>Words:</strong> <span id="tq-modal-words">120</span></div>
+        <div><strong>Chars:</strong> <span id="tq-modal-chars">720</span></div>
+        <div><strong>Paras:</strong> <span id="tq-modal-paras">2</span></div>
+        <div><strong>Status:</strong> <span id="tq-modal-review-status" class="badge badge-gray">Unreviewed</span></div>
+      </div>
+
+      <div class="modal-body" id="tq-modal-body" style="max-height: 60vh; overflow-y: auto; padding: 20px;">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-table-action" type="button" id="tq-modal-btn-mark-reviewed" onclick="markThinItemReviewed()">Mark Reviewed</button>
+          <button class="btn-table-action" type="button" id="tq-modal-btn-dismiss" onclick="dismissThinItemFlag()">Dismiss Flag</button>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-table-action btn-table-primary" type="button" id="tq-modal-btn-editor" onclick="openEditorFromThinQueue()">Open Article Editor</button>
+          <a class="btn-table-action" id="tq-modal-btn-live" href="#" target="_blank" rel="noopener">View Live Article</a>
+          <button class="btn-table-action" type="button" onclick="closeThinDetailModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Confirmation Modal -->
   <div id="confirm-modal" class="modal-backdrop" onclick="closeConfirmModal(event)">
     <div class="modal-box" onclick="event.stopPropagation()">
@@ -2348,6 +2578,8 @@ noindex: true
     window.__CORPUS__ = {{ editorial.masterArticlesJson | safe }};
     window.__NEEDS_ATTENTION__ = {{ editorial.needsAttentionJson | safe }};
     window.__SENSITIVE__ = {{ editorial.sensitiveArticlesJson | safe }};
+    window.__THIN_QUEUE__ = {{ editorial.thinContentQueueJson | safe }};
+    window.__THIN_STATS__ = {{ editorial.thinContentStatsJson | safe }};
 
     // Central Application State
     const AppState = {
@@ -2383,7 +2615,7 @@ noindex: true
     // SINGLE-SOURCE NAVIGATION ROUTER
     // ========================================================================
     function navigate(viewId, options = {}) {
-      const validViews = ['overview', 'articles', 'attention', 'safety', 'search', 'website', 'broken-links', 'google-news', 'settings'];
+      const validViews = ['overview', 'articles', 'thin-queue', 'attention', 'safety', 'search', 'website', 'broken-links', 'google-news', 'settings'];
       if (!validViews.includes(viewId)) viewId = 'overview';
 
       AppState.currentView = viewId;
@@ -2446,6 +2678,7 @@ noindex: true
         const labels = {
           'overview': 'Overview',
           'articles': AppState.articleSubView === 'editor' ? 'Articles / Writing Studio' : 'Articles',
+          'thin-queue': 'Thin Content Queue',
           'attention': 'Needs Attention',
           'safety': 'Safety Governance',
           'search': 'Search Performance',
@@ -2597,9 +2830,11 @@ noindex: true
       const sideArt = document.getElementById('side-art-count');
       const sideAttn = document.getElementById('side-attn-count');
       const sideSafe = document.getElementById('side-safe-count');
+      const sideThin = document.getElementById('side-thin-count');
       if (sideArt) sideArt.innerText = total.toLocaleString();
       if (sideAttn) sideAttn.innerText = attnCount.toLocaleString();
       if (sideSafe) sideSafe.innerText = safeCount.toLocaleString();
+      if (sideThin) sideThin.innerText = (window.__THIN_STATS__ && typeof window.__THIN_STATS__.flaggedCount === 'number' ? window.__THIN_STATS__.flaggedCount : 0).toLocaleString();
 
       // Articles View Strip
       const artTot = document.getElementById('art-metric-total');
@@ -3808,6 +4043,7 @@ noindex: true
         closePreviewModal();
         closeConfirmModal();
         closeRevisionModal();
+        closeThinDetailModal();
       }
     });
 
@@ -3817,6 +4053,7 @@ noindex: true
       applyFiltersAndSorting();
       renderNeedsAttentionTab();
       renderSafetyTab();
+      initThinQueueView();
 
       // Check initial URL parameters for deep links
       const params = new URLSearchParams(window.location.search);
@@ -3834,6 +4071,560 @@ noindex: true
 
       navigate(initialView, { fromPopState: true });
     });
+
+    // ========================================================================
+    // PHASE 8: THIN CONTENT QUEUE CLIENT ENGINE
+    // ========================================================================
+    const ThinQueueState = {
+      items: Array.isArray(window.__THIN_QUEUE__) ? window.__THIN_QUEUE__ : [],
+      stats: window.__THIN_STATS__ || {},
+      filteredItems: [],
+      selectedItem: null,
+      reviewStates: {}, // slug -> { status: 'reviewed' | 'dismissed', reviewer, timestamp, notes }
+      filters: {
+        classification: 'ALL',
+        desk: 'ALL',
+        words: 'ALL',
+        reviewStatus: 'ALL',
+        search: '',
+        sort: 'confidence'
+      },
+      pagination: {
+        page: 1,
+        pageSize: 25
+      }
+    };
+
+    // Load persisted review states from localStorage as local fallback
+    try {
+      const cachedReviews = localStorage.getItem('samachar_thin_queue_reviews');
+      if (cachedReviews) {
+        ThinQueueState.reviewStates = JSON.parse(cachedReviews) || {};
+      }
+    } catch (_) {}
+
+    function initThinQueueView(forceRefresh = false) {
+      if (forceRefresh) {
+        showToast('Refreshing Thin Content Queue data...', 'info');
+      }
+
+      // Sync items from global
+      ThinQueueState.items = Array.isArray(window.__THIN_QUEUE__) ? window.__THIN_QUEUE__ : [];
+      ThinQueueState.stats = window.__THIN_STATS__ || {};
+
+      // Batch fetch latest review states from Worker API if authenticated
+      fetchThinQueueReviewStates();
+
+      // Apply filters and render
+      applyThinQueueFilters();
+    }
+
+    async function fetchThinQueueReviewStates() {
+      if (!ThinQueueState.items || ThinQueueState.items.length === 0) return;
+      // Get first 100 slugs for active inspection
+      const slugs = ThinQueueState.items.slice(0, 100).map(i => i.slug).filter(Boolean);
+      if (slugs.length === 0) return;
+
+      try {
+        const resp = await fetch('/api/admin/thin-queue/reviews?slugs=' + encodeURIComponent(slugs.join(',')), {
+          headers: { 'Accept': 'application/json' }
+        });
+        if (resp.ok) {
+          const data = await resp.json();
+          if (data && data.reviews) {
+            ThinQueueState.reviewStates = { ...ThinQueueState.reviewStates, ...data.reviews };
+            try {
+              localStorage.setItem('samachar_thin_queue_reviews', JSON.stringify(ThinQueueState.reviewStates));
+            } catch (_) {}
+            renderThinQueueTable();
+          }
+        }
+      } catch (_) {
+        // Fallback gracefully to local state
+      }
+    }
+
+    function applyThinQueueFilters() {
+      let filtered = [...ThinQueueState.items];
+      const f = ThinQueueState.filters;
+
+      // 1. Classification Filter
+      if (f.classification !== 'ALL') {
+        if (f.classification === 'LOW_VALUE') {
+          filtered = filtered.filter(item => item.classification === 'Noindex' || item.classification === 'Prune');
+        } else {
+          filtered = filtered.filter(item => item.classification === f.classification);
+        }
+      }
+
+      // 2. Desk Filter
+      if (f.desk !== 'ALL') {
+        filtered = filtered.filter(item => (item.category || '').toLowerCase() === f.desk.toLowerCase());
+      }
+
+      // 3. Word Count Filter
+      if (f.words !== 'ALL') {
+        if (f.words === 'under100') filtered = filtered.filter(item => item.wordCount < 100);
+        else if (f.words === '100-199') filtered = filtered.filter(item => item.wordCount >= 100 && item.wordCount < 200);
+        else if (f.words === '200-299') filtered = filtered.filter(item => item.wordCount >= 200 && item.wordCount < 300);
+        else if (f.words === '300plus') filtered = filtered.filter(item => item.wordCount >= 300);
+      }
+
+      // 4. Review Status Filter
+      if (f.reviewStatus !== 'ALL') {
+        filtered = filtered.filter(item => {
+          const rev = ThinQueueState.reviewStates[item.slug];
+          const status = rev ? rev.status : 'unreviewed';
+          return status === f.reviewStatus;
+        });
+      }
+
+      // 5. Search Filter
+      if (f.search) {
+        const q = f.search.toLowerCase();
+        filtered = filtered.filter(item => {
+          return (item.title && item.title.toLowerCase().includes(q)) ||
+                 (item.slug && item.slug.toLowerCase().includes(q)) ||
+                 (item.reason && item.reason.toLowerCase().includes(q));
+        });
+      }
+
+      // 6. Sorting
+      const confOrder = { 'High': 3, 'Medium': 2, 'Low': 1 };
+      filtered.sort((a, b) => {
+        if (f.sort === 'confidence') {
+          const cA = confOrder[a.confidence] || 0;
+          const cB = confOrder[b.confidence] || 0;
+          if (cA !== cB) return cB - cA;
+          return a.wordCount - b.wordCount;
+        } else if (f.sort === 'newest') {
+          return (b.date || '').localeCompare(a.date || '');
+        } else if (f.sort === 'oldest') {
+          return (a.date || '').localeCompare(b.date || '');
+        } else if (f.sort === 'shortest') {
+          return a.wordCount - b.wordCount;
+        } else if (f.sort === 'longest') {
+          return b.wordCount - a.wordCount;
+        }
+        return 0;
+      });
+
+      ThinQueueState.filteredItems = filtered;
+      ThinQueueState.pagination.page = 1;
+      renderThinQueueTable();
+      updateThinQueueCounts();
+    }
+
+    function updateThinQueueCounts() {
+      const counts = ThinQueueState.stats.classificationCounts || {};
+      const total = ThinQueueState.stats.flaggedCount || ThinQueueState.items.length;
+
+      const pAll = document.getElementById('tq-count-pill-all');
+      const pEnrich = document.getElementById('tq-count-pill-enrich');
+      const pKeep = document.getElementById('tq-count-pill-keep-short');
+      const pCons = document.getElementById('tq-count-pill-consolidate');
+      const pNoindex = document.getElementById('tq-count-pill-noindex');
+      const pPrune = document.getElementById('tq-count-pill-prune');
+      const pRev = document.getElementById('tq-count-pill-review');
+
+      if (pAll) pAll.innerText = total.toLocaleString();
+      if (pEnrich) pEnrich.innerText = (counts['Enrich'] || 0).toLocaleString();
+      if (pKeep) pKeep.innerText = (counts['Keep Short'] || 0).toLocaleString();
+      if (pCons) pCons.innerText = (counts['Consolidate'] || 0).toLocaleString();
+      if (pNoindex) pNoindex.innerText = (counts['Noindex'] || 0).toLocaleString();
+      if (pPrune) pPrune.innerText = (counts['Prune'] || 0).toLocaleString();
+      if (pRev) pRev.innerText = (counts['Review'] || 0).toLocaleString();
+    }
+
+    function renderThinQueueTable() {
+      const tbody = document.getElementById('tq-table-body');
+      if (!tbody) return;
+
+      const items = ThinQueueState.filteredItems;
+      const total = items.length;
+
+      if (total === 0) {
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; padding: 48px; color: var(--color-subtle);"><div style="font-size: 16px; font-weight: 600; margin-bottom: 6px;">No articles match the current filter criteria</div><div style="font-size: 12px;">Try changing classification, desk, or clearing the search query.</div></td></tr>';
+        updateThinQueuePagination(0, 0, 0);
+        return;
+      }
+
+      const p = ThinQueueState.pagination;
+      const totalPages = Math.ceil(total / p.pageSize) || 1;
+      if (p.page > totalPages) p.page = totalPages;
+      if (p.page < 1) p.page = 1;
+
+      const startIndex = (p.page - 1) * p.pageSize;
+      const endIndex = Math.min(startIndex + p.pageSize, total);
+      const pageItems = items.slice(startIndex, endIndex);
+
+      let html = '';
+      pageItems.forEach((item, index) => {
+        const rev = ThinQueueState.reviewStates[item.slug];
+        const isReviewed = rev && rev.status === 'reviewed';
+        const isDismissed = rev && rev.status === 'dismissed';
+
+        let classBadge = '<span class="badge badge-gray">' + escapeHtml(item.classification) + '</span>';
+        if (item.classification === 'Enrich') classBadge = '<span class="badge badge-amber">Enrich</span>';
+        else if (item.classification === 'Keep Short') classBadge = '<span class="badge badge-green">Keep Short</span>';
+        else if (item.classification === 'Consolidate') classBadge = '<span class="badge badge-purple">Consolidate</span>';
+        else if (item.classification === 'Noindex') classBadge = '<span class="badge badge-gray">Noindex</span>';
+        else if (item.classification === 'Prune') classBadge = '<span class="badge badge-red">Prune</span>';
+        else if (item.classification === 'Review') classBadge = '<span class="badge badge-blue">Review</span>';
+
+        let confBadge = '<span class="badge badge-gray" style="font-size: 10px;">' + escapeHtml(item.confidence) + '</span>';
+        if (item.confidence === 'High') confBadge = '<span class="badge badge-amber" style="font-size: 10px;">HIGH</span>';
+        else if (item.confidence === 'Medium') confBadge = '<span class="badge badge-blue" style="font-size: 10px;">MED</span>';
+        else if (item.confidence === 'Low') confBadge = '<span class="badge badge-gray" style="font-size: 10px;">LOW</span>';
+
+        let reviewIndicator = '';
+        if (isReviewed) {
+          reviewIndicator = ' <span class="badge badge-green" style="font-size: 9px; padding: 1px 4px;">REVIEWED</span>';
+        } else if (isDismissed) {
+          reviewIndicator = ' <span class="badge badge-gray" style="font-size: 9px; padding: 1px 4px;">DISMISSED</span>';
+        }
+
+        let relatedCell = '<span style="color: var(--color-subtle); font-size: 11px;">None</span>';
+        if (item.relatedArticle) {
+          relatedCell = '<div style="font-size: 11px; line-height: 1.3;">' +
+            '<span class="badge badge-purple" style="font-size: 9px; margin-bottom: 2px;">' + item.relatedArticle.similarityPercent + '% Match</span><br>' +
+            '<span style="font-weight: 500; cursor: pointer; color: var(--color-brand);" onclick="openThinDetailModal(\'' + escapeJs(item.slug) + '\')">' + escapeHtml(item.relatedArticle.title.slice(0, 42)) + '...</span>' +
+            '</div>';
+        }
+
+        html += '<tr style="' + (isDismissed ? 'opacity: 0.6;' : '') + '">' +
+          '<td>' +
+            '<div class="row-article-headline" onclick="openThinDetailModal(\'' + escapeJs(item.slug) + '\')">' + escapeHtml(item.title) + reviewIndicator + '</div>' +
+            '<div class="row-article-sub">' + escapeHtml(item.url || item.relPath) + '</div>' +
+          '</td>' +
+          '<td><span class="badge badge-gray" style="text-transform: capitalize;">' + escapeHtml(item.category) + '</span></td>' +
+          '<td style="font-size: 12px; color: var(--color-subtle); white-space: nowrap;">' + escapeHtml(item.date || '—') + '</td>' +
+          '<td><strong style="color: ' + (item.wordCount < 100 ? 'var(--color-red)' : (item.wordCount < 200 ? 'var(--color-amber)' : 'var(--color-ink)')) + ';">' + item.wordCount + 'w</strong></td>' +
+          '<td style="font-size: 12px; font-weight: 500; color: var(--color-ink-light);">' + escapeHtml(item.finding) + '</td>' +
+          '<td>' + classBadge + '</td>' +
+          '<td>' + confBadge + '</td>' +
+          '<td style="font-size: 11px; color: var(--color-muted); line-height: 1.35; max-width: 260px;">' + escapeHtml(item.reason) + '</td>' +
+          '<td>' + relatedCell + '</td>' +
+          '<td style="text-align: right; white-space: nowrap;">' +
+            '<div style="display: inline-flex; gap: 4px;">' +
+              '<button class="btn-table-action" onclick="openThinDetailModal(\'' + escapeJs(item.slug) + '\')" title="Inspect signals & evidence">Inspect</button>' +
+              '<button class="btn-table-action" onclick="openArticleEditor(\'' + escapeJs(item.relPath) + '\')" title="Open in Article Editor">Edit</button>' +
+            '</div>' +
+          '</td>' +
+        '</tr>';
+      });
+
+      tbody.innerHTML = html;
+      updateThinQueuePagination(startIndex + 1, endIndex, total);
+    }
+
+    function updateThinQueuePagination(start, end, total) {
+      const infoEl = document.getElementById('tq-pagination-info');
+      const dispEl = document.getElementById('tq-page-display');
+      const btnPrev = document.getElementById('tq-btn-prev');
+      const btnNext = document.getElementById('tq-btn-next');
+
+      const p = ThinQueueState.pagination;
+      const totalPages = Math.ceil(total / p.pageSize) || 1;
+
+      if (infoEl) infoEl.innerText = total > 0 ? `Showing ${start} to ${end} of ${total.toLocaleString()} flagged articles` : 'No flagged articles found';
+      if (dispEl) dispEl.innerText = `Page ${p.page} of ${totalPages}`;
+
+      if (btnPrev) btnPrev.disabled = p.page <= 1;
+      if (btnNext) btnNext.disabled = p.page >= totalPages;
+    }
+
+    function prevThinQueuePage() {
+      if (ThinQueueState.pagination.page > 1) {
+        ThinQueueState.pagination.page--;
+        renderThinQueueTable();
+      }
+    }
+
+    function nextThinQueuePage() {
+      const totalPages = Math.ceil(ThinQueueState.filteredItems.length / ThinQueueState.pagination.pageSize) || 1;
+      if (ThinQueueState.pagination.page < totalPages) {
+        ThinQueueState.pagination.page++;
+        renderThinQueueTable();
+      }
+    }
+
+    function handleThinQueuePageSizeChange(val) {
+      const size = parseInt(val, 10);
+      if (!isNaN(size) && size > 0) {
+        ThinQueueState.pagination.pageSize = size;
+        ThinQueueState.pagination.page = 1;
+        renderThinQueueTable();
+      }
+    }
+
+    function filterThinQueueByClassification(cls) {
+      ThinQueueState.filters.classification = cls;
+
+      // Update pill buttons active state
+      const pillMap = {
+        'ALL': 'tq-pill-all',
+        'Enrich': 'tq-pill-enrich',
+        'Keep Short': 'tq-pill-keep-short',
+        'Consolidate': 'tq-pill-consolidate',
+        'Noindex': 'tq-pill-noindex',
+        'Prune': 'tq-pill-prune',
+        'Review': 'tq-pill-review'
+      };
+
+      Object.entries(pillMap).forEach(([k, btnId]) => {
+        const btn = document.getElementById(btnId);
+        if (btn) {
+          if (k === cls) btn.classList.add('active');
+          else btn.classList.remove('active');
+        }
+      });
+
+      applyThinQueueFilters();
+    }
+
+    function handleThinQueueDeskChange(val) {
+      ThinQueueState.filters.desk = val;
+      applyThinQueueFilters();
+    }
+
+    function handleThinQueueWordsChange(val) {
+      ThinQueueState.filters.words = val;
+      applyThinQueueFilters();
+    }
+
+    function handleThinQueueReviewStatusChange(val) {
+      ThinQueueState.filters.reviewStatus = val;
+      applyThinQueueFilters();
+    }
+
+    function handleThinQueueSortChange(val) {
+      ThinQueueState.filters.sort = val;
+      applyThinQueueFilters();
+    }
+
+    function handleThinQueueSearch(val) {
+      ThinQueueState.filters.search = (val || '').trim();
+      applyThinQueueFilters();
+    }
+
+    // Modal Inspection Drawer
+    function openThinDetailModal(slug) {
+      const item = ThinQueueState.items.find(i => i.slug === slug);
+      if (!item) return;
+
+      ThinQueueState.selectedItem = item;
+
+      const modal = document.getElementById('thin-item-modal');
+      const titleEl = document.getElementById('tq-modal-title');
+      const classBadge = document.getElementById('tq-modal-class-badge');
+      const deskEl = document.getElementById('tq-modal-desk');
+      const dateEl = document.getElementById('tq-modal-date');
+      const wordsEl = document.getElementById('tq-modal-words');
+      const charsEl = document.getElementById('tq-modal-chars');
+      const parasEl = document.getElementById('tq-modal-paras');
+      const statusEl = document.getElementById('tq-modal-review-status');
+      const bodyEl = document.getElementById('tq-modal-body');
+      const liveBtn = document.getElementById('tq-modal-btn-live');
+
+      if (titleEl) titleEl.innerText = item.title;
+      if (classBadge) {
+        classBadge.innerText = item.classification;
+        classBadge.className = 'badge ' + (
+          item.classification === 'Enrich' ? 'badge-amber' :
+          item.classification === 'Keep Short' ? 'badge-green' :
+          item.classification === 'Consolidate' ? 'badge-purple' :
+          item.classification === 'Noindex' ? 'badge-gray' :
+          item.classification === 'Prune' ? 'badge-red' : 'badge-blue'
+        );
+      }
+
+      if (deskEl) deskEl.innerText = (item.category || '').toUpperCase();
+      if (dateEl) dateEl.innerText = item.date || '—';
+      if (wordsEl) wordsEl.innerText = item.wordCount + ' words';
+      if (charsEl) charsEl.innerText = item.charCount ? item.charCount.toLocaleString() : '—';
+      if (parasEl) parasEl.innerText = item.paraCount || '1';
+
+      const rev = ThinQueueState.reviewStates[item.slug];
+      if (statusEl) {
+        if (rev && rev.status === 'reviewed') {
+          statusEl.innerText = 'Reviewed by ' + (rev.reviewer || 'editor');
+          statusEl.className = 'badge badge-green';
+        } else if (rev && rev.status === 'dismissed') {
+          statusEl.innerText = 'Dismissed';
+          statusEl.className = 'badge badge-gray';
+        } else {
+          statusEl.innerText = 'Unreviewed';
+          statusEl.className = 'badge badge-gray';
+        }
+      }
+
+      if (liveBtn) {
+        liveBtn.href = item.url || '#';
+      }
+
+      // Render Modal Body Content
+      if (bodyEl) {
+        let detectedHtml = '';
+        (item.detectedSignals || []).forEach(sig => {
+          detectedHtml += '<div style="display: flex; align-items: center; gap: 6px; font-size: 12px; margin-bottom: 4px; color: var(--color-ink);">' +
+            '<span style="color: var(--color-green); font-weight: bold;">&#10003;</span> ' + escapeHtml(sig) +
+            '</div>';
+        });
+        if (!detectedHtml) detectedHtml = '<div style="font-size: 12px; color: var(--color-subtle);">None flagged</div>';
+
+        let notDetectedHtml = '';
+        (item.notDetectedSignals || []).forEach(sig => {
+          notDetectedHtml += '<div style="display: flex; align-items: center; gap: 6px; font-size: 12px; margin-bottom: 4px; color: var(--color-muted);">' +
+            '<span style="color: var(--color-subtle); font-weight: bold;">&bull;</span> Not detected: ' + escapeHtml(sig) +
+            '</div>';
+        });
+        if (!notDetectedHtml) notDetectedHtml = '<div style="font-size: 12px; color: var(--color-subtle);">Standard signals present</div>';
+
+        let evidenceHtml = '';
+        (item.evidence || []).forEach(ev => {
+          evidenceHtml += '<li style="margin-bottom: 4px;">' + escapeHtml(ev) + '</li>';
+        });
+
+        let overlapHtml = '';
+        if (item.relatedArticle) {
+          overlapHtml = '<div style="background: var(--color-purple-bg); border: 1px solid var(--color-purple-border); border-radius: var(--radius-md); padding: 14px; margin-top: 14px;">' +
+            '<div style="font-size: 12px; font-weight: 700; color: var(--color-purple); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Potential Redundancy / Overlap Detected</div>' +
+            '<div style="font-size: 13px; font-weight: 600; color: var(--color-ink); margin-bottom: 4px;">' + escapeHtml(item.relatedArticle.title) + '</div>' +
+            '<div style="font-size: 11px; color: var(--color-muted); margin-bottom: 8px;">Similarity Score: <strong>' + item.relatedArticle.similarityPercent + '% shared vocabulary</strong> &middot; Published: ' + (item.relatedArticle.date || '—') + '</div>' +
+            '<div style="display: flex; gap: 8px;">' +
+              '<a class="btn-table-action" href="' + escapeHtml(item.relatedArticle.url || '#') + '" target="_blank" rel="noopener">Open Related Story &rarr;</a>' +
+            '</div>' +
+          '</div>';
+        }
+
+        bodyEl.innerHTML = `
+          <div style="background: var(--color-surface-alt); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 14px; margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-subtle); letter-spacing: 0.5px;">Advisory Recommendation</span>
+              <span class="badge ${item.confidence === 'High' ? 'badge-amber' : 'badge-blue'}">${item.confidence} Confidence</span>
+            </div>
+            <div style="font-size: 15px; font-weight: 700; color: var(--color-ink); margin-bottom: 4px;">Recommended Action: ${escapeHtml(item.classification)}</div>
+            <div style="font-size: 13px; color: var(--color-muted); line-height: 1.45;">${escapeHtml(item.reason)}</div>
+            <div style="font-size: 11px; color: var(--color-subtle); margin-top: 8px; font-style: italic;">
+              Advisory notice: This analysis is an internal editorial suggestion. The system does NOT automatically alter, prune, or noindex any article.
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 16px;">
+            <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 12px;">
+              <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-subtle); margin-bottom: 8px;">Detected Signals</div>
+              ${detectedHtml}
+            </div>
+
+            <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 12px;">
+              <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-subtle); margin-bottom: 8px;">Absence / Gaps Checked</div>
+              ${notDetectedHtml}
+            </div>
+          </div>
+
+          <div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 12px;">
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-subtle); margin-bottom: 6px;">Evidence Breakdown</div>
+            <ul style="font-size: 12px; color: var(--color-ink-light); padding-left: 18px; line-height: 1.5;">
+              ${evidenceHtml}
+            </ul>
+          </div>
+
+          ${overlapHtml}
+        `;
+      }
+
+      if (modal) modal.classList.add('show');
+    }
+
+    function closeThinDetailModal(event) {
+      if (event && event.target && !event.target.classList.contains('modal-backdrop')) return;
+      const modal = document.getElementById('thin-item-modal');
+      if (modal) modal.classList.remove('show');
+    }
+
+    async function markThinItemReviewed() {
+      const item = ThinQueueState.selectedItem;
+      if (!item) return;
+
+      const slug = item.slug;
+      try {
+        const resp = await fetch('/api/admin/thin-queue/review', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slug, relPath: item.relPath, action: 'reviewed' })
+        });
+        if (resp.ok) {
+          const resData = await resp.json().catch(() => ({}));
+          if (resData.persisted === false) {
+            showToast('Warning: Cloudflare KV is unavailable. State preserved in local session only, not permanently stored on server.', 'warning');
+          } else {
+            showToast('Article marked as reviewed. Audit event logged.', 'success');
+          }
+        } else {
+          showToast('Warning: Server review failed. Review state updated in local session only.', 'warning');
+        }
+      } catch (_) {
+        showToast('Warning: Connection failed. Review state updated in local session only.', 'warning');
+      }
+
+      ThinQueueState.reviewStates[slug] = {
+        status: 'reviewed',
+        reviewer: 'editor',
+        timestamp: new Date().toISOString()
+      };
+      try {
+        localStorage.setItem('samachar_thin_queue_reviews', JSON.stringify(ThinQueueState.reviewStates));
+      } catch (_) {}
+
+      renderThinQueueTable();
+      openThinDetailModal(slug);
+    }
+
+    async function dismissThinItemFlag() {
+      const item = ThinQueueState.selectedItem;
+      if (!item) return;
+
+      const slug = item.slug;
+      try {
+        const resp = await fetch('/api/admin/thin-queue/review', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slug, relPath: item.relPath, action: 'dismissed' })
+        });
+        if (resp.ok) {
+          const resData = await resp.json().catch(() => ({}));
+          if (resData.persisted === false) {
+            showToast('Warning: Cloudflare KV is unavailable. Flag dismissed in local session only, not permanently stored on server.', 'warning');
+          } else {
+            showToast('Flag dismissed for this article. Audit event logged.', 'info');
+          }
+        } else {
+          showToast('Warning: Server update failed. Flag dismissed in local session only.', 'warning');
+        }
+      } catch (_) {
+        showToast('Warning: Connection failed. Flag dismissed in local session only.', 'warning');
+      }
+
+      ThinQueueState.reviewStates[slug] = {
+        status: 'dismissed',
+        reviewer: 'editor',
+        timestamp: new Date().toISOString()
+      };
+      try {
+        localStorage.setItem('samachar_thin_queue_reviews', JSON.stringify(ThinQueueState.reviewStates));
+      } catch (_) {}
+
+      renderThinQueueTable();
+      openThinDetailModal(slug);
+    }
+
+    function openEditorFromThinQueue() {
+      const item = ThinQueueState.selectedItem;
+      if (!item) return;
+      closeThinDetailModal();
+      openArticleEditor(item.relPath);
+    }
   </script>
 </body>
 </html>
