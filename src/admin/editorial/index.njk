@@ -1914,6 +1914,10 @@ noindex: true
                 <span id="editor-save-status" class="editor-save-indicator">Ready to edit</span>
               </div>
               <div style="display: flex; gap: 8px;">
+                <button class="btn-table-action" type="button" id="btn-editor-history" onclick="openRevisionHistoryModal()">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  Audit History
+                </button>
                 <button class="btn-table-action" onclick="previewCurrentEditorArticle()">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                   Preview
@@ -2289,6 +2293,30 @@ noindex: true
       </div>
       <div class="modal-footer">
         <button class="btn-table-action" onclick="closePreviewModal()">Close Preview</button>
+      </div>
+    </div>
+  <!-- Revision & Audit History Modal (Phase 6) -->
+  <div id="revision-modal" class="modal-backdrop" onclick="closeRevisionModal(event)">
+    <div class="modal-box preview-mode" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="badge badge-purple">Phase 6</span>
+          <div class="modal-title" id="revision-modal-title">Revision &amp; Audit History</div>
+        </div>
+        <button class="btn-close-modal" type="button" onclick="closeRevisionModal()">&times;</button>
+      </div>
+      <div id="revision-modal-meta" style="padding: 10px 20px; font-size: 12px; color: var(--color-subtle); background: var(--color-surface-alt); border-bottom: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: center;">
+        <span id="revision-modal-article-path">src/articles/...</span>
+        <span id="revision-modal-event-count" class="badge badge-gray">0 records</span>
+      </div>
+      <div class="modal-body" id="revision-modal-body" style="max-height: 65vh; min-height: 250px;">
+        <!-- Injected via JavaScript -->
+      </div>
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-size: 11px; color: var(--color-subtle);">
+          Stored durably in Cloudflare KV. Credentials &amp; secrets strictly excluded.
+        </div>
+        <button class="btn-table-action" type="button" onclick="closeRevisionModal()">Close</button>
       </div>
     </div>
   </div>
@@ -2850,6 +2878,7 @@ noindex: true
           '<td style="text-align: right; white-space: nowrap;">' +
             '<div style="display: flex; gap: 4px; justify-content: flex-end;">' +
               '<button class="btn-table-action btn-table-primary" onclick="openArticleEditor(\'' + escapeJs(art.relPath) + '\')">Edit</button>' +
+              '<button class="btn-table-action" onclick="openRevisionHistoryModal(\'' + escapeJs(art.relPath) + '\')">History</button>' +
               '<button class="btn-table-action" onclick="openPreviewModal(\'' + escapeJs(art.relPath) + '\')">Preview</button>' +
               (isArchived
                 ? '<button class="btn-table-action" onclick="promptRestoreArticle(\'' + escapeJs(art.relPath) + '\')">Restore</button>'
@@ -2873,6 +2902,7 @@ noindex: true
           '</div>' +
           '<div style="display: flex; gap: 6px; margin-top: 8px; border-top: 1px solid var(--color-border); padding-top: 8px;">' +
             '<button class="btn-table-action btn-table-primary" style="flex: 1; justify-content: center;" onclick="openArticleEditor(\'' + escapeJs(art.relPath) + '\')">Edit</button>' +
+            '<button class="btn-table-action" style="flex: 1; justify-content: center;" onclick="openRevisionHistoryModal(\'' + escapeJs(art.relPath) + '\')">History</button>' +
             '<button class="btn-table-action" style="flex: 1; justify-content: center;" onclick="openPreviewModal(\'' + escapeJs(art.relPath) + '\')">Preview</button>' +
             (isArchived
               ? '<button class="btn-table-action" onclick="promptRestoreArticle(\'' + escapeJs(art.relPath) + '\')">Restore</button>'
@@ -3249,6 +3279,170 @@ noindex: true
     }
 
     // ========================================================================
+    // REVISION & AUDIT HISTORY MODAL (PHASE 6)
+    // ========================================================================
+    async function openRevisionHistoryModal(relPath) {
+      const targetRelPath = relPath || (AppState.currentlyEditingArticle ? AppState.currentlyEditingArticle.relPath : null);
+      if (!targetRelPath) {
+        showToast('Please select an article to view audit history', 'error');
+        return;
+      }
+
+      const art = AppState.articles.find(a => a.relPath === targetRelPath) || AppState.currentlyEditingArticle;
+      const modal = document.getElementById('revision-modal');
+      const bodyEl = document.getElementById('revision-modal-body');
+      const titleEl = document.getElementById('revision-modal-article-path');
+      const countEl = document.getElementById('revision-modal-event-count');
+
+      if (titleEl) {
+        titleEl.innerHTML = '<strong>' + escapeHtml(art ? art.title : targetRelPath) + '</strong> <span style="opacity: 0.7;">(' + escapeHtml(targetRelPath) + ')</span>';
+      }
+      if (countEl) countEl.innerText = 'Fetching...';
+
+      bodyEl.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--color-subtle);">' +
+        '<div style="font-size: 24px; margin-bottom: 8px;">&#8987;</div>' +
+        '<div>Loading audit history records from Cloudflare KV...</div>' +
+      '</div>';
+
+      modal.style.display = 'flex';
+
+      try {
+        const res = await fetch('/api/admin/audit?relPath=' + encodeURIComponent(targetRelPath));
+        if (!res.ok) {
+          bodyEl.innerHTML = '<div style="text-align: center; padding: 30px; color: var(--color-red);">' +
+            '<div style="font-size: 24px; margin-bottom: 8px;">&#9888;</div>' +
+            '<div>Failed to load audit history (' + res.status + '). Ensure server session is active.</div>' +
+          '</div>';
+          if (countEl) countEl.innerText = 'Error';
+          return;
+        }
+
+        const data = await res.json();
+        const records = (data && Array.isArray(data.history)) ? data.history : [];
+
+        if (countEl) countEl.innerText = records.length + (records.length === 1 ? ' record' : ' records');
+
+        if (records.length === 0) {
+          bodyEl.innerHTML = '<div style="text-align: center; padding: 40px 20px; color: var(--color-muted);">' +
+            '<div style="font-size: 32px; margin-bottom: 8px;">&#128220;</div>' +
+            '<div style="font-weight: 600; color: var(--color-ink); margin-bottom: 6px;">No Revision History Recorded Yet</div>' +
+            '<p style="font-size: 12px; max-width: 480px; margin: 0 auto; color: var(--color-subtle);">' +
+              'This article has not been modified since Phase 6 audit logging was activated. Future edits, saves, archives, restores, and validation checks will be logged here with complete before/after field changes.' +
+            '</p>' +
+          '</div>';
+          return;
+        }
+
+        let html = '<div style="display: flex; flex-direction: column; gap: 14px;">';
+
+        records.forEach((rec, idx) => {
+          let actionBadge = '<span class="badge badge-gray">' + escapeHtml(rec.action || 'Unknown') + '</span>';
+          if (rec.action === 'save') actionBadge = '<span class="badge badge-blue">Save / Edit</span>';
+          else if (rec.action === 'archive') actionBadge = '<span class="badge badge-amber">Archive (Noindex)</span>';
+          else if (rec.action === 'restore') actionBadge = '<span class="badge badge-green">Restore (Active)</span>';
+          else if (rec.action === 'delete') actionBadge = '<span class="badge badge-red">Permanent Delete</span>';
+
+          let statusBadge = '<span class="badge badge-green">&#10003; Committed</span>';
+          if (rec.status === 'failed') statusBadge = '<span class="badge badge-red">&#9888; Validation Rejected</span>';
+          else if (rec.status === 'conflict') statusBadge = '<span class="badge badge-amber">&#9888; Git SHA Conflict</span>';
+
+          const timeStr = rec.timestamp ? new Date(rec.timestamp).toLocaleString('en-GB', {
+            day: '2-digit', month: 'short', year: 'numeric',
+            hour: '2-digit', minute: '2-digit', second: '2-digit'
+          }) : 'N/A';
+
+          const actorStr = escapeHtml(rec.actor || 'admin');
+          const shaStr = rec.sha ? ('<code style="font-size: 11px; background: #e2e8f0; padding: 2px 6px; border-radius: 4px;">SHA: ' + escapeHtml(rec.sha.slice(0, 7)) + '</code>') : '';
+
+          html += '<div style="background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 14px 16px; box-shadow: var(--shadow-sm);">' +
+            '<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px;">' +
+              '<div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">' +
+                actionBadge +
+                statusBadge +
+                (shaStr ? ('<span>' + shaStr + '</span>') : '') +
+              '</div>' +
+              '<div style="font-size: 11px; color: var(--color-subtle); white-space: nowrap;">' + timeStr + '</div>' +
+            '</div>' +
+            '<div style="font-weight: 600; font-size: 13px; color: var(--color-ink); margin-bottom: 4px;">' +
+              escapeHtml(rec.summary || 'Editorial action performed') +
+            '</div>' +
+            '<div style="font-size: 11px; color: var(--color-muted); margin-bottom: 8px;">' +
+              'Authenticated Admin: <strong>' + actorStr + '</strong>' +
+            '</div>';
+
+          // Changed fields badges
+          const changedFields = (rec.diff && Array.isArray(rec.diff.changedFields)) ? rec.diff.changedFields : [];
+          if (changedFields.length > 0) {
+            html += '<div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px;">' +
+              changedFields.map(f => '<span class="badge badge-gray" style="font-size: 10px; padding: 1px 6px;">' + escapeHtml(f) + '</span>').join('') +
+            '</div>';
+          }
+
+          // Before / After Diff Details
+          const fieldChanges = (rec.diff && rec.diff.fieldChanges) ? rec.diff.fieldChanges : {};
+          const changeKeys = Object.keys(fieldChanges);
+          if (changeKeys.length > 0) {
+            html += '<details style="margin-top: 8px; font-size: 12px; background: var(--color-surface-alt); border-radius: var(--radius-sm); border: 1px solid var(--color-border); padding: 8px 12px;">' +
+              '<summary style="cursor: pointer; font-weight: 600; color: var(--color-ink-light); user-select: none;">View Before / After Differences (' + changeKeys.length + ' fields)</summary>' +
+              '<div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">';
+
+            changeKeys.forEach(k => {
+              const item = fieldChanges[k];
+              if (k === 'body') {
+                html += '<div style="background: #ffffff; padding: 8px 10px; border-radius: 4px; border: 1px solid var(--color-border);">' +
+                  '<div style="font-weight: 600; color: var(--color-ink); margin-bottom: 2px;">Article Body:</div>' +
+                  '<div style="font-size: 11px; color: var(--color-muted);">' +
+                    'Words: <strong>' + item.oldWords + '</strong> &rarr; <strong>' + item.newWords + '</strong> ' +
+                    '(' + (item.wordDiff >= 0 ? '+' : '') + item.wordDiff + ' words)' +
+                  '</div>' +
+                  (item.previewSnippet ? '<div style="font-family: var(--font-mono); font-size: 11px; color: var(--color-subtle); margin-top: 4px; background: var(--color-surface-alt); padding: 4px 6px; border-radius: 3px;">' + escapeHtml(item.previewSnippet) + '</div>' : '') +
+                '</div>';
+              } else {
+                html += '<div style="background: #ffffff; padding: 8px 10px; border-radius: 4px; border: 1px solid var(--color-border);">' +
+                  '<div style="font-weight: 600; color: var(--color-ink); margin-bottom: 4px;">Field: <code>' + escapeHtml(k) + '</code></div>' +
+                  '<div style="display: flex; flex-direction: column; gap: 2px; font-size: 11px;">' +
+                    '<div style="color: var(--color-red); background: var(--color-red-bg); padding: 3px 6px; border-radius: 3px;">&minus; Before: ' + escapeHtml(String(item.old !== undefined ? item.old : '(empty)')) + '</div>' +
+                    '<div style="color: var(--color-green); background: var(--color-green-bg); padding: 3px 6px; border-radius: 3px;">+ After: ' + escapeHtml(String(item.new !== undefined ? item.new : '(empty)')) + '</div>' +
+                  '</div>' +
+                '</div>';
+              }
+            });
+
+            html += '</div></details>';
+          }
+
+          // Validation errors display if failed
+          if (rec.validation && Array.isArray(rec.validation.errors) && rec.validation.errors.length > 0) {
+            html += '<div style="margin-top: 8px; background: var(--color-red-bg); border: 1px solid var(--color-red-border); color: var(--color-red); padding: 8px 12px; border-radius: var(--radius-sm); font-size: 11px;">' +
+              '<strong>Validation Errors:</strong>' +
+              '<ul style="margin: 4px 0 0 16px;">' +
+                rec.validation.errors.map(err => '<li>' + escapeHtml(err) + '</li>').join('') +
+              '</ul>' +
+            '</div>';
+          }
+
+          html += '</div>';
+        });
+
+        html += '</div>';
+        bodyEl.innerHTML = html;
+
+      } catch (err) {
+        bodyEl.innerHTML = '<div style="text-align: center; padding: 30px; color: var(--color-red);">' +
+          '<div style="font-size: 24px; margin-bottom: 8px;">&#9888;</div>' +
+          '<div>Network error loading audit history.</div>' +
+        '</div>';
+        if (countEl) countEl.innerText = 'Error';
+      }
+    }
+
+    function closeRevisionModal(e) {
+      if (e && e.target && e.target.id !== 'revision-modal' && !e.target.classList.contains('btn-close-modal') && !e.target.classList.contains('btn-table-action')) return;
+      const modal = document.getElementById('revision-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    // ========================================================================
     // MUTATION HANDLERS: ARCHIVE, RESTORE, DELETE
     // ========================================================================
     function promptArchiveArticle(relPath) {
@@ -3608,11 +3802,12 @@ noindex: true
       }, 3500);
     }
 
-    // Close preview modal on ESC key
+    // Close modals on ESC key
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closePreviewModal();
         closeConfirmModal();
+        closeRevisionModal();
       }
     });
 

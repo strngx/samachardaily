@@ -20,6 +20,13 @@ import {
 } from './auth.js';
 
 import { loginHtml, editorialHtml } from './admin-views.js';
+import {
+  recordAuditEvent,
+  getArticleAuditHistory,
+  getRecentAuditLogs,
+  computeArticleDiff,
+  validateArticlePayload
+} from './audit.js';
 import yaml from 'js-yaml';
 
 // GitHub Contents API Configuration
@@ -368,7 +375,74 @@ export default {
       }
     }
 
-    // 5. API ENDPOINTS: Authenticated Article Operations
+    // 5. API ENDPOINTS: Authenticated Audit Operations (Phase 6)
+    if (pathname === '/api/admin/audit' || pathname.startsWith('/api/admin/audit/')) {
+      const token = getSessionTokenFromRequest(request);
+      const session = (token && env.ADMIN_SESSION_SECRET)
+        ? await verifySessionToken(token, env.ADMIN_SESSION_SECRET)
+        : null;
+
+      if (!session) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Unauthorized. Please log in.'
+        }), {
+          status: 401,
+          headers: {
+            'Content-Type': 'application/json',
+            ...getSecurityHeaders()
+          }
+        });
+      }
+
+      // 5A. GET /api/admin/audit — Article-specific audit history
+      if (pathname === '/api/admin/audit' && method === 'GET') {
+        const relPath = url.searchParams.get('relPath');
+        if (!validateArticleRelPath(relPath)) {
+          return new Response(JSON.stringify({
+            success: false,
+            error: 'Invalid target path. Only Markdown files in src/articles/ are permitted.'
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        const history = await getArticleAuditHistory(env, relPath);
+        return new Response(JSON.stringify({
+          success: true,
+          relPath,
+          count: history.length,
+          history
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // 5B. GET /api/admin/audit/recent — Global recent audit logs
+      if (pathname === '/api/admin/audit/recent' && method === 'GET') {
+        const limitParam = parseInt(url.searchParams.get('limit') || '50', 10);
+        const limit = isNaN(limitParam) ? 50 : Math.min(Math.max(limitParam, 1), 100);
+
+        const recent = await getRecentAuditLogs(env, limit);
+        return new Response(JSON.stringify({
+          success: true,
+          count: recent.length,
+          recent
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      return new Response(JSON.stringify({ success: false, error: 'Endpoint not found' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+      });
+    }
+
+    // 6. API ENDPOINTS: Authenticated Article Operations
     if (pathname.startsWith('/api/admin/articles/')) {
       const token = getSessionTokenFromRequest(request);
       const session = (token && env.ADMIN_SESSION_SECRET)
@@ -474,6 +548,27 @@ export default {
             });
           }
 
+          // Validate article payload constraints
+          const validation = validateArticlePayload(body);
+          if (!validation.valid) {
+            await recordAuditEvent(env, {
+              actor: session.sub || 'admin',
+              action: 'save',
+              status: 'failed',
+              relPath,
+              validation,
+              summary: `Validation rejected: ${validation.errors.join('; ')}`
+            });
+            return new Response(JSON.stringify({
+              success: false,
+              error: validation.errors[0] || 'Validation failed',
+              errors: validation.errors
+            }), {
+              status: 400,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+
           // 1. Fetch current file from GitHub
           let ghFile;
           try {
@@ -492,6 +587,15 @@ export default {
 
           // 2. Concurrency check: compare client expected SHA with current SHA
           if (sha && sha !== currentSha) {
+            await recordAuditEvent(env, {
+              actor: session.sub || 'admin',
+              action: 'save',
+              status: 'conflict',
+              relPath,
+              sha: currentSha,
+              validation: { valid: false, errors: ['Concurrency conflict: Git SHA mismatch'] },
+              summary: 'Save conflict: Article was modified in GitHub by another process'
+            });
             return new Response(JSON.stringify({
               success: false,
               error: 'This article changed in GitHub since you opened it. Reload before saving.',
@@ -506,6 +610,9 @@ export default {
           // 3. Decode existing Markdown and parse frontmatter
           const rawMarkdown = decodeBase64ToUtf8(ghFile.content || '');
           const parsed = parseFrontmatter(rawMarkdown);
+
+          // Compute structured diff before updating
+          const diff = computeArticleDiff(parsed.data, parsed.content, body);
 
           // 4. Update ONLY permitted fields; PRESERVE all protected fields (slug, date, videos, video_id, trending, featured, layout, canonical)
           if (typeof title === 'string' && title.trim()) parsed.data.title = title.trim();
@@ -532,11 +639,27 @@ export default {
           // 5. Commit to GitHub main branch via PUT
           const commitMessage = `admin: update article ${relPath}`;
           const putRes = await putToGitHub(relPath, base64Content, currentSha, commitMessage, env.GITHUB_CONTENTS_TOKEN);
+          const newSha = putRes.content ? putRes.content.sha : currentSha;
+
+          // Record successful audit event into durable KV
+          await recordAuditEvent(env, {
+            actor: session.sub || 'admin',
+            action: 'save',
+            status: 'success',
+            relPath,
+            sha: newSha,
+            commitMessage,
+            validation: { valid: true },
+            diff,
+            summary: diff.changedFields.length > 0
+              ? `Saved changes to ${diff.changedFields.join(', ')}`
+              : 'Saved article without field modifications'
+          });
 
           return new Response(JSON.stringify({
             success: true,
             message: 'Saved successfully',
-            sha: putRes.content ? putRes.content.sha : currentSha,
+            sha: newSha,
             modified: nowIso,
             wordCount: newWordCount
           }), {
@@ -573,6 +696,15 @@ export default {
           const currentSha = ghFile.sha;
 
           if (sha && sha !== currentSha) {
+            await recordAuditEvent(env, {
+              actor: session.sub || 'admin',
+              action: 'archive',
+              status: 'conflict',
+              relPath,
+              sha: currentSha,
+              validation: { valid: false, errors: ['Concurrency conflict: Git SHA mismatch'] },
+              summary: 'Archive conflict: Article changed in GitHub'
+            });
             return new Response(JSON.stringify({
               success: false,
               error: 'This article changed in GitHub since you opened it. Reload before saving.',
@@ -593,12 +725,29 @@ export default {
 
           const commitMessage = `admin: archive article (set noindex: true) ${relPath}`;
           const putRes = await putToGitHub(relPath, base64Content, currentSha, commitMessage, env.GITHUB_CONTENTS_TOKEN);
+          const newSha = putRes.content ? putRes.content.sha : currentSha;
+
+          // Record archive action to audit store
+          await recordAuditEvent(env, {
+            actor: session.sub || 'admin',
+            action: 'archive',
+            status: 'success',
+            relPath,
+            sha: newSha,
+            commitMessage,
+            validation: { valid: true },
+            diff: {
+              changedFields: ['noindex'],
+              fieldChanges: { noindex: { old: false, new: true } }
+            },
+            summary: 'Article archived (marked noindex: true)'
+          });
 
           return new Response(JSON.stringify({
             success: true,
             message: 'Article archived successfully (set to noindex)',
             noindex: true,
-            sha: putRes.content ? putRes.content.sha : currentSha,
+            sha: newSha,
             modified: nowIso
           }), {
             status: 200,
@@ -634,6 +783,15 @@ export default {
           const currentSha = ghFile.sha;
 
           if (sha && sha !== currentSha) {
+            await recordAuditEvent(env, {
+              actor: session.sub || 'admin',
+              action: 'restore',
+              status: 'conflict',
+              relPath,
+              sha: currentSha,
+              validation: { valid: false, errors: ['Concurrency conflict: Git SHA mismatch'] },
+              summary: 'Restore conflict: Article changed in GitHub'
+            });
             return new Response(JSON.stringify({
               success: false,
               error: 'This article changed in GitHub since you opened it. Reload before saving.',
@@ -654,12 +812,29 @@ export default {
 
           const commitMessage = `admin: restore article (active/indexable) ${relPath}`;
           const putRes = await putToGitHub(relPath, base64Content, currentSha, commitMessage, env.GITHUB_CONTENTS_TOKEN);
+          const newSha = putRes.content ? putRes.content.sha : currentSha;
+
+          // Record restore action to audit store
+          await recordAuditEvent(env, {
+            actor: session.sub || 'admin',
+            action: 'restore',
+            status: 'success',
+            relPath,
+            sha: newSha,
+            commitMessage,
+            validation: { valid: true },
+            diff: {
+              changedFields: ['noindex'],
+              fieldChanges: { noindex: { old: true, new: false } }
+            },
+            summary: 'Article restored to active search indexation'
+          });
 
           return new Response(JSON.stringify({
             success: true,
             message: 'Article restored successfully (active/indexable)',
             noindex: false,
-            sha: putRes.content ? putRes.content.sha : currentSha,
+            sha: newSha,
             modified: nowIso
           }), {
             status: 200,
@@ -744,6 +919,18 @@ export default {
 
           const commitMessage = `admin: delete article ${relPath}`;
           await deleteFromGitHub(relPath, currentSha, commitMessage, env.GITHUB_CONTENTS_TOKEN);
+
+          // Record delete action to audit store
+          await recordAuditEvent(env, {
+            actor: session.sub || 'admin',
+            action: 'delete',
+            status: 'success',
+            relPath,
+            sha: currentSha,
+            commitMessage,
+            validation: { valid: true },
+            summary: 'Article permanently deleted from corpus'
+          });
 
           return new Response(JSON.stringify({
             success: true,
