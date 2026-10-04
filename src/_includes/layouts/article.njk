@@ -187,41 +187,60 @@ layout: layouts/base.njk
       </div>
     </aside>
 
-    <!-- 12. Related Articles Block for Internal Linking (4 Most Recent in Same Category) -->
-    {% set catKey = (category or "India") | categorySlug %}
-    {% set catArticles = (collections.relatedArticlesByCategory and collections.relatedArticlesByCategory[catKey]) or [] %}
-    {% if catArticles.length > 1 or (catArticles.length == 1 and catArticles[0].url != page.url) %}
-      <aside class="also-read-bottom" aria-label="Related Articles">
-        <div class="also-read-bottom-title">RELATED ARTICLES</div>
-        <ul class="also-read-list">
-          {% set count = 0 %}
-          {% for rel in catArticles %}
-            {% if rel.url != page.url and count < 4 %}
-              {% set count = count + 1 %}
-              <li class="also-read-item">
-                <a href="{{ rel.url | url }}">{{ rel.data.title }}</a>
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </aside>
-    {% endif %}
-
-    <!-- 12. In-Article Ad Slot -->
-    {% set slotName = "article-bottom" %}
-    {% include "partials/ad-slot.njk" %}
-
-    <!-- 13. Related Stories ("More in [Category]") -->
-    {% set related = collections.articles | relatedArticles(category, page.url, 3) %}
-    {% if related.length > 0 %}
-      <section class="more-from-category" aria-label="More in {{ category }}">
-        <h2 class="more-title">More in {{ category }}</h2>
-        <div class="more-grid">
-          {% for article in related %}
-            {% include "partials/card.njk" %}
+    <!-- 12. Related Stories (Deterministic Build-Time Similarity) -->
+    {% set stories = (relatedStories and relatedStories[page.url]) or [] %}
+    {% if stories.length > 0 %}
+      <section class="related-stories-section" aria-labelledby="related-stories-heading">
+        <div class="related-stories-header">
+          <h2 id="related-stories-heading" class="related-stories-title">Related Stories</h2>
+          <span class="related-stories-badge">Curated Coverage</span>
+        </div>
+        <div class="related-stories-grid">
+          {% for item in stories %}
+            <article class="editorial-card related-story-card">
+              {% if item.image %}
+                <a href="{{ item.url | url }}" class="card-thumb" aria-label="{{ item.title }}">
+                  <img 
+                    src="{{ item.image | url }}" 
+                    alt="{{ item.imageAlt or item.title }}" 
+                    loading="lazy" 
+                    decoding="async"
+                    width="400" 
+                    height="225"
+                  >
+                </a>
+              {% else %}
+                <a href="{{ item.url | url }}" class="card-thumb card-thumb-placeholder category-bg-{{ item.category | lower }}" aria-label="{{ item.title }}">
+                  <div class="placeholder-inner">
+                    <span class="placeholder-brand">Samachar<span class="brand-red">Daily</span></span>
+                    <span class="placeholder-category">{{ item.category }}</span>
+                  </div>
+                </a>
+              {% endif %}
+              <div class="card-body-wrap">
+                <div class="card-cat-wrap">
+                  <a href="{{ ('/' + (item.category | categorySlug) + '/') | url }}" class="category-label">
+                    {{ item.category }}
+                  </a>
+                </div>
+                <h3 class="card-title">
+                  <a href="{{ item.url | url }}">{{ item.title }}</a>
+                </h3>
+                {% if item.dek %}
+                  <p class="card-snippet">{{ item.dek }}</p>
+                {% endif %}
+                <div class="meta-row card-meta-row" style="margin-top: auto; font-size: 0.75rem;">
+                  <time datetime="{{ item.date }}">{{ item.date | timeAgo }}</time>
+                </div>
+              </div>
+            </article>
           {% endfor %}
         </div>
       </section>
     {% endif %}
+
+    <!-- 13. In-Article Ad Slot -->
+    {% set slotName = "article-bottom" %}
+    {% include "partials/ad-slot.njk" %}
   </article>
 </div>
