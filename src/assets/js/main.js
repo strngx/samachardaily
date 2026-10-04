@@ -53,10 +53,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Idle prefetch of search index (Phase 10)
+  let searchIndexPrefetched = false;
+  function prefetchSearchIndex() {
+    if (searchIndexPrefetched || window.__SEARCH_INDEX_PROMISE__) return;
+    searchIndexPrefetched = true;
+    const fetchPromise = fetch('/search-index.json')
+      .then(res => res.ok ? res.json() : [])
+      .then(data => {
+        window.__SAMACHAR_SEARCH_INDEX__ = data;
+        return data;
+      })
+      .catch(() => []);
+    window.__SEARCH_INDEX_PROMISE__ = fetchPromise;
+  }
+
   function openSearchDrawer() {
     if (!searchDrawer) return;
     // Close mobile nav if open
     closeMobileNav();
+    prefetchSearchIndex();
     searchDrawer.classList.add("is-open");
     if (searchToggleBtn) {
       searchToggleBtn.setAttribute("aria-expanded", "true");
@@ -112,6 +128,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 3. Search Drawer Toggle
   if (searchToggleBtn && searchDrawer) {
+    searchToggleBtn.addEventListener("mouseenter", prefetchSearchIndex, { once: true });
+    searchToggleBtn.addEventListener("focus", prefetchSearchIndex, { once: true });
+
     searchToggleBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       if (searchDrawer.classList.contains("is-open")) {

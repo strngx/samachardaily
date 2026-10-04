@@ -17,132 +17,90 @@ noindex: true
 
     <h1 class="article-headline-main">Search Articles</h1>
     <p style="color: var(--color-muted); font-size: 1.125rem; margin-bottom: var(--space-6);">
-      Search across all five categories: India, World, Business, Tech, and Sports.
+      Search verified reporting across India, World, Business, Tech, and Sports.
     </p>
 
-    <div style="margin-bottom: var(--space-8);">
+    <!-- Search Form -->
+    <div style="margin-bottom: var(--space-6);">
       <form class="search-form-page" id="main-search-form" action="{{ '/search/' | url }}" method="get" role="search">
         <input 
           type="search" 
           name="q"
           id="page-search-input" 
           class="search-page-input" 
-          placeholder="Type a topic, company, policy, or sport..."
+          placeholder="Type a headline, topic, company, policy, or sport..."
           autocomplete="off"
-          required
+          maxlength="200"
         >
         <button type="submit" class="search-page-btn">Search</button>
       </form>
     </div>
 
-    <!-- Search Results Container -->
-    <div id="search-results" class="grid-comp-b" style="display: none;">
-      <!-- Populated via client JS -->
+    <!-- Filter Toolbar -->
+    <div class="search-filters-bar" aria-label="Search Filters">
+      <!-- Desk Filter Pills -->
+      <div class="desk-pills" role="group" aria-label="Filter by Desk">
+        <button type="button" class="desk-pill is-active" data-desk="all" aria-pressed="true">All Desks</button>
+        <button type="button" class="desk-pill" data-desk="india" aria-pressed="false">India</button>
+        <button type="button" class="desk-pill" data-desk="world" aria-pressed="false">World</button>
+        <button type="button" class="desk-pill" data-desk="business" aria-pressed="false">Business</button>
+        <button type="button" class="desk-pill" data-desk="tech" aria-pressed="false">Tech</button>
+        <button type="button" class="desk-pill" data-desk="sports" aria-pressed="false">Sports</button>
+      </div>
+
+      <!-- Secondary Filters: Date & Sort -->
+      <div class="search-dropdowns">
+        <div class="search-dropdown-group">
+          <label for="search-date-filter" class="search-filter-label">Date:</label>
+          <select id="search-date-filter" class="search-select">
+            <option value="any">Any Time</option>
+            <option value="24h">Past 24 Hours</option>
+            <option value="7d">Past 7 Days</option>
+            <option value="30d">Past 30 Days</option>
+            <option value="year">This Year</option>
+          </select>
+        </div>
+
+        <div class="search-dropdown-group">
+          <label for="search-sort-filter" class="search-filter-label">Sort:</label>
+          <select id="search-sort-filter" class="search-select">
+            <option value="relevance">Most Relevant</option>
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+          </select>
+        </div>
+
+        <button type="button" id="search-reset-filters" class="search-btn-reset" title="Reset all filters">Clear</button>
+      </div>
     </div>
 
+    <!-- Match Count & Meta Header -->
+    <div id="search-results-meta" class="search-results-meta" style="display: none;" aria-live="polite"></div>
+
+    <!-- Search Results Container -->
+    <div id="search-results" class="grid-comp-b search-results-grid" style="display: none;" aria-live="polite">
+      <!-- Populated dynamically via src/assets/js/search.js -->
+    </div>
+
+    <!-- Pagination Bounded Controller -->
+    <div id="search-pagination" class="search-pagination" style="display: none;">
+      <button type="button" id="search-load-more" class="btn-load-more">Load More Stories</button>
+    </div>
+
+    <!-- Empty / Initial Guidance State -->
     <div id="search-empty-state" class="empty-newsroom-state" style="padding: 40px 0; text-align: center; color: var(--color-muted);">
       <p>Enter keywords above to find verified reporting across our categories.</p>
+      <div class="search-category-hints">
+        <span>Quick browse:</span>
+        <a href="{{ '/india/' | url }}">India</a> &bull;
+        <a href="{{ '/world/' | url }}">World</a> &bull;
+        <a href="{{ '/business/' | url }}">Business</a> &bull;
+        <a href="{{ '/tech/' | url }}">Tech</a> &bull;
+        <a href="{{ '/sports/' | url }}">Sports</a>
+      </div>
     </div>
 
-    <!-- Client-side Search Index Payload -->
-    <script>
-      window.SEARCH_INDEX = [
-        {% for article in collections.articles %}
-        {
-          title: {{ article.data.title | json | safe }},
-          dek: {{ (article.data.dek or "") | json | safe }},
-          url: "{{ article.url | url }}",
-          category: "{{ article.data.category }}",
-          categorySlug: "{{ article.data.category | categorySlug }}",
-          date: "{{ article.date | timeAgo }}",
-          readTime: "{{ article.templateContent | readTime }}",
-          image: "{{ (article.data.image | url) if article.data.image else '' }}"
-        }{% if not loop.last %},{% endif %}
-        {% endfor %}
-      ];
-
-      document.addEventListener("DOMContentLoaded", () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const query = urlParams.get("q") || "";
-        const input = document.getElementById("page-search-input");
-        const resultsContainer = document.getElementById("search-results");
-        const emptyState = document.getElementById("search-empty-state");
-
-        if (window.SEARCH_INDEX.length === 0) {
-          emptyState.innerHTML = "<p>No stories published to search yet. As new articles are published, they will be searchable here.</p>";
-        }
-
-        function performSearch(q) {
-          const trimmed = q.trim();
-          if (!trimmed) {
-            resultsContainer.style.display = "none";
-            emptyState.style.display = "block";
-            if (window.SEARCH_INDEX.length === 0) {
-              emptyState.innerHTML = "<p>No stories published to search yet. As new articles are published, they will be searchable here.</p>";
-            } else {
-              emptyState.innerHTML = "<p>Enter keywords above to find verified reporting across our categories.</p>";
-            }
-            return;
-          }
-
-          if (window.SEARCH_INDEX.length === 0) {
-            resultsContainer.style.display = "none";
-            emptyState.style.display = "block";
-            emptyState.innerHTML = "<p>No stories published to search yet.</p>";
-            return;
-          }
-
-          const terms = trimmed.toLowerCase().split(" ").filter(Boolean);
-          const matches = window.SEARCH_INDEX.filter(item => {
-            const fullText = (item.title + " " + item.dek + " " + item.category).toLowerCase();
-            return terms.every(term => fullText.includes(term));
-          });
-
-          if (matches.length === 0) {
-            resultsContainer.style.display = "none";
-            emptyState.style.display = "block";
-            emptyState.innerHTML = `<p>No stories found matching <strong>"${trimmed}"</strong>. Try broader keywords or browse categories.</p>`;
-            return;
-          }
-
-          emptyState.style.display = "none";
-          resultsContainer.style.display = "grid";
-          resultsContainer.innerHTML = matches.map(item => `
-            <article class="editorial-card">
-              ${item.image ? `
-                <a href="${item.url}" class="card-thumb">
-                  <img src="${item.image}" alt="${item.title}" loading="lazy" decoding="async" width="400" height="225">
-                </a>
-              ` : ''}
-              <div>
-                <span class="category-label">${item.category}</span>
-              </div>
-              <h3 class="card-title"><a href="${item.url}">${item.title}</a></h3>
-              <p class="card-snippet">${item.dek}</p>
-              <div class="meta-row" style="margin-top: auto; font-size: 0.75rem;">
-                <span>${item.date}</span> • <span>${item.readTime}</span>
-              </div>
-            </article>
-          `).join("");
-        }
-
-        if (input) {
-          input.value = query;
-          if (query) performSearch(query);
-
-          input.addEventListener("input", (e) => {
-            performSearch(e.target.value);
-          });
-
-          const mainSearchForm = document.getElementById("main-search-form");
-          if (mainSearchForm) {
-            mainSearchForm.addEventListener("submit", (e) => {
-              e.preventDefault();
-              performSearch(input.value);
-            });
-          }
-        }
-      });
-    </script>
   </div>
 </div>
+
+<script src="{{ '/assets/js/search.js' | url }}" defer></script>

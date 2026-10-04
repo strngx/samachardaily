@@ -27,6 +27,11 @@ import {
   computeArticleDiff,
   validateArticlePayload
 } from './audit.js';
+import {
+  checkArticleSafety,
+  getRevisionKey,
+  getSignoffKey
+} from './safety.js';
 import yaml from 'js-yaml';
 
 // GitHub Contents API Configuration
@@ -580,6 +585,270 @@ export default {
           success: true,
           count: Object.keys(reviews).length,
           reviews
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      return new Response(JSON.stringify({ success: false, error: 'Endpoint not found' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+      });
+    }
+
+    // 5D. API ENDPOINTS: Authenticated Editorial Safety (Phase 9)
+    if (pathname === '/api/admin/safety' || pathname.startsWith('/api/admin/safety/')) {
+      const token = getSessionTokenFromRequest(request);
+      const session = (token && env.ADMIN_SESSION_SECRET)
+        ? await verifySessionToken(token, env.ADMIN_SESSION_SECRET)
+        : null;
+
+      if (!session) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Unauthorized. Please log in.'
+        }), {
+          status: 401,
+          headers: {
+            'Content-Type': 'application/json',
+            ...getSecurityHeaders()
+          }
+        });
+      }
+
+      // 5D-1. POST /api/admin/safety/check — Run on-demand editorial safety evaluation
+      if (pathname === '/api/admin/safety/check' && method === 'POST') {
+        try {
+          const body = await request.json();
+          const { relPath, sha, title, dek, body: articleBody, sourceName, sourceUrl, image, imageCredit, imageAlt, skipAi } = body || {};
+
+          if (relPath && !validateArticleRelPath(relPath)) {
+            return new Response(JSON.stringify({
+              success: false,
+              error: 'Invalid target path. Only Markdown files in src/articles/ are permitted.'
+            }), {
+              status: 400,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+
+          const pathParts = (relPath || '').split('/');
+          const filename = pathParts[pathParts.length - 1] || '';
+          const slug = body.slug || filename.replace(/\.md$/, '') || 'dispatch';
+
+          const report = await checkArticleSafety({
+            slug,
+            sha,
+            title,
+            dek,
+            body: articleBody,
+            sourceName,
+            sourceUrl,
+            image,
+            imageCredit,
+            imageAlt
+          }, env, { skipAi: Boolean(skipAi) });
+
+          return new Response(JSON.stringify({
+            success: true,
+            report,
+            result: report,
+            persisted: report.persisted
+          }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        } catch (e) {
+          return new Response(JSON.stringify({
+            success: false,
+            error: 'Failed to process safety check: ' + e.message
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+      }
+
+      // 5D-2. GET /api/admin/safety/status — Retrieve revision-bound safety state
+      if (pathname === '/api/admin/safety/status' && method === 'GET') {
+        const slug = url.searchParams.get('slug');
+        const sha = url.searchParams.get('sha');
+
+        if (!slug || !/^[a-zA-Z0-9_-]+$/.test(slug)) {
+          return new Response(JSON.stringify({
+            success: false,
+            error: 'Missing or invalid article slug parameter.'
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        let report = null;
+        let signoff = null;
+
+        if (env && env.AUTH_KV && typeof env.AUTH_KV.get === 'function' && sha) {
+          try {
+            const cacheKey = getRevisionKey(slug, sha);
+            const reportRaw = await env.AUTH_KV.get(cacheKey);
+            if (reportRaw) {
+              report = JSON.parse(reportRaw);
+            }
+
+            const signoffKey = getSignoffKey(slug, sha);
+            const signoffRaw = await env.AUTH_KV.get(signoffKey);
+            if (signoffRaw) {
+              signoff = JSON.parse(signoffRaw);
+            }
+          } catch (_) {}
+        }
+
+        return new Response(JSON.stringify({
+          success: true,
+          slug,
+          sha: sha || null,
+          found: Boolean(report || signoff),
+          hasReport: Boolean(report),
+          isCurrentRevision: Boolean(report && sha && report.sha === sha),
+          report,
+          result: report,
+          signoff
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // 5D-3. POST /api/admin/safety/sign-off — Record authenticated editorial sign-off
+      if (pathname === '/api/admin/safety/sign-off' && method === 'POST') {
+        try {
+          const body = await request.json();
+          const { slug, relPath, sha, action, notes } = body || {};
+
+          if (!slug || typeof slug !== 'string' || !/^[a-zA-Z0-9_-]+$/.test(slug)) {
+            return new Response(JSON.stringify({
+              success: false,
+              error: 'Invalid or missing article slug.'
+            }), {
+              status: 400,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+
+          if (!sha || typeof sha !== 'string' || sha.length < 6) {
+            return new Response(JSON.stringify({
+              success: false,
+              error: 'Missing or invalid revision SHA. Safety sign-off must be bound to an exact Git revision.'
+            }), {
+              status: 400,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+
+          if (relPath && !validateArticleRelPath(relPath)) {
+            return new Response(JSON.stringify({
+              success: false,
+              error: 'Invalid target path. Only Markdown files in src/articles/ are permitted.'
+            }), {
+              status: 400,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+
+          const allowedActions = ['acknowledge', 'override', 'remediation_acknowledged', 'reset', 'signoff', 'SIGNOFF'];
+          if (!action || !allowedActions.includes(action)) {
+            return new Response(JSON.stringify({
+              success: false,
+              error: 'Invalid action. Allowed actions: acknowledge, override, remediation_acknowledged, reset, signoff.'
+            }), {
+              status: 400,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+
+          const signoffKey = getSignoffKey(slug, sha);
+          const nowIso = new Date().toISOString();
+          let persisted = false;
+          let signoffPayload = null;
+
+          if (action === 'reset') {
+            if (env && env.AUTH_KV && typeof env.AUTH_KV.delete === 'function') {
+              try {
+                await env.AUTH_KV.delete(signoffKey);
+                persisted = true;
+              } catch (_) {}
+            }
+          } else {
+            signoffPayload = {
+              slug,
+              sha,
+              relPath: relPath || '',
+              action,
+              reviewer: session.sub || 'admin',
+              timestamp: nowIso,
+              notes: typeof notes === 'string' ? notes.slice(0, 500) : ''
+            };
+
+            if (env && env.AUTH_KV && typeof env.AUTH_KV.put === 'function') {
+              try {
+                // 30 days expiration TTL
+                await env.AUTH_KV.put(signoffKey, JSON.stringify(signoffPayload), { expirationTtl: 2592000 });
+                persisted = true;
+              } catch (kvErr) {
+                console.error('[Safety KV Error] Failed to persist sign-off:', kvErr.message);
+              }
+            }
+          }
+
+          // Record Phase 6 audit event
+          try {
+            await recordAuditEvent(env, {
+              actor: session.sub || 'admin',
+              action: 'safety_signoff',
+              slug,
+              sha,
+              relPath: relPath || '',
+              summary: `Editorial safety action for "${slug}" (SHA ${sha.slice(0, 7)}): ${action} by ${session.sub || 'admin'}${notes ? ' - ' + notes.slice(0, 100) : ''}`,
+              status: 'success'
+            });
+          } catch (auditErr) {
+            console.error('[Audit Error] Failed to record safety audit event:', auditErr.message);
+          }
+
+          return new Response(JSON.stringify({
+            success: true,
+            persisted,
+            slug,
+            sha,
+            action,
+            signoff: signoffPayload,
+            timestamp: nowIso
+          }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        } catch (err) {
+          return new Response(JSON.stringify({
+            success: false,
+            error: 'Failed to process safety sign-off: ' + err.message
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+      }
+
+      // 5D-4. GET /api/admin/safety/queue — Safety flagged queue list
+      if (pathname === '/api/admin/safety/queue' && method === 'GET') {
+        const limitParam = parseInt(url.searchParams.get('limit') || '50', 10);
+        const limit = isNaN(limitParam) ? 50 : Math.min(Math.max(limitParam, 1), 100);
+
+        return new Response(JSON.stringify({
+          success: true,
+          count: 0,
+          limit,
+          queue: []
         }), {
           status: 200,
           headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }

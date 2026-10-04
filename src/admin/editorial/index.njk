@@ -1936,6 +1936,9 @@ noindex: true
                 <span id="editor-save-status" class="editor-save-indicator">Ready to edit</span>
               </div>
               <div style="display: flex; gap: 8px;">
+                <button class="btn-table-action" type="button" id="btn-editor-safety" onclick="openSafetyInspectionModal()" style="display: inline-flex; align-items: center; gap: 6px;">
+                  <span id="editor-safety-pill" class="badge badge-gray" style="font-size: 11px; padding: 2px 7px;">Safety: Unchecked</span>
+                </button>
                 <button class="btn-table-action" type="button" id="btn-editor-history" onclick="openRevisionHistoryModal()">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                   Audit History
@@ -2059,6 +2062,24 @@ noindex: true
                   </div>
                   <div id="edit-image-preview-wrap" style="display: none; margin-top: 8px;">
                     <img id="edit-image-preview" src="" alt="Hero preview" style="width: 100%; height: 130px; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+                  </div>
+                </div>
+
+                <!-- Editorial Safety Gate Card (Phase 9) -->
+                <div class="sidebar-widget-card" id="editor-safety-sidebar-card">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <div class="widget-title" style="margin-bottom: 0;">Editorial Safety Gate</div>
+                    <span id="safety-card-gate-badge" class="badge badge-gray" style="font-size: 11px;">Unchecked</span>
+                  </div>
+                  <p style="font-size: 11px; color: var(--color-subtle); margin-bottom: 10px;">Deterministic PII, wire attribution, sensitivity, rights, and claim verification.</p>
+                  <div id="safety-card-summary" style="font-size: 11px; color: var(--color-muted); margin-bottom: 12px; display: none;"></div>
+                  <div style="display: flex; gap: 6px;">
+                    <button class="btn-table-action" type="button" id="btn-run-safety-check" onclick="runSafetyCheckFromEditor()" style="flex: 1; font-size: 11px;">
+                      Run Safety Check
+                    </button>
+                    <button class="btn-table-action" type="button" onclick="openSafetyInspectionModal()" style="font-size: 11px;">
+                      Inspect
+                    </button>
                   </div>
                 </div>
 
@@ -2546,6 +2567,53 @@ noindex: true
           <button class="btn-table-action btn-table-primary" type="button" id="tq-modal-btn-editor" onclick="openEditorFromThinQueue()">Open Article Editor</button>
           <a class="btn-table-action" id="tq-modal-btn-live" href="#" target="_blank" rel="noopener">View Live Article</a>
           <button class="btn-table-action" type="button" onclick="closeThinDetailModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Editorial Safety Inspection Modal (Phase 9) -->
+  <div id="safety-inspection-modal" class="modal-backdrop" onclick="closeSafetyModal(event)">
+    <div class="modal-box preview-mode" onclick="event.stopPropagation()" style="max-width: 840px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="badge badge-gray" id="safety-modal-gate-badge">Unchecked</span>
+          <div class="modal-title" id="safety-modal-title">Editorial Safety &amp; Integrity Analysis</div>
+        </div>
+        <button class="btn-close-modal" type="button" onclick="closeSafetyModal()">&times;</button>
+      </div>
+
+      <div id="safety-modal-meta-strip" style="padding: 10px 20px; font-size: 12px; color: var(--color-subtle); background: var(--color-surface-alt); border-bottom: 1px solid var(--color-border); display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between;">
+        <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
+          <div><strong>Revision SHA:</strong> <span id="safety-modal-sha" style="font-family: var(--font-mono); font-size: 11px;">Unsaved</span></div>
+          <div><strong>Checked:</strong> <span id="safety-modal-checked-at">Not checked yet</span></div>
+          <div><strong>Persistence:</strong> <span id="safety-modal-kv-status" class="badge badge-gray">Pending</span></div>
+        </div>
+        <div id="safety-modal-signoff-status" style="font-size: 11px; font-weight: 500;"></div>
+      </div>
+
+      <!-- Navigation tabs inside modal -->
+      <div style="display: flex; gap: 4px; padding: 10px 20px 0; border-bottom: 1px solid var(--color-border); background: var(--color-surface); overflow-x: auto;">
+        <button class="btn-table-action active" id="safety-tab-all" onclick="switchSafetyModalTab('all')" style="font-size: 12px; padding: 4px 10px;">Summary Overview</button>
+        <button class="btn-table-action" id="safety-tab-pii" onclick="switchSafetyModalTab('pii')" style="font-size: 12px; padding: 4px 10px;">Privacy / PII</button>
+        <button class="btn-table-action" id="safety-tab-claims" onclick="switchSafetyModalTab('claims')" style="font-size: 12px; padding: 4px 10px;">Claims &amp; Facts</button>
+        <button class="btn-table-action" id="safety-tab-source" onclick="switchSafetyModalTab('source')" style="font-size: 12px; padding: 4px 10px;">Source Attribution</button>
+        <button class="btn-table-action" id="safety-tab-sensitivity" onclick="switchSafetyModalTab('sensitivity')" style="font-size: 12px; padding: 4px 10px;">Sensitive Topics</button>
+        <button class="btn-table-action" id="safety-tab-media" onclick="switchSafetyModalTab('media')" style="font-size: 12px; padding: 4px 10px;">Media Rights</button>
+      </div>
+
+      <div class="modal-body" id="safety-modal-body" style="max-height: 55vh; overflow-y: auto; padding: 20px;">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-top: 1px solid var(--color-border); padding: 12px 20px;">
+        <div id="safety-signoff-container" style="display: flex; align-items: center; gap: 8px;">
+          <input type="text" id="safety-signoff-notes" class="form-input-sm" placeholder="Editorial rationale (optional)..." style="width: 220px; font-size: 12px; padding: 4px 8px;">
+          <button class="btn-table-action" type="button" id="btn-safety-signoff" onclick="handleSafetySignoff()" style="font-size: 12px;">Editorial Sign-Off</button>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-table-action" type="button" id="btn-re-safety-check" onclick="runSafetyCheckFromEditor(false)" style="font-size: 12px;">Re-run Check</button>
+          <button class="btn-table-action" type="button" onclick="closeSafetyModal()" style="font-size: 12px;">Close</button>
         </div>
       </div>
     </div>
@@ -3300,6 +3368,10 @@ noindex: true
         }
       }
 
+      // Phase 9: Initialize and fetch cached safety status for this revision
+      resetSafetyEditorState();
+      fetchEditorialSafetyStatus(art);
+
       const scrollWrap = document.getElementById('main-workspace-scroll');
       if (scrollWrap) scrollWrap.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -3369,6 +3441,16 @@ noindex: true
         imageCredit: document.getElementById('edit-image-credit').value
       };
 
+      if (SafetyState.currentResult && SafetyState.currentResult.gate === 'BLOCKED') {
+        const proceed = confirm('Editorial Safety Gate is currently BLOCKED for this article.\n\nBlocking issues should ideally be remediated before publishing.\n\nDo you still wish to save this revision?');
+        if (!proceed) {
+          btn.disabled = false;
+          saveStatus.className = 'editor-save-indicator';
+          saveStatus.innerText = 'Save paused (Safety Blocked)';
+          return;
+        }
+      }
+
       try {
         const res = await fetch('/api/admin/articles/save', {
           method: 'POST',
@@ -3384,6 +3466,10 @@ noindex: true
           if (data.sha) AppState.currentlyEditingArticle.sha = data.sha;
           AppState.currentlyEditingArticle.wordCount = data.wordCount || payload.body.trim().split(/\s+/).filter(Boolean).length;
           AppState.currentlyEditingArticle.modified = data.modified;
+
+          // Phase 9: New Git SHA invalidates previous safety checks/sign-offs
+          resetSafetyEditorState();
+          updateSafetyPillAndBadge('UNCHECKED', 'Safety: Re-check required');
 
           const timeStr = new Date(data.modified).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
           saveStatus.className = 'editor-save-indicator saved';
@@ -4044,6 +4130,7 @@ noindex: true
         closeConfirmModal();
         closeRevisionModal();
         closeThinDetailModal();
+        closeSafetyModal();
       }
     });
 
@@ -4624,6 +4711,493 @@ noindex: true
       if (!item) return;
       closeThinDetailModal();
       openArticleEditor(item.relPath);
+    }
+
+    // ========================================================================
+    // PHASE 9: AI EDITORIAL SAFETY & INTEGRITY ASSISTANT
+    // ========================================================================
+    const SafetyState = {
+      currentResult: null,
+      currentSignoff: null,
+      activeTab: 'all',
+      isChecking: false
+    };
+
+    function resetSafetyEditorState() {
+      SafetyState.currentResult = null;
+      SafetyState.currentSignoff = null;
+      SafetyState.activeTab = 'all';
+      SafetyState.isChecking = false;
+      updateSafetyPillAndBadge('UNCHECKED', 'Safety: Unchecked');
+    }
+
+    function updateSafetyPillAndBadge(gate, customLabel) {
+      const pill = document.getElementById('editor-safety-pill');
+      const badge = document.getElementById('safety-card-gate-badge');
+      const summary = document.getElementById('safety-card-summary');
+      const g = (gate || 'UNCHECKED').toUpperCase();
+
+      let badgeClass = 'badge-gray';
+      let label = customLabel || ('Safety: ' + g);
+
+      if (g === 'PASS') {
+        badgeClass = 'badge-green';
+        label = customLabel || 'Safety: PASS';
+      } else if (g === 'NEEDS_REVIEW') {
+        badgeClass = 'badge-amber';
+        label = customLabel || 'Safety: NEEDS REVIEW';
+      } else if (g === 'BLOCKED') {
+        badgeClass = 'badge-red';
+        label = customLabel || 'Safety: BLOCKED';
+      } else if (g === 'SIGNED_OFF') {
+        badgeClass = 'badge-teal';
+        label = customLabel || 'Safety: SIGNED OFF';
+      } else if (g === 'CHECKING') {
+        badgeClass = 'badge-blue';
+        label = 'Safety: Analyzing...';
+      }
+
+      if (pill) {
+        pill.className = 'badge ' + badgeClass;
+        pill.innerText = label;
+      }
+      if (badge) {
+        badge.className = 'badge ' + badgeClass;
+        badge.innerText = g === 'CHECKING' ? 'Checking...' : g;
+      }
+
+      if (summary) {
+        if (SafetyState.currentResult) {
+          summary.style.display = 'block';
+          const r = SafetyState.currentResult;
+          const piiCount = (r.checks && r.checks.pii && r.checks.pii.findings) ? r.checks.pii.findings.length : 0;
+          const claimsCount = (r.checks && r.checks.claims && r.checks.claims.claims) ? r.checks.claims.claims.length : 0;
+          const topics = (r.checks && r.checks.sensitivity && r.checks.sensitivity.topics) ? r.checks.sensitivity.topics : [];
+          summary.innerHTML = '<div style="display:flex; flex-direction:column; gap:4px;">' +
+            '<div>&bull; Gate: <strong>' + escapeHtml(r.gate) + '</strong></div>' +
+            '<div>&bull; PII Findings: <strong>' + piiCount + '</strong></div>' +
+            '<div>&bull; Factual Claims: <strong>' + claimsCount + '</strong></div>' +
+            '<div>&bull; Sensitivity: <strong>' + (topics.length ? escapeHtml(topics.join(', ')) : 'Standard') + '</strong></div>' +
+            (SafetyState.currentSignoff ? '<div style="color:var(--color-teal); font-weight:600;">&bull; Signed off by ' + escapeHtml(SafetyState.currentSignoff.user || 'Admin') + '</div>' : '') +
+          '</div>';
+        } else {
+          summary.style.display = 'none';
+        }
+      }
+    }
+
+    async function fetchEditorialSafetyStatus(art) {
+      if (!art || !art.slug) return;
+      try {
+        const query = '?slug=' + encodeURIComponent(art.slug) + (art.sha ? '&sha=' + encodeURIComponent(art.sha) : '');
+        const res = await fetch('/api/admin/safety/status' + query);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.found) {
+            SafetyState.currentResult = data.result || null;
+            SafetyState.currentSignoff = data.signoff || null;
+            if (SafetyState.currentSignoff && SafetyState.currentResult) {
+              updateSafetyPillAndBadge('SIGNED_OFF', 'Safety: Signed Off (' + (data.signoff.user || 'Admin') + ')');
+            } else if (SafetyState.currentResult) {
+              updateSafetyPillAndBadge(SafetyState.currentResult.gate);
+            }
+          }
+        }
+      } catch (_) {}
+    }
+
+    async function runSafetyCheckFromEditor(openModalAfter = false) {
+      if (!AppState.currentlyEditingArticle) {
+        showToast('No active article selected in editor', 'error');
+        return;
+      }
+      if (SafetyState.isChecking) return;
+
+      const art = AppState.currentlyEditingArticle;
+      SafetyState.isChecking = true;
+      updateSafetyPillAndBadge('CHECKING');
+      showToast('Running multi-tier editorial safety analysis...', 'info');
+
+      const payload = {
+        relPath: art.relPath,
+        slug: art.slug,
+        sha: art.sha || null,
+        title: document.getElementById('edit-headline').value,
+        dek: document.getElementById('edit-dek').value,
+        body: document.getElementById('edit-body').value,
+        sourceName: document.getElementById('edit-source-name').value,
+        sourceUrl: document.getElementById('edit-source-url').value,
+        image: document.getElementById('edit-image').value,
+        imageCredit: document.getElementById('edit-image-credit').value
+      };
+
+      try {
+        const res = await fetch('/api/admin/safety/check', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        SafetyState.isChecking = false;
+
+        if (res.ok && data.success && data.result) {
+          SafetyState.currentResult = data.result;
+          SafetyState.currentSignoff = null; // New check resets previous signoff for this pass
+
+          updateSafetyPillAndBadge(data.result.gate);
+
+          if (!data.result.persisted) {
+            showToast('Safety check passed with ephemeral state (KV storage unavailable)', 'warning');
+          } else {
+            showToast('Editorial safety analysis complete (' + data.result.gate + ')', data.result.gate === 'BLOCKED' ? 'error' : (data.result.gate === 'NEEDS_REVIEW' ? 'warning' : 'success'));
+          }
+
+          if (openModalAfter) {
+            openSafetyInspectionModal();
+          } else {
+            // Also refresh modal if it happens to be open
+            const modal = document.getElementById('safety-inspection-modal');
+            if (modal && modal.style.display === 'flex') {
+              renderSafetyModalContent();
+            }
+          }
+        } else {
+          updateSafetyPillAndBadge('UNCHECKED', 'Safety: Analysis Failed');
+          showToast(data.error || 'Safety check encountered an error', 'error');
+        }
+      } catch (err) {
+        SafetyState.isChecking = false;
+        updateSafetyPillAndBadge('UNCHECKED', 'Safety: Network Error');
+        showToast('Failed to reach safety API: ' + err.message, 'error');
+      }
+    }
+
+    function openSafetyInspectionModal() {
+      if (!AppState.currentlyEditingArticle) {
+        showToast('Open an article in the editor first', 'warning');
+        return;
+      }
+
+      if (!SafetyState.currentResult && !SafetyState.isChecking) {
+        runSafetyCheckFromEditor(true);
+        return;
+      }
+
+      renderSafetyModalContent();
+      const modal = document.getElementById('safety-inspection-modal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeSafetyModal(e) {
+      if (e && e.target && e.target.id !== 'safety-inspection-modal' && !e.target.classList.contains('btn-close-modal') && e.target.tagName !== 'BUTTON') {
+        return;
+      }
+      const modal = document.getElementById('safety-inspection-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function switchSafetyModalTab(tabId) {
+      SafetyState.activeTab = tabId;
+      document.querySelectorAll('#safety-inspection-modal [id^="safety-tab-"]').forEach(btn => {
+        btn.classList.toggle('active', btn.id === 'safety-tab-' + tabId);
+      });
+      renderSafetyModalContent();
+    }
+
+    function renderSafetyModalContent() {
+      const r = SafetyState.currentResult;
+      const art = AppState.currentlyEditingArticle;
+      if (!art) return;
+
+      const gateBadge = document.getElementById('safety-modal-gate-badge');
+      const shaEl = document.getElementById('safety-modal-sha');
+      const checkedEl = document.getElementById('safety-modal-checked-at');
+      const kvEl = document.getElementById('safety-modal-kv-status');
+      const signoffStatusEl = document.getElementById('safety-modal-signoff-status');
+      const bodyEl = document.getElementById('safety-modal-body');
+      const signoffContainer = document.getElementById('safety-signoff-container');
+
+      const gate = r ? r.gate : 'UNCHECKED';
+      if (gateBadge) {
+        let cls = 'badge-gray';
+        if (gate === 'PASS') cls = 'badge-green';
+        else if (gate === 'NEEDS_REVIEW') cls = 'badge-amber';
+        else if (gate === 'BLOCKED') cls = 'badge-red';
+        gateBadge.className = 'badge ' + cls;
+        gateBadge.innerText = gate;
+      }
+
+      if (shaEl) shaEl.innerText = (art.sha ? art.sha.slice(0, 10) : (r && r.sha ? r.sha.slice(0, 10) : 'Working Draft (Unsaved)'));
+      if (checkedEl) checkedEl.innerText = (r && r.checkedAt) ? new Date(r.checkedAt).toLocaleTimeString() : 'Not checked';
+      if (kvEl) {
+        kvEl.className = 'badge ' + (r && r.persisted ? 'badge-green' : 'badge-gray');
+        kvEl.innerText = (r && r.persisted) ? 'KV Persisted' : 'Ephemeral';
+      }
+
+      if (signoffStatusEl) {
+        if (SafetyState.currentSignoff) {
+          signoffStatusEl.innerHTML = '<span style="color:var(--color-teal);">&check; Editorial Sign-Off by <strong>' + escapeHtml(SafetyState.currentSignoff.user || 'Admin') + '</strong> at ' + new Date(SafetyState.currentSignoff.timestamp).toLocaleTimeString() + '</span>';
+        } else if (gate === 'NEEDS_REVIEW') {
+          signoffStatusEl.innerHTML = '<span style="color:var(--color-amber);">&#9888; Requires Editorial Sign-Off or Remediation</span>';
+        } else if (gate === 'BLOCKED') {
+          signoffStatusEl.innerHTML = '<span style="color:var(--color-red); font-weight:700;">&#10008; BLOCKED: Must remediate before publishing</span>';
+        } else {
+          signoffStatusEl.innerHTML = '<span style="color:var(--color-green);">&check; Clear pre-publication safety gate</span>';
+        }
+      }
+
+      if (signoffContainer) {
+        signoffContainer.style.display = (gate === 'NEEDS_REVIEW' || gate === 'BLOCKED') ? 'flex' : 'none';
+      }
+
+      if (!r || !r.checks) {
+        bodyEl.innerHTML = '<div style="text-align:center; padding:40px; color:var(--color-subtle);">' +
+          '<div style="font-weight:600; margin-bottom:8px;">No safety analysis data available for current text.</div>' +
+          '<button class="btn-table-action btn-table-primary" onclick="runSafetyCheckFromEditor(false)">Run Editorial Safety Check</button>' +
+        '</div>';
+        return;
+      }
+
+      const tab = SafetyState.activeTab;
+      let html = '';
+
+      if (tab === 'all') {
+        html += '<div style="display:flex; flex-direction:column; gap:16px;">';
+        
+        // Gate Banner
+        let bannerBg = 'var(--color-blue-bg)';
+        let bannerBorder = 'var(--color-blue-border)';
+        let bannerText = 'Deterministic &amp; AI Editorial Safety Checks Complete.';
+        if (gate === 'BLOCKED') {
+          bannerBg = 'var(--color-red-bg)';
+          bannerBorder = 'var(--color-red-border)';
+          bannerText = '<strong>BLOCKED:</strong> High-confidence deterministic rule violations detected. You must remediate these items.';
+        } else if (gate === 'NEEDS_REVIEW') {
+          bannerBg = 'var(--color-amber-bg)';
+          bannerBorder = 'var(--color-amber-border)';
+          bannerText = '<strong>NEEDS EDITORIAL REVIEW:</strong> Content contains items requiring explicit editorial sign-off or attribution review.';
+        } else if (gate === 'PASS') {
+          bannerBg = 'var(--color-green-bg)';
+          bannerBorder = 'var(--color-green-border)';
+          bannerText = '<strong>GATE PASSED:</strong> Deterministic checks clean and attribution documented.';
+        }
+
+        html += '<div style="padding:12px 16px; border-radius:var(--radius-sm); background:' + bannerBg + '; border:1px solid ' + bannerBorder + '; font-size:13px;">' + bannerText + '</div>';
+
+        // 5 Summary Pillars
+        html += '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px;">';
+        
+        // 1. PII
+        const piiFindings = (r.checks.pii && r.checks.pii.findings) || [];
+        html += '<div style="border:1px solid var(--color-border); border-radius:var(--radius-sm); padding:12px; background:var(--color-surface); cursor:pointer;" onclick="switchSafetyModalTab(\'pii\')">' +
+          '<div style="display:flex; justify-content:space-between; margin-bottom:6px;"><strong>Privacy &amp; PII</strong>' +
+          (piiFindings.length ? '<span class="badge badge-red">' + piiFindings.length + ' Found</span>' : '<span class="badge badge-green">Clean</span>') +
+          '</div><div style="font-size:12px; color:var(--color-subtle);">' + (piiFindings.length ? 'Sensitive private identifiers detected' : 'No personal private numbers/IDs found') + '</div></div>';
+
+        // 2. Claims
+        const claims = (r.checks.claims && (r.checks.claims.items || r.checks.claims.claims)) || [];
+        html += '<div style="border:1px solid var(--color-border); border-radius:var(--radius-sm); padding:12px; background:var(--color-surface); cursor:pointer;" onclick="switchSafetyModalTab(\'claims\')">' +
+          '<div style="display:flex; justify-content:space-between; margin-bottom:6px;"><strong>Claims Detected</strong>' +
+          '<span class="badge badge-gray">' + claims.length + ' Extracted</span>' +
+          '</div><div style="font-size:12px; color:var(--color-subtle);">Deterministic extraction (AI verification disabled)</div></div>';
+
+        // 3. Source
+        const srcCheck = r.checks.source || {};
+        html += '<div style="border:1px solid var(--color-border); border-radius:var(--radius-sm); padding:12px; background:var(--color-surface); cursor:pointer;" onclick="switchSafetyModalTab(\'source\')">' +
+          '<div style="display:flex; justify-content:space-between; margin-bottom:6px;"><strong>Source &amp; Wire</strong>' +
+          '<span class="badge ' + (srcCheck.status === 'VERIFIED' ? 'badge-green' : 'badge-amber') + '">' + escapeHtml(srcCheck.status || 'UNCHECKED') + '</span>' +
+          '</div><div style="font-size:12px; color:var(--color-subtle);">' + escapeHtml(srcCheck.details || 'Attribution evaluation') + '</div></div>';
+
+        // 4. Sensitive
+        const sensCheck = r.checks.sensitivity || {};
+        const topics = sensCheck.topics || [];
+        html += '<div style="border:1px solid var(--color-border); border-radius:var(--radius-sm); padding:12px; background:var(--color-surface); cursor:pointer;" onclick="switchSafetyModalTab(\'sensitivity\')">' +
+          '<div style="display:flex; justify-content:space-between; margin-bottom:6px;"><strong>Sensitive Story</strong>' +
+          (topics.length ? '<span class="badge badge-blue">' + topics.length + ' Topics</span>' : '<span class="badge badge-gray">General</span>') +
+          '</div><div style="font-size:12px; color:var(--color-subtle);">' + (topics.length ? escapeHtml(topics.join(', ')) : 'Standard editorial jurisdiction') + '</div></div>';
+
+        // 5. Media
+        const mediaCheck = r.checks.media || {};
+        html += '<div style="border:1px solid var(--color-border); border-radius:var(--radius-sm); padding:12px; background:var(--color-surface); cursor:pointer;" onclick="switchSafetyModalTab(\'media\')">' +
+          '<div style="display:flex; justify-content:space-between; margin-bottom:6px;"><strong>Media Rights</strong>' +
+          '<span class="badge ' + (mediaCheck.status === 'VERIFIED / DOCUMENTED' ? 'badge-green' : (mediaCheck.status === 'NEEDS CREDIT' ? 'badge-amber' : 'badge-gray')) + '">' + escapeHtml(mediaCheck.status || 'UNKNOWN') + '</span>' +
+          '</div><div style="font-size:12px; color:var(--color-subtle);">' + escapeHtml(mediaCheck.details || 'Photo credit validation') + '</div></div>';
+
+        html += '</div></div>';
+      } else if (tab === 'pii') {
+        const findings = (r.checks.pii && r.checks.pii.findings) || [];
+        html += '<div style="display:flex; flex-direction:column; gap:12px;">';
+        html += '<div style="font-size:12px; color:var(--color-subtle); line-height:1.4;">Deterministic scanner identifies private personal identifiers (Aadhaar, PAN, personal phone numbers, bank accounts, UPI IDs, private residences). Public institutional contact details are allowed.</div>';
+        if (findings.length === 0) {
+          html += '<div style="padding:24px; text-align:center; color:var(--color-green); background:var(--color-green-bg); border:1px solid var(--color-green-border); border-radius:var(--radius-sm);">' +
+            '<strong>&check; No private personal identifiers found.</strong> Clean deterministic privacy scan.' +
+          '</div>';
+        } else {
+          findings.forEach((f) => {
+            html += '<div style="border:1px solid var(--color-red-border); background:var(--color-red-bg); padding:12px; border-radius:var(--radius-sm);">' +
+              '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">' +
+                '<strong style="color:var(--color-red); font-size:13px;">[' + escapeHtml(f.type) + '] ' + escapeHtml(f.detected) + '</strong>' +
+                '<span class="badge badge-red">' + escapeHtml(f.confidence) + ' Confidence</span>' +
+              '</div>' +
+              '<div style="font-size:12px; color:var(--color-ink); margin-bottom:6px;">' + escapeHtml(f.reason) + '</div>' +
+              '<div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--color-muted);">' +
+                '<span><strong>Action:</strong> ' + escapeHtml(f.suggestedAction) + '</span>' +
+                '<button class="btn-table-action" type="button" onclick="previewRedactionInEditor(\'' + escapeJs(f.detected) + '\', \'' + escapeJs(f.type) + '\')">Preview Redaction in Editor</button>' +
+              '</div>' +
+            '</div>';
+          });
+        }
+        html += '</div>';
+      } else if (tab === 'claims') {
+        const claims = (r.checks.claims && (r.checks.claims.items || r.checks.claims.claims)) || [];
+        html += '<div style="display:flex; flex-direction:column; gap:12px;">';
+        html += '<div style="padding:10px 14px; background:var(--color-surface-alt); border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:12px; color:var(--color-ink); line-height:1.5;">' +
+          '<strong>Claims detected:</strong> Automated factual claim extraction identifies numbers, dates, quotations, and high-impact assertions. ' +
+          '<em>Automatic AI verification is not enabled</em> to preserve production publishing quotas. ' +
+          'For difficult claims, manually verify against the cited source.' +
+        '</div>';
+        if (claims.length === 0) {
+          html += '<div style="padding:24px; text-align:center; color:var(--color-muted); background:var(--color-surface-alt); border-radius:var(--radius-sm);">No high-priority statistical or named factual claims extracted.</div>';
+        } else {
+          claims.forEach((c) => {
+            let stCls = 'badge-gray';
+            let stLabel = 'Manual Check';
+            if (c.verificationStatus === 'SUPPORTED_BY_SOURCE') {
+              stCls = 'badge-green';
+              stLabel = 'Wire Attributed';
+            } else if (c.verificationStatus === 'UNATTRIBUTED_ASSERTION') {
+              stCls = 'badge-amber';
+              stLabel = 'Unattributed';
+            } else if (c.verificationStatus === 'CONFLICTING_EVIDENCE') {
+              stCls = 'badge-red';
+              stLabel = 'Conflicting';
+            } else if (c.verificationStatus === 'REQUIRES_MANUAL_VERIFICATION' || c.verificationStatus === 'UNABLE_TO_VERIFY') {
+              stCls = 'badge-blue';
+              stLabel = 'Manual Review';
+            }
+
+            html += '<div style="border:1px solid var(--color-border); background:var(--color-surface); padding:12px; border-radius:var(--radius-sm);">' +
+              '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">' +
+                '<span class="badge badge-gray" style="font-size:10px;">' + escapeHtml(c.claimType || 'FACT') + '</span>' +
+                '<span class="badge ' + stCls + '">' + escapeHtml(stLabel) + '</span>' +
+              '</div>' +
+              '<div style="font-weight:600; font-size:13px; color:var(--color-ink); margin-bottom:6px;">&ldquo;' + escapeHtml(c.claimText) + '&rdquo;</div>' +
+              '<div style="font-size:11px; color:var(--color-muted);">' + escapeHtml(c.reason || 'Claim extracted; manual verification against cited source recommended.') + '</div>' +
+            '</div>';
+          });
+        }
+        html += '</div>';
+      } else if (tab === 'source') {
+        const src = r.checks.source || {};
+        html += '<div style="display:flex; flex-direction:column; gap:12px;">';
+        html += '<div style="border:1px solid var(--color-border); padding:16px; border-radius:var(--radius-sm); background:var(--color-surface);">' +
+          '<div style="display:flex; justify-content:space-between; margin-bottom:12px;">' +
+            '<div><strong>Declared Wire Source:</strong> <span style="font-family:var(--font-mono);">' + escapeHtml(src.sourceName || 'None') + '</span></div>' +
+            '<span class="badge ' + (src.status === 'VERIFIED' ? 'badge-green' : 'badge-amber') + '">' + escapeHtml(src.status) + '</span>' +
+          '</div>' +
+          '<div style="font-size:12px; margin-bottom:8px;"><strong>Wire URL:</strong> ' + (src.sourceUrl ? '<a href="' + escapeHtml(src.sourceUrl) + '" target="_blank" rel="noopener" style="color:var(--color-brand);">' + escapeHtml(src.sourceUrl) + '</a>' : '<span style="color:var(--color-amber);">Missing</span>') + '</div>' +
+          '<div style="font-size:12px; color:var(--color-muted); margin-bottom:6px;"><strong>Details:</strong> ' + escapeHtml(src.details || 'Attribution evaluation') + '</div>' +
+          '<div style="font-size:11px; color:var(--color-subtle);">' +
+            (src.isRecognizedWire ? '&check; Declared wire service is recognized in syndication directory.' : '&bull; Unrecognized or local agency. Ensure manual attribution verification.') +
+          '</div>' +
+        '</div></div>';
+      } else if (tab === 'sensitivity') {
+        const sens = r.checks.sensitivity || {};
+        const topics = sens.topics || [];
+        html += '<div style="display:flex; flex-direction:column; gap:12px;">';
+        html += '<div style="font-size:12px; color:var(--color-subtle); line-height:1.4;">Monitors sensitive editorial topics (POCSO / minors, Sec 228A IPC / Sec 72 BNS, self-harm WHO standards, elections, and national security). Provides advisory recommendations only; does not issue legal verdicts.</div>';
+        if (topics.length === 0) {
+          html += '<div style="padding:24px; text-align:center; color:var(--color-green); background:var(--color-green-bg); border:1px solid var(--color-green-border); border-radius:var(--radius-sm);">' +
+            '<strong>&check; No sensitive statutory trigger patterns identified.</strong> Standard dispatch.' +
+          '</div>';
+        } else {
+          topics.forEach(t => {
+            html += '<div style="border:1px solid var(--color-blue-border); background:var(--color-blue-bg); padding:12px; border-radius:var(--radius-sm);">' +
+              '<div style="display:flex; justify-content:space-between; margin-bottom:6px;">' +
+                '<strong style="color:var(--color-blue); font-size:13px;">' + escapeHtml(t) + '</strong>' +
+                '<span class="badge badge-blue">Requires Editorial Review</span>' +
+              '</div>' +
+              '<div style="font-size:12px; color:var(--color-ink);">Content mentions or relates to statutory protection categories. Adhere to Press Council of India standards and prevent non-consensual disclosure of victim/minor identities.</div>' +
+            '</div>';
+          });
+        }
+        html += '</div>';
+      } else if (tab === 'media') {
+        const media = r.checks.media || {};
+        html += '<div style="display:flex; flex-direction:column; gap:12px;">';
+        html += '<div style="border:1px solid var(--color-border); padding:16px; border-radius:var(--radius-sm); background:var(--color-surface);">' +
+          '<div style="display:flex; justify-content:space-between; margin-bottom:12px;">' +
+            '<div><strong>Hero Visual Status:</strong></div>' +
+            '<span class="badge ' + (media.status === 'VERIFIED / DOCUMENTED' ? 'badge-green' : (media.status === 'NEEDS CREDIT' ? 'badge-amber' : 'badge-gray')) + '">' + escapeHtml(media.status) + '</span>' +
+          '</div>' +
+          '<div style="font-size:12px; margin-bottom:6px;"><strong>Credit Line:</strong> ' + escapeHtml(media.credit || 'None specified') + '</div>' +
+          '<div style="font-size:12px; color:var(--color-muted); margin-bottom:8px;"><strong>Analysis:</strong> ' + escapeHtml(media.details || 'Media rights verification') + '</div>' +
+          (media.isAiGenerated ? '<div style="font-size:11px; color:var(--color-purple); font-weight:600;">&#9888; AI-generated illustration detected. Transparency disclosure recommended.</div>' : '') +
+          (media.isSocialScreenshot ? '<div style="font-size:11px; color:var(--color-amber); font-weight:600;">&#9888; Social media screen capture detected. Fair dealing / citation standards apply.</div>' : '') +
+        '</div></div>';
+      }
+
+      bodyEl.innerHTML = html;
+    }
+
+    async function handleSafetySignoff() {
+      if (!AppState.currentlyEditingArticle) return;
+      const art = AppState.currentlyEditingArticle;
+      const notes = (document.getElementById('safety-signoff-notes').value || '').trim();
+      const btn = document.getElementById('btn-safety-signoff');
+      btn.disabled = true;
+      btn.innerText = 'Signing off...';
+
+      try {
+        const res = await fetch('/api/admin/safety/sign-off', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            slug: art.slug,
+            relPath: art.relPath,
+            sha: art.sha || (SafetyState.currentResult && SafetyState.currentResult.sha) || 'working-draft',
+            action: 'SIGNOFF',
+            notes: notes || 'Editorial review confirmed by editor'
+          })
+        });
+
+        const data = await res.json();
+        btn.disabled = false;
+        btn.innerText = 'Editorial Sign-Off';
+
+        if (res.ok && data.success && data.signoff) {
+          SafetyState.currentSignoff = data.signoff;
+          updateSafetyPillAndBadge('SIGNED_OFF', 'Safety: Signed Off (' + (data.signoff.user || 'Admin') + ')');
+          renderSafetyModalContent();
+          showToast('Editorial sign-off recorded for this article revision', 'success');
+        } else {
+          showToast(data.error || 'Failed to record sign-off', 'error');
+        }
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerText = 'Editorial Sign-Off';
+        showToast('Error sending sign-off: ' + err.message, 'error');
+      }
+    }
+
+    function previewRedactionInEditor(detectedText, category) {
+      if (!detectedText) return;
+      const textarea = document.getElementById('edit-body');
+      if (!textarea) return;
+
+      const currentVal = textarea.value;
+      if (!currentVal.includes(detectedText)) {
+        showToast('Detected text not found in current editor body', 'warning');
+        return;
+      }
+
+      const placeholder = '[REDACTED: ' + category + ']';
+      textarea.value = currentVal.replace(detectedText, placeholder);
+      updateWordCountLive();
+      showToast('Redaction previewed in editor body. Review and click "Save Changes" to apply.', 'info');
+      closeSafetyModal();
+      textarea.focus();
     }
   </script>
 </body>

@@ -3369,7 +3369,7 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   15. Search Page Styles
+   15. Search Page Styles & Dynamic Filters
    -------------------------------------------------------------------------- */
 .search-form-page {
   display: flex;
@@ -3386,6 +3386,7 @@ button {
   background-color: #FFFFFF;
   color: var(--color-ink);
   min-height: 44px;
+  border-radius: 2px;
 }
 
 .search-page-input:focus {
@@ -3400,11 +3401,187 @@ button {
   font-weight: 700;
   min-height: 44px;
   min-width: 100px;
+  border: none;
+  cursor: pointer;
+  border-radius: 2px;
   transition: background-color var(--transition-fast);
 }
 
 .search-page-btn:hover {
   background-color: var(--color-brand);
+}
+
+/* Search Filters Bar */
+.search-filters-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background-color: var(--color-surface, #F9F9FB);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  margin-bottom: var(--space-6);
+}
+
+.desk-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.desk-pill {
+  padding: 6px 14px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  line-height: 1.2;
+}
+
+.desk-pill:hover {
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+
+.desk-pill.is-active {
+  background-color: var(--color-ink);
+  color: #FFFFFF;
+  border-color: var(--color-ink);
+}
+
+.search-dropdowns {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.search-dropdown-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.search-filter-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.search-select {
+  padding: 6px 10px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-ink);
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  min-height: 32px;
+  cursor: pointer;
+}
+
+.search-select:focus {
+  border-color: var(--color-brand);
+  outline: none;
+}
+
+.search-btn-reset {
+  padding: 6px 12px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  cursor: pointer;
+  min-height: 32px;
+  transition: all var(--transition-fast);
+}
+
+.search-btn-reset:hover {
+  color: var(--color-brand);
+  border-color: var(--color-brand);
+}
+
+/* Results Meta */
+.search-results-meta {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  margin-bottom: var(--space-4);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border-subtle, #EEEEEE);
+}
+
+.search-results-meta strong {
+  color: var(--color-ink);
+}
+
+/* Search Term Highlighting */
+.search-highlight {
+  background-color: #FFF3BF;
+  color: var(--color-ink);
+  font-weight: 600;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* Pagination / Load More */
+.search-pagination {
+  text-align: center;
+  margin: var(--space-8) 0 var(--space-12) 0;
+}
+
+.btn-load-more {
+  padding: 12px 28px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-ink);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-load-more:hover {
+  background-color: var(--color-ink);
+  color: #FFFFFF;
+}
+
+.search-category-hints {
+  margin-top: 12px;
+  font-size: 0.9375rem;
+}
+
+.search-category-hints a {
+  color: var(--color-brand);
+  text-decoration: underline;
+  margin: 0 4px;
+}
+
+.search-category-hints a:hover {
+  color: var(--color-ink);
+}
+
+@media (max-width: 600px) {
+  .search-filters-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .desk-pills {
+    justify-content: flex-start;
+  }
+  .search-dropdowns {
+    justify-content: space-between;
+  }
 }
 
 /* --------------------------------------------------------------------------
