@@ -2065,6 +2065,54 @@ noindex: true
                   </div>
                 </div>
 
+                <!-- YouTube Video Management Widget (Phase 13D) -->
+                <div class="sidebar-widget-card" id="editor-youtube-card">
+                  <div class="widget-title">YouTube Video</div>
+
+                  <!-- State A: Existing Video Attached -->
+                  <div id="yt-view-existing" style="display: none;">
+                    <div style="position: relative; margin-bottom: 8px; border-radius: var(--radius-sm); overflow: hidden; background: #0f172a;">
+                      <img id="yt-thumb-img" src="" alt="Video thumbnail" style="width: 100%; height: 130px; object-fit: cover; display: block;">
+                      <a id="yt-watch-link" href="#" target="_blank" rel="noopener noreferrer" 
+                         style="position: absolute; bottom: 6px; right: 6px; background: rgba(0,0,0,0.85); color: #fff; font-size: 11px; font-weight: 600; padding: 4px 10px; min-height: 28px; border-radius: var(--radius-sm); text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+                        Watch ↗
+                      </a>
+                    </div>
+                    <div style="font-size: 11px; margin-bottom: 10px;">
+                      <span style="color: var(--color-subtle); display: block; margin-bottom: 2px;">Current YouTube Video:</span>
+                      <div id="yt-current-title" style="font-weight: 600; color: var(--color-ink); word-break: break-word; line-height: 1.35; margin-bottom: 3px;"></div>
+                      <div id="yt-current-id-badge" style="font-family: var(--font-mono); font-size: 10px; color: var(--color-muted);"></div>
+                    </div>
+                    <div style="display: flex; gap: 6px;">
+                      <button type="button" class="btn-table-action" onclick="enterYouTubeEditMode()" style="flex: 1; font-size: 12px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center;">Edit / Replace</button>
+                      <button type="button" class="btn-table-action" onclick="removeYouTubeVideo()" style="color: var(--color-red); font-size: 12px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center;">Remove</button>
+                    </div>
+                  </div>
+
+                  <!-- State B: No Video Attached -->
+                  <div id="yt-view-none" style="display: none;">
+                    <p style="font-size: 12px; color: var(--color-subtle); margin-bottom: 12px; line-height: 1.4;">No YouTube video attached.</p>
+                    <button type="button" class="btn-table-action" onclick="enterYouTubeEditMode()" style="width: 100%; font-size: 12px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; font-weight: 600;">+ Add YouTube Video</button>
+                  </div>
+
+                  <!-- State C: Add / Edit Form -->
+                  <div id="yt-view-edit" style="display: none;">
+                    <div class="editor-form-group" style="margin-bottom: 8px;">
+                      <label class="editor-form-label" style="font-size: 11px;" for="yt-url-input">YouTube URL or Video ID</label>
+                      <input type="text" id="yt-url-input" class="form-input-sm" placeholder="https://www.youtube.com/watch?v=..." oninput="handleYouTubeUrlInput(this.value)" style="height: 38px;">
+                      <div id="yt-validation-feedback" style="font-size: 11px; margin-top: 5px; display: none; line-height: 1.3;"></div>
+                    </div>
+                    <div id="yt-inline-preview-wrap" style="display: none; margin-bottom: 10px; border-radius: var(--radius-sm); overflow: hidden; background: #000;">
+                      <iframe id="yt-inline-preview-iframe" src="" style="width: 100%; height: 140px; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                      <button type="button" class="btn-table-action" onclick="previewEnteredYouTubeVideo()" style="flex: 1; min-width: 75px; font-size: 12px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center;">Preview</button>
+                      <button type="button" class="btn-table-action primary" onclick="applyYouTubeVideoChanges()" style="flex: 1; min-width: 90px; font-size: 12px; min-height: 44px; background: var(--color-brand); color: #fff; border-color: var(--color-brand); display: inline-flex; align-items: center; justify-content: center; font-weight: 700;">Save Video</button>
+                      <button type="button" class="btn-table-action" onclick="cancelYouTubeEditMode()" style="min-width: 65px; font-size: 12px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center;">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+
                 <!-- Editorial Safety Gate Card (Phase 9) -->
                 <div class="sidebar-widget-card" id="editor-safety-sidebar-card">
                   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
@@ -3308,6 +3356,7 @@ noindex: true
       document.getElementById('edit-image-credit').value = art.imageCredit || '';
 
       updateImagePreview(art.image);
+      initYouTubeWidgetState(art);
 
       const statusBadge = document.getElementById('editor-status-badge');
       if (art.noindex) {
@@ -3349,6 +3398,16 @@ noindex: true
                   art.what_happens_next = data.data.what_happens_next;
                   document.getElementById('edit-what-happens-next').value = art.what_happens_next;
                 }
+                if (data.data.video_id !== undefined && (!art.video_id || art.video_id === '')) {
+                  art.video_id = data.data.video_id;
+                }
+                if (data.data.video_caption && !art.video_caption) {
+                  art.video_caption = data.data.video_caption;
+                }
+                if (Array.isArray(data.data.videos) && (!art.videos || art.videos.length === 0)) {
+                  art.videos = data.data.videos;
+                }
+                initYouTubeWidgetState(art);
               }
               document.getElementById('edit-body').value = art.body;
               updateWordCountLive();
@@ -3414,6 +3473,261 @@ noindex: true
       }
     }
 
+    // ========================================================================
+    // YOUTUBE VIDEO MANAGEMENT WIDGET (PHASE 13D)
+    // ========================================================================
+    function parseYouTubeVideoId(input) {
+      if (!input || typeof input !== 'string') return null;
+      const raw = input.trim();
+      if (!raw) return null;
+
+      // Direct 11-char ID check (e.g. dQw4w9WgXcQ)
+      if (/^[a-zA-Z0-9_-]{11}$/.test(raw)) {
+        return raw;
+      }
+
+      // Disallow dangerous schemes explicitly
+      const lower = raw.toLowerCase();
+      if (lower.startsWith('javascript:') || lower.startsWith('data:') || lower.startsWith('vbscript:')) {
+        return null;
+      }
+
+      try {
+        const urlStr = raw.startsWith('http://') || raw.startsWith('https://') ? raw : ('https://' + raw);
+        const parsed = new URL(urlStr);
+        const host = parsed.hostname.toLowerCase();
+
+        // Allowed YouTube domains only
+        const isStandardHost = host === 'youtube.com' || host === 'www.youtube.com' || host === 'm.youtube.com' || host === 'music.youtube.com';
+        const isShortHost = host === 'youtu.be';
+
+        if (!isStandardHost && !isShortHost) {
+          return null;
+        }
+
+        if (isShortHost) {
+          const pathId = parsed.pathname.replace(/^\/+/, '').split('/')[0];
+          return /^[a-zA-Z0-9_-]{11}$/.test(pathId) ? pathId : null;
+        }
+
+        if (isStandardHost) {
+          // Standard /watch?v=ID
+          if (parsed.pathname === '/watch') {
+            const v = parsed.searchParams.get('v');
+            return (v && /^[a-zA-Z0-9_-]{11}$/.test(v)) ? v : null;
+          }
+          // Embed /embed/ID, /v/ID, /shorts/ID
+          const segments = parsed.pathname.replace(/^\/+/, '').split('/');
+          if (segments[0] === 'embed' || segments[0] === 'v' || segments[0] === 'shorts') {
+            const id = segments[1];
+            return (id && /^[a-zA-Z0-9_-]{11}$/.test(id)) ? id : null;
+          }
+        }
+      } catch (_) {
+        return null;
+      }
+      return null;
+    }
+
+    function initYouTubeWidgetState(art) {
+      const vid = (art && art.video_id && String(art.video_id).trim() !== '' && String(art.video_id).trim() !== 'null')
+        ? String(art.video_id).trim()
+        : null;
+
+      const viewExisting = document.getElementById('yt-view-existing');
+      const viewNone = document.getElementById('yt-view-none');
+      const viewEdit = document.getElementById('yt-view-edit');
+      const previewWrap = document.getElementById('yt-inline-preview-wrap');
+      const previewIframe = document.getElementById('yt-inline-preview-iframe');
+      const validationFeedback = document.getElementById('yt-validation-feedback');
+      const urlInput = document.getElementById('yt-url-input');
+
+      if (viewEdit) viewEdit.style.display = 'none';
+      if (previewWrap) previewWrap.style.display = 'none';
+      if (previewIframe) previewIframe.src = '';
+      if (validationFeedback) {
+        validationFeedback.style.display = 'none';
+        validationFeedback.innerText = '';
+      }
+      if (urlInput) urlInput.value = '';
+
+      if (vid) {
+        if (viewExisting) viewExisting.style.display = 'block';
+        if (viewNone) viewNone.style.display = 'none';
+
+        const thumbImg = document.getElementById('yt-thumb-img');
+        const watchLink = document.getElementById('yt-watch-link');
+        const titleEl = document.getElementById('yt-current-title');
+        const idBadge = document.getElementById('yt-current-id-badge');
+
+        const safeVid = encodeURIComponent(vid);
+        if (thumbImg) thumbImg.src = 'https://img.youtube.com/vi/' + safeVid + '/hqdefault.jpg';
+        if (watchLink) watchLink.href = 'https://www.youtube.com/watch?v=' + safeVid;
+        if (titleEl) {
+          titleEl.innerText = art.video_caption || art.title || 'Attached YouTube Video';
+        }
+        if (idBadge) {
+          idBadge.innerText = 'ID: ' + vid;
+        }
+      } else {
+        if (viewExisting) viewExisting.style.display = 'none';
+        if (viewNone) viewNone.style.display = 'block';
+      }
+    }
+
+    function enterYouTubeEditMode() {
+      const art = AppState.currentlyEditingArticle;
+      const viewExisting = document.getElementById('yt-view-existing');
+      const viewNone = document.getElementById('yt-view-none');
+      const viewEdit = document.getElementById('yt-view-edit');
+      const urlInput = document.getElementById('yt-url-input');
+      const validationFeedback = document.getElementById('yt-validation-feedback');
+      const previewWrap = document.getElementById('yt-inline-preview-wrap');
+      const previewIframe = document.getElementById('yt-inline-preview-iframe');
+
+      if (viewExisting) viewExisting.style.display = 'none';
+      if (viewNone) viewNone.style.display = 'none';
+      if (viewEdit) viewEdit.style.display = 'block';
+
+      if (previewWrap) previewWrap.style.display = 'none';
+      if (previewIframe) previewIframe.src = '';
+      if (validationFeedback) {
+        validationFeedback.style.display = 'none';
+        validationFeedback.innerText = '';
+      }
+
+      if (art && art.video_id) {
+        urlInput.value = 'https://www.youtube.com/watch?v=' + art.video_id;
+      } else {
+        urlInput.value = '';
+      }
+      urlInput.focus();
+    }
+
+    function cancelYouTubeEditMode() {
+      initYouTubeWidgetState(AppState.currentlyEditingArticle);
+    }
+
+    function handleYouTubeUrlInput(val) {
+      const validationFeedback = document.getElementById('yt-validation-feedback');
+      const previewWrap = document.getElementById('yt-inline-preview-wrap');
+      const previewIframe = document.getElementById('yt-inline-preview-iframe');
+
+      if (!val || !val.trim()) {
+        validationFeedback.style.display = 'none';
+        validationFeedback.innerText = '';
+        if (previewWrap) previewWrap.style.display = 'none';
+        if (previewIframe) previewIframe.src = '';
+        return;
+      }
+
+      const id = parseYouTubeVideoId(val);
+      if (id) {
+        validationFeedback.style.display = 'block';
+        validationFeedback.style.color = 'var(--color-green)';
+        validationFeedback.innerText = 'Valid YouTube ID: ' + id;
+      } else {
+        validationFeedback.style.display = 'block';
+        validationFeedback.style.color = 'var(--color-red)';
+        validationFeedback.innerText = 'Enter a valid YouTube URL or 11-character video ID.';
+        if (previewWrap) previewWrap.style.display = 'none';
+        if (previewIframe) previewIframe.src = '';
+      }
+    }
+
+    function previewEnteredYouTubeVideo() {
+      const urlInput = document.getElementById('yt-url-input');
+      const validationFeedback = document.getElementById('yt-validation-feedback');
+      const previewWrap = document.getElementById('yt-inline-preview-wrap');
+      const previewIframe = document.getElementById('yt-inline-preview-iframe');
+
+      const val = urlInput.value || '';
+      const id = parseYouTubeVideoId(val);
+      if (!id) {
+        validationFeedback.style.display = 'block';
+        validationFeedback.style.color = 'var(--color-red)';
+        validationFeedback.innerText = 'Enter a valid YouTube URL or 11-character video ID.';
+        if (previewWrap) previewWrap.style.display = 'none';
+        if (previewIframe) previewIframe.src = '';
+        return;
+      }
+
+      validationFeedback.style.display = 'block';
+      validationFeedback.style.color = 'var(--color-green)';
+      validationFeedback.innerText = 'Valid YouTube ID: ' + id;
+
+      const safeVid = encodeURIComponent(id);
+      previewIframe.src = 'https://www.youtube.com/embed/' + safeVid;
+      previewWrap.style.display = 'block';
+    }
+
+    function markEditorAsUnsaved() {
+      const saveStatus = document.getElementById('editor-save-status');
+      if (saveStatus) {
+        saveStatus.className = 'editor-save-indicator';
+        saveStatus.innerText = 'Unsaved changes';
+      }
+    }
+
+    function applyYouTubeVideoChanges() {
+      const art = AppState.currentlyEditingArticle;
+      if (!art) return;
+
+      const urlInput = document.getElementById('yt-url-input');
+      const validationFeedback = document.getElementById('yt-validation-feedback');
+      const id = parseYouTubeVideoId(urlInput.value || '');
+
+      if (!id) {
+        validationFeedback.style.display = 'block';
+        validationFeedback.style.color = 'var(--color-red)';
+        validationFeedback.innerText = 'Enter a valid YouTube URL or 11-character video ID.';
+        return;
+      }
+
+      const headlineInput = document.getElementById('edit-headline');
+      const articleHeadline = (headlineInput && headlineInput.value.trim()) ? headlineInput.value.trim() : (art.title || 'News Coverage');
+
+      art.video_id = id;
+      if (!art.video_caption || String(art.video_caption).trim() === '') {
+        art.video_caption = articleHeadline;
+      }
+      art.hasVideo = true;
+
+      // Keep videos[] array in sync
+      if (!Array.isArray(art.videos) || art.videos.length === 0) {
+        art.videos = [{
+          video_id: id,
+          title: art.video_caption,
+          channel: 'YouTube'
+        }];
+      } else {
+        art.videos[0].video_id = id;
+        art.videos[0].title = art.video_caption;
+      }
+
+      initYouTubeWidgetState(art);
+      markEditorAsUnsaved();
+      showToast('YouTube video updated in editor. Click "Save Changes" to publish.', 'info');
+    }
+
+    function removeYouTubeVideo() {
+      const art = AppState.currentlyEditingArticle;
+      if (!art) return;
+
+      if (!confirm('Remove YouTube video from this article?')) {
+        return;
+      }
+
+      art.video_id = '';
+      art.video_caption = '';
+      art.videos = [];
+      art.hasVideo = false;
+
+      initYouTubeWidgetState(art);
+      markEditorAsUnsaved();
+      showToast('YouTube video removed from editor. Click "Save Changes" to publish.', 'info');
+    }
+
     // Save Article Action
     async function saveEditorArticle() {
       if (!AppState.currentlyEditingArticle) return;
@@ -3438,7 +3752,10 @@ noindex: true
         sourceName: document.getElementById('edit-source-name').value,
         sourceUrl: document.getElementById('edit-source-url').value,
         image: document.getElementById('edit-image').value,
-        imageCredit: document.getElementById('edit-image-credit').value
+        imageCredit: document.getElementById('edit-image-credit').value,
+        video_id: AppState.currentlyEditingArticle.video_id || '',
+        video_caption: AppState.currentlyEditingArticle.video_caption || '',
+        videos: Array.isArray(AppState.currentlyEditingArticle.videos) ? AppState.currentlyEditingArticle.videos : []
       };
 
       if (SafetyState.currentResult && SafetyState.currentResult.gate === 'BLOCKED') {
@@ -3466,6 +3783,7 @@ noindex: true
           if (data.sha) AppState.currentlyEditingArticle.sha = data.sha;
           AppState.currentlyEditingArticle.wordCount = data.wordCount || payload.body.trim().split(/\s+/).filter(Boolean).length;
           AppState.currentlyEditingArticle.modified = data.modified;
+          initYouTubeWidgetState(AppState.currentlyEditingArticle);
 
           // Phase 9: New Git SHA invalidates previous safety checks/sign-offs
           resetSafetyEditorState();
@@ -3529,7 +3847,10 @@ noindex: true
         author: document.getElementById('edit-author').value,
         image: document.getElementById('edit-image').value,
         imageCredit: document.getElementById('edit-image-credit').value,
-        sourceName: document.getElementById('edit-source-name').value
+        sourceName: document.getElementById('edit-source-name').value,
+        video_id: AppState.currentlyEditingArticle.video_id || '',
+        video_caption: AppState.currentlyEditingArticle.video_caption || '',
+        videos: Array.isArray(AppState.currentlyEditingArticle.videos) ? AppState.currentlyEditingArticle.videos : []
       };
       renderPreviewModal(previewData);
     }
@@ -3569,6 +3890,25 @@ noindex: true
         }
       });
       html += '</div>';
+
+      // Phase 13D: Additive YouTube Video Embed in preview modal
+      const vid = art.video_id || art.videoId;
+      if (vid && vid !== 'null' && String(vid).trim() !== '') {
+        const safeVid = encodeURIComponent(String(vid).trim());
+        const captionText = art.video_caption || art.videoCaption || art.title || 'Related Video Coverage';
+        html += '<div style="margin: 20px 0; border: 1px solid var(--color-border); border-radius: var(--radius-sm); overflow: hidden; background: #0f172a;">' +
+          '<div style="background: #1e293b; color: #fff; padding: 8px 14px; font-size: 12px; display: flex; justify-content: space-between; align-items: center;">' +
+            '<span style="font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">' +
+              '<svg width="15" height="15" viewBox="0 0 24 24" fill="#C81E2C"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>' +
+              'Video: ' + escapeHtml(captionText) +
+            '</span>' +
+            '<a href="https://www.youtube.com/watch?v=' + safeVid + '" target="_blank" rel="noopener noreferrer" style="color: #93c5fd; text-decoration: none; font-size: 11px;">Watch on YouTube ↗</a>' +
+          '</div>' +
+          '<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">' +
+            '<iframe src="https://www.youtube.com/embed/' + safeVid + '" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allowfullscreen></iframe>' +
+          '</div>' +
+        '</div>';
+      }
 
       if (art.why_it_matters) {
         html += '<div class="preview-callout">' +

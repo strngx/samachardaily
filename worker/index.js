@@ -945,7 +945,7 @@ export default {
 
         // 5B. POST /api/admin/articles/save — Update editable fields with concurrency check
         if (pathname === '/api/admin/articles/save') {
-          const { relPath, sha, title, dek, category, author, image, imageCredit, sourceName, sourceUrl, seoTitle, why_it_matters, what_happens_next, body: newBody } = body;
+          const { relPath, sha, title, dek, category, author, image, imageCredit, sourceName, sourceUrl, seoTitle, why_it_matters, what_happens_next, video_id, video_caption, videos, body: newBody } = body;
 
           if (!validateArticleRelPath(relPath)) {
             return new Response(JSON.stringify({
@@ -1033,7 +1033,7 @@ export default {
           // Compute structured diff before updating
           const diff = computeArticleDiff(parsed.data, parsed.content, body);
 
-          // 4. Update ONLY permitted fields; PRESERVE all protected fields (slug, date, videos, video_id, trending, featured, layout, canonical)
+          // 4. Update ONLY permitted fields; PRESERVE protected fields (slug, date, trending, featured, layout, canonical)
           if (typeof title === 'string' && title.trim()) parsed.data.title = title.trim();
           if (typeof dek === 'string') parsed.data.dek = dek.trim();
           if (typeof category === 'string' && category.trim()) parsed.data.category = category.trim();
@@ -1045,6 +1045,39 @@ export default {
           if (seoTitle !== undefined) parsed.data.seoTitle = seoTitle ? String(seoTitle).trim() : null;
           if (why_it_matters !== undefined) parsed.data.why_it_matters = why_it_matters ? String(why_it_matters).trim() : null;
           if (what_happens_next !== undefined) parsed.data.what_happens_next = what_happens_next ? String(what_happens_next).trim() : null;
+
+          // Phase 13D: Additive YouTube Video management
+          if (video_id !== undefined) {
+            const cleanVid = video_id ? String(video_id).trim() : '';
+            if (cleanVid && !/^[a-zA-Z0-9_-]{11}$/.test(cleanVid)) {
+              return new Response(JSON.stringify({
+                success: false,
+                error: 'Invalid YouTube video ID. Must be exactly 11 characters.'
+              }), {
+                status: 400,
+                headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+              });
+            }
+            parsed.data.video_id = cleanVid;
+          }
+          if (video_caption !== undefined) {
+            parsed.data.video_caption = video_caption ? String(video_caption).trim() : '';
+          }
+          if (videos !== undefined) {
+            if (Array.isArray(videos)) {
+              parsed.data.videos = videos.filter(v => v && typeof v === 'object' && v.video_id && /^[a-zA-Z0-9_-]{11}$/.test(String(v.video_id).trim()));
+            } else if (!parsed.data.video_id) {
+              parsed.data.videos = [];
+            }
+          } else if (video_id !== undefined && !parsed.data.video_id) {
+            parsed.data.videos = [];
+          } else if (video_id !== undefined && parsed.data.video_id && (!Array.isArray(parsed.data.videos) || parsed.data.videos.length === 0)) {
+            parsed.data.videos = [{
+              video_id: parsed.data.video_id,
+              title: parsed.data.video_caption || parsed.data.title || '',
+              channel: 'YouTube'
+            }];
+          }
 
           // Update body content if provided
           if (typeof newBody === 'string') {

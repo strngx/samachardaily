@@ -85,6 +85,14 @@ export function validateArticlePayload(payload) {
     }
   }
 
+  // Phase 13D: Deterministic YouTube video_id validation if present
+  if (payload.video_id !== undefined && payload.video_id !== null && String(payload.video_id).trim()) {
+    const vid = String(payload.video_id).trim();
+    if (!/^[a-zA-Z0-9_-]{11}$/.test(vid)) {
+      errors.push('YouTube video ID must be a valid 11-character identifier.');
+    }
+  }
+
   return {
     valid: errors.length === 0,
     errors
@@ -122,7 +130,9 @@ export function computeArticleDiff(oldData = {}, oldBody = '', updatedFields = {
     'sourceUrl',
     'seoTitle',
     'why_it_matters',
-    'what_happens_next'
+    'what_happens_next',
+    'video_id',
+    'video_caption'
   ];
 
   for (const field of scalarFields) {
