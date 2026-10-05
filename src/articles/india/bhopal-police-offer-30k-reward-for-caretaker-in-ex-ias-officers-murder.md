@@ -8,9 +8,12 @@ imageAlt: Two men performing acro yoga on a blue mat in a park in Bhopal, India.
 imageCredit: Shivam  Tiwari
 trending: true
 featured: false
-video_id: ""
-video_caption: ""
-videos: []
+video_id: Z-vK-8-ZuBM
+video_caption: Bhopal Police Offer ₹30k Reward for Caretaker in Ex-IAS Officer's Murder
+videos:
+  - video_id: Z-vK-8-ZuBM
+    title: Bhopal Police Offer ₹30k Reward for Caretaker in Ex-IAS Officer's Murder
+    channel: YouTube
 slug: bhopal-police-offer-30k-reward-for-caretaker-in-ex-ias-officers-murder
 sourceUrl: https://www.freepressjournal.in/bhopal/ex-ias-officer-murder-bhopal-police-announce-inr-30k-reward-for-absconding-caretaker
 sourceName: The Free Press Journal
