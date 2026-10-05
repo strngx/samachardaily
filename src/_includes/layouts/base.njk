@@ -6,7 +6,9 @@
   <title>{% if page.url == '/' or layout == 'layouts/home.njk' %}{{ title or (site.name + ' — ' + site.tagline) }}{% elif (seoTitle or title) %}{{ (seoTitle or title) | shortTitle }} | {{ site.name }}{% else %}{{ site.name }} — {{ site.tagline }}{% endif %}</title>
   
   <meta name="description" content="{{ (dek or description or site.description) | truncate(120) }}">
+  {% if page.url != '/404.html' and permalink != '404.html' %}
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  {% endif %}
   {% if noindex %}
   <meta name="robots" content="noindex, follow">
   {% endif %}

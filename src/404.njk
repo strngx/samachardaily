@@ -3,18 +3,98 @@ layout: layouts/base.njk
 title: "Page Not Found (404)"
 permalink: 404.html
 eleventyExcludeFromCollections: true
+noindex: true
 ---
 
-<div class="container" style="padding: 60px 0; text-align: center; max-width: 680px;">
-  <div class="empty-newsroom-box" style="padding: 40px 24px;">
-    <h1 style="font-size: 3rem; margin-bottom: 16px; color: var(--color-ink);">404</h1>
-    <h2 style="font-size: 1.5rem; margin-bottom: 16px; color: var(--color-ink);">Page Not Found</h2>
-    <p style="color: var(--color-muted); font-size: 1.125rem; line-height: 1.6; margin-bottom: 28px;">
+<div class="container smart-404-container">
+  <!-- Breadcrumbs -->
+  <nav class="article-breadcrumbs" aria-label="Breadcrumb">
+    <a href="{{ '/' | url }}">Home</a>
+    <span>/</span>
+    <span style="color: var(--color-ink);">404 Not Found</span>
+  </nav>
+
+  <!-- 404 Hero Box -->
+  <div class="smart-404-hero">
+    <span class="smart-404-badge">Error 404</span>
+    <h1 class="smart-404-title">Page Not Found</h1>
+    <p class="smart-404-desc">
       The news story or page you are looking for might have been moved, updated, or is temporarily unavailable.
     </p>
-    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-      <a href="{{ '/' | url }}" class="search-page-btn" style="text-decoration: none; display: inline-block;">Return to Homepage</a>
-      <a href="{{ '/search/' | url }}" class="pagination-btn" style="text-decoration: none; display: inline-block; padding: 10px 16px;">Search Articles</a>
+
+    <!-- Safe URL Token Echo Hint (populated dynamically if tokens exist) -->
+    <div style="margin-bottom: var(--space-4);">
+      <span id="smart-404-link-hint" class="smart-404-link-hint" style="display: none;"></span>
+    </div>
+
+    <!-- Embedded Search Form -->
+    <div class="smart-404-search-box">
+      <form class="search-form-page smart-404-form" id="smart-404-form" action="{{ '/search/' | url }}" method="get" role="search">
+        <input 
+          type="search" 
+          name="q" 
+          id="smart-404-input" 
+          class="search-page-input smart-404-input" 
+          placeholder="Search published stories, topics, policies..." 
+          autocomplete="off"
+          maxlength="200"
+          aria-label="Search articles"
+          required
+        >
+        <button type="submit" class="search-page-btn smart-404-btn">Search</button>
+      </form>
+      <p class="smart-404-search-hint">Search verified reporting across India, World, Business, Tech, and Sports.</p>
     </div>
   </div>
+
+  <!-- Dynamic Smart 404 Suggested Stories Section -->
+  <section id="smart-404-section" class="smart-404-section" style="display: none;" aria-label="Suggested Stories">
+    <div class="related-stories-header">
+      <h2 class="related-stories-title">Suggested Stories Based on Your Link</h2>
+      <span class="related-stories-badge">Deterministic Match</span>
+    </div>
+    <div id="smart-404-grid" class="related-stories-grid">
+      <!-- Dynamically populated by /assets/js/smart-404.js -->
+    </div>
+  </section>
+
+  <!-- Browse by Desk Navigation -->
+  <nav class="smart-404-desks" aria-label="Browse by Desk">
+    <h2 class="smart-404-desks-title">Browse by Desk</h2>
+    <div class="smart-404-desks-grid">
+      <a href="{{ '/india/' | url }}" class="smart-404-desk-card">
+        <span class="desk-indicator" style="background-color: var(--color-cat-india, #C81E2C);"></span>
+        <span class="desk-name">India</span>
+        <span class="desk-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+      <a href="{{ '/world/' | url }}" class="smart-404-desk-card">
+        <span class="desk-indicator" style="background-color: var(--color-cat-world, #1E4FC8);"></span>
+        <span class="desk-name">World</span>
+        <span class="desk-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+      <a href="{{ '/business/' | url }}" class="smart-404-desk-card">
+        <span class="desk-indicator" style="background-color: var(--color-cat-business, #1E8A4C);"></span>
+        <span class="desk-name">Business</span>
+        <span class="desk-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+      <a href="{{ '/tech/' | url }}" class="smart-404-desk-card">
+        <span class="desk-indicator" style="background-color: var(--color-cat-tech, #6B3FA0);"></span>
+        <span class="desk-name">Tech</span>
+        <span class="desk-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+      <a href="{{ '/sports/' | url }}" class="smart-404-desk-card">
+        <span class="desk-indicator" style="background-color: var(--color-cat-sports, #D9791E);"></span>
+        <span class="desk-name">Sports</span>
+        <span class="desk-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Clear Return Home Action -->
+  <div class="smart-404-actions">
+    <a href="{{ '/' | url }}" class="pagination-btn smart-404-home-btn">&larr; Return to Homepage</a>
+  </div>
 </div>
+
+<!-- Deferred Smart 404 Client Controller -->
+<script src="{{ '/assets/js/smart-404.js' | url }}" defer></script>

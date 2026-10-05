@@ -3939,3 +3939,196 @@ button {
   border-top: 1px solid #262B35;
   width: 100%;
 }
+
+/* --------------------------------------------------------------------------
+   19. Smart 404 Recovery Experience (Phase 12B)
+   -------------------------------------------------------------------------- */
+.smart-404-container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4);
+}
+
+.smart-404-hero {
+  text-align: center;
+  margin-bottom: var(--space-8);
+  padding: var(--space-8) var(--space-6);
+  background-color: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sharp);
+}
+
+.smart-404-badge {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+  margin-bottom: var(--space-2);
+}
+
+.smart-404-title {
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-3) 0;
+  line-height: 1.2;
+}
+
+.smart-404-desc {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--color-muted);
+  max-width: 620px;
+  margin: 0 auto var(--space-6) auto;
+}
+
+.smart-404-link-hint {
+  display: inline-block;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  background: var(--color-surface);
+  padding: 6px 12px;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-sharp);
+  word-break: break-all;
+}
+
+.smart-404-search-box {
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.smart-404-form {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.smart-404-input {
+  flex: 1;
+  min-height: 44px;
+}
+
+.smart-404-btn {
+  min-height: 44px;
+  padding: 10px 22px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.smart-404-search-hint {
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+  margin-top: var(--space-2);
+  text-align: center;
+}
+
+.smart-404-section {
+  margin-top: var(--space-10);
+  margin-bottom: var(--space-10);
+  padding-top: var(--space-6);
+  border-top: 2px solid var(--color-ink);
+}
+
+.smart-404-desks {
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-8);
+  text-align: center;
+}
+
+.smart-404-desks-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: var(--space-4);
+}
+
+.smart-404-desks-grid {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.smart-404-desk-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border-radius: var(--radius-sharp);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+  min-height: 44px;
+}
+
+.smart-404-desk-card:hover {
+  border-color: var(--color-ink);
+  background-color: var(--color-surface-subtle);
+  color: var(--color-ink);
+}
+
+.smart-404-desk-card .desk-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.smart-404-desk-card .desk-arrow {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  transition: transform var(--transition-fast);
+}
+
+.smart-404-desk-card:hover .desk-arrow {
+  transform: translateX(2px);
+  color: var(--color-ink);
+}
+
+.smart-404-actions {
+  text-align: center;
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.smart-404-home-btn {
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px 20px;
+  font-weight: 600;
+  min-height: 44px;
+  line-height: 24px;
+}
+
+@media (max-width: 600px) {
+  .smart-404-hero {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .smart-404-title {
+    font-size: 1.75rem;
+  }
+
+  .smart-404-form {
+    flex-direction: column;
+  }
+
+  .smart-404-btn {
+    width: 100%;
+  }
+
+  .smart-404-desk-card {
+    flex: 1 1 calc(50% - var(--space-3));
+    justify-content: space-between;
+  }
+}
