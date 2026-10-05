@@ -1241,6 +1241,10 @@ noindex: true
       padding: 20px;
     }
 
+    .modal-backdrop.show {
+      display: flex !important;
+    }
+
     .modal-box {
       background: var(--color-surface);
       border-radius: var(--radius-md);
@@ -1947,6 +1951,12 @@ noindex: true
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                   Preview
                 </button>
+                <button class="btn-table-action" type="button" id="btn-editor-archive" onclick="handleEditorArchiveToggle()">
+                  Archive
+                </button>
+                <button class="btn-table-action btn-table-danger" type="button" id="btn-editor-delete" onclick="handleEditorDelete()">
+                  Delete
+                </button>
                 <button class="btn-table-action btn-table-primary" id="btn-save-editor" onclick="saveEditorArticle()">
                   Save Changes
                 </button>
@@ -2556,6 +2566,8 @@ noindex: true
         <button class="btn-table-action" onclick="closePreviewModal()">Close Preview</button>
       </div>
     </div>
+  </div><!-- /preview-modal -->
+
   <!-- Revision & Audit History Modal (Phase 6) -->
   <div id="revision-modal" class="modal-backdrop" onclick="closeRevisionModal(event)">
     <div class="modal-box preview-mode" onclick="event.stopPropagation()">
@@ -2734,6 +2746,7 @@ noindex: true
       const validViews = ['overview', 'articles', 'thin-queue', 'attention', 'safety', 'search', 'website', 'broken-links', 'google-news', 'settings'];
       if (!validViews.includes(viewId)) viewId = 'overview';
 
+      const prevView = AppState.currentView;
       AppState.currentView = viewId;
 
       // Handle subviews for articles
@@ -2742,17 +2755,29 @@ noindex: true
           AppState.articleSubView = 'editor';
         } else {
           AppState.articleSubView = 'list';
+          if (!options.fromEditor && !options.fromGlobalSearch) {
+            // Fresh entry into articles list view: always reset search & filters to avoid sticky state
+            resetArticleFilters(Boolean(options.status));
+            if (options.status) {
+              AppState.filters.status = options.status;
+              const filterEl = document.getElementById('filter-status');
+              if (filterEl) filterEl.value = options.status;
+              applyFiltersAndSorting();
+            }
+          } else {
+            // Returning from editor or global search: ensure table reflects all recent mutations immediately
+            applyFiltersAndSorting();
+          }
         }
       } else {
         AppState.articleSubView = 'list';
-      }
-
-      // Handle custom filter pre-selection from overview cards
-      if (options.status) {
-        AppState.filters.status = options.status;
-        const filterEl = document.getElementById('filter-status');
-        if (filterEl) filterEl.value = options.status;
-        applyFiltersAndSorting();
+        // Clear global search and selection when leaving articles view
+        if (prevView === 'articles') {
+          const globalSearch = document.getElementById('global-search-input');
+          if (globalSearch) globalSearch.value = '';
+          AppState.selectedIds.clear();
+          updateBulkToolbar();
+        }
       }
 
       // Synchronize View Panes
@@ -2764,6 +2789,17 @@ noindex: true
         // Fallback: never leave page blank
         const fallback = document.getElementById('view-overview');
         if (fallback) fallback.classList.add('active');
+      }
+
+      // Synchronize View Content Deterministically
+      if (viewId === 'overview') {
+        populateOverviewStats();
+      } else if (viewId === 'thin-queue') {
+        applyThinQueueFilters();
+      } else if (viewId === 'attention') {
+        renderNeedsAttentionTab();
+      } else if (viewId === 'safety') {
+        renderSafetyTab();
       }
 
       // Synchronize Articles Subviews
@@ -2806,9 +2842,10 @@ noindex: true
         breadcrumbEl.innerText = labels[viewId] || 'Overview';
       }
 
-      // Update URL search parameters smoothly
+      // Update URL search parameters smoothly without flooding browser history
       if (!options.fromPopState) {
         const url = new URL(window.location);
+        const currentParamView = url.searchParams.get('view') || 'overview';
         url.searchParams.set('view', viewId);
         if (viewId === 'articles' && AppState.articleSubView === 'editor' && AppState.currentlyEditingArticle) {
           url.searchParams.set('article', AppState.currentlyEditingArticle.slug || 'edit');
@@ -2817,7 +2854,11 @@ noindex: true
           url.searchParams.delete('article');
           url.searchParams.delete('mode');
         }
-        window.history.pushState({ view: viewId, subview: AppState.articleSubView }, '', url.toString());
+        if (currentParamView === viewId && (!options.subview || options.subview === 'list')) {
+          window.history.replaceState({ view: viewId, subview: AppState.articleSubView }, '', url.toString());
+        } else {
+          window.history.pushState({ view: viewId, subview: AppState.articleSubView }, '', url.toString());
+        }
       }
 
       // Close mobile drawer if open
@@ -2875,14 +2916,32 @@ noindex: true
       }
     });
 
-    function handleGlobalSearch(query) {
-      navigate('articles');
+    // Debounce helper for silky performance
+    function debounce(fn, delay = 180) {
+      let timer = null;
+      return function (...args) {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          fn.apply(this, args);
+        }, delay);
+      };
+    }
+
+    const debouncedGlobalSearch = debounce((query) => {
+      if (AppState.currentView !== 'articles' || AppState.articleSubView !== 'list') {
+        navigate('articles', { fromGlobalSearch: true });
+      }
       const tableInput = document.getElementById('table-search-input');
       if (tableInput) {
         tableInput.value = query;
       }
-      AppState.filters.search = query.toLowerCase().trim();
+      AppState.filters.search = (query || '').toLowerCase().trim();
+      AppState.pagination.page = 1;
       applyFiltersAndSorting();
+    }, 200);
+
+    function handleGlobalSearch(query) {
+      debouncedGlobalSearch(query);
     }
 
     // Session Management & Logout
@@ -3046,11 +3105,15 @@ noindex: true
     // ========================================================================
     // ARTICLES SEARCH, FILTERING, SORTING & PAGINATION
     // ========================================================================
-    function handleArticleSearch() {
+    const debouncedArticleSearch = debounce(() => {
       const input = document.getElementById('table-search-input');
       AppState.filters.search = input ? input.value.toLowerCase().trim() : '';
       AppState.pagination.page = 1;
       applyFiltersAndSorting();
+    }, 180);
+
+    function handleArticleSearch() {
+      debouncedArticleSearch();
     }
 
     function handleArticleFilter() {
@@ -3070,7 +3133,7 @@ noindex: true
       applyFiltersAndSorting();
     }
 
-    function resetArticleFilters() {
+    function resetArticleFilters(skipRender = false) {
       AppState.filters = {
         search: '',
         desk: 'ALL',
@@ -3097,7 +3160,9 @@ noindex: true
       if (fSort) fSort.value = 'newest';
 
       AppState.pagination.page = 1;
-      applyFiltersAndSorting();
+      if (!skipRender) {
+        applyFiltersAndSorting();
+      }
     }
 
     function applyFiltersAndSorting() {
@@ -3259,6 +3324,7 @@ noindex: true
               ? '<button class="btn-table-action" onclick="promptRestoreArticle(\'' + escapeJs(art.relPath) + '\')">Restore</button>'
               : '<button class="btn-table-action" onclick="promptArchiveArticle(\'' + escapeJs(art.relPath) + '\')">Archive</button>'
             ) +
+            '<button class="btn-table-action btn-table-danger" onclick="promptDeleteArticle(\'' + escapeJs(art.relPath) + '\')">Delete</button>' +
           '</div>' +
         '</div>';
       });
@@ -3386,6 +3452,8 @@ noindex: true
         statusBadge.innerText = 'Active (Published)';
       }
 
+      updateEditorActionButtons(art);
+
       const saveStatus = document.getElementById('editor-save-status');
 
       // Check if full article body is already cached in memory
@@ -3455,14 +3523,74 @@ noindex: true
     }
 
     // Crucial Bugfix: Cleanly closes editor and restores the Articles table
+    // FIX: Pass fromEditor:true so navigate() preserves the prior article list
+    // filter/search state (user was editing from a filtered list and should
+    // return to the same list context), while immediately re-rendering the list.
     function closeEditorView() {
       AppState.currentlyEditingArticle = null;
-      navigate('articles', { subview: 'list' });
+      updateEditorActionButtons(null);
+      navigate('articles', { subview: 'list', fromEditor: true });
+    }
+
+    function updateEditorActionButtons(art) {
+      const arcBtn = document.getElementById('btn-editor-archive');
+      const delBtn = document.getElementById('btn-editor-delete');
+      if (!art) {
+        if (arcBtn) arcBtn.style.display = 'none';
+        if (delBtn) delBtn.style.display = 'none';
+        return;
+      }
+      if (art.articleType === 'redirect') {
+        if (arcBtn) arcBtn.style.display = 'none';
+        if (delBtn) delBtn.style.display = 'none';
+        return;
+      }
+      if (arcBtn) {
+        arcBtn.style.display = 'inline-flex';
+        arcBtn.innerText = art.noindex ? 'Restore' : 'Archive';
+      }
+      if (delBtn) {
+        delBtn.style.display = 'inline-flex';
+      }
+    }
+
+    function handleEditorArchiveToggle() {
+      if (!AppState.currentlyEditingArticle) return;
+      const relPath = AppState.currentlyEditingArticle.relPath;
+      if (AppState.currentlyEditingArticle.noindex) {
+        promptRestoreArticle(relPath);
+      } else {
+        promptArchiveArticle(relPath);
+      }
+    }
+
+    function handleEditorDelete() {
+      if (!AppState.currentlyEditingArticle) return;
+      promptDeleteArticle(AppState.currentlyEditingArticle.relPath);
+    }
+
+    function syncEditorStatusIfCurrent(art) {
+      if (AppState.currentlyEditingArticle && AppState.currentlyEditingArticle.relPath === art.relPath) {
+        const statusBadge = document.getElementById('editor-status-badge');
+        if (statusBadge) {
+          if (art.noindex) {
+            statusBadge.className = 'badge badge-amber';
+            statusBadge.innerText = 'Archived (Noindex)';
+          } else if (art.articleType === 'redirect') {
+            statusBadge.className = 'badge badge-teal';
+            statusBadge.innerText = 'Redirect Stub';
+          } else {
+            statusBadge.className = 'badge badge-green';
+            statusBadge.innerText = 'Active (Published)';
+          }
+        }
+        updateEditorActionButtons(art);
+      }
     }
 
     function updateWordCountLive() {
       const text = document.getElementById('edit-body').value || '';
-      const words = text.trim().split(/\s+/).filter(Boolean).length;
+      const words = (text.match(/\S+/g) || []).length;
       const countBadge = document.getElementById('editor-word-count-badge');
       if (countBadge) countBadge.innerText = words.toLocaleString() + ' words';
     }
@@ -3818,9 +3946,22 @@ noindex: true
         if (res.ok && data.success) {
           Object.assign(AppState.currentlyEditingArticle, payload);
           if (data.sha) AppState.currentlyEditingArticle.sha = data.sha;
-          AppState.currentlyEditingArticle.wordCount = data.wordCount || payload.body.trim().split(/\s+/).filter(Boolean).length;
+          AppState.currentlyEditingArticle.wordCount = data.wordCount || countArticleWords(payload.body);
           AppState.currentlyEditingArticle.modified = data.modified;
+          AppState.currentlyEditingArticle.hasImage = Boolean(payload.image && payload.image.trim().length > 0);
+          AppState.currentlyEditingArticle.hasSourceName = Boolean(payload.sourceName && payload.sourceName.trim().length > 0);
+          AppState.currentlyEditingArticle.hasSourceUrl = Boolean(payload.sourceUrl && payload.sourceUrl.trim().length > 0);
           initYouTubeWidgetState(AppState.currentlyEditingArticle);
+          updateEditorActionButtons(AppState.currentlyEditingArticle);
+
+          // Keep main corpus article object in sync with editing article
+          const targetInCorpus = AppState.articles.find(a => a.relPath === payload.relPath);
+          if (targetInCorpus && targetInCorpus !== AppState.currentlyEditingArticle) {
+            Object.assign(targetInCorpus, AppState.currentlyEditingArticle);
+          }
+
+          // Phase 14A-2: Run targeted deterministic live recalculation
+          recalculateArticleDeterministicState(AppState.currentlyEditingArticle);
 
           // Phase 9: New Git SHA invalidates previous safety checks/sign-offs
           resetSafetyEditorState();
@@ -3831,8 +3972,6 @@ noindex: true
           saveStatus.innerText = 'Saved • Modified: ' + timeStr + (data.sha ? ' (Git SHA: ' + data.sha.slice(0, 7) + ')' : '');
 
           showToast('Article saved successfully (' + timeStr + ')', 'success');
-          applyFiltersAndSorting();
-          populateOverviewStats();
         } else if (res.status === 409 || data.conflict) {
           saveStatus.className = 'editor-save-indicator error';
           saveStatus.innerText = 'Conflict: Article changed in GitHub';
@@ -4159,6 +4298,7 @@ noindex: true
         danger: false,
         onConfirm: async () => {
           closeConfirmModal();
+          showToast('Archiving article...', 'info');
           try {
             const res = await fetch('/api/admin/articles/archive', {
               method: 'POST',
@@ -4173,8 +4313,8 @@ noindex: true
               if (data.sha) art.sha = data.sha;
               AppState.selectedIds.delete(relPath);
               updateBulkToolbar();
-              applyFiltersAndSorting();
-              populateOverviewStats();
+              recalculateArticleDeterministicState(art);
+              syncEditorStatusIfCurrent(art);
               showToast('Article archived (set to noindex)', 'warning');
             } else if (res.status === 409 || data.conflict) {
               showToast('Article changed in GitHub since loaded. Refresh before modifying.', 'error');
@@ -4199,6 +4339,7 @@ noindex: true
         danger: false,
         onConfirm: async () => {
           closeConfirmModal();
+          showToast('Restoring article...', 'info');
           try {
             const res = await fetch('/api/admin/articles/restore', {
               method: 'POST',
@@ -4213,8 +4354,8 @@ noindex: true
               if (data.sha) art.sha = data.sha;
               AppState.selectedIds.delete(relPath);
               updateBulkToolbar();
-              applyFiltersAndSorting();
-              populateOverviewStats();
+              recalculateArticleDeterministicState(art);
+              syncEditorStatusIfCurrent(art);
               showToast('Article restored to active status', 'success');
             } else if (res.status === 409 || data.conflict) {
               showToast('Article changed in GitHub since loaded. Refresh before modifying.', 'error');
@@ -4247,6 +4388,7 @@ noindex: true
         danger: true,
         onConfirm: async () => {
           closeConfirmModal();
+          showToast('Deleting article from repository...', 'info');
           try {
             const res = await fetch('/api/admin/articles/delete', {
               method: 'POST',
@@ -4259,9 +4401,44 @@ noindex: true
               const idx = AppState.articles.findIndex(a => a.relPath === relPath);
               if (idx !== -1) AppState.articles.splice(idx, 1);
               AppState.selectedIds.delete(relPath);
+
+              // Purge from attention and queue caches
+              attentionMap.delete(relPath);
+              if (Array.isArray(window.__NEEDS_ATTENTION__)) {
+                window.__NEEDS_ATTENTION__ = window.__NEEDS_ATTENTION__.filter(item => item.relPath !== relPath);
+              }
+              if (Array.isArray(window.__SENSITIVE__)) {
+                window.__SENSITIVE__ = window.__SENSITIVE__.filter(item => item.relPath !== relPath);
+              }
+              if (Array.isArray(window.__THIN_QUEUE__)) {
+                window.__THIN_QUEUE__ = window.__THIN_QUEUE__.filter(item => item.relPath !== relPath);
+              }
+              ThinQueueState.items = ThinQueueState.items.filter(item => item.relPath !== relPath);
+              recalculateThinQueueStats();
+              updateThinQueueCounts();
+
+              // If deleted article was currently open in editor, close cleanly
+              const wasEditing = AppState.currentlyEditingArticle && AppState.currentlyEditingArticle.relPath === relPath;
+              if (wasEditing) {
+                AppState.currentlyEditingArticle = null;
+                updateEditorActionButtons(null);
+              }
+
               updateBulkToolbar();
               applyFiltersAndSorting();
               populateOverviewStats();
+
+              if (AppState.currentView === 'thin-queue') {
+                applyThinQueueFilters();
+              } else if (AppState.currentView === 'attention') {
+                renderNeedsAttentionTab();
+              } else if (AppState.currentView === 'safety') {
+                renderSafetyTab();
+              }
+
+              if (wasEditing || AppState.articleSubView === 'editor') {
+                navigate('articles', { subview: 'list' });
+              }
               showToast('Article deleted permanently from corpus', 'error');
             } else if (res.status === 409 || data.conflict) {
               showToast('Article changed in GitHub since loaded. Refresh before modifying.', 'error');
@@ -4319,6 +4496,8 @@ noindex: true
                   art.noindex = true;
                   art.articleType = 'noindexed';
                   if (data.sha) art.sha = data.sha;
+                  recalculateArticleDeterministicState(art);
+                  syncEditorStatusIfCurrent(art);
                 }
                 AppState.selectedIds.delete(relPath);
                 successCount++;
@@ -4398,6 +4577,21 @@ noindex: true
                 const idx = AppState.articles.findIndex(a => a.relPath === relPath);
                 if (idx !== -1) AppState.articles.splice(idx, 1);
                 AppState.selectedIds.delete(relPath);
+                attentionMap.delete(relPath);
+                if (Array.isArray(window.__NEEDS_ATTENTION__)) {
+                  window.__NEEDS_ATTENTION__ = window.__NEEDS_ATTENTION__.filter(item => item.relPath !== relPath);
+                }
+                if (Array.isArray(window.__SENSITIVE__)) {
+                  window.__SENSITIVE__ = window.__SENSITIVE__.filter(item => item.relPath !== relPath);
+                }
+                if (Array.isArray(window.__THIN_QUEUE__)) {
+                  window.__THIN_QUEUE__ = window.__THIN_QUEUE__.filter(item => item.relPath !== relPath);
+                }
+                ThinQueueState.items = ThinQueueState.items.filter(item => item.relPath !== relPath);
+                if (AppState.currentlyEditingArticle && AppState.currentlyEditingArticle.relPath === relPath) {
+                  AppState.currentlyEditingArticle = null;
+                  updateEditorActionButtons(null);
+                }
                 successCount++;
               } else {
                 failCount++;
@@ -4409,9 +4603,18 @@ noindex: true
             }
           }
 
+          recalculateThinQueueStats();
+          updateThinQueueCounts();
           updateBulkToolbar();
           applyFiltersAndSorting();
           populateOverviewStats();
+          if (AppState.currentView === 'thin-queue') {
+            applyThinQueueFilters();
+          } else if (AppState.currentView === 'attention') {
+            renderNeedsAttentionTab();
+          } else if (AppState.currentView === 'safety') {
+            renderSafetyTab();
+          }
 
           if (successCount > 0 && failCount === 0) {
             showToast('Successfully deleted ' + successCount + ' articles', 'success');
@@ -4429,20 +4632,21 @@ noindex: true
 
     function openConfirmModal(config) {
       const modal = document.getElementById('confirm-modal');
+      if (!modal) return;
       document.getElementById('confirm-modal-title').innerText = config.title;
 
       let bodyHtml = '<div style="font-size: 13px; line-height: 1.6; color: var(--color-ink);">' + config.body + '</div>';
       if (config.inputRequired) {
         bodyHtml += '<div style="margin-top: 14px;">' +
-          '<input type="text" id="confirm-input-phrase" class="form-input-sm" style="font-weight: 700; letter-spacing: 1px;" placeholder="Type ' + config.inputRequired + ' to confirm">' +
+          '<input type="text" id="confirm-input-phrase" class="form-input-sm" style="font-weight: 700; letter-spacing: 1px; width: 100%; box-sizing: border-box;" placeholder="Type ' + config.inputRequired + ' to confirm">' +
         '</div>';
       }
       document.getElementById('confirm-modal-body').innerHTML = bodyHtml;
 
       const btnClass = config.danger ? 'btn-table-action btn-table-danger' : 'btn-table-action btn-table-primary';
 
-      let footerHtml = '<button class="btn-table-action" onclick="closeConfirmModal()">Cancel</button>' +
-        '<button class="' + btnClass + '" id="btn-modal-confirm">' + config.confirmLabel + '</button>';
+      let footerHtml = '<button class="btn-table-action" type="button" onclick="closeConfirmModal()">Cancel</button>' +
+        '<button class="' + btnClass + '" type="button" id="btn-modal-confirm">' + config.confirmLabel + '</button>';
       document.getElementById('confirm-modal-footer').innerHTML = footerHtml;
 
       currentConfirmCallback = () => {
@@ -4456,20 +4660,34 @@ noindex: true
         if (config.onConfirm) config.onConfirm();
       };
 
-      document.getElementById('btn-modal-confirm').onclick = currentConfirmCallback;
+      const confirmBtn = document.getElementById('btn-modal-confirm');
+      if (confirmBtn) confirmBtn.onclick = currentConfirmCallback;
       modal.style.display = 'flex';
 
       if (config.inputRequired) {
         setTimeout(() => {
           const inp = document.getElementById('confirm-input-phrase');
-          if (inp) inp.focus();
-        }, 100);
+          if (inp) {
+            inp.focus();
+            inp.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                if (currentConfirmCallback) currentConfirmCallback();
+              }
+            });
+          }
+        }, 60);
       }
     }
 
     function closeConfirmModal(e) {
-      if (e && e.target && e.target.id !== 'confirm-modal' && !e.target.classList.contains('btn-close-modal') && !e.target.classList.contains('btn-table-action')) return;
-      document.getElementById('confirm-modal').style.display = 'none';
+      if (e && e.target) {
+        const isBackdrop = e.target.id === 'confirm-modal';
+        const isClose = e.target.closest && (e.target.closest('.btn-close-modal') || e.target.closest('.btn-table-action'));
+        if (!isBackdrop && !isClose) return;
+      }
+      const modal = document.getElementById('confirm-modal');
+      if (modal) modal.style.display = 'none';
       currentConfirmCallback = null;
     }
 
@@ -4585,7 +4803,7 @@ noindex: true
 
     function escapeJs(str) {
       if (!str) return '';
-      return String(str).replace(/'/g, "\\'").replace(/"/g, '\\"');
+      return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"');
     }
 
     function showToast(message, type = 'success') {
@@ -4800,6 +5018,485 @@ noindex: true
       if (pNoindex) pNoindex.innerText = (counts['Noindex'] || 0).toLocaleString();
       if (pPrune) pPrune.innerText = (counts['Prune'] || 0).toLocaleString();
       if (pRev) pRev.innerText = (counts['Review'] || 0).toLocaleString();
+
+      // Top Summary KPI Cards
+      const kEnrich = document.getElementById('tq-kpi-enrich');
+      const kCons = document.getElementById('tq-kpi-consolidate');
+      const kRev = document.getElementById('tq-kpi-review');
+      const kKeep = document.getElementById('tq-kpi-keep-short');
+      const kLowVal = document.getElementById('tq-kpi-low-value');
+      if (kEnrich) kEnrich.innerText = (counts['Enrich'] || 0).toLocaleString();
+      if (kCons) kCons.innerText = (counts['Consolidate'] || 0).toLocaleString();
+      if (kRev) kRev.innerText = (counts['Review'] || 0).toLocaleString();
+      if (kKeep) kKeep.innerText = (counts['Keep Short'] || 0).toLocaleString();
+      if (kLowVal) kLowVal.innerText = ((counts['Noindex'] || 0) + (counts['Prune'] || 0)).toLocaleString();
+
+      const kScanned = document.getElementById('tq-kpi-scanned');
+      const kScannedSub = document.getElementById('tq-kpi-scanned-sub');
+      const totalArticles = AppState.articles.length;
+      let activeCount = 0;
+      let archivedCount = 0;
+      let redirectCount = 0;
+      AppState.articles.forEach(a => {
+        if (a.articleType === 'redirect') redirectCount++;
+        else if (a.noindex) archivedCount++;
+        else activeCount++;
+      });
+      if (kScanned) kScanned.innerText = totalArticles.toLocaleString();
+      if (kScannedSub) kScannedSub.innerText = activeCount + ' active · ' + archivedCount + ' archived · ' + redirectCount + ' redirects';
+    }
+
+    // ========================================================================
+    // PHASE 14A-2: TARGETED DETERMINISTIC LIVE RECALCULATION ENGINE
+    // ========================================================================
+    const STOPWORDS = new Set([
+      'a', 'about', 'above', 'after', 'again', 'against', 'all', 'also', 'am', 'amid',
+      'an', 'and', 'any', 'are', 'aren\'t', 'as', 'at', 'be', 'because', 'been',
+      'before', 'being', 'below', 'between', 'both', 'but', 'by', 'can', 'can\'t',
+      'cannot', 'could', 'couldn\'t', 'did', 'didn\'t', 'do', 'does', 'doesn\'t',
+      'doing', 'don\'t', 'down', 'during', 'each', 'few', 'for', 'from', 'further',
+      'had', 'hadn\'t', 'has', 'hasn\'t', 'have', 'haven\'t', 'having', 'he', 'he\'d',
+      'he\'ll', 'he\'s', 'her', 'here', 'here\'s', 'hers', 'herself', 'him', 'himself',
+      'his', 'how', 'how\'s', 'i', 'i\'d', 'i\'ll', 'i\'m', 'i\'ve', 'if', 'in',
+      'into', 'is', 'isn\'t', 'it', 'it\'s', 'its', 'itself', 'let\'s', 'me', 'more',
+      'most', 'mustn\'t', 'my', 'myself', 'no', 'nor', 'not', 'of', 'off', 'on',
+      'once', 'only', 'or', 'other', 'ought', 'our', 'ours', 'ourselves', 'out',
+      'over', 'own', 'same', 'shan\'t', 'she', 'she\'d', 'she\'ll', 'she\'s', 'should',
+      'shouldn\'t', 'so', 'some', 'such', 'than', 'that', 'that\'s', 'the', 'their',
+      'theirs', 'them', 'themselves', 'then', 'there', 'there\'s', 'these', 'they',
+      'they\'d', 'they\'ll', 'they\'re', 'they\'ve', 'this', 'those', 'through', 'to',
+      'too', 'under', 'until', 'up', 'very', 'was', 'wasn\'t', 'we', 'we\'d', 'we\'ll',
+      'we\'re', 'we\'ve', 'were', 'weren\'t', 'what', 'what\'s', 'when', 'when\'s',
+      'where', 'where\'s', 'which', 'while', 'who', 'who\'s', 'whom', 'why', 'why\'s',
+      'with', 'won\'t', 'would', 'wouldn\'t', 'you', 'you\'d', 'you\'ll', 'you\'re',
+      'you\'ve', 'your', 'yours', 'yourself', 'yourselves', 'today', 'news', 'india'
+    ]);
+
+    const CONTEXT_PATTERNS = /\b(?:earlier|previously|background|history|in recent months|context|following the|development comes as|preceded by|meanwhile|historically|prior to|over the past)\b/i;
+    const ATTRIBUTION_PATTERNS = /\b(?:according to|reported by|spokesperson|news agency|press release|pti|ani|reuters|afp|associated press|official statement|confirmed by|disclosed by|briefed reporters)\b/i;
+    const FACTS_PATTERNS = /\b(?:\d{1,4}(?:,\d{3})*(?:\.\d+)?%?|\$\d+|₹\d+|rs\.?\s*\d+|\b(?:january|february|march|april|may|june|july|august|september|october|november|december)\b)\b/i;
+    const EXPLANATORY_PATTERNS = /\b(?:because|due to|in order to|as a result|explaining why|intended to|significance|implications|aims to|seeks to|primary objective)\b/i;
+
+    const SENSITIVE_PATTERNS = {
+      crime_legal: /\b(?:murder|homicide|manslaughter|kidnapping|arrested|fir registered|criminal charges|court verdict|sentenced to|cbi|ed|ncb|bail denied)\b/i,
+      fatalities_disasters: /\b(?:death toll|fatalities|fatal crash|fatal accident|killed|perished|succumbed to injuries|drown(?:ed|ing)|landslide)\b/i,
+      politics_elections: /\b(?:election commission|polling dates|all-party consultation|assembly election|voter turnout|campaign rally|bjp|congress|aap|parliament)\b/i,
+      health_medical: /\b(?:medical trial|clinical study|pharmaceutical|cancer treatment|vaccine efficacy|ministry of health|hospital negligence)\b/i,
+      defense_military: /\b(?:drdo|missile test|army chief|air force|navy|defense ministry|border clash|line of actual control)\b/i,
+      financial_markets: /\b(?:stock exchange|sensex|nifty|market rally|benchmark repo rate|sebi|interest rate hike)\b/i
+    };
+
+    function classifySensitive(title, dek, body) {
+      const text = ((title || '') + ' ' + (dek || '') + ' ' + (body || '')).toLowerCase();
+      const matched = [];
+      for (const [cat, regex] of Object.entries(SENSITIVE_PATTERNS)) {
+        if (regex.test(text)) matched.push(cat);
+      }
+      return matched.length > 0 ? matched : null;
+    }
+
+    function countArticleWords(str) {
+      if (!str || typeof str !== 'string') return 0;
+      return (str.match(/\S+/g) || []).length;
+    }
+
+    function formatDateIso(dateVal) {
+      if (!dateVal) return null;
+      try {
+        const d = new Date(dateVal);
+        if (isNaN(d.getTime())) return String(dateVal).slice(0, 10);
+        return d.toISOString().slice(0, 10);
+      } catch (_) {
+        return String(dateVal).slice(0, 10);
+      }
+    }
+
+    function tokenizeText(text) {
+      if (!text || typeof text !== 'string') return [];
+      return text
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .split(/\s+/)
+        .filter(w => w.length > 2 && !STOPWORDS.has(w));
+    }
+
+    function computeJaccardSimilarity(setA, setB) {
+      if (!setA || !setB || setA.size === 0 || setB.size === 0) return 0;
+      let intersect = 0;
+      for (const token of setA) {
+        if (setB.has(token)) intersect++;
+      }
+      const union = setA.size + setB.size - intersect;
+      return union > 0 ? intersect / union : 0;
+    }
+
+    function evaluateArticleSignals(article) {
+      const body = (article.body || '').trim();
+      const title = (article.title || '').trim();
+      const wordCount = article.wordCount || countArticleWords(body);
+      const charCount = body.length;
+      const titleCharCount = title.length;
+
+      const paragraphs = body
+        .split(/\n\s*\n/)
+        .map(p => p.trim())
+        .filter(p => p.length > 0);
+      const paraCount = Math.max(paragraphs.length, body ? 1 : 0);
+      const meaningfulParas = paragraphs.filter(p => countArticleWords(p) >= 20).length;
+      const avgWordsPerPara = paraCount > 0 ? Math.round(wordCount / paraCount) : 0;
+
+      const hasAttribution = Boolean(
+        (article.sourceName && String(article.sourceName).trim() !== '') ||
+        (article.sourceUrl && String(article.sourceUrl).trim() !== '') ||
+        ATTRIBUTION_PATTERNS.test(body)
+      );
+
+      const hasQuotes = /["""]|(?:\n|^)>/.test(body);
+      const hasContext = CONTEXT_PATTERNS.test(body);
+      const hasFacts = FACTS_PATTERNS.test(body);
+      const hasExplanatory = EXPLANATORY_PATTERNS.test(body);
+
+      const substantiveTokens = tokenizeText(body);
+      const bodySubstanceRatio = wordCount > 0 ? Math.min(1, substantiveTokens.length / wordCount) : 0;
+
+      return {
+        wordCount,
+        charCount,
+        titleCharCount,
+        paraCount,
+        meaningfulParas,
+        avgWordsPerPara,
+        hasAttribution,
+        hasQuotes,
+        hasContext,
+        hasFacts,
+        hasExplanatory,
+        bodySubstanceRatio,
+        titleTokens: new Set(tokenizeText(title))
+      };
+    }
+
+    function findSingleArticleOverlap(art, articles) {
+      if (!art || !art.signals || !art.signals.titleTokens || art.signals.titleTokens.size === 0) return null;
+      let bestOverlap = null;
+      const targetCategory = (art.category || '').toLowerCase();
+      for (const b of articles) {
+        if (b.relPath === art.relPath) continue;
+        if ((b.category || '').toLowerCase() !== targetCategory) continue;
+        if (b.noindex || b.articleType === 'redirect') continue;
+
+        const bTokens = b.signals && b.signals.titleTokens
+          ? b.signals.titleTokens
+          : new Set(tokenizeText(b.title || ''));
+        const sim = computeJaccardSimilarity(art.signals.titleTokens, bTokens);
+        if (sim >= 0.40) {
+          if (!bestOverlap || sim > bestOverlap.sim) {
+            bestOverlap = { related: b, sim };
+          }
+        }
+      }
+      return bestOverlap;
+    }
+
+    function classifyArticle(article, overlap) {
+      const sig = article.signals;
+      const isoDate = formatDateIso(article.date);
+      const detectedSignals = [];
+      const notDetectedSignals = [];
+
+      if (sig.wordCount < 100) detectedSignals.push('Severe brevity: ' + sig.wordCount + ' words');
+      else if (sig.wordCount < 180) detectedSignals.push('Sub-standard length: ' + sig.wordCount + ' words');
+      else if (sig.wordCount < 250) detectedSignals.push('Moderate length: ' + sig.wordCount + ' words');
+
+      if (sig.paraCount <= 1) detectedSignals.push('Single paragraph layout');
+      if (sig.meaningfulParas < 2) detectedSignals.push('Fewer than 2 substantive paragraphs (>=20 words)');
+      if (!sig.hasAttribution) notDetectedSignals.push('Wire attribution or primary source cited');
+      else detectedSignals.push('Active primary source or wire attribution verified');
+
+      if (!sig.hasQuotes) notDetectedSignals.push('Direct quotation marks or official statement');
+      else detectedSignals.push('Direct quotes present');
+
+      if (!sig.hasContext) notDetectedSignals.push('Background or historical context framing');
+      else detectedSignals.push('Background context detected');
+
+      if (!sig.hasFacts) notDetectedSignals.push('Specific verifiable numerical or temporal facts');
+      else detectedSignals.push('Specific figures, dates, or verifiable metrics present');
+
+      if (!sig.hasExplanatory) notDetectedSignals.push('Explanatory reasoning phrases (why/how)');
+
+      let classification = null;
+      let finding = null;
+      let confidence = 'Medium';
+      let reason = '';
+      let relatedArticle = null;
+      let evidence = [];
+
+      if (overlap) {
+        classification = 'Consolidate';
+        finding = 'Potential overlap';
+        confidence = overlap.sim >= 0.50 ? 'High' : 'Medium';
+        reason = 'Title and body strongly overlap with another article covering the same event.';
+        relatedArticle = {
+          id: overlap.related.id || (overlap.related.category + '/' + overlap.related.slug),
+          title: overlap.related.title,
+          slug: overlap.related.slug,
+          url: overlap.related.url,
+          category: overlap.related.category,
+          date: formatDateIso(overlap.related.date),
+          similarityPercent: Math.round(overlap.sim * 100)
+        };
+        evidence.push('Shares ' + Math.round(overlap.sim * 100) + '% significant title vocabulary with "' + overlap.related.title + '"');
+        evidence.push('Both articles published in ' + String(article.category).toUpperCase() + ' desk.');
+      } else if (sig.wordCount < 85 && !sig.hasQuotes && !sig.hasContext && isoDate && isoDate < '2026-09-18') {
+        classification = 'Prune';
+        finding = 'Potentially obsolete/low-value';
+        confidence = 'Medium';
+        reason = 'Article appears to be an ephemeral update with limited historical or archival value.';
+        evidence.push('Article body contains only ' + sig.wordCount + ' words.');
+        evidence.push('Lacks direct quotations and contextual analysis.');
+        evidence.push('Published on ' + isoDate + '; candidate for editorial pruning or consolidation.');
+      } else if (sig.wordCount < 100 && !sig.hasQuotes && !sig.hasContext) {
+        classification = 'Noindex';
+        finding = 'Limited standalone depth';
+        confidence = 'Medium';
+        reason = 'Article provides minimal unique reporting and limited standalone search value; consider noindex if not enriched.';
+        evidence.push('Substantially thin content: ' + sig.wordCount + ' words.');
+        evidence.push('Missing quotes and contextual background.');
+        evidence.push('Low standalone search utility.');
+      } else if (sig.wordCount >= 100 && sig.wordCount <= 260 && sig.hasAttribution && sig.hasFacts && (sig.meaningfulParas >= 2 || sig.hasQuotes)) {
+        classification = 'Keep Short';
+        finding = 'Concise breaking news';
+        confidence = 'High';
+        reason = 'Article is short but contains sufficient verifiable information and attribution for a breaking-news update.';
+        evidence.push('Article is ' + sig.wordCount + ' words with ' + sig.paraCount + ' paragraphs.');
+        evidence.push('Contains active source attribution and concrete factual figures.');
+        evidence.push('Properly structured as a rapid breaking news dispatch.');
+      } else if (sig.wordCount < 200 && (!sig.hasContext || !sig.hasExplanatory)) {
+        classification = 'Enrich';
+        finding = 'Potentially thin';
+        confidence = sig.wordCount < 140 ? 'High' : 'Medium';
+        reason = 'Article is substantially shorter than comparable articles and contains limited supporting context.';
+        evidence.push('Article body length is ' + sig.wordCount + ' words (editorial target: 250+ words).');
+        if (!sig.hasContext) evidence.push('Missing supporting historical or previous event context.');
+        if (!sig.hasExplanatory) evidence.push('Lacks explanatory why-it-matters background.');
+      } else if (sig.wordCount < 220 || (!sig.hasQuotes && sig.wordCount < 260)) {
+        classification = 'Review';
+        finding = 'Needs editorial review';
+        confidence = 'Low';
+        reason = 'Multiple thin-content signals detected; editorial review recommended.';
+        evidence.push('Article length is ' + sig.wordCount + ' words.');
+        if (!sig.hasQuotes) evidence.push('Contains no direct quotes or official statements.');
+        if (sig.paraCount <= 1) evidence.push('Formatted as a single continuous block paragraph.');
+      } else {
+        return null;
+      }
+
+      return {
+        id: article.id || (article.category + '/' + article.slug),
+        title: article.title,
+        slug: article.slug,
+        category: article.category,
+        url: article.url,
+        relPath: article.relPath,
+        date: isoDate,
+        wordCount: sig.wordCount,
+        charCount: sig.charCount,
+        paraCount: sig.paraCount,
+        finding,
+        classification,
+        confidence,
+        reason,
+        relatedArticle,
+        detectedSignals,
+        notDetectedSignals,
+        evidence
+      };
+    }
+
+    function evaluateArticleAttention(a) {
+      if (!a) return null;
+      if (a.articleType === 'redirect') {
+        return {
+          id: a.id || (a.category + '/' + a.slug),
+          title: a.title,
+          slug: a.slug,
+          category: a.category,
+          url: a.url,
+          relPath: a.relPath,
+          problem: 'Consolidated Redirect Stub',
+          severity: 'INFO',
+          reason: 'Article was consolidated into a master story; forwards via 301/meta-refresh to ' + (a.redirectTo || a.redirect_to || 'target story'),
+          recommendedAction: 'Verify redirect destination remains active and relevant.'
+        };
+      } else if (a.noindex) {
+        return {
+          id: a.id || (a.category + '/' + a.slug),
+          title: a.title,
+          slug: a.slug,
+          category: a.category,
+          url: a.url,
+          relPath: a.relPath,
+          problem: 'Soft-Pruned (noindex: true)',
+          severity: 'MEDIUM',
+          reason: 'Article frontmatter explicitly contains noindex: true. It is live on disk but omitted from sitemap.xml and search engines.',
+          recommendedAction: 'Review whether content can be expanded or rehabilitated to regain indexation eligibility.'
+        };
+      } else if ((a.wordCount || 0) < 100) {
+        return {
+          id: a.id || (a.category + '/' + a.slug),
+          title: a.title,
+          slug: a.slug,
+          category: a.category,
+          url: a.url,
+          relPath: a.relPath,
+          problem: 'Severe Thin Content (<100 words)',
+          severity: 'HIGH',
+          reason: 'Article body has only ' + (a.wordCount || 0) + ' words. High risk of search engine low-value content penalty.',
+          recommendedAction: 'Enrich with background context, why-it-matters analysis, or consolidate.'
+        };
+      } else if ((a.wordCount || 0) < 150) {
+        return {
+          id: a.id || (a.category + '/' + a.slug),
+          title: a.title,
+          slug: a.slug,
+          category: a.category,
+          url: a.url,
+          relPath: a.relPath,
+          problem: 'Marginal Thin Content (100–149 words)',
+          severity: 'MEDIUM',
+          reason: 'Article body has ' + (a.wordCount || 0) + ' words. Below the 250-word editorial standard for substantive news.',
+          recommendedAction: 'Enrich with source corroboration or key takeaways.'
+        };
+      } else if (!a.hasImage && (!a.image || !String(a.image).trim())) {
+        return {
+          id: a.id || (a.category + '/' + a.slug),
+          title: a.title,
+          slug: a.slug,
+          category: a.category,
+          url: a.url,
+          relPath: a.relPath,
+          problem: 'Missing Hero Photograph',
+          severity: 'LOW',
+          reason: 'Article lacks a valid hero image in frontmatter.',
+          recommendedAction: 'Attach a high-resolution photograph with proper credit attribution.'
+        };
+      } else if (!a.hasSourceName && (!a.sourceName || !String(a.sourceName).trim())) {
+        return {
+          id: a.id || (a.category + '/' + a.slug),
+          title: a.title,
+          slug: a.slug,
+          category: a.category,
+          url: a.url,
+          relPath: a.relPath,
+          problem: 'Missing Primary Source Attribution',
+          severity: 'LOW',
+          reason: 'No sourceName specified in frontmatter.',
+          recommendedAction: 'Attach wire attribution or reporting agency source.'
+        };
+      }
+      return null;
+    }
+
+    function recalculateThinQueueStats() {
+      const classificationCounts = { Enrich: 0, 'Keep Short': 0, Consolidate: 0, Noindex: 0, Prune: 0, Review: 0 };
+      const findingCounts = { potentiallyThin: 0, potentialOverlap: 0, conciseBreaking: 0, limitedDepth: 0, needsReview: 0, obsolete: 0 };
+      ThinQueueState.items.forEach(item => {
+        if (classificationCounts[item.classification] !== undefined) {
+          classificationCounts[item.classification]++;
+        }
+        if (item.finding === 'Potentially thin') findingCounts.potentiallyThin++;
+        else if (item.finding === 'Potential overlap') findingCounts.potentialOverlap++;
+        else if (item.finding === 'Concise breaking news') findingCounts.conciseBreaking++;
+        else if (item.finding === 'Limited standalone depth') findingCounts.limitedDepth++;
+        else if (item.finding === 'Needs editorial review') findingCounts.needsReview++;
+        else if (item.finding === 'Potentially obsolete/low-value') findingCounts.obsolete++;
+      });
+      ThinQueueState.stats.flaggedCount = ThinQueueState.items.length;
+      ThinQueueState.stats.classificationCounts = classificationCounts;
+      ThinQueueState.stats.findingCounts = findingCounts;
+      window.__THIN_STATS__ = ThinQueueState.stats;
+    }
+
+    function recalculateArticleDeterministicState(art) {
+      if (!art || !art.relPath) return;
+
+      // 1. Attention Recalculation
+      const attnIssue = evaluateArticleAttention(art);
+      if (attnIssue) {
+        attentionMap.set(art.relPath, attnIssue);
+        if (!Array.isArray(window.__NEEDS_ATTENTION__)) window.__NEEDS_ATTENTION__ = [];
+        const existingIdx = window.__NEEDS_ATTENTION__.findIndex(item => item.relPath === art.relPath);
+        if (existingIdx !== -1) {
+          window.__NEEDS_ATTENTION__[existingIdx] = attnIssue;
+        } else {
+          window.__NEEDS_ATTENTION__.push(attnIssue);
+        }
+      } else {
+        attentionMap.delete(art.relPath);
+        if (Array.isArray(window.__NEEDS_ATTENTION__)) {
+          window.__NEEDS_ATTENTION__ = window.__NEEDS_ATTENTION__.filter(item => item.relPath !== art.relPath);
+        }
+      }
+
+      // 2. Sensitive Topic Recalculation
+      const sens = classifySensitive(art.title, art.dek, art.body);
+      art.sensitiveTopic = sens;
+      if (!Array.isArray(window.__SENSITIVE__)) window.__SENSITIVE__ = [];
+      window.__SENSITIVE__ = window.__SENSITIVE__.filter(item => item.relPath !== art.relPath);
+      if (sens && sens.length > 0) {
+        window.__SENSITIVE__.push({
+          id: art.id || (art.category + '/' + art.slug),
+          title: art.title,
+          slug: art.slug,
+          category: art.category,
+          url: art.url,
+          relPath: art.relPath,
+          date: art.date,
+          wordCount: art.wordCount,
+          flags: sens,
+          source: art.sourceName || 'Unknown'
+        });
+      }
+
+      // 3. Thin Content Recalculation
+      const isRedirect = Boolean(art.articleType === 'redirect' || art.redirect_to);
+      const isArchived = Boolean(art.noindex === true);
+
+      if (isRedirect || isArchived) {
+        // Excluded from active thin queue
+        ThinQueueState.items = ThinQueueState.items.filter(item => item.relPath !== art.relPath && item.slug !== art.slug);
+      } else {
+        art.signals = evaluateArticleSignals(art);
+        const overlap = findSingleArticleOverlap(art, AppState.articles);
+        const classified = classifyArticle(art, overlap);
+
+        if (classified) {
+          const idx = ThinQueueState.items.findIndex(item => item.relPath === art.relPath || item.slug === art.slug);
+          if (idx !== -1) {
+            ThinQueueState.items[idx] = classified;
+          } else {
+            ThinQueueState.items.push(classified);
+          }
+        } else {
+          ThinQueueState.items = ThinQueueState.items.filter(item => item.relPath !== art.relPath && item.slug !== art.slug);
+        }
+      }
+
+      window.__THIN_QUEUE__ = ThinQueueState.items;
+      recalculateThinQueueStats();
+      updateThinQueueCounts();
+      populateOverviewStats();
+
+      // View-specific re-renders
+      if (AppState.currentView === 'articles') {
+        applyFiltersAndSorting();
+      } else if (AppState.currentView === 'thin-queue') {
+        applyThinQueueFilters();
+      } else if (AppState.currentView === 'attention') {
+        renderNeedsAttentionTab();
+      } else if (AppState.currentView === 'safety') {
+        renderSafetyTab();
+      }
     }
 
     function renderThinQueueTable() {
@@ -4969,9 +5666,13 @@ noindex: true
       applyThinQueueFilters();
     }
 
-    function handleThinQueueSearch(val) {
+    const debouncedThinQueueSearch = debounce((val) => {
       ThinQueueState.filters.search = (val || '').trim();
       applyThinQueueFilters();
+    }, 180);
+
+    function handleThinQueueSearch(val) {
+      debouncedThinQueueSearch(val);
     }
 
     // Modal Inspection Drawer
