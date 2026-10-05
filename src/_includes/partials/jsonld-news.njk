@@ -77,8 +77,15 @@
   ]
 }
 </script>
-{% set vid = video_id %}
-{% if vid and vid != "" and vid != "null" %}
+{% set vid = "" %}
+{% if video_id and video_id != "" and video_id != "null" and video_id != "undefined" %}
+  {% set vid = video_id | trim %}
+{% elif videos and videos.length and videos[0].video_id %}
+  {% set vid = videos[0].video_id | trim %}
+{% elif videoId and videoId != "" and videoId != "null" and videoId != "undefined" %}
+  {% set vid = videoId | trim %}
+{% endif %}
+{% if vid and vid != "" and vid != "null" and vid != "undefined" %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

@@ -1209,9 +1209,9 @@ button {
    10. Trending Stories Section (Visual Hierarchy: #1 Dominant + #2-4 Compact)
    -------------------------------------------------------------------------- */
 .trending-section {
-  margin-bottom: var(--space-10);
-  padding-bottom: var(--space-6);
-  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-12);
+  padding-top: var(--space-4);
+  border-top: 2px solid var(--color-ink);
 }
 
 .trending-hierarchy-grid {
@@ -1766,7 +1766,7 @@ button {
 
 /* Card Variants */
 .editorial-card.desk-lead {
-  border-top: 3px solid var(--color-ink);
+  border: 1px solid var(--color-border);
 }
 .editorial-card.desk-lead .card-title {
   font-size: 1.35rem;
@@ -1785,7 +1785,7 @@ button {
   align-items: flex-start;
   gap: var(--space-3);
   padding: var(--space-3);
-  height: 100%;
+  height: auto;
 }
 .editorial-card.desk-compact .card-thumb {
   width: 110px;
@@ -1819,46 +1819,88 @@ button {
   display: flex;
   flex-direction: column;
   padding: var(--space-4);
-  border-top: 3px solid var(--color-ink);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  height: auto;
+  box-sizing: border-box;
 }
-@media (min-width: 768px) {
+@media (min-width: 960px) {
   .editorial-card.desk-horizontal {
     flex-direction: row;
-    align-items: stretch;
+    align-items: center;
     gap: var(--space-5);
-    padding: var(--space-5);
+    padding: var(--space-4) var(--space-5);
   }
   .editorial-card.desk-horizontal .card-thumb {
-    width: 46%;
-    min-width: 46%;
+    width: 320px;
+    min-width: 280px;
+    max-width: 340px;
     margin-bottom: 0;
     aspect-ratio: 16 / 9;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .editorial-card.desk-horizontal .card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .editorial-card.desk-horizontal .card-body-wrap {
-    width: 54%;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
   }
   .editorial-card.desk-horizontal .card-title {
-    font-size: 1.45rem;
-    line-height: 1.25;
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: var(--space-2);
   }
   .editorial-card.desk-horizontal .card-snippet {
-    font-size: 0.9375rem;
-    line-height: 1.5;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--color-body);
+    margin-bottom: var(--space-2);
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 
 .editorial-card.desk-business-lead {
-  border-top: 3px solid var(--color-ink);
+  border: 1px solid var(--color-border);
   background-color: #FAFAFA;
+  height: auto;
+}
+.editorial-card.desk-business-lead .card-thumb {
+  max-height: 280px;
+  overflow: hidden;
+}
+.editorial-card.desk-business-lead .card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .editorial-card.desk-business-lead .card-title {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 800;
+  line-height: 1.3;
+}
+.editorial-card.desk-business-lead .card-snippet {
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: var(--space-2);
 }
 
 .editorial-card.desk-sports-lead {
-  border-top: 3px solid var(--color-brand);
+  border: 1px solid var(--color-border);
 }
 .editorial-card.desk-sports-lead .card-title {
   font-size: 1.35rem;
@@ -1875,6 +1917,39 @@ button {
   .editorial-card.desk-compact .card-title {
     font-size: 0.875rem;
   }
+}
+
+.editorial-card.desk-grid {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.editorial-card.desk-grid .card-thumb {
+  margin-bottom: 0;
+}
+.editorial-card.desk-grid .card-body-wrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--space-4);
+}
+.editorial-card.desk-grid .card-title {
+  font-size: 1.1rem;
+  line-height: 1.3;
+  margin-bottom: var(--space-2);
+}
+.editorial-card.desk-grid .card-snippet {
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--color-body);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: var(--space-3);
+}
+.editorial-card.desk-grid .card-meta-row {
+  margin-top: auto;
 }
 
 /* --------------------------------------------------------------------------
@@ -1897,10 +1972,11 @@ button {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  height: 100%;
+  align-self: start;
 }
 .desk-supporting-rail .editorial-card.desk-compact {
-  flex: 1;
+  flex: 0 0 auto;
+  height: auto;
 }
 
 /* World Desk */
@@ -1914,27 +1990,80 @@ button {
   grid-template-columns: 1fr;
   gap: var(--space-4);
 }
-@media (min-width: 680px) {
-  .desk-world-subgrid {
-    grid-template-columns: repeat(2, 1fr);
+@media (min-width: 640px) and (max-width: 959px) {
+  .desk-world-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-4);
+    align-items: start;
   }
-}
-
-/* Business Desk */
-.desk-business-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-4);
-}
-@media (min-width: 640px) {
-  .desk-business-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .desk-world-lead .editorial-card.desk-horizontal {
+    flex-direction: column;
+    padding: var(--space-4);
+  }
+  .desk-world-lead .editorial-card.desk-horizontal .card-thumb {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: var(--space-3);
+  }
+  .desk-world-subgrid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
   }
 }
 @media (min-width: 960px) {
-  .desk-business-grid {
-    grid-template-columns: repeat(3, 1fr);
+  .desk-world-layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
   }
+  .desk-world-subgrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+  .desk-world-subgrid .editorial-card:last-child {
+    grid-column: auto;
+  }
+}
+.desk-world-subgrid .editorial-card.desk-compact {
+  flex: 0 0 auto;
+  height: auto;
+  align-self: start;
+  border: 1px solid var(--color-border);
+  box-sizing: border-box;
+}
+
+/* Business Desk — Dense Editorial Layout (Lead + Supporting Rail) */
+.desk-business-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+@media (min-width: 640px) and (max-width: 859px) {
+  .desk-business-rail {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+}
+@media (min-width: 860px) {
+  .desk-business-layout {
+    grid-template-columns: 1.35fr 1fr;
+    gap: var(--space-5);
+  }
+  .desk-business-rail {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-self: start;
+  }
+}
+.desk-business-rail .editorial-card.desk-compact {
+  flex: 0 0 auto;
+  height: auto;
 }
 
 /* Mid-Page Editorial Accent */
@@ -1994,10 +2123,11 @@ button {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  height: 100%;
+  align-self: start;
 }
 .desk-tech-stream .editorial-card.desk-compact {
-  flex: 1;
+  flex: 0 0 auto;
+  height: auto;
   background-color: #FAFAFA;
 }
 
@@ -2017,10 +2147,11 @@ button {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  height: 100%;
+  align-self: start;
 }
 .desk-sports-duo .editorial-card.desk-compact {
-  flex: 1;
+  flex: 0 0 auto;
+  height: auto;
 }
 
 /* --------------------------------------------------------------------------
@@ -3369,15 +3500,15 @@ button {
   background-color: var(--color-surface);
   border-top: 2px solid var(--color-ink);
   border-bottom: 1px solid var(--color-border);
-  padding: var(--space-8) 0;
-  margin-bottom: var(--space-12);
+  padding: var(--space-6) 0;
+  margin-bottom: var(--space-8);
 }
 
 .video-section-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-4);
   padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--color-border);
 }
@@ -3480,13 +3611,13 @@ button {
 .video-enhanced-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-6);
+  gap: var(--space-5);
 }
 
 @media (min-width: 900px) {
   .video-enhanced-grid {
     grid-template-columns: 1.6fr 1fr;
-    gap: var(--space-8);
+    gap: var(--space-6);
   }
 }
 
@@ -3971,33 +4102,58 @@ button {
 }
 
 .newsletter-input-field {
-  flex: 1 1 220px;
-  padding: 10px 14px;
-  font-size: 0.875rem;
-  border: 1px solid var(--color-border);
+  flex: 1 1 240px;
+  height: 46px;
+  min-height: 46px;
+  padding: 10px 16px;
+  font-size: 0.9375rem;
+  font-family: var(--font-sans);
+  border: 1.5px solid #64748B;
   background-color: #FFFFFF;
   color: var(--color-ink);
-  min-height: 44px;
+  box-sizing: border-box;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.newsletter-input-field::placeholder {
+  color: #64748B;
+  opacity: 1;
 }
 
 .newsletter-input-field:focus {
   border-color: var(--color-brand);
+  box-shadow: 0 0 0 2px rgba(200, 30, 44, 0.18);
   outline: none;
 }
 
 .newsletter-submit-btn {
-  padding: 10px 20px;
+  height: 46px;
+  min-height: 46px;
+  padding: 0 24px;
   background-color: var(--color-ink);
   color: #FFFFFF;
   font-weight: 700;
   font-size: 0.875rem;
-  min-height: 44px;
-  min-width: 100px;
+  font-family: var(--font-sans);
+  border: none;
+  box-sizing: border-box;
+  cursor: pointer;
   transition: background-color var(--transition-fast);
 }
 
 .newsletter-submit-btn:hover {
   background-color: var(--color-brand);
+}
+
+@media (max-width: 480px) {
+  .newsletter-form-inline {
+    flex-direction: column;
+  }
+  .newsletter-input-field,
+  .newsletter-submit-btn {
+    width: 100%;
+    flex: none;
+  }
 }
 
 /* --------------------------------------------------------------------------

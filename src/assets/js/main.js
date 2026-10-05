@@ -3,7 +3,7 @@
  * Lightweight, accessible, zero-dependency, Core Web Vitals optimized
  */
 
-document.addEventListener("DOMContentLoaded", () => {
+function initSamacharDaily() {
   // 1. Sticky Header Compact Mode on Scroll
   const header = document.getElementById("site-header");
   if (header) {
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 6. Dynamic Hero Carousel (Phase 2 & 3 Correction)
+  // 6. Dynamic Hero Carousel (Phase 13E Autoplay Lifecycle Repair)
   const heroCarousel = document.getElementById("hero-carousel");
   if (heroCarousel) {
     const track = document.getElementById("hero-carousel-track");
@@ -215,8 +215,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (slides.length > 1) {
       let currentIndex = 0;
       let autoplayTimer = null;
-      let isPaused = false;
-      const AUTOPLAY_INTERVAL = 6000; // 6 seconds
+      let isHoverPaused = false;
+      let isTouchActive = false;
+      let lastTouchTimestamp = 0;
+      const AUTOPLAY_INTERVAL = 5000; // 5 seconds deterministic auto-advance
+
+      // Clear any prior timer instance across reinitializations
+      if (window.__HERO_AUTOPLAY_TIMER__) {
+        clearInterval(window.__HERO_AUTOPLAY_TIMER__);
+        window.__HERO_AUTOPLAY_TIMER__ = null;
+      }
 
       function checkReducedMotion() {
         return typeof window.matchMedia === "function" &&
@@ -238,9 +246,15 @@ document.addEventListener("DOMContentLoaded", () => {
       function updateSlide(index) {
         currentIndex = (index + slides.length) % slides.length;
 
-        // Slide track must always shift to current slide offset;
-        // CSS takes care of disabling motion when prefers-reduced-motion is active.
+        // Slide track shift:
+        // When prefers-reduced-motion is active, transition is set to instant/none
+        // while continuing slide advancement
         if (track) {
+          if (checkReducedMotion()) {
+            track.style.transition = "none";
+          } else {
+            track.style.transition = "";
+          }
           track.style.transform = `translateX(-${currentIndex * 100}%)`;
         }
 
@@ -259,78 +273,144 @@ document.addEventListener("DOMContentLoaded", () => {
         syncArrowPosition();
       }
 
-      function startAutoplay() {
-        if (checkReducedMotion() || isPaused) return;
-        stopAutoplay();
-        autoplayTimer = setInterval(() => {
-          updateSlide(currentIndex + 1);
-        }, AUTOPLAY_INTERVAL);
-      }
-
       function stopAutoplay() {
-        if (autoplayTimer) {
+        if (autoplayTimer !== null) {
           clearInterval(autoplayTimer);
           autoplayTimer = null;
         }
+        if (window.__HERO_AUTOPLAY_TIMER__) {
+          clearInterval(window.__HERO_AUTOPLAY_TIMER__);
+          window.__HERO_AUTOPLAY_TIMER__ = null;
+        }
+      }
+
+      function startAutoplay() {
+        // Enforce strictly one active timer
+        stopAutoplay();
+        // Do not rotate if document is hidden or touch gesture is active
+        if (document.hidden || isTouchActive) {
+          return;
+        }
+        // Recover from synthetic hover if pointer is not actually over the carousel
+        if (isHoverPaused) {
+          try {
+            if (!heroCarousel.matches(":hover")) {
+              isHoverPaused = false;
+            }
+          } catch (_) {
+            isHoverPaused = false;
+          }
+        }
+        if (isHoverPaused) {
+          return;
+        }
+        autoplayTimer = setInterval(() => {
+          updateSlide(currentIndex + 1);
+        }, AUTOPLAY_INTERVAL);
+        window.__HERO_AUTOPLAY_TIMER__ = autoplayTimer;
       }
 
       function restartAutoplay() {
-        isPaused = false;
         startAutoplay();
+      }
+
+      function handleManualNav(newIndex) {
+        // User interaction immediately shows requested slide and resets rotation timer
+        isHoverPaused = false;
+        isTouchActive = false;
+        updateSlide(newIndex);
+        restartAutoplay();
       }
 
       // Prev & Next Buttons
       if (prevBtn) {
         prevBtn.addEventListener("click", () => {
-          updateSlide(currentIndex - 1);
-          restartAutoplay();
+          handleManualNav(currentIndex - 1);
         });
       }
 
       if (nextBtn) {
         nextBtn.addEventListener("click", () => {
-          updateSlide(currentIndex + 1);
-          restartAutoplay();
+          handleManualNav(currentIndex + 1);
         });
       }
 
       // Clickable Slide Dots
       dots.forEach((dot, idx) => {
         dot.addEventListener("click", () => {
-          updateSlide(idx);
-          restartAutoplay();
+          handleManualNav(idx);
         });
       });
 
-      // Pause on Hover, Resume on Mouse Leave
-      heroCarousel.addEventListener("mouseenter", () => {
-        isPaused = true;
-        stopAutoplay();
-      });
-
-      heroCarousel.addEventListener("mouseleave", () => {
-        restartAutoplay();
-      });
-
-      // Accessible Focus Handling: pause during keyboard navigation, resume on blur
-      heroCarousel.addEventListener("focusin", (e) => {
-        if (e.target && (e.target.tagName === "A" || e.target.tagName === "BUTTON")) {
-          // Control focused
+      // Pointer-aware Hover Handling:
+      // ONLY pause for authentic physical mouse hover; ignore touch-synthesized pointer events
+      heroCarousel.addEventListener("pointerenter", (e) => {
+        if (e.pointerType === "mouse" && (Date.now() - lastTouchTimestamp > 1200)) {
+          isHoverPaused = true;
+          stopAutoplay();
         }
       });
 
-      heroCarousel.addEventListener("focusout", (e) => {
-        if (!heroCarousel.contains(e.relatedTarget)) {
+      heroCarousel.addEventListener("pointerleave", (e) => {
+        if (e.pointerType === "mouse") {
+          isHoverPaused = false;
           restartAutoplay();
         }
       });
 
-      // Touch / Swipe Navigation with touchcancel support
+      // Recover from mouse leaving the viewport without triggering pointerleave
+      document.addEventListener("mouseleave", () => {
+        if (isHoverPaused) {
+          isHoverPaused = false;
+          restartAutoplay();
+        }
+      });
+
+      // Clicking anywhere on carousel (article links, cards, controls) resets any synthetic hover lock
+      heroCarousel.addEventListener("click", () => {
+        setTimeout(() => {
+          try {
+            if (!heroCarousel.matches(":hover")) {
+              isHoverPaused = false;
+            }
+          } catch (_) {
+            isHoverPaused = false;
+          }
+          restartAutoplay();
+        }, 60);
+      });
+
+      // Accessible Focus Handling:
+      // Only pause while a control is explicitly focused via keyboard navigation (:focus-visible)
+      // Mouse/touch clicks on links and buttons do NOT lock autoplay
+      heroCarousel.addEventListener("focusin", (e) => {
+        try {
+          if (e.target && typeof e.target.matches === "function" && e.target.matches(":focus-visible")) {
+            isHoverPaused = true;
+            stopAutoplay();
+          }
+        } catch (_) {}
+      });
+
+      heroCarousel.addEventListener("focusout", (e) => {
+        try {
+          if (!heroCarousel.contains(e.relatedTarget) || !e.relatedTarget.matches(":focus-visible")) {
+            isHoverPaused = false;
+            restartAutoplay();
+          }
+        } catch (_) {
+          isHoverPaused = false;
+          restartAutoplay();
+        }
+      });
+
+      // Touch / Swipe Navigation: pause during gesture, ALWAYS resume on touchend / touchcancel
       let touchStartX = 0;
       let touchStartY = 0;
 
       heroCarousel.addEventListener("touchstart", (e) => {
-        isPaused = true;
+        lastTouchTimestamp = Date.now();
+        isTouchActive = true;
         stopAutoplay();
         if (e.touches && e.touches.length > 0) {
           touchStartX = e.touches[0].clientX;
@@ -339,6 +419,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }, { passive: true });
 
       heroCarousel.addEventListener("touchend", (e) => {
+        lastTouchTimestamp = Date.now();
+        isTouchActive = false;
+        isHoverPaused = false; // Never let touch leave persistent hover lock
         if (e.changedTouches && e.changedTouches.length > 0) {
           const touchEndX = e.changedTouches[0].clientX;
           const touchEndY = e.changedTouches[0].clientY;
@@ -357,6 +440,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }, { passive: true });
 
       heroCarousel.addEventListener("touchcancel", () => {
+        lastTouchTimestamp = Date.now();
+        isTouchActive = false;
+        isHoverPaused = false;
         restartAutoplay();
       }, { passive: true });
 
@@ -364,33 +450,34 @@ document.addEventListener("DOMContentLoaded", () => {
       heroCarousel.addEventListener("keydown", (e) => {
         if (e.key === "ArrowLeft") {
           e.preventDefault();
-          updateSlide(currentIndex - 1);
-          restartAutoplay();
+          handleManualNav(currentIndex - 1);
         } else if (e.key === "ArrowRight") {
           e.preventDefault();
-          updateSlide(currentIndex + 1);
-          restartAutoplay();
+          handleManualNav(currentIndex + 1);
         }
       });
 
-      // Tab Visibility & Window Focus Lifecycle
+      // Tab Visibility Lifecycle: pause while hidden, resume on reveal
       document.addEventListener("visibilitychange", () => {
         if (document.hidden) {
           stopAutoplay();
         } else {
+          isHoverPaused = false;
+          isTouchActive = false;
           restartAutoplay();
         }
       });
 
-      window.addEventListener("blur", () => {
-        stopAutoplay();
-      });
-
+      // Window Focus & Blur: window blur must NOT permanently stop autoplay
       window.addEventListener("focus", () => {
-        restartAutoplay();
+        if (!document.hidden) {
+          isHoverPaused = false;
+          isTouchActive = false;
+          restartAutoplay();
+        }
       });
 
-      // Resize handling to keep arrows vertically centered over the hero image
+      // Resize and Zoom handling: keeps arrows positioned and ensures autoplay continues
       window.addEventListener("resize", syncArrowPosition);
       if (typeof ResizeObserver !== "undefined") {
         new ResizeObserver(syncArrowPosition).observe(heroCarousel);
@@ -481,5 +568,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-});
+}
+ 
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initSamacharDaily);
+} else {
+  initSamacharDaily();
+}
 

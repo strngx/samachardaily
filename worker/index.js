@@ -25,7 +25,8 @@ import {
   getArticleAuditHistory,
   getRecentAuditLogs,
   computeArticleDiff,
-  validateArticlePayload
+  validateArticlePayload,
+  parseYouTubeVideoId
 } from './audit.js';
 import {
   checkArticleSafety,
@@ -1046,37 +1047,51 @@ export default {
           if (why_it_matters !== undefined) parsed.data.why_it_matters = why_it_matters ? String(why_it_matters).trim() : null;
           if (what_happens_next !== undefined) parsed.data.what_happens_next = what_happens_next ? String(what_happens_next).trim() : null;
 
-          // Phase 13D: Additive YouTube Video management
+          // Phase 13D/13E: End-to-end YouTube Video management
           if (video_id !== undefined) {
-            const cleanVid = video_id ? String(video_id).trim() : '';
-            if (cleanVid && !/^[a-zA-Z0-9_-]{11}$/.test(cleanVid)) {
+            const rawVid = video_id ? String(video_id).trim() : '';
+            const cleanVid = parseYouTubeVideoId(rawVid);
+            if (rawVid && !cleanVid) {
               return new Response(JSON.stringify({
                 success: false,
-                error: 'Invalid YouTube video ID. Must be exactly 11 characters.'
+                error: 'Invalid YouTube video ID or URL.'
               }), {
                 status: 400,
                 headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
               });
             }
-            parsed.data.video_id = cleanVid;
-          }
-          if (video_caption !== undefined) {
-            parsed.data.video_caption = video_caption ? String(video_caption).trim() : '';
-          }
-          if (videos !== undefined) {
-            if (Array.isArray(videos)) {
-              parsed.data.videos = videos.filter(v => v && typeof v === 'object' && v.video_id && /^[a-zA-Z0-9_-]{11}$/.test(String(v.video_id).trim()));
-            } else if (!parsed.data.video_id) {
-              parsed.data.videos = [];
+
+            if (cleanVid) {
+              parsed.data.video_id = cleanVid;
+              if (video_caption !== undefined) {
+                parsed.data.video_caption = video_caption ? String(video_caption).trim() : '';
+              } else if (!parsed.data.video_caption) {
+                parsed.data.video_caption = parsed.data.title || '';
+              }
+              if (Array.isArray(videos) && videos.length > 0) {
+                parsed.data.videos = videos.filter(v => v && typeof v === 'object' && v.video_id && /^[a-zA-Z0-9_-]{11}$/.test(String(v.video_id).trim()));
+              } else {
+                parsed.data.videos = [{
+                  video_id: cleanVid,
+                  title: parsed.data.video_caption || parsed.data.title || '',
+                  channel: 'YouTube'
+                }];
+              }
+            } else {
+              // Video removed or cleared — cleanly remove keys from frontmatter
+              delete parsed.data.video_id;
+              delete parsed.data.video_caption;
+              delete parsed.data.videos;
+              delete parsed.data.videoId;
+              delete parsed.data.videoCaption;
             }
-          } else if (video_id !== undefined && !parsed.data.video_id) {
-            parsed.data.videos = [];
-          } else if (video_id !== undefined && parsed.data.video_id && (!Array.isArray(parsed.data.videos) || parsed.data.videos.length === 0)) {
-            parsed.data.videos = [{
-              video_id: parsed.data.video_id,
-              title: parsed.data.video_caption || parsed.data.title || '',
-              channel: 'YouTube'
-            }];
+          } else {
+            if (video_caption !== undefined) {
+              parsed.data.video_caption = video_caption ? String(video_caption).trim() : '';
+            }
+            if (videos !== undefined && Array.isArray(videos)) {
+              parsed.data.videos = videos.filter(v => v && typeof v === 'object' && v.video_id && /^[a-zA-Z0-9_-]{11}$/.test(String(v.video_id).trim()));
+            }
           }
 
           // Update body content if provided

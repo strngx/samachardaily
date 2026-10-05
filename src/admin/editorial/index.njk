@@ -3265,6 +3265,12 @@ noindex: true
 
       if (tbody) tbody.innerHTML = tableHtml;
       if (mobileContainer) mobileContainer.innerHTML = mobileHtml;
+
+      // Synchronize master checkbox state with current page selection
+      const master = document.getElementById('master-checkbox');
+      if (master) {
+        master.checked = pageArticles.length > 0 && pageArticles.every(art => AppState.selectedIds.has(art.relPath));
+      }
     }
 
     function prevArticlePage() {
@@ -3300,6 +3306,16 @@ noindex: true
     function toggleArticleSelection(relPath, checkbox) {
       if (checkbox.checked) AppState.selectedIds.add(relPath);
       else AppState.selectedIds.delete(relPath);
+
+      const tr = checkbox.closest('tr');
+      if (tr) tr.classList.toggle('selected', checkbox.checked);
+
+      const pageArticles = getCurrentlyPagedArticles();
+      const master = document.getElementById('master-checkbox');
+      if (master) {
+        master.checked = pageArticles.length > 0 && pageArticles.every(art => AppState.selectedIds.has(art.relPath));
+      }
+
       updateBulkToolbar();
     }
 
@@ -3398,15 +3414,18 @@ noindex: true
                   art.what_happens_next = data.data.what_happens_next;
                   document.getElementById('edit-what-happens-next').value = art.what_happens_next;
                 }
-                if (data.data.video_id !== undefined && (!art.video_id || art.video_id === '')) {
-                  art.video_id = data.data.video_id;
-                }
-                if (data.data.video_caption && !art.video_caption) {
-                  art.video_caption = data.data.video_caption;
-                }
-                if (Array.isArray(data.data.videos) && (!art.videos || art.videos.length === 0)) {
+                const loadedVid = (data.data.video_id !== undefined ? data.data.video_id : data.data.videoId) || (Array.isArray(data.data.videos) && data.data.videos[0] && data.data.videos[0].video_id) || '';
+                const loadedCaption = (data.data.video_caption !== undefined ? data.data.video_caption : data.data.videoCaption) || (Array.isArray(data.data.videos) && data.data.videos[0] && data.data.videos[0].title) || '';
+                art.video_id = loadedVid ? String(loadedVid).trim() : '';
+                art.video_caption = loadedCaption ? String(loadedCaption).trim() : '';
+                if (Array.isArray(data.data.videos) && data.data.videos.length > 0) {
                   art.videos = data.data.videos;
+                } else if (art.video_id) {
+                  art.videos = [{ video_id: art.video_id, title: art.video_caption || art.title || 'News Coverage', channel: 'YouTube' }];
+                } else {
+                  art.videos = [];
                 }
+                art.hasVideo = Boolean(art.video_id && art.video_id !== 'null');
                 initYouTubeWidgetState(art);
               }
               document.getElementById('edit-body').value = art.body;
@@ -3707,7 +3726,7 @@ noindex: true
 
       initYouTubeWidgetState(art);
       markEditorAsUnsaved();
-      showToast('YouTube video updated in editor. Click "Save Changes" to publish.', 'info');
+      saveEditorArticle();
     }
 
     function removeYouTubeVideo() {
@@ -3737,6 +3756,24 @@ noindex: true
       btn.disabled = true;
       saveStatus.className = 'editor-save-indicator';
       saveStatus.innerText = 'Saving changes...';
+
+      const urlInput = document.getElementById('yt-url-input');
+      if (urlInput && urlInput.value && urlInput.value.trim()) {
+        const parsedId = parseYouTubeVideoId(urlInput.value);
+        if (parsedId) {
+          AppState.currentlyEditingArticle.video_id = parsedId;
+          if (!AppState.currentlyEditingArticle.video_caption) {
+            const hl = document.getElementById('edit-headline');
+            AppState.currentlyEditingArticle.video_caption = (hl && hl.value.trim()) || AppState.currentlyEditingArticle.title || 'News Coverage';
+          }
+          AppState.currentlyEditingArticle.hasVideo = true;
+          AppState.currentlyEditingArticle.videos = [{
+            video_id: parsedId,
+            title: AppState.currentlyEditingArticle.video_caption,
+            channel: 'YouTube'
+          }];
+        }
+      }
 
       const payload = {
         relPath: AppState.currentlyEditingArticle.relPath,
@@ -4110,6 +4147,11 @@ noindex: true
       const art = AppState.articles.find(a => a.relPath === relPath);
       if (!art) return;
 
+      if (art.articleType === 'redirect') {
+        alert('Cannot archive redirect stub. Redirect stubs protect canonical backlinks.');
+        return;
+      }
+
       openConfirmModal({
         title: 'Archive Article?',
         body: 'Archiving <strong>' + escapeHtml(art.title) + '</strong> marks it as <code>noindex: true</code>.<br><br>It will be excluded from search sitemaps while preserving the content for restoration at any time.',
@@ -4123,11 +4165,14 @@ noindex: true
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ relPath, sha: art.sha || null })
             });
-            const data = await res.json();
+            let data = {};
+            try { data = await res.json(); } catch (_) {}
             if (res.ok && data.success) {
               art.noindex = true;
               art.articleType = 'noindexed';
               if (data.sha) art.sha = data.sha;
+              AppState.selectedIds.delete(relPath);
+              updateBulkToolbar();
               applyFiltersAndSorting();
               populateOverviewStats();
               showToast('Article archived (set to noindex)', 'warning');
@@ -4160,11 +4205,14 @@ noindex: true
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ relPath, sha: art.sha || null })
             });
-            const data = await res.json();
+            let data = {};
+            try { data = await res.json(); } catch (_) {}
             if (res.ok && data.success) {
               delete art.noindex;
               art.articleType = 'active';
               if (data.sha) art.sha = data.sha;
+              AppState.selectedIds.delete(relPath);
+              updateBulkToolbar();
               applyFiltersAndSorting();
               populateOverviewStats();
               showToast('Article restored to active status', 'success');
@@ -4205,10 +4253,13 @@ noindex: true
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ relPath, confirmTitle: 'DELETE', sha: art.sha || null })
             });
-            const data = await res.json();
+            let data = {};
+            try { data = await res.json(); } catch (_) {}
             if (res.ok && data.success) {
               const idx = AppState.articles.findIndex(a => a.relPath === relPath);
               if (idx !== -1) AppState.articles.splice(idx, 1);
+              AppState.selectedIds.delete(relPath);
+              updateBulkToolbar();
               applyFiltersAndSorting();
               populateOverviewStats();
               showToast('Article deleted permanently from corpus', 'error');
@@ -4228,29 +4279,70 @@ noindex: true
       const count = AppState.selectedIds.size;
       if (count === 0) return;
 
+      const targets = Array.from(AppState.selectedIds);
+      const actionableTargets = targets.filter(relPath => {
+        const art = AppState.articles.find(a => a.relPath === relPath);
+        return art && art.articleType !== 'redirect';
+      });
+
+      if (actionableTargets.length === 0) {
+        showToast('Selected articles are redirect stubs and cannot be archived.', 'warning');
+        return;
+      }
+
       openConfirmModal({
-        title: 'Bulk Archive ' + count + ' Articles?',
-        body: 'Archiving ' + count + ' selected articles sets them to <code>noindex: true</code>. They will be removed from sitemaps while remaining available for restoration.',
-        confirmLabel: 'Archive ' + count + ' Articles',
+        title: 'Bulk Archive ' + actionableTargets.length + ' Articles?',
+        body: 'Archiving ' + actionableTargets.length + ' selected articles sets them to <code>noindex: true</code>. They will be removed from sitemaps while remaining available for restoration.',
+        confirmLabel: 'Archive ' + actionableTargets.length + ' Articles',
         danger: false,
         onConfirm: async () => {
           closeConfirmModal();
           showToast('Archiving selected articles...', 'warning');
-          for (const relPath of AppState.selectedIds) {
-            await fetch('/api/admin/articles/archive', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ relPath })
-            });
+
+          let successCount = 0;
+          let failCount = 0;
+          const errors = [];
+
+          for (const relPath of actionableTargets) {
             const art = AppState.articles.find(a => a.relPath === relPath);
-            if (art) {
-              art.noindex = true;
-              art.articleType = 'noindexed';
+            try {
+              const res = await fetch('/api/admin/articles/archive', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ relPath, sha: (art && art.sha) || null })
+              });
+              let data = {};
+              try { data = await res.json(); } catch (_) {}
+
+              if (res.ok && data.success) {
+                if (art) {
+                  art.noindex = true;
+                  art.articleType = 'noindexed';
+                  if (data.sha) art.sha = data.sha;
+                }
+                AppState.selectedIds.delete(relPath);
+                successCount++;
+              } else {
+                failCount++;
+                errors.push(data.error || ('Failed to archive: ' + (art ? art.title : relPath)));
+              }
+            } catch (err) {
+              failCount++;
+              errors.push('Network error: ' + (art ? art.title : relPath));
             }
           }
-          clearBulkSelection();
+
+          updateBulkToolbar();
+          applyFiltersAndSorting();
           populateOverviewStats();
-          showToast('Successfully archived ' + count + ' articles', 'success');
+
+          if (successCount > 0 && failCount === 0) {
+            showToast('Successfully archived ' + successCount + ' articles', 'success');
+          } else if (successCount > 0 && failCount > 0) {
+            showToast('Archived ' + successCount + ' articles (' + failCount + ' failed: ' + errors[0] + ')', 'warning');
+          } else {
+            showToast('Archive failed: ' + (errors[0] || 'Unknown error'), 'error');
+          }
         }
       });
     }
@@ -4259,28 +4351,75 @@ noindex: true
       const count = AppState.selectedIds.size;
       if (count === 0) return;
 
+      const targets = Array.from(AppState.selectedIds);
+      const actionableTargets = targets.filter(relPath => {
+        const art = AppState.articles.find(a => a.relPath === relPath);
+        return art && art.articleType !== 'redirect';
+      });
+
+      if (actionableTargets.length === 0) {
+        showToast('Selected articles are redirect stubs and cannot be deleted.', 'error');
+        return;
+      }
+
+      const redirectSkippedCount = targets.length - actionableTargets.length;
+      let promptBody = 'Permanent deletion will remove ' + actionableTargets.length + ' source Markdown files from disk.';
+      if (redirectSkippedCount > 0) {
+        promptBody += '<br><br><em>Note: ' + redirectSkippedCount + ' selected redirect stub(s) will be protected and preserved.</em>';
+      }
+      promptBody += '<br><br>Type <strong>DELETE</strong> below to confirm:';
+
       openConfirmModal({
-        title: 'Bulk Delete ' + count + ' Articles?',
-        body: 'Permanent deletion will remove ' + count + ' source Markdown files from disk. Type <strong>DELETE</strong> below to confirm:',
+        title: 'Bulk Delete ' + actionableTargets.length + ' Articles?',
+        body: promptBody,
         inputRequired: 'DELETE',
-        confirmLabel: 'Permanently Delete ' + count + ' Articles',
+        confirmLabel: 'Permanently Delete ' + actionableTargets.length + ' Articles',
         danger: true,
         onConfirm: async () => {
           closeConfirmModal();
           showToast('Deleting selected articles...', 'warning');
-          for (const relPath of AppState.selectedIds) {
-            await fetch('/api/admin/articles/delete', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ relPath, confirmTitle: 'DELETE' })
-            });
-            const idx = AppState.articles.findIndex(a => a.relPath === relPath);
-            if (idx !== -1) AppState.articles.splice(idx, 1);
+
+          let successCount = 0;
+          let failCount = 0;
+          const errors = [];
+
+          for (const relPath of actionableTargets) {
+            const art = AppState.articles.find(a => a.relPath === relPath);
+            try {
+              const res = await fetch('/api/admin/articles/delete', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ relPath, confirmTitle: 'DELETE', sha: (art && art.sha) || null })
+              });
+              let data = {};
+              try { data = await res.json(); } catch (_) {}
+
+              if (res.ok && data.success) {
+                const idx = AppState.articles.findIndex(a => a.relPath === relPath);
+                if (idx !== -1) AppState.articles.splice(idx, 1);
+                AppState.selectedIds.delete(relPath);
+                successCount++;
+              } else {
+                failCount++;
+                errors.push(data.error || ('Failed to delete: ' + (art ? art.title : relPath)));
+              }
+            } catch (err) {
+              failCount++;
+              errors.push('Network error: ' + (art ? art.title : relPath));
+            }
           }
-          clearBulkSelection();
+
+          updateBulkToolbar();
           applyFiltersAndSorting();
           populateOverviewStats();
-          showToast('Successfully deleted ' + count + ' articles', 'success');
+
+          if (successCount > 0 && failCount === 0) {
+            showToast('Successfully deleted ' + successCount + ' articles', 'success');
+          } else if (successCount > 0 && failCount > 0) {
+            showToast('Deleted ' + successCount + ' articles (' + failCount + ' failed: ' + errors[0] + ')', 'warning');
+          } else {
+            showToast('Deletion failed: ' + (errors[0] || 'Unknown error'), 'error');
+          }
         }
       });
     }

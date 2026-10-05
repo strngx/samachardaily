@@ -24,6 +24,64 @@ export const VALID_DESKS = ['India', 'World', 'Business', 'Tech', 'Sports'];
 export const ARTICLE_PATH_REGEX = /^src\/articles\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+\.md$/;
 
 /**
+ * Normalizes and validates YouTube URL or raw 11-char ID.
+ * Returns 11-char ID if valid, '' if empty, or null if invalid/malicious.
+ */
+export function parseYouTubeVideoId(input) {
+  if (input === undefined || input === null) return '';
+  const raw = String(input).trim();
+  if (!raw) return '';
+
+  // Reject malicious payloads immediately
+  if (/[\r\n\t\0<>"']/.test(raw)) return null;
+  const lower = raw.toLowerCase();
+  if (lower.includes('javascript:') || lower.includes('data:') || lower.includes('vbscript:')) {
+    return null;
+  }
+
+  // Raw 11-character identifier
+  if (/^[a-zA-Z0-9_-]{11}$/.test(raw)) {
+    return raw;
+  }
+
+  try {
+    const urlStr = raw.startsWith('http://') || raw.startsWith('https://') ? raw : ('https://' + raw);
+    const parsed = new URL(urlStr);
+    const host = parsed.hostname.toLowerCase();
+
+    // Allowed YouTube domains only
+    const isStandardHost = host === 'youtube.com' || host === 'www.youtube.com' || host === 'm.youtube.com' || host === 'music.youtube.com';
+    const isShortHost = host === 'youtu.be';
+
+    if (!isStandardHost && !isShortHost) {
+      return null;
+    }
+
+    if (isShortHost) {
+      const pathId = parsed.pathname.replace(/^\/+/, '').split('/')[0];
+      return /^[a-zA-Z0-9_-]{11}$/.test(pathId) ? pathId : null;
+    }
+
+    if (isStandardHost) {
+      // Standard /watch?v=ID
+      if (parsed.pathname === '/watch') {
+        const v = parsed.searchParams.get('v');
+        return (v && /^[a-zA-Z0-9_-]{11}$/.test(v)) ? v : null;
+      }
+      // Embed /embed/ID, /v/ID, /shorts/ID
+      const segments = parsed.pathname.replace(/^\/+/, '').split('/');
+      if (segments[0] === 'embed' || segments[0] === 'v' || segments[0] === 'shorts') {
+        const id = segments[1];
+        return (id && /^[a-zA-Z0-9_-]{11}$/.test(id)) ? id : null;
+      }
+    }
+  } catch (_) {
+    return null;
+  }
+  return null;
+}
+
+/**
  * Validates an article payload before saving
  *
  * @param {Object} payload
@@ -85,11 +143,13 @@ export function validateArticlePayload(payload) {
     }
   }
 
-  // Phase 13D: Deterministic YouTube video_id validation if present
+  // Phase 13D/13E: Deterministic YouTube video_id validation & normalization
   if (payload.video_id !== undefined && payload.video_id !== null && String(payload.video_id).trim()) {
-    const vid = String(payload.video_id).trim();
-    if (!/^[a-zA-Z0-9_-]{11}$/.test(vid)) {
-      errors.push('YouTube video ID must be a valid 11-character identifier.');
+    const normalizedId = parseYouTubeVideoId(payload.video_id);
+    if (!normalizedId) {
+      errors.push('YouTube video ID must be a valid 11-character identifier or supported YouTube URL.');
+    } else {
+      payload.video_id = normalizedId;
     }
   }
 
