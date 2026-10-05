@@ -1,0 +1,89 @@
+{% set shareUrl = site.url + page.url %}
+{% set shareTitle = title %}
+<div class="article-share-bar" aria-label="Share this article">
+  <span class="share-bar-label">Share:</span>
+  <div class="share-buttons-group">
+    <!-- WhatsApp -->
+    <a 
+      href="https://api.whatsapp.com/send?text={{ (shareTitle + ' — ' + shareUrl) | urlencode }}" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      class="share-btn share-btn-whatsapp" 
+      aria-label="Share on WhatsApp"
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.06-1.135-.072-.733-.218-1.579-.728-2.317-1.465-.989-.988-1.583-2.138-1.748-2.614-.165-.477-.013-.736.13-.88.13-.13.29-.328.435-.494.144-.166.192-.284.288-.475.096-.191.048-.36-.024-.504-.072-.144-.65-1.564-.89-2.143-.234-.564-.471-.487-.65-.496l-.553-.01c-.192 0-.504.072-.768.36-.264.288-1.008.986-1.008 2.404 0 1.418 1.032 2.788 1.176 2.98.144.192 2.032 3.104 4.922 4.352.688.297 1.226.474 1.646.608.692.22 1.322.189 1.82.115.555-.083 1.705-.697 1.946-1.37.24-.673.24-1.25.168-1.37-.072-.12-.264-.192-.552-.336zM12.016 2.07C6.541 2.07 2.09 6.52 2.09 11.996c0 1.94.557 3.754 1.523 5.29L2 22.424l5.318-1.554a9.883 9.883 0 0 0 4.698 1.189c5.476 0 9.927-4.45 9.927-9.927.001-5.476-4.449-9.926-9.927-9.926zm0 17.848c-1.575 0-3.045-.472-4.275-1.284l-.307-.202-3.17.926.938-3.092-.224-.326a7.892 7.892 0 0 1-1.309-4.34c0-4.364 3.551-7.915 7.917-7.915 4.363 0 7.914 3.551 7.915 7.916-.001 4.364-3.552 7.917-7.918 7.917z"/>
+      </svg>
+      <span class="share-btn-text">WhatsApp</span>
+    </a>
+
+    <!-- X / Twitter -->
+    <a 
+      href="https://twitter.com/intent/tweet?text={{ shareTitle | urlencode }}&url={{ shareUrl | urlencode }}" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      class="share-btn share-btn-x" 
+      aria-label="Share on X (Twitter)"
+    >
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+      <span class="share-btn-text">X</span>
+    </a>
+
+    <!-- LinkedIn -->
+    <a 
+      href="https://www.linkedin.com/sharing/share-offsite/?url={{ shareUrl | urlencode }}" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      class="share-btn share-btn-linkedin" 
+      aria-label="Share on LinkedIn"
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.62 1.62 0 1 0 0-3.24 1.62 1.62 0 0 0 0 3.24m1.39 9.74v-8.37H5.07v8.37h2.78z"/>
+      </svg>
+      <span class="share-btn-text">LinkedIn</span>
+    </a>
+
+    <!-- Native Web Share (Supported on mobile browsers, revealed via JS) -->
+    <button 
+      type="button" 
+      class="share-btn share-btn-native" 
+      id="native-share-btn" 
+      data-url="{{ shareUrl }}" 
+      data-title="{{ shareTitle | escape }}" 
+      aria-label="Share article via device options"
+      style="display: none;"
+    >
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+      </svg>
+      <span class="share-btn-text">Share</span>
+    </button>
+
+    <!-- Copy Link with Accessible Feedback -->
+    <div class="share-copy-wrapper">
+      <button 
+        type="button" 
+        class="share-btn share-btn-copy" 
+        id="copy-share-btn" 
+        data-url="{{ shareUrl }}" 
+        aria-label="Copy article link to clipboard"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="copy-icon" aria-hidden="true">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+        </svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-icon" style="display: none;" aria-hidden="true">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        <span class="share-btn-text" id="copy-btn-text">Copy Link</span>
+      </button>
+      <span class="share-copy-feedback" id="copy-feedback" role="status" aria-live="polite">Link copied!</span>
+    </div>
+  </div>
+</div>

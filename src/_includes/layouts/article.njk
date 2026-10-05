@@ -18,40 +18,15 @@ layout: layouts/base.njk
       </a>
     </div>
 
-    <!-- 3. Featured Hero Image (Positioned near top) -->
-    {% if image %}
-      <figure class="article-hero-frame">
-        <img 
-          src="{{ image | url }}" 
-          alt="{{ imageAlt or image_alt or title }}" 
-          class="article-hero-img"
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-          width="760" 
-          height="428"
-        >
-        {% if imageCredit or image_credit %}
-          <figcaption class="photo-caption-bar">
-            <svg class="caption-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-              <circle cx="12" cy="13" r="4"/>
-            </svg>
-            <span>Photo: {{ imageCredit or image_credit }}</span>
-          </figcaption>
-        {% endif %}
-      </figure>
-    {% endif %}
-
-    <!-- 4. Main H1 Headline -->
+    <!-- 3. Main H1 Headline -->
     <h1 class="article-headline-main">{{ title }}</h1>
 
-    <!-- 5. Sub-headline / Dek -->
+    <!-- 4. Sub-headline / Dek -->
     {% if dek %}
       <p class="article-dek-main">{{ dek }}</p>
     {% endif %}
 
-    <!-- 6. Byline Row -->
+    <!-- 5. Byline Row -->
     <div class="article-byline-bar">
       <div class="byline-author-group">
         {% set rawAuthor = (author or site.author.name or "") | trim %}
@@ -90,7 +65,7 @@ layout: layouts/base.njk
       </div>
     </div>
 
-    <!-- 6b. Compact Editorial Disclosure -->
+    <!-- 6. Compact Editorial Disclosure -->
     <div class="article-disclosure-bar">
       <span class="disclosure-item disclosure-ai">AI-assisted wire synthesis</span>
       <span class="disclosure-dot" aria-hidden="true">·</span>
@@ -103,7 +78,35 @@ layout: layouts/base.njk
       </a>
     </div>
 
-    <!-- 6c. Factual Correction Notice (Renders ONLY if correction metadata exists) -->
+    <!-- 7. Social Share Bar -->
+    {% include "partials/share-bar.njk" %}
+
+    <!-- 8. Featured Hero Image -->
+    {% if image %}
+      <figure class="article-hero-frame">
+        <img 
+          src="{{ image | url }}" 
+          alt="{{ imageAlt or image_alt or title }}" 
+          class="article-hero-img"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          width="760" 
+          height="428"
+        >
+        {% if imageCredit or image_credit %}
+          <figcaption class="photo-caption-bar">
+            <svg class="caption-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+              <circle cx="12" cy="13" r="4"/>
+            </svg>
+            <span>Photo: {{ imageCredit or image_credit }}</span>
+          </figcaption>
+        {% endif %}
+      </figure>
+    {% endif %}
+
+    <!-- 9. Factual Correction Notice (Renders ONLY if correction metadata exists) -->
     {% set articleCorrection = correction or correction_notice or corrections %}
     {% if articleCorrection %}
       <aside class="article-correction-box" aria-label="Editorial Correction Notice">
@@ -119,17 +122,12 @@ layout: layouts/base.njk
       </aside>
     {% endif %}
 
-    <!-- 7. Key Takeaways Box -->
+    <!-- 10. Key Takeaways Box -->
     {% include "partials/key-takeaways.njk" %}
 
-    <!-- 8. Core Article Content (with Inline "Also Read" after 2nd paragraph) -->
-    {% set related = collections.articles | relatedArticles(page, 1) %}
+    <!-- 11. Core Article Content (Continuous Editorial Flow) -->
     <div class="article-body-text">
-      {% if related.length > 0 %}
-        {{ content | injectAlsoRead(related[0]) | safe }}
-      {% else %}
-        {{ content | safe }}
-      {% endif %}
+      {{ content | safe }}
     </div>
 
     <!-- 9. Embedded YouTube Video (Inline right after body content) -->

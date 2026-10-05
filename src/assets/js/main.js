@@ -402,4 +402,84 @@ document.addEventListener("DOMContentLoaded", () => {
       startAutoplay();
     }
   }
+
+  // 7. Accessible Article Social Share Interactions (Phase 13B)
+  const nativeShareBtn = document.getElementById("native-share-btn");
+  if (nativeShareBtn && typeof navigator !== "undefined" && typeof navigator.share === "function") {
+    // Reveal native share button on mobile / supported devices
+    nativeShareBtn.style.display = "inline-flex";
+    nativeShareBtn.addEventListener("click", async () => {
+      const shareUrl = nativeShareBtn.getAttribute("data-url") || window.location.href;
+      const shareTitle = nativeShareBtn.getAttribute("data-title") || document.title;
+      try {
+        await navigator.share({
+          title: shareTitle,
+          url: shareUrl
+        });
+      } catch (err) {
+        // AbortError is normal when user cancels dialog; ignore
+        if (err && err.name !== "AbortError") {
+          console.warn("Native share error:", err);
+        }
+      }
+    });
+  }
+
+  const copyShareBtn = document.getElementById("copy-share-btn");
+  const copyFeedback = document.getElementById("copy-feedback");
+  const copyBtnText = document.getElementById("copy-btn-text");
+  if (copyShareBtn) {
+    let copyResetTimer = null;
+    copyShareBtn.addEventListener("click", async () => {
+      const urlToCopy = copyShareBtn.getAttribute("data-url") || window.location.href;
+      let success = false;
+
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+        try {
+          await navigator.clipboard.writeText(urlToCopy);
+          success = true;
+        } catch (_) {
+          success = false;
+        }
+      }
+
+      // Safe fallback if clipboard API failed or is not available
+      if (!success) {
+        try {
+          const tempInput = document.createElement("textarea");
+          tempInput.value = urlToCopy;
+          tempInput.setAttribute("readonly", "");
+          tempInput.style.position = "fixed";
+          tempInput.style.opacity = "0";
+          tempInput.style.left = "-9999px";
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          success = document.execCommand("copy");
+          document.body.removeChild(tempInput);
+        } catch (_) {
+          success = false;
+        }
+      }
+
+      if (success) {
+        if (copyFeedback) copyFeedback.classList.add("is-visible");
+        copyShareBtn.classList.add("is-copied");
+        const copyIcon = copyShareBtn.querySelector(".copy-icon");
+        const checkIcon = copyShareBtn.querySelector(".check-icon");
+        if (copyIcon) copyIcon.style.display = "none";
+        if (checkIcon) checkIcon.style.display = "inline-block";
+        if (copyBtnText) copyBtnText.textContent = "Copied!";
+
+        clearTimeout(copyResetTimer);
+        copyResetTimer = setTimeout(() => {
+          if (copyFeedback) copyFeedback.classList.remove("is-visible");
+          copyShareBtn.classList.remove("is-copied");
+          if (copyIcon) copyIcon.style.display = "inline-block";
+          if (checkIcon) checkIcon.style.display = "none";
+          if (copyBtnText) copyBtnText.textContent = "Copy Link";
+        }, 2200);
+      }
+    });
+  }
 });
+
