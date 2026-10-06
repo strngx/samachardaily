@@ -1505,17 +1505,22 @@ noindex: true
           <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
           <span class="nav-item-label">Settings</span>
         </button>
+        <button class="nav-item" data-view="members" onclick="navigate('members')">
+          <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          <span class="nav-item-label">Members</span>
+          <span class="nav-item-badge blue" id="side-members-count">1</span>
+        </button>
 
       </nav>
 
       <!-- Sidebar Footer -->
       <div class="sidebar-footer">
         <div class="admin-profile-pill">
-          <div class="admin-avatar">AD</div>
+          <div class="admin-avatar" id="sidebar-user-avatar">AD</div>
           <div class="admin-info-text">
-            <div class="admin-name">Newsroom Admin</div>
+            <div class="admin-name" id="sidebar-user-name">Newsroom Admin</div>
             <div class="admin-status-indicator">
-              <span class="status-pulse-dot"></span> Session active
+              <span class="status-pulse-dot"></span> <span id="sidebar-user-role">Session active</span>
             </div>
           </div>
         </div>
@@ -2543,6 +2548,157 @@ noindex: true
           </div>
         </section>
 
+        <!-- ==================================================================
+             VIEW 10: TEAM MEMBERS & ACCESS CONTROL (PHASE 14B-2)
+             ================================================================== -->
+        <section id="view-members" class="view-pane">
+          <div class="view-header">
+            <div class="view-title-group">
+              <h1>Team Members</h1>
+              <p>Individual newsroom accounts, role-based access control, and Google OAuth invitations.</p>
+            </div>
+            <div class="view-actions" id="members-header-actions">
+              <button class="btn btn-primary" id="btn-open-invite-modal" type="button" onclick="openInviteModal()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                Invite Member
+              </button>
+            </div>
+          </div>
+
+          <!-- Members KPI Summary Cards -->
+          <div class="overview-stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 24px;">
+            <div class="stat-card">
+              <div class="stat-card-label">Total Members</div>
+              <div class="stat-card-value" id="stat-total-members">1</div>
+              <div class="stat-card-meta">Authorized team accounts</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-label">Active Members</div>
+              <div class="stat-card-value" id="stat-active-members" style="color: var(--color-green);">1</div>
+              <div class="stat-card-meta">Eligible for editorial access</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-label">Pending Invitations</div>
+              <div class="stat-card-value" id="stat-pending-invitations" style="color: var(--color-amber);">0</div>
+              <div class="stat-card-meta">Single-use tokens active</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-label">Root Owner Security</div>
+              <div class="stat-card-value" style="font-size: 16px; color: var(--color-purple); font-weight: 700; margin-top: 6px;">Protected</div>
+              <div class="stat-card-meta">Server-authoritative binding</div>
+            </div>
+          </div>
+
+          <!-- System Status / Guidance Banner -->
+          <div id="members-config-banner" style="display: none; margin-bottom: 24px; padding: 14px 18px; border-radius: var(--radius-md); font-size: 13px; line-height: 1.5;"></div>
+
+          <!-- Active Members Table Section -->
+          <div class="dashboard-panel" style="margin-bottom: 24px;">
+            <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div class="panel-title">Active Team Members</div>
+                <div style="font-size: 12px; color: var(--color-subtle); margin-top: 2px;">
+                  Server-side identity records. Roles define access to editorial, publishing, and system capabilities.
+                </div>
+              </div>
+              <button class="btn-table-action" type="button" onclick="loadMembersData(true)" title="Refresh Members">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                Refresh
+              </button>
+            </div>
+
+            <div style="overflow-x: auto;">
+              <table class="saas-table" id="table-active-members" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                  <tr>
+                    <th style="width: 32%;">Member</th>
+                    <th style="width: 22%;">Role</th>
+                    <th style="width: 14%;">Status</th>
+                    <th style="width: 16%;">Last Activity</th>
+                    <th style="width: 16%; text-align: right;">Permissions</th>
+                  </tr>
+                </thead>
+                <tbody id="members-table-body">
+                  <tr>
+                    <td colspan="5" style="text-align: center; padding: 32px; color: var(--color-muted);">
+                      Loading team members...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Pending Invitations Section -->
+          <div class="dashboard-panel" id="panel-pending-invitations" style="margin-bottom: 24px;">
+            <div class="panel-header">
+              <div>
+                <div class="panel-title">Pending Invitations</div>
+                <div style="font-size: 12px; color: var(--color-subtle); margin-top: 2px;">
+                  Invited via Gmail with single-use cryptographic tokens (48-hour expiration).
+                </div>
+              </div>
+            </div>
+
+            <div style="overflow-x: auto;">
+              <table class="saas-table" id="table-pending-invitations" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                  <tr>
+                    <th style="width: 30%;">Invited Email</th>
+                    <th style="width: 18%;">Assigned Role</th>
+                    <th style="width: 14%;">Status</th>
+                    <th style="width: 20%;">Expires</th>
+                    <th style="width: 18%; text-align: right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="invitations-table-body">
+                  <tr>
+                    <td colspan="5" style="text-align: center; padding: 24px; color: var(--color-muted); font-size: 13px;">
+                      No pending invitations.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Role Definitions Info Card -->
+          <div class="dashboard-panel" style="background: var(--color-surface-alt); border-style: dashed;">
+            <div class="panel-header" style="border-bottom: 1px solid var(--color-border); margin-bottom: 12px;">
+              <div class="panel-title" style="font-size: 13px;">Role Governance &amp; Access Hierarchy</div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; font-size: 12px; line-height: 1.5;">
+              <div style="padding: 12px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                  <span class="badge badge-purple">Owner</span>
+                  <strong style="color: var(--color-ink);">Root Owner / Technical Admin</strong>
+                </div>
+                <div style="color: var(--color-muted);">
+                  Complete system control. Cannot be removed, demoted, disabled, or modified. Manages members, site settings, and all technical configurations.
+                </div>
+              </div>
+              <div style="padding: 12px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                  <span class="badge badge-blue">Admin</span>
+                  <strong style="color: var(--color-ink);">Full Administrative Access</strong>
+                </div>
+                <div style="color: var(--color-muted);">
+                  Comprehensive newsroom management. Can invite and manage members, configure editorial policies, review safety audits, and publish/delete articles.
+                </div>
+              </div>
+              <div style="padding: 12px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                  <span class="badge badge-gray">Editor</span>
+                  <strong style="color: var(--color-ink);">Article Work Only</strong>
+                </div>
+                <div style="color: var(--color-muted);">
+                  Content creation, drafting, and editing. Restricted from administrative tools, member management, and system settings.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
       </main>
 
     </div>
@@ -2695,6 +2851,68 @@ noindex: true
     </div>
   </div>
 
+  <!-- Invite Member Modal -->
+  <div id="invite-member-modal" class="modal-backdrop" onclick="closeInviteModal(event)">
+    <div class="modal-box" onclick="event.stopPropagation()" style="max-width: 520px;">
+      <div class="modal-header">
+        <div class="modal-title">Invite Team Member</div>
+        <button class="btn-close-modal" type="button" onclick="closeInviteModal()">&times;</button>
+      </div>
+      <form id="invite-member-form" onsubmit="handleSendInvitation(event)">
+        <div class="modal-body" style="padding: 20px; display: flex; flex-direction: column; gap: 16px;">
+          <div class="form-group">
+            <label style="display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--color-ink);">
+              Gmail Address <span style="color: var(--color-brand);">*</span>
+            </label>
+            <input type="email" id="invite-input-email" class="form-input" placeholder="journalist@gmail.com" required style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 13px;">
+            <div style="font-size: 11px; color: var(--color-subtle); margin-top: 4px;">
+              Must be an active @gmail.com or @googlemail.com account. Invitee authenticates via Google.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label style="display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--color-ink);">
+              Display Name <span style="color: var(--color-brand);">*</span>
+            </label>
+            <input type="text" id="invite-input-name" class="form-input" placeholder="e.g. Priya Sharma" required style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 13px;">
+          </div>
+
+          <div class="form-group">
+            <label style="display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--color-ink);">
+              Initial Role <span style="color: var(--color-brand);">*</span>
+            </label>
+            <select id="invite-input-role" class="form-select" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 13px;" required>
+              <option value="editor">Editor — Article work only</option>
+              <option value="admin">Admin — Full administrative access</option>
+            </select>
+            <div style="font-size: 11px; color: var(--color-subtle); margin-top: 4px;">
+              Owner role is immutable and reserved exclusively for the Root Owner.
+            </div>
+          </div>
+
+          <div id="invite-error-box" style="display: none; padding: 10px 14px; background: var(--color-brand-light); border: 1px solid var(--color-brand-border); color: var(--color-brand); border-radius: var(--radius-sm); font-size: 12px;"></div>
+
+          <div id="invite-result-box" style="display: none; padding: 14px; background: var(--color-surface-alt); border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 12px;">
+            <div id="invite-result-msg" style="font-weight: 600; margin-bottom: 8px; color: var(--color-ink);"></div>
+            <div id="invite-result-url-wrap" style="display: none;">
+              <div style="font-size: 11px; color: var(--color-subtle); margin-bottom: 6px;">
+                Direct Invitation Link (share this URL with the invitee):
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <input type="text" id="invite-result-url" readonly style="flex: 1; font-family: var(--font-mono); font-size: 11px; padding: 6px 10px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm);">
+                <button type="button" class="btn-table-action btn-table-primary" id="btn-copy-invite-url" onclick="copyInviteResultUrl()">Copy Link</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer" style="padding: 14px 20px; border-top: 1px solid var(--color-border); display: flex; justify-content: flex-end; gap: 10px;">
+          <button type="button" class="btn-table-action" onclick="closeInviteModal()">Close</button>
+          <button type="submit" id="btn-submit-invite" class="btn-table-action btn-table-primary">Send Invitation</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Toast Container -->
   <div id="toast-container" class="toast-container"></div>
 
@@ -2717,6 +2935,11 @@ noindex: true
       articles: Array.isArray(window.__CORPUS__) ? window.__CORPUS__ : [],
       filteredArticles: [],
       selectedIds: new Set(),
+      members: [],
+      invitations: [],
+      currentUser: null,
+      membersLoading: false,
+      membersError: null,
       pagination: {
         page: 1,
         pageSize: 25
@@ -2743,7 +2966,7 @@ noindex: true
     // SINGLE-SOURCE NAVIGATION ROUTER
     // ========================================================================
     function navigate(viewId, options = {}) {
-      const validViews = ['overview', 'articles', 'thin-queue', 'attention', 'safety', 'search', 'website', 'broken-links', 'google-news', 'settings'];
+      const validViews = ['overview', 'articles', 'thin-queue', 'attention', 'safety', 'search', 'website', 'broken-links', 'google-news', 'settings', 'members'];
       if (!validViews.includes(viewId)) viewId = 'overview';
 
       const prevView = AppState.currentView;
@@ -2800,6 +3023,8 @@ noindex: true
         renderNeedsAttentionTab();
       } else if (viewId === 'safety') {
         renderSafetyTab();
+      } else if (viewId === 'members') {
+        loadMembersData();
       }
 
       // Synchronize Articles Subviews
@@ -2837,7 +3062,8 @@ noindex: true
           'website': 'Website Health',
           'broken-links': 'Broken Links',
           'google-news': 'Google News',
-          'settings': 'Settings'
+          'settings': 'Settings',
+          'members': 'Team Members'
         };
         breadcrumbEl.innerText = labels[viewId] || 'Overview';
       }
@@ -2952,17 +3178,421 @@ noindex: true
           const data = await res.json();
           if (!data || !data.authenticated) {
             window.location.replace('/admin/');
+            return;
           }
+          AppState.currentUser = data;
+          updateSidebarProfile(data);
+          updateRoleRestrictedUI(data);
         }
       } catch (e) {}
     }
     verifyAuthSession();
+
+    function updateSidebarProfile(user) {
+      if (!user) return;
+      const nameEl = document.getElementById('sidebar-user-name');
+      const avatarEl = document.getElementById('sidebar-user-avatar');
+      const roleEl = document.getElementById('sidebar-user-role');
+
+      const displayName = user.displayName || user.user || 'Newsroom Admin';
+      if (nameEl) nameEl.innerText = displayName;
+
+      if (avatarEl) {
+        const parts = displayName.trim().split(/\s+/);
+        const initials = parts.length >= 2
+          ? (parts[0][0] + parts[1][0]).toUpperCase()
+          : displayName.slice(0, 2).toUpperCase();
+        avatarEl.innerText = initials || 'AD';
+      }
+
+      if (roleEl) {
+        const roleLabel = user.role === 'owner'
+          ? 'Root Owner'
+          : (user.role === 'admin' ? 'Admin' : 'Editor');
+        roleEl.innerText = roleLabel;
+      }
+    }
+
+    function updateRoleRestrictedUI(user) {
+      if (!user) return;
+      const inviteBtn = document.getElementById('btn-open-invite-modal');
+      if (inviteBtn && user.role === 'editor') {
+        inviteBtn.style.display = 'none';
+      }
+    }
 
     async function handleLogout() {
       try {
         await fetch('/api/admin/logout', { method: 'POST' });
       } catch (e) {}
       window.location.replace('/admin/');
+    }
+
+    // ========================================================================
+    // TEAM MEMBERS & ROLE-BASED ACCESS (PHASE 14B-2)
+    // ========================================================================
+    async function loadMembersData(force = false) {
+      if (AppState.membersLoading) return;
+      AppState.membersLoading = true;
+      renderMembersLoadingState();
+
+      try {
+        const [membersRes, invRes] = await Promise.all([
+          fetch('/api/admin/members'),
+          fetch('/api/admin/members/invitations')
+        ]);
+
+        if (membersRes.ok) {
+          const mData = await membersRes.json();
+          if (mData.success && Array.isArray(mData.members)) {
+            AppState.members = mData.members;
+          }
+        } else if (membersRes.status === 403) {
+          AppState.membersError = 'Access restricted. Member management requires Administrator privileges.';
+        } else {
+          AppState.membersError = 'Failed to load team members from server.';
+        }
+
+        if (invRes.ok) {
+          const iData = await invRes.json();
+          if (iData.success && Array.isArray(iData.invitations)) {
+            AppState.invitations = iData.invitations;
+          }
+        }
+
+        AppState.membersError = null;
+      } catch (err) {
+        AppState.membersError = err.message || 'Network error loading team data.';
+      } finally {
+        AppState.membersLoading = false;
+        renderMembersTab();
+      }
+    }
+
+    function renderMembersLoadingState() {
+      const tbody = document.getElementById('members-table-body');
+      if (tbody && (!AppState.members || AppState.members.length === 0)) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 32px; color: var(--color-muted);">' +
+          '<span class="status-pulse-dot" style="margin-right: 8px;"></span> Loading team members from server-side registry...</td></tr>';
+      }
+    }
+
+    function renderMembersTab() {
+      const totalCount = AppState.members.length;
+      let activeCount = 0;
+      AppState.members.forEach(m => {
+        if (m.status === 'active') activeCount++;
+      });
+      const pendingCount = AppState.invitations.filter(i => i.status === 'pending').length;
+
+      // Update KPI cards
+      const statTotal = document.getElementById('stat-total-members');
+      const statActive = document.getElementById('stat-active-members');
+      const statPending = document.getElementById('stat-pending-invitations');
+      const sideCount = document.getElementById('side-members-count');
+
+      if (statTotal) statTotal.innerText = totalCount;
+      if (statActive) statActive.innerText = activeCount;
+      if (statPending) statPending.innerText = pendingCount;
+      if (sideCount) sideCount.innerText = totalCount;
+
+      // Update Root Owner Config Warning Banner if applicable
+      const rootOwner = AppState.members.find(m => m.id === 'owner-admin' || m.role === 'owner');
+      const banner = document.getElementById('members-config-banner');
+      if (banner) {
+        if (rootOwner && rootOwner.configurationWarning) {
+          banner.style.display = 'block';
+          banner.style.background = 'var(--color-amber-bg)';
+          banner.style.border = '1px solid var(--color-amber-border)';
+          banner.style.color = 'var(--color-amber)';
+          banner.innerHTML = '<strong>Configuration Notice:</strong> ' + escapeHtml(rootOwner.configurationWarning) +
+            ' Root Owner identity is active via technical-admin binding. Set <code>ROOT_OWNER_EMAIL=arjunkhatri925@gmail.com</code> in Cloudflare Worker secrets.';
+        } else {
+          banner.style.display = 'none';
+        }
+      }
+
+      // Render Active Members Table
+      const tbody = document.getElementById('members-table-body');
+      if (tbody) {
+        if (AppState.members.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 32px; color: var(--color-muted); font-size: 13px;">' +
+            'No team members registered.</td></tr>';
+        } else {
+          let html = '';
+          AppState.members.forEach(m => {
+            const isOwner = (m.id === 'owner-admin' || m.role === 'owner');
+            const displayName = m.displayName || (isOwner ? 'Arjun' : 'Team Member');
+            const email = m.email || (isOwner ? 'arjunkhatri925@gmail.com (Unconfigured in Secrets)' : 'No email');
+            const parts = displayName.trim().split(/\s+/);
+            const initials = parts.length >= 2 ? (parts[0][0] + parts[1][0]).toUpperCase() : displayName.slice(0, 2).toUpperCase();
+
+            // Role badge
+            let roleBadge = '';
+            if (isOwner) {
+              roleBadge = '<span class="badge badge-purple" style="font-size: 11px;">Root Owner / Technical Admin</span>';
+            } else if (m.role === 'admin') {
+              roleBadge = '<span class="badge badge-blue">Admin</span>';
+            } else {
+              roleBadge = '<span class="badge badge-gray">Editor</span>';
+            }
+
+            // Status badge
+            const statusBadge = m.status === 'active'
+              ? '<span class="badge badge-green">Active</span>'
+              : '<span class="badge badge-amber">Disabled</span>';
+
+            // Last activity
+            let lastActiveDisplay = '—';
+            if (isOwner) {
+              lastActiveDisplay = '<span style="color: var(--color-subtle); font-size: 12px;">Session active</span>';
+            } else if (m.lastActiveAt) {
+              try {
+                const d = new Date(m.lastActiveAt);
+                lastActiveDisplay = '<span style="font-size: 12px; color: var(--color-subtle);">' + d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span>';
+              } catch (_) {
+                lastActiveDisplay = '—';
+              }
+            }
+
+            // Permissions / Actions column
+            let actionsCol = '';
+            if (isOwner) {
+              actionsCol = '<span class="badge badge-purple" style="display: inline-flex; align-items: center; gap: 4px; font-size: 10px;" title="Immutable Root Owner. Cannot be removed, demoted, disabled, or modified.">' +
+                '<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Protected Root Owner</span>';
+            } else {
+              actionsCol = '<span class="badge badge-gray" style="font-size: 10px;">Server Authorized</span>';
+            }
+
+            html += '<tr' + (isOwner ? ' style="background: var(--color-surface-alt);"' : '') + '>' +
+              '<td>' +
+                '<div style="display: flex; align-items: center; gap: 12px;">' +
+                  '<div style="width: 34px; height: 34px; border-radius: 50%; background: ' + (isOwner ? 'var(--color-purple)' : 'var(--color-brand)') + '; color: #fff; font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">' +
+                    escapeHtml(initials) +
+                  '</div>' +
+                  '<div>' +
+                    '<div style="font-weight: 600; color: var(--color-ink); font-size: 13px; display: flex; align-items: center; gap: 6px;">' +
+                      escapeHtml(displayName) +
+                      (isOwner ? ' <span style="font-size: 10px; color: var(--color-purple); font-weight: 700;">(Root Owner)</span>' : '') +
+                    '</div>' +
+                    '<div style="font-size: 11px; color: var(--color-subtle); font-family: var(--font-mono);">' +
+                      escapeHtml(email) +
+                    '</div>' +
+                  '</div>' +
+                '</div>' +
+              '</td>' +
+              '<td>' + roleBadge + '</td>' +
+              '<td>' + statusBadge + '</td>' +
+              '<td>' + lastActiveDisplay + '</td>' +
+              '<td style="text-align: right;">' + actionsCol + '</td>' +
+            '</tr>';
+          });
+          tbody.innerHTML = html;
+        }
+      }
+
+      // Render Pending Invitations Table
+      const invTbody = document.getElementById('invitations-table-body');
+      if (invTbody) {
+        const pending = AppState.invitations.filter(i => i.status === 'pending');
+        if (pending.length === 0) {
+          invTbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 24px; color: var(--color-muted); font-size: 13px;">' +
+            'No pending invitations.</td></tr>';
+        } else {
+          let html = '';
+          pending.forEach(inv => {
+            const roleBadge = inv.role === 'admin'
+              ? '<span class="badge badge-blue">Admin</span>'
+              : '<span class="badge badge-gray">Editor</span>';
+            const expiresDate = inv.expiresAt ? new Date(inv.expiresAt).toLocaleString() : '48 Hours';
+
+            const canCancel = AppState.currentUser && (AppState.currentUser.role === 'owner' || AppState.currentUser.role === 'admin');
+
+            html += '<tr>' +
+              '<td>' +
+                '<strong style="color: var(--color-ink); font-size: 13px; font-family: var(--font-mono);">' + escapeHtml(inv.email) + '</strong>' +
+              '</td>' +
+              '<td>' + roleBadge + '</td>' +
+              '<td><span class="badge badge-amber">Pending Acceptance</span></td>' +
+              '<td style="font-size: 12px; color: var(--color-subtle);">' + escapeHtml(expiresDate) + '</td>' +
+              '<td style="text-align: right;">' +
+                (canCancel
+                  ? '<button class="btn-table-action btn-table-danger" type="button" onclick="confirmCancelInvitation(\'' + escapeHtml(inv.id) + '\', \'' + escapeHtml(inv.email) + '\')">Cancel Invitation</button>'
+                  : '<span style="font-size: 11px; color: var(--color-subtle);">View Only</span>') +
+              '</td>' +
+            '</tr>';
+          });
+          invTbody.innerHTML = html;
+        }
+      }
+    }
+
+    function openInviteModal() {
+      if (AppState.currentUser && AppState.currentUser.role === 'editor') {
+        alert('Forbidden. Only newsroom Administrators and the Root Owner can invite members.');
+        return;
+      }
+      const modal = document.getElementById('invite-member-modal');
+      const errBox = document.getElementById('invite-error-box');
+      const resBox = document.getElementById('invite-result-box');
+      const emailInp = document.getElementById('invite-input-email');
+      const nameInp = document.getElementById('invite-input-name');
+      const roleSel = document.getElementById('invite-input-role');
+
+      if (errBox) errBox.style.display = 'none';
+      if (resBox) resBox.style.display = 'none';
+      if (emailInp) emailInp.value = '';
+      if (nameInp) nameInp.value = '';
+      if (roleSel) roleSel.value = 'editor';
+
+      if (modal) modal.style.display = 'flex';
+      if (emailInp) setTimeout(() => emailInp.focus(), 60);
+    }
+
+    function closeInviteModal(e) {
+      if (e && e.target && e.target.id !== 'invite-member-modal' && !e.target.closest('.btn-close-modal') && !e.target.closest('.btn-table-action')) {
+        return;
+      }
+      const modal = document.getElementById('invite-member-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    async function handleSendInvitation(e) {
+      if (e) e.preventDefault();
+      const emailInp = document.getElementById('invite-input-email');
+      const nameInp = document.getElementById('invite-input-name');
+      const roleSel = document.getElementById('invite-input-role');
+      const errBox = document.getElementById('invite-error-box');
+      const resBox = document.getElementById('invite-result-box');
+      const resMsg = document.getElementById('invite-result-msg');
+      const urlWrap = document.getElementById('invite-result-url-wrap');
+      const urlInp = document.getElementById('invite-result-url');
+      const submitBtn = document.getElementById('btn-submit-invite');
+
+      if (errBox) errBox.style.display = 'none';
+      if (resBox) resBox.style.display = 'none';
+
+      const email = (emailInp?.value || '').trim().toLowerCase();
+      const displayName = (nameInp?.value || '').trim();
+      const role = roleSel?.value || 'editor';
+
+      // Strict client-side validation
+      if (!email.endsWith('@gmail.com') && !email.endsWith('@googlemail.com')) {
+        if (errBox) {
+          errBox.innerText = 'Only @gmail.com or @googlemail.com addresses are permitted for member invitations.';
+          errBox.style.display = 'block';
+        }
+        return;
+      }
+
+      if (!displayName) {
+        if (errBox) {
+          errBox.innerText = 'Display name is required.';
+          errBox.style.display = 'block';
+        }
+        return;
+      }
+
+      if (role !== 'admin' && role !== 'editor') {
+        if (errBox) {
+          errBox.innerText = 'Invalid role. Only Admin and Editor roles can be assigned.';
+          errBox.style.display = 'block';
+        }
+        return;
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Sending...';
+      }
+
+      try {
+        const res = await fetch('/api/admin/members/invite', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, displayName, role })
+        });
+        const data = await res.json();
+
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerText = 'Send Invitation';
+        }
+
+        if (res.ok && data.success) {
+          showToast('Invitation created for ' + email, 'success');
+          if (resBox && resMsg) {
+            resBox.style.display = 'block';
+            let msgText = '';
+            if (data.emailDelivery && data.emailDelivery.sent === false) {
+              msgText = 'Email delivery is not configured yet. Share the invitation URL directly:';
+            } else {
+              msgText = 'Invitation created successfully via email delivery.';
+            }
+            resMsg.innerText = msgText;
+
+            if (data.inviteUrl && urlWrap && urlInp) {
+              urlWrap.style.display = 'block';
+              urlInp.value = data.inviteUrl;
+            }
+          }
+          // Refresh data in background
+          loadMembersData(true);
+        } else {
+          if (errBox) {
+            errBox.innerText = data.error || 'Failed to send invitation.';
+            errBox.style.display = 'block';
+          }
+        }
+      } catch (err) {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerText = 'Send Invitation';
+        }
+        if (errBox) {
+          errBox.innerText = 'Network error: ' + err.message;
+          errBox.style.display = 'block';
+        }
+      }
+    }
+
+    function copyInviteResultUrl() {
+      const inp = document.getElementById('invite-result-url');
+      if (!inp || !inp.value) return;
+      navigator.clipboard.writeText(inp.value).then(() => {
+        showToast('Invitation URL copied to clipboard', 'info');
+      }).catch(() => {
+        inp.select();
+        document.execCommand('copy');
+        showToast('Invitation URL copied to clipboard', 'info');
+      });
+    }
+
+    function confirmCancelInvitation(id, email) {
+      openConfirmModal({
+        title: 'Cancel Pending Invitation',
+        body: 'Are you sure you want to cancel the pending invitation for <strong>' + escapeHtml(email) + '</strong>?<br><br>The single-use invitation link will be permanently revoked.',
+        danger: true,
+        confirmLabel: 'Revoke Invitation',
+        onConfirm: async () => {
+          try {
+            const res = await fetch('/api/admin/members/invite/cancel', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ id })
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+              showToast('Invitation for ' + email + ' revoked', 'success');
+              loadMembersData(true);
+            } else {
+              showToast(data.error || 'Failed to cancel invitation', 'error');
+            }
+          } catch (err) {
+            showToast('Network error: ' + err.message, 'error');
+          }
+        }
+      });
     }
 
     // ========================================================================

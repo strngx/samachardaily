@@ -55,19 +55,24 @@ export const KEY_INVITATIONS_INDEX = 'invitations:index';
 
 /**
  * Permanent Root Owner Configuration
- * Identity: Arjun (arjunkhatri925@gmail.com)
+ * Identity: Arjun
  * Title: Root Owner / Technical Admin
+ * Note: Configured strictly via Cloudflare Worker environment variable ROOT_OWNER_EMAIL.
+ * Zero hardcoded personal email fallbacks.
  */
-export const DEFAULT_ROOT_OWNER_EMAIL = 'arjunkhatri925@gmail.com';
 export const DEFAULT_ROOT_OWNER_NAME = 'Arjun';
 export const DEFAULT_ROOT_OWNER_TITLE = 'Root Owner / Technical Admin';
 
 /**
- * Resolves the configured Root Owner email from Worker environment or default
+ * Resolves the configured Root Owner email strictly from Worker environment configuration.
+ * Contains ZERO hardcoded personal email fallbacks.
+ * Returns normalized email string if configured, or null if missing/empty.
  */
 export function getRootOwnerEmail(env) {
-  const envEmail = env?.ROOT_OWNER_EMAIL || DEFAULT_ROOT_OWNER_EMAIL;
-  return normalizeEmail(envEmail);
+  const envEmail = env?.ROOT_OWNER_EMAIL;
+  if (!envEmail || typeof envEmail !== 'string') return null;
+  const normalized = normalizeEmail(envEmail);
+  return normalized || null;
 }
 
 /**
@@ -76,24 +81,31 @@ export function getRootOwnerEmail(env) {
 export function isRootOwnerEmail(email, env) {
   const normalized = normalizeEmail(email);
   if (!normalized) return false;
-  return normalized === getRootOwnerEmail(env) ||
-         normalized === 'admin@samachardaily.internal' ||
+  const rootEmail = getRootOwnerEmail(env);
+  if (rootEmail && normalized === rootEmail) {
+    return true;
+  }
+  return normalized === 'admin@samachardaily.internal' ||
          normalized === 'admin';
 }
 
 /**
- * Returns the immutable Root Owner record bound to Arjun / arjunkhatri925@gmail.com
+ * Returns the immutable Root Owner record bound to Arjun / owner-admin.
+ * Uses configured ROOT_OWNER_EMAIL if present; reports missing configuration cleanly if absent.
  */
 export function getOwnerRecord(env) {
   const rootEmail = getRootOwnerEmail(env);
+  const isConfigured = Boolean(rootEmail);
   return {
     id: 'owner-admin',
-    email: rootEmail,
-    normalizedEmail: rootEmail,
+    email: rootEmail || null,
+    normalizedEmail: rootEmail || null,
     displayName: DEFAULT_ROOT_OWNER_NAME,
     title: DEFAULT_ROOT_OWNER_TITLE,
     role: ROLES.OWNER,
     status: MEMBER_STATUS.ACTIVE,
+    isConfigured,
+    configurationWarning: isConfigured ? null : 'ROOT_OWNER_EMAIL is not configured in Cloudflare Workers environment.',
     createdAt: '2026-01-01T00:00:00.000Z',
     updatedAt: '2026-01-01T00:00:00.000Z',
     acceptedAt: '2026-01-01T00:00:00.000Z',
@@ -250,6 +262,11 @@ export async function saveMember(env, member) {
   // Prevent overwriting, demoting, or modifying the immutable Root Owner
   if (member.id === 'owner-admin' || member.id === 'admin' || isRootOwnerEmail(member.email, env) || isRootOwnerEmail(member.normalizedEmail, env)) {
     return getOwnerRecord(env);
+  }
+
+  // Prevent non-owner accounts from being assigned the Owner role
+  if (member.role === ROLES.OWNER) {
+    member.role = ROLES.ADMIN;
   }
 
   // Persist member record
