@@ -17,7 +17,7 @@ const SESSION_TTL_SECONDS = 2 * 60 * 60; // 2 hours
 /**
  * Base64URL encoding helper
  */
-function base64UrlEncode(bytesOrString) {
+export function base64UrlEncode(bytesOrString) {
   let bytes;
   if (typeof bytesOrString === 'string') {
     bytes = new TextEncoder().encode(bytesOrString);
@@ -42,7 +42,7 @@ function base64UrlEncode(bytesOrString) {
 /**
  * Base64URL decoding helper
  */
-function base64UrlDecode(str) {
+export function base64UrlDecode(str) {
   let base64 = str.replace(/-/g, '+').replace(/_/g, '/');
   while (base64.length % 4 !== 0) {
     base64 += '=';
@@ -58,7 +58,7 @@ function base64UrlDecode(str) {
 /**
  * Base64URL decode to string helper
  */
-function base64UrlDecodeToString(str) {
+export function base64UrlDecodeToString(str) {
   const bytes = base64UrlDecode(str);
   return new TextDecoder().decode(bytes);
 }
@@ -150,12 +150,35 @@ async function getHmacKey(sessionSecret) {
 }
 
 /**
- * Creates a cryptographically signed HMAC-SHA256 session token
+ * Creates a cryptographically signed HMAC-SHA256 session token.
+ * Accepts either a legacy username string (e.g. 'admin') or a member identity object.
  */
-export async function createSessionToken(username, sessionSecret, ttlSeconds = SESSION_TTL_SECONDS) {
+export async function createSessionToken(identity, sessionSecret, ttlSeconds = SESSION_TTL_SECONDS) {
   const now = Math.floor(Date.now() / 1000);
+  let sub = 'admin';
+  let role = 'owner';
+  let email = 'admin@samachardaily.internal';
+  let name = 'Technical Admin';
+
+  if (typeof identity === 'string') {
+    sub = identity;
+    role = identity.toLowerCase() === 'admin' ? 'owner' : 'editor';
+    if (identity.toLowerCase() !== 'admin') {
+      email = null;
+      name = identity;
+    }
+  } else if (identity && typeof identity === 'object') {
+    sub = identity.id || identity.sub || 'admin';
+    role = identity.role || 'editor';
+    email = identity.email || null;
+    name = identity.displayName || identity.name || null;
+  }
+
   const payload = {
-    sub: username || 'admin',
+    sub,
+    role,
+    email,
+    name,
     iat: now,
     exp: now + ttlSeconds,
     jti: crypto.randomUUID()
@@ -383,4 +406,22 @@ export async function resetLockoutState(env) {
   }
   await env.AUTH_KV.delete(LOCKOUT_KEY);
 }
+
+// Re-export core member & authorization helpers
+export {
+  ROLES,
+  MEMBER_STATUS,
+  INVITATION_STATUS,
+  OWNER_RECORD,
+  DEFAULT_ROOT_OWNER_EMAIL,
+  DEFAULT_ROOT_OWNER_NAME,
+  getRootOwnerEmail,
+  isRootOwnerEmail,
+  getOwnerRecord,
+  getAuthenticatedMember,
+  getMemberRole,
+  requireRole,
+  hasPermission
+} from './members.js';
+
 

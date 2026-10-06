@@ -21,6 +21,36 @@ import {
 
 import { loginHtml, editorialHtml } from './admin-views.js';
 import {
+  ROLES,
+  MEMBER_STATUS,
+  INVITATION_STATUS,
+  INVITABLE_ROLES,
+  OWNER_RECORD,
+  normalizeEmail,
+  isGmailAddress,
+  isValidInvitableRole,
+  createInvitation,
+  getInvitationByToken,
+  getInvitationById,
+  cancelInvitation,
+  acceptInvitation,
+  listInvitations,
+  listMembers,
+  getMemberById,
+  getAuthenticatedMember,
+  getMemberRole,
+  requireRole,
+  hasPermission,
+  getGoogleOAuthConfig,
+  createOAuthState,
+  verifyOAuthState,
+  buildGoogleAuthUrl,
+  exchangeGoogleCode,
+  fetchGoogleUserInfo,
+  sendInvitationEmail
+} from './members.js';
+
+import {
   recordAuditEvent,
   getArticleAuditHistory,
   getRecentAuditLogs,
@@ -98,6 +128,187 @@ function countWords(str) {
   if (!str || typeof str !== 'string') return 0;
   return str.trim().split(/\s+/).filter(w => w.length > 0).length;
 }
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function renderInviteHtml({ token, invitation, statusError, errorMsg, oauthConfig }) {
+  const isPending = invitation && invitation.status === INVITATION_STATUS.PENDING && !statusError;
+
+  let contentHtml = '';
+  if (statusError) {
+    contentHtml = `
+      <div class="banner banner-danger">
+        <strong>Invitation Inactive</strong><br>
+        ${escapeHtml(statusError)}
+      </div>
+      <a href="/admin/" class="btn" style="background:#1f2937; color:#fff; text-decoration:none;">Return to Newsroom Login</a>
+    `;
+  } else if (isPending) {
+    const roleBadgeClass = invitation.role === ROLES.ADMIN ? 'badge-admin' : 'badge-editor';
+    const expiresFormatted = new Date(invitation.expiresAt).toLocaleString('en-US', {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+      timeZone: 'UTC'
+    }) + ' UTC';
+
+    let actionSection = '';
+    if (oauthConfig.configured) {
+      actionSection = `
+        <a href="/admin/invite/start?token=${encodeURIComponent(token)}" class="btn btn-google">
+          <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.616z"/>
+            <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
+            <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.347 2.825.957 4.039l3.007-2.332z"/>
+            <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/>
+          </svg>
+          Accept Invitation with Google
+        </a>
+      `;
+    } else {
+      actionSection = `
+        <div class="banner banner-warning">
+          <strong>Configuration Notice:</strong> Google OAuth credentials (<code>GOOGLE_CLIENT_ID</code>, <code>GOOGLE_CLIENT_SECRET</code>) are pending server-side deployment. Once configured, you will be able to verify your account here.
+        </div>
+      `;
+    }
+
+    contentHtml = `
+      ${errorMsg ? `<div class="banner banner-danger"><strong>Authentication Failed:</strong><br>${escapeHtml(errorMsg)}</div>` : ''}
+      <div class="details">
+        <div class="row">
+          <span class="label">Invited Email</span>
+          <span class="value">${escapeHtml(invitation.email)}</span>
+        </div>
+        <div class="row">
+          <span class="label">Assigned Role</span>
+          <span class="badge ${roleBadgeClass}">${escapeHtml(invitation.role)}</span>
+        </div>
+        <div class="row">
+          <span class="label">Expires</span>
+          <span class="value" style="font-size:0.8rem; color:#9ca3af;">${escapeHtml(expiresFormatted)}</span>
+        </div>
+      </div>
+      ${actionSection}
+    `;
+  }
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Newsroom Invitation — Samachar Daily</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --border: #1f2937;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.25rem 2rem;
+      max-width: 460px;
+      width: 100%;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+    .header { text-align: center; margin-bottom: 1.75rem; }
+    .brand { font-size: 1.15rem; font-weight: 700; color: #fff; letter-spacing: -0.02em; }
+    .title { font-size: 1.35rem; font-weight: 600; margin-top: 0.35rem; color: #fff; }
+    .subtitle { color: var(--muted); font-size: 0.85rem; margin-top: 0.25rem; }
+    .details {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
+    }
+    .row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+    .row:last-child { margin-bottom: 0; }
+    .label { color: var(--muted); }
+    .value { font-weight: 500; color: #fff; }
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-admin { background: rgba(139, 92, 246, 0.2); color: #c4b5fd; border: 1px solid rgba(139, 92, 246, 0.3); }
+    .badge-editor { background: rgba(6, 182, 212, 0.2); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.3); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s ease;
+    }
+    .btn-google {
+      background: #ffffff;
+      color: #1f2937;
+      gap: 0.5rem;
+    }
+    .btn-google:hover { background: #f3f4f6; }
+    .banner {
+      padding: 0.875rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.45;
+    }
+    .banner-danger { background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; }
+    .banner-warning { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: #fcd34d; }
+    .footer { text-align: center; margin-top: 1.5rem; font-size: 0.75rem; color: #6b7280; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <div class="brand">SAMACHAR DAILY</div>
+      <div class="title">Newsroom Invitation</div>
+      <div class="subtitle">Join the editorial desk</div>
+    </div>
+    ${contentHtml}
+    <div class="footer">
+      Samachar Daily Editorial Desk &bull; Identity Secured
+    </div>
+  </div>
+</body>
+</html>`;
+}
+
 
 async function fetchFromGitHub(relPath, token) {
   const forwardPath = relPath.replace(/\\/g, '/');
@@ -359,9 +570,23 @@ export default {
         : null;
 
       if (session) {
+        const member = await getAuthenticatedMember(request, env);
+        if (!member) {
+          return new Response(JSON.stringify({ authenticated: false }), {
+            status: 200,
+            headers: {
+              'Content-Type': 'application/json',
+              ...getSecurityHeaders()
+            }
+          });
+        }
         return new Response(JSON.stringify({
           authenticated: true,
-          user: session.sub,
+          user: member.displayName || session.sub,
+          sub: session.sub,
+          role: member.role,
+          email: member.email,
+          displayName: member.displayName,
           exp: session.exp
         }), {
           status: 200,
@@ -380,6 +605,220 @@ export default {
         });
       }
     }
+
+    // 4B. API ENDPOINTS: Team Members & Invitations Foundation (Phase 14B-1)
+    if (pathname === '/api/admin/members/invite' && method === 'POST') {
+      const caller = await getAuthenticatedMember(request, env);
+      if (!caller) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Unauthorized. Please log in.'
+        }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      if (!hasPermission(caller, 'invite_members')) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Forbidden. Only Owner and Administrator roles can invite team members.'
+        }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      try {
+        const body = await request.json();
+        const email = (body.email || '').trim();
+        const role = (body.role || '').trim().toLowerCase();
+
+        if (!email) {
+          return new Response(JSON.stringify({
+            success: false,
+            error: 'Missing required field: email.'
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        if (!isGmailAddress(email)) {
+          return new Response(JSON.stringify({
+            success: false,
+            error: 'Only @gmail.com or @googlemail.com addresses are permitted for member invitations.'
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        if (!isValidInvitableRole(role)) {
+          return new Response(JSON.stringify({
+            success: false,
+            error: `Invalid role "${role}". Allowed roles: ${INVITABLE_ROLES.join(', ')}.`
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        const { invitation, rawToken } = await createInvitation(env, {
+          email,
+          role,
+          invitedBy: caller.id
+        });
+
+        const inviteUrl = `${url.origin}/admin/invite?token=${encodeURIComponent(rawToken)}`;
+        const emailDelivery = await sendInvitationEmail(env, { email, role, inviteUrl });
+
+        return new Response(JSON.stringify({
+          success: true,
+          invitation,
+          inviteUrl,
+          emailDelivery
+        }), {
+          status: 201,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      } catch (err) {
+        const isConflict = err.message && err.message.includes('already exists');
+        return new Response(JSON.stringify({
+          success: false,
+          error: err.message || 'Failed to create invitation.'
+        }), {
+          status: isConflict ? 409 : 400,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+    }
+
+    if (pathname === '/api/admin/members/invitations' && method === 'GET') {
+      const caller = await getAuthenticatedMember(request, env);
+      if (!caller) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Unauthorized. Please log in.'
+        }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      if (!hasPermission(caller, 'view_members')) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Forbidden. Access restricted.'
+        }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      const invitations = await listInvitations(env);
+      return new Response(JSON.stringify({
+        success: true,
+        count: invitations.length,
+        invitations
+      }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+      });
+    }
+
+    if (pathname === '/api/admin/members/invite/cancel' && method === 'POST') {
+      const caller = await getAuthenticatedMember(request, env);
+      if (!caller) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Unauthorized. Please log in.'
+        }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      if (!hasPermission(caller, 'cancel_invitations')) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Forbidden. Only Owner and Administrator can cancel invitations.'
+        }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      try {
+        const body = await request.json();
+        const id = body.id;
+        if (!id) {
+          return new Response(JSON.stringify({
+            success: false,
+            error: 'Missing required field: id.'
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        const cancelled = await cancelInvitation(env, id, caller.id);
+        return new Response(JSON.stringify({
+          success: true,
+          message: 'Invitation cancelled successfully.',
+          invitation: {
+            id: cancelled.id,
+            status: cancelled.status,
+            cancelledAt: cancelled.cancelledAt
+          }
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      } catch (err) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: err.message || 'Failed to cancel invitation.'
+        }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+    }
+
+    if (pathname === '/api/admin/members' && method === 'GET') {
+      const caller = await getAuthenticatedMember(request, env);
+      if (!caller) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Unauthorized. Please log in.'
+        }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      if (!hasPermission(caller, 'view_members')) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Forbidden. Access restricted.'
+        }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      const members = await listMembers(env);
+      return new Response(JSON.stringify({
+        success: true,
+        count: members.length,
+        members
+      }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+      });
+    }
+
 
     // 5. API ENDPOINTS: Authenticated Audit Operations (Phase 6)
     if (pathname === '/api/admin/audit' || pathname.startsWith('/api/admin/audit/')) {
@@ -1412,6 +1851,193 @@ export default {
         return new Response(JSON.stringify({ success: false, error: 'Malformed request: ' + err.message }), {
           status: 400,
           headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+    }
+
+    // 4C. PAGE ROUTES: Newsroom Invitation Flow (Phase 14B-1)
+    if (pathname === '/admin/invite' && method === 'GET') {
+      const token = url.searchParams.get('token');
+      const errParam = url.searchParams.get('error');
+      const oauthConfig = getGoogleOAuthConfig(env);
+
+      let invitation = null;
+      let statusError = null;
+
+      if (!token) {
+        statusError = 'No invitation token was provided in the URL.';
+      } else {
+        try {
+          invitation = await getInvitationByToken(env, token);
+          if (!invitation) {
+            statusError = 'Invalid or unrecognized invitation token.';
+          } else if (invitation.status === INVITATION_STATUS.CANCELLED) {
+            statusError = 'This invitation was cancelled by an administrator.';
+          } else if (invitation.status === INVITATION_STATUS.EXPIRED) {
+            statusError = 'This invitation has expired (48-hour limit). Please request a new invitation.';
+          } else if (invitation.status === INVITATION_STATUS.ACCEPTED) {
+            statusError = 'This invitation has already been accepted. Please sign in to the newsroom.';
+          }
+        } catch (e) {
+          statusError = 'Failed to verify invitation: ' + e.message;
+        }
+      }
+
+      let errorMsg = null;
+      if (errParam === 'oauth_not_configured') {
+        errorMsg = 'Google identity authentication credentials are not configured on the server.';
+      } else if (errParam === 'invalid_state') {
+        errorMsg = 'Authentication security state validation failed. Please try again.';
+      } else if (errParam === 'email_mismatch') {
+        errorMsg = 'The authenticated Google account does not match the invited Gmail address.';
+      } else if (errParam === 'access_denied') {
+        errorMsg = 'Google sign-in was denied or cancelled.';
+      } else if (errParam) {
+        errorMsg = 'Authentication error: ' + errParam;
+      }
+
+      const html = renderInviteHtml({
+        token,
+        invitation,
+        statusError,
+        errorMsg,
+        oauthConfig
+      });
+
+      return new Response(html, {
+        status: (statusError || errorMsg) ? 400 : 200,
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          ...getSecurityHeaders()
+        }
+      });
+    }
+
+    if (pathname === '/admin/invite/start' && method === 'GET') {
+      const token = url.searchParams.get('token');
+      if (!token) {
+        return new Response('Missing invitation token.', { status: 400, headers: getSecurityHeaders() });
+      }
+
+      const oauthConfig = getGoogleOAuthConfig(env);
+      if (!oauthConfig.configured) {
+        return new Response(null, {
+          status: 302,
+          headers: {
+            'Location': `/admin/invite?token=${encodeURIComponent(token)}&error=oauth_not_configured`,
+            ...getSecurityHeaders()
+          }
+        });
+      }
+
+      const invitation = await getInvitationByToken(env, token);
+      if (!invitation || invitation.status !== INVITATION_STATUS.PENDING) {
+        return new Response(null, {
+          status: 302,
+          headers: {
+            'Location': `/admin/invite?token=${encodeURIComponent(token)}`,
+            ...getSecurityHeaders()
+          }
+        });
+      }
+
+      const state = await createOAuthState({ token }, env.ADMIN_SESSION_SECRET);
+      const redirectUri = `${url.origin}/admin/invite/callback`;
+      const authUrl = buildGoogleAuthUrl({
+        clientId: oauthConfig.clientId,
+        redirectUri,
+        state
+      });
+
+      return new Response(null, {
+        status: 302,
+        headers: {
+          'Location': authUrl,
+          ...getSecurityHeaders()
+        }
+      });
+    }
+
+    if (pathname === '/admin/invite/callback' && method === 'GET') {
+      const code = url.searchParams.get('code');
+      const stateParam = url.searchParams.get('state');
+      const errParam = url.searchParams.get('error');
+
+      if (errParam) {
+        return new Response(null, {
+          status: 302,
+          headers: {
+            'Location': `/admin/invite?error=${encodeURIComponent(errParam)}`,
+            ...getSecurityHeaders()
+          }
+        });
+      }
+
+      if (!code || !stateParam) {
+        return new Response(null, {
+          status: 302,
+          headers: {
+            'Location': '/admin/invite?error=invalid_callback_params',
+            ...getSecurityHeaders()
+          }
+        });
+      }
+
+      const stateData = await verifyOAuthState(stateParam, env.ADMIN_SESSION_SECRET);
+      if (!stateData || !stateData.token) {
+        return new Response(null, {
+          status: 302,
+          headers: {
+            'Location': '/admin/invite?error=invalid_state',
+            ...getSecurityHeaders()
+          }
+        });
+      }
+
+      const oauthConfig = getGoogleOAuthConfig(env);
+      if (!oauthConfig.configured) {
+        return new Response(null, {
+          status: 302,
+          headers: {
+            'Location': `/admin/invite?token=${encodeURIComponent(stateData.token)}&error=oauth_not_configured`,
+            ...getSecurityHeaders()
+          }
+        });
+      }
+
+      try {
+        const redirectUri = `${url.origin}/admin/invite/callback`;
+        const tokens = await exchangeGoogleCode({
+          code,
+          clientId: oauthConfig.clientId,
+          clientSecret: oauthConfig.clientSecret,
+          redirectUri
+        });
+
+        const googleUser = await fetchGoogleUserInfo(tokens.access_token);
+        const { member } = await acceptInvitation(env, stateData.token, googleUser);
+
+        const sessionToken = await createSessionToken(member, env.ADMIN_SESSION_SECRET);
+        const cookieHeader = buildSessionCookie(sessionToken);
+
+        return new Response(null, {
+          status: 302,
+          headers: {
+            'Location': '/admin/editorial/',
+            'Set-Cookie': cookieHeader,
+            ...getSecurityHeaders()
+          }
+        });
+      } catch (err) {
+        const msg = err.message || 'acceptance_failed';
+        const isMismatch = msg.includes('does not match');
+        const errCode = isMismatch ? 'email_mismatch' : encodeURIComponent(msg);
+        return new Response(null, {
+          status: 302,
+          headers: {
+            'Location': `/admin/invite?token=${encodeURIComponent(stateData.token)}&error=${errCode}`,
+            ...getSecurityHeaders()
+          }
         });
       }
     }
