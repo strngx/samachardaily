@@ -758,7 +758,7 @@ function adminAuthMiddleware(req, res, next) {
         return;
       }
 
-      const redirectUri = `http://${req.headers.host || 'localhost:8080'}/api/admin/gsc/auth/callback`;
+      const redirectUri = process.env.GSC_REDIRECT_URI || `http://${req.headers.host || 'localhost:8080'}/api/admin/gsc/auth/callback`;
       const scopes = [
         'https://www.googleapis.com/auth/webmasters.readonly',
         'openid',
@@ -798,7 +798,7 @@ function adminAuthMiddleware(req, res, next) {
 
       const clientId = process.env.GOOGLE_CLIENT_ID;
       const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-      const redirectUri = `http://${req.headers.host || 'localhost:8080'}/api/admin/gsc/auth/callback`;
+      const redirectUri = process.env.GSC_REDIRECT_URI || `http://${req.headers.host || 'localhost:8080'}/api/admin/gsc/auth/callback`;
 
       (async () => {
         try {

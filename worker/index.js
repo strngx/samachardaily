@@ -72,7 +72,8 @@ import {
   saveGSCTokens,
   deleteGSCTokens,
   inspectUrl,
-  validateInspectUrl
+  validateInspectUrl,
+  resolveGSCRedirectUri
 } from './gsc.js';
 import yaml from 'js-yaml';
 
@@ -1211,7 +1212,7 @@ export default {
         }
 
         const state = await createOAuthState({ action: 'gsc_connect', userId: caller.id }, env.ADMIN_SESSION_SECRET);
-        const redirectUri = `${url.origin}/api/admin/gsc/auth/callback`;
+        const redirectUri = resolveGSCRedirectUri(url, env);
         const authUrl = buildGSCAuthUrl({
           clientId: gscConfig.clientId,
           redirectUri,
@@ -1283,7 +1284,7 @@ export default {
         }
 
         try {
-          const redirectUri = `${url.origin}/api/admin/gsc/auth/callback`;
+          const redirectUri = resolveGSCRedirectUri(url, env);
           const tokens = await exchangeGSCCode({
             code,
             clientId: gscConfig.clientId,

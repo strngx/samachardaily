@@ -193,6 +193,24 @@ export async function getValidAccessToken(env) {
 }
 
 /**
+ * Canonicalizes Google OAuth redirect URI to prevent redirect_uri_mismatch errors.
+ * Respects explicit GSC_REDIRECT_URI environment override if configured,
+ * canonicalizes production domain (including www aliases) to https://thesamachardaily.in/api/admin/gsc/auth/callback,
+ * and preserves localhost/dev origin for local testing.
+ */
+export function resolveGSCRedirectUri(url, env) {
+  if (env?.GSC_REDIRECT_URI) {
+    return env.GSC_REDIRECT_URI;
+  }
+  const u = typeof url === 'string' ? new URL(url) : url;
+  const host = (u.hostname || '').toLowerCase();
+  if (host === 'thesamachardaily.in' || host === 'www.thesamachardaily.in') {
+    return 'https://thesamachardaily.in/api/admin/gsc/auth/callback';
+  }
+  return `${u.origin}/api/admin/gsc/auth/callback`;
+}
+
+/**
  * Builds Google OAuth authorization URL for Search Console connection.
  */
 export function buildGSCAuthUrl({ clientId, redirectUri, state }) {
