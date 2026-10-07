@@ -70,7 +70,9 @@ import {
   buildGSCAuthUrl,
   exchangeGSCCode,
   saveGSCTokens,
-  deleteGSCTokens
+  deleteGSCTokens,
+  inspectUrl,
+  validateInspectUrl
 } from './gsc.js';
 import yaml from 'js-yaml';
 
@@ -81,11 +83,11 @@ const GITHUB_REPO_NAME = 'samachardaily';
 const GITHUB_BRANCH = 'main';
 
 // Strict path regex for article Markdown files in src/articles/<category>/<slug>.md
-const ARTICLE_PATH_REGEX = /^src\/articles\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+\.md$/;
+const ARTICLE_PATH_REGEX = /^src\/articles\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_.-]+\.md$/;
 
 function validateArticleRelPath(relPath) {
   if (!relPath || typeof relPath !== 'string') return false;
-  const forwardPath = relPath.replace(/\\/g, '/');
+  const forwardPath = relPath.trim().replace(/\\/g, '/');
   return ARTICLE_PATH_REGEX.test(forwardPath);
 }
 
@@ -1109,6 +1111,64 @@ export default {
             success: false,
             connected: true,
             error: err.message || 'Failed to fetch Search Console data.'
+          }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+      }
+
+      // 5D-GSC-INSPECT. POST /api/admin/gsc/inspect — Inspect URL with official Google Search Console API
+      if (pathname === '/api/admin/gsc/inspect' && method === 'POST') {
+        const caller = await getAuthenticatedMember(request, env);
+        if (!caller) {
+          return new Response(JSON.stringify({
+            success: false,
+            error: 'Unauthorized. Please log in.'
+          }), {
+            status: 401,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        try {
+          const body = await request.json();
+          const targetUrl = (body.url || '').trim();
+          const forceRefresh = Boolean(body.refresh);
+
+          if (!targetUrl) {
+            return new Response(JSON.stringify({
+              success: false,
+              error: 'Missing required parameter: url.'
+            }), {
+              status: 400,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+
+          const validation = validateInspectUrl(targetUrl);
+          if (!validation.valid) {
+            return new Response(JSON.stringify({
+              success: false,
+              error: validation.error,
+              errorCode: 'INVALID_URL'
+            }), {
+              status: 400,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+
+          const inspection = await inspectUrl(env, { url: validation.url, forceRefresh });
+          const httpStatus = inspection.success ? 200 : (inspection.status || 500);
+
+          return new Response(JSON.stringify(inspection), {
+            status: httpStatus,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        } catch (err) {
+          return new Response(JSON.stringify({
+            success: false,
+            error: err.message || 'Failed to inspect URL.'
           }), {
             status: 500,
             headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }

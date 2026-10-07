@@ -33,6 +33,7 @@ export const INVITATION_STATUS = {
   PENDING: 'pending',
   ACCEPTED: 'accepted',
   CANCELLED: 'cancelled',
+  REVOKED: 'revoked',
   EXPIRED: 'expired'
 };
 
@@ -516,12 +517,19 @@ export async function cancelInvitation(env, invitationId, cancelledBy = 'owner-a
     throw new Error('Invitation not found.');
   }
 
+  // Idempotent: If already cancelled or revoked, return cleanly
+  if (invitation.status === INVITATION_STATUS.CANCELLED || invitation.status === INVITATION_STATUS.REVOKED) {
+    return invitation;
+  }
+
   if (invitation.status !== INVITATION_STATUS.PENDING) {
     throw new Error(`Cannot cancel invitation with status "${invitation.status}".`);
   }
 
   invitation.status = INVITATION_STATUS.CANCELLED;
   invitation.cancelledAt = new Date(nowMs).toISOString();
+  invitation.revokedAt = invitation.cancelledAt;
+  invitation.revoked = true;
 
   // Delete token lookup pointer so it cannot be accepted
   if (invitation.tokenHash) {
@@ -664,13 +672,23 @@ export async function listInvitations(env, nowMs = Date.now()) {
           createdAt: inv.createdAt,
           expiresAt: inv.expiresAt,
           acceptedAt: inv.acceptedAt,
-          cancelledAt: inv.cancelledAt
+          cancelledAt: inv.cancelledAt,
+          revokedAt: inv.revokedAt || inv.cancelledAt,
+          revoked: !!(inv.revoked || inv.cancelledAt || inv.status === INVITATION_STATUS.CANCELLED || inv.status === INVITATION_STATUS.REVOKED)
         });
       }
     }
   }
 
   return invitations;
+}
+
+/**
+ * Builds the canonical invitation URL from a raw token
+ */
+export function buildInvitationUrl(rawToken, baseUrl = 'https://thesamachardaily.in') {
+  if (!rawToken) return '';
+  return `${baseUrl.replace(/\/+$/, '')}/admin/invite?token=${encodeURIComponent(rawToken)}`;
 }
 
 // ---------------------------------------------------------------------------
@@ -927,14 +945,98 @@ export async function fetchGoogleUserInfo(accessToken) {
 // ---------------------------------------------------------------------------
 
 /**
- * Email delivery integration point.
- * Checks if a supported email provider is configured.
- * Never fakes delivery; returns explicit delivery status.
+ * Generates responsive, brand-aligned HTML for team member invitations.
  */
-export async function sendInvitationEmail(env, { email, role, inviteUrl }) {
-  // Current project audit shows no email provider is bound.
-  // Explicitly return unconfigured status rather than pretending success.
-  if (!env || !env.EMAIL_API_KEY) {
+export function generateInvitationEmailHtml({ email, role, inviteUrl, expiresAt }) {
+  const roleName = role === ROLES.ADMIN ? 'Administrator' : 'Editor';
+  const expiresFormatted = expiresAt
+    ? new Date(expiresAt).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'UTC' }) + ' UTC'
+    : '48 hours from dispatch';
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You're invited to SamacharDaily Editorial Control</title>
+</head>
+<body style="margin: 0; padding: 32px 16px; background-color: #f6f7f9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #17202a; line-height: 1.5;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 560px; background-color: #ffffff; border: 1px solid #e4e7ec; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(16,24,40,0.06);">
+          <tr>
+            <td style="padding: 28px 32px 20px 32px; border-bottom: 2px solid #881337;">
+              <span style="font-size: 18px; font-weight: 800; color: #881337; letter-spacing: -0.02em;">SAMACHAR<span style="color: #17202a;">DAILY</span></span>
+              <div style="font-size: 11px; font-weight: 600; color: #667085; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px;">Editorial Control Center</div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 32px;">
+              <h1 style="margin: 0 0 16px 0; font-size: 20px; font-weight: 700; color: #17202a; line-height: 1.3;">
+                You've been invited to join the newsroom
+              </h1>
+              <p style="margin: 0 0 20px 0; font-size: 14px; color: #344054; line-height: 1.6;">
+                You have been granted <strong>${roleName}</strong> access to the SamacharDaily Editorial Control Center.
+                This single-use access link allows you to verify your identity and sign in with your Google Account (${email}).
+              </p>
+              <div style="text-align: center; margin: 28px 0;">
+                <a href="${inviteUrl}" target="_blank" rel="noopener noreferrer" style="display: inline-block; background-color: #881337; color: #ffffff; font-size: 14px; font-weight: 600; text-decoration: none; padding: 12px 32px; border-radius: 6px; box-shadow: 0 1px 2px rgba(16,24,40,0.05);">
+                  ACCEPT INVITATION
+                </a>
+              </div>
+              <p style="margin: 24px 0 8px 0; font-size: 12px; color: #667085; line-height: 1.5;">
+                If the button above does not open, copy and paste this secure link directly into your browser:
+              </p>
+              <div style="padding: 10px 12px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; font-family: monospace; font-size: 11px; color: #475569; word-break: break-all;">
+                ${inviteUrl}
+              </div>
+              <p style="margin: 20px 0 0 0; font-size: 12px; color: #98a2b3;">
+                This invitation is single-use and will expire on <strong>${expiresFormatted}</strong>.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 20px 32px; background-color: #fafbfc; border-top: 1px solid #f2f4f7; font-size: 11px; color: #98a2b3; line-height: 1.5;">
+              If you did not expect this invitation, you can safely ignore this email.<br>
+              © SamacharDaily — Precision Journalism &amp; Content Operations Platform.
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
+/**
+ * Generates fallback plain text for team member invitations.
+ */
+export function generateInvitationEmailText({ email, role, inviteUrl, expiresAt }) {
+  const roleName = role === ROLES.ADMIN ? 'Administrator' : 'Editor';
+  return `SAMACHARDAILY — Editorial Control Center
+
+You've been invited to join the SamacharDaily newsroom team as ${roleName}.
+
+To accept your invitation and sign in with your verified Google Account (${email}), click the following link:
+${inviteUrl}
+
+This single-use invitation is active for 48 hours.
+
+If you did not expect this invitation, you can safely ignore this email.
+`;
+}
+
+/**
+ * Email delivery integration point.
+ * Dispatches real emails via Resend API when API key is provided,
+ * or reports honest unconfigured status if no email provider is bound.
+ * Never fakes delivery; strictly returns verified provider outcomes.
+ */
+export async function sendInvitationEmail(env, { email, role, inviteUrl, expiresAt }) {
+  const apiKey = env?.RESEND_API_KEY || env?.EMAIL_API_KEY;
+  if (!apiKey) {
     return {
       sent: false,
       reason: 'EMAIL_PROVIDER_NOT_CONFIGURED',
@@ -942,10 +1044,54 @@ export async function sendInvitationEmail(env, { email, role, inviteUrl }) {
     };
   }
 
-  // Future integration point for email providers (e.g. Resend, Cloudflare Email Routing)
-  return {
-    sent: false,
-    reason: 'EMAIL_PROVIDER_NOT_IMPLEMENTED',
-    inviteUrl
-  };
+  const fromAddress = env?.EMAIL_FROM || 'SamacharDaily Editorial <editorial@thesamachardaily.in>';
+  const html = generateInvitationEmailHtml({ email, role, inviteUrl, expiresAt });
+  const text = generateInvitationEmailText({ email, role, inviteUrl, expiresAt });
+
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey.trim()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: fromAddress,
+        to: [email],
+        subject: "You're invited to SamacharDaily Editorial Control",
+        html,
+        text
+      })
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      return {
+        sent: true,
+        id: data.id || null,
+        provider: 'resend',
+        to: email,
+        inviteUrl
+      };
+    } else {
+      const errText = await res.text();
+      let errMsg = `Email provider rejected message (${res.status})`;
+      try {
+        const errJson = JSON.parse(errText);
+        if (errJson.message) errMsg = errJson.message;
+      } catch (_) {}
+      return {
+        sent: false,
+        reason: errMsg,
+        providerStatus: res.status,
+        inviteUrl
+      };
+    }
+  } catch (err) {
+    return {
+      sent: false,
+      reason: err.message || 'Network error reaching email provider',
+      inviteUrl
+    };
+  }
 }

@@ -675,3 +675,185 @@ export async function getGSCStatus(env) {
     source: tokens?.source || 'oauth'
   };
 }
+
+/**
+ * Validates URLs for Google Search Console URL Inspection API.
+ * Enforces HTTPS, domain whitelisting, and rejects malicious or external URLs.
+ */
+export function validateInspectUrl(urlStr) {
+  if (!urlStr || typeof urlStr !== 'string') {
+    return { valid: false, error: 'URL must be a non-empty string.' };
+  }
+
+  const trimmed = urlStr.trim();
+  if (!trimmed.startsWith('https://')) {
+    return { valid: false, error: 'Only secure HTTPS URLs are permitted for inspection.' };
+  }
+
+  // Reject dangerous protocols
+  const lower = trimmed.toLowerCase();
+  if (lower.startsWith('javascript:') || lower.startsWith('data:') || lower.startsWith('file:')) {
+    return { valid: false, error: 'Invalid URL scheme.' };
+  }
+
+  try {
+    const parsed = new URL(trimmed);
+    const host = parsed.hostname.toLowerCase();
+    const isDomain = (host === 'thesamachardaily.in' || host === 'www.thesamachardaily.in');
+
+    if (!isDomain) {
+      return { valid: false, error: 'Inspection is restricted strictly to thesamachardaily.in domain.' };
+    }
+
+    return { valid: true, url: parsed.toString() };
+  } catch (err) {
+    return { valid: false, error: 'Malformed URL: ' + err.message };
+  }
+}
+
+/**
+ * Calls official Google Search Console URL Inspection API.
+ * Endpoint: POST https://searchconsole.googleapis.com/v1/urlInspection/index:inspect
+ * Provides caching, quota defense, and transparent verdict parsing.
+ */
+export async function inspectUrl(env, { url, forceRefresh = false } = {}) {
+  const validation = validateInspectUrl(url);
+  if (!validation.valid) {
+    return {
+      success: false,
+      error: validation.error,
+      errorCode: 'INVALID_URL'
+    };
+  }
+
+  const targetUrl = validation.url;
+  const config = getGSCConfig(env);
+  const propertyId = config.propertyId;
+  const cacheKey = `${KEY_GSC_CACHE_PREFIX}inspect:${encodeURIComponent(targetUrl)}`;
+
+  // Check KV cache if not forced
+  if (!forceRefresh && env && env.AUTH_KV && typeof env.AUTH_KV.get === 'function') {
+    try {
+      const cachedRaw = await env.AUTH_KV.get(cacheKey);
+      if (cachedRaw) {
+        const cached = JSON.parse(cachedRaw);
+        if (cached && cached.data) {
+          return {
+            ...cached.data,
+            cached: true,
+            lastChecked: cached.timestamp
+          };
+        }
+      }
+    } catch (_) {}
+  }
+
+  const accessToken = await getValidAccessToken(env);
+  if (!accessToken) {
+    return {
+      success: false,
+      connected: false,
+      error: 'Google Search Console is not connected.',
+      errorCode: 'NOT_CONNECTED'
+    };
+  }
+
+  const endpoint = 'https://searchconsole.googleapis.com/v1/urlInspection/index:inspect';
+  const payload = {
+    inspectionUrl: targetUrl,
+    siteUrl: propertyId
+  };
+
+  try {
+    const resp = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!resp.ok) {
+      const errorText = await resp.text();
+      let userMsg = `URL Inspection API error (${resp.status})`;
+      let errorCode = 'API_ERROR';
+
+      try {
+        const errJson = JSON.parse(errorText);
+        const detail = errJson.error?.message || '';
+        if (resp.status === 401) {
+          userMsg = 'Google authentication expired. Please reconnect Search Console.';
+          errorCode = 'UNAUTHORIZED';
+        } else if (resp.status === 403) {
+          userMsg = `Permission denied. Ensure the connected account has access to property "${propertyId}".`;
+          errorCode = 'PERMISSION_DENIED';
+        } else if (resp.status === 429) {
+          userMsg = 'Google Search Console API quota limit reached. Please retry in a few moments.';
+          errorCode = 'RATE_LIMITED';
+        } else if (detail) {
+          userMsg = `Search Console API error: ${detail}`;
+        }
+      } catch (_) {}
+
+      return {
+        success: false,
+        connected: true,
+        error: userMsg,
+        errorCode,
+        status: resp.status
+      };
+    }
+
+    const data = await resp.json();
+    const result = data.inspectionResult || {};
+    const indexStatus = result.indexStatusResult || {};
+
+    const nowIso = new Date().toISOString();
+    const inspectionData = {
+      success: true,
+      connected: true,
+      url: targetUrl,
+      property: propertyId,
+      verdict: indexStatus.verdict || 'NEUTRAL',
+      coverageState: indexStatus.coverageState || 'Unknown',
+      robotsTxtState: indexStatus.robotsTxtState || 'ALLOWED',
+      indexingState: indexStatus.indexingState || 'INDEXING_ALLOWED',
+      lastCrawlTime: indexStatus.lastCrawlTime || null,
+      pageFetchState: indexStatus.pageFetchState || 'SUCCESSFUL',
+      googleCanonical: indexStatus.googleCanonical || null,
+      userCanonical: indexStatus.userCanonical || null,
+      sitemap: indexStatus.sitemap || [],
+      referringUrls: indexStatus.referringUrls || [],
+      crawledAs: indexStatus.crawledAs || 'MOBILE',
+      mobileUsability: result.mobileUsabilityResult?.verdict || null,
+      richResults: (result.richResultsResult?.detectedItems || []).map(item => ({
+        name: item.name || 'Rich Result',
+        items: item.items || []
+      })),
+      cached: false,
+      lastChecked: nowIso,
+      source: 'Google URL Inspection API'
+    };
+
+    // Cache in AUTH_KV for 15 minutes
+    if (env && env.AUTH_KV && typeof env.AUTH_KV.put === 'function') {
+      try {
+        await env.AUTH_KV.put(
+          cacheKey,
+          JSON.stringify({ data: inspectionData, timestamp: nowIso }),
+          { expirationTtl: GSC_CACHE_TTL_SECONDS }
+        );
+      } catch (_) {}
+    }
+
+    return inspectionData;
+  } catch (err) {
+    return {
+      success: false,
+      error: 'Network error calling Google URL Inspection API: ' + err.message,
+      errorCode: 'NETWORK_ERROR'
+    };
+  }
+}
