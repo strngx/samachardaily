@@ -17,103 +17,82 @@ noindex: true
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Brand Identity: Professional Newsroom Burgundy Accent */
-      --color-brand: #881337;
-      --color-brand-dark: #70102d;
-      --color-brand-hover: #9f1239;
-      --color-brand-light: #fff1f2;
-      --color-brand-border: #fecdd3;
-      --color-brand-glow: rgba(136, 19, 55, 0.15);
+      /* Brand Identity: SamacharDaily Crimson Accent */
+      --color-brand: #C81E2C;
+      --color-brand-dark: #9e1420;
+      --color-brand-hover: #dc2626;
+      --color-brand-light: rgba(200, 30, 44, 0.12);
+      --color-brand-border: rgba(200, 30, 44, 0.28);
+      --color-brand-glow: rgba(200, 30, 44, 0.35);
 
-      /* Restrained Editorial SaaS Palette (Light Mode Default) */
-      --color-canvas: #f6f7f9;          /* Page background #F6F7F9 */
-      --color-surface: #ffffff;         /* Surface #FFFFFF */
-      --color-surface-elevated: #ffffff;
-      --color-surface-alt: #f8fafc;     /* Inputs / wells / subtables */
-      --color-surface-hover: #f1f5f9;
+      /* Layered Dark Slate Neutral Palette (Vision UI inspired) */
+      --color-canvas: #090d16;          /* Deepest workspace background */
+      --color-surface: #101726;         /* Primary card and panel surface */
+      --color-surface-elevated: #151e32;/* Hover and elevated card surface */
+      --color-surface-alt: #0c121e;     /* Sub-surface / inputs / wells */
+      --color-surface-hover: #182238;   /* Interactive hover state */
       
-      /* Subtle Institutional Boundaries */
-      --color-border: #e4e7ec;          /* Border #E4E7EC */
-      --color-border-dark: #d0d5dd;
-      --color-border-subtle: #f2f4f7;
-      --color-border-hover: #d0d5dd;
+      /* Subtle Boundaries */
+      --color-border: #1e293b;          /* Subtle border line */
+      --color-border-dark: #334155;
+      --color-border-subtle: rgba(255, 255, 255, 0.06);
+      --color-border-hover: rgba(255, 255, 255, 0.15);
 
-      /* Professional Sidebar Shell */
-      --sidebar-bg: #ffffff;
-      --sidebar-surface: #f8fafc;
-      --sidebar-border: #e4e7ec;
-      --sidebar-text: #17202a;
-      --sidebar-muted: #667085;
-      --sidebar-subtle: #98a2b3;
+      /* Vision UI Dark Charcoal / Navy Shell */
+      --sidebar-bg: #070a12;
+      --sidebar-surface: #0e1524;
+      --sidebar-border: #192235;
+      --sidebar-text: #f8fafc;
+      --sidebar-muted: #94a3b8;
+      --sidebar-subtle: #475569;
       --sidebar-width: 250px;
       --topbar-height: 56px;
 
       /* High-Contrast Typographic Hierarchy */
-      --color-ink: #17202a;             /* Primary text #17202A */
-      --color-ink-light: #344054;       /* Secondary text */
-      --color-muted: #667085;           /* Secondary / muted text #667085 */
-      --color-subtle: #98a2b3;          /* Low-priority metadata #98A2B3 */
+      --color-ink: #f8fafc;             /* Primary high-contrast text */
+      --color-ink-light: #e2e8f0;       /* Secondary body text */
+      --color-muted: #94a3b8;           /* Muted / labels / captions */
+      --color-subtle: #64748b;          /* Low-priority metadata */
 
-      /* Curated Semantic Status Palette */
-      --color-green: #059669;
-      --color-green-bg: #ecfdf5;
-      --color-green-border: #a7f3d0;
+      /* Curated Semantic Status Palette (Communicating State) */
+      --color-green: #10b981;
+      --color-green-bg: rgba(16, 185, 129, 0.12);
+      --color-green-border: rgba(16, 185, 129, 0.28);
 
-      --color-blue: #2563eb;
-      --color-blue-bg: #eff6ff;
-      --color-blue-border: #bfdbfe;
+      --color-blue: #38bdf8;
+      --color-blue-bg: rgba(56, 189, 248, 0.12);
+      --color-blue-border: rgba(56, 189, 248, 0.28);
 
-      --color-amber: #d97706;
-      --color-amber-bg: #fffbeb;
-      --color-amber-border: #fde68a;
+      --color-amber: #f59e0b;
+      --color-amber-bg: rgba(245, 158, 11, 0.12);
+      --color-amber-border: rgba(245, 158, 11, 0.28);
 
-      --color-red: #dc2626;
-      --color-red-bg: #fef2f2;
-      --color-red-border: #fecaca;
+      --color-red: #ef4444;
+      --color-red-bg: rgba(239, 68, 68, 0.12);
+      --color-red-border: rgba(239, 68, 68, 0.28);
 
-      --color-purple: #7c3aed;
-      --color-purple-bg: #f5f3ff;
-      --color-purple-border: #ddd6fe;
+      --color-purple: #a855f7;
+      --color-purple-bg: rgba(168, 85, 247, 0.12);
+      --color-purple-border: rgba(168, 85, 247, 0.28);
 
-      --color-teal: #0d9488;
-      --color-teal-bg: #f0fdfa;
-      --color-teal-border: #99f6e4;
+      --color-teal: #14b8a6;
+      --color-teal-bg: rgba(20, 184, 166, 0.12);
+      --color-teal-border: rgba(20, 184, 166, 0.28);
 
-      /* Professional Typography & Shadows */
+      /* Typography & Shadows */
       --font-stack: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-serif: 'Merriweather', Georgia, "Times New Roman", serif;
       --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-      --shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.04);
-      --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.06);
-      --shadow-md: 0 4px 12px -2px rgba(16, 24, 40, 0.08);
-      --shadow-lg: 0 12px 28px -4px rgba(16, 24, 40, 0.1);
+      --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
+      --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 10px 24px -4px rgba(0, 0, 0, 0.6);
 
       --radius-sm: 6px;
       --radius-md: 8px;
       --radius-lg: 12px;
       --radius-xl: 16px;
-    }
-
-    [data-theme="dark"] {
-      --color-canvas: #0b0f19;
-      --color-surface: #111827;
-      --color-surface-elevated: #161f33;
-      --color-surface-alt: #0d1322;
-      --color-surface-hover: #1f293d;
-      --color-border: #1f2937;
-      --color-border-dark: #374151;
-      --color-border-subtle: rgba(255, 255, 255, 0.06);
-      --sidebar-bg: #0d1322;
-      --sidebar-surface: #111827;
-      --sidebar-border: #1f2937;
-      --sidebar-text: #f9fafb;
-      --sidebar-muted: #9ca3af;
-      --sidebar-subtle: #6b7280;
-      --color-ink: #f9fafb;
-      --color-ink-light: #e5e7eb;
-      --color-muted: #9ca3af;
-      --color-subtle: #6b7280;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1057,61 +1036,41 @@ noindex: true
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 5px 9px;
+      gap: 5px;
+      padding: 4px 8px;
       border-radius: var(--radius-sm);
       font-size: 11.5px;
       font-weight: 500;
       cursor: pointer;
-      background: var(--color-surface);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--color-border);
-      color: var(--color-ink);
+      color: var(--color-ink-light);
       transition: all 0.15s ease;
       line-height: 1.2;
     }
     .btn-table-action:hover {
-      background: var(--color-surface-hover);
+      background: rgba(255, 255, 255, 0.1);
       border-color: var(--color-border-hover);
-      color: var(--color-ink);
+      color: #ffffff;
     }
     .btn-table-primary {
-      background: var(--color-brand);
-      border-color: var(--color-brand);
-      color: #ffffff;
-      font-weight: 600;
+      background: rgba(200, 30, 44, 0.2);
+      border-color: rgba(200, 30, 44, 0.45);
+      color: #fca5a5;
     }
     .btn-table-primary:hover {
-      background: var(--color-brand-hover);
-      border-color: var(--color-brand-hover);
+      background: #C81E2C;
+      border-color: #C81E2C;
       color: #ffffff;
     }
     .btn-table-danger {
-      background: #fef2f2;
-      border-color: #fecaca;
-      color: #dc2626;
-      font-weight: 500;
-    }
-    .btn-table-danger:hover {
-      background: #dc2626;
-      border-color: #dc2626;
-      color: #ffffff;
-    }
-    [data-theme="dark"] .btn-table-action {
-      background: var(--color-surface-elevated);
-      border-color: var(--color-border);
-      color: var(--color-ink-light);
-    }
-    [data-theme="dark"] .btn-table-action:hover {
-      background: var(--color-surface-hover);
-      color: #ffffff;
-    }
-    [data-theme="dark"] .btn-table-danger {
-      background: rgba(220, 38, 38, 0.15);
-      border-color: rgba(220, 38, 38, 0.35);
+      background: rgba(239, 68, 68, 0.12);
+      border-color: rgba(239, 68, 68, 0.35);
       color: #fca5a5;
     }
-    [data-theme="dark"] .btn-table-danger:hover {
-      background: #dc2626;
-      border-color: #dc2626;
+    .btn-table-danger:hover {
+      background: #ef4444;
+      border-color: #ef4444;
       color: #ffffff;
     }
     .mobile-card-actions {
@@ -1526,11 +1485,11 @@ noindex: true
     }
     .editor-stub-notice {
       display: none;
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.28);
       border-radius: var(--radius-md);
       padding: 16px 20px;
-      color: #1e40af;
+      color: #7dd3fc;
       margin-bottom: 8px;
     }
     .editor-loading-skeleton {
@@ -1544,11 +1503,11 @@ noindex: true
     }
     .editor-error-panel {
       display: none;
-      background: #fef2f2;
-      border: 1px solid #fecaca;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.28);
       border-radius: var(--radius-lg);
       padding: 24px;
-      color: #991b1b;
+      color: #fca5a5;
       margin-bottom: 16px;
     }
     .editor-header-bar {
@@ -1947,7 +1906,11 @@ noindex: true
           <span class="nav-item-badge blue" id="side-safe-count">...</span>
         </button>
 
-        <div class="nav-category">INSIGHTS &amp; SEO</div>
+        <div class="nav-category">GSC / SEARCH CONSOLE</div>
+        <button class="nav-item" data-view="gsc-overview" onclick="navigate('gsc-overview')">
+          <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span class="nav-item-label">Overview</span>
+        </button>
         <button class="nav-item" data-view="search" onclick="navigate('search')">
           <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
           <span class="nav-item-label">Search Performance</span>
@@ -1955,8 +1918,13 @@ noindex: true
         </button>
         <button class="nav-item" data-view="indexing" onclick="navigate('indexing')">
           <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <span class="nav-item-label">Indexing Control</span>
-          <span class="nav-item-badge green">Inspector</span>
+          <span class="nav-item-label">Indexing</span>
+          <span class="nav-item-badge green">Index</span>
+        </button>
+        <button class="nav-item" data-view="url-inspection" onclick="navigate('url-inspection')">
+          <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          <span class="nav-item-label">URL Inspection</span>
+          <span class="nav-item-badge blue">Inspector</span>
         </button>
         <button class="nav-item" data-view="sitemaps" onclick="navigate('sitemaps')">
           <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
@@ -1968,6 +1936,8 @@ noindex: true
           <span class="nav-item-label">Video SEO</span>
           <span class="nav-item-badge purple">Media</span>
         </button>
+
+        <div class="nav-category">SITE HEALTH</div>
         <button class="nav-item" data-view="website" onclick="navigate('website')">
           <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
           <span class="nav-item-label">Website Health</span>
@@ -4722,7 +4692,7 @@ noindex: true
     // SINGLE-SOURCE NAVIGATION ROUTER
     // ========================================================================
     function navigate(viewId, options = {}) {
-      const validViews = ['overview', 'articles', 'thin-queue', 'attention', 'safety', 'search', 'website', 'broken-links', 'google-news', 'settings', 'members', 'indexing', 'sitemaps', 'video-seo'];
+      const validViews = ['overview', 'articles', 'thin-queue', 'attention', 'safety', 'search', 'website', 'broken-links', 'google-news', 'settings', 'members', 'indexing', 'sitemaps', 'video-seo', 'gsc-overview', 'url-inspection'];
       if (!validViews.includes(viewId)) viewId = 'overview';
 
       const prevView = AppState.currentView;
@@ -4759,9 +4729,18 @@ noindex: true
         }
       }
 
+      // Map alias views to their respective DOM panes
+      let targetPaneId = viewId;
+      if (viewId === 'gsc-overview') {
+        targetPaneId = 'search';
+      } else if (viewId === 'url-inspection') {
+        targetPaneId = 'indexing';
+        options.focusInspector = true;
+      }
+
       // Synchronize View Panes
       document.querySelectorAll('.view-pane').forEach(el => el.classList.remove('active'));
-      const activePane = document.getElementById('view-' + viewId);
+      const activePane = document.getElementById('view-' + targetPaneId);
       if (activePane) {
         activePane.classList.add('active');
       } else {
@@ -4781,10 +4760,19 @@ noindex: true
         renderSafetyTab();
       } else if (viewId === 'members') {
         loadMembersData();
-      } else if (viewId === 'search') {
+      } else if (viewId === 'search' || viewId === 'gsc-overview') {
         loadSearchPerformanceData();
-      } else if (viewId === 'indexing') {
+      } else if (viewId === 'indexing' || viewId === 'url-inspection') {
         renderIndexingTab();
+        if (options.focusInspector || viewId === 'url-inspection') {
+          setTimeout(() => {
+            const input = document.getElementById('inspector-url-input');
+            if (input) {
+              input.focus();
+              input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }, 100);
+        }
       } else if (viewId === 'sitemaps') {
         renderSitemapsTab();
       } else if (viewId === 'video-seo') {
@@ -4827,8 +4815,10 @@ noindex: true
           'thin-queue': 'Thin Content Queue',
           'attention': 'Needs Attention',
           'safety': 'Safety Governance',
+          'gsc-overview': 'GSC Overview',
           'search': 'Search Performance',
           'indexing': 'GSC Indexing Control Center',
+          'url-inspection': 'GSC URL Inspection',
           'sitemaps': 'XML Sitemaps Comparison',
           'video-seo': 'Video SEO & Media Diagnostics',
           'website': 'Website Health',
@@ -7506,7 +7496,7 @@ noindex: true
       // Check initial URL parameters for deep links
       const params = new URLSearchParams(window.location.search);
       const hashView = (window.location.hash || '').replace('#', '');
-      const validViews = ['overview', 'articles', 'thin-queue', 'attention', 'safety', 'search', 'website', 'broken-links', 'google-news', 'settings', 'members', 'indexing', 'sitemaps', 'video-seo'];
+      const validViews = ['overview', 'articles', 'thin-queue', 'attention', 'safety', 'search', 'website', 'broken-links', 'google-news', 'settings', 'members', 'indexing', 'sitemaps', 'video-seo', 'gsc-overview', 'url-inspection'];
       const initialView = params.get('view') || (hashView && validViews.includes(hashView) ? hashView : 'overview');
       const initialArticle = params.get('article');
       const initialMode = params.get('mode');

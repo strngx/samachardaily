@@ -12,45 +12,31 @@ noindex: true
   <meta name="robots" content="noindex, nofollow, noarchive">
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --color-brand: #881337;
-      --color-brand-hover: #9f1239;
-      --color-brand-subtle: #fff1f2;
-      --color-brand-border: #fecdd3;
-
-      --color-bg: #f6f7f9;
-      --color-surface: #ffffff;
-      --color-surface-sub: #f8fafc;
-      --color-border: #e4e7ec;
-      --color-border-focus: #881337;
-
-      --color-text-primary: #17202a;
-      --color-text-secondary: #475467;
-      --color-text-muted: #667085;
-      --color-text-subtle: #98a2b3;
-
-      --color-success-bg: #ecfdf5;
-      --color-success-border: #a7f3d0;
-      --color-success-text: #065f46;
-
-      --color-danger-bg: #fef2f2;
-      --color-danger-border: #fecaca;
-      --color-danger-text: #991b1b;
-
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-
-      --radius-sm: 6px;
-      --radius-md: 8px;
-      --radius-lg: 12px;
-
-      --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05);
-      --shadow-md: 0 4px 12px -2px rgba(16, 24, 40, 0.08);
-      --shadow-lg: 0 12px 32px -4px rgba(16, 24, 40, 0.12);
+      --color-brand: #C81E2C;
+      --color-brand-dark: #9e1420;
+      --color-brand-glow: rgba(200, 30, 44, 0.25);
+      --color-bg: #080c14;
+      --color-surface: #0f1523;
+      --color-surface-sub: #0a0e19;
+      --color-surface-input: #080c16;
+      --color-border: rgba(255, 255, 255, 0.08);
+      --color-border-subtle: rgba(255, 255, 255, 0.05);
+      --color-border-focus: #C81E2C;
+      --color-text-primary: #f8fafc;
+      --color-text-secondary: #94a3b8;
+      --color-text-muted: #64748b;
+      --color-emerald: #10b981;
+      --color-emerald-glow: rgba(16, 185, 129, 0.2);
+      --color-danger-bg: rgba(200, 30, 44, 0.12);
+      --color-danger-border: rgba(200, 30, 44, 0.35);
+      --color-danger-text: #fca5a5;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --radius-sm: 4px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
     }
 
     * {
@@ -66,6 +52,7 @@ noindex: true
       font-family: var(--font-sans);
       line-height: 1.5;
       font-size: 14px;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -73,185 +60,192 @@ noindex: true
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      position: relative;
+      background-color: #080c14;
+      background-image: 
+        radial-gradient(circle at 50% 18%, rgba(200, 30, 44, 0.08) 0%, rgba(8, 12, 20, 0) 65%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 36px 36px, 36px 36px;
     }
 
-    /* Top Institutional Bar */
-    .gov-topbar {
+    /* Top Technical Status Bar */
+    .terminal-topbar {
       width: 100%;
-      background: #ffffff;
+      background: rgba(10, 14, 25, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--color-border);
-      padding: 12px 32px;
+      padding: 10px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
       color: var(--color-text-muted);
+      z-index: 10;
     }
 
-    .gov-brand {
+    .topbar-node {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--color-brand);
-      text-decoration: none;
+      flex-wrap: wrap;
     }
 
-    .gov-brand img {
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
-    }
-
-    .gov-security-pill {
+    .status-indicator {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 3px 10px;
-      border-radius: 9999px;
-      background: var(--color-surface-sub);
-      border: 1px solid var(--color-border);
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--color-text-secondary);
+      color: var(--color-emerald);
+      font-weight: 600;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
     }
 
     .status-dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background-color: #10b981;
+      background-color: var(--color-emerald);
+      box-shadow: 0 0 6px var(--color-emerald);
     }
 
-    /* Main Workspace Split Layout */
-    .workspace-wrapper {
+    .topbar-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--color-text-muted);
+    }
+
+    /* Main Gateway Container */
+    .login-container {
       flex: 1;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 48px 24px;
-      max-width: 1180px;
-      width: 100%;
-      margin: 0 auto;
-      gap: 64px;
+      padding: 40px 16px;
+      position: relative;
+      z-index: 5;
     }
 
-    /* Left Editorial Column */
-    .editorial-col {
-      flex: 1;
-      max-width: 500px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .masthead-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--color-brand);
-      background: var(--color-brand-subtle);
-      border: 1px solid var(--color-brand-border);
-      padding: 4px 10px;
-      border-radius: 4px;
-      width: fit-content;
-    }
-
-    .masthead-headline {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--color-text-primary);
-      line-height: 1.25;
-    }
-
-    .masthead-sub {
-      font-size: 15px;
-      color: var(--color-text-secondary);
-      line-height: 1.6;
-    }
-
-    .pillars-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 8px;
-    }
-
-    .pillar-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 12px 14px;
-      background: #ffffff;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .pillar-icon {
-      color: var(--color-brand);
-      font-size: 16px;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .pillar-text h3 {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--color-text-primary);
-      margin-bottom: 2px;
-    }
-
-    .pillar-text p {
-      font-size: 12px;
-      color: var(--color-text-muted);
-      line-height: 1.4;
-    }
-
-    /* Right Login Card Column */
-    .card-col {
-      width: 100%;
-      max-width: 440px;
-      flex-shrink: 0;
-    }
-
+    /* Terminal Auth Card */
     .login-card {
+      width: 100%;
+      max-width: 420px;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-lg);
-      padding: 36px 32px;
+      box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.03);
+      position: relative;
+      overflow: hidden;
     }
 
-    .card-header-block {
-      margin-bottom: 24px;
+    /* Subtle Red Accent Top Rim */
+    .login-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--color-brand) 30%, var(--color-brand) 70%, transparent 100%);
     }
 
-    .card-header-block h2 {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+    /* Header Section */
+    .card-header {
+      padding: 32px 32px 24px 32px;
+      text-align: center;
+      border-bottom: 1px solid var(--color-border-subtle);
+      background: linear-gradient(180deg, rgba(200, 30, 44, 0.03) 0%, transparent 100%);
+    }
+
+    .brand-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .brand-logo-img {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 12px rgba(200, 30, 44, 0.3);
+      display: block;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: var(--color-text-primary);
-      margin-bottom: 6px;
+      line-height: 1.2;
     }
 
-    .card-header-block p {
-      font-size: 13px;
+    .brand-accent {
+      color: var(--color-brand);
+    }
+
+    .gateway-heading {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #cbd5e1;
+      margin-bottom: 4px;
+    }
+
+    .gateway-subheading {
+      font-size: 12px;
       color: var(--color-text-muted);
+    }
+
+    /* Status Strip inside Card */
+    .terminal-strip {
+      margin: 0 32px 24px 32px;
+      padding: 8px 12px;
+      background: var(--color-surface-sub);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .terminal-strip-label {
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .terminal-strip-badge {
+      color: var(--color-emerald);
+      font-weight: 600;
+    }
+
+    /* Card Body */
+    .card-body {
+      padding: 0 32px 28px 32px;
     }
 
     /* Alert / Error Box */
     .alert-box {
       display: none;
-      padding: 12px 14px;
+      padding: 11px 14px;
       border-radius: var(--radius-sm);
-      font-size: 13px;
+      font-size: 12px;
+      font-family: var(--font-mono);
       margin-bottom: 20px;
       line-height: 1.45;
     }
@@ -265,222 +259,283 @@ noindex: true
 
     .alert-box.alert-success {
       display: block;
-      background-color: var(--color-success-bg);
-      border: 1px solid var(--color-success-border);
-      color: var(--color-success-text);
+      background-color: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
     }
 
     /* Form Fields */
     .form-group {
-      margin-bottom: 18px;
+      margin-bottom: 20px;
+    }
+
+    .form-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 7px;
     }
 
     .form-label {
       display: block;
-      font-size: 12px;
-      font-weight: 600;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       color: var(--color-text-secondary);
-      margin-bottom: 6px;
     }
 
     .input-shell {
       position: relative;
       display: flex;
       align-items: center;
-      background: #ffffff;
+      background: var(--color-surface-input);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-sm);
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .input-shell:focus-within {
       border-color: var(--color-border-focus);
-      box-shadow: 0 0 0 3px rgba(136, 19, 55, 0.12);
+      box-shadow: 0 0 0 3px var(--color-brand-glow);
+    }
+
+    .input-prefix {
+      padding-left: 14px;
+      color: var(--color-brand);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 13px;
+      user-select: none;
     }
 
     .form-input {
       width: 100%;
-      height: 42px;
-      padding: 0 12px;
+      height: 44px;
+      padding: 0 14px 0 8px;
       background: transparent;
       border: none;
-      outline: none;
-      font-family: var(--font-sans);
-      font-size: 14px;
+      font-family: var(--font-mono);
+      font-size: 13px;
       color: var(--color-text-primary);
+      outline: none;
     }
 
     .form-input::placeholder {
-      color: var(--color-text-subtle);
+      color: #475569;
+      font-family: var(--font-sans);
+      font-size: 13px;
+    }
+
+    /* Password Input & Toggle */
+    .password-input {
+      padding-right: 60px;
     }
 
     .password-toggle-btn {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
       background: transparent;
       border: none;
       color: var(--color-text-muted);
-      font-size: 12px;
-      font-weight: 600;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       cursor: pointer;
-      padding: 0 12px;
-      height: 100%;
-      user-select: none;
+      padding: 6px 8px;
+      border-radius: var(--radius-sm);
+      transition: color 0.15s ease, background-color 0.15s ease;
     }
 
     .password-toggle-btn:hover {
       color: var(--color-text-primary);
+      background: rgba(255, 255, 255, 0.05);
     }
 
+    .password-toggle-btn:focus-visible {
+      outline: 2px solid var(--color-brand);
+      outline-offset: 1px;
+    }
+
+    /* Submit Button */
     .btn-submit {
       width: 100%;
       height: 44px;
-      background: var(--color-brand);
+      background-color: var(--color-brand);
       color: #ffffff;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: var(--radius-sm);
-      font-family: var(--font-sans);
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.01em;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: background-color 0.15s ease, box-shadow 0.15s ease;
-      margin-top: 24px;
-      box-shadow: var(--shadow-sm);
+      gap: 8px;
+      transition: background-color 0.18s ease, box-shadow 0.18s ease, transform 0.05s ease;
+      margin-top: 4px;
     }
 
-    .btn-submit:hover:not(:disabled) {
-      background: var(--color-brand-hover);
-      box-shadow: var(--shadow-md);
+    .btn-submit:hover {
+      background-color: var(--color-brand-dark);
+      box-shadow: 0 4px 14px var(--color-brand-glow);
+    }
+
+    .btn-submit:active {
+      transform: translateY(1px);
+    }
+
+    .btn-submit:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 2px;
     }
 
     .btn-submit:disabled {
-      opacity: 0.7;
+      background-color: #334155;
+      color: #64748b;
       cursor: not-allowed;
+      box-shadow: none;
     }
 
-    .card-footer-meta {
-      margin-top: 20px;
-      padding-top: 16px;
-      border-top: 1px solid var(--color-border);
+    /* Bottom Security Status inside card */
+    .card-security-bar {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--color-border-subtle);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-family: var(--font-mono);
       font-size: 11px;
-      color: var(--color-text-subtle);
+      color: var(--color-text-muted);
+    }
+
+    .secure-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color-emerald);
+      font-weight: 600;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-emerald);
     }
 
     /* Page Footer */
-    .site-footer {
-      border-top: 1px solid var(--color-border);
-      background: #ffffff;
-      padding: 16px 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      color: var(--color-text-subtle);
+    .login-footer {
+      text-align: center;
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--color-text-muted);
+      letter-spacing: 0.02em;
+      z-index: 10;
     }
 
-    @media (max-width: 900px) {
-      .workspace-wrapper {
+    /* Mobile Responsive Optimizations */
+    @media (max-width: 640px) {
+      .terminal-topbar {
+        padding: 8px 14px;
+        font-size: 10px;
+      }
+      .topbar-meta {
+        display: none;
+      }
+      .login-container {
+        padding: 24px 12px;
+      }
+      .login-card {
+        border-radius: var(--radius-md);
+      }
+      .card-header {
+        padding: 24px 20px 18px 20px;
+      }
+      .terminal-strip {
+        margin: 0 20px 18px 20px;
+        font-size: 10px;
+      }
+      .card-body {
+        padding: 0 20px 22px 20px;
+      }
+      .card-security-bar {
         flex-direction: column;
-        padding: 32px 16px;
-        gap: 36px;
+        align-items: flex-start;
+        gap: 6px;
       }
+    }
 
-      .editorial-col {
-        max-width: 100%;
-        text-align: center;
-        align-items: center;
+    @media (max-width: 360px) {
+      .brand-title {
+        font-size: 16px;
       }
-
-      .masthead-headline {
-        font-size: 24px;
-      }
-
-      .card-col {
-        max-width: 100%;
-      }
-
-      .gov-topbar {
-        padding: 12px 16px;
-      }
-
-      .site-footer {
-        padding: 16px;
-        flex-direction: column;
-        gap: 8px;
-        text-align: center;
+      .btn-submit {
+        font-size: 11px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Header Bar -->
-  <header class="gov-topbar" role="banner">
-    <a href="/" class="gov-brand" title="SamacharDaily Home">
-      <img src="/apple-touch-icon.png" alt="SamacharDaily Logo" width="24" height="24">
-      <span>SAMACHARDAILY</span>
-    </a>
-    <div class="gov-security-pill">
-      <span class="status-dot" aria-hidden="true"></span>
-      <span>Enterprise Editorial Gate &bull; TLS 1.3</span>
+
+  <!-- Technical Top Bar -->
+  <header class="terminal-topbar" role="banner">
+    <div class="topbar-node">
+      <span class="status-indicator">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>ONLINE</span>
+      </span>
+      <span>NODE: SAMACHAR-EDITORIAL</span>
+    </div>
+    <div class="topbar-meta">
+      <span>CHANNEL: TLS 1.3</span>
+      <span>ACCESS: RESTRICTED</span>
     </div>
   </header>
 
-  <!-- Workspace Container -->
-  <main class="workspace-wrapper" role="main">
-    <!-- Left Column: Editorial Statement & Principles -->
-    <section class="editorial-col" aria-label="Editorial Platform Overview">
-      <div class="masthead-tag">Precision Journalism Desk</div>
-      <h1 class="masthead-headline">Professional Editorial Operations &amp; Governance Center</h1>
-      <p class="masthead-sub">
-        Centralized newsroom command platform for live coverage, statutory editorial safety verification, content rehabilitation, and Google Search Console performance diagnostics.
-      </p>
-
-      <div class="pillars-grid">
-        <div class="pillar-item">
-          <div class="pillar-icon">&#10003;</div>
-          <div class="pillar-text">
-            <h3>Verified Wire Attribution</h3>
-            <p>100% source corroboration requirement across PTI, ANI, and primary official reports.</p>
+  <!-- Main Login Section -->
+  <main class="login-container" role="main">
+    <div class="login-card">
+      <div class="card-header">
+        <div class="brand-group">
+          <img src="/apple-touch-icon.png" alt="SamacharDaily Red Mark" class="brand-logo-img" width="44" height="44">
+          <div class="brand-title">
+            SAMACHAR<span class="brand-accent">Daily</span>
           </div>
         </div>
-
-        <div class="pillar-item">
-          <div class="pillar-icon">&#9881;</div>
-          <div class="pillar-text">
-            <h3>Statutory Safety Governance</h3>
-            <p>Multi-tier review gates for sensitive dispatches covering legal, defense, and civic developments.</p>
-          </div>
-        </div>
-
-        <div class="pillar-item">
-          <div class="pillar-icon">&#9776;</div>
-          <div class="pillar-text">
-            <h3>Real-Time GSC Indexing Diagnostics</h3>
-            <p>Direct read-only integration with official Search Console and Sitemaps APIs.</p>
-          </div>
-        </div>
+        <h1 class="gateway-heading">Editorial Control &bull; Secure Access</h1>
+        <p class="gateway-subheading">Authorized newsroom personnel only.</p>
       </div>
-    </section>
 
-    <!-- Right Column: Login Card -->
-    <section class="card-col" aria-label="Sign In Area">
-      <div class="login-card">
-        <div class="card-header-block">
-          <h2>Editorial Sign In</h2>
-          <p>Enter your credentials to access the editorial control center.</p>
-        </div>
+      <!-- Technical Status Strip -->
+      <div class="terminal-strip" aria-label="Security Status">
+        <span class="terminal-strip-label">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>GATEWAY STATUS</span>
+        </span>
+        <span class="terminal-strip-badge">SECURE // ENCRYPTED</span>
+      </div>
 
+      <div class="card-body">
         <div id="login-alert" class="alert-box" role="alert" aria-live="polite"></div>
 
         <form id="admin-login-form" onsubmit="handleLoginSubmit(event)">
           <div class="form-group">
-            <label class="form-label" for="username">Username or Email</label>
+            <div class="form-label-row">
+              <label class="form-label" for="username">Username</label>
+            </div>
             <div class="input-shell">
+              <span class="input-prefix" aria-hidden="true">&gt;</span>
               <input
                 type="text"
                 id="username"
@@ -490,15 +545,18 @@ noindex: true
                 required
                 autocomplete="username"
                 autofocus
-                placeholder="e.g. admin"
+                placeholder="admin"
                 spellcheck="false"
               >
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="password">Password</label>
+            <div class="form-label-row">
+              <label class="form-label" for="password">Password</label>
+            </div>
             <div class="input-shell">
+              <span class="input-prefix" aria-hidden="true">&gt;</span>
               <input
                 type="password"
                 id="password"
@@ -506,7 +564,7 @@ noindex: true
                 class="form-input password-input"
                 required
                 autocomplete="current-password"
-                placeholder="Enter password"
+                placeholder="Enter newsroom password"
               >
               <button
                 type="button"
@@ -519,22 +577,24 @@ noindex: true
           </div>
 
           <button type="submit" id="submit-btn" class="btn-submit">
-            <span id="submit-text">Sign In to Control Center</span>
+            <span id="submit-text">[ ACCESS EDITORIAL CONTROL ]</span>
           </button>
         </form>
 
-        <div class="card-footer-meta">
-          <span>Protected by Cloudflare Edge Guard</span>
-          <span>Single-Sign-On Verified</span>
+        <div class="card-security-bar">
+          <div class="secure-indicator">
+            <span class="pulse-dot" aria-hidden="true"></span>
+            <span>SECURE CONNECTION</span>
+          </div>
+          <span>Private newsroom infrastructure</span>
         </div>
       </div>
-    </section>
+    </div>
   </main>
 
   <!-- Technical Footer -->
-  <footer class="site-footer" role="contentinfo">
-    <span>© SamacharDaily. All rights reserved.</span>
-    <span>Private Editorial Operations Infrastructure</span>
+  <footer class="login-footer" role="contentinfo">
+    <span>SamacharDaily &bull; Private Editorial Infrastructure</span>
   </footer>
 
   <script>
@@ -598,7 +658,7 @@ noindex: true
       }
 
       submitBtn.disabled = true;
-      submitText.innerText = 'Authenticating...';
+      submitText.innerText = '[ AUTHENTICATING... ]';
 
       try {
         const response = await fetch('/api/admin/login', {
@@ -619,14 +679,14 @@ noindex: true
           }, 300);
         } else {
           submitBtn.disabled = false;
-          submitText.innerText = 'Sign In to Control Center';
+          submitText.innerText = '[ ACCESS EDITORIAL CONTROL ]';
           showAlert(result.error || 'Invalid administrator credentials.');
           passwordInput.value = '';
           passwordInput.focus();
         }
       } catch (err) {
         submitBtn.disabled = false;
-        submitText.innerText = 'Sign In to Control Center';
+        submitText.innerText = '[ ACCESS EDITORIAL CONTROL ]';
         showAlert('Network or server error. Please ensure the local admin server is running.');
       }
     }
