@@ -20,73 +20,79 @@ noindex: true
       /* Brand Identity: SamacharDaily Crimson Accent */
       --color-brand: #C81E2C;
       --color-brand-dark: #9e1420;
-      --color-brand-light: #fef2f2;
-      --color-brand-border: #fecaca;
+      --color-brand-hover: #dc2626;
+      --color-brand-light: rgba(200, 30, 44, 0.12);
+      --color-brand-border: rgba(200, 30, 44, 0.28);
+      --color-brand-glow: rgba(200, 30, 44, 0.35);
+
+      /* Layered Dark Slate Neutral Palette (Vision UI inspired) */
+      --color-canvas: #090d16;          /* Deepest workspace background */
+      --color-surface: #101726;         /* Primary card and panel surface */
+      --color-surface-elevated: #151e32;/* Hover and elevated card surface */
+      --color-surface-alt: #0c121e;     /* Sub-surface / inputs / wells */
+      --color-surface-hover: #182238;   /* Interactive hover state */
       
-      /* Neutral Canvas & Surfaces */
-      --color-canvas: #f8fafc;
-      --color-surface: #ffffff;
-      --color-surface-alt: #f1f5f9;
-      --color-surface-hover: #f8fafc;
-      --color-border: #e2e8f0;
-      --color-border-dark: #cbd5e1;
-      
-      /* Vision UI Dark / Slate Charcoal Sidebar */
-      --sidebar-bg: #090d16;
-      --sidebar-surface: #111827;
-      --sidebar-border: #1e293b;
+      /* Subtle Boundaries */
+      --color-border: #1e293b;          /* Subtle border line */
+      --color-border-dark: #334155;
+      --color-border-subtle: rgba(255, 255, 255, 0.06);
+      --color-border-hover: rgba(255, 255, 255, 0.15);
+
+      /* Vision UI Dark Charcoal / Navy Shell */
+      --sidebar-bg: #070a12;
+      --sidebar-surface: #0e1524;
+      --sidebar-border: #192235;
       --sidebar-text: #f8fafc;
       --sidebar-muted: #94a3b8;
       --sidebar-subtle: #475569;
-      
-      /* Typography */
-      --color-ink: #0f172a;
-      --color-ink-light: #1e293b;
-      --color-muted: #475569;
-      --color-subtle: #64748b;
-      
-      /* Curated Status Palette */
-      --color-blue: #2563eb;
-      --color-blue-bg: #eff6ff;
-      --color-blue-border: #bfdbfe;
-      
-      --color-green: #059669;
-      --color-green-bg: #ecfdf5;
-      --color-green-border: #a7f3d0;
-      
-      --color-amber: #d97706;
-      --color-amber-bg: #fffbeb;
-      --color-amber-border: #fde68a;
-      
-      --color-red: #dc2626;
-      --color-red-bg: #fef2f2;
-      --color-red-border: #fecaca;
-      
-      --color-teal: #0d9488;
-      --color-teal-bg: #f0fdfa;
-      --color-teal-border: #99f6e4;
-      
-      --color-purple: #7c3aed;
-      --color-purple-bg: #f5f3ff;
-      --color-purple-border: #ddd6fe;
-
-      /* Sidebar & Shell */
-      --sidebar-width: 256px;
+      --sidebar-width: 250px;
       --topbar-height: 56px;
-      
-      /* Fonts & Elevation */
+
+      /* High-Contrast Typographic Hierarchy */
+      --color-ink: #f8fafc;             /* Primary high-contrast text */
+      --color-ink-light: #e2e8f0;       /* Secondary body text */
+      --color-muted: #94a3b8;           /* Muted / labels / captions */
+      --color-subtle: #64748b;          /* Low-priority metadata */
+
+      /* Curated Semantic Status Palette (Communicating State) */
+      --color-green: #10b981;
+      --color-green-bg: rgba(16, 185, 129, 0.12);
+      --color-green-border: rgba(16, 185, 129, 0.28);
+
+      --color-blue: #38bdf8;
+      --color-blue-bg: rgba(56, 189, 248, 0.12);
+      --color-blue-border: rgba(56, 189, 248, 0.28);
+
+      --color-amber: #f59e0b;
+      --color-amber-bg: rgba(245, 158, 11, 0.12);
+      --color-amber-border: rgba(245, 158, 11, 0.28);
+
+      --color-red: #ef4444;
+      --color-red-bg: rgba(239, 68, 68, 0.12);
+      --color-red-border: rgba(239, 68, 68, 0.28);
+
+      --color-purple: #a855f7;
+      --color-purple-bg: rgba(168, 85, 247, 0.12);
+      --color-purple-border: rgba(168, 85, 247, 0.28);
+
+      --color-teal: #14b8a6;
+      --color-teal-bg: rgba(20, 184, 166, 0.12);
+      --color-teal-border: rgba(20, 184, 166, 0.28);
+
+      /* Typography & Shadows */
       --font-stack: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-serif: 'Merriweather', Georgia, "Times New Roman", serif;
       --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      
-      --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
-      --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
-      
+
+      --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
+      --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 10px 24px -4px rgba(0, 0, 0, 0.6);
+
       --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 14px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -98,7 +104,8 @@ noindex: true
       font-size: 14px;
       -webkit-font-smoothing: antialiased;
       height: 100%;
-      overflow: hidden;
+      width: 100%;
+      overflow-x: hidden;
     }
 
     /* ==========================================================================
@@ -108,7 +115,8 @@ noindex: true
       display: flex;
       height: 100vh;
       width: 100vw;
-      overflow: hidden;
+      max-width: 100%;
+      overflow-x: hidden;
       position: relative;
     }
 
@@ -135,20 +143,14 @@ noindex: true
       border-bottom: 1px solid var(--sidebar-border);
     }
 
-    .brand-mark-square {
-      width: 32px;
-      height: 32px;
-      background: var(--color-brand);
-      color: #ffffff;
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 14px;
-      letter-spacing: -0.5px;
+    .brand-mark-img {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: contain;
       flex-shrink: 0;
-      box-shadow: 0 2px 4px rgba(200, 30, 44, 0.25);
+      box-shadow: 0 2px 6px rgba(200, 30, 44, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.12);
     }
 
     .brand-info-wrap {
@@ -158,19 +160,21 @@ noindex: true
     }
 
     .brand-title {
-      font-size: 14px;
+      font-size: 14.5px;
       font-weight: 700;
       color: #ffffff;
       white-space: nowrap;
       letter-spacing: -0.2px;
+      line-height: 1.2;
     }
 
     .brand-subtitle {
-      font-size: 11px;
+      font-size: 9.5px;
       color: var(--sidebar-muted);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.08em;
       font-weight: 600;
+      margin-top: 1px;
     }
 
     .sidebar-nav {
@@ -179,7 +183,7 @@ noindex: true
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
     }
 
     .nav-category {
@@ -187,7 +191,7 @@ noindex: true
       font-weight: 700;
       color: var(--sidebar-subtle);
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.09em;
       padding: 14px 10px 6px;
     }
     .nav-category:first-of-type {
@@ -198,8 +202,8 @@ noindex: true
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 10px;
-      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
       color: var(--sidebar-muted);
       text-decoration: none;
       font-size: 13px;
@@ -210,26 +214,26 @@ noindex: true
       width: 100%;
       text-align: left;
       transition: all 0.15s ease;
+      position: relative;
     }
 
     .nav-item:hover {
-      background: var(--sidebar-surface);
+      background: rgba(255, 255, 255, 0.05);
       color: #f8fafc;
     }
 
     .nav-item.active {
-      background: var(--sidebar-surface);
+      background: rgba(200, 30, 44, 0.12);
       color: #ffffff;
       font-weight: 600;
-      border-left: 3px solid var(--color-brand);
-      padding-left: 7px;
+      box-shadow: inset 3px 0 0 var(--color-brand);
     }
 
     .nav-item-icon {
       width: 16px;
       height: 16px;
       flex-shrink: 0;
-      opacity: 0.8;
+      opacity: 0.75;
     }
     .nav-item.active .nav-item-icon {
       opacity: 1;
@@ -244,36 +248,36 @@ noindex: true
     }
 
     .nav-item-badge {
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 700;
       padding: 2px 7px;
       border-radius: 9999px;
-      background: #1e293b;
+      background: #192235;
       color: #94a3b8;
       letter-spacing: 0.02em;
     }
     .nav-item.active .nav-item-badge {
-      background: rgba(200, 30, 44, 0.2);
+      background: rgba(200, 30, 44, 0.25);
       color: #fca5a5;
     }
     .nav-item-badge.amber {
-      background: rgba(217, 119, 6, 0.2);
-      color: #fde68a;
+      background: rgba(245, 158, 11, 0.18);
+      color: #fbbf24;
     }
     .nav-item-badge.blue {
-      background: rgba(37, 99, 235, 0.2);
-      color: #bfdbfe;
+      background: rgba(56, 189, 248, 0.18);
+      color: #7dd3fc;
     }
     .nav-item-badge.green {
-      background: rgba(5, 150, 105, 0.2);
-      color: #a7f3d0;
+      background: rgba(16, 185, 129, 0.18);
+      color: #6ee7b7;
     }
 
     /* Sidebar Footer User Card */
     .sidebar-footer {
       padding: 14px 12px;
       border-top: 1px solid var(--sidebar-border);
-      background: #060910;
+      background: #05070d;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -286,8 +290,8 @@ noindex: true
     }
 
     .admin-avatar {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       background: linear-gradient(135deg, #C81E2C, #9e1420);
       color: #ffffff;
@@ -298,12 +302,13 @@ noindex: true
       justify-content: center;
       flex-shrink: 0;
       overflow: hidden;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.5);
     }
-    .admin-avatar-img {
+    .admin-avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     .admin-info-text {
@@ -332,9 +337,17 @@ noindex: true
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 11px;
+      font-size: 10.5px;
       color: #10b981;
       margin-top: 1px;
+    }
+
+    .status-pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
     }
 
     .btn-signout-sidebar {
@@ -344,8 +357,8 @@ noindex: true
       justify-content: center;
       gap: 8px;
       padding: 7px 12px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--radius-sm);
       color: #cbd5e1;
       font-size: 12px;
@@ -354,8 +367,8 @@ noindex: true
       transition: all 0.15s ease;
     }
     .btn-signout-sidebar:hover {
-      background: rgba(200, 30, 44, 0.15);
-      border-color: rgba(200, 30, 44, 0.3);
+      background: rgba(200, 30, 44, 0.18);
+      border-color: rgba(200, 30, 44, 0.4);
       color: #fca5a5;
     }
 
@@ -365,20 +378,22 @@ noindex: true
       display: flex;
       flex-direction: column;
       height: 100%;
-      overflow: hidden;
+      min-width: 0;
+      overflow-x: hidden;
       background: var(--color-canvas);
     }
 
     .saas-top-bar {
       height: var(--topbar-height);
-      background: var(--color-surface);
+      background: var(--sidebar-surface);
       border-bottom: 1px solid var(--color-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 24px;
+      padding: 0 28px;
       flex-shrink: 0;
       z-index: 50;
+      box-sizing: border-box;
     }
 
     .top-left-cluster {
@@ -390,10 +405,13 @@ noindex: true
     .mobile-nav-toggle {
       display: none;
       background: none;
-      border: none;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
       cursor: pointer;
       color: var(--color-ink);
-      padding: 4px;
+      padding: 6px;
+      align-items: center;
+      justify-content: center;
     }
 
     .breadcrumb-trail {
@@ -403,7 +421,7 @@ noindex: true
       font-size: 13px;
     }
     .breadcrumb-root {
-      color: var(--color-subtle);
+      color: var(--color-muted);
       font-weight: 500;
     }
     .breadcrumb-divider {
@@ -416,7 +434,7 @@ noindex: true
 
     .top-center-search {
       flex: 1;
-      max-width: 420px;
+      max-width: 440px;
       margin: 0 24px;
     }
 
@@ -430,18 +448,18 @@ noindex: true
     .quick-search-icon {
       position: absolute;
       left: 12px;
-      color: var(--color-subtle);
+      color: var(--color-muted);
       pointer-events: none;
       font-size: 13px;
     }
 
     .quick-search-input {
       width: 100%;
-      height: 36px;
+      height: 38px;
       background: var(--color-surface-alt);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-sm);
-      padding: 0 34px 0 34px;
+      border-radius: var(--radius-md);
+      padding: 0 34px;
       font-size: 13px;
       color: var(--color-ink);
       transition: all 0.15s ease;
@@ -450,26 +468,26 @@ noindex: true
       outline: none;
       background: var(--color-surface);
       border-color: var(--color-brand);
-      box-shadow: 0 0 0 3px rgba(200, 30, 44, 0.1);
+      box-shadow: 0 0 0 3px rgba(200, 30, 44, 0.15);
     }
 
     .search-key-badge {
       position: absolute;
       right: 10px;
-      background: var(--color-surface);
+      background: var(--color-surface-alt);
       border: 1px solid var(--color-border);
       border-radius: 4px;
       padding: 1px 6px;
       font-size: 11px;
       font-family: var(--font-mono);
-      color: var(--color-subtle);
+      color: var(--color-muted);
       pointer-events: none;
     }
 
     .top-right-cluster {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .prod-status-chip {
@@ -483,6 +501,7 @@ noindex: true
       border: 1px solid var(--color-green-border);
       padding: 4px 10px;
       border-radius: 9999px;
+      white-space: nowrap;
     }
 
     .prod-dot {
@@ -490,18 +509,79 @@ noindex: true
       height: 6px;
       border-radius: 50%;
       background: var(--color-green);
-      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.35);
     }
 
-    /* --- WORKSPACE CONTENT AREA --- */
+    .topbar-user-pill {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 4px 12px 4px 5px;
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: 9999px;
+      cursor: default;
+    }
+
+    .topbar-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #C81E2C, #9e1420);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .topbar-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .topbar-user-meta {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .topbar-user-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-ink);
+      white-space: nowrap;
+    }
+
+    .topbar-user-role {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--color-muted);
+      white-space: nowrap;
+    }
+
+    /* --- WORKSPACE CONTENT AREA (MAX-WIDTH CONSTRAINED) --- */
     .saas-workspace-scroll {
       flex: 1;
       overflow-y: auto;
-      padding: 24px 28px;
+      overflow-x: hidden;
+      padding: 24px 32px 48px;
+      background-color: var(--color-canvas);
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .view-pane {
       display: none;
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      box-sizing: border-box;
     }
     .view-pane.active {
       display: block;
@@ -517,7 +597,7 @@ noindex: true
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       gap: 16px;
       flex-wrap: wrap;
     }
@@ -535,79 +615,159 @@ noindex: true
       color: var(--color-muted);
     }
 
-    /* --- VISION UI KPI CARDS --- */
+    /* --- MODERN SAAS KPI CARDS --- */
     .kpi-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 14px;
-      margin-bottom: 24px;
+      gap: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
     }
 
     .kpi-card {
       background: var(--color-surface);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      padding: 16px;
-      box-shadow: var(--shadow-xs);
+      border-radius: var(--radius-lg);
+      padding: 12px 13px;
+      box-shadow: var(--shadow-sm);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      min-height: 114px;
+      height: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      position: relative;
     }
     .kpi-card:hover {
-      border-color: var(--color-border-dark);
-      box-shadow: var(--shadow-sm);
-      transform: translateY(-1px);
+      background: var(--color-surface-elevated);
+      border-color: var(--color-border-hover);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
     }
 
     .kpi-card-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
+      align-items: flex-start;
+      margin-bottom: 4px;
+      min-width: 0;
+      gap: 6px;
+    }
+
+    .kpi-card-header .badge {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 5px;
+      letter-spacing: 0.02em;
+      line-height: 1.3;
+      flex-shrink: 0;
+      white-space: nowrap;
     }
 
     .kpi-card-label {
-      font-size: 11px;
+      font-size: 9.5px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--color-subtle);
+      letter-spacing: 0.04em;
+      color: var(--color-muted);
+      line-height: 1.25;
+      min-width: 0;
+      white-space: normal;
+      word-break: normal;
+      overflow-wrap: break-word;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .kpi-card-val {
-      font-size: 26px;
+      font-size: 22px;
       font-weight: 700;
       color: var(--color-ink);
       line-height: 1.15;
       letter-spacing: -0.02em;
-      margin-bottom: 4px;
+      margin: 2px 0 4px;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .kpi-card-sub {
       font-size: 11px;
-      color: var(--color-subtle);
-      white-space: nowrap;
+      line-height: 1.35;
+      color: var(--color-muted);
+      min-width: 0;
+      white-space: normal;
+      word-break: normal;
+      overflow-wrap: break-word;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
       overflow: hidden;
-      text-overflow: ellipsis;
+    }
+
+    /* KPI Grids Responsive */
+    .ov-kpi-grid-7 {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .kpi-grid-6 {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .kpi-grid-5 {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .kpi-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
     }
 
     /* --- DASHBOARD PANELS --- */
     .dashboard-panel {
       background: var(--color-surface);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      padding: 20px;
-      box-shadow: var(--shadow-xs);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
       margin-bottom: 20px;
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .panel-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       gap: 12px;
     }
 
@@ -620,14 +780,14 @@ noindex: true
 
     .panel-subtitle {
       font-size: 12px;
-      color: var(--color-subtle);
+      color: var(--color-muted);
       margin-top: 2px;
     }
 
     .panel-action-link {
       font-size: 12px;
       font-weight: 600;
-      color: var(--color-brand);
+      color: #f87171;
       text-decoration: none;
       cursor: pointer;
     }
@@ -637,9 +797,16 @@ noindex: true
 
     .overview-grid-2col {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+      gap: 18px;
       margin-bottom: 20px;
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .overview-grid-2col > * {
+      min-width: 0;
+      max-width: 100%;
     }
 
     /* --- STAT PROGRESS BARS --- */
@@ -684,9 +851,9 @@ noindex: true
     }
 
     .diagnostic-card {
-      background: var(--color-canvas);
+      background: var(--color-surface-alt);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-md);
       padding: 14px;
       display: flex;
       flex-direction: column;
@@ -713,13 +880,16 @@ noindex: true
       line-height: 1.45;
     }
 
-    /* --- TABLES --- */
+    /* --- TABLES (SAAS DENSITY & CARDS) --- */
     .table-container {
       background: var(--color-surface);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-lg);
       overflow-x: auto;
-      box-shadow: var(--shadow-xs);
+      -webkit-overflow-scrolling: touch;
+      box-shadow: var(--shadow-sm);
+      width: 100%;
+      margin-bottom: 16px;
     }
 
     .saas-table {
@@ -730,20 +900,20 @@ noindex: true
     }
 
     .saas-table th {
-      background: #f8fafc;
+      background: var(--color-surface-alt);
       padding: 10px 14px;
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--color-subtle);
+      letter-spacing: 0.05em;
+      color: var(--color-muted);
       border-bottom: 1px solid var(--color-border);
       white-space: nowrap;
     }
 
     .saas-table td {
-      padding: 12px 14px;
-      border-bottom: 1px solid #f1f5f9;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--color-border-subtle);
       color: var(--color-ink-light);
       vertical-align: middle;
     }
@@ -753,7 +923,59 @@ noindex: true
     }
 
     .saas-table tr:hover td {
-      background: #fcfdfe;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .saas-table tr.selected td {
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    /* Data Table Content Typography */
+    .row-article-headline {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 1.35;
+      margin-bottom: 2px;
+      cursor: pointer;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      transition: color 0.15s ease;
+    }
+    .row-article-headline:hover {
+      color: #f87171;
+      text-decoration: underline;
+    }
+
+    .row-article-sub {
+      font-size: 11px;
+      color: var(--color-subtle);
+      font-family: var(--font-mono);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 380px;
+      display: block;
+    }
+
+    .row-reason-text {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      font-size: 11.5px;
+      color: var(--color-muted);
+      line-height: 1.35;
+      max-width: 250px;
+    }
+
+    .row-actions-group {
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+      justify-content: flex-end;
     }
 
     /* --- BADGES & STATUS CHIPS --- */
@@ -776,7 +998,7 @@ noindex: true
     }
     .badge-dot.green { background: #10b981; }
     .badge-dot.amber { background: #f59e0b; }
-    .badge-dot.blue { background: #3b82f6; }
+    .badge-dot.blue { background: #38bdf8; }
     .badge-dot.red { background: #ef4444; }
 
     .badge-green { background: var(--color-green-bg); color: var(--color-green); border: 1px solid var(--color-green-border); }
@@ -785,7 +1007,7 @@ noindex: true
     .badge-red { background: var(--color-red-bg); color: var(--color-red); border: 1px solid var(--color-red-border); }
     .badge-teal { background: var(--color-teal-bg); color: var(--color-teal); border: 1px solid var(--color-teal-border); }
     .badge-purple { background: var(--color-purple-bg); color: var(--color-purple); border: 1px solid var(--color-purple-border); }
-    .badge-gray { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+    .badge-gray { background: rgba(148, 163, 184, 0.1); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.2); }
 
     /* --- BUTTONS --- */
     .btn {
@@ -804,39 +1026,51 @@ noindex: true
     .btn-primary {
       background: var(--color-brand);
       color: #ffffff;
-      box-shadow: 0 1px 2px rgba(200, 30, 44, 0.2);
+      box-shadow: 0 1px 2px rgba(200, 30, 44, 0.4);
     }
     .btn-primary:hover {
-      background: var(--color-brand-dark);
+      background: var(--color-brand-hover);
     }
 
     .btn-table-action {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 5px 10px;
+      padding: 5px 9px;
       border-radius: var(--radius-sm);
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11.5px;
+      font-weight: 500;
       cursor: pointer;
-      background: var(--color-surface);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--color-border);
       color: var(--color-ink-light);
       transition: all 0.15s ease;
+      line-height: 1.2;
     }
     .btn-table-action:hover {
-      background: var(--color-surface-alt);
-      border-color: var(--color-border-dark);
-      color: var(--color-ink);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--color-border-hover);
+      color: #ffffff;
     }
     .btn-table-primary {
+      background: rgba(200, 30, 44, 0.2);
+      border-color: rgba(200, 30, 44, 0.45);
+      color: #fca5a5;
+      font-weight: 600;
+    }
+    .btn-table-primary:hover {
       background: var(--color-brand);
       border-color: var(--color-brand);
       color: #ffffff;
     }
-    .btn-table-primary:hover {
-      background: var(--color-brand-dark);
-      border-color: var(--color-brand-dark);
+    .btn-table-danger {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.25);
+      color: #fca5a5;
+    }
+    .btn-table-danger:hover {
+      background: #dc2626;
+      border-color: #dc2626;
       color: #ffffff;
     }
 
@@ -883,8 +1117,8 @@ noindex: true
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: #f1f5f9;
-      color: #64748b;
+      background: var(--color-surface-alt);
+      color: #94a3b8;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -903,12 +1137,13 @@ noindex: true
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 12px;
+      padding: 6px 14px;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-sm);
+      border-radius: 9999px;
       font-size: 12px;
       color: var(--color-muted);
+      box-shadow: var(--shadow-xs);
     }
     .metric-pill-chip strong {
       color: var(--color-ink);
@@ -917,12 +1152,13 @@ noindex: true
     .table-toolbar {
       background: var(--color-surface);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      padding: 14px;
+      border-radius: var(--radius-lg);
+      padding: 12px 16px;
       margin-bottom: 16px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
     }
     .toolbar-row-top {
       display: flex;
@@ -937,7 +1173,7 @@ noindex: true
     }
     .table-search-input {
       width: 100%;
-      height: 36px;
+      height: 38px;
       padding: 0 12px 0 34px;
       background: var(--color-surface-alt);
       border: 1px solid var(--color-border);
@@ -949,7 +1185,7 @@ noindex: true
       outline: none;
       background: var(--color-surface);
       border-color: var(--color-brand);
-      box-shadow: 0 0 0 3px rgba(200, 30, 44, 0.1);
+      box-shadow: 0 0 0 3px rgba(200, 30, 44, 0.15);
     }
     .toolbar-filters-row {
       display: flex;
@@ -958,12 +1194,12 @@ noindex: true
       align-items: center;
     }
     .select-filter, .saas-select {
-      height: 32px;
-      padding: 0 10px;
-      background: var(--color-surface);
+      height: 36px;
+      padding: 0 12px;
+      background: var(--color-surface-alt);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-sm);
-      font-size: 12px;
+      font-size: 12.5px;
       color: var(--color-ink);
       cursor: pointer;
     }
@@ -972,12 +1208,12 @@ noindex: true
       border-color: var(--color-brand);
     }
     .btn-reset-filters {
-      height: 32px;
-      padding: 0 12px;
+      height: 36px;
+      padding: 0 14px;
       background: transparent;
       border: 1px solid var(--color-border);
       border-radius: var(--radius-sm);
-      font-size: 12px;
+      font-size: 12.5px;
       font-weight: 600;
       color: var(--color-muted);
       cursor: pointer;
@@ -987,17 +1223,150 @@ noindex: true
       color: var(--color-ink);
     }
 
-    /* Bulk Actions Toolbar */
-    .bulk-toolbar-wrap {
+    /* Bulk Action Bar */
+    .bulk-action-bar {
       display: none;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 16px;
       background: #0f172a;
       color: #ffffff;
-      border-radius: var(--radius-sm);
-      margin-bottom: 12px;
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      margin-bottom: 16px;
       font-size: 13px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid #1e293b;
+      animation: fadeIn 0.15s ease-in-out;
+    }
+    .bulk-action-bar.show {
+      display: flex;
+    }
+    .btn-bulk {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-bulk:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+    .btn-bulk-danger {
+      background: #dc2626;
+      border-color: #ef4444;
+      color: #ffffff;
+    }
+    .btn-bulk-danger:hover {
+      background: #b91c1c;
+    }
+
+    /* Table Controls & Search Wrapper (Thin Queue & Others) */
+    .table-controls-wrapper {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .table-search-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .search-input-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      flex: 1;
+      min-width: 220px;
+    }
+    .search-input-group input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 13px;
+      width: 100%;
+      color: var(--color-ink);
+    }
+    .search-input-group svg {
+      color: var(--color-muted);
+      flex-shrink: 0;
+    }
+
+    /* Pagination Bars */
+    .table-pagination-footer, .pagination-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      font-size: 12.5px;
+      color: var(--color-muted);
+      margin-top: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+    .pagination-btns {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .btn-page {
+      padding: 5px 12px;
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-ink);
+      cursor: pointer;
+    }
+    .btn-page:hover:not(:disabled) {
+      background: var(--color-surface-elevated);
+      border-color: var(--color-border-hover);
+    }
+    .btn-page:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Mobile Cards View */
+    .mobile-cards-view {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .article-mobile-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-sizing: border-box;
+      width: 100%;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    /* Active filter styling on Attention cards */
+    .kpi-card.active-filter {
+      border-color: var(--color-brand);
+      box-shadow: 0 0 0 2px var(--color-brand-light);
     }
 
     /* Modals & Backdrop */
@@ -1005,7 +1374,7 @@ noindex: true
       display: none;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(4px);
       z-index: 1000;
       align-items: center;
@@ -1056,7 +1425,7 @@ noindex: true
     .modal-footer {
       padding: 14px 20px;
       border-top: 1px solid var(--color-border);
-      background: #fafafa;
+      background: var(--color-surface-alt);
       display: flex;
       justify-content: flex-end;
       gap: 10px;
@@ -1080,13 +1449,184 @@ noindex: true
       border-radius: var(--radius-sm);
       font-size: 13px;
       color: var(--color-ink);
-      background: var(--color-surface);
+      background: var(--color-surface-alt);
       box-sizing: border-box;
     }
     .form-input:focus, .form-select:focus, .form-textarea:focus {
       outline: none;
       border-color: var(--color-brand);
-      box-shadow: 0 0 0 3px rgba(200, 30, 44, 0.1);
+      box-shadow: 0 0 0 3px rgba(200, 30, 44, 0.15);
+    }
+
+    /* Article Editor Sub-View Styles */
+    .editor-container {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+      animation: fadeIn 0.18s ease-out;
+    }
+    .editor-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 12px 18px;
+      box-shadow: var(--shadow-sm);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .editor-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-back-to-articles {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-ink);
+      cursor: pointer;
+    }
+    .btn-back-to-articles:hover {
+      background: var(--color-surface-elevated);
+      border-color: var(--color-border-hover);
+    }
+    .editor-save-indicator {
+      font-size: 12px;
+      color: var(--color-muted);
+      font-weight: 500;
+    }
+    .editor-layout-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    .editor-main-canvas {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .editor-sidebar-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .sidebar-widget-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-sm);
+    }
+    .widget-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--color-ink);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+    .input-headline {
+      width: 100%;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-ink);
+      padding: 10px 14px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background: var(--color-surface-alt);
+      outline: none;
+    }
+    .input-headline:focus {
+      border-color: var(--color-brand);
+      box-shadow: 0 0 0 3px rgba(200, 30, 44, 0.15);
+    }
+    .textarea-dek {
+      width: 100%;
+      min-height: 70px;
+      padding: 10px 14px;
+      font-size: 13.5px;
+      color: var(--color-ink);
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      outline: none;
+      resize: vertical;
+    }
+    .textarea-dek:focus {
+      border-color: var(--color-brand);
+      box-shadow: 0 0 0 3px rgba(200, 30, 44, 0.15);
+    }
+    .markdown-toolbar {
+      display: flex;
+      gap: 4px;
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-bottom: none;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      padding: 6px 10px;
+      flex-wrap: wrap;
+    }
+    .md-tool-btn {
+      padding: 4px 8px;
+      font-size: 11.5px;
+      font-weight: 600;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      color: var(--color-ink);
+      cursor: pointer;
+    }
+    .md-tool-btn:hover {
+      background: var(--color-surface-hover);
+      border-color: var(--color-border-hover);
+    }
+    .textarea-body {
+      width: 100%;
+      min-height: 380px;
+      padding: 14px;
+      font-family: var(--font-stack);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--color-ink);
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      outline: none;
+      resize: vertical;
+    }
+    .textarea-body:focus {
+      border-color: var(--color-brand);
+      box-shadow: 0 0 0 3px rgba(200, 30, 44, 0.15);
+    }
+    .form-input-sm {
+      width: 100%;
+      padding: 7px 10px;
+      font-size: 12.5px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      color: var(--color-ink);
+      background: var(--color-surface-alt);
+    }
+    .form-input-sm:focus {
+      outline: none;
+      border-color: var(--color-brand);
     }
 
     /* Toast Container */
@@ -1121,132 +1661,151 @@ noindex: true
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Bulk Action Bar */
-    .bulk-action-bar {
-      display: none;
-      align-items: center;
-      justify-content: space-between;
-      background: #0f172a;
-      color: #ffffff;
-      padding: 10px 16px;
-      border-radius: var(--radius-sm);
-      margin-bottom: 16px;
-      font-size: 13px;
-      box-shadow: var(--shadow-md);
-      animation: fadeIn 0.15s ease-in-out;
-    }
-    .bulk-action-bar.show {
-      display: flex;
-    }
-    .btn-bulk {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: 500;
-      padding: 5px 12px;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-    .btn-bulk:hover {
-      background: rgba(255, 255, 255, 0.25);
-    }
-    .btn-bulk-danger {
-      background: #dc2626;
-      border-color: #ef4444;
-      color: #ffffff;
-    }
-    .btn-bulk-danger:hover {
-      background: #b91c1c;
-    }
-
-    /* Table Controls & Search Wrapper */
-    .table-controls-wrapper {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-sm);
-      padding: 14px 16px;
-      margin-bottom: 16px;
-      box-shadow: var(--shadow-xs);
-    }
-    .table-search-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .search-input-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-sm);
-      padding: 6px 12px;
-      flex: 1;
-      min-width: 220px;
-    }
-    .search-input-group input {
-      border: none;
-      background: transparent;
-      outline: none;
-      font-size: 13px;
-      width: 100%;
-      color: var(--color-ink);
-    }
-    .search-input-group svg {
-      color: var(--color-subtle);
-      flex-shrink: 0;
-    }
-
-    /* Top 7 Overview KPI Grid */
-    .ov-kpi-grid-7 {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
+    /* --- RESPONSIVE ARCHITECTURE (320px to 1920px) --- */
     @media (max-width: 1300px) {
       .ov-kpi-grid-7 {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      .kpi-grid-6 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .kpi-grid-5 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
-    @media (max-width: 860px) {
-      .ov-kpi-grid-7 {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 480px) {
-      .ov-kpi-grid-7 {
+    @media (max-width: 1100px) {
+      .editor-layout-grid {
         grid-template-columns: 1fr;
       }
     }
-
-    /* Active filter styling on Attention cards */
-    .kpi-card.active-filter {
-      border-color: var(--color-brand);
-      box-shadow: 0 0 0 2px var(--color-brand-light);
-    }
-
-    /* Responsive */
     @media (max-width: 900px) {
       .saas-sidebar {
         position: fixed;
-        top: 0; bottom: 0; left: 0;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 270px;
         transform: translateX(-100%);
+        box-shadow: none;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       }
       .saas-sidebar.mobile-open {
         transform: translateX(0);
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
       }
       .mobile-nav-toggle {
+        display: inline-flex;
+      }
+      .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(7, 10, 18, 0.75);
+        backdrop-filter: blur(4px);
+        z-index: 90;
+        display: none;
+      }
+      .sidebar-overlay.mobile-open {
         display: block;
       }
       .top-center-search {
         display: none;
       }
       .saas-workspace-scroll {
-        padding: 16px;
+        padding: 16px 18px 36px;
+      }
+      .ov-kpi-grid-7 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .kpi-grid-6 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .kpi-grid-5 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .kpi-grid-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 768px) {
+      .saas-top-bar {
+        padding: 0 16px;
+      }
+      .topbar-user-pill .topbar-user-meta {
+        display: none;
+      }
+      .overview-grid-2col {
+        grid-template-columns: 1fr;
+      }
+      .ov-kpi-grid-7 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .kpi-grid-6 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .kpi-grid-5 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .kpi-grid-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      #articles-list-container .table-container {
+        display: none;
+      }
+      #articles-list-container .mobile-cards-view {
+        display: flex;
+      }
+    }
+    @media (max-width: 480px) {
+      .saas-top-bar {
+        padding: 0 12px;
+      }
+      .saas-workspace-scroll {
+        padding: 12px 10px 28px;
+      }
+      .dashboard-panel {
+        padding: 14px 12px;
+      }
+      .article-mobile-card {
+        padding: 12px 10px;
+      }
+      .overview-grid-2col {
+        grid-template-columns: 100%;
+        gap: 14px;
+      }
+      .prod-status-chip span:last-child {
+        display: none;
+      }
+      .prod-status-chip {
+        padding: 4px 6px;
+      }
+      .ov-kpi-grid-7 {
+        grid-template-columns: 1fr;
+      }
+      .kpi-grid-6, .kpi-grid-5, .kpi-grid-4 {
+        grid-template-columns: 1fr;
+      }
+      .articles-metrics-strip {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+      }
+      .metric-pill-chip {
+        justify-content: center;
+      }
+      .toolbar-filters-row select, .toolbar-filters-row button {
+        width: 100%;
+      }
+      .table-pagination-footer, .pagination-bar {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .pagination-btns {
+        width: 100%;
+        justify-content: space-between;
       }
     }
 
@@ -1266,10 +1825,10 @@ noindex: true
       
       <!-- Brand Header -->
       <div class="sidebar-header">
-        <div class="brand-mark-square">SD</div>
+        <img src="/apple-touch-icon.png" alt="SamacharDaily" class="brand-mark-img" width="34" height="34">
         <div class="brand-info-wrap">
-          <div class="brand-title">Samachar Daily</div>
-          <div class="brand-subtitle">Editorial Control</div>
+          <div class="brand-title">SamacharDaily</div>
+          <div class="brand-subtitle">EDITORIAL CONTROL</div>
         </div>
       </div>
 
@@ -1387,6 +1946,13 @@ noindex: true
           <div class="prod-status-chip">
             <span class="prod-dot"></span>
             <span>Production Edge Live</span>
+          </div>
+          <div class="topbar-user-pill" id="topbar-user-pill" title="Active User Session">
+            <div class="topbar-avatar" id="topbar-user-avatar">AD</div>
+            <div class="topbar-user-meta">
+              <span class="topbar-user-name" id="topbar-user-name">Newsroom Admin</span>
+              <span class="topbar-user-role" id="topbar-user-role">Session active</span>
+            </div>
           </div>
         </div>
       </header>
@@ -1558,45 +2124,56 @@ noindex: true
               <div class="diagnostic-card">
                 <div>
                   <div class="diag-title-row">
-                    <span class="diag-name">Google News</span>
+                    <span class="diag-name">Build (Eleventy)</span>
                     <span class="badge badge-green">PASS</span>
                   </div>
-                  <div class="diag-desc">NewsArticle schema, ISO-8601 IST timestamps, dedicated news sitemap tags verified.</div>
+                  <div class="diag-desc">Deterministic static generation engine with 100% build integrity verified.</div>
                 </div>
-                <a class="panel-action-link" onclick="navigate('google-news')">Review Standards &rarr;</a>
+                <a class="panel-action-link" onclick="navigate('website')">Build Pipeline &rarr;</a>
               </div>
 
               <div class="diagnostic-card">
                 <div>
                   <div class="diag-title-row">
-                    <span class="diag-name">Website Health</span>
-                    <span class="badge badge-green">PASS</span>
+                    <span class="diag-name">Edge (Cloudflare)</span>
+                    <span class="badge badge-green">LIVE</span>
                   </div>
-                  <div class="diag-desc">Automated Eleventy static generation, clean HTML, zero client JS dependency for readers.</div>
+                  <div class="diag-desc">Cloudflare Workers global edge runtime serving static cache and secure admin APIs.</div>
                 </div>
-                <a class="panel-action-link" onclick="navigate('website')">System Architecture &rarr;</a>
+                <a class="panel-action-link" onclick="navigate('website')">Edge Network &rarr;</a>
               </div>
 
               <div class="diagnostic-card">
                 <div>
                   <div class="diag-title-row">
-                    <span class="diag-name">Search Performance</span>
-                    <span class="badge badge-blue">Ready</span>
+                    <span class="diag-name">Sitemap &amp; News</span>
+                    <span class="badge badge-green">VALID</span>
                   </div>
-                  <div class="diag-desc">Search Console property verified; ready for OAuth API query rankings and impressions.</div>
+                  <div class="diag-desc">Google News XML sitemap, RSS feed, and NewsArticle JSON-LD verified compliant.</div>
                 </div>
-                <a class="panel-action-link" onclick="navigate('search')">Search Analytics &rarr;</a>
+                <a class="panel-action-link" onclick="navigate('google-news')">Sitemap Standards &rarr;</a>
               </div>
 
               <div class="diagnostic-card">
                 <div>
                   <div class="diag-title-row">
-                    <span class="diag-name">Broken Links</span>
-                    <span class="badge badge-green">Monitored</span>
+                    <span class="diag-name">Deployment (CI/CD)</span>
+                    <span class="badge badge-green">ACTIVE</span>
                   </div>
-                  <div class="diag-desc">Scheduled crawler checking wire citation URLs and image CDN assets for dead links.</div>
+                  <div class="diag-desc">Automated GitHub Actions publishing workflow with zero-cost deployment pipeline.</div>
                 </div>
-                <a class="panel-action-link" onclick="navigate('broken-links')">Link Health &rarr;</a>
+                <a class="panel-action-link" onclick="navigate('broken-links')">Pipeline Health &rarr;</a>
+              </div>
+
+              <div class="diagnostic-card">
+                <div>
+                  <div class="diag-title-row">
+                    <span class="diag-name">Search Console (GSC)</span>
+                    <span class="badge badge-gray" id="ov-gsc-badge">Awaiting API</span>
+                  </div>
+                  <div class="diag-desc" id="ov-gsc-desc">Real-time Google search queries, impressions, and discovery signals.</div>
+                </div>
+                <a class="panel-action-link" onclick="navigate('search')">Search Performance &rarr;</a>
               </div>
 
             </div>
@@ -2033,59 +2610,59 @@ noindex: true
           </div>
 
           <!-- Top Summary Cards (Prompt Section 4 & 1) -->
-          <div class="kpi-row" style="grid-template-columns: repeat(6, 1fr); margin-bottom: 20px;">
-            <div class="kpi-card" onclick="filterThinQueueByClassification('ALL')">
+          <div class="kpi-row kpi-grid-6">
+            <div class="kpi-card" onclick="filterThinQueueByClassification('ALL')" title="Articles Scanned (Total Corpus)">
               <div class="kpi-card-header">
-                <span class="kpi-card-label">Articles Scanned</span>
+                <span class="kpi-card-label" title="Articles Scanned">Articles Scanned</span>
                 <span class="badge badge-gray">Total</span>
               </div>
               <div class="kpi-card-val" id="tq-kpi-scanned">{{ editorial.thinContentStats.totalScanned }}</div>
-              <div class="kpi-card-sub" id="tq-kpi-scanned-sub">{{ editorial.thinContentStats.activeScanned }} active &middot; {{ editorial.thinContentStats.archivedExcluded }} archived &middot; {{ editorial.thinContentStats.redirectsExcluded }} redirects</div>
+              <div class="kpi-card-sub" id="tq-kpi-scanned-sub" title="{{ editorial.thinContentStats.activeScanned }} active · {{ editorial.thinContentStats.archivedExcluded }} archived · {{ editorial.thinContentStats.redirectsExcluded }} redirects">{{ editorial.thinContentStats.activeScanned }} active &middot; {{ editorial.thinContentStats.archivedExcluded }} archived &middot; {{ editorial.thinContentStats.redirectsExcluded }} redirects</div>
             </div>
 
-            <div class="kpi-card" onclick="filterThinQueueByClassification('Enrich')">
+            <div class="kpi-card" onclick="filterThinQueueByClassification('Enrich')" title="Potentially Thin: Short with limited context">
               <div class="kpi-card-header">
-                <span class="kpi-card-label">Potentially Thin</span>
+                <span class="kpi-card-label" title="Potentially Thin">Potentially Thin</span>
                 <span class="badge badge-amber">Enrich</span>
               </div>
               <div class="kpi-card-val" id="tq-kpi-enrich" style="color: var(--color-amber);">{{ editorial.thinContentStats.classificationCounts.Enrich }}</div>
-              <div class="kpi-card-sub">Short with limited context</div>
+              <div class="kpi-card-sub" title="Short with limited context">Short with limited context</div>
             </div>
 
-            <div class="kpi-card" onclick="filterThinQueueByClassification('Consolidate')">
+            <div class="kpi-card" onclick="filterThinQueueByClassification('Consolidate')" title="Potential Overlap: Shared vocabulary/event overlap">
               <div class="kpi-card-header">
-                <span class="kpi-card-label">Potential Overlap</span>
+                <span class="kpi-card-label" title="Potential Overlap">Potential Overlap</span>
                 <span class="badge badge-purple">Consolidate</span>
               </div>
               <div class="kpi-card-val" id="tq-kpi-consolidate" style="color: var(--color-purple);">{{ editorial.thinContentStats.classificationCounts.Consolidate }}</div>
-              <div class="kpi-card-sub">Shared vocabulary/event overlap</div>
+              <div class="kpi-card-sub" title="Shared vocabulary/event overlap">Shared vocabulary/event overlap</div>
             </div>
 
-            <div class="kpi-card" onclick="filterThinQueueByClassification('Review')">
+            <div class="kpi-card" onclick="filterThinQueueByClassification('Review')" title="Needs Review: Mixed or ambiguous signals">
               <div class="kpi-card-header">
-                <span class="kpi-card-label">Needs Review</span>
+                <span class="kpi-card-label" title="Needs Review">Needs Review</span>
                 <span class="badge badge-blue">Review</span>
               </div>
               <div class="kpi-card-val" id="tq-kpi-review" style="color: var(--color-blue);">{{ editorial.thinContentStats.classificationCounts.Review }}</div>
-              <div class="kpi-card-sub">Mixed or ambiguous signals</div>
+              <div class="kpi-card-sub" title="Mixed or ambiguous signals">Mixed or ambiguous signals</div>
             </div>
 
-            <div class="kpi-card" onclick="filterThinQueueByClassification('Keep Short')">
+            <div class="kpi-card" onclick="filterThinQueueByClassification('Keep Short')" title="Keep Short: Concise breaking news updates">
               <div class="kpi-card-header">
-                <span class="kpi-card-label">Keep Short</span>
+                <span class="kpi-card-label" title="Keep Short">Keep Short</span>
                 <span class="badge badge-green">Exempt</span>
               </div>
               <div class="kpi-card-val" id="tq-kpi-keep-short" style="color: var(--color-green);">{{ editorial.thinContentStats.classificationCounts['Keep Short'] }}</div>
-              <div class="kpi-card-sub">Concise breaking news updates</div>
+              <div class="kpi-card-sub" title="Concise breaking news updates">Concise breaking news updates</div>
             </div>
 
-            <div class="kpi-card" onclick="filterThinQueueByClassification('LOW_VALUE')">
+            <div class="kpi-card" onclick="filterThinQueueByClassification('LOW_VALUE')" title="Noindex / Prune: Low value or thin content">
               <div class="kpi-card-header">
-                <span class="kpi-card-label">Noindex / Prune</span>
+                <span class="kpi-card-label" title="Noindex / Prune">Noindex / Prune</span>
                 <span class="badge badge-red">Low Value</span>
               </div>
               <div class="kpi-card-val" id="tq-kpi-low-value" style="color: var(--color-red);">{{ editorial.thinContentStats.classificationCounts.Noindex + editorial.thinContentStats.classificationCounts.Prune }}</div>
-              <div class="kpi-card-sub">{{ editorial.thinContentStats.classificationCounts.Noindex }} noindex &middot; {{ editorial.thinContentStats.classificationCounts.Prune }} prune</div>
+              <div class="kpi-card-sub" title="{{ editorial.thinContentStats.classificationCounts.Noindex }} noindex · {{ editorial.thinContentStats.classificationCounts.Prune }} prune">{{ editorial.thinContentStats.classificationCounts.Noindex }} noindex &middot; {{ editorial.thinContentStats.classificationCounts.Prune }} prune</div>
             </div>
           </div>
 
@@ -2199,7 +2776,7 @@ noindex: true
           </div>
 
           <!-- Compact Category Summary Cards -->
-          <div class="kpi-row" style="grid-template-columns: repeat(5, 1fr); margin-bottom: 20px;">
+          <div class="kpi-row kpi-grid-5">
             <div class="kpi-card" onclick="filterAttentionTable('thin')">
               <div class="kpi-card-header">
                 <span class="kpi-card-label">Thin Word Count</span>
@@ -2288,7 +2865,7 @@ noindex: true
           </div>
 
           <!-- Deterministic 6 Safety Category Cards -->
-          <div class="kpi-row" style="grid-template-columns: repeat(6, 1fr); margin-bottom: 20px;">
+          <div class="kpi-row kpi-grid-6">
             <div class="kpi-card">
               <div class="kpi-card-header">
                 <span class="kpi-card-label">Crime &amp; Legal</span>
@@ -2384,67 +2961,251 @@ noindex: true
               <h1>Search Performance &amp; Discovery</h1>
               <p>Google Search Console indexing metrics, organic impressions, and query analytics.</p>
             </div>
-            <div class="view-actions-group">
-              <span class="badge badge-amber"><span class="badge-dot amber"></span> Integration Ready</span>
+            <div class="view-actions-group" id="gsc-header-actions" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <span class="badge badge-amber" id="gsc-status-badge"><span class="badge-dot amber"></span> Not connected</span>
+              <button type="button" class="btn-table-action btn-table-primary" id="gsc-btn-connect-header" onclick="connectSearchConsole()">Connect Google Search Console</button>
+              <button type="button" class="btn-table-action" id="gsc-btn-refresh-header" onclick="refreshGSCData()" style="display: none;">Refresh</button>
+              <button type="button" class="btn-table-action" id="gsc-btn-disconnect-header" onclick="disconnectSearchConsole()" style="display: none;">Disconnect</button>
             </div>
           </div>
 
-          <!-- Top 4 Summary Cards -->
-          <div class="kpi-row" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 20px;">
-            <div class="kpi-card">
-              <div class="kpi-card-header">
-                <span class="kpi-card-label">Indexed Pages</span>
-                <span class="badge badge-green">Live</span>
-              </div>
-              <div class="kpi-card-val" style="color: var(--color-green);">1,480+</div>
-              <div class="kpi-card-sub">Eligible in sitemap.xml</div>
-            </div>
+          <!-- Non-sensitive Error Banner (hidden by default) -->
+          <div id="gsc-error-banner" style="display: none; background: var(--color-red-bg); border: 1px solid var(--color-red-border); color: #fca5a5; padding: 12px 16px; border-radius: var(--radius-md); margin-bottom: 20px; font-size: 13px; align-items: center; justify-content: space-between;">
+            <div id="gsc-error-text">Google Search Console connection failed. Check the configured Google account and Search Console property.</div>
+            <button type="button" class="btn-table-action" onclick="refreshGSCData()" style="flex-shrink: 0; margin-left: 12px;">Retry</button>
+          </div>
 
+          <!-- Top 6 Summary Cards for Real GSC API -->
+          <div class="kpi-row kpi-grid-6">
             <div class="kpi-card">
               <div class="kpi-card-header">
                 <span class="kpi-card-label">Organic Clicks</span>
-                <span class="badge badge-gray">Not Connected</span>
+                <span class="badge badge-blue" id="gsc-badge-clicks">GSC API</span>
               </div>
-              <div class="kpi-card-val" style="color: var(--color-muted);">&mdash;</div>
-              <div class="kpi-card-sub">Requires GSC API connection</div>
+              <div class="kpi-card-val" id="gsc-kpi-clicks" style="color: var(--color-blue);">&mdash;</div>
+              <div class="kpi-card-sub" id="gsc-sub-clicks">Requires GSC API connection</div>
             </div>
 
             <div class="kpi-card">
               <div class="kpi-card-header">
-                <span class="kpi-card-label">Impressions</span>
-                <span class="badge badge-gray">Not Connected</span>
+                <span class="kpi-card-label">Search Impressions</span>
+                <span class="badge badge-purple" id="gsc-badge-impr">GSC API</span>
               </div>
-              <div class="kpi-card-val" style="color: var(--color-muted);">&mdash;</div>
-              <div class="kpi-card-sub">Requires GSC API connection</div>
+              <div class="kpi-card-val" id="gsc-kpi-impressions" style="color: var(--color-purple);">&mdash;</div>
+              <div class="kpi-card-sub" id="gsc-sub-impr">Requires GSC API connection</div>
             </div>
 
             <div class="kpi-card">
               <div class="kpi-card-header">
                 <span class="kpi-card-label">Average CTR</span>
-                <span class="badge badge-gray">Not Connected</span>
+                <span class="badge badge-teal" id="gsc-badge-ctr">GSC API</span>
               </div>
-              <div class="kpi-card-val" style="color: var(--color-muted);">&mdash;</div>
-              <div class="kpi-card-sub">Requires GSC API connection</div>
+              <div class="kpi-card-val" id="gsc-kpi-ctr" style="color: var(--color-teal);">&mdash;</div>
+              <div class="kpi-card-sub" id="gsc-sub-ctr">Requires GSC API connection</div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-card-header">
+                <span class="kpi-card-label">Average Position</span>
+                <span class="badge badge-amber" id="gsc-badge-pos">GSC API</span>
+              </div>
+              <div class="kpi-card-val" id="gsc-kpi-position" style="color: var(--color-amber);">&mdash;</div>
+              <div class="kpi-card-sub" id="gsc-sub-pos">Requires GSC API connection</div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-card-header">
+                <span class="kpi-card-label">Indexed Pages</span>
+                <span class="badge badge-green" id="gsc-badge-indexed">Coverage</span>
+              </div>
+              <div class="kpi-card-val" id="gsc-kpi-indexed" style="color: var(--color-green);">&mdash;</div>
+              <div class="kpi-card-sub" id="gsc-sub-indexed">Awaiting verification</div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-card-header">
+                <span class="kpi-card-label">Sitemap Coverage</span>
+                <span class="badge badge-green" id="gsc-badge-coverage">Sitemap</span>
+              </div>
+              <div class="kpi-card-val" id="gsc-kpi-coverage" style="color: var(--color-green);">&mdash;</div>
+              <div class="kpi-card-sub" id="gsc-sub-coverage">Awaiting verification</div>
             </div>
           </div>
 
-          <!-- Polished Connect Empty State -->
-          <div class="dashboard-panel" style="padding: 36px 24px; text-align: center; margin-bottom: 24px;">
+          <!-- Date Range & Analytics Controls Bar -->
+          <div class="table-controls-wrapper" style="margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-subtle);">Date Range:</span>
+                <select id="gsc-date-range-select" class="select-filter" style="height: 34px;" onchange="handleGSCDateRangeChange(this.value)">
+                  <option value="7days">Last 7 Days</option>
+                  <option value="28days" selected>Last 28 Days</option>
+                  <option value="3months">Last 3 Months</option>
+                  <option value="custom">Custom Range...</option>
+                </select>
+                <select id="gsc-search-type-select" class="select-filter" style="height: 34px;" onchange="handleGSCSearchTypeChange(this.value)">
+                  <option value="web" selected>Web Search</option>
+                  <option value="news">Google News</option>
+                  <option value="discover">Discover</option>
+                </select>
+
+                <!-- Custom Date Inputs (hidden by default) -->
+                <div id="gsc-custom-range-wrap" style="display: none; align-items: center; gap: 6px;">
+                  <input type="date" id="gsc-custom-start" class="select-filter" style="height: 34px; padding: 0 8px;">
+                  <span style="color: var(--color-muted); font-size: 12px;">to</span>
+                  <input type="date" id="gsc-custom-end" class="select-filter" style="height: 34px; padding: 0 8px;">
+                  <button type="button" class="btn-table-action btn-table-primary" onclick="applyGSCCustomDateRange()" style="height: 34px;">Apply</button>
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                <span id="gsc-property-chip" class="badge badge-gray" style="font-family: var(--font-mono); font-size: 11px;">Property: thesamachardaily.in</span>
+                <span id="gsc-last-synced-chip" style="font-size: 11px; color: var(--color-subtle);"></span>
+                <button type="button" class="btn-table-action" id="btn-gsc-refresh-toolbar" onclick="refreshGSCData()">Refresh Data</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Real Performance Trend Chart Panel (shown when real date data is loaded) -->
+          <div class="dashboard-panel" id="gsc-chart-panel" style="display: none; margin-bottom: 20px;">
+            <div class="panel-header" style="flex-wrap: wrap; gap: 10px;">
+              <div>
+                <div class="panel-title">Performance Trend (Clicks &amp; Impressions)</div>
+                <div class="panel-subtitle" id="gsc-chart-subtitle">Daily organic traffic reported by Google Search Console</div>
+              </div>
+              <div style="display: flex; gap: 16px; align-items: center; font-size: 12px;">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span style="width: 10px; height: 10px; border-radius: 50%; background: #38bdf8; display: inline-block;"></span>
+                  <span style="color: var(--color-muted);">Clicks</span>
+                  <strong style="color: #38bdf8;" id="gsc-chart-total-clicks">0</strong>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span style="width: 10px; height: 10px; border-radius: 50%; background: #a855f7; display: inline-block;"></span>
+                  <span style="color: var(--color-muted);">Impressions</span>
+                  <strong style="color: #a855f7;" id="gsc-chart-total-impr">0</strong>
+                </div>
+              </div>
+            </div>
+            <div id="gsc-chart-container" style="width: 100%; height: 180px; position: relative; overflow: hidden;">
+              <!-- SVG chart rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- 2-Column Analytics Panels -->
+          <div class="overview-grid-2col" style="margin-bottom: 20px;">
+            <!-- Top Queries Panel -->
+            <div class="dashboard-panel" style="margin-bottom: 0;">
+              <div class="panel-header">
+                <div>
+                  <div class="panel-title">Top Search Queries</div>
+                  <div class="panel-subtitle">Search terms driving organic impressions and clicks</div>
+                </div>
+                <span class="badge badge-gray" id="gsc-queries-badge">Awaiting API</span>
+              </div>
+
+              <!-- Query Search Filter -->
+              <div style="margin-bottom: 12px;">
+                <input type="text" id="gsc-query-filter-input" class="form-input-sm" placeholder="Filter search queries..." oninput="handleGSCQueryFilter(this.value)">
+              </div>
+
+              <div class="table-container" style="border: none; box-shadow: none; margin-bottom: 0;">
+                <table class="saas-table" id="gsc-queries-table">
+                  <thead>
+                    <tr>
+                      <th style="cursor: pointer;" onclick="sortGSCQueries('query')">Query</th>
+                      <th style="width: 75px; text-align: right; cursor: pointer;" onclick="sortGSCQueries('clicks')">Clicks &darr;</th>
+                      <th style="width: 85px; text-align: right; cursor: pointer;" onclick="sortGSCQueries('impressions')">Impr.</th>
+                      <th style="width: 70px; text-align: right; cursor: pointer;" onclick="sortGSCQueries('ctr')">CTR</th>
+                      <th style="width: 65px; text-align: right; cursor: pointer;" onclick="sortGSCQueries('position')">Pos.</th>
+                    </tr>
+                  </thead>
+                  <tbody id="gsc-queries-tbody">
+                    <tr>
+                      <td colspan="5" style="text-align: center; padding: 28px 16px; color: var(--color-muted);">
+                        <div style="font-weight: 600; color: var(--color-ink); margin-bottom: 4px;">No Google Search Console Data Connected</div>
+                        <div style="font-size: 12px;">Connect your Search Console property to populate live search query rankings.</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Queries Pagination Footer -->
+              <div id="gsc-queries-pagination" class="pagination-bar" style="display: none; padding: 8px 12px; margin-top: 8px; font-size: 11.5px; border-radius: var(--radius-sm);">
+                <div id="gsc-queries-page-info">Showing 0 to 0 of 0</div>
+                <div style="display: flex; gap: 6px; align-items: center;">
+                  <button type="button" class="btn-table-action" id="gsc-queries-btn-prev" onclick="prevGSCQueryPage()">&larr;</button>
+                  <span id="gsc-queries-page-num" style="font-weight: 600; color: var(--color-ink);">1</span>
+                  <button type="button" class="btn-table-action" id="gsc-queries-btn-next" onclick="nextGSCQueryPage()">&rarr;</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Top Landing Pages Panel -->
+            <div class="dashboard-panel" style="margin-bottom: 0;">
+              <div class="panel-header">
+                <div>
+                  <div class="panel-title">Top Indexed Articles</div>
+                  <div class="panel-subtitle">Most viewed dispatches in Google Search &amp; News</div>
+                </div>
+                <span class="badge badge-gray" id="gsc-pages-badge">Awaiting API</span>
+              </div>
+
+              <!-- Page Search Filter -->
+              <div style="margin-bottom: 12px;">
+                <input type="text" id="gsc-page-filter-input" class="form-input-sm" placeholder="Filter landing URLs..." oninput="handleGSCPageFilter(this.value)">
+              </div>
+
+              <div class="table-container" style="border: none; box-shadow: none; margin-bottom: 0;">
+                <table class="saas-table" id="gsc-pages-table">
+                  <thead>
+                    <tr>
+                      <th style="cursor: pointer;" onclick="sortGSCPages('page')">Landing Page</th>
+                      <th style="width: 75px; text-align: right; cursor: pointer;" onclick="sortGSCPages('clicks')">Clicks &darr;</th>
+                      <th style="width: 85px; text-align: right; cursor: pointer;" onclick="sortGSCPages('impressions')">Impr.</th>
+                      <th style="width: 70px; text-align: right; cursor: pointer;" onclick="sortGSCPages('ctr')">CTR</th>
+                      <th style="width: 65px; text-align: right; cursor: pointer;" onclick="sortGSCPages('position')">Pos.</th>
+                    </tr>
+                  </thead>
+                  <tbody id="gsc-pages-tbody">
+                    <tr>
+                      <td colspan="5" style="text-align: center; padding: 28px 16px; color: var(--color-muted);">
+                        <div style="font-weight: 600; color: var(--color-ink); margin-bottom: 4px;">No Search Traffic Connected</div>
+                        <div style="font-size: 12px;">Top landing URLs will automatically stream here once Search Console API credentials are bound.</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Pages Pagination Footer -->
+              <div id="gsc-pages-pagination" class="pagination-bar" style="display: none; padding: 8px 12px; margin-top: 8px; font-size: 11.5px; border-radius: var(--radius-sm);">
+                <div id="gsc-pages-page-info">Showing 0 to 0 of 0</div>
+                <div style="display: flex; gap: 6px; align-items: center;">
+                  <button type="button" class="btn-table-action" id="gsc-pages-btn-prev" onclick="prevGSCPagePage()">&larr;</button>
+                  <span id="gsc-pages-page-num" style="font-weight: 600; color: var(--color-ink);">1</span>
+                  <button type="button" class="btn-table-action" id="gsc-pages-btn-next" onclick="nextGSCPagePage()">&rarr;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Connect Prompt Banner (shown when not connected) -->
+          <div class="dashboard-panel" id="gsc-promo-card" style="padding: 36px 24px; text-align: center; margin-bottom: 24px;">
             <div style="max-width: 580px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
               <div style="width: 52px; height: 52px; border-radius: 12px; background: var(--color-blue-bg); border: 1px solid var(--color-blue-border); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: var(--color-blue);">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
               </div>
-              <h3 style="font-size: 18px; font-weight: 700; color: var(--color-ink); margin-bottom: 8px;">Connect Google Search Console</h3>
+              <h3 style="font-size: 18px; font-weight: 700; color: var(--color-ink); margin-bottom: 8px;">Google Search Console</h3>
               <p style="font-size: 13px; color: var(--color-muted); line-height: 1.6; margin-bottom: 20px;">
-                Link your Google Search Console property to view real-time keyword rankings, search impressions, average position, and Google Discover analytics directly inside your editorial workflow.
+                Connect your Search Console property to view real organic keywords, click volumes, search impressions, average ranking position, and Google Discover analytics directly inside Editorial Control.
               </p>
-              <div style="display: flex; gap: 12px; align-items: center;">
-                <a href="https://search.google.com/search-console" target="_blank" rel="noopener" class="btn-table-action btn-table-primary" style="padding: 8px 18px; font-size: 13px; text-decoration: none;">
+              <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center;">
+                <button type="button" class="btn-table-action btn-table-primary" onclick="connectSearchConsole()" style="padding: 8px 20px; font-size: 13px;">
+                  Connect Google Search Console
+                </button>
+                <a href="https://search.google.com/search-console" target="_blank" rel="noopener" class="btn-table-action" style="padding: 8px 18px; font-size: 13px; text-decoration: none;">
                   Open Search Console &nearr;
                 </a>
-                <button type="button" class="btn-table-action" onclick="navigate('settings')" style="padding: 8px 18px; font-size: 13px;">
-                  Configure API in Settings
-                </button>
               </div>
             </div>
           </div>
@@ -2463,7 +3224,7 @@ noindex: true
               <div class="diagnostic-card">
                 <div class="diag-title-row">
                   <span class="diag-name">Top Search Queries</span>
-                  <span class="badge badge-gray">OAuth Required</span>
+                  <span class="badge badge-gray" id="connector-queries-badge">Ready</span>
                 </div>
                 <div class="diag-desc">Tracks high-ranking search terms driving readers to your breaking news dispatches.</div>
               </div>
@@ -2471,15 +3232,15 @@ noindex: true
               <div class="diagnostic-card">
                 <div class="diag-title-row">
                   <span class="diag-name">Google Discover Feed</span>
-                  <span class="badge badge-gray">OAuth Required</span>
+                  <span class="badge badge-gray" id="connector-discover-badge">Ready</span>
                 </div>
                 <div class="diag-desc">Monitors mobile Google Discover carousel impressions and surge traffic patterns.</div>
               </div>
 
               <div class="diagnostic-card">
                 <div class="diag-title-row">
-                  <span class="diag-name">URL Inspection Sync</span>
-                  <span class="badge badge-gray">OAuth Required</span>
+                  <span class="diag-name">Sitemap Index Coverage</span>
+                  <span class="badge badge-gray" id="connector-sitemap-badge">Ready</span>
                 </div>
                 <div class="diag-desc">Direct inspection status to check when newly published articles are indexed by Google.</div>
               </div>
@@ -2500,7 +3261,7 @@ noindex: true
           </div>
 
           <!-- Top Status Strip -->
-          <div class="kpi-row" style="grid-template-columns: repeat(6, 1fr); margin-bottom: 20px;">
+          <div class="kpi-row kpi-grid-6">
             <div class="kpi-card">
               <div class="kpi-card-header">
                 <span class="kpi-card-label">Build</span>
@@ -2699,7 +3460,7 @@ noindex: true
           </div>
 
           <!-- Top 4 Summary Cards -->
-          <div class="kpi-row" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 20px;">
+          <div class="kpi-row kpi-grid-4">
             <div class="kpi-card">
               <div class="kpi-card-header">
                 <span class="kpi-card-label">Links Checked</span>
@@ -2883,7 +3644,7 @@ noindex: true
           </div>
 
           <!-- Compliance KPI Metric Row -->
-          <div class="kpi-row" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 20px;">
+          <div class="kpi-row kpi-grid-4">
             <div class="kpi-card">
               <div class="kpi-card-header">
                 <span class="kpi-card-label">Sitemap Status</span>
@@ -3271,7 +4032,7 @@ noindex: true
           </div>
 
           <!-- Members KPI Summary Cards -->
-          <div class="kpi-row" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 20px;">
+          <div class="kpi-row kpi-grid-4">
             <div class="kpi-card">
               <div class="kpi-card-header">
                 <span class="kpi-card-label">Total Members</span>
@@ -3709,6 +4470,8 @@ noindex: true
         renderSafetyTab();
       } else if (viewId === 'members') {
         loadMembersData();
+      } else if (viewId === 'search') {
+        loadSearchPerformanceData();
       }
 
       // Synchronize Articles Subviews
@@ -3879,21 +4642,35 @@ noindex: true
       const avatarEl = document.getElementById('sidebar-user-avatar');
       const roleEl = document.getElementById('sidebar-user-role');
 
+      const topNameEl = document.getElementById('topbar-user-name');
+      const topAvatarEl = document.getElementById('topbar-user-avatar');
+      const topRoleEl = document.getElementById('topbar-user-role');
+
       const displayName = user.displayName || user.name || user.user || 'Newsroom Admin';
       if (nameEl) nameEl.innerText = displayName;
+      if (topNameEl) topNameEl.innerText = displayName;
 
       const email = user.email || 'admin@thesamachardaily.in';
       if (emailEl) emailEl.innerText = email;
 
-      if (avatarEl) {
-        const parts = displayName.trim().split(/\s+/);
-        const initials = parts.length >= 2
-          ? (parts[0][0] + parts[1][0]).toUpperCase()
-          : displayName.slice(0, 2).toUpperCase();
+      const parts = displayName.trim().split(/\s+/);
+      const initials = parts.length >= 2
+        ? (parts[0][0] + parts[1][0]).toUpperCase()
+        : displayName.slice(0, 2).toUpperCase();
 
-        const photoUrl = user.picture || user.avatar || user.photo;
+      // Phase 2.1 Avatar Priority:
+      // 1. Existing admin user.picture
+      // 2. Existing admin user.photo
+      // 3. Existing admin user.avatar
+      // 4. Google OAuth profile picture (user.googlePicture or window.GSCState.accountPicture)
+      // 5. Existing initials fallback
+      const gscPic = user.googlePicture || (typeof window !== 'undefined' && window.GSCState ? window.GSCState.accountPicture : null);
+      const photoUrl = user.picture || user.photo || user.avatar || gscPic || null;
+
+      function renderAvatarInto(el) {
+        if (!el) return;
         if (photoUrl && typeof photoUrl === 'string' && photoUrl.trim()) {
-          avatarEl.innerHTML = '';
+          el.innerHTML = '';
           const img = document.createElement('img');
           img.src = photoUrl.trim();
           img.alt = displayName;
@@ -3902,26 +4679,29 @@ noindex: true
           img.style.objectFit = 'cover';
           img.style.borderRadius = '50%';
           img.style.display = 'block';
+          img.referrerPolicy = 'no-referrer';
           img.onerror = function() {
-            avatarEl.innerHTML = '';
-            avatarEl.innerText = initials || 'AD';
+            el.innerHTML = '';
+            el.innerText = initials || 'AD';
           };
-          avatarEl.appendChild(img);
+          el.appendChild(img);
         } else {
-          avatarEl.innerHTML = '';
-          avatarEl.innerText = initials || 'AD';
+          el.innerHTML = '';
+          el.innerText = initials || 'AD';
         }
       }
 
-      if (roleEl) {
-        const roleLabel = user.role === 'owner'
-          ? 'Root Owner'
-          : (user.role === 'admin' ? 'Admin' : 'Editor');
-        roleEl.innerText = roleLabel;
-      }
+      renderAvatarInto(avatarEl);
+      renderAvatarInto(topAvatarEl);
+
+      const roleLabel = user.role === 'owner'
+        ? 'Root Owner'
+        : (user.role === 'admin' ? 'Admin' : 'Editor');
+      if (roleEl) roleEl.innerText = roleLabel;
+      if (topRoleEl) topRoleEl.innerText = roleLabel;
     }
 
-        function updateRoleRestrictedUI(user) {
+    function updateRoleRestrictedUI(user) {
       if (!user) return;
       const inviteBtn = document.getElementById('btn-open-invite-modal');
       if (inviteBtn && user.role === 'editor') {
@@ -3954,6 +4734,14 @@ noindex: true
           const mData = await membersRes.json();
           if (mData.success && Array.isArray(mData.members)) {
             AppState.members = mData.members;
+            if (AppState.currentUser && !AppState.currentUser.picture) {
+              const currentEmail = (AppState.currentUser.email || '').toLowerCase();
+              const matchedMember = mData.members.find(m => (m.email || '').toLowerCase() === currentEmail);
+              if (matchedMember && (matchedMember.picture || matchedMember.avatar || matchedMember.photo)) {
+                AppState.currentUser.picture = matchedMember.picture || matchedMember.avatar || matchedMember.photo;
+                updateSidebarProfile(AppState.currentUser);
+              }
+            }
           }
         } else if (membersRes.status === 403) {
           AppState.membersError = 'Access restricted. Member management requires Administrator privileges.';
@@ -4632,8 +5420,8 @@ noindex: true
             '<input type="checkbox" ' + (isSelected ? 'checked' : '') + ' onchange="toggleArticleSelection(\'' + escapeJs(art.relPath) + '\', this)">' +
           '</td>' +
           '<td>' +
-            '<div class="row-article-headline" onclick="openArticleEditor(\'' + escapeJs(art.relPath) + '\')">' + escapeHtml(art.title) + '</div>' +
-            '<div class="row-article-sub">' + escapeHtml(art.url) + '</div>' +
+            '<div class="row-article-headline" onclick="openArticleEditor(\'' + escapeJs(art.relPath) + '\')" title="' + escapeHtml(art.title) + '">' + escapeHtml(art.title) + '</div>' +
+            '<div class="row-article-sub" title="' + escapeHtml(art.url) + '">' + escapeHtml(art.url) + '</div>' +
           '</td>' +
           '<td>' + deskBadge + '</td>' +
           '<td>' + statusBadge + '</td>' +
@@ -4641,7 +5429,7 @@ noindex: true
           '<td style="font-size: 12px; color: var(--color-muted);">' + wordsStr + '</td>' +
           '<td style="font-size: 12px; color: var(--color-muted);">' + sourceStr + '</td>' +
           '<td style="text-align: right; white-space: nowrap;">' +
-            '<div style="display: flex; gap: 4px; justify-content: flex-end;">' +
+            '<div class="row-actions-group">' +
               '<button class="btn-table-action btn-table-primary" onclick="openArticleEditor(\'' + escapeJs(art.relPath) + '\')">Edit</button>' +
               '<button class="btn-table-action" onclick="openRevisionHistoryModal(\'' + escapeJs(art.relPath) + '\')">History</button>' +
               '<button class="btn-table-action" onclick="openPreviewModal(\'' + escapeJs(art.relPath) + '\')">Preview</button>' +
@@ -4665,15 +5453,15 @@ noindex: true
             '<span>' + wordsStr + ' words</span>' +
             '<span>Source: ' + sourceStr + '</span>' +
           '</div>' +
-          '<div style="display: flex; gap: 6px; margin-top: 8px; border-top: 1px solid var(--color-border); padding-top: 8px;">' +
-            '<button class="btn-table-action btn-table-primary" style="flex: 1; justify-content: center;" onclick="openArticleEditor(\'' + escapeJs(art.relPath) + '\')">Edit</button>' +
-            '<button class="btn-table-action" style="flex: 1; justify-content: center;" onclick="openRevisionHistoryModal(\'' + escapeJs(art.relPath) + '\')">History</button>' +
-            '<button class="btn-table-action" style="flex: 1; justify-content: center;" onclick="openPreviewModal(\'' + escapeJs(art.relPath) + '\')">Preview</button>' +
+          '<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; border-top: 1px solid var(--color-border); padding-top: 8px;">' +
+            '<button class="btn-table-action btn-table-primary" style="flex: 1 1 50px; justify-content: center; min-width: 0; font-size: 11px; padding: 5px 6px;" onclick="openArticleEditor(\'' + escapeJs(art.relPath) + '\')">Edit</button>' +
+            '<button class="btn-table-action" style="flex: 1 1 50px; justify-content: center; min-width: 0; font-size: 11px; padding: 5px 6px;" onclick="openRevisionHistoryModal(\'' + escapeJs(art.relPath) + '\')">History</button>' +
+            '<button class="btn-table-action" style="flex: 1 1 50px; justify-content: center; min-width: 0; font-size: 11px; padding: 5px 6px;" onclick="openPreviewModal(\'' + escapeJs(art.relPath) + '\')">Preview</button>' +
             (isArchived
-              ? '<button class="btn-table-action" onclick="promptRestoreArticle(\'' + escapeJs(art.relPath) + '\')">Restore</button>'
-              : '<button class="btn-table-action" onclick="promptArchiveArticle(\'' + escapeJs(art.relPath) + '\')">Archive</button>'
+              ? '<button class="btn-table-action" style="flex: 1 1 50px; justify-content: center; min-width: 0; font-size: 11px; padding: 5px 6px;" onclick="promptRestoreArticle(\'' + escapeJs(art.relPath) + '\')">Restore</button>'
+              : '<button class="btn-table-action" style="flex: 1 1 50px; justify-content: center; min-width: 0; font-size: 11px; padding: 5px 6px;" onclick="promptArchiveArticle(\'' + escapeJs(art.relPath) + '\')">Archive</button>'
             ) +
-            '<button class="btn-table-action btn-table-danger" onclick="promptDeleteArticle(\'' + escapeJs(art.relPath) + '\')">Delete</button>' +
+            '<button class="btn-table-action btn-table-danger" style="flex: 1 1 50px; justify-content: center; min-width: 0; font-size: 11px; padding: 5px 6px;" onclick="promptDeleteArticle(\'' + escapeJs(art.relPath) + '\')">Delete</button>' +
           '</div>' +
         '</div>';
       });
@@ -6290,10 +7078,13 @@ noindex: true
       renderNeedsAttentionTab();
       renderSafetyTab();
       initThinQueueView();
+      initGSCOAuthRedirectFeedback();
 
       // Check initial URL parameters for deep links
       const params = new URLSearchParams(window.location.search);
-      const initialView = params.get('view') || 'overview';
+      const hashView = (window.location.hash || '').replace('#', '');
+      const validViews = ['overview', 'articles', 'thin-queue', 'attention', 'safety', 'search', 'website', 'broken-links', 'google-news', 'settings', 'members'];
+      const initialView = params.get('view') || (hashView && validViews.includes(hashView) ? hashView : 'overview');
       const initialArticle = params.get('article');
       const initialMode = params.get('mode');
 
@@ -7009,8 +7800,8 @@ noindex: true
 
         html += '<tr style="' + (isDismissed ? 'opacity: 0.6;' : '') + '">' +
           '<td>' +
-            '<div class="row-article-headline" onclick="openThinDetailModal(\'' + escapeJs(item.slug) + '\')">' + escapeHtml(item.title) + reviewIndicator + '</div>' +
-            '<div class="row-article-sub">' + escapeHtml(item.url || item.relPath) + '</div>' +
+            '<div class="row-article-headline" onclick="openThinDetailModal(\'' + escapeJs(item.slug) + '\')" title="' + escapeHtml(item.title) + '">' + escapeHtml(item.title) + reviewIndicator + '</div>' +
+            '<div class="row-article-sub" title="' + escapeHtml(item.url || item.relPath) + '">' + escapeHtml(item.url || item.relPath) + '</div>' +
           '</td>' +
           '<td><span class="badge badge-gray" style="text-transform: capitalize;">' + escapeHtml(item.category) + '</span></td>' +
           '<td style="font-size: 12px; color: var(--color-subtle); white-space: nowrap;">' + escapeHtml(item.date || '—') + '</td>' +
@@ -7018,10 +7809,10 @@ noindex: true
           '<td style="font-size: 12px; font-weight: 500; color: var(--color-ink-light);">' + escapeHtml(item.finding) + '</td>' +
           '<td>' + classBadge + '</td>' +
           '<td>' + confBadge + '</td>' +
-          '<td style="font-size: 11px; color: var(--color-muted); line-height: 1.35; max-width: 260px;">' + escapeHtml(item.reason) + '</td>' +
+          '<td><div class="row-reason-text" title="' + escapeHtml(item.reason) + '">' + escapeHtml(item.reason) + '</div></td>' +
           '<td>' + relatedCell + '</td>' +
           '<td style="text-align: right; white-space: nowrap;">' +
-            '<div style="display: inline-flex; gap: 4px;">' +
+            '<div class="row-actions-group">' +
               '<button class="btn-table-action" onclick="openThinDetailModal(\'' + escapeJs(item.slug) + '\')" title="Inspect signals & evidence">Inspect</button>' +
               '<button class="btn-table-action" onclick="openArticleEditor(\'' + escapeJs(item.relPath) + '\')" title="Open in Article Editor">Edit</button>' +
             '</div>' +
@@ -7830,6 +8621,777 @@ noindex: true
       showToast('Redaction previewed in editor body. Review and click "Save Changes" to apply.', 'info');
       closeSafetyModal();
       textarea.focus();
+    }
+
+    // ========================================================================
+    // GOOGLE SEARCH CONSOLE (GSC) MODULE — PHASE 2
+    // ========================================================================
+    const GSCState = window.GSCState = {
+      connected: false,
+      loading: false,
+      lastSynced: null,
+      property: 'https://thesamachardaily.in/',
+      accountEmail: null,
+      accountName: null,
+      accountPicture: null,
+      dateRange: '28days',
+      searchType: 'web',
+      customStart: '',
+      customEnd: '',
+      summary: null,
+      queries: [],
+      pages: [],
+      dateSeries: [],
+      sitemaps: null,
+      error: null,
+      querySortCol: 'clicks',
+      querySortDir: 'desc',
+      queryFilter: '',
+      queryPage: 1,
+      queryPageSize: 10,
+      pageSortCol: 'clicks',
+      pageSortDir: 'desc',
+      pageFilter: '',
+      pagePage: 1,
+      pagePageSize: 10
+    };
+
+    async function checkInitialGSCStatus() {
+      try {
+        const res = await fetch('/api/admin/gsc/status');
+        if (!res.ok) return;
+        const data = await res.json();
+        GSCState.connected = Boolean(data.connected);
+        GSCState.property = data.property || GSCState.property;
+        GSCState.accountEmail = data.accountEmail || null;
+        GSCState.accountName = data.accountName || null;
+        GSCState.accountPicture = data.accountPicture || null;
+        GSCState.lastSynced = data.lastSynced || null;
+        updateGSCStatusUI();
+        if (AppState.currentUser) {
+          if (data.accountPicture) AppState.currentUser.googlePicture = data.accountPicture;
+          updateSidebarProfile(AppState.currentUser);
+        }
+      } catch (e) {
+        // Non-blocking failure
+      }
+    }
+
+    function updateGSCStatusUI() {
+      const statusBadge = document.getElementById('gsc-status-badge');
+      const btnConnect = document.getElementById('gsc-btn-connect-header');
+      const btnRefresh = document.getElementById('gsc-btn-refresh-header');
+      const btnDisconnect = document.getElementById('gsc-btn-disconnect-header');
+      const promoCard = document.getElementById('gsc-promo-card');
+      const propChip = document.getElementById('gsc-property-chip');
+      const lastSyncedChip = document.getElementById('gsc-last-synced-chip');
+      const ovGscBadge = document.getElementById('ov-gsc-badge');
+      const ovGscDesc = document.getElementById('ov-gsc-desc');
+
+      if (propChip && GSCState.property) {
+        propChip.innerText = 'Property: ' + GSCState.property.replace(/^https?:\/\//, '').replace(/\/$/, '');
+      }
+
+      if (GSCState.connected) {
+        if (statusBadge) {
+          statusBadge.className = 'badge badge-green';
+          statusBadge.innerHTML = '<span class="badge-dot green"></span> Connected to Google';
+        }
+        if (btnConnect) btnConnect.style.display = 'none';
+        if (btnRefresh) {
+          btnRefresh.innerText = 'Refresh';
+          btnRefresh.style.display = 'inline-block';
+        }
+        if (btnDisconnect) {
+          btnDisconnect.innerText = 'Disconnect';
+          btnDisconnect.style.display = 'inline-block';
+        }
+        if (promoCard) promoCard.style.display = 'none';
+
+        if (lastSyncedChip && GSCState.lastSynced) {
+          try {
+            const syncDate = new Date(GSCState.lastSynced);
+            lastSyncedChip.innerText = 'Last synced: ' + syncDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          } catch (e) {}
+        }
+
+        if (ovGscBadge) {
+          ovGscBadge.className = 'badge badge-green';
+          ovGscBadge.innerText = 'CONNECTED';
+        }
+      } else {
+        if (statusBadge) {
+          statusBadge.className = 'badge badge-amber';
+          statusBadge.innerHTML = '<span class="badge-dot amber"></span> Not connected';
+        }
+        if (btnConnect) {
+          btnConnect.innerText = 'Connect Google Search Console';
+          btnConnect.style.display = 'inline-block';
+        }
+        if (btnRefresh) btnRefresh.style.display = 'none';
+        if (btnDisconnect) btnDisconnect.style.display = 'none';
+        if (promoCard) promoCard.style.display = 'block';
+        if (lastSyncedChip) lastSyncedChip.innerText = '';
+
+        if (ovGscBadge) {
+          ovGscBadge.className = 'badge badge-gray';
+          ovGscBadge.innerText = 'Awaiting API';
+        }
+        if (ovGscDesc) {
+          ovGscDesc.innerText = 'Real-time Google search queries, impressions, and discovery signals.';
+        }
+      }
+    }
+
+    async function loadSearchPerformanceData(forceRefresh = false) {
+      if (GSCState.loading) return;
+      GSCState.loading = true;
+
+      const errorBanner = document.getElementById('gsc-error-banner');
+      if (errorBanner) errorBanner.style.display = 'none';
+
+      try {
+        const statusRes = await fetch('/api/admin/gsc/status');
+        if (statusRes.ok) {
+          const statusData = await statusRes.json();
+          GSCState.connected = Boolean(statusData.connected);
+          GSCState.property = statusData.property || GSCState.property;
+          GSCState.accountEmail = statusData.accountEmail || null;
+          GSCState.accountName = statusData.accountName || null;
+          GSCState.accountPicture = statusData.accountPicture || null;
+          GSCState.lastSynced = statusData.lastSynced || null;
+          if (AppState.currentUser) {
+            if (statusData.accountPicture) AppState.currentUser.googlePicture = statusData.accountPicture;
+            updateSidebarProfile(AppState.currentUser);
+          }
+        }
+      } catch (e) {}
+
+      updateGSCStatusUI();
+
+      if (!GSCState.connected) {
+        GSCState.loading = false;
+        renderGSCNotConnectedState();
+        return;
+      }
+
+      setGKPIsLoading();
+
+      try {
+        let url = '/api/admin/gsc/performance?range=' + encodeURIComponent(GSCState.dateRange) + '&searchType=' + encodeURIComponent(GSCState.searchType);
+        if (GSCState.dateRange === 'custom' && GSCState.customStart && GSCState.customEnd) {
+          url += '&startDate=' + encodeURIComponent(GSCState.customStart) + '&endDate=' + encodeURIComponent(GSCState.customEnd);
+        }
+        if (forceRefresh) {
+          url += '&refresh=true';
+        }
+
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || 'Failed to retrieve Search Console data');
+        }
+
+        GSCState.summary = data.summary || { clicks: 0, impressions: 0, ctr: 0, position: 0 };
+        GSCState.queries = Array.isArray(data.queries) ? data.queries : [];
+        GSCState.pages = Array.isArray(data.pages) ? data.pages : [];
+        GSCState.dateSeries = Array.isArray(data.dateSeries) ? data.dateSeries : [];
+        GSCState.sitemaps = data.sitemaps || null;
+        GSCState.lastSynced = data.lastSynced || new Date().toISOString();
+
+        updateGSCStatusUI();
+        renderGSCConnectedState();
+      } catch (err) {
+        GSCState.error = err.message || 'Google Search Console connection failed.';
+        renderGSCErrorState(GSCState.error);
+      } finally {
+        GSCState.loading = false;
+      }
+    }
+
+    function setGKPIsLoading() {
+      const kpiClicks = document.getElementById('gsc-kpi-clicks');
+      const kpiImpr = document.getElementById('gsc-kpi-impressions');
+      const kpiCtr = document.getElementById('gsc-kpi-ctr');
+      const kpiPos = document.getElementById('gsc-kpi-position');
+      if (kpiClicks && (kpiClicks.innerText === '—' || kpiClicks.innerText === '...')) kpiClicks.innerText = '...';
+      if (kpiImpr && (kpiImpr.innerText === '—' || kpiImpr.innerText === '...')) kpiImpr.innerText = '...';
+      if (kpiCtr && (kpiCtr.innerText === '—' || kpiCtr.innerText === '...')) kpiCtr.innerText = '...';
+      if (kpiPos && (kpiPos.innerText === '—' || kpiPos.innerText === '...')) kpiPos.innerText = '...';
+    }
+
+    function renderGSCNotConnectedState() {
+      const kpiClicks = document.getElementById('gsc-kpi-clicks');
+      const kpiImpr = document.getElementById('gsc-kpi-impressions');
+      const kpiCtr = document.getElementById('gsc-kpi-ctr');
+      const kpiPos = document.getElementById('gsc-kpi-position');
+      const kpiIndexed = document.getElementById('gsc-kpi-indexed');
+      const kpiCov = document.getElementById('gsc-kpi-coverage');
+
+      if (kpiClicks) { kpiClicks.style.fontSize = ''; kpiClicks.innerHTML = '&mdash;'; }
+      if (kpiImpr) { kpiImpr.style.fontSize = ''; kpiImpr.innerHTML = '&mdash;'; }
+      if (kpiCtr) { kpiCtr.style.fontSize = ''; kpiCtr.innerHTML = '&mdash;'; }
+      if (kpiPos) { kpiPos.style.fontSize = ''; kpiPos.innerHTML = '&mdash;'; }
+      if (kpiIndexed) { kpiIndexed.style.fontSize = ''; kpiIndexed.innerHTML = '&mdash;'; }
+      if (kpiCov) { kpiCov.style.fontSize = ''; kpiCov.innerHTML = '&mdash;'; }
+
+      const chartPanel = document.getElementById('gsc-chart-panel');
+      if (chartPanel) chartPanel.style.display = 'none';
+
+      const qTbody = document.getElementById('gsc-queries-tbody');
+      if (qTbody) {
+        qTbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 28px 16px; color: var(--color-muted);">' +
+          '<div style="font-weight: 600; color: var(--color-ink); margin-bottom: 4px;">Google Search Console Not Connected</div>' +
+          '<div style="font-size: 12px; margin-bottom: 12px;">Connect your Search Console property to view real organic search query analytics.</div>' +
+          '<button type="button" class="btn-table-action btn-table-primary" onclick="connectSearchConsole()">Connect Search Console</button>' +
+        '</td></tr>';
+      }
+
+      const pTbody = document.getElementById('gsc-pages-tbody');
+      if (pTbody) {
+        pTbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 28px 16px; color: var(--color-muted);">' +
+          '<div style="font-weight: 600; color: var(--color-ink); margin-bottom: 4px;">Google Search Console Not Connected</div>' +
+          '<div style="font-size: 12px;">Top landing URLs will automatically stream here once Search Console API credentials are bound.</div>' +
+        '</td></tr>';
+      }
+
+      const qBadge = document.getElementById('gsc-queries-badge');
+      const pBadge = document.getElementById('gsc-pages-badge');
+      if (qBadge) { qBadge.className = 'badge badge-gray'; qBadge.innerText = 'Awaiting API'; }
+      if (pBadge) { pBadge.className = 'badge badge-gray'; pBadge.innerText = 'Awaiting API'; }
+
+      const qPagination = document.getElementById('gsc-queries-pagination');
+      const pPagination = document.getElementById('gsc-pages-pagination');
+      if (qPagination) qPagination.style.display = 'none';
+      if (pPagination) pPagination.style.display = 'none';
+    }
+
+    function renderGSCErrorState(errMsg) {
+      const banner = document.getElementById('gsc-error-banner');
+      const errText = document.getElementById('gsc-error-text');
+      if (banner && errText) {
+        errText.innerText = errMsg || 'Google Search Console connection failed. Check the configured Google account and Search Console property.';
+        banner.style.display = 'flex';
+      }
+    }
+
+    function renderGSCConnectedState() {
+      const summary = GSCState.summary || { clicks: 0, impressions: 0, ctr: 0, position: 0 };
+
+      const kpiClicks = document.getElementById('gsc-kpi-clicks');
+      const kpiImpr = document.getElementById('gsc-kpi-impressions');
+      const kpiCtr = document.getElementById('gsc-kpi-ctr');
+      const kpiPos = document.getElementById('gsc-kpi-position');
+      const kpiIndexed = document.getElementById('gsc-kpi-indexed');
+      const kpiCov = document.getElementById('gsc-kpi-coverage');
+
+      const subClicks = document.getElementById('gsc-sub-clicks');
+      const subImpr = document.getElementById('gsc-sub-impr');
+      const subCtr = document.getElementById('gsc-sub-ctr');
+      const subPos = document.getElementById('gsc-sub-pos');
+      const subIndexed = document.getElementById('gsc-sub-indexed');
+      const subCov = document.getElementById('gsc-sub-coverage');
+
+      if (kpiClicks) { kpiClicks.style.fontSize = ''; kpiClicks.innerText = Number(summary.clicks || 0).toLocaleString(); }
+      if (kpiImpr) { kpiImpr.style.fontSize = ''; kpiImpr.innerText = Number(summary.impressions || 0).toLocaleString(); }
+      if (kpiCtr) { kpiCtr.style.fontSize = ''; kpiCtr.innerText = (Number(summary.ctr || 0) * 100).toFixed(2) + '%'; }
+      if (kpiPos) { kpiPos.style.fontSize = ''; kpiPos.innerText = Number(summary.position || 0).toFixed(1); }
+
+      if (subClicks) subClicks.innerText = 'Search type: ' + GSCState.searchType;
+      if (subImpr) subImpr.innerText = 'Range: ' + GSCState.dateRange;
+      if (subCtr) subCtr.innerText = 'Average click-through rate';
+      if (subPos) subPos.innerText = 'Mean search rank';
+
+      if (GSCState.sitemaps && typeof GSCState.sitemaps.indexedPages === 'number') {
+        if (kpiIndexed) { kpiIndexed.style.fontSize = ''; kpiIndexed.innerText = GSCState.sitemaps.indexedPages.toLocaleString(); }
+        if (subIndexed) subIndexed.innerText = 'From GSC sitemaps';
+      } else {
+        if (kpiIndexed) {
+          kpiIndexed.style.fontSize = '12px';
+          kpiIndexed.style.lineHeight = '1.3';
+          kpiIndexed.innerText = 'Unavailable from current API integration';
+        }
+        if (subIndexed) subIndexed.innerText = 'Requires Sitemaps API index report';
+      }
+
+      if (GSCState.sitemaps && typeof GSCState.sitemaps.submittedPages === 'number') {
+        if (kpiCov) { kpiCov.style.fontSize = ''; kpiCov.innerText = GSCState.sitemaps.submittedPages.toLocaleString() + ' submitted'; }
+        if (subCov) subCov.innerText = 'Sitemap index entries';
+      } else {
+        if (kpiCov) {
+          kpiCov.style.fontSize = '12px';
+          kpiCov.style.lineHeight = '1.3';
+          kpiCov.innerText = 'Unavailable from current API integration';
+        }
+        if (subCov) subCov.innerText = 'Requires Sitemaps API submission report';
+      }
+
+      const ovGscDesc = document.getElementById('ov-gsc-desc');
+      if (ovGscDesc) {
+        ovGscDesc.innerText = 'Clicks: ' + Number(summary.clicks || 0).toLocaleString() + ' | Impr: ' + Number(summary.impressions || 0).toLocaleString() + ' (' + GSCState.dateRange + ')';
+      }
+
+      const qBadge = document.getElementById('gsc-queries-badge');
+      const pBadge = document.getElementById('gsc-pages-badge');
+      if (qBadge) {
+        qBadge.className = 'badge badge-green';
+        qBadge.innerText = GSCState.queries.length + ' Queries';
+      }
+      if (pBadge) {
+        pBadge.className = 'badge badge-blue';
+        pBadge.innerText = GSCState.pages.length + ' Landing Pages';
+      }
+
+      renderGSCChart();
+      renderGSCQueriesTable();
+      renderGSCPagesTable();
+    }
+
+    function renderGSCChart() {
+      const panel = document.getElementById('gsc-chart-panel');
+      const container = document.getElementById('gsc-chart-container');
+      const clicksEl = document.getElementById('gsc-chart-total-clicks');
+      const imprEl = document.getElementById('gsc-chart-total-impr');
+      const subtitleEl = document.getElementById('gsc-chart-subtitle');
+
+      if (!panel || !container) return;
+
+      const series = GSCState.dateSeries;
+      if (!Array.isArray(series) || series.length < 2) {
+        panel.style.display = 'none';
+        return;
+      }
+
+      panel.style.display = 'block';
+
+      let totalClicks = 0;
+      let totalImpr = 0;
+      let maxClicks = 1;
+      let maxImpr = 1;
+
+      series.forEach(pt => {
+        totalClicks += (pt.clicks || 0);
+        totalImpr += (pt.impressions || 0);
+        if ((pt.clicks || 0) > maxClicks) maxClicks = pt.clicks;
+        if ((pt.impressions || 0) > maxImpr) maxImpr = pt.impressions;
+      });
+
+      if (clicksEl) clicksEl.innerText = totalClicks.toLocaleString();
+      if (imprEl) imprEl.innerText = totalImpr.toLocaleString();
+      if (subtitleEl) {
+        subtitleEl.innerText = series[0].date + ' to ' + series[series.length - 1].date + ' (' + series.length + ' data points) — 2-3 day GSC reporting latency applies';
+      }
+
+      const w = 1000;
+      const h = 180;
+      const padL = 40;
+      const padR = 20;
+      const padT = 20;
+      const padB = 30;
+      const plotW = w - padL - padR;
+      const plotH = h - padT - padB;
+
+      const clickPoints = series.map((pt, i) => {
+        const x = padL + (i / (series.length - 1)) * plotW;
+        const y = padT + plotH - ((pt.clicks || 0) / maxClicks) * plotH;
+        return x.toFixed(1) + ',' + y.toFixed(1);
+      });
+
+      const imprPoints = series.map((pt, i) => {
+        const x = padL + (i / (series.length - 1)) * plotW;
+        const y = padT + plotH - ((pt.impressions || 0) / maxImpr) * plotH;
+        return x.toFixed(1) + ',' + y.toFixed(1);
+      });
+
+      const clickPoly = padL + ',' + (padT + plotH) + ' ' + clickPoints.join(' ') + ' ' + (padL + plotW) + ',' + (padT + plotH);
+      const imprPoly = padL + ',' + (padT + plotH) + ' ' + imprPoints.join(' ') + ' ' + (padL + plotW) + ',' + (padT + plotH);
+
+      const svg = '<svg viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none" style="width: 100%; height: 100%; display: block;">' +
+        '<defs>' +
+          '<linearGradient id="grad-clicks" x1="0" y1="0" x2="0" y2="1">' +
+            '<stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25"/>' +
+            '<stop offset="100%" stop-color="#38bdf8" stop-opacity="0.0"/>' +
+          '</linearGradient>' +
+          '<linearGradient id="grad-impr" x1="0" y1="0" x2="0" y2="1">' +
+            '<stop offset="0%" stop-color="#a855f7" stop-opacity="0.18"/>' +
+            '<stop offset="100%" stop-color="#a855f7" stop-opacity="0.0"/>' +
+          '</linearGradient>' +
+        '</defs>' +
+        '<line x1="' + padL + '" y1="' + padT + '" x2="' + (w - padR) + '" y2="' + padT + '" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3,3"/>' +
+        '<line x1="' + padL + '" y1="' + (padT + plotH / 2) + '" x2="' + (w - padR) + '" y2="' + (padT + plotH / 2) + '" stroke="rgba(255,255,255,0.06)" stroke-dasharray="3,3"/>' +
+        '<line x1="' + padL + '" y1="' + (padT + plotH) + '" x2="' + (w - padR) + '" y2="' + (padT + plotH) + '" stroke="rgba(255,255,255,0.1)"/>' +
+        '<polygon points="' + imprPoly + '" fill="url(#grad-impr)"/>' +
+        '<polyline points="' + imprPoints.join(' ') + '" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<polygon points="' + clickPoly + '" fill="url(#grad-clicks)"/>' +
+        '<polyline points="' + clickPoints.join(' ') + '" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<text x="' + padL + '" y="' + (h - 8) + '" fill="#94a3b8" font-size="11" font-family="sans-serif">' + series[0].date + '</text>' +
+        '<text x="' + (w - padR) + '" y="' + (h - 8) + '" fill="#94a3b8" font-size="11" font-family="sans-serif" text-anchor="end">' + series[series.length - 1].date + '</text>' +
+      '</svg>';
+
+      container.innerHTML = svg;
+    }
+
+    function getFilteredSortedQueries() {
+      let list = GSCState.queries.slice();
+      if (GSCState.queryFilter) {
+        const qf = GSCState.queryFilter.toLowerCase();
+        list = list.filter(item => (item.query || '').toLowerCase().includes(qf));
+      }
+      const col = GSCState.querySortCol;
+      const dir = GSCState.querySortDir === 'asc' ? 1 : -1;
+      list.sort((a, b) => {
+        let vA = a[col];
+        let vB = b[col];
+        if (typeof vA === 'string') return vA.localeCompare(vB) * dir;
+        return ((vA || 0) - (vB || 0)) * dir;
+      });
+      return list;
+    }
+
+    function renderGSCQueriesTable() {
+      const tbody = document.getElementById('gsc-queries-tbody');
+      if (!tbody) return;
+
+      const filtered = getFilteredSortedQueries();
+      const total = filtered.length;
+      const paginationEl = document.getElementById('gsc-queries-pagination');
+
+      if (total === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 24px; color: var(--color-muted);">' +
+          'No queries matching current criteria.' +
+        '</td></tr>';
+        if (paginationEl) paginationEl.style.display = 'none';
+        return;
+      }
+
+      if (paginationEl) paginationEl.style.display = 'flex';
+      const totalPages = Math.ceil(total / GSCState.queryPageSize) || 1;
+      if (GSCState.queryPage > totalPages) GSCState.queryPage = totalPages;
+      if (GSCState.queryPage < 1) GSCState.queryPage = 1;
+
+      const startIdx = (GSCState.queryPage - 1) * GSCState.queryPageSize;
+      const endIdx = Math.min(startIdx + GSCState.queryPageSize, total);
+      const pageSlice = filtered.slice(startIdx, endIdx);
+
+      const pageInfo = document.getElementById('gsc-queries-page-info');
+      const pageNum = document.getElementById('gsc-queries-page-num');
+      const btnPrev = document.getElementById('gsc-queries-btn-prev');
+      const btnNext = document.getElementById('gsc-queries-btn-next');
+
+      if (pageInfo) pageInfo.innerText = 'Showing ' + (startIdx + 1) + ' to ' + endIdx + ' of ' + total;
+      if (pageNum) pageNum.innerText = GSCState.queryPage + ' / ' + totalPages;
+      if (btnPrev) btnPrev.disabled = (GSCState.queryPage === 1);
+      if (btnNext) btnNext.disabled = (GSCState.queryPage === totalPages);
+
+      let html = '';
+      pageSlice.forEach(row => {
+        const querySafe = escapeHtml(row.query || '');
+        const clicks = Number(row.clicks || 0).toLocaleString();
+        const impr = Number(row.impressions || 0).toLocaleString();
+        const ctr = (Number(row.ctr || 0) * 100).toFixed(1) + '%';
+        const pos = Number(row.position || 0).toFixed(1);
+
+        html += '<tr>' +
+          '<td style="font-weight: 500; color: var(--color-ink); max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="' + querySafe + '">' + querySafe + '</td>' +
+          '<td style="text-align: right; font-weight: 600; color: #38bdf8;">' + clicks + '</td>' +
+          '<td style="text-align: right; color: var(--color-muted);">' + impr + '</td>' +
+          '<td style="text-align: right; color: var(--color-teal);">' + ctr + '</td>' +
+          '<td style="text-align: right; color: var(--color-amber);">' + pos + '</td>' +
+        '</tr>';
+      });
+
+      tbody.innerHTML = html;
+    }
+
+    function sortGSCQueries(col) {
+      if (GSCState.querySortCol === col) {
+        GSCState.querySortDir = GSCState.querySortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        GSCState.querySortCol = col;
+        GSCState.querySortDir = (col === 'query') ? 'asc' : 'desc';
+      }
+      GSCState.queryPage = 1;
+      renderGSCQueriesTable();
+    }
+
+    function handleGSCQueryFilter(val) {
+      GSCState.queryFilter = val || '';
+      GSCState.queryPage = 1;
+      renderGSCQueriesTable();
+    }
+
+    function prevGSCQueryPage() {
+      if (GSCState.queryPage > 1) {
+        GSCState.queryPage--;
+        renderGSCQueriesTable();
+      }
+    }
+
+    function nextGSCQueryPage() {
+      const filtered = getFilteredSortedQueries();
+      const totalPages = Math.ceil(filtered.length / GSCState.queryPageSize) || 1;
+      if (GSCState.queryPage < totalPages) {
+        GSCState.queryPage++;
+        renderGSCQueriesTable();
+      }
+    }
+
+    function getFilteredSortedPages() {
+      let list = GSCState.pages.slice();
+      if (GSCState.pageFilter) {
+        const pf = GSCState.pageFilter.toLowerCase();
+        list = list.filter(item => (item.page || '').toLowerCase().includes(pf));
+      }
+      const col = GSCState.pageSortCol;
+      const dir = GSCState.pageSortDir === 'asc' ? 1 : -1;
+      list.sort((a, b) => {
+        let vA = a[col];
+        let vB = b[col];
+        if (typeof vA === 'string') return vA.localeCompare(vB) * dir;
+        return ((vA || 0) - (vB || 0)) * dir;
+      });
+      return list;
+    }
+
+    function renderGSCPagesTable() {
+      const tbody = document.getElementById('gsc-pages-tbody');
+      if (!tbody) return;
+
+      const filtered = getFilteredSortedPages();
+      const total = filtered.length;
+      const paginationEl = document.getElementById('gsc-pages-pagination');
+
+      if (total === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 24px; color: var(--color-muted);">' +
+          'No landing pages matching current criteria.' +
+        '</td></tr>';
+        if (paginationEl) paginationEl.style.display = 'none';
+        return;
+      }
+
+      if (paginationEl) paginationEl.style.display = 'flex';
+      const totalPages = Math.ceil(total / GSCState.pagePageSize) || 1;
+      if (GSCState.pagePage > totalPages) GSCState.pagePage = totalPages;
+      if (GSCState.pagePage < 1) GSCState.pagePage = 1;
+
+      const startIdx = (GSCState.pagePage - 1) * GSCState.pagePageSize;
+      const endIdx = Math.min(startIdx + GSCState.pagePageSize, total);
+      const pageSlice = filtered.slice(startIdx, endIdx);
+
+      const pageInfo = document.getElementById('gsc-pages-page-info');
+      const pageNum = document.getElementById('gsc-pages-page-num');
+      const btnPrev = document.getElementById('gsc-pages-btn-prev');
+      const btnNext = document.getElementById('gsc-pages-btn-next');
+
+      if (pageInfo) pageInfo.innerText = 'Showing ' + (startIdx + 1) + ' to ' + endIdx + ' of ' + total;
+      if (pageNum) pageNum.innerText = GSCState.pagePage + ' / ' + totalPages;
+      if (btnPrev) btnPrev.disabled = (GSCState.pagePage === 1);
+      if (btnNext) btnNext.disabled = (GSCState.pagePage === totalPages);
+
+      let html = '';
+      pageSlice.forEach(row => {
+        const fullUrl = row.page || '';
+        let displayPath = fullUrl;
+        try {
+          const u = new URL(fullUrl);
+          displayPath = u.pathname;
+        } catch (e) {}
+
+        const pathSafe = escapeHtml(displayPath);
+        const urlSafe = escapeHtml(fullUrl);
+        const clicks = Number(row.clicks || 0).toLocaleString();
+        const impr = Number(row.impressions || 0).toLocaleString();
+        const ctr = (Number(row.ctr || 0) * 100).toFixed(1) + '%';
+        const pos = Number(row.position || 0).toFixed(1);
+
+        html += '<tr>' +
+          '<td style="font-weight: 500; color: var(--color-ink); max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">' +
+            '<a href="' + urlSafe + '" target="_blank" rel="noopener" style="color: var(--color-blue); text-decoration: none;" title="' + urlSafe + '">' +
+              pathSafe +
+            '</a>' +
+          '</td>' +
+          '<td style="text-align: right; font-weight: 600; color: #38bdf8;">' + clicks + '</td>' +
+          '<td style="text-align: right; color: var(--color-muted);">' + impr + '</td>' +
+          '<td style="text-align: right; color: var(--color-teal);">' + ctr + '</td>' +
+          '<td style="text-align: right; color: var(--color-amber);">' + pos + '</td>' +
+        '</tr>';
+      });
+
+      tbody.innerHTML = html;
+    }
+
+    function sortGSCPages(col) {
+      if (GSCState.pageSortCol === col) {
+        GSCState.pageSortDir = GSCState.pageSortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        GSCState.pageSortCol = col;
+        GSCState.pageSortDir = (col === 'page') ? 'asc' : 'desc';
+      }
+      GSCState.pagePage = 1;
+      renderGSCPagesTable();
+    }
+
+    function handleGSCPageFilter(val) {
+      GSCState.pageFilter = val || '';
+      GSCState.pagePage = 1;
+      renderGSCPagesTable();
+    }
+
+    function prevGSCPagePage() {
+      if (GSCState.pagePage > 1) {
+        GSCState.pagePage--;
+        renderGSCPagesTable();
+      }
+    }
+
+    function nextGSCPagePage() {
+      const filtered = getFilteredSortedPages();
+      const totalPages = Math.ceil(filtered.length / GSCState.pagePageSize) || 1;
+      if (GSCState.pagePage < totalPages) {
+        GSCState.pagePage++;
+        renderGSCPagesTable();
+      }
+    }
+
+    function handleGSCDateRangeChange(val) {
+      GSCState.dateRange = val;
+      const customWrap = document.getElementById('gsc-custom-range-wrap');
+      if (val === 'custom') {
+        if (customWrap) customWrap.style.display = 'flex';
+      } else {
+        if (customWrap) customWrap.style.display = 'none';
+        loadSearchPerformanceData();
+      }
+    }
+
+    function applyGSCCustomDateRange() {
+      const s = document.getElementById('gsc-custom-start');
+      const e = document.getElementById('gsc-custom-end');
+      if (!s || !e || !s.value || !e.value) {
+        showToast('Please select both start and end dates', 'warning');
+        return;
+      }
+      if (s.value > e.value) {
+        showToast('Start date must be before end date', 'warning');
+        return;
+      }
+      GSCState.customStart = s.value;
+      GSCState.customEnd = e.value;
+      loadSearchPerformanceData();
+    }
+
+    function handleGSCSearchTypeChange(val) {
+      GSCState.searchType = val;
+      loadSearchPerformanceData();
+    }
+
+    function refreshGSCData() {
+      showToast('Refreshing Google Search Console data...', 'info');
+      loadSearchPerformanceData(true);
+    }
+
+    async function connectSearchConsole() {
+      try {
+        const res = await fetch('/api/admin/gsc/auth/start?format=json', {
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.authUrl) {
+            window.location.href = data.authUrl;
+            return;
+          }
+        } else if (res.status === 503) {
+          const data = await res.json().catch(() => ({}));
+          const msg = data.error || 'Google OAuth credentials (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) are not configured.';
+          renderGSCErrorState(msg);
+          showToast(msg, 'warning');
+          return;
+        }
+      } catch (e) {
+        // Fallback to direct navigation
+      }
+      window.location.href = '/api/admin/gsc/auth/start';
+    }
+
+    async function disconnectSearchConsole() {
+      if (!confirm('Disconnect Google Search Console? This will remove stored access credentials from the server.')) {
+        return;
+      }
+      try {
+        const res = await fetch('/api/admin/gsc/disconnect', { method: 'POST' });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          GSCState.connected = false;
+          GSCState.accountEmail = null;
+          GSCState.accountName = null;
+          GSCState.accountPicture = null;
+          GSCState.summary = null;
+          GSCState.queries = [];
+          GSCState.pages = [];
+          GSCState.dateSeries = [];
+          GSCState.sitemaps = null;
+          if (AppState.currentUser) {
+            delete AppState.currentUser.googlePicture;
+            updateSidebarProfile(AppState.currentUser);
+          }
+          updateGSCStatusUI();
+          renderGSCNotConnectedState();
+          showToast('Google Search Console disconnected', 'info');
+        } else {
+          showToast(data.error || 'Failed to disconnect', 'error');
+        }
+      } catch (e) {
+        showToast('Error disconnecting: ' + e.message, 'error');
+      }
+    }
+
+    function initGSCOAuthRedirectFeedback() {
+      try {
+        let params = new URLSearchParams(window.location.search);
+        // Fallback: check if params arrived after hash
+        if (!params.get('gsc') && !params.get('gsc_error') && !params.get('gsc_disconnected')) {
+          const hash = window.location.hash || '';
+          const qIdx = hash.indexOf('?');
+          if (qIdx !== -1) {
+            params = new URLSearchParams(hash.slice(qIdx));
+          }
+        }
+
+        if (params.get('gsc') === 'connected') {
+          showToast('Google Search Console connected successfully!', 'success');
+          params.delete('gsc');
+          const cleanHash = (window.location.hash || '').split('?')[0];
+          const newSearch = params.toString() ? '?' + params.toString() : '';
+          window.history.replaceState({}, document.title, window.location.pathname + newSearch + cleanHash);
+        } else if (params.get('gsc_error')) {
+          const errCode = params.get('gsc_error');
+          let msg = 'Google Search Console connection failed.';
+          if (errCode === 'oauth_denied' || errCode === 'access_denied') msg = 'Google Search Console access was denied.';
+          else if (errCode === 'missing_code') msg = 'OAuth authorization code missing.';
+          else if (errCode === 'invalid_state') msg = 'OAuth security state verification failed. Please try again.';
+          else if (errCode === 'token_exchange_failed') msg = 'Failed to exchange Google OAuth authorization token.';
+          else if (errCode === 'missing_credentials') msg = 'Google OAuth credentials (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) are not configured.';
+          else if (errCode === 'missing_params') msg = 'OAuth callback parameters missing.';
+          else if (errCode === 'oauth_not_configured') msg = 'Google OAuth credentials are not configured.';
+          else msg = 'Google Search Console connection failed: ' + errCode;
+          renderGSCErrorState(msg);
+          showToast(msg, 'error');
+          params.delete('gsc_error');
+          const cleanHash = (window.location.hash || '').split('?')[0];
+          const newSearch = params.toString() ? '?' + params.toString() : '';
+          window.history.replaceState({}, document.title, window.location.pathname + newSearch + cleanHash);
+        } else if (params.get('gsc_disconnected')) {
+          showToast('Google Search Console disconnected', 'info');
+          params.delete('gsc_disconnected');
+          const cleanHash = (window.location.hash || '').split('?')[0];
+          const newSearch = params.toString() ? '?' + params.toString() : '';
+          window.history.replaceState({}, document.title, window.location.pathname + newSearch + cleanHash);
+        }
+      } catch (e) {}
+
+      checkInitialGSCStatus();
     }
   </script>
 </body>

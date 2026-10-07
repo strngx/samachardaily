@@ -22,4 +22,5 @@ CLEANUP_*
 
 # Local generated editorial dashboard artifacts
 tools/editorial-control-center/article-quality-index.json
+tools/editorial-control-center/gsc-tokens.json
 

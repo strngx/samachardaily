@@ -3,6 +3,9 @@
   "name": "samachardaily",
   "main": "worker/index.js",
   "compatibility_date": "2024-09-23",
+  "vars": {
+    "GSC_PROPERTY_ID": "https://thesamachardaily.in/"
+  },
   "assets": {
     "directory": "./_site",
     "binding": "ASSETS",

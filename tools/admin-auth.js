@@ -17,6 +17,54 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 
+// Load local environment variables from .env if present
+const envFilePath = path.resolve(__dirname, '..', '.env');
+if (fs.existsSync(envFilePath)) {
+  try {
+    const envContent = fs.readFileSync(envFilePath, 'utf8');
+    for (const line of envContent.split(/\r?\n/)) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const eqIdx = trimmed.indexOf('=');
+      if (eqIdx !== -1) {
+        const key = trimmed.slice(0, eqIdx).trim();
+        let val = trimmed.slice(eqIdx + 1).trim();
+        if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+          val = val.slice(1, -1);
+        }
+        if (!process.env[key]) {
+          process.env[key] = val;
+        }
+      }
+    }
+  } catch (_) {}
+}
+
+// Local GSC persistence for development
+const localGscTokensFile = path.resolve(__dirname, 'editorial-control-center', 'gsc-tokens.json');
+let localGscTokens = null;
+try {
+  if (fs.existsSync(localGscTokensFile)) {
+    localGscTokens = JSON.parse(fs.readFileSync(localGscTokensFile, 'utf8'));
+  }
+} catch (_) {}
+
+function saveLocalGscTokens(data) {
+  localGscTokens = data;
+  try {
+    const dir = path.dirname(localGscTokensFile);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(localGscTokensFile, JSON.stringify(data, null, 2), 'utf8');
+  } catch (_) {}
+}
+
+function deleteLocalGscTokens() {
+  localGscTokens = null;
+  try {
+    if (fs.existsSync(localGscTokensFile)) fs.unlinkSync(localGscTokensFile);
+  } catch (_) {}
+}
+
 // Strict path regex for article Markdown files
 const ARTICLE_PATH_REGEX = /^src\/articles\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+\.md$/;
 
@@ -314,6 +362,7 @@ function adminAuthMiddleware(req, res, next) {
       res.end(JSON.stringify({
         authenticated: true,
         user: session.username,
+        googlePicture: (localGscTokens && localGscTokens.account_picture) || null,
         expiresAt: session.expiresAt,
         sessionTtlMinutes: Math.round((session.expiresAt - Date.now()) / 60000)
       }));
@@ -659,6 +708,182 @@ function adminAuthMiddleware(req, res, next) {
       res.end(JSON.stringify({ success: false, error: err.message }));
     });
     return;
+  }
+
+  // 3G. GSC API ENDPOINTS (Phase 2 & 2.1 Local Support)
+  if (pathname.startsWith('/api/admin/gsc/')) {
+    const session = validateSession(req);
+    if (!session) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }));
+      return;
+    }
+
+    // Status
+    if (pathname === '/api/admin/gsc/status' && req.method === 'GET') {
+      const clientId = process.env.GOOGLE_CLIENT_ID || null;
+      const clientSecret = process.env.GOOGLE_CLIENT_SECRET || null;
+      const isConnected = Boolean(localGscTokens && (localGscTokens.access_token || localGscTokens.refresh_token));
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({
+        success: true,
+        connected: isConnected,
+        configured: Boolean(clientId && clientSecret),
+        property: process.env.GSC_PROPERTY_ID || 'https://thesamachardaily.in/',
+        accountEmail: localGscTokens?.account_email || null,
+        accountName: localGscTokens?.account_name || null,
+        accountPicture: localGscTokens?.account_picture || null,
+        lastSynced: localGscTokens?.last_synced || null
+      }));
+      return;
+    }
+
+    // Auth Start
+    if (pathname === '/api/admin/gsc/auth/start' && req.method === 'GET') {
+      const clientId = process.env.GOOGLE_CLIENT_ID;
+      const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+      const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost:8080'}`);
+      const format = urlObj.searchParams.get('format');
+      const wantsJson = (req.headers.accept && req.headers.accept.includes('application/json')) || format === 'json';
+
+      if (!clientId || !clientSecret) {
+        const errMsg = 'Google OAuth client credentials (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) are not configured in your local environment. Set them in your environment or Cloudflare secrets to enable Google sign-in.';
+        if (wantsJson) {
+          res.writeHead(503, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: errMsg }));
+        } else {
+          res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=missing_credentials#search' });
+          res.end();
+        }
+        return;
+      }
+
+      const redirectUri = `http://${req.headers.host || 'localhost:8080'}/api/admin/gsc/auth/callback`;
+      const scopes = [
+        'https://www.googleapis.com/auth/webmasters.readonly',
+        'openid',
+        'email',
+        'profile'
+      ].join(' ');
+      const state = crypto.randomBytes(16).toString('hex');
+      const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent(scopes)}&state=${encodeURIComponent(state)}&access_type=offline&prompt=consent`;
+
+      if (wantsJson) {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, authUrl: googleAuthUrl }));
+      } else {
+        res.writeHead(302, { 'Location': googleAuthUrl });
+        res.end();
+      }
+      return;
+    }
+
+    // Auth Callback
+    if (pathname === '/api/admin/gsc/auth/callback' && req.method === 'GET') {
+      const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost:8080'}`);
+      const code = urlObj.searchParams.get('code');
+      const errParam = urlObj.searchParams.get('error');
+
+      if (errParam) {
+        res.writeHead(302, { 'Location': `/admin/editorial?gsc_error=${encodeURIComponent(errParam)}#search` });
+        res.end();
+        return;
+      }
+
+      if (!code) {
+        res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=missing_code#search' });
+        res.end();
+        return;
+      }
+
+      const clientId = process.env.GOOGLE_CLIENT_ID;
+      const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+      const redirectUri = `http://${req.headers.host || 'localhost:8080'}/api/admin/gsc/auth/callback`;
+
+      (async () => {
+        try {
+          const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+              code,
+              client_id: clientId,
+              client_secret: clientSecret,
+              redirect_uri: redirectUri,
+              grant_type: 'authorization_code'
+            }).toString()
+          });
+
+          if (!tokenRes.ok) {
+            const errBody = await tokenRes.text();
+            throw new Error('Token exchange failed: ' + errBody);
+          }
+
+          const tokenData = await tokenRes.json();
+          let accountEmail = null;
+          let accountName = null;
+          let accountPicture = null;
+
+          if (tokenData.access_token) {
+            try {
+              const uRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                headers: { 'Authorization': `Bearer ${tokenData.access_token}` }
+              });
+              if (uRes.ok) {
+                const u = await uRes.json();
+                accountEmail = u.email || null;
+                accountName = u.name || null;
+                accountPicture = u.picture || null;
+              }
+            } catch (_) {}
+          }
+
+          saveLocalGscTokens({
+            access_token: tokenData.access_token,
+            refresh_token: tokenData.refresh_token || null,
+            expires_at: Date.now() + (tokenData.expires_in * 1000),
+            account_email: accountEmail,
+            account_name: accountName,
+            account_picture: accountPicture,
+            last_synced: new Date().toISOString()
+          });
+
+          res.writeHead(302, { 'Location': '/admin/editorial?gsc=connected#search' });
+          res.end();
+        } catch (err) {
+          res.writeHead(302, { 'Location': `/admin/editorial?gsc_error=${encodeURIComponent(err.message || 'token_exchange_failed')}#search` });
+          res.end();
+        }
+      })();
+      return;
+    }
+
+    // Disconnect
+    if (pathname === '/api/admin/gsc/disconnect' && req.method === 'POST') {
+      deleteLocalGscTokens();
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, message: 'Google Search Console disconnected successfully.' }));
+      return;
+    }
+
+    // Performance
+    if (pathname === '/api/admin/gsc/performance' && req.method === 'GET') {
+      if (!localGscTokens || (!localGscTokens.access_token && !localGscTokens.refresh_token)) {
+        res.writeHead(401, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: 'Google Search Console is not connected.' }));
+        return;
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({
+        success: true,
+        summary: { clicks: 0, impressions: 0, ctr: 0, position: 0 },
+        queries: [],
+        pages: [],
+        dateSeries: [],
+        lastSynced: localGscTokens.last_synced || new Date().toISOString()
+      }));
+      return;
+    }
   }
 
   // 4. Route Guard: Protected Editorial Surface (/admin/editorial/*)

@@ -10,355 +10,592 @@ noindex: true
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Editorial Control Center Login — Samachar Daily</title>
   <meta name="robots" content="noindex, nofollow, noarchive">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <style>
     :root {
       --color-brand: #C81E2C;
       --color-brand-dark: #9e1420;
-      --color-ink: #0f172a;
-      --color-muted: #475569;
-      --color-subtle: #64748b;
-      --color-bg: #f8fafc;
-      --color-surface: #ffffff;
-      --color-border: #e2e8f0;
+      --color-brand-glow: rgba(200, 30, 44, 0.25);
+      --color-bg: #080c14;
+      --color-surface: #0f1523;
+      --color-surface-sub: #0a0e19;
+      --color-surface-input: #080c16;
+      --color-border: rgba(255, 255, 255, 0.08);
+      --color-border-subtle: rgba(255, 255, 255, 0.05);
       --color-border-focus: #C81E2C;
-      --color-danger: #b91c1c;
-      --color-danger-bg: #fef2f2;
-      --color-danger-border: #fecaca;
-      --color-success: #15803d;
-      --color-success-bg: #f0fdf4;
-      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      --font-serif: "Merriweather", Georgia, "Times New Roman", serif;
-      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --color-text-primary: #f8fafc;
+      --color-text-secondary: #94a3b8;
+      --color-text-muted: #64748b;
+      --color-emerald: #10b981;
+      --color-emerald-glow: rgba(16, 185, 129, 0.2);
+      --color-danger-bg: rgba(200, 30, 44, 0.12);
+      --color-danger-border: rgba(200, 30, 44, 0.35);
+      --color-danger-text: #fca5a5;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       --radius-sm: 4px;
-      --radius-md: 8px;
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+      --radius-md: 10px;
+      --radius-lg: 14px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     html, body {
-      height: 100%;
+      min-height: 100%;
       background-color: var(--color-bg);
-      color: var(--color-ink);
-      font-family: var(--font-stack);
+      color: var(--color-text-primary);
+      font-family: var(--font-sans);
       line-height: 1.5;
       font-size: 14px;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
     body {
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      position: relative;
+      background-color: #080c14;
+      background-image: 
+        radial-gradient(circle at 50% 18%, rgba(200, 30, 44, 0.08) 0%, rgba(8, 12, 20, 0) 65%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 36px 36px, 36px 36px;
     }
 
-    /* Top Strip */
-    .utility-strip {
-      background-color: #042f2e;
-      color: #ccfbf1;
-      padding: 8px 20px;
-      font-size: 11px;
+    /* Top Technical Status Bar */
+    .terminal-topbar {
+      width: 100%;
+      background: rgba(10, 14, 25, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--color-border);
+      padding: 10px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #115e59;
-    }
-    .utility-badge {
-      background-color: #f59e0b;
-      color: #78350f;
-      font-weight: 800;
-      font-size: 9px;
-      padding: 2px 6px;
-      border-radius: var(--radius-sm);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--color-text-muted);
+      z-index: 10;
     }
 
-    /* Center Login Container */
-    .login-wrapper {
-      flex: 1;
+    .topbar-node {
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 32px 16px;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
-    .login-card {
-      width: 100%;
-      max-width: 440px;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-md);
-      overflow: hidden;
-    }
-
-    .login-header {
-      padding: 32px 32px 24px 32px;
-      border-bottom: 1px solid var(--color-border);
-      background: #ffffff;
-      text-align: center;
-    }
-
-    .brand-mark {
+    .status-indicator {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 13px;
+      color: var(--color-emerald);
+      font-weight: 600;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--color-emerald);
+      box-shadow: 0 0 6px var(--color-emerald);
+    }
+
+    .topbar-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--color-text-muted);
+    }
+
+    /* Main Gateway Container */
+    .login-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* Terminal Auth Card */
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.03);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle Red Accent Top Rim */
+    .login-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--color-brand) 30%, var(--color-brand) 70%, transparent 100%);
+    }
+
+    /* Header Section */
+    .card-header {
+      padding: 32px 32px 24px 32px;
+      text-align: center;
+      border-bottom: 1px solid var(--color-border-subtle);
+      background: linear-gradient(180deg, rgba(200, 30, 44, 0.03) 0%, transparent 100%);
+    }
+
+    .brand-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .brand-logo-img {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 12px rgba(200, 30, 44, 0.3);
+      display: block;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .brand-title {
+      font-size: 18px;
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      color: var(--color-text-primary);
+      line-height: 1.2;
+    }
+
+    .brand-accent {
       color: var(--color-brand);
-      margin-bottom: 12px;
-    }
-    .brand-mark::before {
-      content: "";
-      display: inline-block;
-      width: 4px;
-      height: 16px;
-      background-color: var(--color-brand);
-      border-radius: 1px;
     }
 
-    .login-title {
-      font-family: var(--font-serif);
-      font-size: 22px;
+    .gateway-heading {
+      font-size: 12px;
       font-weight: 700;
-      color: var(--color-ink);
-      line-height: 1.25;
-      margin-bottom: 6px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #cbd5e1;
+      margin-bottom: 4px;
     }
 
-    .login-subtitle {
-      font-size: 13px;
-      color: var(--color-muted);
+    .gateway-subheading {
+      font-size: 12px;
+      color: var(--color-text-muted);
     }
 
-    .login-body {
-      padding: 32px;
+    /* Status Strip inside Card */
+    .terminal-strip {
+      margin: 0 32px 24px 32px;
+      padding: 8px 12px;
+      background: var(--color-surface-sub);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
     }
 
+    .terminal-strip-label {
+      color: var(--color-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .terminal-strip-badge {
+      color: var(--color-emerald);
+      font-weight: 600;
+    }
+
+    /* Card Body */
+    .card-body {
+      padding: 0 32px 28px 32px;
+    }
+
+    /* Alert / Error Box */
     .alert-box {
       display: none;
-      padding: 12px 14px;
+      padding: 11px 14px;
       border-radius: var(--radius-sm);
-      font-size: 13px;
+      font-size: 12px;
+      font-family: var(--font-mono);
       margin-bottom: 20px;
-      line-height: 1.4;
+      line-height: 1.45;
     }
+
     .alert-box.alert-error {
       display: block;
       background-color: var(--color-danger-bg);
       border: 1px solid var(--color-danger-border);
-      color: var(--color-danger);
-    }
-    .alert-box.alert-success {
-      display: block;
-      background-color: var(--color-success-bg);
-      border: 1px solid #bbf7d0;
-      color: var(--color-success);
+      color: var(--color-danger-text);
     }
 
+    .alert-box.alert-success {
+      display: block;
+      background-color: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+    }
+
+    /* Form Fields */
     .form-group {
       margin-bottom: 20px;
     }
 
+    .form-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 7px;
+    }
+
     .form-label {
       display: block;
-      font-size: 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--color-ink);
-      margin-bottom: 6px;
+      letter-spacing: 0.08em;
+      color: var(--color-text-secondary);
+    }
+
+    .input-shell {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: var(--color-surface-input);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .input-shell:focus-within {
+      border-color: var(--color-border-focus);
+      box-shadow: 0 0 0 3px var(--color-brand-glow);
+    }
+
+    .input-prefix {
+      padding-left: 14px;
+      color: var(--color-brand);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 13px;
+      user-select: none;
     }
 
     .form-input {
       width: 100%;
       height: 44px;
-      padding: 0 14px;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-sm);
-      font-family: var(--font-stack);
-      font-size: 14px;
-      color: var(--color-ink);
-      background-color: #ffffff;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .form-input:focus {
+      padding: 0 14px 0 8px;
+      background: transparent;
+      border: none;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--color-text-primary);
       outline: none;
-      border-color: var(--color-brand);
-      box-shadow: 0 0 0 3px rgba(200, 30, 44, 0.15);
     }
 
-    .password-wrap {
-      position: relative;
+    .form-input::placeholder {
+      color: #475569;
+      font-family: var(--font-sans);
+      font-size: 13px;
     }
-    .password-toggle {
+
+    /* Password Input & Toggle */
+    .password-input {
+      padding-right: 60px;
+    }
+
+    .password-toggle-btn {
       position: absolute;
-      right: 10px;
+      right: 6px;
       top: 50%;
       transform: translateY(-50%);
-      background: none;
+      background: transparent;
       border: none;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--color-subtle);
+      color: var(--color-text-muted);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       cursor: pointer;
       padding: 6px 8px;
-    }
-    .password-toggle:hover {
-      color: var(--color-ink);
+      border-radius: var(--radius-sm);
+      transition: color 0.15s ease, background-color 0.15s ease;
     }
 
+    .password-toggle-btn:hover {
+      color: var(--color-text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .password-toggle-btn:focus-visible {
+      outline: 2px solid var(--color-brand);
+      outline-offset: 1px;
+    }
+
+    /* Submit Button */
     .btn-submit {
       width: 100%;
       height: 44px;
       background-color: var(--color-brand);
       color: #ffffff;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: var(--radius-sm);
-      font-family: var(--font-stack);
-      font-size: 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: background-color 0.15s ease;
+      transition: background-color 0.18s ease, box-shadow 0.18s ease, transform 0.05s ease;
+      margin-top: 4px;
     }
 
     .btn-submit:hover {
       background-color: var(--color-brand-dark);
+      box-shadow: 0 4px 14px var(--color-brand-glow);
+    }
+
+    .btn-submit:active {
+      transform: translateY(1px);
+    }
+
+    .btn-submit:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 2px;
     }
 
     .btn-submit:disabled {
-      background-color: #cbd5e1;
+      background-color: #334155;
+      color: #64748b;
       cursor: not-allowed;
+      box-shadow: none;
     }
 
-    .security-notice {
-      margin-top: 24px;
-      padding-top: 20px;
-      border-top: 1px solid var(--color-border);
+    /* Bottom Security Status inside card */
+    .card-security-bar {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--color-border-subtle);
       display: flex;
-      flex-direction: column;
-      gap: 6px;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
       font-size: 11px;
-      color: var(--color-subtle);
+      color: var(--color-text-muted);
     }
 
-    .security-item {
+    .secure-indicator {
       display: flex;
       align-items: center;
       gap: 6px;
+      color: var(--color-emerald);
+      font-weight: 600;
     }
-    .security-dot {
+
+    .pulse-dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background-color: #10b981;
+      background: var(--color-emerald);
     }
 
-    /* Footer */
+    /* Page Footer */
     .login-footer {
       text-align: center;
       padding: 16px;
+      font-family: var(--font-mono);
       font-size: 11px;
-      color: var(--color-subtle);
-      border-top: 1px solid var(--color-border);
+      color: var(--color-text-muted);
+      letter-spacing: 0.02em;
+      z-index: 10;
     }
 
-    @media (max-width: 480px) {
-      .login-header { padding: 24px 20px 18px 20px; }
-      .login-body { padding: 24px 20px; }
-      .login-title { font-size: 20px; }
+    /* Mobile Responsive Optimizations */
+    @media (max-width: 640px) {
+      .terminal-topbar {
+        padding: 8px 14px;
+        font-size: 10px;
+      }
+      .topbar-meta {
+        display: none;
+      }
+      .login-container {
+        padding: 24px 12px;
+      }
+      .login-card {
+        border-radius: var(--radius-md);
+      }
+      .card-header {
+        padding: 24px 20px 18px 20px;
+      }
+      .terminal-strip {
+        margin: 0 20px 18px 20px;
+        font-size: 10px;
+      }
+      .card-body {
+        padding: 0 20px 22px 20px;
+      }
+      .card-security-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .brand-title {
+        font-size: 16px;
+      }
+      .btn-submit {
+        font-size: 11px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Strip -->
-  <div class="utility-strip">
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <span class="utility-badge">Restricted Access</span>
-      <span>Samachar Daily Editorial Operations</span>
+  <!-- Technical Top Bar -->
+  <header class="terminal-topbar" role="banner">
+    <div class="topbar-node">
+      <span class="status-indicator">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>ONLINE</span>
+      </span>
+      <span>NODE: SAMACHAR-EDITORIAL</span>
     </div>
-    <div style="font-family: var(--font-mono); opacity: 0.8;">
-      Authentication Gateway
+    <div class="topbar-meta">
+      <span>CHANNEL: TLS 1.3</span>
+      <span>ACCESS: RESTRICTED</span>
     </div>
-  </div>
+  </header>
 
-  <div class="login-wrapper">
+  <!-- Main Login Section -->
+  <main class="login-container" role="main">
     <div class="login-card">
-      <div class="login-header">
-        <div class="brand-mark">SamacharDaily</div>
-        <h1 class="login-title">Editorial Control Center</h1>
-        <div class="login-subtitle">Internal Newsroom Management &amp; Diagnostics</div>
+      <div class="card-header">
+        <div class="brand-group">
+          <img src="/apple-touch-icon.png" alt="SamacharDaily Red Mark" class="brand-logo-img" width="44" height="44">
+          <div class="brand-title">
+            SAMACHAR<span class="brand-accent">Daily</span>
+          </div>
+        </div>
+        <h1 class="gateway-heading">Editorial Control &bull; Secure Access</h1>
+        <p class="gateway-subheading">Authorized newsroom personnel only.</p>
       </div>
 
-      <div class="login-body">
-        <div id="login-alert" class="alert-box" role="alert"></div>
+      <!-- Technical Status Strip -->
+      <div class="terminal-strip" aria-label="Security Status">
+        <span class="terminal-strip-label">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>GATEWAY STATUS</span>
+        </span>
+        <span class="terminal-strip-badge">SECURE // ENCRYPTED</span>
+      </div>
+
+      <div class="card-body">
+        <div id="login-alert" class="alert-box" role="alert" aria-live="polite"></div>
 
         <form id="admin-login-form" onsubmit="handleLoginSubmit(event)">
           <div class="form-group">
-            <label class="form-label" for="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              class="form-input"
-              value="admin"
-              required
-              autocomplete="username"
-              autofocus
-            >
+            <div class="form-label-row">
+              <label class="form-label" for="username">Username</label>
+            </div>
+            <div class="input-shell">
+              <span class="input-prefix" aria-hidden="true">&gt;</span>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                class="form-input"
+                value="admin"
+                required
+                autocomplete="username"
+                autofocus
+                placeholder="admin"
+                spellcheck="false"
+              >
+            </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="password">Password</label>
-            <div class="password-wrap">
+            <div class="form-label-row">
+              <label class="form-label" for="password">Password</label>
+            </div>
+            <div class="input-shell">
+              <span class="input-prefix" aria-hidden="true">&gt;</span>
               <input
                 type="password"
                 id="password"
                 name="password"
-                class="form-input"
+                class="form-input password-input"
                 required
                 autocomplete="current-password"
                 placeholder="Enter newsroom password"
               >
-              <button type="button" class="password-toggle" onclick="togglePasswordVisibility()">Show</button>
+              <button
+                type="button"
+                id="password-toggle-btn"
+                class="password-toggle-btn"
+                onclick="togglePasswordVisibility()"
+                aria-label="Toggle password visibility"
+              >Show</button>
             </div>
           </div>
 
           <button type="submit" id="submit-btn" class="btn-submit">
-            <span id="submit-text">Sign In to Control Center</span>
+            <span id="submit-text">[ ACCESS EDITORIAL CONTROL ]</span>
           </button>
         </form>
 
-        <div class="security-notice">
-          <div class="security-item">
-            <span class="security-dot"></span>
-            <span>Server-side scrypt authentication</span>
+        <div class="card-security-bar">
+          <div class="secure-indicator">
+            <span class="pulse-dot" aria-hidden="true"></span>
+            <span>SECURE CONNECTION</span>
           </div>
-          <div class="security-item">
-            <span class="security-dot"></span>
-            <span>Rate-limited brute-force lockout defense</span>
-          </div>
-          <div class="security-item">
-            <span class="security-dot"></span>
-            <span>HttpOnly &amp; SameSite session containment</span>
-          </div>
+          <span>Private newsroom infrastructure</span>
         </div>
       </div>
-
-      <div class="login-footer">
-        Samachar Daily &bull; Internal Control Center &bull; Phase 3 Architecture
-      </div>
     </div>
-  </div>
+  </main>
+
+  <!-- Technical Footer -->
+  <footer class="login-footer" role="contentinfo">
+    <span>SamacharDaily &bull; Private Editorial Infrastructure</span>
+  </footer>
 
   <script>
     // 1. Check if user already has an active authenticated session
@@ -379,13 +616,15 @@ noindex: true
 
     function togglePasswordVisibility() {
       const input = document.getElementById('password');
-      const btn = event.target;
+      const btn = document.getElementById('password-toggle-btn');
       if (input.type === 'password') {
         input.type = 'text';
         btn.innerText = 'Hide';
+        btn.setAttribute('aria-label', 'Hide password');
       } else {
         input.type = 'password';
         btn.innerText = 'Show';
+        btn.setAttribute('aria-label', 'Show password');
       }
     }
 
@@ -419,7 +658,7 @@ noindex: true
       }
 
       submitBtn.disabled = true;
-      submitText.innerText = 'Verifying credentials...';
+      submitText.innerText = '[ AUTHENTICATING... ]';
 
       try {
         const response = await fetch('/api/admin/login', {
@@ -440,14 +679,14 @@ noindex: true
           }, 300);
         } else {
           submitBtn.disabled = false;
-          submitText.innerText = 'Sign In to Control Center';
+          submitText.innerText = '[ ACCESS EDITORIAL CONTROL ]';
           showAlert(result.error || 'Invalid administrator credentials.');
           passwordInput.value = '';
           passwordInput.focus();
         }
       } catch (err) {
         submitBtn.disabled = false;
-        submitText.innerText = 'Sign In to Control Center';
+        submitText.innerText = '[ ACCESS EDITORIAL CONTROL ]';
         showAlert('Network or server error. Please ensure the local admin server is running.');
       }
     }

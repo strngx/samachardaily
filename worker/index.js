@@ -63,6 +63,15 @@ import {
   getRevisionKey,
   getSignoffKey
 } from './safety.js';
+import {
+  getGSCConfig,
+  getGSCStatus,
+  getGSCPerformanceDashboard,
+  buildGSCAuthUrl,
+  exchangeGSCCode,
+  saveGSCTokens,
+  deleteGSCTokens
+} from './gsc.js';
 import yaml from 'js-yaml';
 
 // GitHub Contents API Configuration
@@ -580,6 +589,14 @@ export default {
             }
           });
         }
+        let googlePicture = null;
+        try {
+          const gscTokens = await getGSCTokens(env);
+          if (gscTokens && gscTokens.account_picture) {
+            googlePicture = gscTokens.account_picture;
+          }
+        } catch (_) {}
+
         return new Response(JSON.stringify({
           authenticated: true,
           user: member.displayName || session.sub,
@@ -587,6 +604,7 @@ export default {
           role: member.role,
           email: member.email,
           displayName: member.displayName,
+          googlePicture,
           exp: session.exp
         }), {
           status: 200,
@@ -1025,6 +1043,246 @@ export default {
           success: true,
           count: Object.keys(reviews).length,
           reviews
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      return new Response(JSON.stringify({ success: false, error: 'Endpoint not found' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+      });
+    }
+
+    // 5D-GSC. API ENDPOINTS: Google Search Console API Engine (Phase 2)
+    if (pathname.startsWith('/api/admin/gsc/')) {
+      const token = getSessionTokenFromRequest(request);
+      const session = (token && env.ADMIN_SESSION_SECRET)
+        ? await verifySessionToken(token, env.ADMIN_SESSION_SECRET)
+        : null;
+
+      if (pathname !== '/api/admin/gsc/auth/callback' && !session) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Unauthorized. Please log in.'
+        }), {
+          status: 401,
+          headers: {
+            'Content-Type': 'application/json',
+            ...getSecurityHeaders()
+          }
+        });
+      }
+
+      // 5D-GSC-1. GET /api/admin/gsc/status — Current GSC connection status
+      if (pathname === '/api/admin/gsc/status' && method === 'GET') {
+        const status = await getGSCStatus(env);
+        return new Response(JSON.stringify(status), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // 5D-GSC-2. GET /api/admin/gsc/performance — Fetch real Search Console performance
+      if (pathname === '/api/admin/gsc/performance' && method === 'GET') {
+        const range = url.searchParams.get('range') || '28days';
+        const customStart = url.searchParams.get('startDate');
+        const customEnd = url.searchParams.get('endDate');
+        const searchType = url.searchParams.get('type') || 'web';
+        const forceRefresh = url.searchParams.get('refresh') === 'true';
+
+        try {
+          const perf = await getGSCPerformanceDashboard(env, {
+            range,
+            customStart,
+            customEnd,
+            searchType,
+            forceRefresh
+          });
+          return new Response(JSON.stringify(perf), {
+            status: perf.success ? 200 : (perf.errorCode === 'PERMISSION_DENIED' ? 403 : 502),
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        } catch (err) {
+          return new Response(JSON.stringify({
+            success: false,
+            connected: true,
+            error: err.message || 'Failed to fetch Search Console data.'
+          }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+      }
+
+      // 5D-GSC-3. GET /api/admin/gsc/auth/start — Initiate OAuth connection
+      if (pathname === '/api/admin/gsc/auth/start' && method === 'GET') {
+        const caller = await getAuthenticatedMember(request, env);
+        if (!caller || !hasPermission(caller, 'view_settings')) {
+          return new Response(JSON.stringify({
+            success: false,
+            error: 'Forbidden. Administrator or Owner role required to connect Search Console.'
+          }), {
+            status: 403,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        const gscConfig = getGSCConfig(env);
+        if (!gscConfig.configured) {
+          const errMsg = 'Google OAuth client credentials (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) are not configured in Cloudflare Workers.';
+          if (request.headers.get('Accept')?.includes('application/json') || url.searchParams.get('format') === 'json') {
+            return new Response(JSON.stringify({
+              success: false,
+              error: errMsg
+            }), {
+              status: 503,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+          return new Response(null, {
+            status: 302,
+            headers: {
+              'Location': '/admin/editorial?gsc_error=missing_credentials#search',
+              ...getSecurityHeaders()
+            }
+          });
+        }
+
+        const state = await createOAuthState({ action: 'gsc_connect', userId: caller.id }, env.ADMIN_SESSION_SECRET);
+        const redirectUri = `${url.origin}/api/admin/gsc/auth/callback`;
+        const authUrl = buildGSCAuthUrl({
+          clientId: gscConfig.clientId,
+          redirectUri,
+          state
+        });
+
+        if (request.headers.get('Accept')?.includes('application/json')) {
+          return new Response(JSON.stringify({ success: true, authUrl }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        return new Response(null, {
+          status: 302,
+          headers: {
+            'Location': authUrl,
+            ...getSecurityHeaders()
+          }
+        });
+      }
+
+      // 5D-GSC-4. GET /api/admin/gsc/auth/callback — OAuth Callback from Google
+      if (pathname === '/api/admin/gsc/auth/callback' && method === 'GET') {
+        const code = url.searchParams.get('code');
+        const stateParam = url.searchParams.get('state');
+        const errParam = url.searchParams.get('error');
+
+        if (errParam) {
+          return new Response(null, {
+            status: 302,
+            headers: {
+              'Location': `/admin/editorial?gsc_error=${encodeURIComponent(errParam)}#search`,
+              ...getSecurityHeaders()
+            }
+          });
+        }
+
+        if (!code || !stateParam) {
+          return new Response(null, {
+            status: 302,
+            headers: {
+              'Location': '/admin/editorial?gsc_error=missing_params#search',
+              ...getSecurityHeaders()
+            }
+          });
+        }
+
+        const stateData = await verifyOAuthState(stateParam, env.ADMIN_SESSION_SECRET);
+        if (!stateData || stateData.action !== 'gsc_connect') {
+          return new Response(null, {
+            status: 302,
+            headers: {
+              'Location': '/admin/editorial?gsc_error=invalid_state#search',
+              ...getSecurityHeaders()
+            }
+          });
+        }
+
+        const gscConfig = getGSCConfig(env);
+        if (!gscConfig.configured) {
+          return new Response(null, {
+            status: 302,
+            headers: {
+              'Location': '/admin/editorial?gsc_error=oauth_not_configured#search',
+              ...getSecurityHeaders()
+            }
+          });
+        }
+
+        try {
+          const redirectUri = `${url.origin}/api/admin/gsc/auth/callback`;
+          const tokens = await exchangeGSCCode({
+            code,
+            clientId: gscConfig.clientId,
+            clientSecret: gscConfig.clientSecret,
+            redirectUri
+          });
+
+          const nowIso = new Date().toISOString();
+          const tokenData = {
+            access_token: tokens.access_token,
+            refresh_token: tokens.refresh_token,
+            expires_at: Date.now() + (tokens.expires_in * 1000),
+            scope: tokens.scope,
+            connected_at: nowIso,
+            connected_by: stateData.userId || 'admin',
+            account_email: tokens.userEmail || null,
+            account_name: tokens.userName || null,
+            account_picture: tokens.userPicture || null,
+            property_id: gscConfig.propertyId
+          };
+
+          await saveGSCTokens(env, tokenData);
+
+          return new Response(null, {
+            status: 302,
+            headers: {
+              'Location': '/admin/editorial?gsc=connected#search',
+              ...getSecurityHeaders()
+            }
+          });
+        } catch (err) {
+          console.error('[GSC OAuth Error]', err.message);
+          return new Response(null, {
+            status: 302,
+            headers: {
+              'Location': `/admin/editorial?gsc_error=${encodeURIComponent(err.message || 'token_exchange_failed')}#search`,
+              ...getSecurityHeaders()
+            }
+          });
+        }
+      }
+
+      // 5D-GSC-5. POST /api/admin/gsc/disconnect — Disconnect GSC integration
+      if (pathname === '/api/admin/gsc/disconnect' && method === 'POST') {
+        const caller = await getAuthenticatedMember(request, env);
+        if (!caller || !hasPermission(caller, 'view_settings')) {
+          return new Response(JSON.stringify({
+            success: false,
+            error: 'Forbidden. Administrator or Owner role required to disconnect Search Console.'
+          }), {
+            status: 403,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        await deleteGSCTokens(env);
+        return new Response(JSON.stringify({
+          success: true,
+          message: 'Google Search Console disconnected successfully.'
         }), {
           status: 200,
           headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
