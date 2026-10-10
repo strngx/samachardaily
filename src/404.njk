@@ -58,6 +58,48 @@ noindex: true
     </div>
   </section>
 
+  <!-- Recent Stories (Deterministic Real Content) -->
+  <section class="smart-404-recent-section" aria-label="Recent Stories" style="margin-bottom: var(--space-8);">
+    <div class="related-stories-header">
+      <h2 class="related-stories-title">Recent Stories</h2>
+      <span class="related-stories-badge">Latest Dispatches</span>
+    </div>
+    <div class="related-stories-grid">
+      {% for article in collections.articles | limit(4) %}
+        <article class="editorial-card related-story-card">
+          {% if article.data.image %}
+            <a href="{{ article.url | url }}" class="card-thumb" aria-label="{{ article.data.title }}">
+              <img
+                src="{{ article.data.image | url }}"
+                alt="{{ article.data.imageAlt or article.data.title }}"
+                loading="lazy"
+                decoding="async"
+                width="400"
+                height="225"
+              >
+            </a>
+          {% endif %}
+          <div class="card-body-wrap">
+            <div class="card-cat-wrap">
+              <a href="{{ ('/' + (article.data.category | categorySlug) + '/') | url }}" class="category-label">
+                {{ article.data.category }}
+              </a>
+            </div>
+            <h3 class="card-title">
+              <a href="{{ article.url | url }}">{{ article.data.title }}</a>
+            </h3>
+            {% if article.data.dek %}
+              <p class="card-snippet">{{ article.data.dek }}</p>
+            {% endif %}
+            <div class="meta-row card-meta-row" style="margin-top: auto; font-size: 0.75rem;">
+              <time datetime="{{ article.date | isoDate }}">{{ article.date | timeAgo }}</time>
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
   <!-- Browse by Desk Navigation -->
   <nav class="smart-404-desks" aria-label="Browse by Desk">
     <h2 class="smart-404-desks-title">Browse by Desk</h2>

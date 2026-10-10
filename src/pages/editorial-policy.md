@@ -31,7 +31,7 @@ We prioritize factual accuracy and clarity above all else. We do not publish cli
 
 ---
 
-## 3. AI-Assisted Journalism & Workflow Disclosure
+<h2 id="ai-workflow-disclosure">3. AI-Assisted Journalism &amp; Workflow Disclosure</h2>
 
 SamacharDaily utilizes modern artificial intelligence technology to assist our editorial workflow while maintaining strict factual standards under a solo-publisher operational model owned and operated by Founder & Owner **Arjun Khatri**. We clearly distinguish between five distinct production phases:
 
@@ -53,7 +53,7 @@ When reporting on fast-moving or developing events where complete details have n
 
 ---
 
-## 5. Health, Medical & Dietary Information Standards
+<h2 id="health-disclaimer">5. Health, Medical &amp; Dietary Information Standards</h2>
 
 - **Informational Scope Only:** Reporting on medical treatments, public health emergencies, nutrition, diet, or wellness is strictly informational and journalistic. SamacharDaily does not provide medical, diagnostic, or personalized dietary advice.
 - **Mandatory Review Gate:** Ingested wire dispatches containing health, medical, or dietary claims are automatically routed to our editorial draft staging area for human review prior to publication.
@@ -61,7 +61,7 @@ When reporting on fast-moving or developing events where complete details have n
 
 ---
 
-## 6. Corrections & Clarifications Policy
+<h2 id="corrections-policy">6. Corrections &amp; Clarifications Policy</h2>
 
 - **Prompt Corrections:** If a factual error, inaccuracy, or misleading statement is identified in any of our published articles, our editorial desk updates the story promptly.
 - **Reader Feedback & Corrections:** Readers, organizations, and stakeholders are encouraged to submit factual corrections, grievance notices, or news tips directly to our editorial desk at [samachardaily.editorial@gmail.com](mailto:samachardaily.editorial@gmail.com). Detailed step-by-step submission instructions are available on our [Contact & Grievances Page]({{ '/contact/' | url }}).

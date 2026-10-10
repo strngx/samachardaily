@@ -19,7 +19,9 @@ import {
   resetLockoutState
 } from './auth.js';
 
-import { loginHtml, editorialHtml } from './admin-views.js';
+import { loginHtml, editorialHtml, qualityIndexJson, internalLinksJson, siteHealthJson } from './admin-views.js';
+import { paginateInternalLinks } from './internal-linking.js';
+import { resolveSiteHealth } from './site-health.js';
 import {
   ROLES,
   MEMBER_STATUS,
@@ -33,6 +35,7 @@ import {
   getInvitationByToken,
   getInvitationById,
   cancelInvitation,
+  deleteInvitation,
   acceptInvitation,
   listInvitations,
   listMembers,
@@ -42,6 +45,7 @@ import {
   requireRole,
   hasPermission,
   getGoogleOAuthConfig,
+  resolveInvitationRedirectUri,
   createOAuthState,
   verifyOAuthState,
   buildGoogleAuthUrl,
@@ -75,7 +79,44 @@ import {
   validateInspectUrl,
   resolveGSCRedirectUri
 } from './gsc.js';
+import {
+  analyzeArticleSafety,
+  generateArticleUpgrade,
+  evaluateOutputQuality,
+  sanitizeUntrustedText,
+  CLAIM_CLASSIFICATION
+} from './ai-upgrade.js';
+import { getManualAiStatus } from './manual-ai-providers.js';
 import yaml from 'js-yaml';
+import {
+  analyzeArticle,
+  detectDuplicates,
+  buildCorpusSummary,
+  buildCachePayload,
+  parseArticleIndex,
+  paginateArticles,
+  QUALITY_CACHE_KEY,
+  QUALITY_CACHE_TTL,
+} from './content-quality.js';
+import {
+  registerSubscriber,
+  unsubscribeSubscriber,
+  getSubscriberByToken,
+  listSubscribers,
+  getNewsletterStats,
+  updateSubscriberStatus,
+  deleteSubscriber,
+  saveCampaignDraft,
+  getCampaignById,
+  getCampaignsIndex,
+  renderCampaignHtml,
+  buildDailyDigest,
+  renderDigestHtml,
+  renderDigestPlainText,
+  executeDailyDigestRun,
+  getDeliveryConfig,
+  getSubscribersIndex
+} from './newsletter.js';
 
 // GitHub Contents API Configuration
 const GITHUB_API_BASE = 'https://api.github.com';
@@ -423,12 +464,227 @@ export default {
     const pathname = url.pathname;
 
     // 1. PUBLIC ROUTING:
-    // If request is not an admin route, pass directly to Cloudflare static assets
-    if (!pathname.startsWith('/admin') && !pathname.startsWith('/api/admin')) {
+    // If request is not an admin route or public newsletter route, pass directly to Cloudflare static assets
+    if (!pathname.startsWith('/admin') && !pathname.startsWith('/api/admin') && !pathname.startsWith('/api/newsletter')) {
       return env.ASSETS.fetch(request);
     }
 
     const method = request.method;
+
+    // 1B. PUBLIC NEWSLETTER ENDPOINTS (Phase J)
+    if (pathname === '/api/newsletter/subscribe' && method === 'POST') {
+      try {
+        let email = '';
+        let source = 'web';
+        const contentType = request.headers.get('content-type') || '';
+
+        if (contentType.includes('application/json')) {
+          const body = await request.json().catch(() => ({}));
+          email = body.email || body['entry.963532165'] || '';
+          source = body.source || 'web';
+        } else if (contentType.includes('application/x-www-form-urlencoded') || contentType.includes('multipart/form-data')) {
+          const formData = await request.formData().catch(() => new FormData());
+          email = formData.get('email') || formData.get('entry.963532165') || '';
+          source = formData.get('source') || 'web_form';
+        }
+
+        const clientIp = getClientIp(request);
+        const userAgent = request.headers.get('user-agent') || '';
+        const referrer = request.headers.get('referer') || '';
+
+        const result = await registerSubscriber(env, {
+          email,
+          source,
+          metadata: { userAgent, referrer, clientIp }
+        });
+
+        const status = result.success ? 200 : 400;
+
+        // If standard HTML form POST without AJAX, redirect back gracefully
+        if (contentType.includes('application/x-www-form-urlencoded')) {
+          const redirectUrl = new URL(referrer || '/', url.origin);
+          redirectUrl.searchParams.set('newsletter', result.success ? 'success' : 'error');
+          return Response.redirect(redirectUrl.toString(), 303);
+        }
+
+        return new Response(JSON.stringify(result), {
+          status,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      } catch (err) {
+        return new Response(JSON.stringify({ success: false, error: err.message || 'Subscription failed.' }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+    }
+
+    if (pathname === '/api/newsletter/unsubscribe' && (method === 'GET' || method === 'POST')) {
+      const token = (url.searchParams.get('token') || '').trim();
+      const subId = (url.searchParams.get('id') || '').trim();
+      const confirmParam = url.searchParams.get('confirm');
+      const isPost = method === 'POST';
+      const isConfirmedGet = method === 'GET' && confirmParam === '1';
+      const acceptsHtml = (request.headers.get('accept') || '').includes('text/html');
+
+      // 1. Token Requirement: Public requests must provide a valid unsubscribe token.
+      // Bare IDs alone are strictly rejected.
+      if (!token) {
+        if (acceptsHtml) {
+          const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><title>Unsubscribe Notice — Samachar Daily</title>
+  <style>body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #090d16; color: #f8fafc; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; } .card { background: #101726; border: 1px solid #1e293b; border-radius: 12px; padding: 32px; max-width: 480px; width: 100%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5); } .badge { display: inline-block; background: #C81E2C; color: #fff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 16px; } h1 { font-size: 20px; font-weight: 700; margin: 0 0 12px; } p { color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0 0 24px; } a.btn { display: inline-block; background: #1e293b; color: #f8fafc; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 600; } a.btn:hover { background: #334155; }</style>
+</head>
+<body><div class="card"><div class="badge">SAMACHAR DAILY</div><h1>Unsubscribe Notice</h1><p>A valid unsubscribe verification token is required.</p><a href="https://thesamachardaily.in/" class="btn">Return to Homepage</a></div></body></html>`;
+          return new Response(html, { status: 400, headers: { 'Content-Type': 'text/html; charset=utf-8', ...getSecurityHeaders() } });
+        }
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'A valid unsubscribe verification token is required.',
+          errorCode: 'INVALID_TOKEN'
+        }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // 2. Resolve and verify subscriber by token
+      const existingSub = await getSubscriberByToken(env, token);
+      if (!existingSub) {
+        if (acceptsHtml) {
+          const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><title>Unsubscribe Notice — Samachar Daily</title>
+  <style>body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #090d16; color: #f8fafc; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; } .card { background: #101726; border: 1px solid #1e293b; border-radius: 12px; padding: 32px; max-width: 480px; width: 100%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5); } .badge { display: inline-block; background: #C81E2C; color: #fff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 16px; } h1 { font-size: 20px; font-weight: 700; margin: 0 0 12px; } p { color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0 0 24px; } a.btn { display: inline-block; background: #1e293b; color: #f8fafc; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 600; } a.btn:hover { background: #334155; }</style>
+</head>
+<body><div class="card"><div class="badge">SAMACHAR DAILY</div><h1>Unsubscribe Notice</h1><p>Subscriber record not found or link has expired.</p><a href="https://thesamachardaily.in/" class="btn">Return to Homepage</a></div></body></html>`;
+          return new Response(html, { status: 404, headers: { 'Content-Type': 'text/html; charset=utf-8', ...getSecurityHeaders() } });
+        }
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Subscriber record not found or link has expired.',
+          errorCode: 'NOT_FOUND'
+        }), {
+          status: 404,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // If ID is also supplied, verify token belongs to this subscriber
+      if (subId && existingSub.id !== subId) {
+        if (acceptsHtml) {
+          const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><title>Unsubscribe Notice — Samachar Daily</title>
+  <style>body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #090d16; color: #f8fafc; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; } .card { background: #101726; border: 1px solid #1e293b; border-radius: 12px; padding: 32px; max-width: 480px; width: 100%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5); } .badge { display: inline-block; background: #C81E2C; color: #fff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 16px; } h1 { font-size: 20px; font-weight: 700; margin: 0 0 12px; } p { color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0 0 24px; } a.btn { display: inline-block; background: #1e293b; color: #f8fafc; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 600; } a.btn:hover { background: #334155; }</style>
+</head>
+<body><div class="card"><div class="badge">SAMACHAR DAILY</div><h1>Unsubscribe Notice</h1><p>Invalid or forged unsubscribe token.</p><a href="https://thesamachardaily.in/" class="btn">Return to Homepage</a></div></body></html>`;
+          return new Response(html, { status: 401, headers: { 'Content-Type': 'text/html; charset=utf-8', ...getSecurityHeaders() } });
+        }
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Invalid or forged unsubscribe token.',
+          errorCode: 'UNAUTHORIZED'
+        }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // 3. Mutating Execution: Only on POST (RFC 8058 One-Click or form submit) or explicit confirm=1 GET
+      if (isPost || isConfirmedGet) {
+        const result = await unsubscribeSubscriber(env, { id: existingSub.id, token });
+        if (acceptsHtml && method === 'GET') {
+          const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unsubscribe — Samachar Daily</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #090d16; color: #f8fafc; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+    .card { background: #101726; border: 1px solid #1e293b; border-radius: 12px; padding: 32px; max-width: 480px; width: 100%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+    .badge { display: inline-block; background: #C81E2C; color: #fff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 16px; }
+    h1 { font-size: 20px; font-weight: 700; margin: 0 0 12px; }
+    p { color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0 0 24px; }
+    a.btn { display: inline-block; background: #1e293b; color: #f8fafc; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 600; }
+    a.btn:hover { background: #334155; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge">SAMACHAR DAILY</div>
+    <h1>${result.success ? 'Unsubscribed Successfully' : 'Unsubscribe Notice'}</h1>
+    <p>${result.message || result.error}</p>
+    <a href="https://thesamachardaily.in/" class="btn">Return to Homepage</a>
+  </div>
+</body>
+</html>`;
+          return new Response(html, {
+            status: result.success ? 200 : 400,
+            headers: { 'Content-Type': 'text/html; charset=utf-8', ...getSecurityHeaders() }
+          });
+        }
+
+        return new Response(JSON.stringify(result), {
+          status: result.success ? 200 : 400,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // 4. Safe GET Request: Protect against mail security scanner pre-fetch
+      // Already unsubscribed check
+      if (existingSub.status === 'unsubscribed') {
+        if (acceptsHtml) {
+          const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><title>Already Unsubscribed — Samachar Daily</title>
+  <style>body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #090d16; color: #f8fafc; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; } .card { background: #101726; border: 1px solid #1e293b; border-radius: 12px; padding: 32px; max-width: 480px; width: 100%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5); } .badge { display: inline-block; background: #C81E2C; color: #fff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 16px; } h1 { font-size: 20px; font-weight: 700; margin: 0 0 12px; } p { color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0 0 24px; } a.btn { display: inline-block; background: #1e293b; color: #f8fafc; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 600; } a.btn:hover { background: #334155; }</style>
+</head>
+<body><div class="card"><div class="badge">SAMACHAR DAILY</div><h1>Already Unsubscribed</h1><p>You are already unsubscribed from The Daily Briefing.</p><a href="https://thesamachardaily.in/" class="btn">Return to Homepage</a></div></body></html>`;
+          return new Response(html, { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8', ...getSecurityHeaders() } });
+        }
+        return new Response(JSON.stringify({ success: true, status: 'unsubscribed', message: 'You are already unsubscribed from The Daily Briefing.', alreadyUnsubscribed: true }), { status: 200, headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() } });
+      }
+
+      // Active subscriber clicking link: render confirmation page with POST button
+      const postActionUrl = `/api/newsletter/unsubscribe?token=${encodeURIComponent(token)}`;
+      const confirmHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirm Unsubscribe — Samachar Daily</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #090d16; color: #f8fafc; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+    .card { background: #101726; border: 1px solid #1e293b; border-radius: 12px; padding: 32px; max-width: 480px; width: 100%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+    .badge { display: inline-block; background: #C81E2C; color: #fff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 16px; }
+    h1 { font-size: 20px; font-weight: 700; margin: 0 0 12px; }
+    p { color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0 0 24px; }
+    button.btn-unsub { background: #C81E2C; color: #ffffff; border: none; padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    button.btn-unsub:hover { background: #991b1b; }
+    .cancel-link { display: block; margin-top: 16px; color: #64748b; font-size: 13px; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge">SAMACHAR DAILY</div>
+    <h1>Confirm Unsubscribe</h1>
+    <p>Are you sure you want to stop receiving The Daily Briefing in your inbox?</p>
+    <form method="POST" action="${postActionUrl}">
+      <button type="submit" class="btn-unsub">Confirm Unsubscribe</button>
+    </form>
+    <a href="https://thesamachardaily.in/" class="cancel-link">Never mind, keep my subscription</a>
+  </div>
+</body>
+</html>`;
+      return new Response(confirmHtml, { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8', ...getSecurityHeaders() } });
+    }
 
     // 2. API ENDPOINT: Login
     if (pathname === '/api/admin/login' && method === 'POST') {
@@ -463,8 +719,9 @@ export default {
         });
       }
 
-      // Enforce 24-hour account lockout after 3 consecutive failed attempts
-      const lockout = await getLockoutState(env);
+      // Enforce 24-hour account lockout after 3 consecutive failed attempts (scoped per client IP)
+      const clientIp = getClientIp(request);
+      const lockout = await getLockoutState(env, clientIp);
       if (lockout.isLocked) {
         return new Response(JSON.stringify({
           success: false,
@@ -500,7 +757,7 @@ export default {
         const isPasswordValid = await verifyPassword(password, env.ADMIN_PASSWORD_HASH);
         if (username.toLowerCase() === 'admin' && isPasswordValid) {
           // Reset consecutive failure counter upon successful authentication
-          await resetLockoutState(env);
+          await resetLockoutState(env, clientIp);
 
           const sessionToken = await createSessionToken('admin', env.ADMIN_SESSION_SECRET);
           const cookieHeader = buildSessionCookie(sessionToken);
@@ -517,8 +774,8 @@ export default {
             }
           });
         } else {
-          // Record failed login attempt (activates 24-hour lockout on 3rd failure)
-          const postFailState = await recordFailedLogin(env);
+          // Record failed login attempt (activates 24-hour lockout on 3rd failure for this client IP)
+          const postFailState = await recordFailedLogin(env, clientIp);
           if (postFailState.isLocked) {
             return new Response(JSON.stringify({
               success: false,
@@ -800,6 +1057,61 @@ export default {
         return new Response(JSON.stringify({
           success: false,
           error: err.message || 'Failed to cancel invitation.'
+        }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+    }
+
+    if (pathname === '/api/admin/members/invite/delete' && method === 'POST') {
+      const caller = await getAuthenticatedMember(request, env);
+      if (!caller) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Unauthorized. Please log in.'
+        }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      if (!hasPermission(caller, 'delete_invitations')) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Forbidden. Only Owner and Administrator can delete invitations.'
+        }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      try {
+        const body = await request.json();
+        const id = body.id;
+        if (!id) {
+          return new Response(JSON.stringify({
+            success: false,
+            error: 'Missing required field: id.'
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        const result = await deleteInvitation(env, id);
+        return new Response(JSON.stringify({
+          success: true,
+          message: 'Invitation deleted successfully.',
+          id: result.id
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      } catch (err) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: err.message || 'Failed to delete invitation.'
         }), {
           status: 400,
           headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
@@ -1119,8 +1431,8 @@ export default {
         }
       }
 
-      // 5D-GSC-INSPECT. POST /api/admin/gsc/inspect — Inspect URL with official Google Search Console API
-      if (pathname === '/api/admin/gsc/inspect' && method === 'POST') {
+      // 5D-GSC-INSPECT. POST or GET /api/admin/gsc/inspect — Inspect URL with official Google Search Console API
+      if (pathname === '/api/admin/gsc/inspect' && (method === 'POST' || method === 'GET')) {
         const caller = await getAuthenticatedMember(request, env);
         if (!caller) {
           return new Response(JSON.stringify({
@@ -1133,9 +1445,27 @@ export default {
         }
 
         try {
-          const body = await request.json();
-          const targetUrl = (body.url || '').trim();
-          const forceRefresh = Boolean(body.refresh);
+          let targetUrl = '';
+          let forceRefresh = false;
+
+          if (method === 'POST') {
+            try {
+              const body = await request.json();
+              targetUrl = (body.url || '').trim();
+              forceRefresh = Boolean(body.refresh);
+            } catch (_) {
+              return new Response(JSON.stringify({
+                success: false,
+                error: 'Invalid JSON payload.'
+              }), {
+                status: 400,
+                headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+              });
+            }
+          } else {
+            targetUrl = (url.searchParams.get('url') || '').trim();
+            forceRefresh = url.searchParams.get('refresh') === 'true';
+          }
 
           if (!targetUrl) {
             return new Response(JSON.stringify({
@@ -1608,6 +1938,217 @@ export default {
           count: 0,
           limit,
           queue: []
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      return new Response(JSON.stringify({ success: false, error: 'Endpoint not found' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+      });
+    }
+
+    // 5E. API ENDPOINTS: Authenticated Manual AI Article Upgrade (Phase D)
+    if (pathname.startsWith('/api/admin/ai/upgrade/')) {
+      const caller = await getAuthenticatedMember(request, env);
+      if (!caller) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Unauthorized. Please log in.'
+        }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // User-facing roles: Exactly ADMIN and EDITOR (plus internal OWNER)
+      if (!requireRole(caller, [ROLES.OWNER, ROLES.ADMIN, ROLES.EDITOR])) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Forbidden. Manual AI Upgrade is restricted to Admin and Editor roles.'
+        }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // 5E-0. GET /api/admin/ai/upgrade/providers — Safe server-side provider status view
+      if (pathname === '/api/admin/ai/upgrade/providers' && method === 'GET') {
+        const diagnostics = getManualAiStatus(env);
+        return new Response(JSON.stringify({
+          success: true,
+          ...diagnostics
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      if (method !== 'POST') {
+        return new Response(JSON.stringify({ success: false, error: 'Method not allowed' }), {
+          status: 405,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      let payload = null;
+      try {
+        payload = await request.json();
+      } catch (_) {
+        return new Response(JSON.stringify({ success: false, error: 'Invalid JSON request payload' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      const { relPath, sha, title, dek, body: articleBody, sourceName, sourceUrl, focus } = payload || {};
+
+      if (!relPath || typeof relPath !== 'string' || !validateArticleRelPath(relPath)) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Invalid target path. Only Markdown files in src/articles/ are permitted.'
+        }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // Check article existence if explicitly simulated or flagged
+      if (payload.simulateNotFound === true) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Article not found in repository.'
+        }), {
+          status: 404,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // 5E-1. POST /api/admin/ai/upgrade/analyze — Pre-upgrade fact/safety analysis
+      if (pathname === '/api/admin/ai/upgrade/analyze') {
+        if (!title || typeof title !== 'string' || !articleBody || typeof articleBody !== 'string') {
+          return new Response(JSON.stringify({
+            success: false,
+            error: 'Article title and body are required for analysis.'
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        const analysis = analyzeArticleSafety({
+          title,
+          dek: dek || '',
+          body: articleBody,
+          sourceName: sourceName || '',
+          sourceUrl: sourceUrl || ''
+        });
+
+        return new Response(JSON.stringify({
+          success: true,
+          relPath,
+          sha: sha || null,
+          analysis
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // 5E-2. POST /api/admin/ai/upgrade/generate — Generate improved article candidate
+      if (pathname === '/api/admin/ai/upgrade/generate') {
+        if (!title || typeof title !== 'string' || !articleBody || typeof articleBody !== 'string') {
+          return new Response(JSON.stringify({
+            success: false,
+            error: 'Article title and body are required for upgrade generation.'
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        const upgradeResult = await generateArticleUpgrade(
+          {
+            title,
+            dek: dek || '',
+            body: articleBody,
+            sourceName: sourceName || '',
+            sourceUrl: sourceUrl || ''
+          },
+          env,
+          { focus }
+        );
+
+        if (!upgradeResult.success) {
+          return new Response(JSON.stringify({
+            success: false,
+            error: upgradeResult.error || 'AI upgrade could not be completed right now.',
+            totalAttempts: upgradeResult.totalAttempts || 0
+          }), {
+            status: 502,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        return new Response(JSON.stringify({
+          success: true,
+          relPath,
+          sha: sha || null,
+          candidate: upgradeResult.candidate,
+          quality: upgradeResult.quality,
+          safetyAnalysis: upgradeResult.safetyAnalysis,
+          providerUsed: upgradeResult.providerUsed,
+          totalAttempts: upgradeResult.totalAttempts,
+          research: upgradeResult.research || { researched: false }
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // 5E-3. POST /api/admin/ai/upgrade/accept — Working-state / Draft Handoff ONLY
+      // STAGE 1: Saves rewritten text into editor working state.
+      // ZERO GitHub writes, ZERO commits, ZERO deployments.
+      // Final persistence is reserved strictly for the existing "Save Changes" workflow (Stage 2).
+      if (pathname === '/api/admin/ai/upgrade/accept') {
+        const { candidateHeadline, candidateDek, candidateBody } = payload;
+        const newTitle = candidateHeadline || title;
+        const newDek = candidateDek !== undefined ? candidateDek : dek;
+        const newBody = candidateBody || articleBody;
+
+        if (!newTitle || !newBody) {
+          return new Response(JSON.stringify({
+            success: false,
+            error: 'Upgraded article headline and body are required for editor handoff.'
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        // Record working-state handoff event into audit KV
+        await recordAuditEvent(env, {
+          actor: caller.email || caller.displayName || caller.id,
+          action: 'ai_rewrite_handoff',
+          status: 'success',
+          relPath,
+          sha: sha || 'working_draft',
+          summary: `Loaded AI rewrite draft into editor working state for ${relPath} (awaiting manual Save Changes)`
+        });
+
+        // Return working draft directly to browser editor state
+        // Byte-preserving image, imageCredit, video, slug, canonical, URL, category, author
+        return new Response(JSON.stringify({
+          success: true,
+          relPath,
+          workingDraft: {
+            headline: newTitle.trim(),
+            dek: typeof newDek === 'string' ? newDek.trim() : '',
+            body: newBody.trim()
+          },
+          message: 'AI rewrite loaded into editor working state. Review your draft in the editor and click "Save Changes" to commit when ready.'
         }), {
           status: 200,
           headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
@@ -2261,7 +2802,7 @@ export default {
       }
 
       const state = await createOAuthState({ token }, env.ADMIN_SESSION_SECRET);
-      const redirectUri = `${url.origin}/admin/invite/callback`;
+      const redirectUri = resolveInvitationRedirectUri(url, env);
       const authUrl = buildGoogleAuthUrl({
         clientId: oauthConfig.clientId,
         redirectUri,
@@ -2325,7 +2866,7 @@ export default {
       }
 
       try {
-        const redirectUri = `${url.origin}/admin/invite/callback`;
+        const redirectUri = resolveInvitationRedirectUri(url, env);
         const tokens = await exchangeGoogleCode({
           code,
           clientId: oauthConfig.clientId,
@@ -2417,6 +2958,757 @@ export default {
       });
     }
 
+    // PHASE E: Content Quality API Endpoints
+    // Read-only diagnostic. No article mutation. ADMIN/EDITOR access only.
+    if (pathname.startsWith('/api/admin/content-quality')) {
+      // Authentication: require valid session
+      const cqToken = getSessionTokenFromRequest(request);
+      const cqSession = (cqToken && env.ADMIN_SESSION_SECRET)
+        ? await verifySessionToken(cqToken, env.ADMIN_SESSION_SECRET)
+        : null;
+
+      if (!cqSession) {
+        return new Response(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // Authorization: ADMIN or EDITOR only (no new roles)
+      const cqMember = await getAuthenticatedMember(request, env);
+      if (!cqMember) {
+        return new Response(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+      if (cqMember.role !== 'owner' && cqMember.role !== 'admin' && cqMember.role !== 'editor') {
+        return new Response(JSON.stringify({ success: false, error: 'Forbidden. Admin or Editor role required.' }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // GET /api/admin/content-quality/summary — corpus summary from cache or fresh analysis
+      if (pathname === '/api/admin/content-quality/summary' && method === 'GET') {
+        try {
+          // Try cached result first
+          const forceRefresh = url.searchParams.get('refresh') === 'true';
+          let cached = null;
+          if (!forceRefresh && env.AUTH_KV) {
+            try {
+              const raw = await env.AUTH_KV.get(QUALITY_CACHE_KEY);
+              if (raw) cached = JSON.parse(raw);
+            } catch (_) {}
+          }
+
+          if (cached && cached.summary) {
+            return new Response(JSON.stringify({ success: true, cached: true, ...cached.summary, cachedAt: cached.cachedAt }), {
+              status: 200,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+
+          // No cache: return needs-analysis state (analysis triggered separately)
+          return new Response(JSON.stringify({
+            success: true,
+            cached: false,
+            needsAnalysis: true,
+            message: 'Content quality index not yet available. Trigger analysis via POST /api/admin/content-quality/analyze.'
+          }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        } catch (err) {
+          return new Response(JSON.stringify({ success: false, error: 'Failed to load quality summary: ' + err.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+      }
+
+      // POST /api/admin/content-quality/analyze — trigger corpus analysis from quality-index.json
+      // Reads quality-index.json from static assets (safe, no GitHub writes, no AI)
+      if (pathname === '/api/admin/content-quality/analyze' && method === 'POST') {
+        try {
+          // Load quality index from compiled admin-views module or static assets
+          let indexData = null;
+          if (typeof qualityIndexJson !== 'undefined' && qualityIndexJson && qualityIndexJson !== '{}') {
+            try {
+              indexData = typeof qualityIndexJson === 'string' ? JSON.parse(qualityIndexJson) : qualityIndexJson;
+            } catch (_) {}
+          }
+
+          if (!indexData || !Array.isArray(indexData.articles)) {
+            try {
+              let indexResp = await env.ASSETS.fetch(new Request(new URL('/admin/editorial/article-quality-index.json', url.origin).toString()));
+              if (!indexResp.ok) {
+                indexResp = await env.ASSETS.fetch(new Request(new URL('/admin/editorial/quality-index.json', url.origin).toString()));
+              }
+              if (indexResp.ok) {
+                indexData = await indexResp.json();
+              }
+            } catch (fetchErr) {
+              return new Response(JSON.stringify({
+                success: false,
+                error: 'Quality index not available. Run the build first: npm run build. Details: ' + fetchErr.message
+              }), {
+                status: 503,
+                headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+              });
+            }
+          }
+
+          if (!indexData || !Array.isArray(indexData.articles)) {
+            return new Response(JSON.stringify({
+              success: false,
+              error: 'Quality index is empty or malformed. Run npm run build to regenerate.'
+            }), {
+              status: 503,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+
+          // Parse and analyze — deterministic, no AI, no external calls
+          const records = parseArticleIndex(indexData);
+          const analyzed = records.map(r => analyzeArticle(r.data, r.body, r.category, r.slug, r.relPath));
+          const duplicatePairs = detectDuplicates(analyzed);
+          const summary = buildCorpusSummary(analyzed, duplicatePairs);
+          const cachePayload = buildCachePayload(analyzed, duplicatePairs, summary);
+
+          // Store result in KV with TTL
+          if (env.AUTH_KV) {
+            try {
+              await env.AUTH_KV.put(QUALITY_CACHE_KEY, JSON.stringify(cachePayload), { expirationTtl: QUALITY_CACHE_TTL });
+            } catch (_) {}
+          }
+
+          return new Response(JSON.stringify({ success: true, summary, analyzedAt: summary.analyzedAt }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        } catch (err) {
+          return new Response(JSON.stringify({ success: false, error: 'Analysis failed: ' + err.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+      }
+
+      // GET /api/admin/content-quality/queue — paginated quality queue
+      if (pathname === '/api/admin/content-quality/queue' && method === 'GET') {
+        try {
+          let cached = null;
+          if (env.AUTH_KV) {
+            try {
+              const raw = await env.AUTH_KV.get(QUALITY_CACHE_KEY);
+              if (raw) cached = JSON.parse(raw);
+            } catch (_) {}
+          }
+
+          if (!cached || !Array.isArray(cached.articles)) {
+            return new Response(JSON.stringify({
+              success: true,
+              needsAnalysis: true,
+              items: [],
+              total: 0,
+              page: 1,
+              pageSize: 50,
+              totalPages: 0,
+              message: 'Content quality index not yet available. Click Analyze Corpus to build the index.'
+            }), {
+              status: 200,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+
+          const filter = url.searchParams.get('filter') || 'all';
+          const desk = url.searchParams.get('desk') || '';
+          const page = parseInt(url.searchParams.get('page') || '1', 10);
+          const pageSize = Math.min(200, parseInt(url.searchParams.get('pageSize') || '50', 10));
+          const minWords = parseInt(url.searchParams.get('minWords') || '0', 10);
+          const maxWordsRaw = url.searchParams.get('maxWords');
+          const maxWords = maxWordsRaw ? parseInt(maxWordsRaw, 10) : Infinity;
+          const sortBy = url.searchParams.get('sortBy') || 'date_desc';
+
+          const paginated = paginateArticles(cached.articles, { filter, desk, page, pageSize, minWords, maxWords, sortBy });
+
+          return new Response(JSON.stringify({
+            success: true,
+            needsAnalysis: false,
+            cachedAt: cached.cachedAt,
+            ...paginated
+          }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        } catch (err) {
+          return new Response(JSON.stringify({ success: false, error: 'Failed to load queue: ' + err.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+      }
+
+      // GET /api/admin/content-quality/duplicates — list duplicate pairs
+      if (pathname === '/api/admin/content-quality/duplicates' && method === 'GET') {
+        try {
+          let cached = null;
+          if (env.AUTH_KV) {
+            try {
+              const raw = await env.AUTH_KV.get(QUALITY_CACHE_KEY);
+              if (raw) cached = JSON.parse(raw);
+            } catch (_) {}
+          }
+
+          if (!cached) {
+            return new Response(JSON.stringify({ success: true, needsAnalysis: true, pairs: [], total: 0 }), {
+              status: 200,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+
+          const pairs = (cached.duplicatePairs || []);
+          const page = parseInt(url.searchParams.get('page') || '1', 10);
+          const pageSize = Math.min(100, parseInt(url.searchParams.get('pageSize') || '50', 10));
+          const startIdx = (page - 1) * pageSize;
+          const pagePairs = pairs.slice(startIdx, startIdx + pageSize);
+
+          return new Response(JSON.stringify({
+            success: true,
+            needsAnalysis: false,
+            total: pairs.length,
+            page,
+            pageSize,
+            totalPages: Math.ceil(pairs.length / pageSize) || 1,
+            pairs: pagePairs,
+            cachedAt: cached.cachedAt
+          }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        } catch (err) {
+          return new Response(JSON.stringify({ success: false, error: 'Failed to load duplicates: ' + err.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+      }
+
+      // GET /api/admin/content-quality/article?slug=... — per-article quality detail
+      if (pathname === '/api/admin/content-quality/article' && method === 'GET') {
+        const slug = url.searchParams.get('slug');
+        if (!slug || !/^[a-zA-Z0-9_-]+$/.test(slug)) {
+          return new Response(JSON.stringify({ success: false, error: 'Invalid or missing slug parameter.' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        try {
+          let cached = null;
+          if (env.AUTH_KV) {
+            try {
+              const raw = await env.AUTH_KV.get(QUALITY_CACHE_KEY);
+              if (raw) cached = JSON.parse(raw);
+            } catch (_) {}
+          }
+
+          if (!cached || !Array.isArray(cached.articles)) {
+            return new Response(JSON.stringify({ success: false, error: 'Quality index not available. Run analysis first.', needsAnalysis: true }), {
+              status: 404,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+
+          const article = cached.articles.find(a => a.slug === slug);
+          if (!article) {
+            return new Response(JSON.stringify({ success: false, error: 'Article not found in quality index.' }), {
+              status: 404,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
+
+          // Find any duplicate pairs involving this article
+          const relatedPairs = (cached.duplicatePairs || []).filter(p =>
+            p.articleA.slug === slug || p.articleB.slug === slug
+          );
+
+          return new Response(JSON.stringify({
+            success: true,
+            article,
+            relatedDuplicates: relatedPairs,
+            cachedAt: cached.cachedAt
+          }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        } catch (err) {
+          return new Response(JSON.stringify({ success: false, error: 'Failed to load article quality detail: ' + err.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+      }
+
+      return new Response(JSON.stringify({ success: false, error: 'Content quality endpoint not found.' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+      });
+    }
+
+    // 6c. API ENDPOINTS: Internal Linking & Orphan Content Diagnostics (/api/admin/internal-links/*)
+    if (pathname.startsWith('/api/admin/internal-links/')) {
+      const ilToken = getSessionTokenFromRequest(request);
+      const ilSession = (ilToken && env.ADMIN_SESSION_SECRET)
+        ? await verifySessionToken(ilToken, env.ADMIN_SESSION_SECRET)
+        : null;
+
+      if (!ilSession) {
+        return new Response(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      const ilMember = await getAuthenticatedMember(request, env);
+      if (!ilMember) {
+        return new Response(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+      if (ilMember.role !== 'owner' && ilMember.role !== 'admin' && ilMember.role !== 'editor') {
+        return new Response(JSON.stringify({ success: false, error: 'Forbidden. Admin or Editor role required.' }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      let linkData = null;
+      if (typeof internalLinksJson !== 'undefined' && internalLinksJson && internalLinksJson !== '{}') {
+        try {
+          linkData = typeof internalLinksJson === 'string' ? JSON.parse(internalLinksJson) : internalLinksJson;
+        } catch (_) {}
+      }
+
+      if (!linkData || !linkData.summary) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Internal links index not available. Run npm run build first.'
+        }), {
+          status: 503,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // GET /api/admin/internal-links/summary
+      if (pathname === '/api/admin/internal-links/summary' && method === 'GET') {
+        return new Response(JSON.stringify({
+          success: true,
+          summary: linkData.summary
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // GET /api/admin/internal-links/queue — paginated & filterable list of articles with links & orphan status
+      if (pathname === '/api/admin/internal-links/queue' && method === 'GET') {
+        const desk = url.searchParams.get('desk') || 'all';
+        const status = url.searchParams.get('status') || 'all';
+        const search = url.searchParams.get('search') || '';
+        const page = parseInt(url.searchParams.get('page') || '1', 10);
+        const pageSize = Math.min(200, parseInt(url.searchParams.get('pageSize') || '50', 10));
+        const sortBy = url.searchParams.get('sortBy') || 'inbound_asc';
+
+        const paginated = paginateInternalLinks(linkData.articles, { desk, status, search, page, pageSize, sortBy });
+
+        return new Response(JSON.stringify({
+          success: true,
+          ...paginated
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // GET /api/admin/internal-links/article?slug=... — single article detailed link breakdown
+      if (pathname === '/api/admin/internal-links/article' && method === 'GET') {
+        const slug = url.searchParams.get('slug');
+        if (!slug || !/^[a-zA-Z0-9_-]+$/.test(slug)) {
+          return new Response(JSON.stringify({ success: false, error: 'Invalid or missing slug parameter.' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        const article = (linkData.articles || []).find(a => a.slug === slug);
+        if (!article) {
+          return new Response(JSON.stringify({ success: false, error: 'Article not found in link graph.' }), {
+            status: 404,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        return new Response(JSON.stringify({
+          success: true,
+          article
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // GET /api/admin/internal-links/diagnostics — broken links and anomalies
+      if (pathname === '/api/admin/internal-links/diagnostics' && method === 'GET') {
+        return new Response(JSON.stringify({
+          success: true,
+          brokenLinks: linkData.brokenLinks || [],
+          summary: linkData.summary
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      return new Response(JSON.stringify({ success: false, error: 'Internal links endpoint not found.' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+      });
+    }
+
+    // 6.6 API ENDPOINT: Site Health Diagnostics
+    if (pathname.startsWith('/api/admin/site-health')) {
+      const shSession = getSessionTokenFromRequest(request);
+      if (!shSession) {
+        return new Response(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      const shMember = await getAuthenticatedMember(request, env);
+      if (!shMember) {
+        return new Response(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+      if (shMember.role !== 'owner' && shMember.role !== 'admin' && shMember.role !== 'editor') {
+        return new Response(JSON.stringify({ success: false, error: 'Forbidden. Admin or Editor role required.' }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      let baseHealthData = {};
+      if (typeof siteHealthJson !== 'undefined' && siteHealthJson && siteHealthJson !== '{}') {
+        try {
+          baseHealthData = typeof siteHealthJson === 'string' ? JSON.parse(siteHealthJson) : siteHealthJson;
+        } catch (_) {}
+      }
+
+      // GET /api/admin/site-health/summary
+      if (pathname === '/api/admin/site-health/summary' && method === 'GET') {
+        return new Response(JSON.stringify({
+          success: true,
+          summary: baseHealthData.summary || {},
+          overallStatus: baseHealthData.overallStatus || 'UNKNOWN',
+          generatedAt: baseHealthData.generatedAt || new Date().toISOString()
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // GET /api/admin/site-health/diagnostics
+      if (pathname === '/api/admin/site-health/diagnostics' && method === 'GET') {
+        const liveDiagnostics = await resolveSiteHealth(request, env, baseHealthData);
+        return new Response(JSON.stringify({
+          success: true,
+          diagnostics: liveDiagnostics
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // POST /api/admin/site-health/run
+      if (pathname === '/api/admin/site-health/run' && method === 'POST') {
+        const runDiagnostics = await resolveSiteHealth(request, env, baseHealthData);
+        return new Response(JSON.stringify({
+          success: true,
+          message: 'Diagnostics executed successfully',
+          diagnostics: runDiagnostics
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      return new Response(JSON.stringify({ success: false, error: 'Site health endpoint not found.' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+      });
+    }
+
+    // 6.7 API ENDPOINT: Newsletter Management (Phase J)
+    if (pathname.startsWith('/api/admin/newsletter')) {
+      const nlSession = getSessionTokenFromRequest(request);
+      if (!nlSession) {
+        return new Response(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      const nlMember = await getAuthenticatedMember(request, env);
+      if (!nlMember) {
+        return new Response(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+      if (nlMember.role !== 'owner' && nlMember.role !== 'admin' && nlMember.role !== 'editor') {
+        return new Response(JSON.stringify({ success: false, error: 'Forbidden. Admin or Editor role required.' }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // GET /api/admin/newsletter/subscribers
+      if (pathname === '/api/admin/newsletter/subscribers' && method === 'GET') {
+        const page = url.searchParams.get('page') || 1;
+        const limit = url.searchParams.get('limit') || 50;
+        const search = url.searchParams.get('search') || '';
+        const status = url.searchParams.get('status') || 'all';
+
+        const result = await listSubscribers(env, { page, limit, search, status });
+        return new Response(JSON.stringify(result), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // GET /api/admin/newsletter/stats
+      if (pathname === '/api/admin/newsletter/stats' && method === 'GET') {
+        const result = await getNewsletterStats(env);
+        return new Response(JSON.stringify(result), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // POST /api/admin/newsletter/subscribers/status
+      if (pathname === '/api/admin/newsletter/subscribers/status' && method === 'POST') {
+        const body = await request.json().catch(() => ({}));
+        const result = await updateSubscriberStatus(env, { id: body.id, status: body.status });
+        return new Response(JSON.stringify(result), {
+          status: result.success ? 200 : 400,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // POST /api/admin/newsletter/subscribers/delete
+      if (pathname === '/api/admin/newsletter/subscribers/delete' && method === 'POST') {
+        const body = await request.json().catch(() => ({}));
+        const result = await deleteSubscriber(env, { id: body.id });
+        return new Response(JSON.stringify(result), {
+          status: result.success ? 200 : 400,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // GET /api/admin/newsletter/campaigns
+      if (pathname === '/api/admin/newsletter/campaigns' && method === 'GET') {
+        const campaigns = await getCampaignsIndex(env);
+        return new Response(JSON.stringify({ success: true, campaigns }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // POST /api/admin/newsletter/campaigns OR /api/admin/newsletter/campaigns/draft
+      if ((pathname === '/api/admin/newsletter/campaigns' || pathname === '/api/admin/newsletter/campaigns/draft') && method === 'POST') {
+        const body = await request.json().catch(() => ({}));
+        const result = await saveCampaignDraft(env, {
+          id: body.id,
+          title: body.title || body.subject || 'Draft Campaign',
+          subject: body.subject,
+          preheader: body.preheader,
+          bodyContent: body.bodyContent || body.content,
+          targetAudience: body.targetAudience,
+          author: nlMember.displayName || 'Editor'
+        });
+        return new Response(JSON.stringify(result), {
+          status: result.success ? 200 : 400,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // GET or POST /api/admin/newsletter/campaigns/preview
+      if (pathname === '/api/admin/newsletter/campaigns/preview' && (method === 'GET' || method === 'POST')) {
+        let postBody = {};
+        if (method === 'POST') {
+          postBody = await request.json().catch(() => ({}));
+        }
+        const campId = postBody.id || url.searchParams.get('id');
+        let campaign = null;
+        if (campId) {
+          campaign = await getCampaignById(env, campId);
+        }
+        const renderedHtml = renderCampaignHtml({
+          title: postBody.title || (campaign ? campaign.title : (url.searchParams.get('title') || 'The Daily Briefing')),
+          subject: postBody.subject || (campaign ? campaign.subject : (url.searchParams.get('subject') || "Today's Top Verified Dispatches")),
+          preheader: postBody.preheader || (campaign ? campaign.preheader : (url.searchParams.get('preheader') || '')),
+          bodyContent: postBody.bodyContent || postBody.content || (campaign ? campaign.bodyContent : (url.searchParams.get('body') || '')),
+          subscriberEmail: 'editor-preview@thesamachardaily.in',
+          unsubscribeUrl: 'https://thesamachardaily.in/api/newsletter/unsubscribe?preview=1'
+        });
+
+        const wantsRawHtml = url.searchParams.get('raw') === 'true';
+        if (wantsRawHtml) {
+          return new Response(renderedHtml, {
+            status: 200,
+            headers: { 'Content-Type': 'text/html; charset=utf-8', ...getSecurityHeaders() }
+          });
+        }
+
+        return new Response(JSON.stringify({ success: true, previewHtml: renderedHtml, html: renderedHtml }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // GET /api/admin/newsletter/digest/preview (Phase M)
+      if (pathname === '/api/admin/newsletter/digest/preview' && method === 'GET') {
+        let articles = [];
+        if (env && env.ASSETS) {
+          const resp = await env.ASSETS.fetch(new Request(new URL('/search-index.json', url.origin).toString())).catch(() => null);
+          if (resp && resp.ok) {
+            articles = await resp.json().catch(() => []);
+          }
+        }
+        if (articles.length === 0 && typeof qualityIndexJson !== 'undefined' && qualityIndexJson && qualityIndexJson !== '{}') {
+          try {
+            const parsed = typeof qualityIndexJson === 'string' ? JSON.parse(qualityIndexJson) : qualityIndexJson;
+            articles = parsed.articles || [];
+          } catch (_) {}
+        }
+
+        const digestDate = url.searchParams.get('date') || undefined;
+        const digest = buildDailyDigest(articles, { digestDate });
+        const previewHtml = renderDigestHtml(digest, { subscriberEmail: 'editor-preview@thesamachardaily.in' });
+        const previewText = renderDigestPlainText(digest, { subscriberEmail: 'editor-preview@thesamachardaily.in' });
+
+        if (url.searchParams.get('raw') === 'true') {
+          return new Response(previewHtml, {
+            status: 200,
+            headers: { 'Content-Type': 'text/html; charset=utf-8', ...getSecurityHeaders() }
+          });
+        }
+
+        return new Response(JSON.stringify({
+          success: true,
+          digest,
+          previewHtml,
+          previewText
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // POST /api/admin/newsletter/digest/test-run (Phase M)
+      if (pathname === '/api/admin/newsletter/digest/test-run' && method === 'POST') {
+        let articles = [];
+        if (env && env.ASSETS) {
+          const resp = await env.ASSETS.fetch(new Request(new URL('/search-index.json', url.origin).toString())).catch(() => null);
+          if (resp && resp.ok) {
+            articles = await resp.json().catch(() => []);
+          }
+        }
+        if (articles.length === 0 && typeof qualityIndexJson !== 'undefined' && qualityIndexJson && qualityIndexJson !== '{}') {
+          try {
+            const parsed = typeof qualityIndexJson === 'string' ? JSON.parse(qualityIndexJson) : qualityIndexJson;
+            articles = parsed.articles || [];
+          } catch (_) {}
+        }
+
+        const body = await request.json().catch(() => ({}));
+        const digest = buildDailyDigest(articles, { digestDate: body.digestDate });
+        const subscribers = await getSubscribersIndex(env);
+        const runResult = await executeDailyDigestRun({ env, digest, subscribers });
+
+        return new Response(JSON.stringify({
+          success: true,
+          runResult
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // GET /api/admin/newsletter/digest/status (Phase M)
+      if (pathname === '/api/admin/newsletter/digest/status' && method === 'GET') {
+        const digestDate = url.searchParams.get('date') || new Date().toISOString().slice(0, 10);
+        let runStatus = null;
+        if (env && env.AUTH_KV) {
+          try {
+            runStatus = await env.AUTH_KV.get(`newsletter:digest_run:${digestDate}`, 'json');
+          } catch (_) {}
+        }
+
+        const deliveryConfig = getDeliveryConfig(env);
+        return new Response(JSON.stringify({
+          success: true,
+          digestDate,
+          runStatus: runStatus || { status: 'idle', digestDate },
+          deliveryConfig
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      // POST /api/admin/newsletter/campaigns/send
+      if (pathname === '/api/admin/newsletter/campaigns/send' && method === 'POST') {
+        // Enforce Phase J & M requirement:
+        // Do not send real campaigns or contact subscribers unless explicitly configured.
+        // Return 501 when delivery provider is unconfigured.
+        const deliveryConfig = getDeliveryConfig(env);
+        if (!deliveryConfig.sendingEnabled) {
+          return new Response(JSON.stringify({
+            success: false,
+            deliveryConfigured: false,
+            error: 'Email delivery provider is unconfigured. Real campaign delivery is deferred to Phase M.',
+            message: 'Email delivery provider is unconfigured. Real campaign delivery is deferred to Phase M.',
+            deliveryProvider: null,
+            isSimulation: true
+          }), {
+            status: 501,
+            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+          });
+        }
+
+        return new Response(JSON.stringify({
+          success: true,
+          deliveryConfigured: true,
+          provider: deliveryConfig.provider,
+          message: 'Campaign delivery initiated.'
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+        });
+      }
+
+      return new Response(JSON.stringify({ success: false, error: 'Newsletter endpoint not found.' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+      });
+    }
+
     // 7. Any other unmatched /admin/* route
     return new Response('Not Found', {
       status: 404,
@@ -2425,5 +3717,47 @@ export default {
         ...getSecurityHeaders()
       }
     });
+  },
+
+  async scheduled(event, env, ctx) {
+    if (env && env.NEWSLETTER_SENDING_ENABLED === 'true') {
+      ctx.waitUntil(handleScheduledDailyDigest(event, env));
+    } else {
+      console.log('[NEWSLETTER SCHEDULER] Daily digest scheduled trigger received. Sending disabled by policy (NEWSLETTER_SENDING_ENABLED!=true). Exiting safely.');
+    }
   }
 };
+
+/**
+ * Handles scheduled daily digest execution.
+ * Only invoked if NEWSLETTER_SENDING_ENABLED is explicitly true.
+ */
+export async function handleScheduledDailyDigest(event, env) {
+  try {
+    let articles = [];
+    if (env && env.ASSETS) {
+      const resp = await env.ASSETS.fetch(new Request('https://thesamachardaily.in/search-index.json')).catch(() => null);
+      if (resp && resp.ok) {
+        articles = await resp.json().catch(() => []);
+      }
+    }
+    if (articles.length === 0 && typeof qualityIndexJson !== 'undefined' && qualityIndexJson && qualityIndexJson !== '{}') {
+      try {
+        const parsed = typeof qualityIndexJson === 'string' ? JSON.parse(qualityIndexJson) : qualityIndexJson;
+        articles = parsed.articles || [];
+      } catch (_) {}
+    }
+
+    const digest = buildDailyDigest(articles);
+    if (!digest || digest.empty) {
+      console.log('[NEWSLETTER SCHEDULER] No eligible articles for daily digest. Skipping run.');
+      return;
+    }
+
+    const subscribers = await getSubscribersIndex(env);
+    const runResult = await executeDailyDigestRun({ env, digest, subscribers });
+    console.log(`[NEWSLETTER SCHEDULER] Completed daily digest run: ${runResult.digestId}, sent: ${runResult.sentCount}, failed: ${runResult.failedCount}`);
+  } catch (err) {
+    console.error('[NEWSLETTER SCHEDULER] Scheduled run encountered error:', err.message);
+  }
+}

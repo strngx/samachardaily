@@ -10,7 +10,7 @@ Welcome to **SamacharDaily**. By accessing or using our website located at `http
 
 ---
 
-## 1. Editorial Integrity & Nature of Service
+<h2 id="disclaimer">1. Editorial Integrity &amp; Nature of Service</h2>
 
 SamacharDaily is an automated and AI-assisted news curation service that summarizes, aggregates, and provides analytical context on public news dispatches across India, World, Business, Tech, and Sports.
 

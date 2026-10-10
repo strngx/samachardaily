@@ -12,7 +12,8 @@
     "run_worker_first": [
       "/admin",
       "/admin/*",
-      "/api/admin/*"
+      "/api/admin/*",
+      "/api/newsletter/*"
     ]
   },
   "ratelimits": [

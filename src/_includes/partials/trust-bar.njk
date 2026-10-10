@@ -1,0 +1,23 @@
+<aside class="article-trust-bar" aria-label="Editorial Transparency and Policy Standards">
+  {% set hasAiDisclosure = ai_assisted or aiAssisted or ai_generated or aiGenerated or aiContent or ai_disclosure or aiDisclosure %}
+  {% if hasAiDisclosure %}
+    <span class="trust-item trust-badge trust-badge-ai">
+      {% if ai_disclosure %}{{ ai_disclosure }}{% elif aiDisclosure %}{{ aiDisclosure }}{% else %}AI-assisted synthesis{% endif %}
+    </span>
+    <span class="trust-dot" aria-hidden="true">·</span>
+  {% endif %}
+  {% if humanReviewed or human_reviewed %}
+    <span class="trust-item trust-badge trust-badge-verified">Human reviewed</span>
+    <span class="trust-dot" aria-hidden="true">·</span>
+  {% elif corroboration_status == "corroborated" or corroborationStatus == "corroborated" %}
+    <span class="trust-item trust-badge trust-badge-corroborated">Multi-source corroborated</span>
+    <span class="trust-dot" aria-hidden="true">·</span>
+  {% endif %}
+  <a href="{{ '/editorial/' | url }}" class="trust-link">
+    Editorial Policy <span aria-hidden="true">&rarr;</span>
+  </a>
+  <span class="trust-dot" aria-hidden="true">·</span>
+  <a href="{{ '/editorial/#corrections-policy' | url }}" class="trust-link">
+    Corrections Policy
+  </a>
+</aside>

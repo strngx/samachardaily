@@ -12,7 +12,29 @@ module.exports = function () {
     }
   }
 
+  // Phase E: Build quality index JSON from article corpus (deterministic, no AI, no external APIs)
+  let corpusIndexJson = JSON.stringify({ articles: [], generatedAt: new Date().toISOString(), count: 0 });
+  try {
+    const { buildQualityIndex } = require('../../../scripts/build-quality-index.js');
+    corpusIndexJson = buildQualityIndex();
+  } catch (err) {
+    console.error('[Phase E] Error building quality index in index.11tydata.js:', err.message);
+  }
+
+  // Phase G: Build site health index JSON (deterministic, read-only)
+  let siteHealthJson = '{}';
+  try {
+    const { buildSiteHealthIndex } = require('../../../scripts/build-site-health.js');
+    siteHealthJson = buildSiteHealthIndex();
+  } catch (err) {
+    console.error('[Phase G] Error building site health index in index.11tydata.js:', err.message);
+  }
+
   return {
-    phase15b: phase15bData
+    phase15b: phase15bData,
+    editorial: {
+      corpusIndexJson,
+      siteHealthJson
+    }
   };
 };
