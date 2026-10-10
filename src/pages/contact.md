@@ -39,7 +39,7 @@ Our editorial desk can be reached via our dedicated electronic communications ch
 
 ---
 
-## How to Submit a Factual Correction
+<h2 id="how-to-submit-a-factual-correction">How to Submit a Factual Correction</h2>
 
 To enable prompt investigation and verification of factual correction requests, please format your email to include:
 

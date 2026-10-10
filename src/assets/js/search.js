@@ -485,6 +485,7 @@
         if (emptyState) {
           emptyState.style.display = 'block';
           emptyState.innerHTML = `
+            <h2 style="font-size: 1.25rem; font-weight: 600; color: var(--color-ink); margin-bottom: 8px;">Search SamacharDaily</h2>
             <p>Enter keywords above to find verified reporting across our categories.</p>
             <div class="search-category-hints">
               <span>Quick browse:</span>
@@ -510,17 +511,36 @@
         if (emptyState) {
           emptyState.style.display = 'block';
           const safeQ = escapeHtml(state.query);
-          emptyState.innerHTML = `
-            <p>No verified stories found matching <strong>"${safeQ}"</strong>.</p>
-            <p style="margin-top: 8px; font-size: 0.9375rem;">Try broader keywords, clearing active filters, or exploring our primary desks:</p>
-            <div class="search-category-hints">
-              <a href="/india/">India</a> &bull;
-              <a href="/world/">World</a> &bull;
-              <a href="/business/">Business</a> &bull;
-              <a href="/tech/">Tech</a> &bull;
-              <a href="/sports/">Sports</a>
-            </div>
-          `;
+          if (state.query) {
+            emptyState.innerHTML = `
+              <h2 style="font-size: 1.25rem; font-weight: 600; color: var(--color-ink); margin-bottom: 8px;">No stories found for this search.</h2>
+              <p style="margin-top: 8px; font-size: 0.9375rem; color: var(--color-muted);">No verified stories found matching <strong>"${safeQ}"</strong>. Suggestions:</p>
+              <ul style="list-style: disc; margin: 12px auto; padding-left: 20px; max-width: 280px; text-align: left; font-size: 0.875rem; color: var(--color-muted);">
+                <li>Try fewer words</li>
+                <li>Try another keyword</li>
+                <li>Browse a desk/category</li>
+              </ul>
+              <div class="search-category-hints">
+                <a href="/india/">India</a> &bull;
+                <a href="/world/">World</a> &bull;
+                <a href="/business/">Business</a> &bull;
+                <a href="/tech/">Tech</a> &bull;
+                <a href="/sports/">Sports</a>
+              </div>
+            `;
+          } else {
+            emptyState.innerHTML = `
+              <h2 style="font-size: 1.25rem; font-weight: 600; color: var(--color-ink); margin-bottom: 8px;">No stories match the selected filters.</h2>
+              <p style="margin-top: 8px; font-size: 0.9375rem; color: var(--color-muted);">Try clearing active filters or selecting another desk:</p>
+              <div class="search-category-hints">
+                <a href="/india/">India</a> &bull;
+                <a href="/world/">World</a> &bull;
+                <a href="/business/">Business</a> &bull;
+                <a href="/tech/">Tech</a> &bull;
+                <a href="/sports/">Sports</a>
+              </div>
+            `;
+          }
         }
         return;
       }

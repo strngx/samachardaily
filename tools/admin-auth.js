@@ -50,6 +50,9 @@ try {
 } catch (_) {}
 
 function saveLocalGscTokens(data) {
+  if (localGscTokens && localGscTokens.refresh_token && !data.refresh_token) {
+    data.refresh_token = localGscTokens.refresh_token;
+  }
   localGscTokens = data;
   try {
     const dir = path.dirname(localGscTokensFile);
@@ -63,6 +66,89 @@ function deleteLocalGscTokens() {
   try {
     if (fs.existsSync(localGscTokensFile)) fs.unlinkSync(localGscTokensFile);
   } catch (_) {}
+}
+
+function getOAuthSigningSecret() {
+  const secret = process.env.ADMIN_SESSION_SECRET;
+  if (!secret || typeof secret !== 'string' || secret.trim().length < 32) {
+    return null;
+  }
+  return secret.trim();
+}
+
+
+// Local in-memory cache and used OAuth state tracker
+const localGscCache = new Map();
+const usedOAuthStates = new Set();
+
+let gscModulePromise = null;
+function getGSCModule() {
+  if (!gscModulePromise) {
+    gscModulePromise = import('../worker/gsc.js');
+  }
+  return gscModulePromise;
+}
+
+let newsletterModulePromise = null;
+function getNewsletterModule() {
+  if (!newsletterModulePromise) {
+    newsletterModulePromise = import('../worker/newsletter.js');
+  }
+  return newsletterModulePromise;
+}
+
+// Local in-memory members registry for development parity
+const localMembers = [
+  {
+    id: 'usr_root_arjun',
+    email: 'thesamachardaily@gmail.com',
+    name: 'Arjun',
+    role: 'owner',
+    title: 'Root Owner / Technical Admin',
+    status: 'active',
+    created_at: 1700000000000,
+    last_login: null
+  }
+];
+const localInvitations = [];
+
+
+function getLocalGSCEnv() {
+  return {
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID || null,
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET || null,
+    GSC_PROPERTY_ID: process.env.GSC_PROPERTY_ID || 'https://thesamachardaily.in/',
+    AUTH_KV: {
+      async get(key) {
+        if (key === 'gsc:tokens') {
+          return localGscTokens ? JSON.stringify(localGscTokens) : null;
+        }
+        return localGscCache.get(key) || null;
+      },
+      async put(key, value, options) {
+        if (key === 'gsc:tokens') {
+          saveLocalGscTokens(typeof value === 'string' ? JSON.parse(value) : value);
+        } else {
+          localGscCache.set(key, typeof value === 'string' ? value : JSON.stringify(value));
+        }
+      },
+      async delete(key) {
+        if (key === 'gsc:tokens') {
+          deleteLocalGscTokens();
+        } else {
+          localGscCache.delete(key);
+        }
+      },
+      async list(options) {
+        const prefix = options?.prefix || '';
+        const keys = [];
+        for (const k of localGscCache.keys()) {
+          if (k.startsWith(prefix)) keys.push({ name: k });
+        }
+        return { keys };
+      }
+    }
+  };
 }
 
 // Strict path regex for article Markdown files
@@ -116,6 +202,43 @@ function parseJsonBody(req, maxBytes = 1048576) {
     req.on('error', reject);
   });
 }
+
+function parseRequestBody(req, maxBytes = 1048576) {
+  return new Promise((resolve, reject) => {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk;
+      if (body.length > maxBytes) {
+        req.destroy();
+        reject(new Error('Payload too large'));
+      }
+    });
+    req.on('end', () => {
+      const cType = req.headers['content-type'] || '';
+      if (cType.includes('application/x-www-form-urlencoded')) {
+        const params = new URLSearchParams(body);
+        const obj = {};
+        for (const [k, v] of params.entries()) obj[k] = v;
+        return resolve(obj);
+      }
+      try {
+        const parsed = JSON.parse(body || '{}');
+        resolve(parsed);
+      } catch (_) {
+        try {
+          const params = new URLSearchParams(body);
+          const obj = {};
+          for (const [k, v] of params.entries()) obj[k] = v;
+          resolve(obj);
+        } catch (e) {
+          resolve({});
+        }
+      }
+    });
+    req.on('error', reject);
+  });
+}
+
 
 // Configuration
 const SESSION_TTL_MS = 2 * 60 * 60 * 1000; // 2 hours
@@ -712,29 +835,31 @@ function adminAuthMiddleware(req, res, next) {
 
   // 3G. GSC API ENDPOINTS (Phase 2 & 2.1 Local Support)
   if (pathname.startsWith('/api/admin/gsc/')) {
-    const session = validateSession(req);
-    if (!session) {
-      res.writeHead(401, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }));
-      return;
+    // Only the exact OAuth callback route is exempted from the session cookie check
+    // because browsers withhold SameSite=Strict cookies on incoming cross-origin redirects from Google.
+    // The callback route strictly enforces cryptographic HMAC state validation instead.
+    if (pathname !== '/api/admin/gsc/auth/callback') {
+      const session = validateSession(req);
+      if (!session) {
+        res.writeHead(401, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }));
+        return;
+      }
     }
 
     // Status
     if (pathname === '/api/admin/gsc/status' && req.method === 'GET') {
-      const clientId = process.env.GOOGLE_CLIENT_ID || null;
-      const clientSecret = process.env.GOOGLE_CLIENT_SECRET || null;
-      const isConnected = Boolean(localGscTokens && (localGscTokens.access_token || localGscTokens.refresh_token));
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({
-        success: true,
-        connected: isConnected,
-        configured: Boolean(clientId && clientSecret),
-        property: process.env.GSC_PROPERTY_ID || 'https://thesamachardaily.in/',
-        accountEmail: localGscTokens?.account_email || null,
-        accountName: localGscTokens?.account_name || null,
-        accountPicture: localGscTokens?.account_picture || null,
-        lastSynced: localGscTokens?.last_synced || null
-      }));
+      (async () => {
+        try {
+          const gsc = await getGSCModule();
+          const status = await gsc.getGSCStatus(getLocalGSCEnv());
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify(status));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      })();
       return;
     }
 
@@ -758,23 +883,46 @@ function adminAuthMiddleware(req, res, next) {
         return;
       }
 
-      const redirectUri = process.env.GSC_REDIRECT_URI || `http://${req.headers.host || 'localhost:8080'}/api/admin/gsc/auth/callback`;
-      const scopes = [
-        'https://www.googleapis.com/auth/webmasters.readonly',
-        'openid',
-        'email',
-        'profile'
-      ].join(' ');
-      const state = crypto.randomBytes(16).toString('hex');
-      const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent(scopes)}&state=${encodeURIComponent(state)}&access_type=offline&prompt=consent`;
-
-      if (wantsJson) {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: true, authUrl: googleAuthUrl }));
-      } else {
-        res.writeHead(302, { 'Location': googleAuthUrl });
-        res.end();
+      const secretKey = getOAuthSigningSecret();
+      if (!secretKey) {
+        const errMsg = 'OAuth signing secret (ADMIN_SESSION_SECRET) is missing or too weak (must be at least 32 characters). Configure ADMIN_SESSION_SECRET before initiating OAuth.';
+        if (wantsJson) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: errMsg }));
+        } else {
+          res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=insecure_signing_secret#search' });
+          res.end();
+        }
+        return;
       }
+
+      const redirectUri = process.env.GSC_REDIRECT_URI || `http://${req.headers.host || 'localhost:8080'}/api/admin/gsc/auth/callback`;
+      const statePayload = { action: 'gsc_connect', ts: Date.now() };
+      const rawState = Buffer.from(JSON.stringify(statePayload)).toString('base64url');
+      const sig = crypto.createHmac('sha256', secretKey).update(rawState).digest('base64url');
+      const state = `${rawState}.${sig}`;
+
+      (async () => {
+        try {
+          const gsc = await getGSCModule();
+          const googleAuthUrl = gsc.buildGSCAuthUrl({
+            clientId,
+            redirectUri,
+            state
+          });
+
+          if (wantsJson) {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: true, authUrl: googleAuthUrl }));
+          } else {
+            res.writeHead(302, { 'Location': googleAuthUrl });
+            res.end();
+          }
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      })();
       return;
     }
 
@@ -782,6 +930,7 @@ function adminAuthMiddleware(req, res, next) {
     if (pathname === '/api/admin/gsc/auth/callback' && req.method === 'GET') {
       const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost:8080'}`);
       const code = urlObj.searchParams.get('code');
+      const stateParam = urlObj.searchParams.get('state');
       const errParam = urlObj.searchParams.get('error');
 
       if (errParam) {
@@ -790,7 +939,100 @@ function adminAuthMiddleware(req, res, next) {
         return;
       }
 
-      if (!code) {
+      const secretKey = getOAuthSigningSecret();
+      if (!secretKey) {
+        res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=insecure_signing_secret#search' });
+        res.end();
+        return;
+      }
+
+      // Validate OAuth state parameter before processing code
+      if (!stateParam || typeof stateParam !== 'string' || !stateParam.includes('.')) {
+        res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=invalid_state#search' });
+        res.end();
+        return;
+      }
+
+      const parts = stateParam.split('.');
+      if (parts.length !== 2) {
+        res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=invalid_state#search' });
+        res.end();
+        return;
+      }
+
+      const [rawState, sig] = parts;
+      if (!rawState || !sig) {
+        res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=invalid_state#search' });
+        res.end();
+        return;
+      }
+
+      // Timing-safe HMAC verification
+      const expectedSig = crypto.createHmac('sha256', secretKey).update(rawState).digest('base64url');
+      const sigBuf = Buffer.from(sig);
+      const expectedBuf = Buffer.from(expectedSig);
+      if (sigBuf.length !== expectedBuf.length || !crypto.timingSafeEqual(sigBuf, expectedBuf)) {
+        res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=tampered_state#search' });
+        res.end();
+        return;
+      }
+
+      // Replay resistance: single-use check
+      if (usedOAuthStates.has(sig)) {
+        res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=replayed_state#search' });
+        res.end();
+        return;
+      }
+
+      let parsedState;
+      try {
+        parsedState = JSON.parse(Buffer.from(rawState, 'base64url').toString('utf8'));
+      } catch (_) {
+        res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=malformed_state#search' });
+        res.end();
+        return;
+      }
+
+      if (!parsedState || typeof parsedState !== 'object') {
+        res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=malformed_state#search' });
+        res.end();
+        return;
+      }
+
+      // Verify action scope
+      if (parsedState.action !== 'gsc_connect') {
+        res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=invalid_action_state#search' });
+        res.end();
+        return;
+      }
+
+      // Timestamp must be a finite number
+      if (typeof parsedState.ts !== 'number' || !Number.isFinite(parsedState.ts)) {
+        res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=invalid_timestamp_state#search' });
+        res.end();
+        return;
+      }
+
+      const now = Date.now();
+      // Reject future-dated states (>30s clock skew tolerance)
+      if (parsedState.ts > now + 30 * 1000) {
+        res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=future_state#search' });
+        res.end();
+        return;
+      }
+
+      // 10-minute expiration check (600,000 ms)
+      if (now - parsedState.ts > 10 * 60 * 1000) {
+        res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=expired_state#search' });
+        res.end();
+        return;
+      }
+
+      // Mark state as consumed to prevent replay in this process
+      usedOAuthStates.add(sig);
+
+      // Validate authorization code before exchange
+      if (!code || typeof code !== 'string' || !code.trim() || code.length > 2048) {
         res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=missing_code#search' });
         res.end();
         return;
@@ -802,56 +1044,29 @@ function adminAuthMiddleware(req, res, next) {
 
       (async () => {
         try {
-          const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({
-              code,
-              client_id: clientId,
-              client_secret: clientSecret,
-              redirect_uri: redirectUri,
-              grant_type: 'authorization_code'
-            }).toString()
+          const gsc = await getGSCModule();
+          const rawTokens = await gsc.exchangeGSCCode({
+            code: code.trim(),
+            clientId,
+            clientSecret,
+            redirectUri
           });
 
-          if (!tokenRes.ok) {
-            const errBody = await tokenRes.text();
-            throw new Error('Token exchange failed: ' + errBody);
-          }
+          const tokens = {
+            ...rawTokens,
+            expires_at: Date.now() + ((rawTokens.expires_in || 3600) * 1000),
+            connected_at: new Date().toISOString()
+          };
 
-          const tokenData = await tokenRes.json();
-          let accountEmail = null;
-          let accountName = null;
-          let accountPicture = null;
-
-          if (tokenData.access_token) {
-            try {
-              const uRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-                headers: { 'Authorization': `Bearer ${tokenData.access_token}` }
-              });
-              if (uRes.ok) {
-                const u = await uRes.json();
-                accountEmail = u.email || null;
-                accountName = u.name || null;
-                accountPicture = u.picture || null;
-              }
-            } catch (_) {}
-          }
-
-          saveLocalGscTokens({
-            access_token: tokenData.access_token,
-            refresh_token: tokenData.refresh_token || null,
-            expires_at: Date.now() + (tokenData.expires_in * 1000),
-            account_email: accountEmail,
-            account_name: accountName,
-            account_picture: accountPicture,
-            last_synced: new Date().toISOString()
-          });
+          await gsc.saveGSCTokens(getLocalGSCEnv(), tokens);
 
           res.writeHead(302, { 'Location': '/admin/editorial?gsc=connected#search' });
           res.end();
         } catch (err) {
-          res.writeHead(302, { 'Location': `/admin/editorial?gsc_error=${encodeURIComponent(err.message || 'token_exchange_failed')}#search` });
+          recordSecurityAudit('GSC_AUTH_CALLBACK_FAILED', {
+            error: err.message ? err.message.replace(/code=[^&\s]+/gi, 'code=[REDACTED]') : 'Token exchange error'
+          });
+          res.writeHead(302, { 'Location': '/admin/editorial?gsc_error=token_exchange_failed#search' });
           res.end();
         }
       })();
@@ -860,31 +1075,693 @@ function adminAuthMiddleware(req, res, next) {
 
     // Disconnect
     if (pathname === '/api/admin/gsc/disconnect' && req.method === 'POST') {
-      deleteLocalGscTokens();
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ success: true, message: 'Google Search Console disconnected successfully.' }));
+      (async () => {
+        try {
+          const gsc = await getGSCModule();
+          await gsc.deleteGSCTokens(getLocalGSCEnv());
+          deleteLocalGscTokens();
+          localGscCache.clear();
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, message: 'Google Search Console disconnected successfully.' }));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      })();
       return;
     }
 
     // Performance
     if (pathname === '/api/admin/gsc/performance' && req.method === 'GET') {
-      if (!localGscTokens || (!localGscTokens.access_token && !localGscTokens.refresh_token)) {
-        res.writeHead(401, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: false, error: 'Google Search Console is not connected.' }));
-        return;
-      }
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({
-        success: true,
-        summary: { clicks: 0, impressions: 0, ctr: 0, position: 0 },
-        queries: [],
-        pages: [],
-        dateSeries: [],
-        lastSynced: localGscTokens.last_synced || new Date().toISOString()
-      }));
+      const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost:8080'}`);
+      const range = urlObj.searchParams.get('range') || '28days';
+      const customStart = urlObj.searchParams.get('startDate');
+      const customEnd = urlObj.searchParams.get('endDate');
+      const searchType = urlObj.searchParams.get('type') || 'web';
+      const forceRefresh = urlObj.searchParams.get('refresh') === 'true';
+
+      (async () => {
+        try {
+          const gsc = await getGSCModule();
+          const perf = await gsc.getGSCPerformanceDashboard(getLocalGSCEnv(), {
+            range,
+            customStart,
+            customEnd,
+            searchType,
+            forceRefresh
+          });
+          const statusCode = perf.success ? 200 : (perf.errorCode === 'PERMISSION_DENIED' ? 403 : 502);
+          res.writeHead(statusCode, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify(perf));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, connected: true, error: err.message || 'Failed to fetch Search Console data.' }));
+        }
+      })();
+      return;
+    }
+
+    // Inspect (GET or POST)
+    if (pathname === '/api/admin/gsc/inspect' && (req.method === 'GET' || req.method === 'POST')) {
+      const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost:8080'}`);
+      (async () => {
+        try {
+          let targetUrl = '';
+          let forceRefresh = false;
+
+          if (req.method === 'POST') {
+            try {
+              const body = await parseJsonBody(req);
+              targetUrl = (body.url || '').trim();
+              forceRefresh = Boolean(body.refresh);
+            } catch (_) {
+              res.writeHead(400, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ success: false, error: 'Invalid JSON payload.' }));
+              return;
+            }
+          } else {
+            targetUrl = (urlObj.searchParams.get('url') || '').trim();
+            forceRefresh = urlObj.searchParams.get('refresh') === 'true';
+          }
+
+          if (!targetUrl) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: false, error: 'Missing required parameter: url.' }));
+            return;
+          }
+
+          const gsc = await getGSCModule();
+          const validation = gsc.validateInspectUrl(targetUrl);
+          if (!validation.valid) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: false, error: validation.error, errorCode: 'INVALID_URL' }));
+            return;
+          }
+
+          const inspection = await gsc.inspectUrl(getLocalGSCEnv(), { url: validation.url, forceRefresh });
+          const httpStatus = inspection.success ? 200 : (inspection.status || 500);
+          res.writeHead(httpStatus, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify(inspection));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message || 'Failed to inspect URL.' }));
+        }
+      })();
       return;
     }
   }
+
+  // 3H. PUBLIC NEWSLETTER ENDPOINTS (Phase J)
+  if (pathname === '/api/newsletter/subscribe' && req.method === 'POST') {
+    (async () => {
+      try {
+        const body = await parseRequestBody(req);
+        const email = body.email || body['entry.963532165'] || '';
+        const source = body.source || 'web';
+        const nl = await getNewsletterModule();
+        const result = await nl.registerSubscriber(getLocalGSCEnv(), {
+          email,
+          source,
+          metadata: {
+            userAgent: req.headers['user-agent'] || '',
+            referrer: req.headers['referer'] || ''
+          }
+        });
+        const status = result.success ? 200 : 400;
+
+        // If form submission from browser without JS, redirect back
+        const cType = req.headers['content-type'] || '';
+        if (cType.includes('application/x-www-form-urlencoded')) {
+          const redirectUrl = (req.headers['referer'] || '/') + '?newsletter=' + (result.success ? 'success' : 'error');
+          res.writeHead(303, { 'Location': redirectUrl });
+          res.end();
+          return;
+        }
+
+        res.writeHead(status, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(result));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: err.message || 'Subscription failed.' }));
+      }
+    })();
+    return;
+  }
+
+  if (pathname === '/api/newsletter/unsubscribe' && (req.method === 'GET' || req.method === 'POST')) {
+    (async () => {
+      try {
+        const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost:8080'}`);
+        const token = (urlObj.searchParams.get('token') || '').trim();
+        const id = (urlObj.searchParams.get('id') || '').trim();
+        const confirmParam = urlObj.searchParams.get('confirm');
+        const nl = await getNewsletterModule();
+
+        const isPost = req.method === 'POST';
+        const isConfirmedGet = req.method === 'GET' && confirmParam === '1';
+        const acceptsHtml = (req.headers['accept'] || '').includes('text/html');
+
+        // 1. Token Requirement: Public requests must provide a valid unsubscribe token.
+        // Bare IDs alone are strictly rejected.
+        if (!token) {
+          if (acceptsHtml) {
+            const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Unsubscribe Notice — Samachar Daily</title><style>body{font-family:-apple-system,sans-serif;background:#090d16;color:#f8fafc;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:20px}.card{background:#101726;border:1px solid:#1e293b;border-radius:12px;padding:32px;max-width:480px;width:100%;text-align:center}.badge{display:inline-block;background:#C81E2C;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;margin-bottom:16px}h1{font-size:20px;margin:0 0 12px}p{color:#94a3b8;font-size:14px;line-height:1.6;margin:0 0 24px}a.btn{display:inline-block;background:#1e293b;color:#f8fafc;text-decoration:none;padding:10px 20px;border-radius:6px;font-size:14px;font-weight:600}</style></head><body><div class="card"><div class="badge">SAMACHAR DAILY</div><h1>Unsubscribe Notice</h1><p>A valid unsubscribe verification token is required.</p><a href="/" class="btn">Return to Newsroom</a></div></body></html>`;
+            res.writeHead(400, { 'Content-Type': 'text/html; charset=utf-8' });
+            res.end(html);
+            return;
+          }
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'A valid unsubscribe verification token is required.', errorCode: 'INVALID_TOKEN' }));
+          return;
+        }
+
+        // 2. Resolve subscriber by token
+        const existingSub = await nl.getSubscriberByToken(getLocalGSCEnv(), token);
+        if (!existingSub) {
+          if (acceptsHtml) {
+            const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Unsubscribe Notice — Samachar Daily</title><style>body{font-family:-apple-system,sans-serif;background:#090d16;color:#f8fafc;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:20px}.card{background:#101726;border:1px solid:#1e293b;border-radius:12px;padding:32px;max-width:480px;width:100%;text-align:center}.badge{display:inline-block;background:#C81E2C;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;margin-bottom:16px}h1{font-size:20px;margin:0 0 12px}p{color:#94a3b8;font-size:14px;line-height:1.6;margin:0 0 24px}a.btn{display:inline-block;background:#1e293b;color:#f8fafc;text-decoration:none;padding:10px 20px;border-radius:6px;font-size:14px;font-weight:600}</style></head><body><div class="card"><div class="badge">SAMACHAR DAILY</div><h1>Unsubscribe Notice</h1><p>Subscriber record not found or link has expired.</p><a href="/" class="btn">Return to Newsroom</a></div></body></html>`;
+            res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
+            res.end(html);
+            return;
+          }
+          res.writeHead(404, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Subscriber record not found or link has expired.', errorCode: 'NOT_FOUND' }));
+          return;
+        }
+
+        // Token belongs to someone else if id provided does not match
+        if (id && existingSub.id !== id) {
+          if (acceptsHtml) {
+            const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Unsubscribe Notice — Samachar Daily</title><style>body{font-family:-apple-system,sans-serif;background:#090d16;color:#f8fafc;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:20px}.card{background:#101726;border:1px solid:#1e293b;border-radius:12px;padding:32px;max-width:480px;width:100%;text-align:center}.badge{display:inline-block;background:#C81E2C;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;margin-bottom:16px}h1{font-size:20px;margin:0 0 12px}p{color:#94a3b8;font-size:14px;line-height:1.6;margin:0 0 24px}a.btn{display:inline-block;background:#1e293b;color:#f8fafc;text-decoration:none;padding:10px 20px;border-radius:6px;font-size:14px;font-weight:600}</style></head><body><div class="card"><div class="badge">SAMACHAR DAILY</div><h1>Unsubscribe Notice</h1><p>Invalid or forged unsubscribe token.</p><a href="/" class="btn">Return to Newsroom</a></div></body></html>`;
+            res.writeHead(401, { 'Content-Type': 'text/html; charset=utf-8' });
+            res.end(html);
+            return;
+          }
+          res.writeHead(401, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Invalid or forged unsubscribe token.', errorCode: 'UNAUTHORIZED' }));
+          return;
+        }
+
+        // 3. Mutating Execution: Either POST or confirm=1 GET
+        if (isPost || isConfirmedGet) {
+          const result = await nl.unsubscribeSubscriber(getLocalGSCEnv(), { id: existingSub.id, token });
+          const status = result.success ? 200 : 400;
+
+          if (acceptsHtml && req.method === 'GET') {
+            const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><title>Unsubscribe — Samachar Daily</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; background: #090d16; color: #f8fafc; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
+    .card { background: #101726; border: 1px solid #1e293b; border-radius: 12px; padding: 32px; max-width: 480px; width: 100%; text-align: center; }
+    .badge { display: inline-block; background: #C81E2C; color: #fff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-bottom: 16px; }
+    h1 { font-size: 20px; margin: 0 0 12px; }
+    p { color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0 0 24px; }
+    a.btn { display: inline-block; background: #1e293b; color: #f8fafc; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge">SAMACHAR DAILY</div>
+    <h1>${result.success ? 'Unsubscribed Successfully' : 'Unsubscribe Notice'}</h1>
+    <p>${result.message || result.error}</p>
+    <a href="/" class="btn">Return to Newsroom</a>
+  </div>
+</body>
+</html>`;
+            res.writeHead(status, { 'Content-Type': 'text/html; charset=utf-8' });
+            res.end(html);
+            return;
+          }
+
+          res.writeHead(status, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify(result));
+          return;
+        }
+
+        // 4. Safe GET Request
+        if (existingSub.status === 'unsubscribed') {
+          if (acceptsHtml) {
+            const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Already Unsubscribed — Samachar Daily</title><style>body{font-family:-apple-system,sans-serif;background:#090d16;color:#f8fafc;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:20px}.card{background:#101726;border:1px solid:#1e293b;border-radius:12px;padding:32px;max-width:480px;width:100%;text-align:center}.badge{display:inline-block;background:#C81E2C;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;margin-bottom:16px}h1{font-size:20px;margin:0 0 12px}p{color:#94a3b8;font-size:14px;line-height:1.6;margin:0 0 24px}a.btn{display:inline-block;background:#1e293b;color:#f8fafc;text-decoration:none;padding:10px 20px;border-radius:6px;font-size:14px;font-weight:600}</style></head><body><div class="card"><div class="badge">SAMACHAR DAILY</div><h1>Already Unsubscribed</h1><p>You are already unsubscribed from The Daily Briefing.</p><a href="/" class="btn">Return to Newsroom</a></div></body></html>`;
+            res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+            res.end(html);
+            return;
+          }
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, status: 'unsubscribed', message: 'You are already unsubscribed from The Daily Briefing.', alreadyUnsubscribed: true }));
+          return;
+        }
+
+        // Active subscriber: render confirmation landing page with POST button
+        const actionUrl = `/api/newsletter/unsubscribe?token=${encodeURIComponent(token)}`;
+        const confirmHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><title>Confirm Unsubscribe — Samachar Daily</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; background: #090d16; color: #f8fafc; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
+    .card { background: #101726; border: 1px solid #1e293b; border-radius: 12px; padding: 32px; max-width: 480px; width: 100%; text-align: center; }
+    .badge { display: inline-block; background: #C81E2C; color: #fff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-bottom: 16px; }
+    h1 { font-size: 20px; margin: 0 0 12px; }
+    p { color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0 0 24px; }
+    button.btn-unsub { background: #C81E2C; color: #fff; border: none; padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    button.btn-unsub:hover { background: #991b1b; }
+    .cancel-link { display: block; margin-top: 16px; color: #64748b; font-size: 13px; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge">SAMACHAR DAILY</div>
+    <h1>Confirm Unsubscribe</h1>
+    <p>Are you sure you want to stop receiving The Daily Briefing in your inbox?</p>
+    <form method="POST" action="${actionUrl}">
+      <button type="submit" class="btn-unsub">Confirm Unsubscribe</button>
+    </form>
+    <a href="/" class="cancel-link">Never mind, keep my subscription</a>
+  </div>
+</body>
+</html>`;
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(confirmHtml);
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: err.message || 'Unsubscribe failed.' }));
+      }
+    })();
+    return;
+  }
+
+  // 3I. AUTHENTICATED ADMIN NEWSLETTER ENDPOINTS (Phase J)
+  if (pathname.startsWith('/api/admin/newsletter/')) {
+    const session = validateSession(req);
+    if (!session) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }));
+      return;
+    }
+
+    const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost:8080'}`);
+
+    // GET /api/admin/newsletter/subscribers
+    if (pathname === '/api/admin/newsletter/subscribers' && req.method === 'GET') {
+      const page = urlObj.searchParams.get('page') || 1;
+      const limit = urlObj.searchParams.get('limit') || 50;
+      const search = urlObj.searchParams.get('search') || '';
+      const status = urlObj.searchParams.get('status') || 'all';
+
+      (async () => {
+        try {
+          const nl = await getNewsletterModule();
+          const result = await nl.listSubscribers(getLocalGSCEnv(), { page, limit, search, status });
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify(result));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      })();
+      return;
+    }
+
+    // GET /api/admin/newsletter/stats
+    if (pathname === '/api/admin/newsletter/stats' && req.method === 'GET') {
+      (async () => {
+        try {
+          const nl = await getNewsletterModule();
+          const result = await nl.getNewsletterStats(getLocalGSCEnv());
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify(result));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      })();
+      return;
+    }
+
+    // POST /api/admin/newsletter/subscribers/status
+    if (pathname === '/api/admin/newsletter/subscribers/status' && req.method === 'POST') {
+      (async () => {
+        try {
+          const body = await parseJsonBody(req);
+          const nl = await getNewsletterModule();
+          const result = await nl.updateSubscriberStatus(getLocalGSCEnv(), { id: body.id, status: body.status });
+          res.writeHead(result.success ? 200 : 400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify(result));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      })();
+      return;
+    }
+
+    // POST /api/admin/newsletter/subscribers/delete
+    if (pathname === '/api/admin/newsletter/subscribers/delete' && req.method === 'POST') {
+      (async () => {
+        try {
+          const body = await parseJsonBody(req);
+          const nl = await getNewsletterModule();
+          const result = await nl.deleteSubscriber(getLocalGSCEnv(), { id: body.id });
+          res.writeHead(result.success ? 200 : 400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify(result));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      })();
+      return;
+    }
+
+    // GET /api/admin/newsletter/campaigns
+    if (pathname === '/api/admin/newsletter/campaigns' && req.method === 'GET') {
+      (async () => {
+        try {
+          const nl = await getNewsletterModule();
+          const campaigns = await nl.getCampaignsIndex(getLocalGSCEnv());
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, campaigns }));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      })();
+      return;
+    }
+
+    // POST /api/admin/newsletter/campaigns OR /api/admin/newsletter/campaigns/draft
+    if ((pathname === '/api/admin/newsletter/campaigns' || pathname === '/api/admin/newsletter/campaigns/draft') && req.method === 'POST') {
+      (async () => {
+        try {
+          const body = await parseJsonBody(req);
+          const nl = await getNewsletterModule();
+          const result = await nl.saveCampaignDraft(getLocalGSCEnv(), {
+            id: body.id,
+            title: body.title || body.subject || 'Draft Campaign',
+            subject: body.subject,
+            preheader: body.preheader,
+            bodyContent: body.bodyContent || body.content,
+            targetAudience: body.targetAudience,
+            author: session.username || 'Editor'
+          });
+          res.writeHead(result.success ? 200 : 400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify(result));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      })();
+      return;
+    }
+
+    // GET or POST /api/admin/newsletter/campaigns/preview
+    if (pathname === '/api/admin/newsletter/campaigns/preview' && (req.method === 'GET' || req.method === 'POST')) {
+      (async () => {
+        try {
+          let postBody = {};
+          if (req.method === 'POST') {
+            postBody = await parseJsonBody(req);
+          }
+          const campId = postBody.id || urlObj.searchParams.get('id');
+          const nl = await getNewsletterModule();
+          let campaign = null;
+          if (campId) {
+            campaign = await nl.getCampaignById(getLocalGSCEnv(), campId);
+          }
+          const renderedHtml = nl.renderCampaignHtml({
+            title: postBody.title || (campaign ? campaign.title : (urlObj.searchParams.get('title') || 'The Daily Briefing')),
+            subject: postBody.subject || (campaign ? campaign.subject : (urlObj.searchParams.get('subject') || "Today's Top Verified Dispatches")),
+            preheader: postBody.preheader || (campaign ? campaign.preheader : (urlObj.searchParams.get('preheader') || '')),
+            bodyContent: postBody.bodyContent || postBody.content || (campaign ? campaign.bodyContent : (urlObj.searchParams.get('body') || '')),
+            subscriberEmail: 'editor-preview@thesamachardaily.in',
+            unsubscribeUrl: 'https://thesamachardaily.in/api/newsletter/unsubscribe?preview=1'
+          });
+
+          if (urlObj.searchParams.get('raw') === 'true') {
+            res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+            res.end(renderedHtml);
+            return;
+          }
+
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, previewHtml: renderedHtml, html: renderedHtml }));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      })();
+      return;
+    }
+
+    // POST /api/admin/newsletter/campaigns/send
+    if (pathname === '/api/admin/newsletter/campaigns/send' && req.method === 'POST') {
+      res.writeHead(501, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({
+        success: false,
+        deliveryConfigured: false,
+        error: 'Email delivery provider is unconfigured. Real campaign delivery is deferred to Phase M.',
+        message: 'Email delivery provider is unconfigured. Real campaign delivery is deferred to Phase M.',
+        deliveryProvider: null,
+        isSimulation: true
+      }));
+      return;
+    }
+
+    // GET /api/admin/newsletter/digest/preview (Phase M)
+    if (pathname === '/api/admin/newsletter/digest/preview' && req.method === 'GET') {
+      (async () => {
+        try {
+          const nl = await getNewsletterModule();
+          let articles = [];
+          const searchIndexPath = path.resolve(__dirname, '../_site/search-index.json');
+          const qualityIndexPath = path.resolve(__dirname, 'editorial-control-center/article-quality-index.json');
+          if (fs.existsSync(searchIndexPath)) {
+            try { articles = JSON.parse(fs.readFileSync(searchIndexPath, 'utf8')); } catch (_) {}
+          } else if (fs.existsSync(qualityIndexPath)) {
+            try {
+              const q = JSON.parse(fs.readFileSync(qualityIndexPath, 'utf8'));
+              articles = q.articles || [];
+            } catch (_) {}
+          }
+
+          const digestDate = urlObj.searchParams.get('date') || undefined;
+          const digest = nl.buildDailyDigest(articles, { digestDate });
+          const previewHtml = nl.renderDigestHtml(digest, { subscriberEmail: 'editor-preview@thesamachardaily.in' });
+          const previewText = nl.renderDigestPlainText(digest, { subscriberEmail: 'editor-preview@thesamachardaily.in' });
+
+          if (urlObj.searchParams.get('raw') === 'true') {
+            res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+            res.end(previewHtml);
+            return;
+          }
+
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, digest, previewHtml, previewText }));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      })();
+      return;
+    }
+
+    // POST /api/admin/newsletter/digest/test-run (Phase M)
+    if (pathname === '/api/admin/newsletter/digest/test-run' && req.method === 'POST') {
+      (async () => {
+        try {
+          const nl = await getNewsletterModule();
+          let articles = [];
+          const searchIndexPath = path.resolve(__dirname, '../_site/search-index.json');
+          const qualityIndexPath = path.resolve(__dirname, 'editorial-control-center/article-quality-index.json');
+          if (fs.existsSync(searchIndexPath)) {
+            try { articles = JSON.parse(fs.readFileSync(searchIndexPath, 'utf8')); } catch (_) {}
+          } else if (fs.existsSync(qualityIndexPath)) {
+            try {
+              const q = JSON.parse(fs.readFileSync(qualityIndexPath, 'utf8'));
+              articles = q.articles || [];
+            } catch (_) {}
+          }
+
+          const body = await parseJsonBody(req);
+          const digest = nl.buildDailyDigest(articles, { digestDate: body.digestDate });
+          const subscribers = await nl.getSubscribersIndex(getLocalGSCEnv());
+          const runResult = await nl.executeDailyDigestRun({ env: getLocalGSCEnv(), digest, subscribers });
+
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, runResult }));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      })();
+      return;
+    }
+
+    // GET /api/admin/newsletter/digest/status (Phase M)
+    if (pathname === '/api/admin/newsletter/digest/status' && req.method === 'GET') {
+      (async () => {
+        try {
+          const nl = await getNewsletterModule();
+          const digestDate = urlObj.searchParams.get('date') || new Date().toISOString().slice(0, 10);
+          const runStatus = await getLocalGSCEnv().AUTH_KV.get(`newsletter:digest_run:${digestDate}`, 'json');
+          const deliveryConfig = nl.getDeliveryConfig(getLocalGSCEnv());
+
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            success: true,
+            digestDate,
+            runStatus: runStatus || { status: 'idle', digestDate },
+            deliveryConfig
+          }));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      })();
+      return;
+    }
+  }
+
+  // 3J. AUTHENTICATED ADMIN MEMBERS ENDPOINTS (Local Dev Parity)
+  if (pathname.startsWith('/api/admin/members')) {
+    const session = validateSession(req);
+    if (!session) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Unauthorized. Please log in.' }));
+      return;
+    }
+
+    // GET /api/admin/members
+    if (pathname === '/api/admin/members' && req.method === 'GET') {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({
+        success: true,
+        count: localMembers.length,
+        members: localMembers
+      }));
+      return;
+    }
+
+    // GET /api/admin/members/invitations
+    if (pathname === '/api/admin/members/invitations' && req.method === 'GET') {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({
+        success: true,
+        count: localInvitations.length,
+        invitations: localInvitations
+      }));
+      return;
+    }
+
+    // POST /api/admin/members/invite
+    if (pathname === '/api/admin/members/invite' && req.method === 'POST') {
+      (async () => {
+        try {
+          const body = await parseJsonBody(req);
+          const email = (body.email || '').trim().toLowerCase();
+          const role = (body.role || '').trim().toLowerCase();
+
+          if (!email || !/^[a-zA-Z0-9._%+-]+@(gmail\.com|googlemail\.com)$/i.test(email)) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({
+              success: false,
+              error: 'Invitation email must be a valid Google / Gmail address (@gmail.com or @googlemail.com).'
+            }));
+            return;
+          }
+
+          if (role !== 'admin' && role !== 'editor') {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({
+              success: false,
+              error: 'Invalid role. Assignable roles are "admin" or "editor".'
+            }));
+            return;
+          }
+
+          const existingMember = localMembers.find(m => m.email.toLowerCase() === email);
+          if (existingMember) {
+            res.writeHead(409, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({
+              success: false,
+              error: `Member with email "${email}" already exists.`
+            }));
+            return;
+          }
+
+          const invitation = {
+            id: 'inv_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 8),
+            email,
+            role,
+            status: 'pending',
+            invited_by: session.username || 'admin',
+            created_at: Date.now(),
+            expires_at: Date.now() + 48 * 3600 * 1000
+          };
+          localInvitations.push(invitation);
+
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            success: true,
+            message: 'Invitation created (local simulation).',
+            invitation
+          }));
+        } catch (err) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message || 'Failed to process invitation.' }));
+        }
+      })();
+      return;
+    }
+
+    // POST /api/admin/members/invite/cancel
+    if (pathname === '/api/admin/members/invite/cancel' && req.method === 'POST') {
+      (async () => {
+        try {
+          const body = await parseJsonBody(req);
+          const invitationId = (body.invitationId || '').trim();
+          const inv = localInvitations.find(i => i.id === invitationId);
+          if (!inv) {
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: false, error: 'Invitation not found.' }));
+            return;
+          }
+          inv.status = 'cancelled';
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, message: 'Invitation cancelled.' }));
+        } catch (err) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      })();
+      return;
+    }
+
+    // POST /api/admin/members/invite/delete
+    if (pathname === '/api/admin/members/invite/delete' && req.method === 'POST') {
+      (async () => {
+        try {
+          const body = await parseJsonBody(req);
+          const invitationId = (body.invitationId || '').trim();
+          const idx = localInvitations.findIndex(i => i.id === invitationId);
+          if (idx === -1) {
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: false, error: 'Invitation not found.' }));
+            return;
+          }
+          localInvitations.splice(idx, 1);
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, message: 'Invitation deleted.' }));
+        } catch (err) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        }
+      })();
+      return;
+    }
+  }
+
 
   // 4. Route Guard: Protected Editorial Surface (/admin/editorial/*)
   if (pathname.startsWith('/admin/editorial')) {
@@ -930,5 +1807,59 @@ module.exports = {
   createSession,
   invalidateSession,
   recordSecurityAudit,
-  auditLog
+  auditLog,
+  getLocalGSCEnv
 };
+
+if (require.main === module) {
+  const http = require('http');
+  const url = require('url');
+  const siteDir = path.resolve(__dirname, '..', '_site');
+  const server = http.createServer((req, res) => {
+    adminAuthMiddleware(req, res, () => {
+      let rawPath = req.url ? req.url.split('?')[0] : '/';
+      let decodedPath = '';
+      try {
+        decodedPath = decodeURIComponent(rawPath);
+      } catch (_) {
+        res.writeHead(400, { 'Content-Type': 'text/plain' });
+        res.end('Bad Request');
+        return;
+      }
+      if (decodedPath.includes('..')) {
+        res.writeHead(403, { 'Content-Type': 'text/plain' });
+        res.end('Forbidden');
+        return;
+      }
+      if (decodedPath.endsWith('/')) decodedPath += 'index.html';
+      const safePath = path.resolve(siteDir, '.' + path.normalize(decodedPath));
+      const rel = path.relative(siteDir, safePath);
+      if (rel.startsWith('..') || path.isAbsolute(rel)) {
+        res.writeHead(403, { 'Content-Type': 'text/plain' });
+        res.end('Forbidden');
+        return;
+      }
+      if (fs.existsSync(safePath) && fs.statSync(safePath).isFile()) {
+        const ext = path.extname(safePath).toLowerCase();
+        const contentTypes = {
+          '.html': 'text/html; charset=utf-8',
+          '.css': 'text/css',
+          '.js': 'application/javascript',
+          '.json': 'application/json',
+          '.png': 'image/png',
+          '.jpg': 'image/jpeg',
+          '.svg': 'image/svg+xml'
+        };
+        res.writeHead(200, { 'Content-Type': contentTypes[ext] || 'application/octet-stream' });
+        fs.createReadStream(safePath).pipe(res);
+      } else {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('Not Found');
+      }
+    });
+  });
+  const port = parseInt(process.env.PORT || '8080', 10);
+  server.listen(port, '127.0.0.1', () => {
+    console.log(`Standalone local admin server running at http://127.0.0.1:${port}`);
+  });
+}

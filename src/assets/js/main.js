@@ -568,7 +568,65 @@ function initSamacharDaily() {
       }
     });
   }
+
+  // 11. Newsletter Subscription Handler (Phase J)
+  const newsletterForm = document.getElementById("newsletter-form");
+  if (newsletterForm) {
+    newsletterForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const input = newsletterForm.querySelector(".newsletter-input-field");
+      const btn = newsletterForm.querySelector(".newsletter-submit-btn");
+      const feedback = document.getElementById("newsletter-feedback");
+      if (!input || !input.value.trim()) return;
+
+      const email = input.value.trim();
+      const origText = btn ? btn.textContent : "Subscribe";
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "Subscribing...";
+      }
+      if (feedback) {
+        feedback.textContent = "";
+        feedback.className = "newsletter-feedback";
+      }
+
+      try {
+        const resp = await fetch("/api/newsletter/subscribe", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({ email, source: "web" })
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (resp.ok && data.success) {
+          if (feedback) {
+            feedback.textContent = data.message || "Thank you for subscribing!";
+            feedback.className = "newsletter-feedback is-success";
+          }
+          input.value = "";
+        } else {
+          if (feedback) {
+            feedback.textContent = data.error || "Subscription failed. Please check your email.";
+            feedback.className = "newsletter-feedback is-error";
+          }
+        }
+      } catch (err) {
+        if (feedback) {
+          feedback.textContent = "Unable to connect. Please try again shortly.";
+          feedback.className = "newsletter-feedback is-error";
+        }
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = origText;
+        }
+      }
+    });
+  }
 }
+
  
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initSamacharDaily);

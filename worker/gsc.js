@@ -661,10 +661,17 @@ export async function getGSCPerformanceDashboard(env, {
     queries,
     pages,
     chart,
+    dateSeries: chart,
     indexing: {
       totalIndexed: sitemapsRes.totalIndexed,
       totalSubmitted: sitemapsRes.totalSubmitted,
       hasValidCounts: Boolean(sitemapsRes.hasValidCounts)
+    },
+    sitemaps: {
+      indexedPages: sitemapsRes.hasValidCounts && typeof sitemapsRes.totalIndexed === 'number' ? sitemapsRes.totalIndexed : null,
+      submittedPages: sitemapsRes.hasValidCounts && typeof sitemapsRes.totalSubmitted === 'number' ? sitemapsRes.totalSubmitted : null,
+      hasValidCounts: Boolean(sitemapsRes.hasValidCounts),
+      entries: sitemapsRes.sitemaps || []
     },
     cached: Boolean(summaryRes.cached),
     lastSynced: summaryRes.lastSynced || new Date().toISOString()
@@ -756,8 +763,29 @@ export async function inspectUrl(env, { url, forceRefresh = false } = {}) {
       if (cachedRaw) {
         const cached = JSON.parse(cachedRaw);
         if (cached && cached.data) {
+          const cachedData = { ...cached.data };
+          if (!cachedData.inspectionResult && (cachedData.url || cachedData.verdict)) {
+            cachedData.inspectionResult = {
+              inspectionUrl: cachedData.url || targetUrl,
+              indexStatusResult: {
+                verdict: cachedData.verdict ?? null,
+                coverageState: cachedData.coverageState ?? null,
+                robotsTxtState: cachedData.robotsTxtState ?? null,
+                indexingState: cachedData.indexingState ?? null,
+                lastCrawlTime: cachedData.lastCrawlTime ?? null,
+                pageFetchState: cachedData.pageFetchState ?? null,
+                googleCanonical: cachedData.googleCanonical ?? null,
+                userCanonical: cachedData.userCanonical ?? null,
+                sitemap: Array.isArray(cachedData.sitemap) ? cachedData.sitemap : [],
+                referringUrls: Array.isArray(cachedData.referringUrls) ? cachedData.referringUrls : [],
+                crawledAs: cachedData.crawledAs ?? null
+              },
+              mobileUsabilityResult: cachedData.mobileUsability ? { verdict: cachedData.mobileUsability } : null,
+              richResultsResult: cachedData.richResults ? { detectedItems: cachedData.richResults } : null
+            };
+          }
           return {
-            ...cached.data,
+            ...cachedData,
             cached: true,
             lastChecked: cached.timestamp
           };
@@ -829,22 +857,43 @@ export async function inspectUrl(env, { url, forceRefresh = false } = {}) {
     const indexStatus = result.indexStatusResult || {};
 
     const nowIso = new Date().toISOString();
+    const indexStatusResult = {
+      verdict: indexStatus.verdict ?? null,
+      coverageState: indexStatus.coverageState ?? null,
+      robotsTxtState: indexStatus.robotsTxtState ?? null,
+      indexingState: indexStatus.indexingState ?? null,
+      lastCrawlTime: indexStatus.lastCrawlTime ?? null,
+      pageFetchState: indexStatus.pageFetchState ?? null,
+      googleCanonical: indexStatus.googleCanonical ?? null,
+      userCanonical: indexStatus.userCanonical ?? null,
+      sitemap: Array.isArray(indexStatus.sitemap) ? indexStatus.sitemap : [],
+      referringUrls: Array.isArray(indexStatus.referringUrls) ? indexStatus.referringUrls : [],
+      crawledAs: indexStatus.crawledAs ?? null
+    };
+
+    const inspectionResult = {
+      inspectionUrl: targetUrl,
+      indexStatusResult,
+      mobileUsabilityResult: result.mobileUsabilityResult || null,
+      richResultsResult: result.richResultsResult || null
+    };
+
     const inspectionData = {
       success: true,
       connected: true,
       url: targetUrl,
       property: propertyId,
-      verdict: indexStatus.verdict || 'NEUTRAL',
-      coverageState: indexStatus.coverageState || 'Unknown',
-      robotsTxtState: indexStatus.robotsTxtState || 'ALLOWED',
-      indexingState: indexStatus.indexingState || 'INDEXING_ALLOWED',
-      lastCrawlTime: indexStatus.lastCrawlTime || null,
-      pageFetchState: indexStatus.pageFetchState || 'SUCCESSFUL',
-      googleCanonical: indexStatus.googleCanonical || null,
-      userCanonical: indexStatus.userCanonical || null,
-      sitemap: indexStatus.sitemap || [],
-      referringUrls: indexStatus.referringUrls || [],
-      crawledAs: indexStatus.crawledAs || 'MOBILE',
+      verdict: indexStatus.verdict ?? null,
+      coverageState: indexStatus.coverageState ?? null,
+      robotsTxtState: indexStatus.robotsTxtState ?? null,
+      indexingState: indexStatus.indexingState ?? null,
+      lastCrawlTime: indexStatus.lastCrawlTime ?? null,
+      pageFetchState: indexStatus.pageFetchState ?? null,
+      googleCanonical: indexStatus.googleCanonical ?? null,
+      userCanonical: indexStatus.userCanonical ?? null,
+      sitemap: Array.isArray(indexStatus.sitemap) ? indexStatus.sitemap : [],
+      referringUrls: Array.isArray(indexStatus.referringUrls) ? indexStatus.referringUrls : [],
+      crawledAs: indexStatus.crawledAs ?? null,
       mobileUsability: result.mobileUsabilityResult?.verdict || null,
       richResults: (result.richResultsResult?.detectedItems || []).map(item => ({
         name: item.name || 'Rich Result',
@@ -852,7 +901,8 @@ export async function inspectUrl(env, { url, forceRefresh = false } = {}) {
       })),
       cached: false,
       lastChecked: nowIso,
-      source: 'Google URL Inspection API'
+      source: 'Google URL Inspection API',
+      inspectionResult
     };
 
     // Cache in AUTH_KV for 15 minutes

@@ -281,6 +281,7 @@ export function getSecurityHeaders() {
   return {
     'X-Content-Type-Options': 'nosniff',
     'X-Frame-Options': 'DENY',
+    'X-Robots-Tag': 'noindex, nofollow, noarchive',
     'Referrer-Policy': 'strict-origin-when-cross-origin',
     'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
     'Pragma': 'no-cache',
@@ -303,17 +304,31 @@ export const LOCKOUT_DURATION_MS = 24 * 60 * 60 * 1000; // 24 hours
 export const LOCKOUT_TTL_SECONDS = 24 * 60 * 60; // 86400s
 
 /**
- * Check if the admin account is currently locked out
+ * Resolve IP-scoped lockout storage key to prevent global denial-of-service
+ */
+export function getLockoutKeyForIp(clientIp) {
+  const ip = (typeof clientIp === 'string' && clientIp.trim()) ? clientIp.trim() : '127.0.0.1';
+  return `${LOCKOUT_KEY}:${ip}`;
+}
+
+/**
+ * Check if an IP address or admin account is currently locked out
+ * Supports getLockoutState(env, clientIp, currentTimeMs) and getLockoutState(env, currentTimeMs)
  * @param {object} env Worker environment bindings
- * @param {number} [currentTimeMs] Optional mock time for isolated testing
+ * @param {string|number} [clientIpOrTime] Optional client IP or mock time
+ * @param {number} [mockTimeMs] Optional mock time if clientIp is provided
  * @returns {Promise<{ isLocked: boolean, lockedUntil?: number, attempts: number }>}
  */
-export async function getLockoutState(env, currentTimeMs = Date.now()) {
+export async function getLockoutState(env, clientIpOrTime = '127.0.0.1', mockTimeMs) {
   if (!env || !env.AUTH_KV) {
     throw new Error('AUTH_KV binding is missing or unavailable.');
   }
 
-  const raw = await env.AUTH_KV.get(LOCKOUT_KEY);
+  const clientIp = typeof clientIpOrTime === 'string' ? clientIpOrTime : '127.0.0.1';
+  const currentTimeMs = typeof clientIpOrTime === 'number' ? clientIpOrTime : (mockTimeMs || Date.now());
+  const key = getLockoutKeyForIp(clientIp);
+
+  const raw = await env.AUTH_KV.get(key);
   if (!raw) {
     return { isLocked: false, attempts: 0 };
   }
@@ -336,17 +351,22 @@ export async function getLockoutState(env, currentTimeMs = Date.now()) {
 }
 
 /**
- * Record a failed login attempt; activates 24h lockout upon 3rd failure
+ * Record a failed login attempt scoped by client IP; activates 24h lockout upon 3rd failure
  * @param {object} env Worker environment bindings
- * @param {number} [currentTimeMs] Optional mock time for isolated testing
+ * @param {string|number} [clientIpOrTime] Optional client IP or mock time
+ * @param {number} [mockTimeMs] Optional mock time if clientIp is provided
  * @returns {Promise<{ isLocked: boolean, lockedUntil?: number, attempts: number }>}
  */
-export async function recordFailedLogin(env, currentTimeMs = Date.now()) {
+export async function recordFailedLogin(env, clientIpOrTime = '127.0.0.1', mockTimeMs) {
   if (!env || !env.AUTH_KV) {
     throw new Error('AUTH_KV binding is missing or unavailable.');
   }
 
-  const raw = await env.AUTH_KV.get(LOCKOUT_KEY);
+  const clientIp = typeof clientIpOrTime === 'string' ? clientIpOrTime : '127.0.0.1';
+  const currentTimeMs = typeof clientIpOrTime === 'number' ? clientIpOrTime : (mockTimeMs || Date.now());
+  const key = getLockoutKeyForIp(clientIp);
+
+  const raw = await env.AUTH_KV.get(key);
   let state = raw ? JSON.parse(raw) : null;
   
   // If account is already locked out, keep the existing lockout window (prevents DoS extension)
@@ -370,9 +390,10 @@ export async function recordFailedLogin(env, currentTimeMs = Date.now()) {
     const newState = {
       attempts: currentAttempts,
       lockedUntil: lockedUntil,
-      lastFailureTime: currentTimeMs
+      lastFailureTime: currentTimeMs,
+      ip: clientIp
     };
-    await env.AUTH_KV.put(LOCKOUT_KEY, JSON.stringify(newState), {
+    await env.AUTH_KV.put(key, JSON.stringify(newState), {
       expirationTtl: LOCKOUT_TTL_SECONDS
     });
     return {
@@ -383,9 +404,10 @@ export async function recordFailedLogin(env, currentTimeMs = Date.now()) {
   } else {
     const newState = {
       attempts: currentAttempts,
-      lastFailureTime: currentTimeMs
+      lastFailureTime: currentTimeMs,
+      ip: clientIp
     };
-    await env.AUTH_KV.put(LOCKOUT_KEY, JSON.stringify(newState), {
+    await env.AUTH_KV.put(key, JSON.stringify(newState), {
       expirationTtl: LOCKOUT_TTL_SECONDS
     });
     return {
@@ -396,15 +418,17 @@ export async function recordFailedLogin(env, currentTimeMs = Date.now()) {
 }
 
 /**
- * Reset lockout state upon successful authentication
+ * Reset lockout state upon successful authentication for a client IP
  * @param {object} env Worker environment bindings
+ * @param {string} [clientIp] Optional client IP
  * @returns {Promise<void>}
  */
-export async function resetLockoutState(env) {
+export async function resetLockoutState(env, clientIp = '127.0.0.1') {
   if (!env || !env.AUTH_KV) {
     throw new Error('AUTH_KV binding is missing or unavailable.');
   }
-  await env.AUTH_KV.delete(LOCKOUT_KEY);
+  const key = getLockoutKeyForIp(clientIp);
+  await env.AUTH_KV.delete(key);
 }
 
 // Re-export core member & authorization helpers

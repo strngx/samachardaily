@@ -493,13 +493,13 @@ noindex: true
     <div class="topbar-node">
       <span class="status-indicator">
         <span class="status-dot" aria-hidden="true"></span>
-        <span>ONLINE</span>
+        <span>Editorial Control</span>
       </span>
-      <span>NODE: SAMACHAR-EDITORIAL</span>
+      <span>Newsroom Administration</span>
     </div>
     <div class="topbar-meta">
-      <span>CHANNEL: TLS 1.3</span>
-      <span>ACCESS: RESTRICTED</span>
+      <span>Secure Portal</span>
+      <span>Restricted Access</span>
     </div>
   </header>
 
@@ -521,9 +521,9 @@ noindex: true
       <div class="terminal-strip" aria-label="Security Status">
         <span class="terminal-strip-label">
           <span class="status-dot" aria-hidden="true"></span>
-          <span>GATEWAY STATUS</span>
+          <span>Authentication Gateway</span>
         </span>
-        <span class="terminal-strip-badge">SECURE // ENCRYPTED</span>
+        <span class="terminal-strip-badge">Encrypted Session</span>
       </div>
 
       <div class="card-body">
@@ -541,11 +541,10 @@ noindex: true
                 id="username"
                 name="username"
                 class="form-input"
-                value="admin"
                 required
                 autocomplete="username"
                 autofocus
-                placeholder="admin"
+                placeholder="Enter username"
                 spellcheck="false"
               >
             </div>
@@ -613,6 +612,19 @@ noindex: true
       }
     }
     checkExistingSession();
+
+    // Check URL parameters for explicit security / session states
+    const urlParams = new URLSearchParams(window.location.search);
+    const errCode = urlParams.get('error');
+    if (errCode === 'session_expired') {
+      showAlert('Your newsroom session has expired. Please sign in again.');
+    } else if (errCode === 'locked') {
+      showAlert('Too many failed login attempts. This connection is temporarily locked.');
+    } else if (errCode === 'invitation_expired') {
+      showAlert('This invitation link has expired. Please request a new invitation.');
+    } else if (errCode === 'unauthorized') {
+      showAlert('Please sign in to access the Editorial Control Center.');
+    }
 
     function togglePasswordVisibility() {
       const input = document.getElementById('password');

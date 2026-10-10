@@ -542,6 +542,66 @@ export async function cancelInvitation(env, invitationId, cancelledBy = 'owner-a
 }
 
 /**
+ * Permanently deletes a revoked, cancelled, or expired invitation record.
+ * Admin/Owner only. Active (pending) invitations cannot be deleted.
+ */
+export async function deleteInvitation(env, invitationId, nowMs = Date.now()) {
+  if (!env || !env.AUTH_KV) {
+    throw new Error('AUTH_KV binding is missing or unavailable.');
+  }
+  if (!invitationId || typeof invitationId !== 'string') {
+    throw new Error('Missing or invalid invitation ID.');
+  }
+
+  const invitation = await getInvitationById(env, invitationId, nowMs);
+  if (!invitation) {
+    // If already missing from KV, ensure removed from index
+    const rawIndex = await env.AUTH_KV.get(KEY_INVITATIONS_INDEX);
+    if (rawIndex) {
+      try {
+        let index = JSON.parse(rawIndex);
+        if (Array.isArray(index) && index.includes(invitationId)) {
+          index = index.filter(id => id !== invitationId);
+          await env.AUTH_KV.put(KEY_INVITATIONS_INDEX, JSON.stringify(index));
+        }
+      } catch (_) {}
+    }
+    return { success: true, deleted: true, id: invitationId };
+  }
+
+  const isDeletable = invitation.status === INVITATION_STATUS.CANCELLED ||
+                      invitation.status === INVITATION_STATUS.REVOKED ||
+                      invitation.status === INVITATION_STATUS.EXPIRED ||
+                      invitation.revoked === true;
+
+  if (!isDeletable) {
+    throw new Error(`Cannot delete active invitation with status "${invitation.status}". Only revoked, cancelled, or expired invitations can be deleted.`);
+  }
+
+  // 1. Delete token pointer
+  if (invitation.tokenHash) {
+    await env.AUTH_KV.delete(KEY_INVITATION_TOKEN_PREFIX + invitation.tokenHash);
+  }
+
+  // 2. Delete invitation record
+  await env.AUTH_KV.delete(KEY_INVITATION_PREFIX + invitationId);
+
+  // 3. Remove from invitations index
+  const rawIndex = await env.AUTH_KV.get(KEY_INVITATIONS_INDEX);
+  if (rawIndex) {
+    try {
+      let index = JSON.parse(rawIndex);
+      if (Array.isArray(index)) {
+        index = index.filter(id => id !== invitationId);
+        await env.AUTH_KV.put(KEY_INVITATIONS_INDEX, JSON.stringify(index));
+      }
+    } catch (_) {}
+  }
+
+  return { success: true, deleted: true, id: invitationId };
+}
+
+/**
  * Accepts an invitation with a verified Google Identity.
  * Creates or activates the member account, updates invitation to accepted,
  * deletes the single-use token pointer, and returns the activated member record.
@@ -763,6 +823,7 @@ export function hasPermission(member, permission) {
     manage_members: [ROLES.OWNER, ROLES.ADMIN],
     invite_members: [ROLES.OWNER, ROLES.ADMIN],
     cancel_invitations: [ROLES.OWNER, ROLES.ADMIN],
+    delete_invitations: [ROLES.OWNER, ROLES.ADMIN],
     view_members: [ROLES.OWNER, ROLES.ADMIN],
     edit_articles: [ROLES.OWNER, ROLES.ADMIN, ROLES.EDITOR],
     publish_articles: [ROLES.OWNER, ROLES.ADMIN, ROLES.EDITOR],
@@ -796,6 +857,23 @@ export function getGoogleOAuthConfig(env) {
     clientSecret,
     missing
   };
+}
+
+/**
+ * Resolves canonical Invitation Google OAuth redirect URI.
+ * Guarantees that apex and www both resolve to https://thesamachardaily.in/admin/invite/callback
+ * while preserving localhost dev environment origins.
+ */
+export function resolveInvitationRedirectUri(url, env) {
+  if (env?.INVITATION_REDIRECT_URI) {
+    return env.INVITATION_REDIRECT_URI;
+  }
+  const u = typeof url === 'string' ? new URL(url) : url;
+  const host = (u.hostname || '').toLowerCase();
+  if (host === 'thesamachardaily.in' || host === 'www.thesamachardaily.in') {
+    return 'https://thesamachardaily.in/admin/invite/callback';
+  }
+  return `${u.origin}/admin/invite/callback`;
 }
 
 /**

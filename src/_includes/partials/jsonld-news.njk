@@ -17,6 +17,10 @@
   ],
   "datePublished": "{{ (date or page.date) | isoDate }}",
   "dateModified": "{{ (modifiedDate or dateModified or date or page.date) | isoDate }}",
+  {% set articleCorrection = correction or correction_notice or corrections %}
+  {% if articleCorrection %}
+  "correction": {{ articleCorrection | json | safe }},
+  {% endif %}
   {% set rawAuthor = (author or site.author.name or "") | trim %}
   {% if rawAuthor == "Arjun Khatri" %}
   "author": {
@@ -45,7 +49,9 @@
     "founder": {
       "@type": "Person",
       "name": "Arjun Khatri"
-    }
+    },
+    "publishingPrinciples": "{{ site.url }}/editorial/",
+    "correctionsPolicy": "{{ site.url }}/editorial/#corrections-policy"
   },
   "articleSection": "{{ category or 'News' }}",
   "inLanguage": "{{ site.language or 'en-IN' }}"

@@ -49,6 +49,36 @@ function buildAdminViews() {
   const loginHtml = fs.readFileSync(loginHtmlPath, 'utf8');
   const editorialHtml = fs.readFileSync(editorialHtmlPath, 'utf8');
 
+  // Purge adminDirInSite immediately so static isolation is enforced before builders run
+  if (fs.existsSync(adminDirInSite)) {
+    fs.rmSync(adminDirInSite, { recursive: true, force: true });
+    console.log('[Worker Views Builder] Strictly purged _site/admin/ from static assets.');
+  }
+
+  let qualityIndexJson = '{}';
+  try {
+    const { buildQualityIndex } = require('../scripts/build-quality-index.js');
+    qualityIndexJson = buildQualityIndex();
+  } catch (err) {
+    console.error('[Worker Views Builder] Failed to build quality index:', err.message);
+  }
+
+  let internalLinksJson = '{}';
+  try {
+    const { buildInternalLinksIndex } = require('../scripts/build-internal-links.js');
+    internalLinksJson = buildInternalLinksIndex();
+  } catch (err) {
+    console.error('[Worker Views Builder] Failed to build internal links index:', err.message);
+  }
+
+  let siteHealthJson = '{}';
+  try {
+    const { buildSiteHealthIndex } = require('../scripts/build-site-health.js');
+    siteHealthJson = buildSiteHealthIndex();
+  } catch (err) {
+    console.error('[Worker Views Builder] Failed to build site health index:', err.message);
+  }
+
   // 3. Write worker/admin-views.js as an ES module
   const outputCode = `/**
  * Samachar Daily — Pre-compiled Private Admin Views
@@ -59,6 +89,12 @@ function buildAdminViews() {
 export const loginHtml = ${JSON.stringify(loginHtml)};
 
 export const editorialHtml = ${JSON.stringify(editorialHtml)};
+
+export const qualityIndexJson = ${JSON.stringify(qualityIndexJson)};
+
+export const internalLinksJson = ${JSON.stringify(internalLinksJson)};
+
+export const siteHealthJson = ${JSON.stringify(siteHealthJson)};
 `;
 
   fs.mkdirSync(path.dirname(workerViewsFile), { recursive: true });

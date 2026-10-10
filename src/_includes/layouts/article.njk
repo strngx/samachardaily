@@ -65,18 +65,9 @@ layout: layouts/base.njk
       </div>
     </div>
 
-    <!-- 6. Compact Editorial Disclosure -->
-    <div class="article-disclosure-bar">
-      <span class="disclosure-item disclosure-ai">AI-assisted wire synthesis</span>
-      <span class="disclosure-dot" aria-hidden="true">·</span>
-      <span class="disclosure-item disclosure-verified">
-        {% if humanReviewed or human_reviewed %}Human reviewed{% elif corroboration_status == "corroborated" or corroborationStatus == "corroborated" %}Multi-source corroborated{% else %}Independently verified{% endif %}
-      </span>
-      <span class="disclosure-dot" aria-hidden="true">·</span>
-      <a href="{{ '/editorial/' | url }}" class="disclosure-link">
-        Editorial disclosure <span aria-hidden="true">&rarr;</span>
-      </a>
-    </div>
+    <!-- 6. Editorial Trust & Transparency Bar -->
+    {% include "partials/trust-bar.njk" %}
+
 
     <!-- 7. Social Share Bar -->
     {% include "partials/share-bar.njk" %}
@@ -184,6 +175,12 @@ layout: layouts/base.njk
         </div>
       </div>
     </aside>
+
+    <!-- 11b. Institutional Editorial Profile -->
+    {% include "partials/editorial-profile.njk" %}
+
+    <!-- 11c. Corrections & Editorial Accountability -->
+    {% include "partials/corrections-box.njk" %}
 
     <!-- 12. Related Stories (Deterministic Build-Time Similarity) -->
     {% set stories = (relatedStories and relatedStories[page.url]) or [] %}
