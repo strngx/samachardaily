@@ -6,6 +6,20 @@
   "vars": {
     "GSC_PROPERTY_ID": "https://thesamachardaily.in/"
   },
+  "routes": [
+    {
+      "pattern": "thesamachardaily.in/admin/*",
+      "zone_name": "thesamachardaily.in"
+    },
+    {
+      "pattern": "thesamachardaily.in/api/admin/*",
+      "zone_name": "thesamachardaily.in"
+    },
+    {
+      "pattern": "thesamachardaily.in/api/newsletter/*",
+      "zone_name": "thesamachardaily.in"
+    }
+  ],
   "assets": {
     "directory": "./_site",
     "binding": "ASSETS",
