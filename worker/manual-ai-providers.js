@@ -39,9 +39,9 @@
 // 1. CONFIGURATION & CONSTANTS
 // ============================================================================
 
-export const PROVIDER_TIMEOUT_MS = 8000;
+export const PROVIDER_TIMEOUT_MS = 25000;
 export const MAX_RETRY_ATTEMPTS = 2;
-export const MAX_WATERFALL_DURATION_MS = 25000;
+export const MAX_WATERFALL_DURATION_MS = 55000;
 
 export const FAILURE_CLASS = {
   AUTH_FAILURE: 'AUTH_FAILURE',                 // HTTP 401, 403, invalid token
@@ -272,40 +272,53 @@ export const PROVIDER_ADAPTERS = {
       const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
 
       const resp = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [
-            { role: 'user', parts: [{ text: `${systemPrompt}\n\n${userPrompt}` }] }
-          ],
-          generationConfig: {
-            responseMimeType: 'application/json',
-            temperature: 0.2,
-            maxOutputTokens: 2500
-          }
-        }),
-        signal
-      });
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [
+              { role: 'user', parts: [{ text: `${systemPrompt}\n\n${userPrompt}` }] }
+            ],
+            generationConfig: {
+              responseMimeType: 'application/json',
+              temperature: 0.2,
+              maxOutputTokens: 4096
+            }
+          }),
+          signal
+        });
 
-      if (!resp.ok) {
-        const err = new Error(`Gemini HTTP ${resp.status} ${resp.statusText}`);
-        err.status = resp.status;
-        throw err;
-      }
+        if (!resp.ok) {
+          const rawErrText = await resp.text().catch(() => '');
+          const safeErrText = scrubManualAiSecrets(rawErrText, env);
+          let parsedMsg = '';
+          try {
+            const errObj = JSON.parse(safeErrText);
+            parsedMsg = errObj?.error?.message || '';
+          } catch (_) {}
 
-      const json = await resp.json();
-      const candidate = json.candidates?.[0];
-      const finishReason = candidate?.finishReason;
+          const safeDetail = parsedMsg || safeErrText.slice(0, 200) || resp.statusText;
+          const err = new Error(`Gemini HTTP ${resp.status} (${model}): ${safeDetail}`);
+          err.status = resp.status;
+          err.provider = 'Gemini';
+          err.model = model;
 
-      // Strict truncation detection: Refuse to save partial article
-      if (finishReason === 'MAX_TOKENS' || finishReason === 'LENGTH') {
-        const err = new Error(`Gemini generation was truncated by model token length limit (finishReason: ${finishReason}). Incomplete draft rejected to prevent saving partial article.`);
-        err.classification = FAILURE_CLASS.TRUNCATION_ERROR;
-        throw err;
-      }
+          throw err;
+        }
 
-      const text = candidate?.content?.parts?.[0]?.text || '';
-      return { text, model, finishReason };
+        const json = await resp.json();
+        const candidate = json.candidates?.[0];
+        const finishReason = candidate?.finishReason;
+
+        // Strict truncation detection: Refuse to save partial article
+        if (finishReason === 'MAX_TOKENS' || finishReason === 'LENGTH') {
+          const err = new Error(`Gemini generation was truncated by model token length limit (finishReason: ${finishReason}). Incomplete draft rejected to prevent saving partial article.`);
+          err.classification = FAILURE_CLASS.TRUNCATION_ERROR;
+          err.provider = 'Gemini';
+          throw err;
+        }
+
+        const text = candidate?.content?.parts?.[0]?.text || '';
+        return { text, model, finishReason };
     }
   },
 
@@ -336,30 +349,59 @@ export const PROVIDER_ADAPTERS = {
       const model = this.getModel(env); // Throws if paid or malformed model identifier detected
       const url = 'https://openrouter.ai/api/v1/chat/completions';
 
-      const resp = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-          'HTTP-Referer': 'https://thesamachardaily.in',
-          'X-Title': 'SamacharDaily Manual AI Upgrade'
-        },
-        body: JSON.stringify({
+      // First attempt with response_format json_object; fallback without response_format if provider returns 400
+      const sendRequest = async (useJsonFormat) => {
+        const bodyObj = {
           model,
           messages: [
             { role: 'system', content: systemPrompt },
             { role: 'user', content: userPrompt }
           ],
-          response_format: { type: 'json_object' },
           temperature: 0.2,
-          max_tokens: 2500
-        }),
-        signal
-      });
+          max_tokens: 4096
+        };
+        if (useJsonFormat) {
+          bodyObj.response_format = { type: 'json_object' };
+        }
+
+        return await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': 'application/json',
+            'HTTP-Referer': 'https://thesamachardaily.in',
+            'X-Title': 'SamacharDaily Manual AI Upgrade'
+          },
+          body: JSON.stringify(bodyObj),
+          signal
+        });
+      };
+
+      let resp = await sendRequest(true);
+
+      // If HTTP 400 occurs because the free model does not support response_format json_object, retry without it
+      if (!resp.ok && resp.status === 400) {
+        const rawErrText = await resp.clone().text().catch(() => '');
+        if (rawErrText.includes('response_format') || rawErrText.includes('json_object') || rawErrText.includes('structured output')) {
+          console.log('[OpenRouter Adapter] Model does not support response_format json_object. Retrying without response_format flag...');
+          resp = await sendRequest(false);
+        }
+      }
 
       if (!resp.ok) {
-        const err = new Error(`OpenRouter HTTP ${resp.status} ${resp.statusText}`);
+        const rawErrText = await resp.text().catch(() => '');
+        const safeErrText = scrubManualAiSecrets(rawErrText, env);
+        let parsedMsg = '';
+        try {
+          const errObj = JSON.parse(safeErrText);
+          parsedMsg = errObj?.error?.message || '';
+        } catch (_) {}
+
+        const safeDetail = parsedMsg || safeErrText.slice(0, 200) || resp.statusText;
+        const err = new Error(`OpenRouter HTTP ${resp.status}: ${safeDetail}`);
         err.status = resp.status;
+        err.provider = 'OpenRouter';
+        err.model = model;
         throw err;
       }
 
@@ -371,6 +413,7 @@ export const PROVIDER_ADAPTERS = {
       if (finishReason === 'length') {
         const err = new Error(`OpenRouter generation was truncated by model token length limit (finish_reason: length). Incomplete draft rejected to prevent saving partial article.`);
         err.classification = FAILURE_CLASS.TRUNCATION_ERROR;
+        err.provider = 'OpenRouter';
         throw err;
       }
 
@@ -757,7 +800,9 @@ async function callAdapterWithTimeout(adapter, { systemPrompt, userPrompt }, env
  * - NEVER falls back to paid services or generic keys.
  * - If all free providers fail, returns a clear error stating no free provider is available.
  */
-export async function executeManualAiWaterfall({ systemPrompt, userPrompt, article, qualityEvaluator, safetyAnalyzer }, env = {}) {
+export async function executeManualAiWaterfall(options = {}, envParam = {}) {
+  const { systemPrompt, userPrompt, article, qualityEvaluator, safetyAnalyzer } = options;
+  const env = (envParam && typeof envParam === 'object' && Object.keys(envParam).length > 0) ? envParam : (options.env || {});
   const activeWaterfall = getActiveProviderWaterfall(env);
 
   if (activeWaterfall.length === 0) {
@@ -765,19 +810,25 @@ export async function executeManualAiWaterfall({ systemPrompt, userPrompt, artic
       success: false,
       error: 'No approved free Manual AI Rewrite provider is configured. Please configure at least one free MANUAL_AI_* secret (e.g. MANUAL_AI_GEMINI_API_KEY or MANUAL_AI_OPENROUTER_API_KEY). Zero paid providers are permitted.',
       providerUsed: null,
-      totalAttempts: 0
+      totalAttempts: 0,
+      providerAttempts: []
     };
   }
 
   const startTime = Date.now();
   let totalAttempts = 0;
-  let lastError = null;
+  const failureLog = [];
 
   for (const adapter of activeWaterfall) {
     for (let attempt = 1; attempt <= MAX_RETRY_ATTEMPTS; attempt++) {
       // Check total execution budget
       if (Date.now() - startTime >= MAX_WATERFALL_DURATION_MS) {
-        lastError = new Error('Execution time budget exhausted across free Manual AI providers.');
+        failureLog.push({
+          provider: adapter.name,
+          error: 'Waterfall time budget exhausted before completion',
+          classification: FAILURE_CLASS.TIMEOUT,
+          retryable: false
+        });
         break;
       }
 
@@ -816,8 +867,16 @@ export async function executeManualAiWaterfall({ systemPrompt, userPrompt, artic
           safetyAnalysis: result.safetyAnalysis
         };
       } catch (err) {
-        lastError = err;
         const failureClass = classifyError(err);
+        const scrubbedMsg = scrubManualAiSecrets(err.message || '', env);
+        failureLog.push({
+          provider: adapter.name,
+          status: err.status || null,
+          classification: failureClass,
+          error: scrubbedMsg,
+          attempt,
+          retryable: (failureClass === FAILURE_CLASS.TIMEOUT || (err.status && err.status >= 500))
+        });
 
         // Non-retryable errors on same provider: break immediately to cascade to next free provider
         if (
@@ -832,15 +891,19 @@ export async function executeManualAiWaterfall({ systemPrompt, userPrompt, artic
     }
   }
 
-  const safeErrorMessage = scrubManualAiSecrets(
-    lastError ? lastError.message : 'All configured free Manual AI providers were unavailable or rate-limited.',
-    env
-  );
+  // Construct structured diagnostic summary of what failed across providers
+  const failureSummaries = failureLog.map(f => {
+    const statusPart = f.status ? ` (HTTP ${f.status})` : '';
+    return `${f.provider}${statusPart}: [${f.classification}] ${f.error}`;
+  });
+
+  const detailedMessage = failureSummaries.join(' | ');
 
   return {
     success: false,
-    error: 'No configured free Manual AI Rewrite provider is currently available. All approved free providers were either unconfigured, rate-limited, or unavailable. Zero paid fallbacks were attempted. Details: ' + safeErrorMessage,
+    error: `Free AI generation unavailable across configured free providers: ${detailedMessage}. Zero paid fallbacks were attempted.`,
     totalAttempts,
-    providerUsed: null
+    providerUsed: null,
+    providerAttempts: failureLog
   };
 }

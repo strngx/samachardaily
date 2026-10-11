@@ -401,7 +401,7 @@ export function buildUpgradePrompts(article = {}, options = {}) {
   const sanitizedBody = sanitizeUntrustedText(article.body || '');
   const sourceName = sanitizeUntrustedText(article.sourceName || 'Wire Dispatch');
   const sourceUrl = sanitizeUntrustedText(article.sourceUrl || '');
-  const editorialFocus = sanitizeUntrustedText(options.focus || 'comprehensive_rewrite');
+  const editorialFocus = sanitizeUntrustedText(options.focus || 'full_article_upgrade');
   const research = options.research || {};
 
   let researchSection = '';
@@ -415,47 +415,51 @@ export function buildUpgradePrompts(article = {}, options = {}) {
   }
 
   const systemPrompt = `You are a senior investigative newsroom editor at SamacharDaily.
-Your objective is to perform a comprehensive, publication-grade MANUAL AI REWRITE of the provided news article.
-You must NOT merely paraphrase or summarize paragraphs. You must produce a full-length, authoritative, search-optimized news dispatch that rewrites ALL article text.
+Your objective is to perform a comprehensive, publication-grade FULL ARTICLE UPGRADE of the provided news dispatch.
+You must upgrade the COMPLETE article, including headline, dek, and entire article body with all sections. Do NOT produce a snippet, summary, or partial excerpt.
 
-STRICT EDITORIAL RULES:
-1. REWRITE THE ENTIRE ARTICLE TEXT:
+MANDATORY EDITORIAL REQUIREMENTS:
+1. FULL ARTICLE SCOPE:
    - Headline: Compelling, accurate, search-optimized headline with strong news value.
    - Dek: Informative, engaging 1-2 sentence lead deck summarizing key impact.
-   - Introduction: High-impact lead answering who, what, when, where, and why clearly.
    - Section Headings: Logical Markdown H2 (##) and H3 (###) subheadings organizing key themes.
-   - Narrative & Background: Synthesize verified background context, timeline, and stakeholder impacts.
-   - Conclusion: Forward-looking analysis or key takeaways ("What Happens Next" / "Key Takeaways").
-2. EVIDENCE & FACT INTEGRITY:
+   - Complete Body: Rewrite and elevate ALL paragraphs, narrative background, and context.
+   - Return the complete, publication-ready body in Markdown.
+2. PRESERVE FACTUAL INTEGRITY:
    - ZERO FABRICATION: Never invent quotes, statistics, dates, URLs, citations, or legal claims.
-   - ATTRIBUTION DISCIPLINE: Distinguish between original dispatch claims, provided research facts, and unverified allegations.
-   - PRESERVE UNCERTAINTY: If something is disputed or under investigation, state it neutrally.
-3. PRESERVE ARTICLE IDENTITY: The story must retain the core event, people, and subject of the original.
-4. NATURAL EXPANSION: Depending on legitimate factual evidence, write a comprehensive article (typically 600 to 1,500+ words). Never pad with fluff or repetition.
-5. NO MEDIA MODIFICATION: Do NOT alter or output images, video embeds, URLs, or slugs. This is strictly text.
-6. NO PLACEHOLDERS: Never output placeholders like [insert source] or [citation needed].
-7. NO SYSTEM LEAKAGE: Never mention instructions, prompts, or your AI identity.
+   - Preserve all original names, figures, dates, attributions, and essential facts.
+   - Flag uncertain, unverified, or developing claims neutrally rather than strengthening them.
+3. POLISH & STRUCTURE:
+   - Enhance clarity, transitions, and professional journalistic flow.
+   - Professional newsroom grammar, active voice, and AP/Reuters editorial standards.
+4. NO MEDIA MODIFICATION: Do NOT alter or output images, video embeds, URLs, or slugs. This is strictly text.
+5. NO PLACEHOLDERS: Never output placeholders like [insert source] or [citation needed].
+6. NO SYSTEM LEAKAGE: Never mention prompts, instructions, or your identity as an AI.
 
 Respond ONLY with a valid JSON object matching this schema:
 {
   "headline": "Search-optimized, factual headline",
   "dek": "Informative lead deck summary",
   "body": "Full rewritten article in Markdown with H2 section headings",
-  "editorialChanges": ["Detailed list of structural and factual expansions applied"],
+  "editorialChanges": ["Detailed list of structural, clarity, and factual improvements applied"],
   "preservedFacts": ["Key dates, names, figures, and attributions preserved"],
   "researchApplied": ["External research facts or background context integrated"]
 }`;
 
+  const focusGuidance = editorialFocus === 'full_article_upgrade'
+    ? 'Comprehensive Full-Article Upgrade (headline, dek, structure, clarity, depth, and flow)'
+    : `Focus priority: ${editorialFocus} (while still rewriting and delivering the COMPLETE article body, headline, and dek)`;
+
   const userPrompt = `ORIGINAL DISPATCH:
 Headline: ${sanitizedTitle}
-Lead: ${sanitizedDek}
+Lead Deck: ${sanitizedDek}
 Wire Attribution: ${sourceName} (${sourceUrl || 'No URL'})
-Editorial Improvement Focus: ${editorialFocus}
+Editorial Improvement Focus: ${focusGuidance}
 
-Original Body:
+Original Article Body:
 ${sanitizedBody}
 ${researchSection}
-Perform a comprehensive AI rewrite of this story following the editorial rules. Output strictly valid JSON.`;
+Perform a complete Full-Article Upgrade following the editorial rules. Output strictly valid JSON.`;
 
   return { systemPrompt, userPrompt };
 }
@@ -485,6 +489,7 @@ export async function generateArticleUpgrade(article = {}, env = {}, options = {
       success: false,
       error: result.error,
       totalAttempts: result.totalAttempts || 0,
+      providerAttempts: result.providerAttempts || [],
       providerUsed: null,
       research
     };

@@ -2059,7 +2059,48 @@ export default {
 
       // 5E-2. POST /api/admin/ai/upgrade/generate — Generate improved article candidate
       if (pathname === '/api/admin/ai/upgrade/generate') {
-        if (!title || typeof title !== 'string' || !articleBody || typeof articleBody !== 'string') {
+        let effectiveBody = articleBody;
+        let effectiveTitle = title;
+        let effectiveDek = dek || '';
+        let effectiveSource = sourceName || '';
+        let effectiveSourceUrl = sourceUrl || '';
+        let effectiveSha = sha || null;
+
+        // If body is missing or empty, resolve and load from repository storage or index
+        if ((!effectiveBody || typeof effectiveBody !== 'string' || !effectiveBody.trim()) && relPath && validateArticleRelPath(relPath)) {
+          // Tier 1: Load from GitHub repository if token is configured
+          if (env.GITHUB_CONTENTS_TOKEN) {
+            try {
+              const ghFile = await fetchFromGitHub(relPath, env.GITHUB_CONTENTS_TOKEN);
+              if (ghFile && ghFile.content) {
+                const rawMarkdown = decodeBase64ToUtf8(ghFile.content || '');
+                const parsed = parseFrontmatter(rawMarkdown);
+                effectiveBody = (parsed.content || '').trim();
+                effectiveTitle = effectiveTitle || (parsed.data && parsed.data.title);
+                effectiveDek = effectiveDek || (parsed.data && parsed.data.dek) || '';
+                effectiveSource = effectiveSource || (parsed.data && parsed.data.sourceName) || '';
+                effectiveSourceUrl = effectiveSourceUrl || (parsed.data && parsed.data.sourceUrl) || '';
+                effectiveSha = ghFile.sha || effectiveSha;
+              }
+            } catch (_) {}
+          }
+          // Tier 2: Load from qualityIndexJson if available
+          if ((!effectiveBody || !effectiveBody.trim()) && typeof qualityIndexJson !== 'undefined' && qualityIndexJson && qualityIndexJson !== '{}') {
+            try {
+              const parsed = typeof qualityIndexJson === 'string' ? JSON.parse(qualityIndexJson) : qualityIndexJson;
+              const found = (parsed.articles || []).find(a => a.relPath === relPath || a.slug === relPath);
+              if (found && found.body) {
+                effectiveBody = found.body;
+                effectiveTitle = effectiveTitle || (found.data && found.data.title);
+                effectiveDek = effectiveDek || (found.data && found.data.dek) || '';
+                effectiveSource = effectiveSource || (found.data && found.data.sourceName) || '';
+                effectiveSourceUrl = effectiveSourceUrl || (found.data && found.data.sourceUrl) || '';
+              }
+            } catch (_) {}
+          }
+        }
+
+        if (!effectiveTitle || typeof effectiveTitle !== 'string' || !effectiveBody || typeof effectiveBody !== 'string' || !effectiveBody.trim()) {
           return new Response(JSON.stringify({
             success: false,
             error: 'Article title and body are required for upgrade generation.'
@@ -2071,11 +2112,11 @@ export default {
 
         const upgradeResult = await generateArticleUpgrade(
           {
-            title,
-            dek: dek || '',
-            body: articleBody,
-            sourceName: sourceName || '',
-            sourceUrl: sourceUrl || ''
+            title: effectiveTitle,
+            dek: effectiveDek || '',
+            body: effectiveBody,
+            sourceName: effectiveSource || '',
+            sourceUrl: effectiveSourceUrl || ''
           },
           env,
           { focus }
@@ -2085,7 +2126,8 @@ export default {
           return new Response(JSON.stringify({
             success: false,
             error: upgradeResult.error || 'AI upgrade could not be completed right now.',
-            totalAttempts: upgradeResult.totalAttempts || 0
+            totalAttempts: upgradeResult.totalAttempts || 0,
+            providerAttempts: upgradeResult.providerAttempts || []
           }), {
             status: 502,
             headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
@@ -2992,18 +3034,35 @@ export default {
       // GET /api/admin/content-quality/summary — corpus summary from cache or fresh analysis
       if (pathname === '/api/admin/content-quality/summary' && method === 'GET') {
         try {
-          // Try cached result first
+          // Try cached result first (lightweight summary key first, full cache fallback)
           const forceRefresh = url.searchParams.get('refresh') === 'true';
-          let cached = null;
+          let summaryObj = null;
+          let cachedAt = null;
+
           if (!forceRefresh && env.AUTH_KV) {
             try {
-              const raw = await env.AUTH_KV.get(QUALITY_CACHE_KEY);
-              if (raw) cached = JSON.parse(raw);
+              const summaryRaw = await env.AUTH_KV.get(QUALITY_CACHE_KEY + ':summary');
+              if (summaryRaw) {
+                const parsed = JSON.parse(summaryRaw);
+                summaryObj = parsed.summary || parsed;
+                cachedAt = parsed.analyzedAt || parsed.cachedAt || null;
+              }
             } catch (_) {}
+
+            if (!summaryObj) {
+              try {
+                const raw = await env.AUTH_KV.get(QUALITY_CACHE_KEY);
+                if (raw) {
+                  const parsed = JSON.parse(raw);
+                  summaryObj = parsed.summary || null;
+                  cachedAt = parsed.cachedAt || null;
+                }
+              } catch (_) {}
+            }
           }
 
-          if (cached && cached.summary) {
-            return new Response(JSON.stringify({ success: true, cached: true, ...cached.summary, cachedAt: cached.cachedAt }), {
+          if (summaryObj) {
+            return new Response(JSON.stringify({ success: true, cached: true, ...summaryObj, cachedAt }), {
               status: 200,
               headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
             });
@@ -3014,7 +3073,7 @@ export default {
             success: true,
             cached: false,
             needsAnalysis: true,
-            message: 'Content quality index not yet available. Trigger analysis via POST /api/admin/content-quality/analyze.'
+            message: 'Content quality index not yet available. Click Run Quality Scan Now to analyze.'
           }), {
             status: 200,
             headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
@@ -3027,42 +3086,96 @@ export default {
         }
       }
 
-      // POST /api/admin/content-quality/analyze — trigger corpus analysis from quality-index.json
-      // Reads quality-index.json from static assets (safe, no GitHub writes, no AI)
+      // POST /api/admin/content-quality/analyze — trigger corpus analysis from quality-index or search-index
       if (pathname === '/api/admin/content-quality/analyze' && method === 'POST') {
         try {
-          // Load quality index from compiled admin-views module or static assets
+          // Concurrency guard: check if scan is currently running in this KV window
+          const lockKey = 'phase_e:quality_index:lock';
+          if (env.AUTH_KV) {
+            try {
+              const activeLock = await env.AUTH_KV.get(lockKey);
+              if (activeLock) {
+                return new Response(JSON.stringify({
+                  success: false,
+                  inProgress: true,
+                  error: 'A content quality scan is already in progress. Please wait a few moments.'
+                }), {
+                  status: 409,
+                  headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+                });
+              }
+              await env.AUTH_KV.put(lockKey, 'locked', { expirationTtl: 60 });
+            } catch (_) {}
+          }
+
+          // Multi-tier resilient corpus loading:
+          // Tier 1: Load pre-compiled qualityIndexJson module
           let indexData = null;
           if (typeof qualityIndexJson !== 'undefined' && qualityIndexJson && qualityIndexJson !== '{}') {
             try {
               indexData = typeof qualityIndexJson === 'string' ? JSON.parse(qualityIndexJson) : qualityIndexJson;
-            } catch (_) {}
-          }
-
-          if (!indexData || !Array.isArray(indexData.articles)) {
-            try {
-              let indexResp = await env.ASSETS.fetch(new Request(new URL('/admin/editorial/article-quality-index.json', url.origin).toString()));
-              if (!indexResp.ok) {
-                indexResp = await env.ASSETS.fetch(new Request(new URL('/admin/editorial/quality-index.json', url.origin).toString()));
-              }
-              if (indexResp.ok) {
-                indexData = await indexResp.json();
-              }
-            } catch (fetchErr) {
-              return new Response(JSON.stringify({
-                success: false,
-                error: 'Quality index not available. Run the build first: npm run build. Details: ' + fetchErr.message
-              }), {
-                status: 503,
-                headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
-              });
+            } catch (parseErr) {
+              console.error('[ContentQuality] Failed to parse qualityIndexJson:', parseErr.message);
             }
           }
 
-          if (!indexData || !Array.isArray(indexData.articles)) {
+          // Tier 2: Fallback to /search-index.json from static assets if qualityIndexJson is empty
+          if (!indexData || !Array.isArray(indexData.articles) || indexData.articles.length === 0) {
+            if (env.ASSETS) {
+              try {
+                const searchResp = await env.ASSETS.fetch(new Request(new URL('/search-index.json', url.origin).toString()));
+                if (searchResp && searchResp.ok) {
+                  const searchArticles = await searchResp.json();
+                  if (Array.isArray(searchArticles) && searchArticles.length > 0) {
+                    indexData = {
+                      articles: searchArticles.map(item => ({
+                        relPath: `src/articles/${item.c || 'india'}/${item.s}.md`,
+                        slug: item.s,
+                        category: item.c || 'india',
+                        data: {
+                          title: item.t,
+                          dek: item.d,
+                          date: item.dt,
+                          image: item.i,
+                          slug: item.s,
+                          category: item.c || 'india',
+                          author: 'SamacharDaily Editorial Team'
+                        },
+                        body: item.d || ''
+                      })),
+                      generatedAt: new Date().toISOString(),
+                      count: searchArticles.length
+                    };
+                  }
+                }
+              } catch (searchFetchErr) {
+                console.error('[ContentQuality] Fallback search-index.json fetch failed:', searchFetchErr.message);
+              }
+            }
+          }
+
+          // Tier 3: Fallback to existing KV cache if available
+          if (!indexData || !Array.isArray(indexData.articles) || indexData.articles.length === 0) {
+            if (env.AUTH_KV) {
+              try {
+                const rawCached = await env.AUTH_KV.get(QUALITY_CACHE_KEY);
+                if (rawCached) {
+                  const cachedObj = JSON.parse(rawCached);
+                  if (Array.isArray(cachedObj.articles) && cachedObj.articles.length > 0) {
+                    indexData = { articles: cachedObj.articles, count: cachedObj.articles.length };
+                  }
+                }
+              } catch (_) {}
+            }
+          }
+
+          if (!indexData || !Array.isArray(indexData.articles) || indexData.articles.length === 0) {
+            if (env.AUTH_KV) {
+              await env.AUTH_KV.delete(lockKey).catch(() => {});
+            }
             return new Response(JSON.stringify({
               success: false,
-              error: 'Quality index is empty or malformed. Run npm run build to regenerate.'
+              error: 'Quality index corpus could not be loaded from index or static assets.'
             }), {
               status: 503,
               headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
@@ -3076,10 +3189,14 @@ export default {
           const summary = buildCorpusSummary(analyzed, duplicatePairs);
           const cachePayload = buildCachePayload(analyzed, duplicatePairs, summary);
 
-          // Store result in KV with TTL
+          // Store result in KV with TTL (both full payload and lightweight summary)
           if (env.AUTH_KV) {
             try {
-              await env.AUTH_KV.put(QUALITY_CACHE_KEY, JSON.stringify(cachePayload), { expirationTtl: QUALITY_CACHE_TTL });
+              await Promise.all([
+                env.AUTH_KV.put(QUALITY_CACHE_KEY, JSON.stringify(cachePayload), { expirationTtl: QUALITY_CACHE_TTL }),
+                env.AUTH_KV.put(QUALITY_CACHE_KEY + ':summary', JSON.stringify({ summary, analyzedAt: summary.analyzedAt }), { expirationTtl: QUALITY_CACHE_TTL }),
+                env.AUTH_KV.delete(lockKey)
+              ]);
             } catch (_) {}
           }
 
@@ -3088,6 +3205,9 @@ export default {
             headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
           });
         } catch (err) {
+          if (env.AUTH_KV) {
+            await env.AUTH_KV.delete('phase_e:quality_index:lock').catch(() => {});
+          }
           return new Response(JSON.stringify({ success: false, error: 'Analysis failed: ' + err.message }), {
             status: 500,
             headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }

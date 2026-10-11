@@ -3424,6 +3424,7 @@ noindex: true
               <div style="display: flex; align-items: center; gap: 10px;">
                 <label for="ai-upgrade-focus" style="font-size: 12px; font-weight: 600; color: var(--color-muted);">Improvement Focus:</label>
                 <select id="ai-upgrade-focus" class="select-filter">
+                  <option value="full_article_upgrade" selected>Full Article Upgrade (Comprehensive Rewrite &amp; Polish)</option>
                   <option value="general_clarity">General Clarity &amp; Paragraph Flow</option>
                   <option value="structural_polish">Structural Polish (Subheadings &amp; Transitions)</option>
                   <option value="breaking_flow">Concise Breaking Flow (Crisp Wire Attributions)</option>
@@ -12097,12 +12098,31 @@ noindex: true
       const wc = art.wordCount || (art.body ? art.body.trim().split(/\s+/).filter(Boolean).length : 0);
       if (headEl) headEl.textContent = art.title || 'Untitled';
       if (metaEl) metaEl.textContent = (art.category || 'General') + ' • ' + (art.date ? art.date.slice(0, 10) : 'Recent') + ' • ' + (art.author || 'Editorial Desk');
-      if (wordsEl) wordsEl.textContent = wc + ' words';
+      if (wordsEl) wordsEl.textContent = (wc > 0 ? wc + ' words' : 'Loading body...');
       if (sourceEl) sourceEl.textContent = art.sourceName ? art.sourceName : 'Independent Desk Report';
       if (slugEl) slugEl.textContent = art.slug || (art.relPath || '');
       if (creditEl) creditEl.textContent = art.imageCredit || (art.image ? 'Image attached' : 'No hero image');
 
       if (activeCard) activeCard.style.display = 'block';
+
+      // Pre-fetch complete article body asynchronously if missing
+      if ((!art.body || typeof art.body !== 'string' || !art.body.trim()) && art.relPath) {
+        fetch('/api/admin/articles/get?relPath=' + encodeURIComponent(art.relPath))
+          .then(r => r.json())
+          .then(d => {
+            if (d.success && d.body) {
+              art.body = d.body;
+              art.sha = d.sha || art.sha;
+              if (d.data && d.data.dek && !art.dek) art.dek = d.data.dek;
+              if (d.data && d.data.title && !art.title) art.title = d.data.title;
+              const loadedWc = d.wordCount || d.body.trim().split(/\s+/).filter(Boolean).length;
+              art.wordCount = loadedWc;
+              if (wordsEl) wordsEl.textContent = loadedWc + ' words';
+              AiUpgradeState.originalArticle = JSON.parse(JSON.stringify(art));
+            }
+          })
+          .catch(e => console.warn('[AI Upgrade] Could not pre-fetch article body:', e));
+      }
 
       // Hide subsequent panels until triggered
       const safetyPanel = document.getElementById('ai-upgrade-safety-panel');
@@ -12266,15 +12286,34 @@ noindex: true
       const btn = document.getElementById('btn-start-ai-upgrade');
       const btnText = document.getElementById('btn-start-ai-upgrade-text');
       const focusSelect = document.getElementById('ai-upgrade-focus');
-      const focus = focusSelect ? focusSelect.value : 'general_clarity';
+      const focus = focusSelect ? focusSelect.value : 'full_article_upgrade';
 
       if (btn) btn.disabled = true;
-      if (btnText) btnText.innerHTML = '<span class="status-pulse-dot" style="margin-right: 6px;"></span> Generating Improved Copy...';
+      if (btnText) btnText.innerHTML = '<span class="status-pulse-dot" style="margin-right: 6px;"></span> Generating Full Article Upgrade...';
 
       const errBanner = document.getElementById('ai-upgrade-error-banner');
       if (errBanner) errBanner.style.display = 'none';
       const sbsErr = document.getElementById('ai-upgrade-sbs-error-banner');
       if (sbsErr) sbsErr.style.display = 'none';
+
+      // Ensure full body is loaded before sending request
+      if ((!art.body || typeof art.body !== 'string' || !art.body.trim()) && art.relPath) {
+        try {
+          const bodyRes = await fetch('/api/admin/articles/get?relPath=' + encodeURIComponent(art.relPath));
+          if (bodyRes.ok) {
+            const bodyData = await bodyRes.json();
+            if (bodyData.success && bodyData.body) {
+              art.body = bodyData.body;
+              art.sha = bodyData.sha || art.sha;
+              if (bodyData.data && bodyData.data.dek && !art.dek) art.dek = bodyData.data.dek;
+              if (bodyData.data && bodyData.data.title && !art.title) art.title = bodyData.data.title;
+              AiUpgradeState.originalArticle = JSON.parse(JSON.stringify(art));
+            }
+          }
+        } catch (fetchErr) {
+          console.warn('[AI Upgrade] Pre-request body fetch failed:', fetchErr);
+        }
+      }
 
       try {
         const res = await fetch('/api/admin/ai/upgrade/generate', {
@@ -12710,6 +12749,12 @@ noindex: true
         const flagCount = (s.thin || 0) + (s.needsReview || 0);
         sideQualityEl.textContent = flagCount > 0 ? flagCount.toString() : '✓';
       }
+
+      // Also refresh Overview tab KPI cards
+      const ovThinEl = document.getElementById('ov-kpi-thin');
+      if (ovThinEl) ovThinEl.textContent = (s.thin || 0).toLocaleString();
+      const ovTotalEl = document.getElementById('ov-kpi-total');
+      if (ovTotalEl && s.total) ovTotalEl.textContent = s.total.toLocaleString();
     }
 
     async function triggerCorpusAnalysis() {
