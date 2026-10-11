@@ -927,15 +927,172 @@ noindex: true
     }
 
     /* --- TABLES (SAAS DENSITY & CARDS) --- */
+/* ==========================================================================
+       PHASE UI FIX 1: DASHBOARD HORIZONTAL OVERFLOW MITIGATION
+       ========================================================================== */
     .table-container {
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
       overflow-x: auto;
+      overflow-y: hidden;
       -webkit-overflow-scrolling: touch;
       box-shadow: var(--shadow-sm);
       width: 100%;
+      max-width: 100%;
+      min-width: 0;
       margin-bottom: 16px;
+      box-sizing: border-box;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.22) var(--color-surface-alt);
+    }
+    .table-container::-webkit-scrollbar {
+      height: 8px;
+    }
+    .table-container::-webkit-scrollbar-track {
+      background: var(--color-surface-alt);
+      border-radius: 4px;
+    }
+    .table-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.22);
+      border-radius: 4px;
+    }
+    .table-container::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.36);
+    }
+
+    /* Articles Table Responsive Layout & Action Controls */
+    #articles-list-container .table-container {
+      margin-bottom: 16px;
+    }
+    #articles-list-container .saas-table {
+      width: 100%;
+      min-width: 780px;
+      table-layout: auto;
+    }
+    #articles-list-container .saas-table th,
+    #articles-list-container .saas-table td {
+      padding: 9px 8px;
+      box-sizing: border-box;
+    }
+    #articles-list-container .row-article-headline {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      word-break: break-word;
+    }
+    #articles-list-container .row-article-sub {
+      max-width: 220px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    #articles-list-container .row-actions-group {
+      display: inline-flex;
+      gap: 3px;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: nowrap;
+    }
+    #articles-list-container .btn-table-action {
+      padding: 3px 6px;
+      font-size: 11px;
+      font-weight: 500;
+      white-space: nowrap;
+      line-height: 1.25;
+    }
+    #articles-list-container .saas-table th:last-child,
+    #articles-list-container .saas-table td:last-child {
+      position: sticky;
+      right: 0;
+      background: var(--color-surface);
+      z-index: 2;
+      box-shadow: -4px 0 8px -2px rgba(0, 0, 0, 0.45);
+    }
+    #articles-list-container .saas-table th:last-child {
+      background: var(--color-surface-alt);
+      z-index: 3;
+    }
+    #articles-list-container .saas-table tr:hover td:last-child {
+      background: var(--color-surface-hover);
+    }
+    #articles-list-container .saas-table tr.selected td:last-child {
+      background: #0f2425;
+    }
+
+    /* Thin Content Queue Table Responsive Layout */
+    #view-thin-queue .dashboard-panel {
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    #view-thin-queue .saas-table {
+      width: 100%;
+      min-width: 1180px;
+    }
+    #view-thin-queue .saas-table th,
+    #view-thin-queue .saas-table td {
+      padding: 9px 8px;
+      box-sizing: border-box;
+    }
+    #view-thin-queue .row-article-headline {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      word-break: break-word;
+    }
+    #view-thin-queue .row-article-sub {
+      max-width: 230px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    #view-thin-queue .row-reason-text {
+      max-width: 200px;
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+    #view-thin-queue .row-actions-group {
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+      justify-content: flex-end;
+      white-space: nowrap;
+    }
+    #view-thin-queue .btn-table-action {
+      padding: 3px 6px;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+    #tq-table th:last-child,
+    #tq-table td:last-child {
+      position: sticky;
+      right: 0;
+      background: var(--color-surface);
+      z-index: 2;
+      box-shadow: -4px 0 8px -2px rgba(0, 0, 0, 0.45);
+    }
+    #tq-table th:last-child {
+      background: var(--color-surface-alt);
+      z-index: 3;
+    }
+    #tq-table tr:hover td:last-child {
+      background: var(--color-surface-hover);
+    }
+
+    /* Responsive controls and filters for Thin Queue */
+    #view-thin-queue .table-controls-wrapper {
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      overflow: hidden;
     }
 
     .saas-table {
@@ -1900,6 +2057,37 @@ noindex: true
       }
     }
 
+
+    @media (max-width: 768px) {
+      #view-thin-queue .table-search-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      #view-thin-queue .search-input-group {
+        width: 100%;
+        min-width: 0;
+      }
+      #view-thin-queue .filter-dropdown-group {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+      #view-thin-queue .filter-dropdown-group .saas-select {
+        width: 100%;
+        min-width: 0;
+      }
+    }
+    @media (max-width: 480px) {
+      #view-thin-queue .filter-dropdown-group {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      #view-thin-queue .table-controls-wrapper {
+        padding: 10px 10px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -2489,12 +2677,12 @@ noindex: true
                       <input type="checkbox" id="master-checkbox" onchange="handleMasterCheckbox(this)">
                     </th>
                     <th>Article</th>
-                    <th style="width: 100px;">Desk</th>
-                    <th style="width: 110px;">Status</th>
-                    <th style="width: 110px;">Date</th>
-                    <th style="width: 80px;">Words</th>
-                    <th style="width: 120px;">Source</th>
-                    <th style="width: 170px; text-align: right;">Actions</th>
+                    <th style="width: 75px;">Desk</th>
+                    <th style="width: 80px;">Status</th>
+                    <th style="width: 80px;">Date</th>
+                    <th style="width: 55px;">Words</th>
+                    <th style="width: 85px;">Source</th>
+                    <th style="width: 215px; text-align: right;">Actions</th>
                   </tr>
                 </thead>
                 <tbody id="article-table-body">
@@ -2887,16 +3075,16 @@ noindex: true
               <table class="saas-table" id="tq-table">
                 <thead>
                   <tr>
-                    <th style="width: 320px;">Article Headline</th>
-                    <th style="width: 80px;">Desk</th>
-                    <th style="width: 95px;">Date</th>
-                    <th style="width: 70px;">Words</th>
-                    <th style="width: 140px;">Finding</th>
-                    <th style="width: 110px;">Classification</th>
-                    <th style="width: 90px;">Signal</th>
-                    <th>Primary Reason</th>
-                    <th style="width: 160px;">Related Overlap</th>
-                    <th style="width: 150px; text-align: right;">Action</th>
+                    <th style="width: 240px;">Article Headline</th>
+                    <th style="width: 70px;">Desk</th>
+                    <th style="width: 80px;">Date</th>
+                    <th style="width: 60px;">Words</th>
+                    <th style="width: 120px;">Finding</th>
+                    <th style="width: 100px;">Classification</th>
+                    <th style="width: 75px;">Signal</th>
+                    <th style="width: 200px;">Primary Reason</th>
+                    <th style="width: 130px;">Related Overlap</th>
+                    <th style="width: 115px; text-align: right;">Action</th>
                   </tr>
                 </thead>
                 <tbody id="tq-table-body">
