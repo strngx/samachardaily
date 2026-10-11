@@ -3313,6 +3313,8 @@ noindex: true
             </div>
             <div class="view-actions-group" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
               <span class="badge badge-purple"><span class="badge-dot purple"></span> Human-Governed AI</span>
+              <span id="ai-upgrade-provider-status-badge" class="badge badge-gray" title="Free AI Provider Status">AI: Standby</span>
+              <button class="btn-table-action" id="btn-ai-back-to-editor" type="button" onclick="navigate('articles', { subview: 'editor' })" style="display: none;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>Back to Editor</button>
               <button class="btn-table-action" onclick="resetAiUpgradeStudio()">Reset Studio</button>
             </div>
           </div>
@@ -3436,6 +3438,12 @@ noindex: true
                 </button>
               </div>
             </div>
+            <div id="ai-upgrade-error-banner" style="display: none; margin-top: 14px; padding: 12px 14px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: var(--radius-sm); color: #fca5a5; font-size: 13px;">
+              <div style="display: flex; align-items: flex-start; gap: 8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #ef4444; flex-shrink: 0; margin-top: 2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <div id="ai-upgrade-error-message" style="line-height: 1.4;"></div>
+              </div>
+            </div>
           </div>
 
           <!-- STEP 3: FACT & SAFETY REVIEW PANEL -->
@@ -3468,6 +3476,12 @@ noindex: true
                 <button class="btn-table-action btn-table-primary" type="button" id="btn-accept-ai-upgrade" onclick="openAcceptUpgradeModal()">
                   Save AI Rewrite &rarr;
                 </button>
+              </div>
+            </div>
+            <div id="ai-upgrade-sbs-error-banner" style="display: none; margin-bottom: 14px; padding: 12px 14px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: var(--radius-sm); color: #fca5a5; font-size: 13px;">
+              <div style="display: flex; align-items: flex-start; gap: 8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #ef4444; flex-shrink: 0; margin-top: 2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <div id="ai-upgrade-sbs-error-message" style="line-height: 1.4;"></div>
               </div>
             </div>
 
@@ -6180,7 +6194,7 @@ noindex: true
     // SINGLE-SOURCE NAVIGATION ROUTER
     // ========================================================================
     function navigate(viewId, options = {}) {
-      const validViews = ['overview', 'articles', 'thin-queue', 'attention', 'safety', 'search', 'website', 'broken-links', 'server-response', 'security', 'google-news', 'accessibility', 'settings', 'members', 'indexing', 'sitemaps', 'video-seo', 'gsc-overview', 'url-inspection', 'newsletter'];
+      const validViews = ['overview', 'articles', 'thin-queue', 'attention', 'safety', 'ai-upgrade', 'content-quality', 'search', 'website', 'broken-links', 'server-response', 'security', 'google-news', 'accessibility', 'settings', 'members', 'indexing', 'sitemaps', 'video-seo', 'gsc-overview', 'url-inspection', 'newsletter'];
       if (!validViews.includes(viewId)) viewId = 'overview';
 
       const prevView = AppState.currentView;
@@ -6277,6 +6291,10 @@ noindex: true
         renderSitemapsTab();
       } else if (viewId === 'video-seo') {
         renderVideoSeoTab();
+      } else if (viewId === 'ai-upgrade') {
+        initAiUpgradeView(options.article);
+      } else if (viewId === 'content-quality') {
+        initContentQualityView(options);
       }
 
       // Synchronize Articles Subviews
@@ -6315,6 +6333,8 @@ noindex: true
           'thin-queue': 'Thin Content Queue',
           'attention': 'Needs Attention',
           'safety': 'Safety Governance',
+          'ai-upgrade': 'AI Upgrade Studio',
+          'content-quality': 'Content Quality & Thin Content Diagnostic',
           'gsc-overview': 'GSC Overview',
           'search': 'Search Performance',
           'indexing': 'GSC Indexing Control Center',
@@ -6328,7 +6348,8 @@ noindex: true
           'google-news': 'Google News & Discover Compliance',
           'accessibility': 'Accessibility, Layout & UX',
           'settings': 'Settings',
-          'members': 'Team Members'
+          'members': 'Team Members',
+          'newsletter': 'Newsletter'
         };
         breadcrumbEl.innerText = labels[viewId] || 'Overview';
       }
@@ -6341,6 +6362,11 @@ noindex: true
         if (viewId === 'articles' && AppState.articleSubView === 'editor' && AppState.currentlyEditingArticle) {
           url.searchParams.set('article', AppState.currentlyEditingArticle.slug || 'edit');
           url.searchParams.set('mode', 'edit');
+        } else if (viewId === 'ai-upgrade' && (options.article || (typeof AiUpgradeState !== 'undefined' && AiUpgradeState.selectedArticle))) {
+          const art = options.article || AiUpgradeState.selectedArticle;
+          const artSlug = art.slug || (art.relPath ? art.relPath.split('\\').pop().split('/').pop().replace(/\.md$/, '') : '');
+          if (artSlug) url.searchParams.set('article', artSlug);
+          url.searchParams.delete('mode');
         } else {
           url.searchParams.delete('article');
           url.searchParams.delete('mode');
@@ -6373,6 +6399,12 @@ noindex: true
           openArticleEditor(art.relPath, { fromPopState: true });
           return;
         }
+      }
+
+      if (view === 'ai-upgrade' && artSlug) {
+        const art = AppState.articles.find(a => a.slug === artSlug || (a.relPath && a.relPath.includes(artSlug)));
+        navigate('ai-upgrade', { article: art, fromPopState: true });
+        return;
       }
 
       navigate(view, { fromPopState: true });
@@ -9016,7 +9048,7 @@ noindex: true
       // Check initial URL parameters for deep links
       const params = new URLSearchParams(window.location.search);
       const hashView = (window.location.hash || '').replace('#', '');
-      const validViews = ['overview', 'articles', 'thin-queue', 'attention', 'safety', 'search', 'website', 'broken-links', 'server-response', 'security', 'google-news', 'accessibility', 'settings', 'members', 'indexing', 'sitemaps', 'video-seo', 'gsc-overview', 'url-inspection', 'newsletter'];
+      const validViews = ['overview', 'articles', 'thin-queue', 'attention', 'safety', 'ai-upgrade', 'content-quality', 'search', 'website', 'broken-links', 'server-response', 'security', 'google-news', 'accessibility', 'settings', 'members', 'indexing', 'sitemaps', 'video-seo', 'gsc-overview', 'url-inspection', 'newsletter'];
       const initialView = params.get('view') || (hashView && validViews.includes(hashView) ? hashView : 'overview');
       const initialArticle = params.get('article');
       const initialMode = params.get('mode');
@@ -9037,6 +9069,18 @@ noindex: true
           showToast('Article not found: ' + initialArticle, 'error');
           return;
         }
+      }
+
+      if (initialView === 'ai-upgrade' && initialArticle) {
+        const normArticle = initialArticle.replace(/\\/g, '/');
+        const art = AppState.articles.find(a => 
+          a.slug === initialArticle || 
+          a.relPath === initialArticle || 
+          (a.relPath && a.relPath.replace(/\\/g, '/') === normArticle) ||
+          a.relPath.includes(initialArticle)
+        );
+        navigate('ai-upgrade', { article: art, fromPopState: true });
+        return;
       }
 
       navigate(initialView, { fromPopState: true });
@@ -11921,12 +11965,50 @@ noindex: true
     }
 
     function initAiUpgradeView(preselectedArticle) {
+      checkAiProviderStatus();
+      const backToEditorBtn = document.getElementById('btn-ai-back-to-editor');
+      if (preselectedArticle || (AppState && AppState.currentlyEditingArticle)) {
+        if (backToEditorBtn) backToEditorBtn.style.display = 'inline-flex';
+      } else {
+        if (backToEditorBtn) backToEditorBtn.style.display = 'none';
+      }
+
       if (preselectedArticle) {
         selectAiUpgradeArticle(preselectedArticle.relPath || preselectedArticle);
         return;
       }
+      if (AiUpgradeState && AiUpgradeState.selectedArticle) {
+        return;
+      }
       handleAiUpgradeArticleSearch();
       setAiUpgradeStep(1);
+    }
+
+    async function checkAiProviderStatus() {
+      const badge = document.getElementById('ai-upgrade-provider-status-badge');
+      if (!badge) return;
+      try {
+        const res = await fetch('/api/admin/ai/upgrade/providers', { headers: { 'Accept': 'application/json' } });
+        if (!res.ok) {
+          badge.className = 'badge badge-amber';
+          badge.textContent = 'AI Status: Standby';
+          return;
+        }
+        const data = await res.json();
+        if (data && data.totalConfigured > 0) {
+          const names = (data.providers || []).filter(p => p.configured).map(p => p.displayName || p.name).join(', ');
+          badge.className = 'badge badge-green';
+          badge.textContent = 'AI Ready (' + (names || 'Configured') + ')';
+          badge.title = 'Active free provider: ' + names;
+        } else {
+          badge.className = 'badge badge-amber';
+          badge.textContent = 'AI Key Needed';
+          badge.title = 'No free AI provider key configured in Cloudflare environment.';
+        }
+      } catch (_) {
+        badge.className = 'badge badge-gray';
+        badge.textContent = 'AI Status: Standby';
+      }
     }
 
     function handleAiUpgradeArticleSearch() {
@@ -12046,7 +12128,18 @@ noindex: true
       if (safetyPanel) safetyPanel.style.display = 'none';
       if (sbsPanel) sbsPanel.style.display = 'none';
 
+      const errBanner = document.getElementById('ai-upgrade-error-banner');
+      if (errBanner) errBanner.style.display = 'none';
+      const sbsErr = document.getElementById('ai-upgrade-sbs-error-banner');
+      if (sbsErr) sbsErr.style.display = 'none';
+
+      const backToEditorBtn = document.getElementById('btn-ai-back-to-editor');
+      if (backToEditorBtn && !(AppState && AppState.currentlyEditingArticle)) {
+        backToEditorBtn.style.display = 'none';
+      }
+
       setAiUpgradeStep(1);
+      handleAiUpgradeArticleSearch();
     }
 
     async function runSafetyPrecheckOnly() {
@@ -12178,6 +12271,11 @@ noindex: true
       if (btn) btn.disabled = true;
       if (btnText) btnText.innerHTML = '<span class="status-pulse-dot" style="margin-right: 6px;"></span> Generating Improved Copy...';
 
+      const errBanner = document.getElementById('ai-upgrade-error-banner');
+      if (errBanner) errBanner.style.display = 'none';
+      const sbsErr = document.getElementById('ai-upgrade-sbs-error-banner');
+      if (sbsErr) sbsErr.style.display = 'none';
+
       try {
         const res = await fetch('/api/admin/ai/upgrade/generate', {
           method: 'POST',
@@ -12216,7 +12314,18 @@ noindex: true
         setAiUpgradeStep(4);
         showToast('AI upgraded draft ready for review.', 'success');
       } catch (err) {
-        showToast('AI upgrade could not be completed right now. ' + err.message, 'error');
+        const errMsg = err.message || 'AI service unavailable';
+        if (errBanner) {
+          const msgEl = document.getElementById('ai-upgrade-error-message');
+          if (msgEl) msgEl.textContent = 'AI Service Unavailable: ' + errMsg;
+          errBanner.style.display = 'block';
+        }
+        if (sbsErr) {
+          const sbsMsgEl = document.getElementById('ai-upgrade-sbs-error-message');
+          if (sbsMsgEl) sbsMsgEl.textContent = 'AI Service Unavailable: ' + errMsg;
+          sbsErr.style.display = 'block';
+        }
+        showToast('AI upgrade could not be completed right now. ' + errMsg, 'error');
       } finally {
         if (btn) btn.disabled = false;
         if (btnText) btnText.textContent = '✨ Start AI Upgrade';
@@ -12441,6 +12550,18 @@ noindex: true
 
     function openAiUpgradeForCurrentArticle() {
       if (AppState && AppState.currentlyEditingArticle) {
+        const editHead = document.getElementById('edit-headline');
+        const editDk = document.getElementById('edit-dek');
+        const editBd = document.getElementById('edit-body');
+        if (editHead && editHead.value.trim()) {
+          AppState.currentlyEditingArticle.title = editHead.value.trim();
+        }
+        if (editDk) {
+          AppState.currentlyEditingArticle.dek = editDk.value.trim();
+        }
+        if (editBd && editBd.value.trim()) {
+          AppState.currentlyEditingArticle.body = editBd.value.trim();
+        }
         navigate('ai-upgrade', { article: AppState.currentlyEditingArticle });
       } else {
         navigate('ai-upgrade');
@@ -12583,6 +12704,12 @@ noindex: true
 
       const dupCountEl = document.getElementById('cq-dup-tab-count');
       if (dupCountEl) dupCountEl.textContent = (s.nearDuplicates || 0).toString();
+
+      const sideQualityEl = document.getElementById('side-quality-count');
+      if (sideQualityEl) {
+        const flagCount = (s.thin || 0) + (s.needsReview || 0);
+        sideQualityEl.textContent = flagCount > 0 ? flagCount.toString() : '✓';
+      }
     }
 
     async function triggerCorpusAnalysis() {
