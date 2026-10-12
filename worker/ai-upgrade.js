@@ -286,14 +286,19 @@ export function calculateTopicOverlap(textA, textB) {
 
 /**
  * Strict quality evaluation of AI output.
- * Flags truncation, prompt leakage, placeholders, fake citations, and topic drift.
+ * Flags truncation, prompt leakage, placeholders, fake citations, and topic drift across all editorial fields.
  */
-export function evaluateOutputQuality(candidate, original) {
+export function evaluateOutputQuality(candidate, original = {}) {
   const flags = [];
   const warnings = [];
 
   const headline = (candidate.headline || '').trim();
+  const seoTitle = (candidate.seoTitle || candidate.seo_title || '').trim();
+  const dek = (candidate.dek || '').trim();
   const body = (candidate.body || '').trim();
+  const whyItMatters = (candidate.why_it_matters || candidate.whyItMatters || '').trim();
+  const whatHappensNext = (candidate.what_happens_next || candidate.whatHappensNext || '').trim();
+
   const origHeadline = (original.title || '').trim();
   const origBody = (original.body || '').trim();
 
@@ -301,12 +306,12 @@ export function evaluateOutputQuality(candidate, original) {
   const candWords = countWords(body);
 
   // 1. Emptiness & Length checks
-  if (!headline) {
+  if (!headline && !origHeadline) {
     flags.push('EMPTY_HEADLINE: Upgraded article lacks a headline.');
   }
-  if (!body) {
+  if (!body && !origBody) {
     flags.push('EMPTY_BODY: Upgraded article body is empty.');
-  } else if (candWords < 60) {
+  } else if (candWords > 0 && candWords < 60) {
     flags.push(`EXTREMELY_SHORT: Word count (${candWords}) is below minimum editorial viable length (60 words).`);
   } else if (origWords > 120 && candWords < origWords * 0.4) {
     warnings.push(`SIGNIFICANT_CONDENSATION: Upgraded word count dropped by more than 60% (${origWords} -> ${candWords} words).`);
@@ -322,9 +327,21 @@ export function evaluateOutputQuality(candidate, original) {
       flags.push('OBVIOUS_TRUNCATION: Generated article appears to end mid-sentence.');
     }
   }
+  if (whyItMatters && whyItMatters.length > 20) {
+    const lastChar = whyItMatters.slice(-1);
+    if (!['.', '!', '?', '"', "'", ')'].includes(lastChar)) {
+      warnings.push('TRUNCATED_SYNTHESIS: Why It Matters section appears to end abruptly.');
+    }
+  }
+  if (whatHappensNext && whatHappensNext.length > 20) {
+    const lastChar = whatHappensNext.slice(-1);
+    if (!['.', '!', '?', '"', "'", ')'].includes(lastChar)) {
+      warnings.push('TRUNCATED_FORWARD_OUTLOOK: What Happens Next section appears to end abruptly.');
+    }
+  }
 
-  // 3. Prompt leakage detection
-  const fullCand = `${headline}\n${body}`;
+  // 3. Prompt leakage detection across all six candidate fields
+  const fullCand = [headline, seoTitle, dek, body, whyItMatters, whatHappensNext].filter(Boolean).join('\n');
   for (const pat of PROMPT_LEAKAGE_PATTERNS) {
     if (pat.test(fullCand)) {
       flags.push('PROMPT_LEAKAGE: Internal system instructions or prompt tokens detected in output.');
@@ -332,7 +349,7 @@ export function evaluateOutputQuality(candidate, original) {
     }
   }
 
-  // 4. Placeholder detection
+  // 4. Placeholder detection across all six candidate fields
   for (const pat of PLACEHOLDER_PATTERNS) {
     const match = fullCand.match(pat);
     if (match) {
@@ -352,7 +369,7 @@ export function evaluateOutputQuality(candidate, original) {
   // 6. Topic Drift & Identity Preservation
   const titleOverlap = calculateTopicOverlap(origHeadline, headline);
   const bodyOverlap = calculateTopicOverlap(origBody.slice(0, 500), body.slice(0, 500));
-  if (titleOverlap < 0.15 && bodyOverlap < 0.15) {
+  if (origHeadline && headline && titleOverlap < 0.15 && bodyOverlap < 0.15) {
     flags.push('TOPIC_DRIFT: Candidate has low topical similarity to original. Article identity may have mutated.');
   }
 
@@ -393,12 +410,15 @@ export async function researchStoryContext(article = {}, env = {}) {
 // ============================================================================
 
 /**
- * Builds the strict, injection-safe editorial upgrade prompt.
+ * Builds the strict, injection-safe editorial upgrade prompt covering all six editorial fields.
  */
 export function buildUpgradePrompts(article = {}, options = {}) {
   const sanitizedTitle = sanitizeUntrustedText(article.title || '');
+  const sanitizedSeoTitle = sanitizeUntrustedText(article.seoTitle || '');
   const sanitizedDek = sanitizeUntrustedText(article.dek || '');
   const sanitizedBody = sanitizeUntrustedText(article.body || '');
+  const sanitizedWhyItMatters = sanitizeUntrustedText(article.why_it_matters || '');
+  const sanitizedWhatHappensNext = sanitizeUntrustedText(article.what_happens_next || '');
   const sourceName = sanitizeUntrustedText(article.sourceName || 'Wire Dispatch');
   const sourceUrl = sanitizeUntrustedText(article.sourceUrl || '');
   const editorialFocus = sanitizeUntrustedText(options.focus || 'full_article_upgrade');
@@ -415,16 +435,24 @@ export function buildUpgradePrompts(article = {}, options = {}) {
   }
 
   const systemPrompt = `You are a senior investigative newsroom editor at SamacharDaily.
-Your objective is to perform a comprehensive, publication-grade FULL ARTICLE UPGRADE of the provided news dispatch.
-You must upgrade the COMPLETE article, including headline, dek, and entire article body with all sections. Do NOT produce a snippet, summary, or partial excerpt.
+Your objective is to perform a comprehensive, publication-grade FULL ARTICLE UPGRADE of the provided news dispatch across all six editorial fields.
+You must upgrade the COMPLETE article, including:
+1. Headline
+2. SEO Title
+3. Dek / Lead Excerpt
+4. Complete Article Body in Markdown
+5. Why It Matters (Analytical Synthesis)
+6. What Happens Next (Forward Outlook)
+Do NOT produce a snippet, summary, or partial excerpt.
 
 MANDATORY EDITORIAL REQUIREMENTS:
-1. FULL ARTICLE SCOPE:
+1. FULL ARTICLE SCOPE (ALL SIX EDITORIAL FIELDS REQUIRED):
    - Headline: Compelling, accurate, search-optimized headline with strong news value.
+   - SEO Title: Distinct, descriptive search title based on verified article facts and primary topic. Aim for approximately 50–60 characters where practical, without truncating essential meaning or forcing inaccurate keywords. Strictly no clickbait or unsupported claims.
    - Dek: Informative, engaging 1-2 sentence lead deck summarizing key impact.
-   - Section Headings: Logical Markdown H2 (##) and H3 (###) subheadings organizing key themes.
-   - Complete Body: Rewrite and elevate ALL paragraphs, narrative background, and context.
-   - Return the complete, publication-ready body in Markdown.
+   - Complete Body: Rewrite and elevate ALL paragraphs, narrative background, and context. Use logical Markdown H2 (##) and H3 (###) subheadings organizing key themes. Return the complete, publication-ready body in Markdown.
+   - Why It Matters (Analytical Synthesis): Concise, evidence-grounded analytical synthesis explaining significance. Do not invent wider consequences, motives, or policy changes.
+   - What Happens Next (Forward Outlook): Forward outlook section based strictly on confirmed information only. If no next steps are established, explicitly state that no confirmed next steps have been reported. Never fabricate predictions, hearings, or events.
 2. PRESERVE FACTUAL INTEGRITY:
    - ZERO FABRICATION: Never invent quotes, statistics, dates, URLs, citations, or legal claims.
    - Preserve all original names, figures, dates, attributions, and essential facts.
@@ -439,27 +467,37 @@ MANDATORY EDITORIAL REQUIREMENTS:
 Respond ONLY with a valid JSON object matching this schema:
 {
   "headline": "Search-optimized, factual headline",
-  "dek": "Informative lead deck summary",
-  "body": "Full rewritten article in Markdown with H2 section headings",
+  "seoTitle": "Distinct, descriptive search title (~50-60 characters, verified facts only)",
+  "dek": "Informative 1-2 sentence lead deck summary",
+  "body": "Full rewritten article in Markdown with H2 and H3 section headings",
+  "why_it_matters": "Concise evidence-grounded analytical synthesis explaining significance",
+  "what_happens_next": "Confirmed forward developments only (or explicit note that none have been reported)",
   "editorialChanges": ["Detailed list of structural, clarity, and factual improvements applied"],
   "preservedFacts": ["Key dates, names, figures, and attributions preserved"],
   "researchApplied": ["External research facts or background context integrated"]
 }`;
 
   const focusGuidance = editorialFocus === 'full_article_upgrade'
-    ? 'Comprehensive Full-Article Upgrade (headline, dek, structure, clarity, depth, and flow)'
-    : `Focus priority: ${editorialFocus} (while still rewriting and delivering the COMPLETE article body, headline, and dek)`;
+    ? 'Comprehensive Full-Article Upgrade (headline, seoTitle, dek, body, why_it_matters, what_happens_next, depth, and flow)'
+    : `Focus priority: ${editorialFocus} (while still delivering all six fields: headline, seoTitle, dek, body, why_it_matters, what_happens_next)`;
+
+  const originalFields = [
+    `Headline: ${sanitizedTitle}`,
+    sanitizedSeoTitle ? `Current SEO Title: ${sanitizedSeoTitle}` : null,
+    `Lead Deck: ${sanitizedDek}`,
+    sanitizedWhyItMatters ? `Current Why It Matters: ${sanitizedWhyItMatters}` : null,
+    sanitizedWhatHappensNext ? `Current What Happens Next: ${sanitizedWhatHappensNext}` : null,
+    `Wire Attribution: ${sourceName} (${sourceUrl || 'No URL'})`,
+    `Editorial Improvement Focus: ${focusGuidance}`
+  ].filter(Boolean).join('\n');
 
   const userPrompt = `ORIGINAL DISPATCH:
-Headline: ${sanitizedTitle}
-Lead Deck: ${sanitizedDek}
-Wire Attribution: ${sourceName} (${sourceUrl || 'No URL'})
-Editorial Improvement Focus: ${focusGuidance}
+${originalFields}
 
 Original Article Body:
 ${sanitizedBody}
 ${researchSection}
-Perform a complete Full-Article Upgrade following the editorial rules. Output strictly valid JSON.`;
+Perform a complete Full-Article Upgrade following the editorial rules and deliver all six fields. Output strictly valid JSON.`;
 
   return { systemPrompt, userPrompt };
 }
@@ -507,12 +545,21 @@ export async function generateArticleUpgrade(article = {}, env = {}, options = {
       evidence: (research && research.evidence) ? research.evidence : []
     },
     candidate: {
-      headline: result.data.headline,
-      dek: result.data.dek || article.dek || '',
-      body: result.data.body,
-      editorialChanges: result.data.editorialChanges || [],
-      preservedFacts: result.data.preservedFacts || [],
-      researchApplied: result.data.researchApplied || []
+      headline: (typeof result.data.headline === 'string' && result.data.headline.trim()) ? result.data.headline.trim() : (article.title || ''),
+      seoTitle: (typeof (result.data.seoTitle || result.data.seo_title) === 'string' && (result.data.seoTitle || result.data.seo_title).trim())
+        ? (result.data.seoTitle || result.data.seo_title).trim()
+        : (article.seoTitle || ''),
+      dek: (typeof result.data.dek === 'string' && result.data.dek.trim()) ? result.data.dek.trim() : (article.dek || ''),
+      body: (typeof result.data.body === 'string' && result.data.body.trim()) ? result.data.body.trim() : (article.body || ''),
+      why_it_matters: (typeof (result.data.why_it_matters || result.data.whyItMatters) === 'string' && (result.data.why_it_matters || result.data.whyItMatters).trim())
+        ? (result.data.why_it_matters || result.data.whyItMatters).trim()
+        : (article.why_it_matters || ''),
+      what_happens_next: (typeof (result.data.what_happens_next || result.data.whatHappensNext) === 'string' && (result.data.what_happens_next || result.data.whatHappensNext).trim())
+        ? (result.data.what_happens_next || result.data.whatHappensNext).trim()
+        : (article.what_happens_next || ''),
+      editorialChanges: Array.isArray(result.data.editorialChanges) ? result.data.editorialChanges : [],
+      preservedFacts: Array.isArray(result.data.preservedFacts) ? result.data.preservedFacts : [],
+      researchApplied: Array.isArray(result.data.researchApplied) ? result.data.researchApplied : []
     },
     quality: result.quality,
     safetyAnalysis: result.safetyAnalysis

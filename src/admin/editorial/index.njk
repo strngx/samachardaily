@@ -3675,6 +3675,11 @@ noindex: true
                 </div>
 
                 <div>
+                  <label class="ai-studio-field-label">SEO Title</label>
+                  <div id="sbs-orig-seo-title" class="ai-studio-orig-box" style="font-size: 13px;">No custom SEO title</div>
+                </div>
+
+                <div>
                   <label class="ai-studio-field-label">Dek / Description</label>
                   <div id="sbs-orig-dek" class="ai-studio-orig-box ai-studio-orig-dek">Dek / description</div>
                 </div>
@@ -3682,6 +3687,16 @@ noindex: true
                 <div style="flex: 1; display: flex; flex-direction: column;">
                   <label class="ai-studio-field-label">Complete Article Body</label>
                   <div id="sbs-orig-body" class="ai-studio-orig-box ai-studio-body-rendered">Complete article body...</div>
+                </div>
+
+                <div>
+                  <label class="ai-studio-field-label">Why It Matters (Analytical Synthesis)</label>
+                  <div id="sbs-orig-why-it-matters" class="ai-studio-orig-box" style="font-size: 13px; min-height: 54px;">Why It Matters...</div>
+                </div>
+
+                <div>
+                  <label class="ai-studio-field-label">What Happens Next (Forward Outlook)</label>
+                  <div id="sbs-orig-what-happens-next" class="ai-studio-orig-box" style="font-size: 13px; min-height: 54px;">What Happens Next...</div>
                 </div>
               </div>
 
@@ -3706,6 +3721,14 @@ noindex: true
                 </div>
 
                 <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <label class="ai-studio-field-label" for="sbs-cand-seo-title">SEO Title (Search Optimization)</label>
+                    <span id="sbs-cand-seo-title-chars" style="font-size: 11px; color: var(--color-muted); font-weight: 600;">0 chars (target 50–60)</span>
+                  </div>
+                  <input type="text" id="sbs-cand-seo-title" class="form-input-sm ai-studio-cand-input" style="font-size: 13px; width: 100%;" oninput="updateCandidateWordCountLive()" placeholder="AI rewritten SEO title (approx 50–60 chars, factual)...">
+                </div>
+
+                <div>
                   <label class="ai-studio-field-label" for="sbs-cand-dek">Dek / Description</label>
                   <textarea id="sbs-cand-dek" class="form-input-sm ai-studio-cand-textarea-sm" style="width: 100%; min-height: 54px; font-size: 13px;" oninput="updateCandidateWordCountLive()" placeholder="AI rewritten dek / description summary..."></textarea>
                 </div>
@@ -3713,6 +3736,22 @@ noindex: true
                 <div style="flex: 1; display: flex; flex-direction: column;">
                   <label class="ai-studio-field-label" for="sbs-cand-body">Complete Article Body (Markdown)</label>
                   <textarea id="sbs-cand-body" class="ai-studio-cand-textarea" oninput="updateCandidateWordCountLive()" placeholder="AI rewritten article body will appear here. Click 'Rewrite Article' in the toolbar to generate..."></textarea>
+                </div>
+
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <label class="ai-studio-field-label" for="sbs-cand-why-it-matters">Why It Matters (Analytical Synthesis)</label>
+                    <span id="sbs-cand-why-words" style="font-size: 11px; color: var(--color-muted); font-weight: 600;">0 words</span>
+                  </div>
+                  <textarea id="sbs-cand-why-it-matters" class="form-input-sm ai-studio-cand-textarea-sm" style="width: 100%; min-height: 64px; font-size: 13px;" oninput="updateCandidateWordCountLive()" placeholder="AI rewritten analytical synthesis explaining context and significance..."></textarea>
+                </div>
+
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <label class="ai-studio-field-label" for="sbs-cand-what-happens-next">What Happens Next (Forward Outlook)</label>
+                    <span id="sbs-cand-next-words" style="font-size: 11px; color: var(--color-muted); font-weight: 600;">0 words</span>
+                  </div>
+                  <textarea id="sbs-cand-what-happens-next" class="form-input-sm ai-studio-cand-textarea-sm" style="width: 100%; min-height: 64px; font-size: 13px;" oninput="updateCandidateWordCountLive()" placeholder="Confirmed forward developments only (or confirmed status)..."></textarea>
                 </div>
 
                 <div id="sbs-changes-list-container" style="padding-top: 6px; font-size: 12px; color: var(--color-muted);">
@@ -6235,25 +6274,19 @@ noindex: true
        ====================================================================== -->
   
 
-  <div id="accept-upgrade-modal" class="modal-backdrop" onclick="closeAcceptUpgradeModal(event)">
-    <div class="modal-box preview-mode" onclick="event.stopPropagation()" style="max-width: 580px;">
-      <div class="modal-header">
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <span class="badge badge-purple">Stage 1</span>
-          <div class="modal-title">Save AI Rewrite (Load into Editor)</div>
-        </div>
-
   <div id="compare-changes-modal" class="modal-backdrop" onclick="closeCompareChangesModal(event)">
-    <div class="modal-box preview-mode" onclick="event.stopPropagation()" style="max-width: 780px;">
+    <div class="modal-box preview-mode" onclick="event.stopPropagation()" style="max-width: 860px;">
       <div class="modal-header">
         <div style="display: flex; align-items: center; gap: 8px;">
           <span class="badge badge-pink">Comparison</span>
-          <div class="modal-title">Compare Original vs. AI Rewrite</div>
+          <div class="modal-title">Compare Original vs. AI Rewrite (All 6 Fields)</div>
         </div>
         <button class="btn-close-modal" type="button" onclick="closeCompareChangesModal()">&times;</button>
       </div>
-      <div class="modal-body" style="padding: 20px; font-size: 13px; line-height: 1.6; max-height: 70vh; overflow-y: auto;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+      <div class="modal-body" style="padding: 20px; font-size: 13px; line-height: 1.6; max-height: 75vh; overflow-y: auto;">
+        
+        <!-- Headline Comparison -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;">
           <div style="background: var(--color-surface-alt); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
             <div style="font-weight: 700; color: var(--color-muted); font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">Original Headline</div>
             <div style="font-weight: 600; color: var(--color-ink);" id="compare-modal-orig-headline">...</div>
@@ -6263,7 +6296,21 @@ noindex: true
             <div style="font-weight: 600; color: var(--color-ink);" id="compare-modal-cand-headline">...</div>
           </div>
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+
+        <!-- SEO Title Comparison -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;">
+          <div style="background: var(--color-surface-alt); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+            <div style="font-weight: 700; color: var(--color-muted); font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">Original SEO Title</div>
+            <div style="color: var(--color-ink-light);" id="compare-modal-orig-seo-title">...</div>
+          </div>
+          <div style="background: rgba(244, 63, 94, 0.04); padding: 12px; border-radius: var(--radius-sm); border: 1px solid rgba(244, 63, 94, 0.25);">
+            <div style="font-weight: 700; color: #fb7185; font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">AI Rewrite SEO Title</div>
+            <div style="color: var(--color-ink-light); font-weight: 600;" id="compare-modal-cand-seo-title">...</div>
+          </div>
+        </div>
+
+        <!-- Dek Comparison -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;">
           <div style="background: var(--color-surface-alt); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
             <div style="font-weight: 700; color: var(--color-muted); font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">Original Dek</div>
             <div style="color: var(--color-ink-light); font-style: italic;" id="compare-modal-orig-dek">...</div>
@@ -6273,6 +6320,43 @@ noindex: true
             <div style="color: var(--color-ink-light); font-style: italic;" id="compare-modal-cand-dek">...</div>
           </div>
         </div>
+
+        <!-- Why It Matters Comparison -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;">
+          <div style="background: var(--color-surface-alt); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+            <div style="font-weight: 700; color: var(--color-muted); font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">Original Why It Matters</div>
+            <div style="color: var(--color-ink-light);" id="compare-modal-orig-why">...</div>
+          </div>
+          <div style="background: rgba(244, 63, 94, 0.04); padding: 12px; border-radius: var(--radius-sm); border: 1px solid rgba(244, 63, 94, 0.25);">
+            <div style="font-weight: 700; color: #fb7185; font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">AI Rewrite Why It Matters</div>
+            <div style="color: var(--color-ink-light);" id="compare-modal-cand-why">...</div>
+          </div>
+        </div>
+
+        <!-- What Happens Next Comparison -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;">
+          <div style="background: var(--color-surface-alt); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+            <div style="font-weight: 700; color: var(--color-muted); font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">Original What Happens Next</div>
+            <div style="color: var(--color-ink-light);" id="compare-modal-orig-next">...</div>
+          </div>
+          <div style="background: rgba(244, 63, 94, 0.04); padding: 12px; border-radius: var(--radius-sm); border: 1px solid rgba(244, 63, 94, 0.25);">
+            <div style="font-weight: 700; color: #fb7185; font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">AI Rewrite What Happens Next</div>
+            <div style="color: var(--color-ink-light);" id="compare-modal-cand-next">...</div>
+          </div>
+        </div>
+
+        <!-- Article Body Comparison -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+          <div style="background: var(--color-surface-alt); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border); max-height: 240px; overflow-y: auto;">
+            <div style="font-weight: 700; color: var(--color-muted); font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">Original Article Body</div>
+            <pre style="white-space: pre-wrap; font-family: var(--font-stack); font-size: 12px; line-height: 1.6; color: var(--color-ink-light); margin: 0;" id="compare-modal-orig-body">...</pre>
+          </div>
+          <div style="background: rgba(244, 63, 94, 0.04); padding: 12px; border-radius: var(--radius-sm); border: 1px solid rgba(244, 63, 94, 0.25); max-height: 240px; overflow-y: auto;">
+            <div style="font-weight: 700; color: #fb7185; font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">AI Rewrite Article Body</div>
+            <pre style="white-space: pre-wrap; font-family: var(--font-stack); font-size: 12px; line-height: 1.6; color: var(--color-ink); margin: 0;" id="compare-modal-cand-body">...</pre>
+          </div>
+        </div>
+
         <div style="background: var(--color-surface-alt); padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid var(--color-border); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
           <div>Word count adjustment: <strong id="compare-modal-words">...</strong></div>
           <div id="compare-modal-quality-badge" class="badge badge-green">PASS</div>
@@ -6289,35 +6373,50 @@ noindex: true
     </div>
   </div>
 
+  <div id="accept-upgrade-modal" class="modal-backdrop" onclick="closeAcceptUpgradeModal(event)">
+    <div class="modal-box preview-mode" onclick="event.stopPropagation()" style="max-width: 620px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="badge badge-purple">Stage 1</span>
+          <div class="modal-title">Accept AI Rewrite (Load into Editor as Working Draft)</div>
+        </div>
         <button class="btn-close-modal" type="button" onclick="closeAcceptUpgradeModal()">&times;</button>
       </div>
       <div class="modal-body" style="padding: 20px; font-size: 13px; line-height: 1.6;">
         <div style="margin-bottom: 14px; color: var(--color-ink);">
-          You are about to accept the rewritten editorial draft for:
+          You are about to accept the rewritten draft across all six editorial fields for:
           <div style="font-weight: 700; margin-top: 4px; font-size: 14px; color: #c084fc;" id="accept-modal-headline">...</div>
         </div>
-        <div style="background: var(--color-surface-alt); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border); margin-bottom: 14px;">
-          <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+        <div style="background: var(--color-surface-alt); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border); margin-bottom: 14px; display: flex; flex-direction: column; gap: 6px;">
+          <div style="display: flex; justify-content: space-between;">
             <span style="color: var(--color-muted);">Protected Canonical Slug:</span>
             <code style="color: var(--color-teal); font-size: 11px;" id="accept-modal-slug">...</code>
           </div>
-          <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-            <span style="color: var(--color-muted);">Word Count Adjustment:</span>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--color-muted);">SEO Title:</span>
+            <span style="font-weight: 600; color: var(--color-ink); max-width: 320px; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="accept-modal-seo-title">...</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--color-muted);">Body Word Count:</span>
             <strong id="accept-modal-words">...</strong>
           </div>
           <div style="display: flex; justify-content: space-between;">
-            <span style="color: var(--color-muted);">Hero Media / Video Embeds:</span>
+            <span style="color: var(--color-muted);">Why It Matters &amp; What Next:</span>
+            <span class="badge badge-teal">Included (2 fields)</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--color-muted);">Hero Media / Video Embeds / URLs:</span>
             <span class="badge badge-green">100% Preserved</span>
           </div>
         </div>
-        <div style="color: var(--color-muted); font-size: 12px; background: rgba(168, 85, 247, 0.08); padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid rgba(168, 85, 247, 0.2);">
-          <strong style="color: var(--color-ink);">Two-Save Workflow Notice:</strong> This action will load the accepted AI text directly into the article editor working state. <strong>No file will be committed to Git, and nothing will be published</strong> until you review your changes in the editor and explicitly click <strong>"Save Changes"</strong>.
+        <div style="color: var(--color-muted); font-size: 12px; background: rgba(168, 85, 247, 0.08); padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid rgba(168, 85, 247, 0.2); line-height: 1.5;">
+          <strong style="color: #c084fc;">Unsaved Working Draft Notice:</strong> This action stages all six rewritten editorial fields (Headline, SEO Title, Dek, Article Body, Why It Matters, What Happens Next) directly into the article editor working state. <strong>No file is saved to Git, no URL is altered, and nothing is published</strong> until you review your changes in the editor and click <strong>"Save Changes"</strong>.
         </div>
       </div>
       <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px;">
         <button class="btn-table-action" type="button" onclick="closeAcceptUpgradeModal()">Cancel</button>
         <button class="btn-table-action btn-table-primary" type="button" id="btn-confirm-save-upgrade" onclick="executeAcceptUpgrade()" style="background: var(--color-purple); border-color: var(--color-purple);">
-          Save AI Rewrite &rarr;
+          Load into Editor Working Draft &rarr;
         </button>
       </div>
     </div>
@@ -12281,8 +12380,11 @@ noindex: true
       const slugEl = document.getElementById('ai-up-selected-slug');
 
       const origHead = document.getElementById('sbs-orig-headline');
+      const origSeo = document.getElementById('sbs-orig-seo-title');
       const origDek = document.getElementById('sbs-orig-dek');
       const origBody = document.getElementById('sbs-orig-body');
+      const origWhy = document.getElementById('sbs-orig-why-it-matters');
+      const origNext = document.getElementById('sbs-orig-what-happens-next');
       const origCount = document.getElementById('sbs-orig-count');
 
       const wc = art.wordCount || (art.body ? art.body.trim().split(/\s+/).filter(Boolean).length : 0);
@@ -12295,21 +12397,32 @@ noindex: true
       if (slugEl) slugEl.textContent = art.slug || (art.relPath || '');
 
       if (origHead) origHead.textContent = art.title || 'Untitled';
+      if (origSeo) origSeo.textContent = art.seoTitle || 'No custom SEO title';
       if (origDek) origDek.textContent = art.dek || 'No deck provided';
       if (origBody) origBody.textContent = art.body || '';
-      if (origCount) origCount.textContent = wc;
+      if (origWhy) origWhy.textContent = art.why_it_matters || 'No analytical synthesis provided';
+      if (origNext) origNext.textContent = art.what_happens_next || 'No forward outlook provided';
+      if (origCount) origCount.textContent = wc + ' words';
 
       const candHead = document.getElementById('sbs-cand-headline');
+      const candSeo = document.getElementById('sbs-cand-seo-title');
       const candDek = document.getElementById('sbs-cand-dek');
       const candBody = document.getElementById('sbs-cand-body');
+      const candWhy = document.getElementById('sbs-cand-why-it-matters');
+      const candNext = document.getElementById('sbs-cand-what-happens-next');
       const candCount = document.getElementById('sbs-cand-count');
       const deltaBadge = document.getElementById('sbs-delta-badge');
       const candPill = document.getElementById('sbs-cand-status-pill');
 
       if (candHead) candHead.value = '';
+      if (candSeo) candSeo.value = '';
       if (candDek) candDek.value = '';
       if (candBody) candBody.value = '';
+      if (candWhy) candWhy.value = '';
+      if (candNext) candNext.value = '';
       if (candCount) candCount.textContent = '0 words';
+      updateCandidateWordCountLive();
+
       if (deltaBadge) {
         deltaBadge.textContent = '0 words';
         deltaBadge.className = 'badge badge-teal';
@@ -12329,12 +12442,20 @@ noindex: true
             if (d.success && d.body) {
               art.body = d.body;
               art.sha = d.sha || art.sha;
-              if (d.data && d.data.dek && !art.dek) art.dek = d.data.dek;
-              if (d.data && d.data.title && !art.title) art.title = d.data.title;
+              if (d.data) {
+                if (d.data.dek && !art.dek) art.dek = d.data.dek;
+                if (d.data.title && !art.title) art.title = d.data.title;
+                if (d.data.seoTitle && !art.seoTitle) art.seoTitle = d.data.seoTitle;
+                if (d.data.why_it_matters && !art.why_it_matters) art.why_it_matters = d.data.why_it_matters;
+                if (d.data.what_happens_next && !art.what_happens_next) art.what_happens_next = d.data.what_happens_next;
+              }
               const loadedWc = d.wordCount || d.body.trim().split(/\s+/).filter(Boolean).length;
               art.wordCount = loadedWc;
               if (wordsEl) wordsEl.textContent = loadedWc + ' words';
               if (origBody) origBody.textContent = art.body;
+              if (origSeo) origSeo.textContent = art.seoTitle || 'No custom SEO title';
+              if (origWhy) origWhy.textContent = art.why_it_matters || 'No analytical synthesis provided';
+              if (origNext) origNext.textContent = art.what_happens_next || 'No forward outlook provided';
               if (origCount) origCount.textContent = loadedWc;
               AiUpgradeState.originalArticle = JSON.parse(JSON.stringify(art));
             }
@@ -12380,11 +12501,22 @@ noindex: true
             if (bodyData.success && bodyData.body) {
               art.body = bodyData.body;
               art.sha = bodyData.sha || art.sha;
-              if (bodyData.data && bodyData.data.dek && !art.dek) art.dek = bodyData.data.dek;
-              if (bodyData.data && bodyData.data.title && !art.title) art.title = bodyData.data.title;
+              if (bodyData.data) {
+                if (bodyData.data.dek && !art.dek) art.dek = bodyData.data.dek;
+                if (bodyData.data.title && !art.title) art.title = bodyData.data.title;
+                if (bodyData.data.seoTitle && !art.seoTitle) art.seoTitle = bodyData.data.seoTitle;
+                if (bodyData.data.why_it_matters && !art.why_it_matters) art.why_it_matters = bodyData.data.why_it_matters;
+                if (bodyData.data.what_happens_next && !art.what_happens_next) art.what_happens_next = bodyData.data.what_happens_next;
+              }
               AiUpgradeState.originalArticle = JSON.parse(JSON.stringify(art));
               const origBodyEl = document.getElementById('sbs-orig-body');
+              const origSeoEl = document.getElementById('sbs-orig-seo-title');
+              const origWhyEl = document.getElementById('sbs-orig-why-it-matters');
+              const origNextEl = document.getElementById('sbs-orig-what-happens-next');
               if (origBodyEl) origBodyEl.textContent = art.body;
+              if (origSeoEl) origSeoEl.textContent = art.seoTitle || 'No custom SEO title';
+              if (origWhyEl) origWhyEl.textContent = art.why_it_matters || 'No analytical synthesis provided';
+              if (origNextEl) origNextEl.textContent = art.what_happens_next || 'No forward outlook provided';
             }
           }
         } catch (fetchErr) {
@@ -12400,8 +12532,11 @@ noindex: true
             relPath: art.relPath || ('src/articles/' + (art.category ? art.category.toLowerCase() : 'india') + '/' + art.slug + '.md'),
             sha: art.sha,
             title: art.title,
+            seoTitle: art.seoTitle || '',
             dek: art.dek || '',
             body: art.body || '',
+            why_it_matters: art.why_it_matters || '',
+            what_happens_next: art.what_happens_next || '',
             sourceName: art.sourceName || '',
             sourceUrl: art.sourceUrl || '',
             focus: 'full_article_upgrade'
@@ -12440,18 +12575,23 @@ noindex: true
     function populateCandidateWorkspace(orig, cand, meta) {
       meta = meta || {};
       const candHead = document.getElementById('sbs-cand-headline');
+      const candSeo = document.getElementById('sbs-cand-seo-title');
       const candDek = document.getElementById('sbs-cand-dek');
       const candBody = document.getElementById('sbs-cand-body');
-      const candWcEl = document.getElementById('sbs-cand-count');
+      const candWhy = document.getElementById('sbs-cand-why-it-matters');
+      const candNext = document.getElementById('sbs-cand-what-happens-next');
+
+      if (candHead) candHead.value = cand.headline || orig.title || '';
+      if (candSeo) candSeo.value = cand.seoTitle || orig.seoTitle || '';
+      if (candDek) candDek.value = cand.dek || orig.dek || '';
+      if (candBody) candBody.value = cand.body || '';
+      if (candWhy) candWhy.value = cand.why_it_matters || orig.why_it_matters || '';
+      if (candNext) candNext.value = cand.what_happens_next || orig.what_happens_next || '';
+
+      updateCandidateWordCountLive();
 
       const origWc = orig.wordCount || (orig.body ? orig.body.trim().split(/\s+/).filter(Boolean).length : 0);
       const candWc = cand.body ? cand.body.trim().split(/\s+/).filter(Boolean).length : 0;
-
-      if (candHead) candHead.value = cand.headline || orig.title || '';
-      if (candDek) candDek.value = cand.dek || orig.dek || '';
-      if (candBody) candBody.value = cand.body || '';
-      if (candWcEl) candWcEl.textContent = candWc + ' words';
-
       const deltaBadge = document.getElementById('sbs-delta-badge');
       const diffWc = candWc - origWc;
       if (deltaBadge) {
@@ -12505,13 +12645,44 @@ noindex: true
       const candWc = bodyText ? bodyText.trim().split(/\s+/).filter(Boolean).length : 0;
       if (candWcEl) candWcEl.textContent = candWc + ' words';
 
-      const origWcText = origWcEl ? origWcEl.textContent.replace(/[^\d]/g, '') : '0';
+      const origWcText = origWcEl ? String(origWcEl.textContent || origWcEl.innerText || '').replace(/[^\d]/g, '') : '0';
       const origWc = parseInt(origWcText, 10) || 0;
       const diffWc = candWc - origWc;
 
       if (deltaBadge) {
         deltaBadge.textContent = (diffWc >= 0 ? '+' : '') + diffWc + ' words';
         deltaBadge.className = diffWc >= 0 ? 'badge badge-teal' : 'badge badge-amber';
+      }
+
+      // SEO Title character counter (aim approx 50-60 characters)
+      const candSeo = document.getElementById('sbs-cand-seo-title');
+      const seoCharsEl = document.getElementById('sbs-cand-seo-title-chars');
+      if (seoCharsEl && candSeo) {
+        const chars = (candSeo.value || '').trim().length;
+        seoCharsEl.textContent = chars + ' chars (target 50–60)';
+        if (chars >= 45 && chars <= 65) {
+          seoCharsEl.style.color = '#34d399';
+        } else if (chars > 65) {
+          seoCharsEl.style.color = '#fbbf24';
+        } else {
+          seoCharsEl.style.color = 'var(--color-muted)';
+        }
+      }
+
+      // Why It Matters word counter
+      const candWhy = document.getElementById('sbs-cand-why-it-matters');
+      const whyWordsEl = document.getElementById('sbs-cand-why-words');
+      if (whyWordsEl && candWhy) {
+        const whyWc = (candWhy.value || '').trim().split(/\s+/).filter(Boolean).length;
+        whyWordsEl.textContent = whyWc + ' words';
+      }
+
+      // What Happens Next word counter
+      const candNext = document.getElementById('sbs-cand-what-happens-next');
+      const nextWordsEl = document.getElementById('sbs-cand-next-words');
+      if (nextWordsEl && candNext) {
+        const nextWc = (candNext.value || '').trim().split(/\s+/).filter(Boolean).length;
+        nextWordsEl.textContent = nextWc + ' words';
       }
     }
 
@@ -12525,17 +12696,25 @@ noindex: true
       }
       AiUpgradeState.candidateArticle = null;
       const candHead = document.getElementById('sbs-cand-headline');
+      const candSeo = document.getElementById('sbs-cand-seo-title');
       const candDek = document.getElementById('sbs-cand-dek');
       const candBody = document.getElementById('sbs-cand-body');
+      const candWhy = document.getElementById('sbs-cand-why-it-matters');
+      const candNext = document.getElementById('sbs-cand-what-happens-next');
       const candWcEl = document.getElementById('sbs-cand-count');
       const candPill = document.getElementById('sbs-cand-status-pill');
       const deltaBadge = document.getElementById('sbs-delta-badge');
       const regenBtn = document.getElementById('btn-regenerate-upgrade');
 
       if (candHead) candHead.value = '';
+      if (candSeo) candSeo.value = '';
       if (candDek) candDek.value = '';
       if (candBody) candBody.value = '';
+      if (candWhy) candWhy.value = '';
+      if (candNext) candNext.value = '';
       if (candWcEl) candWcEl.textContent = '0 words';
+      updateCandidateWordCountLive();
+
       if (deltaBadge) {
         deltaBadge.textContent = '0 words';
         deltaBadge.className = 'badge badge-teal';
@@ -12552,8 +12731,11 @@ noindex: true
     function openCompareChangesModal() {
       const orig = AiUpgradeState.originalArticle;
       const candHead = document.getElementById('sbs-cand-headline');
+      const candSeo = document.getElementById('sbs-cand-seo-title');
       const candDek = document.getElementById('sbs-cand-dek');
       const candBody = document.getElementById('sbs-cand-body');
+      const candWhy = document.getElementById('sbs-cand-why-it-matters');
+      const candNext = document.getElementById('sbs-cand-what-happens-next');
 
       if (!orig || !candBody || !candBody.value.trim()) {
         showToast('Please generate or enter a rewrite first to compare changes.', 'info');
@@ -12562,15 +12744,31 @@ noindex: true
 
       const mOrigHead = document.getElementById('compare-modal-orig-headline');
       const mCandHead = document.getElementById('compare-modal-cand-headline');
+      const mOrigSeo = document.getElementById('compare-modal-orig-seo-title');
+      const mCandSeo = document.getElementById('compare-modal-cand-seo-title');
       const mOrigDek = document.getElementById('compare-modal-orig-dek');
       const mCandDek = document.getElementById('compare-modal-cand-dek');
+      const mOrigWhy = document.getElementById('compare-modal-orig-why');
+      const mCandWhy = document.getElementById('compare-modal-cand-why');
+      const mOrigNext = document.getElementById('compare-modal-orig-next');
+      const mCandNext = document.getElementById('compare-modal-cand-next');
+      const mOrigBody = document.getElementById('compare-modal-orig-body');
+      const mCandBody = document.getElementById('compare-modal-cand-body');
       const mWords = document.getElementById('compare-modal-words');
       const mChanges = document.getElementById('compare-modal-changes-list');
 
       if (mOrigHead) mOrigHead.textContent = orig.title || 'Untitled';
       if (mCandHead) mCandHead.textContent = (candHead && candHead.value) ? candHead.value : (orig.title || 'Untitled');
+      if (mOrigSeo) mOrigSeo.textContent = orig.seoTitle || 'No custom SEO title';
+      if (mCandSeo) mCandSeo.textContent = (candSeo && candSeo.value) ? candSeo.value : (orig.seoTitle || 'No custom SEO title');
       if (mOrigDek) mOrigDek.textContent = orig.dek || 'No deck';
       if (mCandDek) mCandDek.textContent = (candDek && candDek.value) ? candDek.value : (orig.dek || 'No deck');
+      if (mOrigWhy) mOrigWhy.textContent = orig.why_it_matters || 'No analytical synthesis';
+      if (mCandWhy) mCandWhy.textContent = (candWhy && candWhy.value) ? candWhy.value : (orig.why_it_matters || 'No analytical synthesis');
+      if (mOrigNext) mOrigNext.textContent = orig.what_happens_next || 'No forward outlook';
+      if (mCandNext) mCandNext.textContent = (candNext && candNext.value) ? candNext.value : (orig.what_happens_next || 'No forward outlook');
+      if (mOrigBody) mOrigBody.textContent = orig.body || 'No body content';
+      if (mCandBody) mCandBody.textContent = (candBody && candBody.value) ? candBody.value : '';
 
       const origWc = orig.wordCount || (orig.body ? orig.body.trim().split(/\s+/).filter(Boolean).length : 0);
       const candWc = candBody.value.trim().split(/\s+/).filter(Boolean).length;
@@ -12597,6 +12795,7 @@ noindex: true
     function openAcceptUpgradeModal() {
       const orig = AiUpgradeState.originalArticle;
       const candHead = document.getElementById('sbs-cand-headline');
+      const candSeo = document.getElementById('sbs-cand-seo-title');
       const candDek = document.getElementById('sbs-cand-dek');
       const candBody = document.getElementById('sbs-cand-body');
 
@@ -12607,6 +12806,7 @@ noindex: true
 
       const headEl = document.getElementById('accept-modal-headline');
       const slugEl = document.getElementById('accept-modal-slug');
+      const seoEl = document.getElementById('accept-modal-seo-title');
       const wordsEl = document.getElementById('accept-modal-words');
 
       const origWc = orig.wordCount || (orig.body ? orig.body.trim().split(/\s+/).filter(Boolean).length : 0);
@@ -12615,6 +12815,7 @@ noindex: true
 
       if (headEl) headEl.textContent = (candHead && candHead.value) ? candHead.value : orig.title;
       if (slugEl) slugEl.textContent = orig.slug || orig.relPath;
+      if (seoEl) seoEl.textContent = (candSeo && candSeo.value.trim()) ? candSeo.value.trim() : (orig.seoTitle || 'None');
       if (wordsEl) wordsEl.textContent = origWc + ' → ' + candWc + ' (' + (diff >= 0 ? '+' : '') + diff + ' words)';
 
       const modal = document.getElementById('accept-upgrade-modal');
@@ -12630,8 +12831,11 @@ noindex: true
     async function executeAcceptUpgrade() {
       const orig = AiUpgradeState.originalArticle;
       const candHead = document.getElementById('sbs-cand-headline');
+      const candSeo = document.getElementById('sbs-cand-seo-title');
       const candDek = document.getElementById('sbs-cand-dek');
       const candBody = document.getElementById('sbs-cand-body');
+      const candWhy = document.getElementById('sbs-cand-why-it-matters');
+      const candNext = document.getElementById('sbs-cand-what-happens-next');
 
       if (!orig || !candBody) return;
 
@@ -12641,6 +12845,15 @@ noindex: true
         btn.innerText = 'Loading AI Rewrite into Editor...';
       }
 
+      const acceptedCandidate = {
+        headline: (candHead && candHead.value.trim()) || orig.title || '',
+        seoTitle: (candSeo && candSeo.value.trim()) || orig.seoTitle || '',
+        dek: (candDek && candDek.value.trim()) || orig.dek || '',
+        body: candBody.value.trim(),
+        why_it_matters: (candWhy && candWhy.value.trim()) || orig.why_it_matters || '',
+        what_happens_next: (candNext && candNext.value.trim()) || orig.what_happens_next || ''
+      };
+
       try {
         const res = await fetch('/api/admin/ai/upgrade/accept', {
           method: 'POST',
@@ -12648,9 +12861,12 @@ noindex: true
           body: JSON.stringify({
             relPath: orig.relPath || ('src/articles/' + (orig.category ? orig.category.toLowerCase() : 'india') + '/' + orig.slug + '.md'),
             sha: orig.sha,
-            headline: (candHead && candHead.value.trim()) || orig.title,
-            dek: (candDek && candDek.value.trim()) || orig.dek || '',
-            body: candBody.value.trim(),
+            candidateHeadline: acceptedCandidate.headline,
+            candidateSeoTitle: acceptedCandidate.seoTitle,
+            candidateDek: acceptedCandidate.dek,
+            candidateBody: acceptedCandidate.body,
+            candidateWhyItMatters: acceptedCandidate.why_it_matters,
+            candidateWhatHappensNext: acceptedCandidate.what_happens_next,
             providerUsed: (AiUpgradeState.candidateArticle && AiUpgradeState.candidateArticle.providerUsed) || 'AI Studio',
             qualityVerdict: (AiUpgradeState.lastQuality && AiUpgradeState.lastQuality.valid) ? 'PASS' : 'FLAGGED'
           })
@@ -12662,42 +12878,50 @@ noindex: true
         }
 
         const data = await res.json();
-        const candidateToLoad = data.candidate || {
-          headline: candHead ? candHead.value.trim() : orig.title,
-          dek: candDek ? candDek.value.trim() : orig.dek,
-          body: candBody.value.trim()
-        };
+        const candidateToLoad = data.workingDraft || data.candidate || acceptedCandidate;
 
         // Stage 1: Load accepted rewritten text into the article editor working state
         if (AppState.currentlyEditingArticle) {
           AppState.currentlyEditingArticle.title = candidateToLoad.headline;
-          AppState.currentlyEditingArticle.dek = candidateToLoad.dek;
+          AppState.currentlyEditingArticle.seoTitle = candidateToLoad.seoTitle || '';
+          AppState.currentlyEditingArticle.dek = candidateToLoad.dek || '';
           AppState.currentlyEditingArticle.body = candidateToLoad.body;
+          AppState.currentlyEditingArticle.why_it_matters = candidateToLoad.why_it_matters || '';
+          AppState.currentlyEditingArticle.what_happens_next = candidateToLoad.what_happens_next || '';
           AppState.currentlyEditingArticle.wordCount = candidateToLoad.body.split(/\s+/).filter(Boolean).length;
         }
 
         const editHead = document.getElementById('edit-headline');
+        const editSeo = document.getElementById('edit-seo-title');
         const editDk = document.getElementById('edit-dek');
         const editBd = document.getElementById('edit-body');
+        const editWhy = document.getElementById('edit-why-it-matters');
+        const editNext = document.getElementById('edit-what-happens-next');
+
         if (editHead) editHead.value = candidateToLoad.headline;
-        if (editDk) editDk.value = candidateToLoad.dek;
+        if (editSeo) editSeo.value = candidateToLoad.seoTitle || '';
+        if (editDk) editDk.value = candidateToLoad.dek || '';
         if (editBd) editBd.value = candidateToLoad.body;
+        if (editWhy) editWhy.value = candidateToLoad.why_it_matters || '';
+        if (editNext) editNext.value = candidateToLoad.what_happens_next || '';
+
+        updateWordCountLive();
 
         const saveStatus = document.getElementById('editor-save-status');
         if (saveStatus) {
-          saveStatus.innerText = 'AI Rewrite loaded (Unsaved working draft — click "Save Changes" to commit)';
+          saveStatus.innerText = 'AI Rewrite loaded (Unsaved working draft — all 6 fields staged, click "Save Changes" to commit)';
           saveStatus.style.color = '#c084fc';
         }
 
         closeAcceptUpgradeModal();
-        showToast('Stage 1 Complete: AI rewrite loaded into editor working state. Click "Save Changes" to commit and persist.', 'success');
+        showToast('Stage 1 Complete: AI rewrite (all 6 editorial fields) loaded into editor working state. Click "Save Changes" to commit and persist.', 'success');
         navigate('articles', { subview: 'editor' });
       } catch (err) {
         showToast('Failed to accept AI rewrite: ' + err.message, 'error');
       } finally {
         if (btn) {
           btn.disabled = false;
-          btn.innerText = 'Save AI Rewrite \u2192';
+          btn.innerText = 'Load into Editor Working Draft \u2192';
         }
       }
     }
@@ -12705,10 +12929,17 @@ noindex: true
     function openAiUpgradeForCurrentArticle() {
       if (AppState && AppState.currentlyEditingArticle) {
         const editHead = document.getElementById('edit-headline');
+        const editSeo = document.getElementById('edit-seo-title');
         const editDk = document.getElementById('edit-dek');
         const editBd = document.getElementById('edit-body');
+        const editWhy = document.getElementById('edit-why-it-matters');
+        const editNext = document.getElementById('edit-what-happens-next');
+
         if (editHead && editHead.value !== undefined) {
           AppState.currentlyEditingArticle.title = editHead.value.trim();
+        }
+        if (editSeo && editSeo.value !== undefined) {
+          AppState.currentlyEditingArticle.seoTitle = editSeo.value.trim();
         }
         if (editDk && editDk.value !== undefined) {
           AppState.currentlyEditingArticle.dek = editDk.value.trim();
@@ -12716,6 +12947,12 @@ noindex: true
         if (editBd && editBd.value !== undefined) {
           AppState.currentlyEditingArticle.body = editBd.value.trim();
           AppState.currentlyEditingArticle.wordCount = editBd.value.trim().split(/\s+/).filter(Boolean).length;
+        }
+        if (editWhy && editWhy.value !== undefined) {
+          AppState.currentlyEditingArticle.why_it_matters = editWhy.value.trim();
+        }
+        if (editNext && editNext.value !== undefined) {
+          AppState.currentlyEditingArticle.what_happens_next = editNext.value.trim();
         }
         navigate('ai-upgrade', { article: AppState.currentlyEditingArticle });
       } else {

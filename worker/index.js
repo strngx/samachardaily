@@ -2065,6 +2065,9 @@ export default {
         let effectiveSource = sourceName || '';
         let effectiveSourceUrl = sourceUrl || '';
         let effectiveSha = sha || null;
+        let effectiveSeoTitle = payload.seoTitle || '';
+        let effectiveWhyItMatters = payload.why_it_matters || '';
+        let effectiveWhatHappensNext = payload.what_happens_next || '';
 
         // If body is missing or empty, resolve and load from repository storage or index
         if ((!effectiveBody || typeof effectiveBody !== 'string' || !effectiveBody.trim()) && relPath && validateArticleRelPath(relPath)) {
@@ -2080,6 +2083,9 @@ export default {
                 effectiveDek = effectiveDek || (parsed.data && parsed.data.dek) || '';
                 effectiveSource = effectiveSource || (parsed.data && parsed.data.sourceName) || '';
                 effectiveSourceUrl = effectiveSourceUrl || (parsed.data && parsed.data.sourceUrl) || '';
+                effectiveSeoTitle = effectiveSeoTitle || (parsed.data && parsed.data.seoTitle) || '';
+                effectiveWhyItMatters = effectiveWhyItMatters || (parsed.data && parsed.data.why_it_matters) || '';
+                effectiveWhatHappensNext = effectiveWhatHappensNext || (parsed.data && parsed.data.what_happens_next) || '';
                 effectiveSha = ghFile.sha || effectiveSha;
               }
             } catch (_) {}
@@ -2095,6 +2101,9 @@ export default {
                 effectiveDek = effectiveDek || (found.data && found.data.dek) || '';
                 effectiveSource = effectiveSource || (found.data && found.data.sourceName) || '';
                 effectiveSourceUrl = effectiveSourceUrl || (found.data && found.data.sourceUrl) || '';
+                effectiveSeoTitle = effectiveSeoTitle || (found.data && found.data.seoTitle) || '';
+                effectiveWhyItMatters = effectiveWhyItMatters || (found.data && found.data.why_it_matters) || '';
+                effectiveWhatHappensNext = effectiveWhatHappensNext || (found.data && found.data.what_happens_next) || '';
               }
             } catch (_) {}
           }
@@ -2113,8 +2122,11 @@ export default {
         const upgradeResult = await generateArticleUpgrade(
           {
             title: effectiveTitle,
+            seoTitle: effectiveSeoTitle,
             dek: effectiveDek || '',
             body: effectiveBody,
+            why_it_matters: effectiveWhyItMatters,
+            what_happens_next: effectiveWhatHappensNext,
             sourceName: effectiveSource || '',
             sourceUrl: effectiveSourceUrl || ''
           },
@@ -2155,10 +2167,27 @@ export default {
       // ZERO GitHub writes, ZERO commits, ZERO deployments.
       // Final persistence is reserved strictly for the existing "Save Changes" workflow (Stage 2).
       if (pathname === '/api/admin/ai/upgrade/accept') {
-        const { candidateHeadline, candidateDek, candidateBody } = payload;
-        const newTitle = candidateHeadline || title;
-        const newDek = candidateDek !== undefined ? candidateDek : dek;
-        const newBody = candidateBody || articleBody;
+        const {
+          candidateHeadline,
+          candidateSeoTitle,
+          candidateDek,
+          candidateBody,
+          candidateWhyItMatters,
+          candidateWhatHappensNext,
+          headline,
+          seoTitle,
+          dek,
+          body: candidateBodyAlt,
+          why_it_matters,
+          what_happens_next
+        } = payload;
+
+        const newTitle = (candidateHeadline || headline || title || '').trim();
+        const newSeoTitle = (candidateSeoTitle !== undefined ? candidateSeoTitle : (seoTitle !== undefined ? seoTitle : ''));
+        const newDek = (candidateDek !== undefined ? candidateDek : (dek !== undefined ? dek : ''));
+        const newBody = (candidateBody || candidateBodyAlt || articleBody || '').trim();
+        const newWhyItMatters = (candidateWhyItMatters !== undefined ? candidateWhyItMatters : (why_it_matters !== undefined ? why_it_matters : ''));
+        const newWhatHappensNext = (candidateWhatHappensNext !== undefined ? candidateWhatHappensNext : (what_happens_next !== undefined ? what_happens_next : ''));
 
         if (!newTitle || !newBody) {
           return new Response(JSON.stringify({
@@ -2177,19 +2206,25 @@ export default {
           status: 'success',
           relPath,
           sha: sha || 'working_draft',
-          summary: `Loaded AI rewrite draft into editor working state for ${relPath} (awaiting manual Save Changes)`
+          summary: `Loaded AI rewrite draft (6 editorial fields) into editor working state for ${relPath} (awaiting manual Save Changes)`
         });
+
+        const workingDraft = {
+          headline: newTitle,
+          seoTitle: typeof newSeoTitle === 'string' ? newSeoTitle.trim() : '',
+          dek: typeof newDek === 'string' ? newDek.trim() : '',
+          body: newBody,
+          why_it_matters: typeof newWhyItMatters === 'string' ? newWhyItMatters.trim() : '',
+          what_happens_next: typeof newWhatHappensNext === 'string' ? newWhatHappensNext.trim() : ''
+        };
 
         // Return working draft directly to browser editor state
         // Byte-preserving image, imageCredit, video, slug, canonical, URL, category, author
         return new Response(JSON.stringify({
           success: true,
           relPath,
-          workingDraft: {
-            headline: newTitle.trim(),
-            dek: typeof newDek === 'string' ? newDek.trim() : '',
-            body: newBody.trim()
-          },
+          workingDraft,
+          candidate: workingDraft,
           message: 'AI rewrite loaded into editor working state. Review your draft in the editor and click "Save Changes" to commit when ready.'
         }), {
           status: 200,
