@@ -2088,191 +2088,6 @@ noindex: true
       }
     }
 
-    /* ========================================================================
-       PHASE UI FIX 4: DEDICATED FULL-ARTICLE AI UPGRADE STUDIO STYLES
-       ======================================================================== */
-    .ai-studio-root {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .ai-studio-header-card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      padding: 16px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .ai-studio-meta-bar {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding-top: 10px;
-      border-top: 1px solid var(--color-border);
-      font-size: 12px;
-      color: var(--color-muted);
-      flex-wrap: wrap;
-    }
-
-    .ai-studio-meta-headline {
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--color-ink);
-      flex: 1;
-      min-width: 240px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .ai-studio-meta-chips {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .ai-studio-action-toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      padding: 12px 18px;
-      gap: 14px;
-      flex-wrap: wrap;
-      box-shadow: var(--shadow-xs);
-    }
-
-    .ai-studio-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      align-items: stretch;
-      min-height: calc(100vh - 290px);
-    }
-
-    @media (max-width: 960px) {
-      .ai-studio-grid {
-        grid-template-columns: 1fr;
-        min-height: auto;
-      }
-    }
-
-    .ai-studio-column {
-      display: flex;
-      flex-direction: column;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      padding: 18px 20px;
-      box-shadow: var(--shadow-sm);
-      overflow: hidden;
-    }
-
-    .ai-studio-column-original {
-      border-color: var(--color-border);
-      background: #090e1a;
-    }
-
-    .ai-studio-column-candidate {
-      border-color: rgba(168, 85, 247, 0.32);
-      background: rgba(168, 85, 247, 0.02);
-    }
-
-    .ai-studio-col-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 12px;
-      margin-bottom: 14px;
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .ai-studio-col-title {
-      font-size: 12.5px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .ai-studio-scroll-area {
-      flex: 1;
-      overflow-y: auto;
-      padding-right: 6px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      max-height: calc(100vh - 380px);
-    }
-
-    @media (max-width: 960px) {
-      .ai-studio-scroll-area {
-        max-height: 520px;
-      }
-    }
-
-    .ai-studio-field-label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--color-muted);
-      margin-bottom: 4px;
-      display: block;
-    }
-
-    .ai-studio-orig-box {
-      background: var(--color-surface-alt);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      color: var(--color-ink-light);
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .ai-studio-body-rendered {
-      white-space: pre-wrap;
-      font-family: var(--font-stack);
-      font-size: 13.5px;
-      line-height: 1.7;
-      color: var(--color-ink-light);
-    }
-
-    .ai-studio-cand-textarea {
-      width: 100%;
-      height: 100%;
-      min-height: 400px;
-      background: var(--color-surface-alt);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      color: var(--color-ink);
-      font-family: var(--font-stack);
-      font-size: 13.5px;
-      line-height: 1.7;
-      resize: vertical;
-      box-sizing: border-box;
-    }
-
-    .ai-studio-cand-textarea:focus {
-      outline: none;
-      border-color: var(--color-purple);
-      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
-    }
-
   </style>
 </head>
 <body>
@@ -3493,178 +3308,240 @@ noindex: true
         <section id="view-ai-upgrade" class="view-pane">
           <div class="view-header">
             <div class="view-title-group">
-              <h1>AI Article Upgrade Studio</h1>
-              <p>Dedicated full-article rewriting workspace. Human-governed editorial upgrade with side-by-side verification.</p>
+              <h1>Manual AI Article Upgrade</h1>
+              <p>Human-governed news copy editing, readability polishing, and side-by-side verification.</p>
             </div>
             <div class="view-actions-group" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
               <span class="badge badge-purple"><span class="badge-dot purple"></span> Human-Governed AI</span>
               <span id="ai-upgrade-provider-status-badge" class="badge badge-gray" title="Free AI Provider Status">AI: Standby</span>
-              <span id="ai-upgrade-draft-status-badge" class="badge badge-blue">Draft: Ready for Upgrade</span>
-              <span id="ai-upgrade-safety-verdict-badge" class="badge badge-gray">Safety: Checked</span>
-              <button class="btn-table-action" id="btn-ai-back-to-editor" type="button" onclick="returnToEditor()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>Back to Editor</button>
-              <button class="btn-table-action" type="button" onclick="navigate('articles')">Browse Articles</button>
+              <button class="btn-table-action" id="btn-ai-back-to-editor" type="button" onclick="navigate('articles', { subview: 'editor' })" style="display: none;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>Back to Editor</button>
+              <button class="btn-table-action" onclick="resetAiUpgradeStudio()">Reset Studio</button>
             </div>
           </div>
 
-          <!-- CLEAN EMPTY STATE (Shown when studio opened directly without an article) -->
-          <div id="ai-upgrade-empty-state" class="dashboard-panel" style="display: none; text-align: center; padding: 60px 24px; max-width: 640px; margin: 40px auto; border: 1px dashed var(--color-border);">
-            <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(168, 85, 247, 0.12); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: #c084fc;">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <!-- Step Progression Indicator -->
+          <div class="upgrade-stepper-bar" style="display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 4px;">
+            <div class="upgrade-step active" id="step-pill-1">
+              <span class="step-num">1</span>
+              <span class="step-label">Select Article</span>
             </div>
-            <h2 style="font-size: 18px; font-weight: 700; color: var(--color-ink); margin-bottom: 8px;">No Article Selected for Upgrade</h2>
-            <p style="font-size: 13px; color: var(--color-muted); line-height: 1.5; margin-bottom: 24px; max-width: 480px; margin-left: auto; margin-right: auto;">
-              The AI Upgrade Studio rewrites complete news stories with human governance. To begin an upgrade, open any published article in the Newsroom Editor and click <strong>AI Rewrite</strong>.
-            </p>
-            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-              <button class="btn-table-action btn-table-primary" type="button" onclick="navigate('articles')" style="padding: 9px 20px; font-size: 13px;">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                Browse Articles Desk
-              </button>
+            <div class="upgrade-step" id="step-pill-2">
+              <span class="step-num">2</span>
+              <span class="step-label">Review Original</span>
+            </div>
+            <div class="upgrade-step" id="step-pill-3">
+              <span class="step-num">3</span>
+              <span class="step-label">Safety &amp; Fact Review</span>
+            </div>
+            <div class="upgrade-step" id="step-pill-4">
+              <span class="step-num">4</span>
+              <span class="step-label">Side-by-Side Review &amp; Save</span>
             </div>
           </div>
 
-          <!-- DEDICATED FULL-HEIGHT STUDIO WORKSPACE -->
-          <div id="ai-upgrade-workspace" class="ai-studio-root" style="display: none;">
-            
-            <!-- Article Meta Card -->
-            <div class="ai-studio-header-card">
-              <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;">
-                <div class="ai-studio-meta-headline" id="ai-up-selected-headline">Selected Article Headline</div>
-                <div class="ai-studio-meta-chips">
-                  <span class="badge badge-gray" id="ai-up-selected-desk">India</span>
-                  <span style="color: var(--color-muted); font-size: 12px;" id="ai-up-selected-date">Date</span>
-                  <span style="font-weight: 600; color: var(--color-teal); font-size: 12px;" id="ai-up-selected-source">Declared wire</span>
-                  <span style="font-weight: 700; color: var(--color-ink); font-size: 12px;" id="ai-up-selected-words">0 words</span>
-                  <span style="font-family: var(--font-mono); font-size: 11px; color: var(--color-muted);" id="ai-up-selected-slug">slug</span>
-                </div>
+          <!-- Safety Invariant Banner: Zero Automatic AI Calling -->
+          <div class="dashboard-panel" style="margin-bottom: 20px; border-left: 3px solid var(--color-purple); background: rgba(168, 85, 247, 0.05); padding: 12px 18px;">
+            <div style="display: flex; align-items: flex-start; gap: 12px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-purple); flex-shrink: 0; margin-top: 2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              <div style="font-size: 13px; color: var(--color-ink-light); line-height: 1.5;">
+                <strong style="color: var(--color-ink);">Strict Editorial Governance:</strong> Opening this studio does <strong style="color: var(--color-red);">not</strong> trigger external AI calls. The original published article is 100% read-only. AI upgrades only run upon explicit editor command, and will never overwrite or publish without explicit confirmation.
               </div>
+            </div>
+          </div>
 
-              <!-- Editorial Governance Ribbon -->
-              <div style="padding: 8px 14px; background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: var(--radius-sm); font-size: 12px; color: var(--color-ink-light); display: flex; align-items: center; gap: 8px;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #c084fc; flex-shrink: 0;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                <span><strong>Publication Safeguard:</strong> The original published dispatch is read-only. Upgrades run only upon explicit editorial command and remain unpublished until confirmed in the editor.</span>
+          <!-- STEP 1: ARTICLE SELECTOR -->
+          <div class="dashboard-panel" id="ai-upgrade-select-panel" style="margin-bottom: 20px;">
+            <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div class="panel-title">Step 1: Select Published Article</div>
+                <div class="panel-subtitle">Choose an existing dispatch from the SamacharDaily corpus to review and upgrade</div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 12px; margin-bottom: 14px; flex-wrap: wrap;">
+              <div class="quick-search-wrapper" style="flex: 1; min-width: 260px;">
+                <input type="text" id="ai-upgrade-search" class="quick-search-input" placeholder="Search by headline, slug, category, or wire source..." oninput="handleAiUpgradeArticleSearch()">
+              </div>
+              <select id="ai-upgrade-desk-filter" class="select-filter" onchange="handleAiUpgradeArticleSearch()">
+                <option value="ALL">All Desks</option>
+                <option value="India">India Desk</option>
+                <option value="World">World Desk</option>
+                <option value="Business">Business Desk</option>
+                <option value="Tech">Tech Desk</option>
+                <option value="Sports">Sports Desk</option>
+              </select>
+            </div>
+            <div class="table-container" style="max-height: 280px; overflow-y: auto;">
+              <table class="saas-table" id="ai-upgrade-select-table">
+                <thead>
+                  <tr>
+                    <th>Headline</th>
+                    <th style="width: 110px;">Desk</th>
+                    <th style="width: 110px;">Date</th>
+                    <th style="width: 90px;">Words</th>
+                    <th style="width: 100px; text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="ai-upgrade-select-tbody">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- STEP 2: ACTIVE ARTICLE SUMMARY CARD -->
+          <div class="dashboard-panel" id="ai-upgrade-active-card" style="display: none; margin-bottom: 20px;">
+            <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div class="panel-title" id="ai-up-selected-headline">Selected Article</div>
+                <div class="panel-subtitle" id="ai-up-selected-meta">Desk • Date • Author</div>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn-table-action" onclick="clearSelectedAiUpgradeArticle()">Change Article</button>
               </div>
             </div>
 
-            <!-- Prominent Generation Toolbar -->
-            <div class="ai-studio-action-toolbar">
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <button type="button" class="btn-table-action btn-table-primary" id="btn-start-ai-upgrade" onclick="startManualAiUpgrade()" style="background: var(--color-purple); border-color: var(--color-purple); font-weight: 700; padding: 9px 22px; font-size: 13.5px; display: inline-flex; align-items: center; gap: 8px;">
-                  <span id="btn-start-ai-upgrade-text">✨ Upgrade Full Article</span>
-                </button>
-                <div id="ai-upgrade-loading-indicator" style="display: none; align-items: center; gap: 10px; color: #c084fc; font-weight: 600; font-size: 13px;">
-                  <span class="status-pulse-dot" style="background: #c084fc;"></span>
-                  <span id="ai-upgrade-loading-text">Generating Full Article Upgrade...</span>
-                </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 16px; font-size: 13px;">
+              <div style="padding: 10px; background: var(--color-surface-alt); border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+                <div style="color: var(--color-muted); font-size: 11px;">Word Count</div>
+                <div style="font-weight: 700; color: var(--color-ink);" id="ai-up-selected-words">0 words</div>
               </div>
-
-              <!-- Post-Generation Review Controls -->
-              <div id="ai-upgrade-candidate-controls" style="display: none; align-items: center; gap: 10px; flex-wrap: wrap;">
-                <div style="font-size: 12.5px;">Upgraded: <strong id="sbs-cand-count">0</strong> words</div>
-                <div id="sbs-delta-badge" class="badge badge-teal">+0 words</div>
-                <div id="sbs-quality-badge" class="badge badge-green">PASS</div>
-                <div style="font-size: 11.5px; color: var(--color-muted);">Provider: <strong id="sbs-provider-used" style="color: #c084fc;">Gemini</strong></div>
-                <button class="btn-table-action" type="button" onclick="cancelAiUpgradeDraft()">Keep Original</button>
-                <button class="btn-table-action" type="button" id="btn-regenerate-upgrade" onclick="regenerateAiUpgrade()">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
-                  Regenerate
-                </button>
-                <button class="btn-table-action btn-table-primary" type="button" id="btn-accept-ai-upgrade" onclick="openAcceptUpgradeModal()" style="background: var(--color-purple); border-color: var(--color-purple); font-weight: 700;">
-                  Save AI Rewrite &rarr;
-                </button>
+              <div style="padding: 10px; background: var(--color-surface-alt); border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+                <div style="color: var(--color-muted); font-size: 11px;">Wire Attribution</div>
+                <div style="font-weight: 600; color: var(--color-teal);" id="ai-up-selected-source">Declared wire</div>
+              </div>
+              <div style="padding: 10px; background: var(--color-surface-alt); border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+                <div style="color: var(--color-muted); font-size: 11px;">Canonical Slug (Protected)</div>
+                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--color-muted); text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" id="ai-up-selected-slug">slug</div>
+              </div>
+              <div style="padding: 10px; background: var(--color-surface-alt); border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+                <div style="color: var(--color-muted); font-size: 11px;">Hero Image Credit</div>
+                <div style="font-size: 12px; color: var(--color-ink);" id="ai-up-selected-credit">Standard credit</div>
               </div>
             </div>
 
-            <!-- Error Banner -->
-            <div id="ai-upgrade-error-banner" style="display: none; padding: 12px 14px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: var(--radius-sm); color: #fca5a5; font-size: 13px;">
+            <!-- Controls to trigger explicit AI upgrade -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--color-border); flex-wrap: wrap; gap: 12px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <label for="ai-upgrade-focus" style="font-size: 12px; font-weight: 600; color: var(--color-muted);">Improvement Focus:</label>
+                <select id="ai-upgrade-focus" class="select-filter">
+                  <option value="full_article_upgrade" selected>Full Article Upgrade (Comprehensive Rewrite &amp; Polish)</option>
+                  <option value="general_clarity">General Clarity &amp; Paragraph Flow</option>
+                  <option value="structural_polish">Structural Polish (Subheadings &amp; Transitions)</option>
+                  <option value="breaking_flow">Concise Breaking Flow (Crisp Wire Attributions)</option>
+                  <option value="lead_punch">Headline &amp; Lead Enhancement</option>
+                </select>
+              </div>
+
+              <div style="display: flex; gap: 10px;">
+                <button type="button" class="btn-table-action" id="btn-run-safety-precheck" onclick="runSafetyPrecheckOnly()">Run Safety Check</button>
+                <button type="button" class="btn-table-action btn-table-primary" id="btn-start-ai-upgrade" onclick="startManualAiUpgrade()" style="background: var(--color-purple); border-color: var(--color-purple);">
+                  <span id="btn-start-ai-upgrade-text">✨ Start AI Upgrade</span>
+                </button>
+              </div>
+            </div>
+            <div id="ai-upgrade-error-banner" style="display: none; margin-top: 14px; padding: 12px 14px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: var(--radius-sm); color: #fca5a5; font-size: 13px;">
               <div style="display: flex; align-items: flex-start; gap: 8px;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #ef4444; flex-shrink: 0; margin-top: 2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                 <div id="ai-upgrade-error-message" style="line-height: 1.4;"></div>
               </div>
             </div>
+          </div>
 
-            <!-- Two-Column Side-by-Side Workspace -->
-            <div class="ai-studio-grid">
-              
-              <!-- Left Column: ORIGINAL (Read-Only) -->
-              <div class="ai-studio-column ai-studio-column-original">
-                <div class="ai-studio-col-header">
-                  <span class="ai-studio-col-title" style="color: var(--color-muted);">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                    Original Published Article (Read-Only)
-                  </span>
-                  <span class="badge badge-gray" id="sbs-orig-count-badge"><span id="sbs-orig-count">0</span> words</span>
-                </div>
-                
-                <div class="ai-studio-scroll-area">
-                  <div>
-                    <label class="ai-studio-field-label">Original Headline</label>
-                    <div class="ai-studio-orig-box" style="font-weight: 700; font-size: 15px; color: var(--color-ink);" id="sbs-orig-headline">Headline</div>
-                  </div>
-                  <div>
-                    <label class="ai-studio-field-label">Original Deck / Lead</label>
-                    <div class="ai-studio-orig-box" style="font-style: italic; color: var(--color-ink-light);" id="sbs-orig-dek">Deck</div>
-                  </div>
-                  <div>
-                    <label class="ai-studio-field-label">Complete Published Body (Markdown)</label>
-                    <div class="ai-studio-orig-box ai-studio-body-rendered" id="sbs-orig-body" style="min-height: 280px;">Article body...</div>
-                  </div>
-                  <div style="margin-top: 8px;">
-                    <label class="ai-studio-field-label">Safety &amp; Fact Verification Findings</label>
-                    <div id="ai-upgrade-safety-findings-list" style="display: flex; flex-direction: column; gap: 8px; font-size: 12.5px;"></div>
-                  </div>
-                </div>
+          <!-- STEP 3: FACT & SAFETY REVIEW PANEL -->
+          <div class="dashboard-panel" id="ai-upgrade-safety-panel" style="display: none; margin-bottom: 20px;">
+            <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div class="panel-title">Step 3: Safety &amp; Editorial Fact-Check Findings</div>
+                <div class="panel-subtitle">Deterministic legal, privacy, and wire attribution verification before upgrade</div>
               </div>
+              <span class="badge" id="ai-upgrade-safety-verdict-badge">UNCHECKED</span>
+            </div>
+            <div id="ai-upgrade-safety-findings-list" style="display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
+              <!-- Findings rendered here -->
+            </div>
+          </div>
 
-              <!-- Right Column: AI UPGRADED DRAFT -->
-              <div class="ai-studio-column ai-studio-column-candidate">
-                <div class="ai-studio-col-header">
-                  <span class="ai-studio-col-title" style="color: #c084fc;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                    AI Upgraded Candidate
-                  </span>
-                  <span class="badge badge-purple" id="sbs-cand-status-pill">Pending Upgrade</span>
-                </div>
-
-                <div class="ai-studio-scroll-area">
-                  
-                  <!-- Pre-generation Empty State Placeholder -->
-                  <div id="ai-upgrade-cand-placeholder" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; height: 100%; min-height: 380px; padding: 40px 20px; background: rgba(168, 85, 247, 0.03); border: 1px dashed rgba(168, 85, 247, 0.25); border-radius: var(--radius-md);">
-                    <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(168, 85, 247, 0.12); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; color: #c084fc;">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                    </div>
-                    <h3 style="font-size: 15px; font-weight: 700; color: var(--color-ink); margin-bottom: 6px;">AI Upgraded Draft Will Appear Here</h3>
-                    <p style="font-size: 12.5px; color: var(--color-muted); max-width: 420px; line-height: 1.5; margin-bottom: 20px;">
-                      Click <strong>Upgrade Full Article</strong> above to generate a comprehensive rewrite elevating clarity, structure, and paragraph transitions while preserving all core facts.
-                    </p>
-                    <button type="button" class="btn-table-action btn-table-primary" onclick="startManualAiUpgrade()" style="background: var(--color-purple); border-color: var(--color-purple); padding: 8px 20px; font-weight: 600;">✨ Start Upgrade</button>
-                  </div>
-
-                  <!-- Post-generation Editable Candidate -->
-                  <div id="ai-upgrade-cand-editor" style="display: none; flex-direction: column; gap: 14px;">
-                    <div>
-                      <label class="ai-studio-field-label" for="sbs-cand-headline">Upgraded Headline</label>
-                      <input type="text" id="sbs-cand-headline" class="form-input" style="font-weight: 700; font-size: 14.5px; width: 100%;" oninput="updateCandidateWordCountLive()">
-                    </div>
-                    <div>
-                      <label class="ai-studio-field-label" for="sbs-cand-dek">Upgraded Deck / Lead</label>
-                      <textarea id="sbs-cand-dek" class="form-input" style="width: 100%; min-height: 56px; font-size: 13px; line-height: 1.5; resize: vertical;" oninput="updateCandidateWordCountLive()"></textarea>
-                    </div>
-                    <div style="flex: 1;">
-                      <label class="ai-studio-field-label" for="sbs-cand-body">Upgraded Article Body (Markdown with H2 Headings)</label>
-                      <textarea id="sbs-cand-body" class="ai-studio-cand-textarea" oninput="updateCandidateWordCountLive()"></textarea>
-                    </div>
-                    <div id="sbs-changes-list-container" style="font-size: 12px; color: var(--color-muted); padding-top: 10px; border-top: 1px solid var(--color-border);">
-                      <strong style="color: var(--color-ink);">Editorial Improvements Applied:</strong>
-                      <ul id="sbs-changes-list" style="margin-top: 6px; padding-left: 18px; line-height: 1.55; display: flex; flex-direction: column; gap: 4px;"></ul>
-                    </div>
-                  </div>
-
-                </div>
+          <!-- STEP 4: SIDE-BY-SIDE REVIEW STUDIO -->
+          <div class="dashboard-panel" id="ai-upgrade-sidebyside-panel" style="display: none; margin-bottom: 20px;">
+            <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+              <div>
+                <div class="panel-title">Step 4: Side-by-Side Review Studio</div>
+                <div class="panel-subtitle">Compare original dispatch with AI improved candidate. Inspect word count delta and review changes.</div>
               </div>
-
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                <button class="btn-table-action" type="button" onclick="cancelAiUpgradeDraft()">Keep Original</button>
+                <button class="btn-table-action" type="button" id="btn-regenerate-upgrade" onclick="regenerateAiUpgrade()">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                  Regenerate
+                </button>
+                <button class="btn-table-action btn-table-primary" type="button" id="btn-accept-ai-upgrade" onclick="openAcceptUpgradeModal()">
+                  Save AI Rewrite &rarr;
+                </button>
+              </div>
+            </div>
+            <div id="ai-upgrade-sbs-error-banner" style="display: none; margin-bottom: 14px; padding: 12px 14px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: var(--radius-sm); color: #fca5a5; font-size: 13px;">
+              <div style="display: flex; align-items: flex-start; gap: 8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #ef4444; flex-shrink: 0; margin-top: 2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <div id="ai-upgrade-sbs-error-message" style="line-height: 1.4;"></div>
+              </div>
             </div>
 
+            <!-- Quality & Delta Metrics Strip -->
+            <div style="display: flex; gap: 14px; padding: 12px 16px; background: var(--color-surface-alt); border-radius: var(--radius-sm); margin-bottom: 16px; flex-wrap: wrap; align-items: center; font-size: 12px;">
+              <div>Original: <strong id="sbs-orig-count">0</strong> words</div>
+              <div>Upgraded: <strong id="sbs-cand-count">0</strong> words</div>
+              <div id="sbs-delta-badge" class="badge badge-teal">0 words</div>
+              <div>Topic Similarity: <strong id="sbs-topic-sim">100%</strong></div>
+              <div>Provider: <strong id="sbs-provider-used" style="color: var(--color-purple);">Groq</strong></div>
+              <div id="sbs-quality-badge" class="badge badge-green">PASS</div>
+            </div>
+
+            <!-- Two-Column Side-by-Side Layout -->
+            <div class="sbs-grid-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <!-- Left Column: ORIGINAL (Read-Only) -->
+              <div class="sbs-column" style="display: flex; flex-direction: column; gap: 12px; background: var(--color-canvas); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 8px;">
+                  <span style="font-weight: 700; color: var(--color-muted); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;">Original Article (Read-Only)</span>
+                  <span class="badge badge-gray">Original</span>
+                </div>
+                <div>
+                  <div style="font-size: 11px; color: var(--color-muted); margin-bottom: 4px;">Headline</div>
+                  <div style="font-weight: 700; font-size: 15px; color: var(--color-ink);" id="sbs-orig-headline">Headline</div>
+                </div>
+                <div>
+                  <div style="font-size: 11px; color: var(--color-muted); margin-bottom: 4px;">Deck / Lead</div>
+                  <div style="font-size: 13px; color: var(--color-ink-light); font-style: italic;" id="sbs-orig-dek">Deck</div>
+                </div>
+                <div style="flex: 1;">
+                  <div style="font-size: 11px; color: var(--color-muted); margin-bottom: 4px;">Article Body</div>
+                  <div id="sbs-orig-body" style="background: var(--color-surface); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border); font-family: var(--font-stack); font-size: 13px; line-height: 1.6; max-height: 480px; overflow-y: auto; white-space: pre-wrap; color: var(--color-ink-light);">Body content</div>
+                </div>
+              </div>
+
+              <!-- Right Column: AI UPGRADE DRAFT (Editable) -->
+              <div class="sbs-column" style="display: flex; flex-direction: column; gap: 12px; background: rgba(168, 85, 247, 0.03); padding: 16px; border-radius: var(--radius-md); border: 1px solid rgba(168, 85, 247, 0.25);">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(168, 85, 247, 0.2); padding-bottom: 8px;">
+                  <span style="font-weight: 700; color: #c084fc; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;">AI Upgraded Draft (Editable)</span>
+                  <span class="badge badge-purple">Candidate</span>
+                </div>
+                <div>
+                  <label for="sbs-cand-headline" style="font-size: 11px; color: var(--color-muted); display: block; margin-bottom: 4px;">Upgraded Headline</label>
+                  <input type="text" id="sbs-cand-headline" class="form-input-sm" style="font-weight: 700; font-size: 14px; width: 100%;" oninput="updateCandidateWordCountLive()">
+                </div>
+                <div>
+                  <label for="sbs-cand-dek" style="font-size: 11px; color: var(--color-muted); display: block; margin-bottom: 4px;">Upgraded Deck / Lead</label>
+                  <textarea id="sbs-cand-dek" class="form-input-sm" style="width: 100%; min-height: 50px; font-size: 13px;" oninput="updateCandidateWordCountLive()"></textarea>
+                </div>
+                <div style="flex: 1;">
+                  <label for="sbs-cand-body" style="font-size: 11px; color: var(--color-muted); display: block; margin-bottom: 4px;">Upgraded Article Body (Markdown)</label>
+                  <textarea id="sbs-cand-body" style="width: 100%; height: 440px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 12px; color: var(--color-ink); font-family: var(--font-stack); font-size: 13px; line-height: 1.6; resize: vertical;" oninput="updateCandidateWordCountLive()"></textarea>
+                </div>
+                <div id="sbs-changes-list-container" style="font-size: 12px; color: var(--color-muted); padding-top: 6px;">
+                  <strong style="color: var(--color-ink);">Editorial Improvements Applied:</strong>
+                  <ul id="sbs-changes-list" style="margin-top: 4px; padding-left: 18px; line-height: 1.5;"></ul>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -12078,46 +11955,34 @@ noindex: true
     };
 
     function setAiUpgradeStep(stepNumber) {
-      // Retained for backward-compatibility with external callers
       AiUpgradeState.currentStep = stepNumber;
+      for (let i = 1; i <= 4; i++) {
+        const pill = document.getElementById('step-pill-' + i);
+        if (pill) {
+          if (i <= stepNumber) pill.classList.add('active');
+          else pill.classList.remove('active');
+        }
+      }
     }
 
     function initAiUpgradeView(preselectedArticle) {
       checkAiProviderStatus();
-
-      // Determine which article to load into studio:
-      // 1. Explicit parameter passed to initAiUpgradeView / navigate
-      // 2. Currently editing article in AppState
-      // 3. URL query parameter ?article=<slug>
-      // 4. Pre-existing selected article in AiUpgradeState
-      let targetArticle = preselectedArticle || (AppState && AppState.currentlyEditingArticle);
-
-      if (!targetArticle) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const articleSlug = urlParams.get('article');
-        if (articleSlug) {
-          const allArticles = (AppState && Array.isArray(AppState.articles) && AppState.articles.length > 0)
-            ? AppState.articles
-            : (Array.isArray(window.__CORPUS__) ? window.__CORPUS__ : []);
-          targetArticle = allArticles.find(a => a.slug === articleSlug || (a.relPath && a.relPath.includes(articleSlug)));
-        }
-      }
-
-      if (!targetArticle && AiUpgradeState && AiUpgradeState.selectedArticle) {
-        targetArticle = AiUpgradeState.selectedArticle;
-      }
-
-      if (targetArticle) {
-        loadStudioArticle(targetArticle);
+      const backToEditorBtn = document.getElementById('btn-ai-back-to-editor');
+      if (preselectedArticle || (AppState && AppState.currentlyEditingArticle)) {
+        if (backToEditorBtn) backToEditorBtn.style.display = 'inline-flex';
       } else {
-        // Show clean empty state without redundant selection tables
-        const emptyState = document.getElementById('ai-upgrade-empty-state');
-        const workspace = document.getElementById('ai-upgrade-workspace');
-        const backToEditorBtn = document.getElementById('btn-ai-back-to-editor');
-        if (emptyState) emptyState.style.display = 'block';
-        if (workspace) workspace.style.display = 'none';
         if (backToEditorBtn) backToEditorBtn.style.display = 'none';
       }
+
+      if (preselectedArticle) {
+        selectAiUpgradeArticle(preselectedArticle.relPath || preselectedArticle);
+        return;
+      }
+      if (AiUpgradeState && AiUpgradeState.selectedArticle) {
+        return;
+      }
+      handleAiUpgradeArticleSearch();
+      setAiUpgradeStep(1);
     }
 
     async function checkAiProviderStatus() {
@@ -12147,7 +12012,59 @@ noindex: true
       }
     }
 
-    function loadStudioArticle(identifier) {
+    function handleAiUpgradeArticleSearch() {
+      const searchInput = document.getElementById('ai-upgrade-search');
+      const deskFilter = document.getElementById('ai-upgrade-desk-filter');
+      const tbody = document.getElementById('ai-upgrade-select-tbody');
+      if (!tbody) return;
+
+      const q = searchInput ? (searchInput.value || '').trim().toLowerCase() : '';
+      const desk = deskFilter ? deskFilter.value : 'ALL';
+
+      const allArticles = (AppState && Array.isArray(AppState.articles) && AppState.articles.length > 0)
+        ? AppState.articles
+        : (Array.isArray(window.__CORPUS__) ? window.__CORPUS__ : []);
+
+      const filtered = allArticles.filter(art => {
+        if (!art || !art.title) return false;
+        if (desk !== 'ALL') {
+          const artDesk = (art.category || art.desk || '').toLowerCase();
+          if (artDesk !== desk.toLowerCase()) return false;
+        }
+        if (!q) return true;
+        const matchTitle = (art.title || '').toLowerCase().includes(q);
+        const matchSlug = (art.slug || '').toLowerCase().includes(q);
+        const matchCat = (art.category || '').toLowerCase().includes(q);
+        const matchSource = (art.sourceName || '').toLowerCase().includes(q);
+        return matchTitle || matchSlug || matchCat || matchSource;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 24px; color: var(--color-muted);">No published articles match the search criteria.</td></tr>';
+        return;
+      }
+
+      let html = '';
+      filtered.slice(0, 30).forEach(art => {
+        const title = escapeHtml(art.title || 'Untitled');
+        const category = escapeHtml(art.category || 'General');
+        const date = escapeHtml(art.date ? art.date.slice(0, 10) : 'Recent');
+        const words = art.wordCount || (art.body ? art.body.trim().split(/\s+/).filter(Boolean).length : 0);
+        const safeRel = escapeHtml(art.relPath || ('src/articles/' + (art.category ? art.category.toLowerCase() : 'india') + '/' + art.slug + '.md'));
+
+        html += '<tr>' +
+          '<td><strong>' + title + '</strong><br><span style="font-family: var(--font-mono); font-size: 11px; color: var(--color-muted);">' + escapeHtml(art.slug || '') + '</span></td>' +
+          '<td><span class="badge badge-gray">' + category + '</span></td>' +
+          '<td style="color: var(--color-muted); font-size: 12px;">' + date + '</td>' +
+          '<td>' + words + '</td>' +
+          '<td style="text-align: right;"><button type="button" class="btn-table-action btn-table-primary" onclick="selectAiUpgradeArticle(\'' + safeRel.replace(/'/g, "\\'") + '\')">Select</button></td>' +
+          '</tr>';
+      });
+
+      tbody.innerHTML = html;
+    }
+
+    function selectAiUpgradeArticle(identifier) {
       let relPath = (typeof identifier === 'object' && identifier !== null) ? identifier.relPath : identifier;
       const allArticles = (AppState && Array.isArray(AppState.articles) && AppState.articles.length > 0)
         ? AppState.articles
@@ -12158,91 +12075,35 @@ noindex: true
         art = identifier;
       }
 
-      const emptyState = document.getElementById('ai-upgrade-empty-state');
-      const workspace = document.getElementById('ai-upgrade-workspace');
-      const backToEditorBtn = document.getElementById('btn-ai-back-to-editor');
-
       if (!art) {
-        if (emptyState) emptyState.style.display = 'block';
-        if (workspace) workspace.style.display = 'none';
-        if (backToEditorBtn) backToEditorBtn.style.display = 'none';
         showToast('Article not found in memory.', 'error');
         return;
       }
 
-      // Preserve immutable original article snapshot in memory
+      // Preserve original article immutable snapshot
       AiUpgradeState.selectedArticle = art;
       AiUpgradeState.originalArticle = JSON.parse(JSON.stringify(art));
       AiUpgradeState.candidateArticle = null;
       AiUpgradeState.safetyFindings = [];
 
-      // Update workspace header elements
+      // Update Active Card elements
       const headEl = document.getElementById('ai-up-selected-headline');
-      const deskEl = document.getElementById('ai-up-selected-desk');
-      const dateEl = document.getElementById('ai-up-selected-date');
+      const metaEl = document.getElementById('ai-up-selected-meta');
+      const wordsEl = document.getElementById('ai-up-selected-words');
       const sourceEl = document.getElementById('ai-up-selected-source');
       const slugEl = document.getElementById('ai-up-selected-slug');
-      const wordsEl = document.getElementById('ai-up-selected-words');
-      const draftBadge = document.getElementById('ai-upgrade-draft-status-badge');
-      const safetyBadge = document.getElementById('ai-upgrade-safety-verdict-badge');
+      const creditEl = document.getElementById('ai-up-selected-credit');
+      const activeCard = document.getElementById('ai-upgrade-active-card');
 
       const wc = art.wordCount || (art.body ? art.body.trim().split(/\s+/).filter(Boolean).length : 0);
       if (headEl) headEl.textContent = art.title || 'Untitled';
-      if (deskEl) deskEl.textContent = art.category || art.desk || 'General';
-      if (dateEl) dateEl.textContent = art.date ? art.date.slice(0, 10) : 'Recent';
+      if (metaEl) metaEl.textContent = (art.category || 'General') + ' • ' + (art.date ? art.date.slice(0, 10) : 'Recent') + ' • ' + (art.author || 'Editorial Desk');
+      if (wordsEl) wordsEl.textContent = (wc > 0 ? wc + ' words' : 'Loading body...');
       if (sourceEl) sourceEl.textContent = art.sourceName ? art.sourceName : 'Independent Desk Report';
       if (slugEl) slugEl.textContent = art.slug || (art.relPath || '');
-      if (wordsEl) wordsEl.textContent = (wc > 0 ? wc + ' words' : 'Loading body...');
+      if (creditEl) creditEl.textContent = art.imageCredit || (art.image ? 'Image attached' : 'No hero image');
 
-      if (draftBadge) {
-        draftBadge.className = 'badge badge-blue';
-        draftBadge.textContent = 'Draft: Ready for Upgrade';
-      }
-      if (safetyBadge) {
-        safetyBadge.className = 'badge badge-gray';
-        safetyBadge.textContent = 'Safety: Pending';
-      }
-      if (backToEditorBtn) {
-        backToEditorBtn.style.display = 'inline-flex';
-      }
-
-      // Populate Original Article column (Left: Read-Only)
-      const origHead = document.getElementById('sbs-orig-headline');
-      const origDek = document.getElementById('sbs-orig-dek');
-      const origBody = document.getElementById('sbs-orig-body');
-      const origCount = document.getElementById('sbs-orig-count');
-
-      if (origHead) origHead.textContent = art.title || 'Untitled';
-      if (origDek) origDek.textContent = art.dek || 'No deck provided';
-      if (origBody) origBody.textContent = art.body || '';
-      if (origCount) origCount.textContent = wc;
-
-      // Reset Candidate Column (Right) to Pre-gen Placeholder
-      const candPlaceholder = document.getElementById('ai-upgrade-cand-placeholder');
-      const candEditor = document.getElementById('ai-upgrade-cand-editor');
-      const candControls = document.getElementById('ai-upgrade-candidate-controls');
-      const candPill = document.getElementById('sbs-cand-status-pill');
-      const errBanner = document.getElementById('ai-upgrade-error-banner');
-
-      if (candPlaceholder) candPlaceholder.style.display = 'flex';
-      if (candEditor) candEditor.style.display = 'none';
-      if (candControls) candControls.style.display = 'none';
-      if (errBanner) errBanner.style.display = 'none';
-      if (candPill) {
-        candPill.className = 'badge badge-purple';
-        candPill.textContent = 'Pending Upgrade';
-      }
-
-      // Display workspace, hide empty state
-      if (emptyState) emptyState.style.display = 'none';
-      if (workspace) workspace.style.display = 'flex';
-
-      // Synchronize URL with active article without reloading
-      const currentUrl = new URL(window.location);
-      currentUrl.searchParams.set('view', 'ai-upgrade');
-      const artSlug = art.slug || (art.relPath ? art.relPath.split('\\').pop().split('/').pop().replace(/\.md$/, '') : '');
-      if (artSlug) currentUrl.searchParams.set('article', artSlug);
-      window.history.replaceState({ view: 'ai-upgrade', article: artSlug }, '', currentUrl.toString());
+      if (activeCard) activeCard.style.display = 'block';
 
       // Pre-fetch complete article body asynchronously if missing
       if ((!art.body || typeof art.body !== 'string' || !art.body.trim()) && art.relPath) {
@@ -12257,25 +12118,21 @@ noindex: true
               const loadedWc = d.wordCount || d.body.trim().split(/\s+/).filter(Boolean).length;
               art.wordCount = loadedWc;
               if (wordsEl) wordsEl.textContent = loadedWc + ' words';
-              if (origBody) origBody.textContent = art.body;
-              if (origCount) origCount.textContent = loadedWc;
               AiUpgradeState.originalArticle = JSON.parse(JSON.stringify(art));
-              runSafetyPrecheckOnly();
             }
           })
-          .catch(e => {
-            console.warn('[AI Upgrade] Could not pre-fetch article body:', e);
-            runSafetyPrecheckOnly();
-          });
-      } else {
-        runSafetyPrecheckOnly();
+          .catch(e => console.warn('[AI Upgrade] Could not pre-fetch article body:', e));
       }
 
+      // Hide subsequent panels until triggered
+      const safetyPanel = document.getElementById('ai-upgrade-safety-panel');
+      const sbsPanel = document.getElementById('ai-upgrade-sidebyside-panel');
+      if (safetyPanel) safetyPanel.style.display = 'none';
+      if (sbsPanel) sbsPanel.style.display = 'none';
+
+      setAiUpgradeStep(2);
       showToast('Article loaded into studio: "' + (art.title || '').slice(0, 40) + '..."', 'info');
     }
-
-    // Alias for backward compatibility
-    const selectAiUpgradeArticle = loadStudioArticle;
 
     function clearSelectedAiUpgradeArticle() {
       AiUpgradeState.selectedArticle = null;
@@ -12283,22 +12140,40 @@ noindex: true
       AiUpgradeState.candidateArticle = null;
       AiUpgradeState.safetyFindings = [];
 
-      const emptyState = document.getElementById('ai-upgrade-empty-state');
-      const workspace = document.getElementById('ai-upgrade-workspace');
+      const activeCard = document.getElementById('ai-upgrade-active-card');
+      const safetyPanel = document.getElementById('ai-upgrade-safety-panel');
+      const sbsPanel = document.getElementById('ai-upgrade-sidebyside-panel');
+
+      if (activeCard) activeCard.style.display = 'none';
+      if (safetyPanel) safetyPanel.style.display = 'none';
+      if (sbsPanel) sbsPanel.style.display = 'none';
+
+      const errBanner = document.getElementById('ai-upgrade-error-banner');
+      if (errBanner) errBanner.style.display = 'none';
+      const sbsErr = document.getElementById('ai-upgrade-sbs-error-banner');
+      if (sbsErr) sbsErr.style.display = 'none';
+
       const backToEditorBtn = document.getElementById('btn-ai-back-to-editor');
+      if (backToEditorBtn && !(AppState && AppState.currentlyEditingArticle)) {
+        backToEditorBtn.style.display = 'none';
+      }
 
-      if (emptyState) emptyState.style.display = 'block';
-      if (workspace) workspace.style.display = 'none';
-      if (backToEditorBtn) backToEditorBtn.style.display = 'none';
-
-      const currentUrl = new URL(window.location);
-      currentUrl.searchParams.delete('article');
-      window.history.replaceState({ view: 'ai-upgrade' }, '', currentUrl.toString());
+      setAiUpgradeStep(1);
+      handleAiUpgradeArticleSearch();
     }
 
     async function runSafetyPrecheckOnly() {
       const art = AiUpgradeState.selectedArticle;
-      if (!art) return;
+      if (!art) {
+        showToast('Please select an article first.', 'warning');
+        return;
+      }
+
+      const btn = document.getElementById('btn-run-safety-precheck');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerText = 'Checking...';
+      }
 
       try {
         const res = await fetch('/api/admin/ai/upgrade/analyze', {
@@ -12322,32 +12197,43 @@ noindex: true
         const data = await res.json();
         if (data.success && data.analysis) {
           renderSafetyFindingsUI(data.analysis);
+          setAiUpgradeStep(3);
+          showToast('Editorial safety check complete.', 'success');
         } else {
-          renderLocalSafetyFindings(art);
+          showToast(data.error || 'Safety check failed.', 'error');
         }
       } catch (err) {
+        // Fallback to local check if offline
         renderLocalSafetyFindings(art);
+        setAiUpgradeStep(3);
+        showToast('Safety check completed via local rules.', 'info');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerText = 'Run Safety Check';
+        }
       }
     }
 
     function renderSafetyFindingsUI(analysis) {
+      const panel = document.getElementById('ai-upgrade-safety-panel');
       const badge = document.getElementById('ai-upgrade-safety-verdict-badge');
       const list = document.getElementById('ai-upgrade-safety-findings-list');
-      if (!badge || !list) return;
+      if (!panel || !badge || !list) return;
 
-      const verdict = analysis.verdict || 'CHECKED';
-      badge.textContent = 'Safety: ' + verdict;
+      panel.style.display = 'block';
+      badge.textContent = analysis.verdict || 'CHECKED';
 
-      if (verdict === 'PASSED' || verdict === 'CLEAN') {
+      if (analysis.verdict === 'PASSED' || analysis.verdict === 'CLEAN') {
         badge.className = 'badge badge-green';
-      } else if (verdict === 'FLAGGED' || (analysis.safetyConcernsCount && analysis.safetyConcernsCount > 0)) {
+      } else if (analysis.verdict === 'FLAGGED' || analysis.safetyConcernsCount > 0) {
         badge.className = 'badge badge-red';
       } else {
         badge.className = 'badge badge-amber';
       }
 
       if (!analysis.findings || analysis.findings.length === 0) {
-        list.innerHTML = '<div style="color: var(--color-teal); padding: 10px 14px; background: rgba(20, 184, 166, 0.08); border-radius: var(--radius-sm); border: 1px solid rgba(20, 184, 166, 0.2);">' +
+        list.innerHTML = '<div style="color: var(--color-teal); padding: 12px; background: rgba(20, 184, 166, 0.08); border-radius: var(--radius-sm); border: 1px solid rgba(20, 184, 166, 0.2);">' +
           '✓ No legal, defamatory, or unsupported factual concerns detected. Ready for upgrade.</div>';
         return;
       }
@@ -12393,17 +12279,22 @@ noindex: true
     async function startManualAiUpgrade() {
       const art = AiUpgradeState.selectedArticle;
       if (!art) {
-        showToast('Please open an article in the editor and click AI Rewrite.', 'warning');
+        showToast('Please select an article first.', 'warning');
         return;
       }
 
       const btn = document.getElementById('btn-start-ai-upgrade');
-      const loader = document.getElementById('ai-upgrade-loading-indicator');
-      const errBanner = document.getElementById('ai-upgrade-error-banner');
+      const btnText = document.getElementById('btn-start-ai-upgrade-text');
+      const focusSelect = document.getElementById('ai-upgrade-focus');
+      const focus = focusSelect ? focusSelect.value : 'full_article_upgrade';
 
       if (btn) btn.disabled = true;
-      if (loader) loader.style.display = 'inline-flex';
+      if (btnText) btnText.innerHTML = '<span class="status-pulse-dot" style="margin-right: 6px;"></span> Generating Full Article Upgrade...';
+
+      const errBanner = document.getElementById('ai-upgrade-error-banner');
       if (errBanner) errBanner.style.display = 'none';
+      const sbsErr = document.getElementById('ai-upgrade-sbs-error-banner');
+      if (sbsErr) sbsErr.style.display = 'none';
 
       // Ensure full body is loaded before sending request
       if ((!art.body || typeof art.body !== 'string' || !art.body.trim()) && art.relPath) {
@@ -12417,8 +12308,6 @@ noindex: true
               if (bodyData.data && bodyData.data.dek && !art.dek) art.dek = bodyData.data.dek;
               if (bodyData.data && bodyData.data.title && !art.title) art.title = bodyData.data.title;
               AiUpgradeState.originalArticle = JSON.parse(JSON.stringify(art));
-              const origBodyEl = document.getElementById('sbs-orig-body');
-              if (origBodyEl) origBodyEl.textContent = art.body;
             }
           }
         } catch (fetchErr) {
@@ -12438,7 +12327,7 @@ noindex: true
             body: art.body || '',
             sourceName: art.sourceName || '',
             sourceUrl: art.sourceUrl || '',
-            focus: 'full_article_upgrade'
+            focus
           })
         });
 
@@ -12455,41 +12344,56 @@ noindex: true
         AiUpgradeState.candidateArticle = data.candidate;
         AiUpgradeState.lastQuality = data.quality;
 
-        // Render Upgraded Candidate into Candidate Editor
-        populateCandidateWorkspace(art, data.candidate, data);
+        // Render Side-by-Side Studio
+        populateSideBySideStudio(art, data.candidate, data);
         if (data.safetyAnalysis) {
           renderSafetyFindingsUI(data.safetyAnalysis);
         }
 
+        setAiUpgradeStep(4);
         showToast('AI upgraded draft ready for review.', 'success');
       } catch (err) {
         const errMsg = err.message || 'AI service unavailable';
         if (errBanner) {
           const msgEl = document.getElementById('ai-upgrade-error-message');
-          if (msgEl) msgEl.textContent = errMsg;
+          if (msgEl) msgEl.textContent = 'AI Service Unavailable: ' + errMsg;
           errBanner.style.display = 'block';
+        }
+        if (sbsErr) {
+          const sbsMsgEl = document.getElementById('ai-upgrade-sbs-error-message');
+          if (sbsMsgEl) sbsMsgEl.textContent = 'AI Service Unavailable: ' + errMsg;
+          sbsErr.style.display = 'block';
         }
         showToast('AI upgrade could not be completed right now. ' + errMsg, 'error');
       } finally {
         if (btn) btn.disabled = false;
-        if (loader) loader.style.display = 'none';
+        if (btnText) btnText.textContent = '✨ Start AI Upgrade';
       }
     }
 
-    function populateCandidateWorkspace(orig, cand, meta) {
-      const candPlaceholder = document.getElementById('ai-upgrade-cand-placeholder');
-      const candEditor = document.getElementById('ai-upgrade-cand-editor');
-      const candControls = document.getElementById('ai-upgrade-candidate-controls');
+    function populateSideBySideStudio(orig, cand, meta) {
+      const sbsPanel = document.getElementById('ai-upgrade-sidebyside-panel');
+      if (!sbsPanel) return;
 
-      // Populate right column candidate fields
+      // Left Column: Original
+      const origHead = document.getElementById('sbs-orig-headline');
+      const origDek = document.getElementById('sbs-orig-dek');
+      const origBody = document.getElementById('sbs-orig-body');
+      const origWcEl = document.getElementById('sbs-orig-count');
+
+      const origWc = orig.wordCount || (orig.body ? orig.body.trim().split(/\s+/).filter(Boolean).length : 0);
+      if (origHead) origHead.textContent = orig.title || 'Untitled';
+      if (origDek) origDek.textContent = orig.dek || 'No deck provided';
+      if (origBody) origBody.textContent = orig.body || '';
+      if (origWcEl) origWcEl.textContent = origWc;
+
+      // Right Column: Candidate (Editable)
       const candHead = document.getElementById('sbs-cand-headline');
       const candDek = document.getElementById('sbs-cand-dek');
       const candBody = document.getElementById('sbs-cand-body');
       const candWcEl = document.getElementById('sbs-cand-count');
 
-      const origWc = orig.wordCount || (orig.body ? orig.body.trim().split(/\s+/).filter(Boolean).length : 0);
       const candWc = cand.body ? cand.body.trim().split(/\s+/).filter(Boolean).length : 0;
-
       if (candHead) candHead.value = cand.headline || orig.title || '';
       if (candDek) candDek.value = cand.dek || orig.dek || '';
       if (candBody) candBody.value = cand.body || '';
@@ -12504,13 +12408,19 @@ noindex: true
       }
 
       const provEl = document.getElementById('sbs-provider-used');
-      if (provEl) provEl.textContent = meta.providerUsed || 'Gemini 3.8 Flash';
+      if (provEl) provEl.textContent = meta.providerUsed || 'Groq';
 
       const qualityBadge = document.getElementById('sbs-quality-badge');
       if (qualityBadge) {
         const qValid = meta.quality ? meta.quality.valid : true;
         qualityBadge.textContent = qValid ? 'PASS' : 'FLAGGED';
         qualityBadge.className = qValid ? 'badge badge-green' : 'badge badge-amber';
+      }
+
+      const simEl = document.getElementById('sbs-topic-sim');
+      if (simEl) {
+        const simScore = (meta.quality && meta.quality.metrics) ? meta.quality.metrics.topicSimilarity : 96;
+        simEl.textContent = simScore + '%';
       }
 
       // Editorial improvements list
@@ -12523,26 +12433,9 @@ noindex: true
         }
       }
 
-      // Candidate status badges
-      const candPill = document.getElementById('sbs-cand-status-pill');
-      if (candPill) {
-        candPill.className = 'badge badge-purple';
-        candPill.textContent = 'Unsaved Candidate';
-      }
-      const draftBadge = document.getElementById('ai-upgrade-draft-status-badge');
-      if (draftBadge) {
-        draftBadge.className = 'badge badge-purple';
-        draftBadge.textContent = 'Draft: Upgraded Candidate Ready';
-      }
-
-      // Show Candidate Editor & Controls
-      if (candPlaceholder) candPlaceholder.style.display = 'none';
-      if (candEditor) candEditor.style.display = 'flex';
-      if (candControls) candControls.style.display = 'inline-flex';
+      sbsPanel.style.display = 'block';
+      sbsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-
-    // Alias for backward compatibility
-    const populateSideBySideStudio = populateCandidateWorkspace;
 
     function updateCandidateWordCountLive() {
       const candBody = document.getElementById('sbs-cand-body');
@@ -12573,41 +12466,10 @@ noindex: true
       if (!confirm('Discard this AI upgrade candidate and keep the original published article untouched?')) {
         return;
       }
-      AiUpgradeState.candidateArticle = null;
-      const candPlaceholder = document.getElementById('ai-upgrade-cand-placeholder');
-      const candEditor = document.getElementById('ai-upgrade-cand-editor');
-      const candControls = document.getElementById('ai-upgrade-candidate-controls');
-      const candHead = document.getElementById('sbs-cand-headline');
-      const candDek = document.getElementById('sbs-cand-dek');
-      const candBody = document.getElementById('sbs-cand-body');
-      const candPill = document.getElementById('sbs-cand-status-pill');
-      const draftBadge = document.getElementById('ai-upgrade-draft-status-badge');
-
-      if (candHead) candHead.value = '';
-      if (candDek) candDek.value = '';
-      if (candBody) candBody.value = '';
-      if (candEditor) candEditor.style.display = 'none';
-      if (candControls) candControls.style.display = 'none';
-      if (candPlaceholder) candPlaceholder.style.display = 'flex';
-      if (candPill) {
-        candPill.className = 'badge badge-purple';
-        candPill.textContent = 'Pending Upgrade';
-      }
-      if (draftBadge) {
-        draftBadge.className = 'badge badge-blue';
-        draftBadge.textContent = 'Draft: Ready for Upgrade';
-      }
+      const sbsPanel = document.getElementById('ai-upgrade-sidebyside-panel');
+      if (sbsPanel) sbsPanel.style.display = 'none';
+      setAiUpgradeStep(2);
       showToast('Kept original published article. AI draft discarded.', 'info');
-    }
-
-    function returnToEditor() {
-      if (AppState && AppState.currentlyEditingArticle && AppState.currentlyEditingArticle.relPath) {
-        openArticleEditor(AppState.currentlyEditingArticle.relPath);
-      } else if (AiUpgradeState && AiUpgradeState.selectedArticle && AiUpgradeState.selectedArticle.relPath) {
-        openArticleEditor(AiUpgradeState.selectedArticle.relPath);
-      } else {
-        navigate('articles');
-      }
     }
 
     function openAcceptUpgradeModal() {
@@ -12730,15 +12592,14 @@ noindex: true
         const editHead = document.getElementById('edit-headline');
         const editDk = document.getElementById('edit-dek');
         const editBd = document.getElementById('edit-body');
-        if (editHead && editHead.value !== undefined) {
+        if (editHead && editHead.value.trim()) {
           AppState.currentlyEditingArticle.title = editHead.value.trim();
         }
-        if (editDk && editDk.value !== undefined) {
+        if (editDk) {
           AppState.currentlyEditingArticle.dek = editDk.value.trim();
         }
-        if (editBd && editBd.value !== undefined) {
+        if (editBd && editBd.value.trim()) {
           AppState.currentlyEditingArticle.body = editBd.value.trim();
-          AppState.currentlyEditingArticle.wordCount = editBd.value.trim().split(/\s+/).filter(Boolean).length;
         }
         navigate('ai-upgrade', { article: AppState.currentlyEditingArticle });
       } else {
@@ -12748,6 +12609,10 @@ noindex: true
 
     function resetAiUpgradeStudio() {
       clearSelectedAiUpgradeArticle();
+      const searchInput = document.getElementById('ai-upgrade-search');
+      if (searchInput) searchInput.value = '';
+      handleAiUpgradeArticleSearch();
+      setAiUpgradeStep(1);
     }
 
     /* ================================================================
