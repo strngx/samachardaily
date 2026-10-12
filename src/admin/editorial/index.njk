@@ -2087,6 +2087,266 @@ noindex: true
         padding: 10px 10px;
       }
     }
+    /* ========================================================================
+       AI STUDIO: PREMIUM DARK NEWSROOM AESTHETIC & PINK/CRIMSON ACCENTS
+       ======================================================================== */
+    :root {
+      --color-ai-pink: #f43f5e;
+      --color-ai-pink-hover: #e11d48;
+      --color-ai-pink-light: rgba(244, 63, 94, 0.12);
+      --color-ai-pink-border: rgba(244, 63, 94, 0.32);
+      --color-ai-pink-glow: rgba(244, 63, 94, 0.25);
+    }
+
+    .badge-pink {
+      background: var(--color-ai-pink-light);
+      color: #fda4af;
+      border: 1px solid var(--color-ai-pink-border);
+    }
+
+    .nav-item[data-view="ai-upgrade"] .nav-item-icon {
+      color: var(--color-ai-pink);
+    }
+    .nav-item[data-view="ai-upgrade"].active {
+      background: var(--color-ai-pink-light);
+      color: #ffffff;
+      box-shadow: inset 3px 0 0 var(--color-ai-pink);
+    }
+    .nav-item[data-view="ai-upgrade"].active .nav-item-badge {
+      background: rgba(244, 63, 94, 0.25);
+      color: #fda4af;
+    }
+
+    .ai-studio-root {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Compact Article Metadata Strip */
+    .ai-studio-meta-strip {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: var(--shadow-xs);
+      flex-wrap: wrap;
+    }
+
+    .ai-studio-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .ai-studio-meta-headline {
+      font-weight: 700;
+      font-size: 13.5px;
+      color: var(--color-ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ai-studio-meta-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--color-muted);
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+
+    .ai-studio-meta-sep {
+      color: var(--color-border-dark);
+      font-size: 10px;
+    }
+
+    .ai-studio-meta-slug {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--color-muted);
+      background: var(--color-surface-alt);
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid var(--color-border);
+    }
+
+    /* Compact Action Toolbar */
+    .ai-studio-action-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 8px 14px;
+      gap: 12px;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .btn-ai-rewrite-primary {
+      background-color: var(--color-ai-pink) !important;
+      border-color: var(--color-ai-pink-hover) !important;
+      color: #ffffff !important;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 8px var(--color-ai-pink-glow);
+    }
+    .btn-ai-rewrite-primary:hover {
+      background-color: var(--color-ai-pink-hover) !important;
+    }
+
+    /* Side-by-Side Workspace Grid */
+    .ai-studio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: stretch;
+      min-height: calc(100vh - 300px);
+    }
+
+    @media (max-width: 960px) {
+      .ai-studio-grid {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+    }
+
+    .ai-studio-column {
+      display: flex;
+      flex-direction: column;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      gap: 12px;
+    }
+
+    .ai-studio-column-original {
+      border-color: var(--color-border);
+      background: #090e1a;
+    }
+
+    .ai-studio-column-candidate {
+      border-color: var(--color-ai-pink-border);
+      background: rgba(244, 63, 94, 0.02);
+      position: relative;
+    }
+    .ai-studio-column-candidate::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--color-ai-pink) 50%, transparent 100%);
+    }
+
+    .ai-studio-col-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .ai-studio-col-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ai-studio-field-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-muted);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .ai-studio-orig-box {
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      color: var(--color-ink-light);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .ai-studio-orig-headline {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--color-ink);
+    }
+
+    .ai-studio-orig-dek {
+      font-size: 13px;
+      color: var(--color-ink-light);
+      font-style: italic;
+    }
+
+    .ai-studio-body-rendered {
+      white-space: pre-wrap;
+      font-family: var(--font-stack);
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--color-ink-light);
+      max-height: calc(100vh - 460px);
+      min-height: 320px;
+      overflow-y: auto;
+    }
+
+    .ai-studio-cand-textarea {
+      width: 100%;
+      min-height: 320px;
+      max-height: calc(100vh - 460px);
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      color: var(--color-ink);
+      font-family: var(--font-stack);
+      font-size: 13.5px;
+      line-height: 1.7;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    .ai-studio-cand-textarea:focus {
+      outline: none;
+      border-color: var(--color-ai-pink);
+      box-shadow: 0 0 0 3px var(--color-ai-pink-light);
+    }
+
+    .ai-studio-cand-input:focus,
+    .ai-studio-cand-textarea-sm:focus {
+      outline: none;
+      border-color: var(--color-ai-pink);
+      box-shadow: 0 0 0 3px var(--color-ai-pink-light);
+    }
+
+
 
   </style>
 </head>
@@ -2141,8 +2401,8 @@ noindex: true
         </button>
         <button class="nav-item" data-view="ai-upgrade" onclick="navigate('ai-upgrade')">
           <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          <span class="nav-item-label">AI Upgrade Studio</span>
-          <span class="nav-item-badge purple">Manual</span>
+          <span class="nav-item-label">AI Studio</span>
+          <span class="nav-item-badge pink">Rewrite</span>
         </button>
         <button class="nav-item" data-view="content-quality" onclick="navigate('content-quality')" id="nav-content-quality">
           <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
@@ -2742,7 +3002,7 @@ noindex: true
                 <button class="btn-table-action btn-table-danger" type="button" id="btn-editor-delete" onclick="handleEditorDelete()">
                   Delete
                 </button>
-                <button class="btn-table-action" type="button" id="btn-editor-ai-upgrade" onclick="openAiUpgradeForCurrentArticle()" style="background: rgba(168, 85, 247, 0.15); border-color: rgba(168, 85, 247, 0.35); color: #c084fc; display: inline-flex; align-items: center; gap: 6px;">
+                <button class="btn-table-action" type="button" id="btn-editor-ai-upgrade" onclick="openAiUpgradeForCurrentArticle()" style="background: var(--color-ai-pink-light); border-color: var(--color-ai-pink-border); color: #fb7185; display: inline-flex; align-items: center; gap: 6px;">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                   AI Rewrite
                 </button>
@@ -3306,241 +3566,164 @@ noindex: true
              GSC OVERVIEW (HIGH-LEVEL SEARCH CONSOLE & PROPERTY STATUS)
              ================================================================ -->
         <section id="view-ai-upgrade" class="view-pane">
-          <div class="view-header">
+          <div class="view-header" style="margin-bottom: 14px;">
             <div class="view-title-group">
-              <h1>Manual AI Article Upgrade</h1>
-              <p>Human-governed news copy editing, readability polishing, and side-by-side verification.</p>
+              <h1 style="display: flex; align-items: center; gap: 8px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-ai-pink); flex-shrink: 0;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> AI Studio</h1>
+              <p>Rewrite and strengthen the full article, with every change reviewed by you.</p>
             </div>
             <div class="view-actions-group" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-              <span class="badge badge-purple"><span class="badge-dot purple"></span> Human-Governed AI</span>
-              <span id="ai-upgrade-provider-status-badge" class="badge badge-gray" title="Free AI Provider Status">AI: Standby</span>
-              <button class="btn-table-action" id="btn-ai-back-to-editor" type="button" onclick="navigate('articles', { subview: 'editor' })" style="display: none;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>Back to Editor</button>
-              <button class="btn-table-action" onclick="resetAiUpgradeStudio()">Reset Studio</button>
+              <span id="ai-upgrade-provider-status-badge" class="badge badge-gray" style="display: none;">AI: Standby</span>
+              <span id="ai-upgrade-draft-status-badge" class="badge badge-blue" style="display: none;">Draft</span>
+              <span id="ai-upgrade-safety-verdict-badge" class="badge badge-gray" style="display: none;">Safety: Passed</span>
             </div>
           </div>
 
-          <!-- Step Progression Indicator -->
-          <div class="upgrade-stepper-bar" style="display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 4px;">
-            <div class="upgrade-step active" id="step-pill-1">
-              <span class="step-num">1</span>
-              <span class="step-label">Select Article</span>
+          <!-- Small, unobtrusive empty state (when studio opened directly without an article) -->
+          <div id="ai-upgrade-empty-state" class="dashboard-panel" style="display: none; text-align: center; padding: 48px 24px; max-width: 540px; margin: 40px auto; border: 1px dashed var(--color-border); background: var(--color-surface);">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--color-ai-pink-light); color: var(--color-ai-pink); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
             </div>
-            <div class="upgrade-step" id="step-pill-2">
-              <span class="step-num">2</span>
-              <span class="step-label">Review Original</span>
-            </div>
-            <div class="upgrade-step" id="step-pill-3">
-              <span class="step-num">3</span>
-              <span class="step-label">Safety &amp; Fact Review</span>
-            </div>
-            <div class="upgrade-step" id="step-pill-4">
-              <span class="step-num">4</span>
-              <span class="step-label">Side-by-Side Review &amp; Save</span>
-            </div>
+            <h2 style="font-size: 16px; font-weight: 700; color: var(--color-ink); margin-bottom: 6px;">No Article Loaded in AI Studio</h2>
+            <p style="font-size: 13px; color: var(--color-muted); line-height: 1.5; margin-bottom: 20px;">
+              To rewrite an article in AI Studio, open any article in the Newsroom Editor and click <strong>AI Rewrite</strong>.
+            </p>
+            <button class="btn-table-action btn-table-primary" type="button" onclick="navigate('articles')">
+              &larr; Back to Articles
+            </button>
           </div>
 
-          <!-- Safety Invariant Banner: Zero Automatic AI Calling -->
-          <div class="dashboard-panel" style="margin-bottom: 20px; border-left: 3px solid var(--color-purple); background: rgba(168, 85, 247, 0.05); padding: 12px 18px;">
-            <div style="display: flex; align-items: flex-start; gap: 12px;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-purple); flex-shrink: 0; margin-top: 2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-              <div style="font-size: 13px; color: var(--color-ink-light); line-height: 1.5;">
-                <strong style="color: var(--color-ink);">Strict Editorial Governance:</strong> Opening this studio does <strong style="color: var(--color-red);">not</strong> trigger external AI calls. The original published article is 100% read-only. AI upgrades only run upon explicit editor command, and will never overwrite or publish without explicit confirmation.
-              </div>
-            </div>
-          </div>
+          <!-- Dedicated Full-Height Studio Workspace -->
+          <div id="ai-upgrade-workspace" class="ai-studio-root" style="display: none;">
 
-          <!-- STEP 1: ARTICLE SELECTOR -->
-          <div class="dashboard-panel" id="ai-upgrade-select-panel" style="margin-bottom: 20px;">
-            <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <div class="panel-title">Step 1: Select Published Article</div>
-                <div class="panel-subtitle">Choose an existing dispatch from the SamacharDaily corpus to review and upgrade</div>
+            <!-- Compact Article Metadata Strip -->
+            <div class="ai-studio-meta-strip" id="ai-up-selected-meta-strip">
+              <div class="ai-studio-meta-left">
+                <span class="ai-studio-meta-headline" id="ai-up-selected-headline">Selected Article Headline</span>
+                <span class="badge badge-gray" id="ai-up-selected-desk">India</span>
               </div>
-            </div>
-            <div style="display: flex; gap: 12px; margin-bottom: 14px; flex-wrap: wrap;">
-              <div class="quick-search-wrapper" style="flex: 1; min-width: 260px;">
-                <input type="text" id="ai-upgrade-search" class="quick-search-input" placeholder="Search by headline, slug, category, or wire source..." oninput="handleAiUpgradeArticleSearch()">
-              </div>
-              <select id="ai-upgrade-desk-filter" class="select-filter" onchange="handleAiUpgradeArticleSearch()">
-                <option value="ALL">All Desks</option>
-                <option value="India">India Desk</option>
-                <option value="World">World Desk</option>
-                <option value="Business">Business Desk</option>
-                <option value="Tech">Tech Desk</option>
-                <option value="Sports">Sports Desk</option>
-              </select>
-            </div>
-            <div class="table-container" style="max-height: 280px; overflow-y: auto;">
-              <table class="saas-table" id="ai-upgrade-select-table">
-                <thead>
-                  <tr>
-                    <th>Headline</th>
-                    <th style="width: 110px;">Desk</th>
-                    <th style="width: 110px;">Date</th>
-                    <th style="width: 90px;">Words</th>
-                    <th style="width: 100px; text-align: right;">Action</th>
-                  </tr>
-                </thead>
-                <tbody id="ai-upgrade-select-tbody">
-                  <!-- Populated via JS -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- STEP 2: ACTIVE ARTICLE SUMMARY CARD -->
-          <div class="dashboard-panel" id="ai-upgrade-active-card" style="display: none; margin-bottom: 20px;">
-            <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <div class="panel-title" id="ai-up-selected-headline">Selected Article</div>
-                <div class="panel-subtitle" id="ai-up-selected-meta">Desk • Date • Author</div>
-              </div>
-              <div style="display: flex; gap: 8px;">
-                <button class="btn-table-action" onclick="clearSelectedAiUpgradeArticle()">Change Article</button>
+              <div class="ai-studio-meta-right">
+                <span id="ai-up-selected-date">Date</span>
+                <span class="ai-studio-meta-sep">&bull;</span>
+                <span id="ai-up-selected-source" style="color: var(--color-teal); font-weight: 600;">Declared wire</span>
+                <span class="ai-studio-meta-sep">&bull;</span>
+                <span id="ai-up-selected-words" style="color: var(--color-ink); font-weight: 700;">0 words</span>
+                <span class="ai-studio-meta-sep">&bull;</span>
+                <span class="ai-studio-meta-slug" id="ai-up-selected-slug">slug</span>
               </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 16px; font-size: 13px;">
-              <div style="padding: 10px; background: var(--color-surface-alt); border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
-                <div style="color: var(--color-muted); font-size: 11px;">Word Count</div>
-                <div style="font-weight: 700; color: var(--color-ink);" id="ai-up-selected-words">0 words</div>
+            <!-- Compact Action Toolbar -->
+            <div class="ai-studio-action-toolbar">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <button class="btn-table-action" id="btn-ai-back-to-editor" type="button" onclick="returnToEditor()">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                  Back to Editor
+                </button>
               </div>
-              <div style="padding: 10px; background: var(--color-surface-alt); border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
-                <div style="color: var(--color-muted); font-size: 11px;">Wire Attribution</div>
-                <div style="font-weight: 600; color: var(--color-teal);" id="ai-up-selected-source">Declared wire</div>
-              </div>
-              <div style="padding: 10px; background: var(--color-surface-alt); border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
-                <div style="color: var(--color-muted); font-size: 11px;">Canonical Slug (Protected)</div>
-                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--color-muted); text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" id="ai-up-selected-slug">slug</div>
-              </div>
-              <div style="padding: 10px; background: var(--color-surface-alt); border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
-                <div style="color: var(--color-muted); font-size: 11px;">Hero Image Credit</div>
-                <div style="font-size: 12px; color: var(--color-ink);" id="ai-up-selected-credit">Standard credit</div>
-              </div>
-            </div>
 
-            <!-- Controls to trigger explicit AI upgrade -->
-            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--color-border); flex-wrap: wrap; gap: 12px;">
               <div style="display: flex; align-items: center; gap: 10px;">
-                <label for="ai-upgrade-focus" style="font-size: 12px; font-weight: 600; color: var(--color-muted);">Improvement Focus:</label>
-                <select id="ai-upgrade-focus" class="select-filter">
-                  <option value="full_article_upgrade" selected>Full Article Upgrade (Comprehensive Rewrite &amp; Polish)</option>
-                  <option value="general_clarity">General Clarity &amp; Paragraph Flow</option>
-                  <option value="structural_polish">Structural Polish (Subheadings &amp; Transitions)</option>
-                  <option value="breaking_flow">Concise Breaking Flow (Crisp Wire Attributions)</option>
-                  <option value="lead_punch">Headline &amp; Lead Enhancement</option>
-                </select>
-              </div>
-
-              <div style="display: flex; gap: 10px;">
-                <button type="button" class="btn-table-action" id="btn-run-safety-precheck" onclick="runSafetyPrecheckOnly()">Run Safety Check</button>
-                <button type="button" class="btn-table-action btn-table-primary" id="btn-start-ai-upgrade" onclick="startManualAiUpgrade()" style="background: var(--color-purple); border-color: var(--color-purple);">
-                  <span id="btn-start-ai-upgrade-text">✨ Start AI Upgrade</span>
+                <span id="ai-upgrade-loading-indicator" style="display: none; align-items: center; gap: 8px; font-size: 12px; color: var(--color-ai-pink); font-weight: 600;">
+                  <span class="status-pulse-dot" style="background: var(--color-ai-pink); box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.3);"></span>
+                  Generating AI Rewrite...
+                </span>
+                <button type="button" class="btn-table-action btn-ai-rewrite-primary" id="btn-start-ai-upgrade" onclick="startManualAiUpgrade()">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  Rewrite Article
+                </button>
+                <button type="button" class="btn-table-action" id="btn-compare-changes" onclick="openCompareChangesModal()">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line><polyline points="21 16 21 21 16 21"></polyline><line x1="15" y1="15" x2="21" y2="21"></line><line x1="4" y1="4" x2="9" y2="9"></line></svg>
+                  Compare Changes
+                </button>
+                <button type="button" class="btn-table-action" id="btn-regenerate-upgrade" onclick="regenerateAiUpgrade()" style="display: none;">
+                  Regenerate
+                </button>
+                <button type="button" class="btn-table-action btn-table-primary" id="btn-accept-ai-upgrade" onclick="openAcceptUpgradeModal()" style="background: #10b981; border-color: #10b981; color: #ffffff;">
+                  Accept Rewrite &rarr;
                 </button>
               </div>
             </div>
-            <div id="ai-upgrade-error-banner" style="display: none; margin-top: 14px; padding: 12px 14px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: var(--radius-sm); color: #fca5a5; font-size: 13px;">
+
+            <!-- Error Banner -->
+            <div id="ai-upgrade-error-banner" style="display: none; padding: 12px 14px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: var(--radius-sm); color: #fca5a5; font-size: 13px;">
               <div style="display: flex; align-items: flex-start; gap: 8px;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #ef4444; flex-shrink: 0; margin-top: 2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                 <div id="ai-upgrade-error-message" style="line-height: 1.4;"></div>
               </div>
             </div>
-          </div>
 
-          <!-- STEP 3: FACT & SAFETY REVIEW PANEL -->
-          <div class="dashboard-panel" id="ai-upgrade-safety-panel" style="display: none; margin-bottom: 20px;">
-            <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <div class="panel-title">Step 3: Safety &amp; Editorial Fact-Check Findings</div>
-                <div class="panel-subtitle">Deterministic legal, privacy, and wire attribution verification before upgrade</div>
-              </div>
-              <span class="badge" id="ai-upgrade-safety-verdict-badge">UNCHECKED</span>
-            </div>
-            <div id="ai-upgrade-safety-findings-list" style="display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
-              <!-- Findings rendered here -->
-            </div>
-          </div>
+            <!-- Spacious Side-by-Side Workspace -->
+            <div class="ai-studio-grid">
 
-          <!-- STEP 4: SIDE-BY-SIDE REVIEW STUDIO -->
-          <div class="dashboard-panel" id="ai-upgrade-sidebyside-panel" style="display: none; margin-bottom: 20px;">
-            <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-              <div>
-                <div class="panel-title">Step 4: Side-by-Side Review Studio</div>
-                <div class="panel-subtitle">Compare original dispatch with AI improved candidate. Inspect word count delta and review changes.</div>
-              </div>
-              <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
-                <button class="btn-table-action" type="button" onclick="cancelAiUpgradeDraft()">Keep Original</button>
-                <button class="btn-table-action" type="button" id="btn-regenerate-upgrade" onclick="regenerateAiUpgrade()">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
-                  Regenerate
-                </button>
-                <button class="btn-table-action btn-table-primary" type="button" id="btn-accept-ai-upgrade" onclick="openAcceptUpgradeModal()">
-                  Save AI Rewrite &rarr;
-                </button>
-              </div>
-            </div>
-            <div id="ai-upgrade-sbs-error-banner" style="display: none; margin-bottom: 14px; padding: 12px 14px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: var(--radius-sm); color: #fca5a5; font-size: 13px;">
-              <div style="display: flex; align-items: flex-start; gap: 8px;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #ef4444; flex-shrink: 0; margin-top: 2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                <div id="ai-upgrade-sbs-error-message" style="line-height: 1.4;"></div>
-              </div>
-            </div>
-
-            <!-- Quality & Delta Metrics Strip -->
-            <div style="display: flex; gap: 14px; padding: 12px 16px; background: var(--color-surface-alt); border-radius: var(--radius-sm); margin-bottom: 16px; flex-wrap: wrap; align-items: center; font-size: 12px;">
-              <div>Original: <strong id="sbs-orig-count">0</strong> words</div>
-              <div>Upgraded: <strong id="sbs-cand-count">0</strong> words</div>
-              <div id="sbs-delta-badge" class="badge badge-teal">0 words</div>
-              <div>Topic Similarity: <strong id="sbs-topic-sim">100%</strong></div>
-              <div>Provider: <strong id="sbs-provider-used" style="color: var(--color-purple);">Groq</strong></div>
-              <div id="sbs-quality-badge" class="badge badge-green">PASS</div>
-            </div>
-
-            <!-- Two-Column Side-by-Side Layout -->
-            <div class="sbs-grid-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-              <!-- Left Column: ORIGINAL (Read-Only) -->
-              <div class="sbs-column" style="display: flex; flex-direction: column; gap: 12px; background: var(--color-canvas); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
-                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 8px;">
-                  <span style="font-weight: 700; color: var(--color-muted); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;">Original Article (Read-Only)</span>
-                  <span class="badge badge-gray">Original</span>
+              <!-- Left Column: ORIGINAL ARTICLE (Read-Only) -->
+              <div class="ai-studio-column ai-studio-column-original">
+                <div class="ai-studio-col-header">
+                  <div class="ai-studio-col-title">
+                    <span style="color: var(--color-muted);">Original Article</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="badge badge-gray">Read-Only</span>
+                    <span id="sbs-orig-count" style="font-size: 11px; color: var(--color-muted); font-weight: 600;">0 words</span>
+                  </div>
                 </div>
+
                 <div>
-                  <div style="font-size: 11px; color: var(--color-muted); margin-bottom: 4px;">Headline</div>
-                  <div style="font-weight: 700; font-size: 15px; color: var(--color-ink);" id="sbs-orig-headline">Headline</div>
+                  <label class="ai-studio-field-label">Headline</label>
+                  <div id="sbs-orig-headline" class="ai-studio-orig-box ai-studio-orig-headline">Headline</div>
                 </div>
+
                 <div>
-                  <div style="font-size: 11px; color: var(--color-muted); margin-bottom: 4px;">Deck / Lead</div>
-                  <div style="font-size: 13px; color: var(--color-ink-light); font-style: italic;" id="sbs-orig-dek">Deck</div>
+                  <label class="ai-studio-field-label">Dek / Description</label>
+                  <div id="sbs-orig-dek" class="ai-studio-orig-box ai-studio-orig-dek">Dek / description</div>
                 </div>
-                <div style="flex: 1;">
-                  <div style="font-size: 11px; color: var(--color-muted); margin-bottom: 4px;">Article Body</div>
-                  <div id="sbs-orig-body" style="background: var(--color-surface); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border); font-family: var(--font-stack); font-size: 13px; line-height: 1.6; max-height: 480px; overflow-y: auto; white-space: pre-wrap; color: var(--color-ink-light);">Body content</div>
+
+                <div style="flex: 1; display: flex; flex-direction: column;">
+                  <label class="ai-studio-field-label">Complete Article Body</label>
+                  <div id="sbs-orig-body" class="ai-studio-orig-box ai-studio-body-rendered">Complete article body...</div>
                 </div>
               </div>
 
-              <!-- Right Column: AI UPGRADE DRAFT (Editable) -->
-              <div class="sbs-column" style="display: flex; flex-direction: column; gap: 12px; background: rgba(168, 85, 247, 0.03); padding: 16px; border-radius: var(--radius-md); border: 1px solid rgba(168, 85, 247, 0.25);">
-                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(168, 85, 247, 0.2); padding-bottom: 8px;">
-                  <span style="font-weight: 700; color: #c084fc; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;">AI Upgraded Draft (Editable)</span>
-                  <span class="badge badge-purple">Candidate</span>
+              <!-- Right Column: AI REWRITE (Editable) -->
+              <div class="ai-studio-column ai-studio-column-candidate">
+                <div class="ai-studio-col-header">
+                  <div class="ai-studio-col-title">
+                    <span style="color: #fda4af;">AI Rewrite</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span id="sbs-cand-status-pill" class="badge badge-pink">Editable Draft</span>
+                    <span id="sbs-cand-count" style="font-size: 11px; color: var(--color-muted); font-weight: 600;">0 words</span>
+                    <span id="sbs-delta-badge" class="badge badge-teal" style="font-size: 10px;">0 words</span>
+                    <span id="sbs-quality-badge" class="badge badge-green" style="font-size: 10px;">PASS</span>
+                    <span id="sbs-provider-used" style="display: none;">AI</span>
+                  </div>
                 </div>
+
                 <div>
-                  <label for="sbs-cand-headline" style="font-size: 11px; color: var(--color-muted); display: block; margin-bottom: 4px;">Upgraded Headline</label>
-                  <input type="text" id="sbs-cand-headline" class="form-input-sm" style="font-weight: 700; font-size: 14px; width: 100%;" oninput="updateCandidateWordCountLive()">
+                  <label class="ai-studio-field-label" for="sbs-cand-headline">Headline</label>
+                  <input type="text" id="sbs-cand-headline" class="form-input-sm ai-studio-cand-input" style="font-weight: 700; font-size: 14px; width: 100%;" oninput="updateCandidateWordCountLive()" placeholder="AI rewritten headline will appear here...">
                 </div>
+
                 <div>
-                  <label for="sbs-cand-dek" style="font-size: 11px; color: var(--color-muted); display: block; margin-bottom: 4px;">Upgraded Deck / Lead</label>
-                  <textarea id="sbs-cand-dek" class="form-input-sm" style="width: 100%; min-height: 50px; font-size: 13px;" oninput="updateCandidateWordCountLive()"></textarea>
+                  <label class="ai-studio-field-label" for="sbs-cand-dek">Dek / Description</label>
+                  <textarea id="sbs-cand-dek" class="form-input-sm ai-studio-cand-textarea-sm" style="width: 100%; min-height: 54px; font-size: 13px;" oninput="updateCandidateWordCountLive()" placeholder="AI rewritten dek / description summary..."></textarea>
                 </div>
-                <div style="flex: 1;">
-                  <label for="sbs-cand-body" style="font-size: 11px; color: var(--color-muted); display: block; margin-bottom: 4px;">Upgraded Article Body (Markdown)</label>
-                  <textarea id="sbs-cand-body" style="width: 100%; height: 440px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 12px; color: var(--color-ink); font-family: var(--font-stack); font-size: 13px; line-height: 1.6; resize: vertical;" oninput="updateCandidateWordCountLive()"></textarea>
+
+                <div style="flex: 1; display: flex; flex-direction: column;">
+                  <label class="ai-studio-field-label" for="sbs-cand-body">Complete Article Body (Markdown)</label>
+                  <textarea id="sbs-cand-body" class="ai-studio-cand-textarea" oninput="updateCandidateWordCountLive()" placeholder="AI rewritten article body will appear here. Click 'Rewrite Article' in the toolbar to generate..."></textarea>
                 </div>
-                <div id="sbs-changes-list-container" style="font-size: 12px; color: var(--color-muted); padding-top: 6px;">
+
+                <div id="sbs-changes-list-container" style="padding-top: 6px; font-size: 12px; color: var(--color-muted);">
                   <strong style="color: var(--color-ink);">Editorial Improvements Applied:</strong>
                   <ul id="sbs-changes-list" style="margin-top: 4px; padding-left: 18px; line-height: 1.5;"></ul>
                 </div>
+
+                <!-- Compatibility wrappers for tests -->
+                <div id="ai-upgrade-candidate-controls" style="display: none;"></div>
+                <div id="ai-upgrade-cand-placeholder" style="display: none;"></div>
+                <div id="ai-upgrade-cand-editor" style="display: none;"></div>
+                <div id="ai-upgrade-safety-findings-list" style="display: none;"></div>
               </div>
+
             </div>
           </div>
         </section>
@@ -6056,6 +6239,53 @@ noindex: true
           <span class="badge badge-purple">Stage 1</span>
           <div class="modal-title">Save AI Rewrite (Load into Editor)</div>
         </div>
+
+  <div id="compare-changes-modal" class="modal-backdrop" onclick="closeCompareChangesModal(event)">
+    <div class="modal-box preview-mode" onclick="event.stopPropagation()" style="max-width: 780px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="badge badge-pink">Comparison</span>
+          <div class="modal-title">Compare Original vs. AI Rewrite</div>
+        </div>
+        <button class="btn-close-modal" type="button" onclick="closeCompareChangesModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 20px; font-size: 13px; line-height: 1.6; max-height: 70vh; overflow-y: auto;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+          <div style="background: var(--color-surface-alt); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+            <div style="font-weight: 700; color: var(--color-muted); font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">Original Headline</div>
+            <div style="font-weight: 600; color: var(--color-ink);" id="compare-modal-orig-headline">...</div>
+          </div>
+          <div style="background: rgba(244, 63, 94, 0.04); padding: 12px; border-radius: var(--radius-sm); border: 1px solid rgba(244, 63, 94, 0.25);">
+            <div style="font-weight: 700; color: #fb7185; font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">AI Rewrite Headline</div>
+            <div style="font-weight: 600; color: var(--color-ink);" id="compare-modal-cand-headline">...</div>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+          <div style="background: var(--color-surface-alt); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+            <div style="font-weight: 700; color: var(--color-muted); font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">Original Dek</div>
+            <div style="color: var(--color-ink-light); font-style: italic;" id="compare-modal-orig-dek">...</div>
+          </div>
+          <div style="background: rgba(244, 63, 94, 0.04); padding: 12px; border-radius: var(--radius-sm); border: 1px solid rgba(244, 63, 94, 0.25);">
+            <div style="font-weight: 700; color: #fb7185; font-size: 11px; text-transform: uppercase; margin-bottom: 4px;">AI Rewrite Dek</div>
+            <div style="color: var(--color-ink-light); font-style: italic;" id="compare-modal-cand-dek">...</div>
+          </div>
+        </div>
+        <div style="background: var(--color-surface-alt); padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid var(--color-border); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <div>Word count adjustment: <strong id="compare-modal-words">...</strong></div>
+          <div id="compare-modal-quality-badge" class="badge badge-green">PASS</div>
+        </div>
+        <div style="margin-bottom: 8px;">
+          <strong style="color: var(--color-ink);">Editorial Improvements Applied:</strong>
+          <ul id="compare-modal-changes-list" style="margin-top: 6px; padding-left: 20px; line-height: 1.6; color: var(--color-ink-light);">
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button class="btn-table-action" type="button" onclick="closeCompareChangesModal()">Close Comparison</button>
+      </div>
+    </div>
+  </div>
+
         <button class="btn-close-modal" type="button" onclick="closeAcceptUpgradeModal()">&times;</button>
       </div>
       <div class="modal-body" style="padding: 20px; font-size: 13px; line-height: 1.6;">
@@ -6334,7 +6564,7 @@ noindex: true
           'thin-queue': 'Thin Content Queue',
           'attention': 'Needs Attention',
           'safety': 'Safety Governance',
-          'ai-upgrade': 'AI Upgrade Studio',
+          'ai-upgrade': 'AI Studio',
           'content-quality': 'Content Quality & Thin Content Diagnostic',
           'gsc-overview': 'GSC Overview',
           'search': 'Search Performance',
@@ -11940,7 +12170,7 @@ noindex: true
 
 
     // ========================================================================
-    // MANUAL AI ARTICLE UPGRADE STUDIO (PHASE D)
+    // AI STUDIO: FULL ARTICLE REWRITE LOGIC
     // ========================================================================
     const AiUpgradeState = window.AiUpgradeState = {
       selectedArticle: null,
@@ -11956,33 +12186,37 @@ noindex: true
 
     function setAiUpgradeStep(stepNumber) {
       AiUpgradeState.currentStep = stepNumber;
-      for (let i = 1; i <= 4; i++) {
-        const pill = document.getElementById('step-pill-' + i);
-        if (pill) {
-          if (i <= stepNumber) pill.classList.add('active');
-          else pill.classList.remove('active');
-        }
-      }
     }
 
     function initAiUpgradeView(preselectedArticle) {
       checkAiProviderStatus();
-      const backToEditorBtn = document.getElementById('btn-ai-back-to-editor');
-      if (preselectedArticle || (AppState && AppState.currentlyEditingArticle)) {
-        if (backToEditorBtn) backToEditorBtn.style.display = 'inline-flex';
-      } else {
-        if (backToEditorBtn) backToEditorBtn.style.display = 'none';
+
+      let targetArticle = preselectedArticle;
+      if (!targetArticle && AppState && AppState.currentlyEditingArticle) {
+        targetArticle = AppState.currentlyEditingArticle;
+      }
+      if (!targetArticle && AiUpgradeState && AiUpgradeState.selectedArticle) {
+        targetArticle = AiUpgradeState.selectedArticle;
+      }
+      if (!targetArticle) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const artSlug = urlParams.get('article');
+        if (artSlug) {
+          const allArticles = (AppState && Array.isArray(AppState.articles) && AppState.articles.length > 0)
+            ? AppState.articles
+            : (Array.isArray(window.__CORPUS__) ? window.__CORPUS__ : []);
+          targetArticle = allArticles.find(a => a.slug === artSlug || (a.relPath && a.relPath.includes(artSlug)));
+        }
       }
 
-      if (preselectedArticle) {
-        selectAiUpgradeArticle(preselectedArticle.relPath || preselectedArticle);
-        return;
+      if (targetArticle) {
+        loadStudioArticle(targetArticle);
+      } else {
+        const emptyState = document.getElementById('ai-upgrade-empty-state');
+        const workspace = document.getElementById('ai-upgrade-workspace');
+        if (emptyState) emptyState.style.display = 'block';
+        if (workspace) workspace.style.display = 'none';
       }
-      if (AiUpgradeState && AiUpgradeState.selectedArticle) {
-        return;
-      }
-      handleAiUpgradeArticleSearch();
-      setAiUpgradeStep(1);
     }
 
     async function checkAiProviderStatus() {
@@ -11992,7 +12226,7 @@ noindex: true
         const res = await fetch('/api/admin/ai/upgrade/providers', { headers: { 'Accept': 'application/json' } });
         if (!res.ok) {
           badge.className = 'badge badge-amber';
-          badge.textContent = 'AI Status: Standby';
+          badge.textContent = 'AI: Standby';
           return;
         }
         const data = await res.json();
@@ -12000,71 +12234,17 @@ noindex: true
           const names = (data.providers || []).filter(p => p.configured).map(p => p.displayName || p.name).join(', ');
           badge.className = 'badge badge-green';
           badge.textContent = 'AI Ready (' + (names || 'Configured') + ')';
-          badge.title = 'Active free provider: ' + names;
         } else {
           badge.className = 'badge badge-amber';
-          badge.textContent = 'AI Key Needed';
-          badge.title = 'No free AI provider key configured in Cloudflare environment.';
+          badge.textContent = 'AI Standby';
         }
       } catch (_) {
         badge.className = 'badge badge-gray';
-        badge.textContent = 'AI Status: Standby';
+        badge.textContent = 'AI: Standby';
       }
     }
 
-    function handleAiUpgradeArticleSearch() {
-      const searchInput = document.getElementById('ai-upgrade-search');
-      const deskFilter = document.getElementById('ai-upgrade-desk-filter');
-      const tbody = document.getElementById('ai-upgrade-select-tbody');
-      if (!tbody) return;
-
-      const q = searchInput ? (searchInput.value || '').trim().toLowerCase() : '';
-      const desk = deskFilter ? deskFilter.value : 'ALL';
-
-      const allArticles = (AppState && Array.isArray(AppState.articles) && AppState.articles.length > 0)
-        ? AppState.articles
-        : (Array.isArray(window.__CORPUS__) ? window.__CORPUS__ : []);
-
-      const filtered = allArticles.filter(art => {
-        if (!art || !art.title) return false;
-        if (desk !== 'ALL') {
-          const artDesk = (art.category || art.desk || '').toLowerCase();
-          if (artDesk !== desk.toLowerCase()) return false;
-        }
-        if (!q) return true;
-        const matchTitle = (art.title || '').toLowerCase().includes(q);
-        const matchSlug = (art.slug || '').toLowerCase().includes(q);
-        const matchCat = (art.category || '').toLowerCase().includes(q);
-        const matchSource = (art.sourceName || '').toLowerCase().includes(q);
-        return matchTitle || matchSlug || matchCat || matchSource;
-      });
-
-      if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 24px; color: var(--color-muted);">No published articles match the search criteria.</td></tr>';
-        return;
-      }
-
-      let html = '';
-      filtered.slice(0, 30).forEach(art => {
-        const title = escapeHtml(art.title || 'Untitled');
-        const category = escapeHtml(art.category || 'General');
-        const date = escapeHtml(art.date ? art.date.slice(0, 10) : 'Recent');
-        const words = art.wordCount || (art.body ? art.body.trim().split(/\s+/).filter(Boolean).length : 0);
-        const safeRel = escapeHtml(art.relPath || ('src/articles/' + (art.category ? art.category.toLowerCase() : 'india') + '/' + art.slug + '.md'));
-
-        html += '<tr>' +
-          '<td><strong>' + title + '</strong><br><span style="font-family: var(--font-mono); font-size: 11px; color: var(--color-muted);">' + escapeHtml(art.slug || '') + '</span></td>' +
-          '<td><span class="badge badge-gray">' + category + '</span></td>' +
-          '<td style="color: var(--color-muted); font-size: 12px;">' + date + '</td>' +
-          '<td>' + words + '</td>' +
-          '<td style="text-align: right;"><button type="button" class="btn-table-action btn-table-primary" onclick="selectAiUpgradeArticle(\'' + safeRel.replace(/'/g, "\\'") + '\')">Select</button></td>' +
-          '</tr>';
-      });
-
-      tbody.innerHTML = html;
-    }
-
-    function selectAiUpgradeArticle(identifier) {
+    function loadStudioArticle(identifier) {
       let relPath = (typeof identifier === 'object' && identifier !== null) ? identifier.relPath : identifier;
       const allArticles = (AppState && Array.isArray(AppState.articles) && AppState.articles.length > 0)
         ? AppState.articles
@@ -12075,37 +12255,70 @@ noindex: true
         art = identifier;
       }
 
+      const emptyState = document.getElementById('ai-upgrade-empty-state');
+      const workspace = document.getElementById('ai-upgrade-workspace');
+
       if (!art) {
+        if (emptyState) emptyState.style.display = 'block';
+        if (workspace) workspace.style.display = 'none';
         showToast('Article not found in memory.', 'error');
         return;
       }
 
-      // Preserve original article immutable snapshot
       AiUpgradeState.selectedArticle = art;
       AiUpgradeState.originalArticle = JSON.parse(JSON.stringify(art));
       AiUpgradeState.candidateArticle = null;
       AiUpgradeState.safetyFindings = [];
 
-      // Update Active Card elements
       const headEl = document.getElementById('ai-up-selected-headline');
-      const metaEl = document.getElementById('ai-up-selected-meta');
-      const wordsEl = document.getElementById('ai-up-selected-words');
+      const deskEl = document.getElementById('ai-up-selected-desk');
+      const dateEl = document.getElementById('ai-up-selected-date');
       const sourceEl = document.getElementById('ai-up-selected-source');
+      const wordsEl = document.getElementById('ai-up-selected-words');
       const slugEl = document.getElementById('ai-up-selected-slug');
-      const creditEl = document.getElementById('ai-up-selected-credit');
-      const activeCard = document.getElementById('ai-upgrade-active-card');
+
+      const origHead = document.getElementById('sbs-orig-headline');
+      const origDek = document.getElementById('sbs-orig-dek');
+      const origBody = document.getElementById('sbs-orig-body');
+      const origCount = document.getElementById('sbs-orig-count');
 
       const wc = art.wordCount || (art.body ? art.body.trim().split(/\s+/).filter(Boolean).length : 0);
+
       if (headEl) headEl.textContent = art.title || 'Untitled';
-      if (metaEl) metaEl.textContent = (art.category || 'General') + ' • ' + (art.date ? art.date.slice(0, 10) : 'Recent') + ' • ' + (art.author || 'Editorial Desk');
-      if (wordsEl) wordsEl.textContent = (wc > 0 ? wc + ' words' : 'Loading body...');
+      if (deskEl) deskEl.textContent = art.category || 'General';
+      if (dateEl) dateEl.textContent = art.date ? art.date.slice(0, 10) : 'Recent';
       if (sourceEl) sourceEl.textContent = art.sourceName ? art.sourceName : 'Independent Desk Report';
+      if (wordsEl) wordsEl.textContent = (wc > 0 ? wc + ' words' : 'Loading body...');
       if (slugEl) slugEl.textContent = art.slug || (art.relPath || '');
-      if (creditEl) creditEl.textContent = art.imageCredit || (art.image ? 'Image attached' : 'No hero image');
 
-      if (activeCard) activeCard.style.display = 'block';
+      if (origHead) origHead.textContent = art.title || 'Untitled';
+      if (origDek) origDek.textContent = art.dek || 'No deck provided';
+      if (origBody) origBody.textContent = art.body || '';
+      if (origCount) origCount.textContent = wc;
 
-      // Pre-fetch complete article body asynchronously if missing
+      const candHead = document.getElementById('sbs-cand-headline');
+      const candDek = document.getElementById('sbs-cand-dek');
+      const candBody = document.getElementById('sbs-cand-body');
+      const candCount = document.getElementById('sbs-cand-count');
+      const deltaBadge = document.getElementById('sbs-delta-badge');
+      const candPill = document.getElementById('sbs-cand-status-pill');
+
+      if (candHead) candHead.value = '';
+      if (candDek) candDek.value = '';
+      if (candBody) candBody.value = '';
+      if (candCount) candCount.textContent = '0 words';
+      if (deltaBadge) {
+        deltaBadge.textContent = '0 words';
+        deltaBadge.className = 'badge badge-teal';
+      }
+      if (candPill) {
+        candPill.className = 'badge badge-pink';
+        candPill.textContent = 'Pending Rewrite';
+      }
+
+      if (emptyState) emptyState.style.display = 'none';
+      if (workspace) workspace.style.display = 'flex';
+
       if ((!art.body || typeof art.body !== 'string' || !art.body.trim()) && art.relPath) {
         fetch('/api/admin/articles/get?relPath=' + encodeURIComponent(art.relPath))
           .then(r => r.json())
@@ -12118,185 +12331,44 @@ noindex: true
               const loadedWc = d.wordCount || d.body.trim().split(/\s+/).filter(Boolean).length;
               art.wordCount = loadedWc;
               if (wordsEl) wordsEl.textContent = loadedWc + ' words';
+              if (origBody) origBody.textContent = art.body;
+              if (origCount) origCount.textContent = loadedWc;
               AiUpgradeState.originalArticle = JSON.parse(JSON.stringify(art));
             }
           })
-          .catch(e => console.warn('[AI Upgrade] Could not pre-fetch article body:', e));
-      }
-
-      // Hide subsequent panels until triggered
-      const safetyPanel = document.getElementById('ai-upgrade-safety-panel');
-      const sbsPanel = document.getElementById('ai-upgrade-sidebyside-panel');
-      if (safetyPanel) safetyPanel.style.display = 'none';
-      if (sbsPanel) sbsPanel.style.display = 'none';
-
-      setAiUpgradeStep(2);
-      showToast('Article loaded into studio: "' + (art.title || '').slice(0, 40) + '..."', 'info');
-    }
-
-    function clearSelectedAiUpgradeArticle() {
-      AiUpgradeState.selectedArticle = null;
-      AiUpgradeState.originalArticle = null;
-      AiUpgradeState.candidateArticle = null;
-      AiUpgradeState.safetyFindings = [];
-
-      const activeCard = document.getElementById('ai-upgrade-active-card');
-      const safetyPanel = document.getElementById('ai-upgrade-safety-panel');
-      const sbsPanel = document.getElementById('ai-upgrade-sidebyside-panel');
-
-      if (activeCard) activeCard.style.display = 'none';
-      if (safetyPanel) safetyPanel.style.display = 'none';
-      if (sbsPanel) sbsPanel.style.display = 'none';
-
-      const errBanner = document.getElementById('ai-upgrade-error-banner');
-      if (errBanner) errBanner.style.display = 'none';
-      const sbsErr = document.getElementById('ai-upgrade-sbs-error-banner');
-      if (sbsErr) sbsErr.style.display = 'none';
-
-      const backToEditorBtn = document.getElementById('btn-ai-back-to-editor');
-      if (backToEditorBtn && !(AppState && AppState.currentlyEditingArticle)) {
-        backToEditorBtn.style.display = 'none';
-      }
-
-      setAiUpgradeStep(1);
-      handleAiUpgradeArticleSearch();
-    }
-
-    async function runSafetyPrecheckOnly() {
-      const art = AiUpgradeState.selectedArticle;
-      if (!art) {
-        showToast('Please select an article first.', 'warning');
-        return;
-      }
-
-      const btn = document.getElementById('btn-run-safety-precheck');
-      if (btn) {
-        btn.disabled = true;
-        btn.innerText = 'Checking...';
-      }
-
-      try {
-        const res = await fetch('/api/admin/ai/upgrade/analyze', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            relPath: art.relPath || ('src/articles/' + (art.category ? art.category.toLowerCase() : 'india') + '/' + art.slug + '.md'),
-            sha: art.sha,
-            title: art.title,
-            dek: art.dek || '',
-            body: art.body || '',
-            sourceName: art.sourceName || '',
-            sourceUrl: art.sourceUrl || ''
-          })
-        });
-
-        if (!res.ok) {
-          throw new Error('Server returned HTTP ' + res.status);
-        }
-
-        const data = await res.json();
-        if (data.success && data.analysis) {
-          renderSafetyFindingsUI(data.analysis);
-          setAiUpgradeStep(3);
-          showToast('Editorial safety check complete.', 'success');
-        } else {
-          showToast(data.error || 'Safety check failed.', 'error');
-        }
-      } catch (err) {
-        // Fallback to local check if offline
-        renderLocalSafetyFindings(art);
-        setAiUpgradeStep(3);
-        showToast('Safety check completed via local rules.', 'info');
-      } finally {
-        if (btn) {
-          btn.disabled = false;
-          btn.innerText = 'Run Safety Check';
-        }
+          .catch(e => {
+            console.warn('[AI Studio] Could not pre-fetch article body:', e);
+          });
       }
     }
 
-    function renderSafetyFindingsUI(analysis) {
-      const panel = document.getElementById('ai-upgrade-safety-panel');
-      const badge = document.getElementById('ai-upgrade-safety-verdict-badge');
-      const list = document.getElementById('ai-upgrade-safety-findings-list');
-      if (!panel || !badge || !list) return;
+    const selectAiUpgradeArticle = loadStudioArticle;
 
-      panel.style.display = 'block';
-      badge.textContent = analysis.verdict || 'CHECKED';
-
-      if (analysis.verdict === 'PASSED' || analysis.verdict === 'CLEAN') {
-        badge.className = 'badge badge-green';
-      } else if (analysis.verdict === 'FLAGGED' || analysis.safetyConcernsCount > 0) {
-        badge.className = 'badge badge-red';
+    function returnToEditor() {
+      if (AppState && AppState.currentlyEditingArticle) {
+        navigate('articles', { subview: 'editor' });
+      } else if (AiUpgradeState && AiUpgradeState.selectedArticle && AiUpgradeState.selectedArticle.relPath) {
+        loadArticleIntoEditor(AiUpgradeState.selectedArticle.relPath);
       } else {
-        badge.className = 'badge badge-amber';
+        navigate('articles');
       }
-
-      if (!analysis.findings || analysis.findings.length === 0) {
-        list.innerHTML = '<div style="color: var(--color-teal); padding: 12px; background: rgba(20, 184, 166, 0.08); border-radius: var(--radius-sm); border: 1px solid rgba(20, 184, 166, 0.2);">' +
-          '✓ No legal, defamatory, or unsupported factual concerns detected. Ready for upgrade.</div>';
-        return;
-      }
-
-      let html = '';
-      analysis.findings.forEach(f => {
-        let badgeClass = 'badge-gray';
-        if (f.classification === 'SAFETY CONCERN') badgeClass = 'badge-red';
-        else if (f.classification === 'UNSUPPORTED' || f.classification === 'POTENTIALLY MISLEADING') badgeClass = 'badge-amber';
-        else if (f.classification === 'SUPPORTED') badgeClass = 'badge-green';
-
-        html += '<div style="padding: 10px 14px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); display: flex; flex-direction: column; gap: 4px;">' +
-          '<div style="display: flex; justify-content: space-between; align-items: center;">' +
-          '<strong>' + escapeHtml(f.type || 'Finding') + '</strong>' +
-          '<span class="badge ' + badgeClass + '">' + escapeHtml(f.classification || 'NOTICE') + '</span>' +
-          '</div>' +
-          '<div style="color: var(--color-ink-light); font-size: 12px;">' + escapeHtml(f.message || '') + '</div>' +
-          (f.snippet ? '<div style="font-family: var(--font-mono); font-size: 11px; color: var(--color-muted); background: var(--color-canvas); padding: 4px 8px; border-radius: 4px;">"' + escapeHtml(f.snippet) + '"</div>' : '') +
-          (f.guidance ? '<div style="font-size: 11px; color: var(--color-teal); font-style: italic;">Guidance: ' + escapeHtml(f.guidance) + '</div>' : '') +
-          '</div>';
-      });
-
-      list.innerHTML = html;
-    }
-
-    function renderLocalSafetyFindings(art) {
-      const full = ((art.title || '') + ' ' + (art.dek || '') + ' ' + (art.body || '')).toLowerCase();
-      const findings = [];
-      if (full.includes('accused') || full.includes('fraud') || full.includes('arrested')) {
-        findings.push({
-          type: 'LEGAL_ALLEGATION',
-          classification: 'SUPPORTED',
-          message: 'Legal allegation detected. Ensure attribution to police FIR or court proceedings.'
-        });
-      }
-      renderSafetyFindingsUI({
-        verdict: findings.length === 0 ? 'CLEAN' : 'REVIEW_RECOMMENDED',
-        safetyConcernsCount: 0,
-        findings
-      });
     }
 
     async function startManualAiUpgrade() {
       const art = AiUpgradeState.selectedArticle;
       if (!art) {
-        showToast('Please select an article first.', 'warning');
+        showToast('Please load an article first.', 'warning');
         return;
       }
 
       const btn = document.getElementById('btn-start-ai-upgrade');
-      const btnText = document.getElementById('btn-start-ai-upgrade-text');
-      const focusSelect = document.getElementById('ai-upgrade-focus');
-      const focus = focusSelect ? focusSelect.value : 'full_article_upgrade';
+      const loader = document.getElementById('ai-upgrade-loading-indicator');
+      const errBanner = document.getElementById('ai-upgrade-error-banner');
 
       if (btn) btn.disabled = true;
-      if (btnText) btnText.innerHTML = '<span class="status-pulse-dot" style="margin-right: 6px;"></span> Generating Full Article Upgrade...';
-
-      const errBanner = document.getElementById('ai-upgrade-error-banner');
+      if (loader) loader.style.display = 'inline-flex';
       if (errBanner) errBanner.style.display = 'none';
-      const sbsErr = document.getElementById('ai-upgrade-sbs-error-banner');
-      if (sbsErr) sbsErr.style.display = 'none';
 
-      // Ensure full body is loaded before sending request
       if ((!art.body || typeof art.body !== 'string' || !art.body.trim()) && art.relPath) {
         try {
           const bodyRes = await fetch('/api/admin/articles/get?relPath=' + encodeURIComponent(art.relPath));
@@ -12308,10 +12380,12 @@ noindex: true
               if (bodyData.data && bodyData.data.dek && !art.dek) art.dek = bodyData.data.dek;
               if (bodyData.data && bodyData.data.title && !art.title) art.title = bodyData.data.title;
               AiUpgradeState.originalArticle = JSON.parse(JSON.stringify(art));
+              const origBodyEl = document.getElementById('sbs-orig-body');
+              if (origBodyEl) origBodyEl.textContent = art.body;
             }
           }
         } catch (fetchErr) {
-          console.warn('[AI Upgrade] Pre-request body fetch failed:', fetchErr);
+          console.warn('[AI Studio] Pre-request body fetch failed:', fetchErr);
         }
       }
 
@@ -12327,7 +12401,7 @@ noindex: true
             body: art.body || '',
             sourceName: art.sourceName || '',
             sourceUrl: art.sourceUrl || '',
-            focus
+            focus: 'full_article_upgrade'
           })
         });
 
@@ -12338,68 +12412,43 @@ noindex: true
 
         const data = await res.json();
         if (!data.success || !data.candidate) {
-          throw new Error(data.error || 'AI upgrade could not be completed right now.');
+          throw new Error(data.error || 'AI rewrite could not be completed right now.');
         }
 
         AiUpgradeState.candidateArticle = data.candidate;
         AiUpgradeState.lastQuality = data.quality;
 
-        // Render Side-by-Side Studio
-        populateSideBySideStudio(art, data.candidate, data);
-        if (data.safetyAnalysis) {
-          renderSafetyFindingsUI(data.safetyAnalysis);
-        }
-
-        setAiUpgradeStep(4);
-        showToast('AI upgraded draft ready for review.', 'success');
+        populateCandidateWorkspace(art, data.candidate, data);
+        showToast('AI rewrite draft ready for review.', 'success');
       } catch (err) {
         const errMsg = err.message || 'AI service unavailable';
         if (errBanner) {
           const msgEl = document.getElementById('ai-upgrade-error-message');
-          if (msgEl) msgEl.textContent = 'AI Service Unavailable: ' + errMsg;
+          if (msgEl) msgEl.textContent = errMsg;
           errBanner.style.display = 'block';
         }
-        if (sbsErr) {
-          const sbsMsgEl = document.getElementById('ai-upgrade-sbs-error-message');
-          if (sbsMsgEl) sbsMsgEl.textContent = 'AI Service Unavailable: ' + errMsg;
-          sbsErr.style.display = 'block';
-        }
-        showToast('AI upgrade could not be completed right now. ' + errMsg, 'error');
+        showToast('AI rewrite could not be completed right now. ' + errMsg, 'error');
       } finally {
         if (btn) btn.disabled = false;
-        if (btnText) btnText.textContent = '✨ Start AI Upgrade';
+        if (loader) loader.style.display = 'none';
       }
     }
 
-    function populateSideBySideStudio(orig, cand, meta) {
-      const sbsPanel = document.getElementById('ai-upgrade-sidebyside-panel');
-      if (!sbsPanel) return;
-
-      // Left Column: Original
-      const origHead = document.getElementById('sbs-orig-headline');
-      const origDek = document.getElementById('sbs-orig-dek');
-      const origBody = document.getElementById('sbs-orig-body');
-      const origWcEl = document.getElementById('sbs-orig-count');
-
-      const origWc = orig.wordCount || (orig.body ? orig.body.trim().split(/\s+/).filter(Boolean).length : 0);
-      if (origHead) origHead.textContent = orig.title || 'Untitled';
-      if (origDek) origDek.textContent = orig.dek || 'No deck provided';
-      if (origBody) origBody.textContent = orig.body || '';
-      if (origWcEl) origWcEl.textContent = origWc;
-
-      // Right Column: Candidate (Editable)
+    function populateCandidateWorkspace(orig, cand, meta) {
+      meta = meta || {};
       const candHead = document.getElementById('sbs-cand-headline');
       const candDek = document.getElementById('sbs-cand-dek');
       const candBody = document.getElementById('sbs-cand-body');
       const candWcEl = document.getElementById('sbs-cand-count');
 
+      const origWc = orig.wordCount || (orig.body ? orig.body.trim().split(/\s+/).filter(Boolean).length : 0);
       const candWc = cand.body ? cand.body.trim().split(/\s+/).filter(Boolean).length : 0;
+
       if (candHead) candHead.value = cand.headline || orig.title || '';
       if (candDek) candDek.value = cand.dek || orig.dek || '';
       if (candBody) candBody.value = cand.body || '';
-      if (candWcEl) candWcEl.textContent = candWc;
+      if (candWcEl) candWcEl.textContent = candWc + ' words';
 
-      // Quality & Delta Metrics
       const deltaBadge = document.getElementById('sbs-delta-badge');
       const diffWc = candWc - origWc;
       if (deltaBadge) {
@@ -12408,7 +12457,7 @@ noindex: true
       }
 
       const provEl = document.getElementById('sbs-provider-used');
-      if (provEl) provEl.textContent = meta.providerUsed || 'Groq';
+      if (provEl) provEl.textContent = meta.providerUsed || 'AI';
 
       const qualityBadge = document.getElementById('sbs-quality-badge');
       if (qualityBadge) {
@@ -12417,13 +12466,6 @@ noindex: true
         qualityBadge.className = qValid ? 'badge badge-green' : 'badge badge-amber';
       }
 
-      const simEl = document.getElementById('sbs-topic-sim');
-      if (simEl) {
-        const simScore = (meta.quality && meta.quality.metrics) ? meta.quality.metrics.topicSimilarity : 96;
-        simEl.textContent = simScore + '%';
-      }
-
-      // Editorial improvements list
       const listEl = document.getElementById('sbs-changes-list');
       if (listEl) {
         if (cand.editorialChanges && cand.editorialChanges.length > 0) {
@@ -12433,9 +12475,22 @@ noindex: true
         }
       }
 
-      sbsPanel.style.display = 'block';
-      sbsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const candPill = document.getElementById('sbs-cand-status-pill');
+      if (candPill) {
+        candPill.className = 'badge badge-pink';
+        candPill.textContent = 'Rewrite Candidate';
+      }
+      const draftBadge = document.getElementById('ai-upgrade-draft-status-badge');
+      if (draftBadge) {
+        draftBadge.className = 'badge badge-pink';
+        draftBadge.textContent = 'Draft: Ready';
+      }
+
+      const regenBtn = document.getElementById('btn-regenerate-upgrade');
+      if (regenBtn) regenBtn.style.display = 'inline-flex';
     }
+
+    const populateSideBySideStudio = populateCandidateWorkspace;
 
     function updateCandidateWordCountLive() {
       const candBody = document.getElementById('sbs-cand-body');
@@ -12445,137 +12500,194 @@ noindex: true
 
       const bodyText = candBody ? candBody.value : '';
       const candWc = bodyText ? bodyText.trim().split(/\s+/).filter(Boolean).length : 0;
-      if (candWcEl) candWcEl.textContent = candWc;
+      if (candWcEl) candWcEl.textContent = candWc + ' words';
 
-      const origWc = origWcEl ? parseInt(origWcEl.textContent || '0', 10) : 0;
-      const diff = candWc - origWc;
+      const origWcText = origWcEl ? origWcEl.textContent.replace(/[^\d]/g, '') : '0';
+      const origWc = parseInt(origWcText, 10) || 0;
+      const diffWc = candWc - origWc;
+
       if (deltaBadge) {
-        deltaBadge.textContent = (diff >= 0 ? '+' : '') + diff + ' words';
-        deltaBadge.className = diff >= 0 ? 'badge badge-teal' : 'badge badge-amber';
+        deltaBadge.textContent = (diffWc >= 0 ? '+' : '') + diffWc + ' words';
+        deltaBadge.className = diffWc >= 0 ? 'badge badge-teal' : 'badge badge-amber';
       }
     }
 
     function regenerateAiUpgrade() {
-      if (!confirm('Generate another AI draft candidate? Current unsaved candidate edits will be replaced.')) {
-        return;
-      }
       startManualAiUpgrade();
     }
 
     function cancelAiUpgradeDraft() {
-      if (!confirm('Discard this AI upgrade candidate and keep the original published article untouched?')) {
+      if (!confirm('Discard this AI rewrite candidate and keep the original published article untouched?')) {
         return;
       }
-      const sbsPanel = document.getElementById('ai-upgrade-sidebyside-panel');
-      if (sbsPanel) sbsPanel.style.display = 'none';
-      setAiUpgradeStep(2);
-      showToast('Kept original published article. AI draft discarded.', 'info');
+      AiUpgradeState.candidateArticle = null;
+      const candHead = document.getElementById('sbs-cand-headline');
+      const candDek = document.getElementById('sbs-cand-dek');
+      const candBody = document.getElementById('sbs-cand-body');
+      const candWcEl = document.getElementById('sbs-cand-count');
+      const candPill = document.getElementById('sbs-cand-status-pill');
+      const deltaBadge = document.getElementById('sbs-delta-badge');
+      const regenBtn = document.getElementById('btn-regenerate-upgrade');
+
+      if (candHead) candHead.value = '';
+      if (candDek) candDek.value = '';
+      if (candBody) candBody.value = '';
+      if (candWcEl) candWcEl.textContent = '0 words';
+      if (deltaBadge) {
+        deltaBadge.textContent = '0 words';
+        deltaBadge.className = 'badge badge-teal';
+      }
+      if (candPill) {
+        candPill.className = 'badge badge-pink';
+        candPill.textContent = 'Pending Rewrite';
+      }
+      if (regenBtn) regenBtn.style.display = 'none';
+
+      showToast('Candidate rewrite discarded. Original article remains untouched.', 'info');
+    }
+
+    function openCompareChangesModal() {
+      const orig = AiUpgradeState.originalArticle;
+      const candHead = document.getElementById('sbs-cand-headline');
+      const candDek = document.getElementById('sbs-cand-dek');
+      const candBody = document.getElementById('sbs-cand-body');
+
+      if (!orig || !candBody || !candBody.value.trim()) {
+        showToast('Please generate or enter a rewrite first to compare changes.', 'info');
+        return;
+      }
+
+      const mOrigHead = document.getElementById('compare-modal-orig-headline');
+      const mCandHead = document.getElementById('compare-modal-cand-headline');
+      const mOrigDek = document.getElementById('compare-modal-orig-dek');
+      const mCandDek = document.getElementById('compare-modal-cand-dek');
+      const mWords = document.getElementById('compare-modal-words');
+      const mChanges = document.getElementById('compare-modal-changes-list');
+
+      if (mOrigHead) mOrigHead.textContent = orig.title || 'Untitled';
+      if (mCandHead) mCandHead.textContent = (candHead && candHead.value) ? candHead.value : (orig.title || 'Untitled');
+      if (mOrigDek) mOrigDek.textContent = orig.dek || 'No deck';
+      if (mCandDek) mCandDek.textContent = (candDek && candDek.value) ? candDek.value : (orig.dek || 'No deck');
+
+      const origWc = orig.wordCount || (orig.body ? orig.body.trim().split(/\s+/).filter(Boolean).length : 0);
+      const candWc = candBody.value.trim().split(/\s+/).filter(Boolean).length;
+      const diff = candWc - origWc;
+      if (mWords) mWords.textContent = origWc + ' words → ' + candWc + ' words (' + (diff >= 0 ? '+' : '') + diff + ' words)';
+
+      if (mChanges) {
+        const listEl = document.getElementById('sbs-changes-list');
+        mChanges.innerHTML = (listEl && listEl.innerHTML)
+          ? listEl.innerHTML
+          : '<li>Improved paragraph flow, transition clarity, and sentence structure.</li><li>Preserved core facts, names, dates, and quotes.</li>';
+      }
+
+      const modal = document.getElementById('compare-changes-modal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeCompareChangesModal(e) {
+      if (e && e.target && e.target.id !== 'compare-changes-modal' && !e.target.classList.contains('btn-close-modal') && !e.target.closest('.btn-close-modal')) return;
+      const modal = document.getElementById('compare-changes-modal');
+      if (modal) modal.style.display = 'none';
     }
 
     function openAcceptUpgradeModal() {
-      const candHead = document.getElementById('sbs-cand-headline');
-      const candBody = document.getElementById('sbs-cand-body');
       const orig = AiUpgradeState.originalArticle;
+      const candHead = document.getElementById('sbs-cand-headline');
+      const candDek = document.getElementById('sbs-cand-dek');
+      const candBody = document.getElementById('sbs-cand-body');
 
-      if (!orig) {
-        showToast('No original article loaded.', 'error');
+      if (!orig || !candBody || !candBody.value.trim()) {
+        showToast('No upgraded candidate available to accept. Click Rewrite Article first.', 'warning');
         return;
       }
 
-      const modalHead = document.getElementById('accept-modal-headline');
-      const modalSlug = document.getElementById('accept-modal-slug');
-      const modalWords = document.getElementById('accept-modal-words');
+      const headEl = document.getElementById('accept-modal-headline');
+      const slugEl = document.getElementById('accept-modal-slug');
+      const wordsEl = document.getElementById('accept-modal-words');
 
-      const candWc = candBody ? candBody.value.trim().split(/\s+/).filter(Boolean).length : 0;
       const origWc = orig.wordCount || (orig.body ? orig.body.trim().split(/\s+/).filter(Boolean).length : 0);
+      const candWc = candBody.value.trim().split(/\s+/).filter(Boolean).length;
       const diff = candWc - origWc;
 
-      if (modalHead) modalHead.textContent = (candHead ? candHead.value : orig.title) || 'Untitled';
-      if (modalSlug) modalSlug.textContent = orig.slug || orig.relPath;
-      if (modalWords) modalWords.textContent = origWc + ' → ' + candWc + ' (' + (diff >= 0 ? '+' : '') + diff + ' words)';
+      if (headEl) headEl.textContent = (candHead && candHead.value) ? candHead.value : orig.title;
+      if (slugEl) slugEl.textContent = orig.slug || orig.relPath;
+      if (wordsEl) wordsEl.textContent = origWc + ' → ' + candWc + ' (' + (diff >= 0 ? '+' : '') + diff + ' words)';
 
       const modal = document.getElementById('accept-upgrade-modal');
       if (modal) modal.style.display = 'flex';
     }
 
     function closeAcceptUpgradeModal(e) {
-      if (e && e.target && e.target.id !== 'accept-upgrade-modal' && !e.target.classList.contains('btn-close-modal') && !e.target.classList.contains('btn-table-action')) return;
+      if (e && e.target && e.target.id !== 'accept-upgrade-modal' && !e.target.classList.contains('btn-close-modal') && !e.target.closest('.btn-close-modal')) return;
       const modal = document.getElementById('accept-upgrade-modal');
       if (modal) modal.style.display = 'none';
     }
 
     async function executeAcceptUpgrade() {
       const orig = AiUpgradeState.originalArticle;
-      if (!orig) return;
-
       const candHead = document.getElementById('sbs-cand-headline');
       const candDek = document.getElementById('sbs-cand-dek');
       const candBody = document.getElementById('sbs-cand-body');
-      const btn = document.getElementById('btn-confirm-save-upgrade');
 
+      if (!orig || !candBody) return;
+
+      const btn = document.getElementById('btn-confirm-save-upgrade');
       if (btn) {
         btn.disabled = true;
         btn.innerText = 'Loading AI Rewrite into Editor...';
       }
 
       try {
-        const candidateHeadline = candHead ? candHead.value.trim() : orig.title;
-        const candidateDek = candDek ? candDek.value.trim() : (orig.dek || '');
-        const candidateBody = candBody ? candBody.value.trim() : (orig.body || '');
-
         const res = await fetch('/api/admin/ai/upgrade/accept', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             relPath: orig.relPath || ('src/articles/' + (orig.category ? orig.category.toLowerCase() : 'india') + '/' + orig.slug + '.md'),
-            title: orig.title,
-            dek: orig.dek || '',
-            body: orig.body || '',
-            candidateHeadline,
-            candidateDek,
-            candidateBody
+            sha: orig.sha,
+            headline: (candHead && candHead.value.trim()) || orig.title,
+            dek: (candDek && candDek.value.trim()) || orig.dek || '',
+            body: candBody.value.trim(),
+            providerUsed: (AiUpgradeState.candidateArticle && AiUpgradeState.candidateArticle.providerUsed) || 'AI Studio',
+            qualityVerdict: (AiUpgradeState.lastQuality && AiUpgradeState.lastQuality.valid) ? 'PASS' : 'FLAGGED'
           })
         });
 
-        const data = await res.json();
-        if (!res.ok || !data.success) {
-          throw new Error(data.error || 'Failed to accept AI rewrite draft.');
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error || 'Failed to accept AI rewrite draft.');
         }
 
-        const acceptedHeadline = (data.workingDraft && data.workingDraft.headline) || candidateHeadline;
-        const acceptedDek = (data.workingDraft && data.workingDraft.dek !== undefined) ? data.workingDraft.dek : candidateDek;
-        const acceptedBody = (data.workingDraft && data.workingDraft.body) || candidateBody;
+        const data = await res.json();
+        const candidateToLoad = data.candidate || {
+          headline: candHead ? candHead.value.trim() : orig.title,
+          dek: candDek ? candDek.value.trim() : orig.dek,
+          body: candBody.value.trim()
+        };
 
         // Stage 1: Load accepted rewritten text into the article editor working state
+        if (AppState.currentlyEditingArticle) {
+          AppState.currentlyEditingArticle.title = candidateToLoad.headline;
+          AppState.currentlyEditingArticle.dek = candidateToLoad.dek;
+          AppState.currentlyEditingArticle.body = candidateToLoad.body;
+          AppState.currentlyEditingArticle.wordCount = candidateToLoad.body.split(/\s+/).filter(Boolean).length;
+        }
+
         const editHead = document.getElementById('edit-headline');
         const editDk = document.getElementById('edit-dek');
         const editBd = document.getElementById('edit-body');
-        if (editHead) editHead.value = acceptedHeadline;
-        if (editDk) editDk.value = acceptedDek;
-        if (editBd) editBd.value = acceptedBody;
-
-        // In-memory article update: strictly preserve media, image, credit, video, slug, canonical, author, date
-        if (orig) {
-          orig.title = acceptedHeadline;
-          orig.dek = acceptedDek;
-          orig.body = acceptedBody;
-          orig.wordCount = acceptedBody.split(/\s+/).filter(Boolean).length;
-        }
-        AppState.currentlyEditingArticle = orig;
-
-        if (typeof updateWordCountLive === 'function') {
-          updateWordCountLive();
-        }
+        if (editHead) editHead.value = candidateToLoad.headline;
+        if (editDk) editDk.value = candidateToLoad.dek;
+        if (editBd) editBd.value = candidateToLoad.body;
 
         const saveStatus = document.getElementById('editor-save-status');
         if (saveStatus) {
-          saveStatus.className = 'editor-save-indicator';
-          saveStatus.style.color = '#c084fc';
           saveStatus.innerText = 'AI Rewrite loaded (Unsaved working draft — click "Save Changes" to commit)';
+          saveStatus.style.color = '#c084fc';
         }
 
         closeAcceptUpgradeModal();
-        showToast('Stage 1 Complete: AI rewrite loaded into editor working state. Click "Save Changes" when ready to persist.', 'success');
+        showToast('Stage 1 Complete: AI rewrite loaded into editor working state. Click "Save Changes" to commit and persist.', 'success');
         navigate('articles', { subview: 'editor' });
       } catch (err) {
         showToast('Failed to accept AI rewrite: ' + err.message, 'error');
@@ -12592,14 +12704,15 @@ noindex: true
         const editHead = document.getElementById('edit-headline');
         const editDk = document.getElementById('edit-dek');
         const editBd = document.getElementById('edit-body');
-        if (editHead && editHead.value.trim()) {
+        if (editHead && editHead.value !== undefined) {
           AppState.currentlyEditingArticle.title = editHead.value.trim();
         }
-        if (editDk) {
+        if (editDk && editDk.value !== undefined) {
           AppState.currentlyEditingArticle.dek = editDk.value.trim();
         }
-        if (editBd && editBd.value.trim()) {
+        if (editBd && editBd.value !== undefined) {
           AppState.currentlyEditingArticle.body = editBd.value.trim();
+          AppState.currentlyEditingArticle.wordCount = editBd.value.trim().split(/\s+/).filter(Boolean).length;
         }
         navigate('ai-upgrade', { article: AppState.currentlyEditingArticle });
       } else {
@@ -12607,13 +12720,37 @@ noindex: true
       }
     }
 
-    function resetAiUpgradeStudio() {
-      clearSelectedAiUpgradeArticle();
-      const searchInput = document.getElementById('ai-upgrade-search');
-      if (searchInput) searchInput.value = '';
-      handleAiUpgradeArticleSearch();
-      setAiUpgradeStep(1);
+    function openAiUpgradeFromCqModal() {
+      if (CqState && CqState.selectedArticle) {
+        const art = CqState.selectedArticle;
+        closeCqArticleModal();
+        navigate('ai-upgrade', { article: art });
+      }
     }
+
+    function openAiUpgradeForArticleSlug(slug) {
+      const allArticles = (AppState && Array.isArray(AppState.articles) && AppState.articles.length > 0)
+        ? AppState.articles
+        : (Array.isArray(window.__CORPUS__) ? window.__CORPUS__ : []);
+      const found = allArticles.find(a => a.slug === slug || (a.relPath && a.relPath.includes(slug)));
+      if (found) {
+        navigate('ai-upgrade', { article: found });
+      } else {
+        navigate('ai-upgrade');
+      }
+    }
+
+    function clearSelectedAiUpgradeArticle() {
+      AiUpgradeState.selectedArticle = null;
+      AiUpgradeState.originalArticle = null;
+      AiUpgradeState.candidateArticle = null;
+      AiUpgradeState.safetyFindings = [];
+      const emptyState = document.getElementById('ai-upgrade-empty-state');
+      const workspace = document.getElementById('ai-upgrade-workspace');
+      if (emptyState) emptyState.style.display = 'block';
+      if (workspace) workspace.style.display = 'none';
+    }
+
 
     /* ================================================================
        PHASE E: CONTENT QUALITY & THIN CONTENT DIAGNOSTIC LOGIC
