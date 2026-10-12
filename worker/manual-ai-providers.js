@@ -45,6 +45,7 @@ export const MAX_WATERFALL_DURATION_MS = 27000;
 
 export const FAILURE_CLASS = {
   AUTH_FAILURE: 'AUTH_FAILURE',                 // HTTP 401, 403, invalid token
+  LOCATION_UNSUPPORTED: 'LOCATION_UNSUPPORTED', // HTTP 400 User location is not supported for the API use
   RATE_LIMITED: 'RATE_LIMITED',                 // HTTP 429 / Quota exhausted
   TIMEOUT: 'TIMEOUT',                           // Network timeout / abort signal
   PROVIDER_UNAVAILABLE: 'PROVIDER_UNAVAILABLE', // HTTP 500, 502, 503, 504, fetch error
@@ -107,6 +108,12 @@ export const FREE_GENERATION_ALLOWLIST = {
     secretEnvName: 'MANUAL_AI_OPENROUTER_API_KEY',
     modelEnvName: 'MANUAL_AI_OPENROUTER_MODEL',
     defaultModel: 'openrouter/free',
+    allowedModels: [
+      'openrouter/free',
+      'google/gemma-4-31b-it:free',
+      'google/gemma-4-26b-a4b-it:free',
+      'nvidia/nemotron-3.5-lightning:free'
+    ],
     validateModel(model) {
       return isValidOpenRouterFreeModel(model);
     },
@@ -268,6 +275,7 @@ export const PROVIDER_ADAPTERS = {
     secretEnvName: 'MANUAL_AI_GEMINI_API_KEY',
     modelEnvName: 'MANUAL_AI_GEMINI_MODEL',
     defaultModel: 'gemini-3.8-flash',
+    timeoutMs: 12000,
     isConfigured(env = {}) {
       return Boolean(env && typeof env.MANUAL_AI_GEMINI_API_KEY === 'string' && env.MANUAL_AI_GEMINI_API_KEY.trim());
     },
@@ -344,6 +352,7 @@ export const PROVIDER_ADAPTERS = {
     secretEnvName: 'MANUAL_AI_OPENROUTER_API_KEY',
     modelEnvName: 'MANUAL_AI_OPENROUTER_MODEL',
     defaultModel: 'openrouter/free',
+    timeoutMs: 24000,
     isConfigured(env = {}) {
       return Boolean(env && typeof env.MANUAL_AI_OPENROUTER_API_KEY === 'string' && env.MANUAL_AI_OPENROUTER_API_KEY.trim());
     },
@@ -372,7 +381,7 @@ export const PROVIDER_ADAPTERS = {
             { role: 'user', content: userPrompt }
           ],
           temperature: 0.2,
-          max_tokens: 4096
+          max_tokens: 3000
         };
         if (useJsonFormat) {
           bodyObj.response_format = { type: 'json_object' };
@@ -737,6 +746,15 @@ export function classifyError(err) {
   if (err.classification === FAILURE_CLASS.PAID_MODEL_REJECTED || msg.includes('paid openrouter model') || msg.includes('under free-only policy') || msg.includes('rejected under free-only policy')) {
     return FAILURE_CLASS.PAID_MODEL_REJECTED;
   }
+  if (
+    msg.includes('user location is not supported') ||
+    msg.includes('location is not supported') ||
+    msg.includes('unsupported location') ||
+    msg.includes('region is not supported') ||
+    msg.includes('geographically unavailable')
+  ) {
+    return FAILURE_CLASS.LOCATION_UNSUPPORTED;
+  }
   if (status === 401 || status === 403 || msg.includes('401') || msg.includes('403') || msg.includes('unauthorized') || msg.includes('forbidden')) {
     return FAILURE_CLASS.AUTH_FAILURE;
   }
@@ -856,7 +874,10 @@ export async function executeManualAiWaterfall(options = {}, envParam = {}) {
       }
 
       totalAttempts++;
-      const currentTimeoutMs = Math.min(PROVIDER_TIMEOUT_MS, remainingBudget);
+      // Dynamically budget attempt timeout: respect adapter specific ceiling (e.g. 12s for Gemini, 24s for OpenRouter)
+      // while guaranteeing we never exceed remaining budget minus safety margin (1000ms)
+      const adapterCeiling = adapter.timeoutMs || PROVIDER_TIMEOUT_MS;
+      const currentTimeoutMs = Math.min(adapterCeiling, Math.max(2000, remainingBudget - 1000));
 
       try {
         const result = await callAdapterWithTimeout(adapter, { systemPrompt, userPrompt }, env, currentTimeoutMs);
@@ -895,6 +916,7 @@ export async function executeManualAiWaterfall(options = {}, envParam = {}) {
         const failureClass = classifyError(err);
         const scrubbedMsg = scrubManualAiSecrets(err.message || '', env);
         const isClientError = Boolean(err.status && err.status >= 400 && err.status < 500);
+        const isLocationUnsupported = failureClass === FAILURE_CLASS.LOCATION_UNSUPPORTED;
 
         failureLog.push({
           provider: adapter.name,
@@ -902,15 +924,16 @@ export async function executeManualAiWaterfall(options = {}, envParam = {}) {
           classification: failureClass,
           error: scrubbedMsg,
           attempt,
-          retryable: (!isClientError && failureClass !== FAILURE_CLASS.TIMEOUT && Boolean(err.status && err.status >= 500) && attempt < MAX_RETRY_ATTEMPTS)
+          retryable: (!isClientError && !isLocationUnsupported && failureClass !== FAILURE_CLASS.TIMEOUT && Boolean(err.status && err.status >= 500) && attempt < MAX_RETRY_ATTEMPTS)
         });
 
         // Non-retryable errors on same provider: break immediately to cascade to next free provider
-        // 1. Permanent/policy failures: auth failure, quota exhaustion, paid model, truncation
+        // 1. Permanent/policy failures: auth failure, location restriction, quota exhaustion, paid model, truncation
         // 2. Client-side HTTP 4xx (e.g. 404 Not Found, 400 Bad Request)
         // 3. Request timeout: cascade immediately to remaining eligible providers without wasting budget
         if (
           failureClass === FAILURE_CLASS.AUTH_FAILURE ||
+          failureClass === FAILURE_CLASS.LOCATION_UNSUPPORTED ||
           failureClass === FAILURE_CLASS.RATE_LIMITED ||
           failureClass === FAILURE_CLASS.PAID_MODEL_REJECTED ||
           failureClass === FAILURE_CLASS.TRUNCATION_ERROR ||
