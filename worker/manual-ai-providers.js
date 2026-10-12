@@ -42,6 +42,9 @@
 export const PROVIDER_TIMEOUT_MS = 13000;
 export const MAX_RETRY_ATTEMPTS = 2;
 export const MAX_WATERFALL_DURATION_MS = 27000;
+export const MIN_ATTEMPT_BUDGET_MS = 6000;
+export const RESPONSE_RESERVE_MS = 1500;
+export const RETRYABLE_SERVER_STATUSES = new Set([500, 502, 503, 504]);
 
 export const FAILURE_CLASS = {
   AUTH_FAILURE: 'AUTH_FAILURE',                 // HTTP 401, 403, invalid token
@@ -429,19 +432,102 @@ export const PROVIDER_ADAPTERS = {
       }
 
       const json = await resp.json();
-      const choice = json.choices?.[0];
+
+      // Helper to classify OpenRouter embedded error objects
+      const parseEmbeddedError = (rawErr) => {
+        const code = rawErr?.code;
+        const rawMsg = rawErr?.message || String(code || 'OpenRouter embedded error');
+        const msg = String(rawMsg).toLowerCase();
+        const statusCode = (typeof code === 'number' && code >= 100 && code < 600)
+          ? code
+          : (parseInt(code, 10) || 0);
+
+        if (statusCode === 401 || statusCode === 403 || msg.includes('401') || msg.includes('403') || msg.includes('unauthorized') || msg.includes('forbidden') || msg.includes('invalid api key')) {
+          return { status: statusCode || 401, classification: FAILURE_CLASS.AUTH_FAILURE, message: rawMsg };
+        }
+        if (statusCode === 429 || msg.includes('429') || msg.includes('rate limit') || msg.includes('quota') || msg.includes('credits') || msg.includes('resource_exhausted')) {
+          return { status: statusCode || 429, classification: FAILURE_CLASS.RATE_LIMITED, message: rawMsg };
+        }
+        if (statusCode >= 400 && statusCode < 500) {
+          return { status: statusCode, classification: FAILURE_CLASS.INVALID_RESPONSE, message: rawMsg };
+        }
+        const serverStatus = (statusCode >= 500 && statusCode < 600) ? statusCode : 502;
+        return { status: serverStatus, classification: FAILURE_CLASS.PROVIDER_UNAVAILABLE, message: rawMsg };
+      };
+
+      // 1. Inspect top-level error object embedded in successful HTTP 200 response
+      if (json && json.error) {
+        const parsed = parseEmbeddedError(json.error);
+        const errMsg = scrubManualAiSecrets(parsed.message, env);
+        const err = new Error(`OpenRouter provider error: ${errMsg}`);
+        err.status = parsed.status;
+        err.classification = parsed.classification;
+        err.provider = 'OpenRouter';
+        err.model = model;
+        throw err;
+      }
+
+      // 2. Validate choices array presence
+      if (!json || !Array.isArray(json.choices) || json.choices.length === 0) {
+        const err = new Error('OpenRouter response contained no choices');
+        err.classification = FAILURE_CLASS.INVALID_RESPONSE;
+        err.provider = 'OpenRouter';
+        err.model = model;
+        throw err;
+      }
+
+      const choice = json.choices[0];
+
+      // 3. Inspect choice-level error
+      if (choice && choice.error) {
+        const parsed = parseEmbeddedError(choice.error);
+        const errMsg = scrubManualAiSecrets(parsed.message, env);
+        const err = new Error(`OpenRouter choice error: ${errMsg}`);
+        err.status = parsed.status;
+        err.classification = parsed.classification;
+        err.provider = 'OpenRouter';
+        err.model = model;
+        throw err;
+      }
+
       const finishReason = choice?.finish_reason;
 
-      // Strict truncation detection: Refuse to save partial article
+      // 4. Inspect finish_reason states
       if (finishReason === 'length') {
         const err = new Error(`OpenRouter generation was truncated by model token length limit (finish_reason: length). Incomplete draft rejected to prevent saving partial article.`);
         err.classification = FAILURE_CLASS.TRUNCATION_ERROR;
         err.provider = 'OpenRouter';
+        err.model = model;
         throw err;
       }
 
-      const text = choice?.message?.content || '';
-      return { text, model, finishReason };
+      if (finishReason === 'error') {
+        const err = new Error('OpenRouter generation terminated with finish_reason: error');
+        err.classification = FAILURE_CLASS.PROVIDER_UNAVAILABLE;
+        err.provider = 'OpenRouter';
+        err.model = model;
+        throw err;
+      }
+
+      if (finishReason === 'content_filter') {
+        const err = new Error('OpenRouter generation was blocked by provider content filter');
+        err.classification = FAILURE_CLASS.QUALITY_REJECTED;
+        err.provider = 'OpenRouter';
+        err.model = model;
+        throw err;
+      }
+
+      // 5. Inspect content existence and validity
+      const rawContent = choice?.message?.content;
+      if (typeof rawContent !== 'string' || !rawContent.trim()) {
+        const err = new Error(`OpenRouter returned empty or non-string message content (finish_reason: ${finishReason || 'unknown'})`);
+        err.classification = FAILURE_CLASS.INVALID_RESPONSE;
+        err.provider = 'OpenRouter';
+        err.model = model;
+        throw err;
+      }
+
+      return { text: rawContent, model, finishReason };
     }
   }
 };
@@ -737,13 +823,14 @@ export async function researchManualStoryContext(article = {}, env = {}) {
  */
 export function classifyError(err) {
   if (!err) return FAILURE_CLASS.PROVIDER_UNAVAILABLE;
+  if (err.classification) return err.classification;
   const msg = (err.message || '').toLowerCase();
   const status = err.status || 0;
 
-  if (err.classification === FAILURE_CLASS.TRUNCATION_ERROR || msg.includes('truncated') || msg.includes('token length limit') || msg.includes('finishreason') || msg.includes('finish_reason')) {
+  if (msg.includes('truncated') || msg.includes('token length limit') || msg.includes('finishreason') || msg.includes('finish_reason: length')) {
     return FAILURE_CLASS.TRUNCATION_ERROR;
   }
-  if (err.classification === FAILURE_CLASS.PAID_MODEL_REJECTED || msg.includes('paid openrouter model') || msg.includes('under free-only policy') || msg.includes('rejected under free-only policy')) {
+  if (msg.includes('paid openrouter model') || msg.includes('under free-only policy') || msg.includes('rejected under free-only policy')) {
     return FAILURE_CLASS.PAID_MODEL_REJECTED;
   }
   if (
@@ -761,13 +848,16 @@ export function classifyError(err) {
   if (status === 429 || msg.includes('429') || msg.includes('rate limit') || msg.includes('quota') || msg.includes('resource_exhausted')) {
     return FAILURE_CLASS.RATE_LIMITED;
   }
+  if (status >= 500 && status < 600) {
+    return FAILURE_CLASS.PROVIDER_UNAVAILABLE;
+  }
   if (err.name === 'AbortError' || msg.includes('timeout') || msg.includes('aborted')) {
     return FAILURE_CLASS.TIMEOUT;
   }
-  if (msg.includes('malformed') || msg.includes('json') || msg.includes('schema')) {
+  if (msg.includes('malformed') || msg.includes('json') || msg.includes('schema') || msg.includes('empty text') || msg.includes('empty content') || msg.includes('missing required fields') || msg.includes('no choices')) {
     return FAILURE_CLASS.INVALID_RESPONSE;
   }
-  if (msg.includes('quality guard rejected')) {
+  if (msg.includes('quality guard rejected') || msg.includes('content filter')) {
     return FAILURE_CLASS.QUALITY_REJECTED;
   }
   return FAILURE_CLASS.PROVIDER_UNAVAILABLE;
@@ -786,7 +876,11 @@ async function callAdapterWithTimeout(adapter, { systemPrompt, userPrompt }, env
 
     const cleanText = extractCleanJson(result.text);
     if (!cleanText) {
-      throw new Error('Provider returned empty text');
+      const emptyErr = new Error(`${adapter.name} returned empty text`);
+      emptyErr.classification = FAILURE_CLASS.INVALID_RESPONSE;
+      emptyErr.provider = adapter.name;
+      emptyErr.model = result.model;
+      throw emptyErr;
     }
 
     let parsed;
@@ -796,13 +890,23 @@ async function callAdapterWithTimeout(adapter, { systemPrompt, userPrompt }, env
       if (cleanText && !cleanText.endsWith('}')) {
         const err = new Error(`AI generation output was truncated mid-JSON by provider output limits (${parseErr.message}). Incomplete draft rejected to prevent saving partial article.`);
         err.classification = FAILURE_CLASS.TRUNCATION_ERROR;
+        err.provider = adapter.name;
+        err.model = result.model;
         throw err;
       }
-      throw new Error(`Malformed JSON response from provider: ${parseErr.message}`);
+      const malformedErr = new Error(`Malformed JSON response from ${adapter.name}: ${parseErr.message}`);
+      malformedErr.classification = FAILURE_CLASS.INVALID_RESPONSE;
+      malformedErr.provider = adapter.name;
+      malformedErr.model = result.model;
+      throw malformedErr;
     }
 
     if (!parsed || typeof parsed !== 'object' || !parsed.headline || !parsed.body) {
-      throw new Error('Response JSON missing required fields (headline or body)');
+      const schemaErr = new Error(`Response JSON from ${adapter.name} missing required fields (headline or body)`);
+      schemaErr.classification = FAILURE_CLASS.INVALID_RESPONSE;
+      schemaErr.provider = adapter.name;
+      schemaErr.model = result.model;
+      throw schemaErr;
     }
 
     return {
@@ -862,11 +966,11 @@ export async function executeManualAiWaterfall(options = {}, envParam = {}) {
       const elapsedMs = Date.now() - startTime;
       const remainingBudget = MAX_WATERFALL_DURATION_MS - elapsedMs;
 
-      // Check total execution budget (require at least 2s for a viable attempt)
-      if (remainingBudget <= 2000) {
+      // Stop if remaining budget minus reserve cannot sustain a minimum viable generation attempt
+      if (remainingBudget - RESPONSE_RESERVE_MS < MIN_ATTEMPT_BUDGET_MS) {
         failureLog.push({
           provider: adapter.name,
-          error: 'Waterfall time budget exhausted before completion',
+          error: `Waterfall time budget exhausted (${remainingBudget}ms remaining; requires minimum ${MIN_ATTEMPT_BUDGET_MS}ms plus ${RESPONSE_RESERVE_MS}ms reserve)`,
           classification: FAILURE_CLASS.TIMEOUT,
           retryable: false
         });
@@ -874,10 +978,10 @@ export async function executeManualAiWaterfall(options = {}, envParam = {}) {
       }
 
       totalAttempts++;
-      // Dynamically budget attempt timeout: respect adapter specific ceiling (e.g. 12s for Gemini, 24s for OpenRouter)
-      // while guaranteeing we never exceed remaining budget minus safety margin (1000ms)
+      // Dynamically budget attempt timeout: respect adapter specific ceiling (e.g. 12s for Gemini, 24s for OpenRouter),
+      // bounded by remaining budget minus response-processing reserve (1500ms).
       const adapterCeiling = adapter.timeoutMs || PROVIDER_TIMEOUT_MS;
-      const currentTimeoutMs = Math.min(adapterCeiling, Math.max(2000, remainingBudget - 1000));
+      const currentTimeoutMs = Math.min(adapterCeiling, remainingBudget - RESPONSE_RESERVE_MS);
 
       try {
         const result = await callAdapterWithTimeout(adapter, { systemPrompt, userPrompt }, env, currentTimeoutMs);
@@ -918,28 +1022,36 @@ export async function executeManualAiWaterfall(options = {}, envParam = {}) {
         const isClientError = Boolean(err.status && err.status >= 400 && err.status < 500);
         const isLocationUnsupported = failureClass === FAILURE_CLASS.LOCATION_UNSUPPORTED;
 
+        // Authoritative single retryability decision:
+        // ONLY retry genuine 5xx server errors (HTTP 500, 502, 503, 504) on attempt 1.
+        // NEVER retry:
+        // - Timeouts
+        // - Unsupported-location errors
+        // - 4xx client errors (auth, bad request, not found)
+        // - Rate limits / quota exhaustion (429)
+        // - Paid-model rejection
+        // - Invalid or empty responses
+        // - Truncated output
+        // - Quality guard rejections / content filters
+        const isRetryable = Boolean(
+          RETRYABLE_SERVER_STATUSES.has(err.status) &&
+          failureClass === FAILURE_CLASS.PROVIDER_UNAVAILABLE &&
+          !isClientError &&
+          !isLocationUnsupported &&
+          attempt < MAX_RETRY_ATTEMPTS
+        );
+
         failureLog.push({
           provider: adapter.name,
           status: err.status || null,
           classification: failureClass,
           error: scrubbedMsg,
           attempt,
-          retryable: (!isClientError && !isLocationUnsupported && failureClass !== FAILURE_CLASS.TIMEOUT && Boolean(err.status && err.status >= 500) && attempt < MAX_RETRY_ATTEMPTS)
+          retryable: isRetryable
         });
 
-        // Non-retryable errors on same provider: break immediately to cascade to next free provider
-        // 1. Permanent/policy failures: auth failure, location restriction, quota exhaustion, paid model, truncation
-        // 2. Client-side HTTP 4xx (e.g. 404 Not Found, 400 Bad Request)
-        // 3. Request timeout: cascade immediately to remaining eligible providers without wasting budget
-        if (
-          failureClass === FAILURE_CLASS.AUTH_FAILURE ||
-          failureClass === FAILURE_CLASS.LOCATION_UNSUPPORTED ||
-          failureClass === FAILURE_CLASS.RATE_LIMITED ||
-          failureClass === FAILURE_CLASS.PAID_MODEL_REJECTED ||
-          failureClass === FAILURE_CLASS.TRUNCATION_ERROR ||
-          failureClass === FAILURE_CLASS.TIMEOUT ||
-          isClientError
-        ) {
+        // Use the exact authoritative decision for control flow
+        if (!isRetryable) {
           break;
         }
       }
