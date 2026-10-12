@@ -8,6 +8,7 @@ yarn-debug.log*
 yarn-error.log*
 .system_generated/
 scratch/
+.wrangler/
 
 # Temporary SEO Audit & Phase Artifacts
 PHASE_*
