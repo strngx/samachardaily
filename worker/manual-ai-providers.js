@@ -5,8 +5,7 @@
  * for the Manual AI Article Upgrade feature in the Editorial Control Center.
  *
  * GUARANTEES:
- * 1. STRICTLY FREE GENERATION ONLY (VERIFIED AGAINST CURRENT OFFICIAL DOCUMENTATION):
- *    - Google Gemini Flash via Google AI Studio Free Tier (gemini-2.5-flash).
+ * 1. STRICTLY FREE GENERATION ONLY (VERIFIED AGAINST CURRENT OFFICIAL DOCUMENTATION): *    - Google Gemini Flash via Google AI Studio Free Tier (gemini-3.8-flash).
  *      No credit card required on unbilled projects. Returns HTTP 429 on quota exhaustion.
  *    - OpenRouter Free Router / Models (openrouter/free or models ending with :free).
  *      Cost is $0.00/token. Zero account balance required.
@@ -20,7 +19,7 @@
  *    - SambaNova, Together AI, Fireworks AI, NVIDIA NIM, Cloudflare Workers AI, DeepSeek, Cohere
  *      are EXCLUDED from the generation chain to prevent accidental charges or billing card requirements.
  * 3. STRICT MODEL ALLOWLIST & FAIL-CLOSED VALIDATION:
- *    - Rejects deprecated/shut-down models (e.g. gemini-2.0-flash, gemini-1.5-flash, llama-3.3-70b-versatile).
+ *    - Rejects deprecated/shut-down models (e.g. gemini-2.5-flash, gemini-2.0-flash, gemini-1.5-flash, llama-3.3-70b-versatile).
  *    - Rejects paid OpenRouter models (e.g. gpt-4o, claude) via server-side regex `:free` validation.
  *    - Rejects malformed, arbitrary, or unverified model IDs before network requests.
  * 4. SEPARATE RESEARCH ADAPTERS (RESEARCH-ONLY):
@@ -33,15 +32,15 @@
  *    - Ignores GEMINI_API_KEY, GROQ_API_KEY, OPENROUTER_API_KEY, OPENAI_API_KEY, AI.
  * 6. ZERO IMPACT ON CODE.GS OR src/articles/**:
  *    - Completely independent runtime, isolated credentials, offline testing only.
- */
-
+ * */
+ 
 // ============================================================================
 // 1. CONFIGURATION & CONSTANTS
 // ============================================================================
 
-export const PROVIDER_TIMEOUT_MS = 25000;
+export const PROVIDER_TIMEOUT_MS = 14000;
 export const MAX_RETRY_ATTEMPTS = 2;
-export const MAX_WATERFALL_DURATION_MS = 55000;
+export const MAX_WATERFALL_DURATION_MS = 27000;
 
 export const FAILURE_CLASS = {
   AUTH_FAILURE: 'AUTH_FAILURE',                 // HTTP 401, 403, invalid token
@@ -91,13 +90,14 @@ export const FREE_GENERATION_ALLOWLIST = {
     displayName: 'Google Gemini Flash',
     secretEnvName: 'MANUAL_AI_GEMINI_API_KEY',
     modelEnvName: 'MANUAL_AI_GEMINI_MODEL',
-    defaultModel: 'gemini-2.5-flash',
+    defaultModel: 'gemini-3.8-flash',
     allowedModels: [
-      'gemini-2.5-flash'
+      'gemini-3.8-flash',
+      'gemini-3.5-flash-lite'
     ],
-    freeTierInfo: 'Google AI Studio Free Tier: Available free of charge under Google AI Studio. Rate limits are subject to project quotas in Google AI Studio. Does not require credit card on unbilled projects.',
+    freeTierInfo: 'Google AI Studio Free Tier: Available free of charge under Google AI Studio. Gemini 3.8 Flash is Generally Available on unbilled projects. Rate limits are subject to project quotas in Google AI Studio. Does not require credit card on unbilled projects.',
     accountRequirement: 'API key must be created under an unbilled project in Google AI Studio. If attached to a Google Cloud project with billing enabled, configure spending limits and budget alerts to prevent automatic charges.',
-    verificationSource: 'https://ai.google.dev/gemini-api/docs/pricing'
+    verificationSource: 'https://ai.google.dev/pricing'
   },
   openrouter: {
     id: 'openrouter',
@@ -233,12 +233,19 @@ export function scrubManualAiSecrets(text, env = {}) {
 export function extractCleanJson(rawText) {
   if (!rawText || typeof rawText !== 'string') return '';
   let clean = rawText.trim();
-  if (clean.startsWith('```json')) {
-    clean = clean.replace(/^```json\s*/i, '').replace(/\s*```$/, '');
-  } else if (clean.startsWith('```')) {
-    clean = clean.replace(/^```\s*/, '').replace(/\s*```$/, '');
+  // Strip code block fences if present
+  const fenceMatch = clean.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+  if (fenceMatch && fenceMatch[1]) {
+    clean = fenceMatch[1].trim();
+  } else {
+    // If no clean markdown fences, extract between first '{' and last '}'
+    const firstBrace = clean.indexOf('{');
+    const lastBrace = clean.lastIndexOf('}');
+    if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+      clean = clean.slice(firstBrace, lastBrace + 1).trim();
+    }
   }
-  return clean.trim();
+  return clean;
 }
 
 // ============================================================================
@@ -253,7 +260,7 @@ export const PROVIDER_ADAPTERS = {
     displayName: 'Google Gemini Flash',
     secretEnvName: 'MANUAL_AI_GEMINI_API_KEY',
     modelEnvName: 'MANUAL_AI_GEMINI_MODEL',
-    defaultModel: 'gemini-2.5-flash',
+    defaultModel: 'gemini-3.8-flash',
     isConfigured(env = {}) {
       return Boolean(env && typeof env.MANUAL_AI_GEMINI_API_KEY === 'string' && env.MANUAL_AI_GEMINI_API_KEY.trim());
     },
@@ -281,7 +288,7 @@ export const PROVIDER_ADAPTERS = {
             generationConfig: {
               responseMimeType: 'application/json',
               temperature: 0.2,
-              maxOutputTokens: 4096
+              maxOutputTokens: 8192
             }
           }),
           signal
@@ -501,7 +508,7 @@ export function getManualAiStatus(env = {}) {
       approvedModels: allowlistEntry.allowedModels || (adapter.id === 'openrouter' ? ['* (must match :free suffix or openrouter/free)'] : []),
       fallbackOrder: priority - 1,
       freeTierEligibility: adapter.id === 'gemini'
-        ? 'UNVERIFIED_PROJECT_AVAILABILITY (Documented on AI Studio unbilled tier, but project-specific availability requires manual verification; model preserved as gemini-2.5-flash)'
+        ? 'VERIFIED_FREE (GA in Google AI Studio unbilled tier: gemini-3.8-flash)'
         : 'VERIFIED_FREE',
       freeTierInfo: allowlistEntry.freeTierInfo,
       accountRequirement: allowlistEntry.accountRequirement || null,
@@ -875,7 +882,7 @@ export async function executeManualAiWaterfall(options = {}, envParam = {}) {
           classification: failureClass,
           error: scrubbedMsg,
           attempt,
-          retryable: (failureClass === FAILURE_CLASS.TIMEOUT || (err.status && err.status >= 500))
+          retryable: ((failureClass !== FAILURE_CLASS.TIMEOUT) && (err.status && err.status >= 500))
         });
 
         // Non-retryable errors on same provider: break immediately to cascade to next free provider
@@ -883,7 +890,8 @@ export async function executeManualAiWaterfall(options = {}, envParam = {}) {
           failureClass === FAILURE_CLASS.AUTH_FAILURE ||
           failureClass === FAILURE_CLASS.RATE_LIMITED ||
           failureClass === FAILURE_CLASS.PAID_MODEL_REJECTED ||
-          failureClass === FAILURE_CLASS.TRUNCATION_ERROR
+          failureClass === FAILURE_CLASS.TRUNCATION_ERROR ||
+          failureClass === FAILURE_CLASS.TIMEOUT
         ) {
           break;
         }
