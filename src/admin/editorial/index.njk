@@ -181,6 +181,7 @@ noindex: true
       flex: 1;
       padding: 14px 10px;
       overflow-y: auto;
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
       gap: 2px;
@@ -301,6 +302,8 @@ noindex: true
       background: #192235;
       color: #94a3b8;
       letter-spacing: 0.02em;
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .nav-item.active .nav-item-badge {
       background: rgba(200, 30, 44, 0.25);
@@ -12348,7 +12351,7 @@ noindex: true
       if (AppState && AppState.currentlyEditingArticle) {
         navigate('articles', { subview: 'editor' });
       } else if (AiUpgradeState && AiUpgradeState.selectedArticle && AiUpgradeState.selectedArticle.relPath) {
-        loadArticleIntoEditor(AiUpgradeState.selectedArticle.relPath);
+        openArticleEditor(AiUpgradeState.selectedArticle.relPath);
       } else {
         navigate('articles');
       }
