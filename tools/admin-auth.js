@@ -544,7 +544,7 @@ function adminAuthMiddleware(req, res, next) {
     }
 
     parseJsonBody(req).then(payload => {
-      const { relPath, sha, title, dek, category, author, image, imageCredit, sourceName, sourceUrl, seoTitle, why_it_matters, what_happens_next, body } = payload;
+      const { relPath, sha, title, headline, dek, category, author, image, imageCredit, sourceName, sourceUrl, seoTitle, why_it_matters, what_happens_next, body } = payload;
       const filePath = getArticleFilePath(relPath);
       if (!filePath) {
         res.writeHead(404, { 'Content-Type': 'application/json' });
@@ -571,7 +571,8 @@ function adminAuthMiddleware(req, res, next) {
         const file = matter(raw, { cache: false });
 
         // Update ONLY supported editorial properties if provided; PRESERVE all others (slug, date, videos, etc.)
-        if (typeof title === 'string' && title.trim()) file.data.title = title.trim();
+        const effectiveTitle = (typeof title === 'string' && title.trim()) ? title.trim() : ((typeof headline === 'string' && headline.trim()) ? headline.trim() : null);
+        if (effectiveTitle) file.data.title = effectiveTitle;
         if (typeof dek === 'string') file.data.dek = dek.trim();
         if (typeof category === 'string' && category.trim()) file.data.category = category.trim();
         if (typeof author === 'string') file.data.author = author.trim();
@@ -607,6 +608,7 @@ function adminAuthMiddleware(req, res, next) {
           wordCount: newWordCount,
           article: {
             ...file.data,
+            headline: file.data.title,
             body: file.content.trim(),
             relPath: relPath,
             wordCount: newWordCount

@@ -6501,6 +6501,10 @@ noindex: true
       currentUser: null,
       membersLoading: false,
       membersError: null,
+      _saveSequenceId: 0,
+      _lastCompletedSaveId: 0,
+      _fetchSequenceId: 0,
+      _lastCompletedFetchId: 0,
       pagination: {
         page: 1,
         pageSize: 25
@@ -7882,7 +7886,7 @@ noindex: true
 
       const saveStatus = document.getElementById('editor-save-status');
 
-      // Check if full article body is already cached in memory
+      // Check if full article body is already cached in memory as fallback before network confirms
       if (typeof art.body === 'string') {
         document.getElementById('edit-body').value = art.body;
         updateWordCountLive();
@@ -7891,53 +7895,89 @@ noindex: true
       } else {
         document.getElementById('edit-body').value = 'Loading complete article body from repository...';
         saveStatus.className = 'editor-save-indicator';
-        saveStatus.innerText = 'Fetching article body...';
-        try {
-          const res = await fetch('/api/admin/articles/get?relPath=' + encodeURIComponent(relPath));
-          if (res.ok) {
-            const data = await res.json();
-            if (data.success) {
-              art.body = data.body || '';
-              art.sha = data.sha || null;
-              if (data.data) {
-                if (data.data.why_it_matters && !art.why_it_matters) {
-                  art.why_it_matters = data.data.why_it_matters;
-                  document.getElementById('edit-why-it-matters').value = art.why_it_matters;
-                }
-                if (data.data.what_happens_next && !art.what_happens_next) {
-                  art.what_happens_next = data.data.what_happens_next;
-                  document.getElementById('edit-what-happens-next').value = art.what_happens_next;
-                }
-                const loadedVid = (data.data.video_id !== undefined ? data.data.video_id : data.data.videoId) || (Array.isArray(data.data.videos) && data.data.videos[0] && data.data.videos[0].video_id) || '';
-                const loadedCaption = (data.data.video_caption !== undefined ? data.data.video_caption : data.data.videoCaption) || (Array.isArray(data.data.videos) && data.data.videos[0] && data.data.videos[0].title) || '';
-                art.video_id = loadedVid ? String(loadedVid).trim() : '';
-                art.video_caption = loadedCaption ? String(loadedCaption).trim() : '';
-                if (Array.isArray(data.data.videos) && data.data.videos.length > 0) {
-                  art.videos = data.data.videos;
-                } else if (art.video_id) {
-                  art.videos = [{ video_id: art.video_id, title: art.video_caption || art.title || 'News Coverage', channel: 'YouTube' }];
-                } else {
-                  art.videos = [];
-                }
-                art.hasVideo = Boolean(art.video_id && art.video_id !== 'null');
-                initYouTubeWidgetState(art);
+        saveStatus.innerText = 'Fetching latest article revision from repository...';
+      }
+
+      const fetchSeq = ++AppState._fetchSequenceId;
+      try {
+        const res = await fetch('/api/admin/articles/get?relPath=' + encodeURIComponent(relPath) + '&_t=' + Date.now());
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.success) {
+            // Drop stale in-flight response
+            if (fetchSeq < AppState._lastCompletedFetchId) return;
+            AppState._lastCompletedFetchId = fetchSeq;
+
+            art.body = (typeof data.body === 'string') ? data.body : (art.body || '');
+            art.sha = data.sha || art.sha || null;
+
+            if (data.data) {
+              const d = data.data;
+              if (d.title !== undefined && d.title !== null) art.title = d.title;
+              if (d.headline !== undefined && d.headline !== null && !d.title) art.title = d.headline;
+              art.headline = art.title;
+              if (d.seoTitle !== undefined) art.seoTitle = d.seoTitle || '';
+              if (d.dek !== undefined) art.dek = d.dek || '';
+              if (d.why_it_matters !== undefined) art.why_it_matters = d.why_it_matters || '';
+              if (d.what_happens_next !== undefined) art.what_happens_next = d.what_happens_next || '';
+              if (d.category !== undefined && d.category !== null) art.category = d.category;
+              if (d.author !== undefined && d.author !== null) art.author = d.author;
+              if (d.image !== undefined) art.image = d.image || '';
+              if (d.imageCredit !== undefined) art.imageCredit = d.imageCredit || '';
+              if (d.sourceName !== undefined) art.sourceName = d.sourceName || '';
+              if (d.sourceUrl !== undefined) art.sourceUrl = d.sourceUrl || '';
+
+              const loadedVid = (d.video_id !== undefined ? d.video_id : d.videoId) || (Array.isArray(d.videos) && d.videos[0] && d.videos[0].video_id) || '';
+              const loadedCaption = (d.video_caption !== undefined ? d.video_caption : d.videoCaption) || (Array.isArray(d.videos) && d.videos[0] && d.videos[0].title) || '';
+              art.video_id = loadedVid ? String(loadedVid).trim() : '';
+              art.video_caption = loadedCaption ? String(loadedCaption).trim() : '';
+              if (Array.isArray(d.videos) && d.videos.length > 0) {
+                art.videos = d.videos;
+              } else if (art.video_id) {
+                art.videos = [{ video_id: art.video_id, title: art.video_caption || art.title || 'News Coverage', channel: 'YouTube' }];
+              } else {
+                art.videos = [];
               }
-              document.getElementById('edit-body').value = art.body;
-              updateWordCountLive();
-              saveStatus.className = 'editor-save-indicator';
-              saveStatus.innerText = art.sha ? ('Loaded (Git SHA: ' + art.sha.slice(0, 7) + ')') : 'Loaded dispatch';
-            } else {
-              saveStatus.className = 'editor-save-indicator error';
-              saveStatus.innerText = 'Failed to load: ' + (data.error || 'Server error');
+              art.hasVideo = Boolean(art.video_id && art.video_id !== 'null');
+              initYouTubeWidgetState(art);
             }
+
+            // Sync all six editorial fields into DOM inputs from authoritative server data
+            document.getElementById('edit-headline').value = art.title || '';
+            document.getElementById('edit-seo-title').value = art.seoTitle || '';
+            document.getElementById('edit-dek').value = art.dek || '';
+            document.getElementById('edit-body').value = art.body || '';
+            document.getElementById('edit-why-it-matters').value = art.why_it_matters || '';
+            document.getElementById('edit-what-happens-next').value = art.what_happens_next || '';
+            if (art.category) document.getElementById('edit-category').value = art.category;
+            if (art.author) document.getElementById('edit-author').value = art.author;
+            document.getElementById('edit-image').value = art.image || '';
+            document.getElementById('edit-image-credit').value = art.imageCredit || '';
+            document.getElementById('edit-source-name').value = art.sourceName || '';
+            document.getElementById('edit-source-url').value = art.sourceUrl || '';
+
+            updateImagePreview(art.image);
+            updateWordCountLive();
+
+            // Synchronize corpus entry
+            const targetInCorpus = AppState.articles.find(a => a.relPath === relPath);
+            if (targetInCorpus && targetInCorpus !== art) {
+              Object.assign(targetInCorpus, art);
+            }
+
+            saveStatus.className = 'editor-save-indicator';
+            saveStatus.innerText = art.sha ? ('Loaded (Git SHA: ' + art.sha.slice(0, 7) + ')') : 'Loaded dispatch';
           } else {
             saveStatus.className = 'editor-save-indicator error';
-            saveStatus.innerText = 'Failed to fetch article (' + res.status + ')';
+            saveStatus.innerText = 'Failed to load: ' + ((data && data.error) || 'Server error');
           }
-        } catch (fetchErr) {
+        } else {
           saveStatus.className = 'editor-save-indicator error';
-          saveStatus.innerText = 'Error loading article body';
+          saveStatus.innerText = 'Failed to fetch article (' + res.status + ')';
         }
+      } catch (fetchErr) {
+        saveStatus.className = 'editor-save-indicator error';
+        saveStatus.innerText = 'Error loading latest article revision';
       }
 
       // Phase 9: Initialize and fetch cached safety status for this revision
@@ -8312,13 +8352,22 @@ noindex: true
 
     // Save Article Action
     async function saveEditorArticle() {
-      if (!AppState.currentlyEditingArticle) return;
+      if (!AppState.currentlyEditingArticle) {
+        const slug = document.getElementById('edit-slug') ? document.getElementById('edit-slug').value : '';
+        if (slug && Array.isArray(AppState.articles)) {
+          AppState.currentlyEditingArticle = AppState.articles.find(a => a.slug === slug || (a.relPath && a.relPath.includes(slug)));
+        }
+      }
+      if (!AppState.currentlyEditingArticle) {
+        showToast('No active article loaded in editor to save.', 'error');
+        return;
+      }
 
       const saveStatus = document.getElementById('editor-save-status');
       const btn = document.getElementById('btn-save-editor');
       btn.disabled = true;
       saveStatus.className = 'editor-save-indicator';
-      saveStatus.innerText = 'Saving changes...';
+      saveStatus.innerText = 'Saving changes to repository...';
 
       const urlInput = document.getElementById('yt-url-input');
       if (urlInput && urlInput.value && urlInput.value.trim()) {
@@ -8342,6 +8391,7 @@ noindex: true
         relPath: AppState.currentlyEditingArticle.relPath,
         sha: AppState.currentlyEditingArticle.sha || null,
         title: document.getElementById('edit-headline').value,
+        headline: document.getElementById('edit-headline').value,
         dek: document.getElementById('edit-dek').value,
         body: document.getElementById('edit-body').value,
         why_it_matters: document.getElementById('edit-why-it-matters').value,
@@ -8368,6 +8418,8 @@ noindex: true
         }
       }
 
+      const saveSeq = ++AppState._saveSequenceId;
+
       try {
         const res = await fetch('/api/admin/articles/save', {
           method: 'POST',
@@ -8375,14 +8427,27 @@ noindex: true
           body: JSON.stringify(payload)
         });
 
-        const data = await res.json();
+        let data = null;
+        try {
+          data = await res.json();
+        } catch (_) {}
+
         btn.disabled = false;
 
-        if (res.ok && data.success) {
-          Object.assign(AppState.currentlyEditingArticle, payload);
+        if (res.ok && data && data.success) {
+          // Drop stale in-flight save response if a newer save completed
+          if (saveSeq < AppState._lastCompletedSaveId) return;
+          AppState._lastCompletedSaveId = saveSeq;
+
+          // Update editor saved state from confirmed server response
+          if (data.article) {
+            Object.assign(AppState.currentlyEditingArticle, data.article);
+          } else {
+            Object.assign(AppState.currentlyEditingArticle, payload);
+          }
           if (data.sha) AppState.currentlyEditingArticle.sha = data.sha;
           AppState.currentlyEditingArticle.wordCount = data.wordCount || countArticleWords(payload.body);
-          AppState.currentlyEditingArticle.modified = data.modified;
+          AppState.currentlyEditingArticle.modified = data.modified || new Date().toISOString();
           AppState.currentlyEditingArticle.hasImage = Boolean(payload.image && payload.image.trim().length > 0);
           AppState.currentlyEditingArticle.hasSourceName = Boolean(payload.sourceName && payload.sourceName.trim().length > 0);
           AppState.currentlyEditingArticle.hasSourceUrl = Boolean(payload.sourceUrl && payload.sourceUrl.trim().length > 0);
@@ -8402,25 +8467,25 @@ noindex: true
           resetSafetyEditorState();
           updateSafetyPillAndBadge('UNCHECKED', 'Safety: Re-check required');
 
-          const timeStr = new Date(data.modified).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          const timeStr = new Date(AppState.currentlyEditingArticle.modified).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
           saveStatus.className = 'editor-save-indicator saved';
-          saveStatus.innerText = 'Saved • Modified: ' + timeStr + (data.sha ? ' (Git SHA: ' + data.sha.slice(0, 7) + ')' : '');
+          saveStatus.innerText = 'Saved • Modified: ' + timeStr + (AppState.currentlyEditingArticle.sha ? ' (Git SHA: ' + AppState.currentlyEditingArticle.sha.slice(0, 7) + ')' : '');
 
           showToast('Article saved successfully (' + timeStr + ')', 'success');
-        } else if (res.status === 409 || data.conflict) {
+        } else if (res.status === 409 || (data && data.conflict)) {
           saveStatus.className = 'editor-save-indicator error';
           saveStatus.innerText = 'Conflict: Article changed in GitHub';
           showToast('This article changed in GitHub since you opened it. Reload before saving.', 'error');
         } else {
           saveStatus.className = 'editor-save-indicator error';
-          saveStatus.innerText = 'Save error: ' + (data.error || 'Server rejected');
-          showToast(data.error || 'Failed to save', 'error');
+          saveStatus.innerText = 'Save error: ' + ((data && data.error) || ('Server rejected (' + res.status + ')'));
+          showToast((data && data.error) || 'Failed to save changes. Your edits remain in the editor.', 'error');
         }
       } catch (err) {
         btn.disabled = false;
         saveStatus.className = 'editor-save-indicator error';
         saveStatus.innerText = 'Network error during save';
-        showToast('Save failed: Network error', 'error');
+        showToast('Save failed: Network error. Edits remain in editor.', 'error');
       }
     }
 
@@ -12443,11 +12508,12 @@ noindex: true
               art.body = d.body;
               art.sha = d.sha || art.sha;
               if (d.data) {
-                if (d.data.dek && !art.dek) art.dek = d.data.dek;
-                if (d.data.title && !art.title) art.title = d.data.title;
-                if (d.data.seoTitle && !art.seoTitle) art.seoTitle = d.data.seoTitle;
-                if (d.data.why_it_matters && !art.why_it_matters) art.why_it_matters = d.data.why_it_matters;
-                if (d.data.what_happens_next && !art.what_happens_next) art.what_happens_next = d.data.what_happens_next;
+                if (d.data.title) art.title = d.data.title;
+                if (d.data.headline && !d.data.title) art.title = d.data.headline;
+                if (d.data.dek !== undefined) art.dek = d.data.dek || '';
+                if (d.data.seoTitle !== undefined) art.seoTitle = d.data.seoTitle || '';
+                if (d.data.why_it_matters !== undefined) art.why_it_matters = d.data.why_it_matters || '';
+                if (d.data.what_happens_next !== undefined) art.what_happens_next = d.data.what_happens_next || '';
               }
               const loadedWc = d.wordCount || d.body.trim().split(/\s+/).filter(Boolean).length;
               art.wordCount = loadedWc;
@@ -12502,11 +12568,12 @@ noindex: true
               art.body = bodyData.body;
               art.sha = bodyData.sha || art.sha;
               if (bodyData.data) {
-                if (bodyData.data.dek && !art.dek) art.dek = bodyData.data.dek;
-                if (bodyData.data.title && !art.title) art.title = bodyData.data.title;
-                if (bodyData.data.seoTitle && !art.seoTitle) art.seoTitle = bodyData.data.seoTitle;
-                if (bodyData.data.why_it_matters && !art.why_it_matters) art.why_it_matters = bodyData.data.why_it_matters;
-                if (bodyData.data.what_happens_next && !art.what_happens_next) art.what_happens_next = bodyData.data.what_happens_next;
+                if (bodyData.data.title) art.title = bodyData.data.title;
+                if (bodyData.data.headline && !bodyData.data.title) art.title = bodyData.data.headline;
+                if (bodyData.data.dek !== undefined) art.dek = bodyData.data.dek || '';
+                if (bodyData.data.seoTitle !== undefined) art.seoTitle = bodyData.data.seoTitle || '';
+                if (bodyData.data.why_it_matters !== undefined) art.why_it_matters = bodyData.data.why_it_matters || '';
+                if (bodyData.data.what_happens_next !== undefined) art.what_happens_next = bodyData.data.what_happens_next || '';
               }
               AiUpgradeState.originalArticle = JSON.parse(JSON.stringify(art));
               const origBodyEl = document.getElementById('sbs-orig-body');
@@ -12881,14 +12948,28 @@ noindex: true
         const candidateToLoad = data.workingDraft || data.candidate || acceptedCandidate;
 
         // Stage 1: Load accepted rewritten text into the article editor working state
-        if (AppState.currentlyEditingArticle) {
-          AppState.currentlyEditingArticle.title = candidateToLoad.headline;
-          AppState.currentlyEditingArticle.seoTitle = candidateToLoad.seoTitle || '';
-          AppState.currentlyEditingArticle.dek = candidateToLoad.dek || '';
-          AppState.currentlyEditingArticle.body = candidateToLoad.body;
-          AppState.currentlyEditingArticle.why_it_matters = candidateToLoad.why_it_matters || '';
-          AppState.currentlyEditingArticle.what_happens_next = candidateToLoad.what_happens_next || '';
-          AppState.currentlyEditingArticle.wordCount = candidateToLoad.body.split(/\s+/).filter(Boolean).length;
+        const targetArt = (AppState && Array.isArray(AppState.articles) && AppState.articles.find(a => a.relPath === orig.relPath)) || orig;
+        AppState.currentlyEditingArticle = targetArt;
+
+        targetArt.title = candidateToLoad.headline;
+        targetArt.headline = candidateToLoad.headline;
+        targetArt.seoTitle = candidateToLoad.seoTitle || '';
+        targetArt.dek = candidateToLoad.dek || '';
+        targetArt.body = candidateToLoad.body;
+        targetArt.why_it_matters = candidateToLoad.why_it_matters || '';
+        targetArt.what_happens_next = candidateToLoad.what_happens_next || '';
+        targetArt.wordCount = candidateToLoad.body.split(/\s+/).filter(Boolean).length;
+        if (orig.sha) targetArt.sha = orig.sha;
+        if (orig.category && !targetArt.category) targetArt.category = orig.category;
+        if (orig.author && !targetArt.author) targetArt.author = orig.author;
+        if (orig.slug && !targetArt.slug) targetArt.slug = orig.slug;
+        if (orig.date && !targetArt.date) targetArt.date = orig.date;
+        if (orig.url && !targetArt.url) targetArt.url = orig.url;
+
+        // Keep main corpus article in sync
+        const targetInCorpus = AppState && Array.isArray(AppState.articles) && AppState.articles.find(a => a.relPath === orig.relPath);
+        if (targetInCorpus && targetInCorpus !== targetArt) {
+          Object.assign(targetInCorpus, targetArt);
         }
 
         const editHead = document.getElementById('edit-headline');
@@ -12897,6 +12978,11 @@ noindex: true
         const editBd = document.getElementById('edit-body');
         const editWhy = document.getElementById('edit-why-it-matters');
         const editNext = document.getElementById('edit-what-happens-next');
+        const editCat = document.getElementById('edit-category');
+        const editAuth = document.getElementById('edit-author');
+        const editSlg = document.getElementById('edit-slug');
+        const editDt = document.getElementById('edit-date-display');
+        const editUr = document.getElementById('edit-url');
 
         if (editHead) editHead.value = candidateToLoad.headline;
         if (editSeo) editSeo.value = candidateToLoad.seoTitle || '';
@@ -12904,6 +12990,11 @@ noindex: true
         if (editBd) editBd.value = candidateToLoad.body;
         if (editWhy) editWhy.value = candidateToLoad.why_it_matters || '';
         if (editNext) editNext.value = candidateToLoad.what_happens_next || '';
+        if (editCat && targetArt.category) editCat.value = targetArt.category;
+        if (editAuth && targetArt.author) editAuth.value = targetArt.author;
+        if (editSlg && targetArt.slug) editSlg.value = targetArt.slug;
+        if (editDt && targetArt.date && typeof formatDate === 'function') editDt.value = formatDate(targetArt.date);
+        if (editUr && targetArt.url) editUr.value = 'https://thesamachardaily.in' + targetArt.url;
 
         updateWordCountLive();
 

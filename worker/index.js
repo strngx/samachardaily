@@ -2322,7 +2322,7 @@ export default {
 
         // 5B. POST /api/admin/articles/save — Update editable fields with concurrency check
         if (pathname === '/api/admin/articles/save') {
-          const { relPath, sha, title, dek, category, author, image, imageCredit, sourceName, sourceUrl, seoTitle, why_it_matters, what_happens_next, video_id, video_caption, videos, body: newBody } = body;
+          const { relPath, sha, title, headline, dek, category, author, image, imageCredit, sourceName, sourceUrl, seoTitle, why_it_matters, what_happens_next, video_id, video_caption, videos, body: newBody } = body;
 
           if (!validateArticleRelPath(relPath)) {
             return new Response(JSON.stringify({
@@ -2411,7 +2411,8 @@ export default {
           const diff = computeArticleDiff(parsed.data, parsed.content, body);
 
           // 4. Update ONLY permitted fields; PRESERVE protected fields (slug, date, trending, featured, layout, canonical)
-          if (typeof title === 'string' && title.trim()) parsed.data.title = title.trim();
+          const effectiveTitle = (typeof title === 'string' && title.trim()) ? title.trim() : ((typeof headline === 'string' && headline.trim()) ? headline.trim() : null);
+          if (effectiveTitle) parsed.data.title = effectiveTitle;
           if (typeof dek === 'string') parsed.data.dek = dek.trim();
           if (typeof category === 'string' && category.trim()) parsed.data.category = category.trim();
           if (typeof author === 'string' && author.trim()) parsed.data.author = author.trim();
@@ -2504,7 +2505,16 @@ export default {
             message: 'Saved successfully',
             sha: newSha,
             modified: nowIso,
-            wordCount: newWordCount
+            wordCount: newWordCount,
+            article: {
+              ...parsed.data,
+              headline: parsed.data.title,
+              body: (parsed.content || '').trim(),
+              relPath,
+              sha: newSha,
+              wordCount: newWordCount,
+              modified: nowIso
+            }
           }), {
             status: 200,
             headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
