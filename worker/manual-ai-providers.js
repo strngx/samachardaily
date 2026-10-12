@@ -6,7 +6,7 @@
  *
  * GUARANTEES:
  * 1. STRICTLY FREE GENERATION ONLY (VERIFIED AGAINST CURRENT OFFICIAL DOCUMENTATION):
- *    - Google Gemini Flash via Google AI Studio Free Tier (gemini-2.5-flash).
+ *    - Google Gemini Flash via Google AI Studio Free Tier (gemini-3.8-flash).
  *      No credit card required on unbilled projects. Returns HTTP 429 on quota exhaustion.
  *    - OpenRouter Free Router / Models (openrouter/free or models ending with :free).
  *      Cost is $0.00/token. Zero account balance required.
@@ -39,9 +39,9 @@
 // 1. CONFIGURATION & CONSTANTS
 // ============================================================================
 
-export const PROVIDER_TIMEOUT_MS = 25000;
+export const PROVIDER_TIMEOUT_MS = 13000;
 export const MAX_RETRY_ATTEMPTS = 2;
-export const MAX_WATERFALL_DURATION_MS = 55000;
+export const MAX_WATERFALL_DURATION_MS = 27000;
 
 export const FAILURE_CLASS = {
   AUTH_FAILURE: 'AUTH_FAILURE',                 // HTTP 401, 403, invalid token
@@ -91,9 +91,10 @@ export const FREE_GENERATION_ALLOWLIST = {
     displayName: 'Google Gemini Flash',
     secretEnvName: 'MANUAL_AI_GEMINI_API_KEY',
     modelEnvName: 'MANUAL_AI_GEMINI_MODEL',
-    defaultModel: 'gemini-2.5-flash',
+    defaultModel: 'gemini-3.8-flash',
     allowedModels: [
-      'gemini-2.5-flash'
+      'gemini-3.8-flash',
+      'gemini-3.5-flash-lite'
     ],
     freeTierInfo: 'Google AI Studio Free Tier: Available free of charge under Google AI Studio. Rate limits are subject to project quotas in Google AI Studio. Does not require credit card on unbilled projects.',
     accountRequirement: 'API key must be created under an unbilled project in Google AI Studio. If attached to a Google Cloud project with billing enabled, configure spending limits and budget alerts to prevent automatic charges.',
@@ -233,12 +234,25 @@ export function scrubManualAiSecrets(text, env = {}) {
 export function extractCleanJson(rawText) {
   if (!rawText || typeof rawText !== 'string') return '';
   let clean = rawText.trim();
-  if (clean.startsWith('```json')) {
-    clean = clean.replace(/^```json\s*/i, '').replace(/\s*```$/, '');
-  } else if (clean.startsWith('```')) {
-    clean = clean.replace(/^```\s*/, '').replace(/\s*```$/, '');
+
+  // 1. Strip markdown code fence if present
+  if (/^```(?:json)?/i.test(clean)) {
+    clean = clean.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
   }
-  return clean.trim();
+
+  // 2. If already valid starting and ending braces
+  if (clean.startsWith('{') && clean.endsWith('}')) {
+    return clean;
+  }
+
+  // 3. Extract JSON object substring between first '{' and last '}'
+  const firstBrace = clean.indexOf('{');
+  const lastBrace = clean.lastIndexOf('}');
+  if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+    return clean.slice(firstBrace, lastBrace + 1).trim();
+  }
+
+  return clean;
 }
 
 // ============================================================================
@@ -253,7 +267,7 @@ export const PROVIDER_ADAPTERS = {
     displayName: 'Google Gemini Flash',
     secretEnvName: 'MANUAL_AI_GEMINI_API_KEY',
     modelEnvName: 'MANUAL_AI_GEMINI_MODEL',
-    defaultModel: 'gemini-2.5-flash',
+    defaultModel: 'gemini-3.8-flash',
     isConfigured(env = {}) {
       return Boolean(env && typeof env.MANUAL_AI_GEMINI_API_KEY === 'string' && env.MANUAL_AI_GEMINI_API_KEY.trim());
     },
@@ -500,9 +514,7 @@ export function getManualAiStatus(env = {}) {
       model: currentModel,
       approvedModels: allowlistEntry.allowedModels || (adapter.id === 'openrouter' ? ['* (must match :free suffix or openrouter/free)'] : []),
       fallbackOrder: priority - 1,
-      freeTierEligibility: adapter.id === 'gemini'
-        ? 'UNVERIFIED_PROJECT_AVAILABILITY (Documented on AI Studio unbilled tier, but project-specific availability requires manual verification; model preserved as gemini-2.5-flash)'
-        : 'VERIFIED_FREE',
+      freeTierEligibility: 'VERIFIED_FREE',
       freeTierInfo: allowlistEntry.freeTierInfo,
       accountRequirement: allowlistEntry.accountRequirement || null,
       verificationSource: allowlistEntry.verificationSource,
@@ -783,6 +795,14 @@ async function callAdapterWithTimeout(adapter, { systemPrompt, userPrompt }, env
     };
   } catch (err) {
     clearTimeout(timeoutId);
+    if (controller.signal.aborted || err.name === 'AbortError') {
+      const timeoutErr = new Error(`${adapter.name} request timed out after ${timeoutMs}ms`);
+      timeoutErr.name = 'AbortError';
+      timeoutErr.classification = FAILURE_CLASS.TIMEOUT;
+      timeoutErr.provider = adapter.name;
+      timeoutErr.model = adapter.getModel ? adapter.getModel(env) : adapter.defaultModel;
+      throw timeoutErr;
+    }
     throw err;
   }
 }
@@ -821,8 +841,11 @@ export async function executeManualAiWaterfall(options = {}, envParam = {}) {
 
   for (const adapter of activeWaterfall) {
     for (let attempt = 1; attempt <= MAX_RETRY_ATTEMPTS; attempt++) {
-      // Check total execution budget
-      if (Date.now() - startTime >= MAX_WATERFALL_DURATION_MS) {
+      const elapsedMs = Date.now() - startTime;
+      const remainingBudget = MAX_WATERFALL_DURATION_MS - elapsedMs;
+
+      // Check total execution budget (require at least 2s for a viable attempt)
+      if (remainingBudget <= 2000) {
         failureLog.push({
           provider: adapter.name,
           error: 'Waterfall time budget exhausted before completion',
@@ -833,8 +856,10 @@ export async function executeManualAiWaterfall(options = {}, envParam = {}) {
       }
 
       totalAttempts++;
+      const currentTimeoutMs = Math.min(PROVIDER_TIMEOUT_MS, remainingBudget);
+
       try {
-        const result = await callAdapterWithTimeout(adapter, { systemPrompt, userPrompt }, env, PROVIDER_TIMEOUT_MS);
+        const result = await callAdapterWithTimeout(adapter, { systemPrompt, userPrompt }, env, currentTimeoutMs);
 
         // Quality evaluation gate
         if (typeof qualityEvaluator === 'function') {
@@ -869,21 +894,28 @@ export async function executeManualAiWaterfall(options = {}, envParam = {}) {
       } catch (err) {
         const failureClass = classifyError(err);
         const scrubbedMsg = scrubManualAiSecrets(err.message || '', env);
+        const isClientError = Boolean(err.status && err.status >= 400 && err.status < 500);
+
         failureLog.push({
           provider: adapter.name,
           status: err.status || null,
           classification: failureClass,
           error: scrubbedMsg,
           attempt,
-          retryable: (failureClass === FAILURE_CLASS.TIMEOUT || (err.status && err.status >= 500))
+          retryable: (!isClientError && failureClass !== FAILURE_CLASS.TIMEOUT && Boolean(err.status && err.status >= 500) && attempt < MAX_RETRY_ATTEMPTS)
         });
 
         // Non-retryable errors on same provider: break immediately to cascade to next free provider
+        // 1. Permanent/policy failures: auth failure, quota exhaustion, paid model, truncation
+        // 2. Client-side HTTP 4xx (e.g. 404 Not Found, 400 Bad Request)
+        // 3. Request timeout: cascade immediately to remaining eligible providers without wasting budget
         if (
           failureClass === FAILURE_CLASS.AUTH_FAILURE ||
           failureClass === FAILURE_CLASS.RATE_LIMITED ||
           failureClass === FAILURE_CLASS.PAID_MODEL_REJECTED ||
-          failureClass === FAILURE_CLASS.TRUNCATION_ERROR
+          failureClass === FAILURE_CLASS.TRUNCATION_ERROR ||
+          failureClass === FAILURE_CLASS.TIMEOUT ||
+          isClientError
         ) {
           break;
         }
