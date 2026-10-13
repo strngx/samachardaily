@@ -110,12 +110,11 @@ export const FREE_GENERATION_ALLOWLIST = {
     displayName: 'OpenRouter (Free Models Only)',
     secretEnvName: 'MANUAL_AI_OPENROUTER_API_KEY',
     modelEnvName: 'MANUAL_AI_OPENROUTER_MODEL',
-    defaultModel: 'nvidia/nemotron-3.5-lightning:free',
+    defaultModel: 'openrouter/free',
     allowedModels: [
-      'nvidia/nemotron-3.5-lightning:free',
-      'google/gemma-4-31b-it:free',
       'openrouter/free',
-      'google/gemma-4-26b-a4b-it:free'
+      'google/gemma-4-31b-it:free',
+      'nvidia/nemotron-3.5-lightning:free'
     ],
     validateModel(model) {
       return isValidOpenRouterFreeModel(model);
@@ -354,13 +353,13 @@ export const PROVIDER_ADAPTERS = {
     displayName: 'OpenRouter (Free Models Only)',
     secretEnvName: 'MANUAL_AI_OPENROUTER_API_KEY',
     modelEnvName: 'MANUAL_AI_OPENROUTER_MODEL',
-    defaultModel: 'nvidia/nemotron-3.5-lightning:free',
+    defaultModel: 'openrouter/free',
     fallbackModels: [
-      'nvidia/nemotron-3.5-lightning:free',
+      'openrouter/free',
       'google/gemma-4-31b-it:free',
-      'openrouter/free'
+      'nvidia/nemotron-3.5-lightning:free'
     ],
-    timeoutMs: 12000,
+    timeoutMs: 18000,
     isConfigured(env = {}) {
       return Boolean(env && typeof env.MANUAL_AI_OPENROUTER_API_KEY === 'string' && env.MANUAL_AI_OPENROUTER_API_KEY.trim());
     },
@@ -424,8 +423,18 @@ export const PROVIDER_ADAPTERS = {
 
       // If HTTP 400 occurs because the free model does not support response_format json_object, retry without it
       if (!resp.ok && resp.status === 400) {
+        if (signal?.aborted) {
+          const abortErr = new Error('The operation was aborted');
+          abortErr.name = 'AbortError';
+          throw abortErr;
+        }
         const rawErrText = await resp.clone().text().catch(() => '');
         if (rawErrText.includes('response_format') || rawErrText.includes('json_object') || rawErrText.includes('structured output')) {
+          if (signal?.aborted) {
+            const abortErr = new Error('The operation was aborted');
+            abortErr.name = 'AbortError';
+            throw abortErr;
+          }
           console.log('[OpenRouter Adapter] Model does not support response_format json_object. Retrying without response_format flag...');
           resp = await sendRequest(false);
         }
@@ -900,11 +909,38 @@ export function classifyError(err) {
 }
 
 /**
+ * Calculates the budgeted attempt timeout for a provider adapter given elapsed waterfall time.
+ * Bounded by the lesser of:
+ * 1. The adapter's configured maximum timeout (e.g. 18,000 ms for OpenRouter, 12,000 ms for Gemini).
+ * 2. The actual remaining waterfall budget minus the response-processing reserve (1,500 ms).
+ * Returns 0 if remaining budget minus reserve cannot sustain a minimum viable attempt (6,000 ms).
+ */
+export function computeAttemptTimeout(adapter, elapsedMs = 0) {
+  const remainingBudget = MAX_WATERFALL_DURATION_MS - Math.max(0, elapsedMs);
+  const availableBudget = remainingBudget - RESPONSE_RESERVE_MS;
+  if (availableBudget < MIN_ATTEMPT_BUDGET_MS) {
+    return 0;
+  }
+  const adapterCeiling = Math.max(0, adapter?.timeoutMs || PROVIDER_TIMEOUT_MS);
+  return Math.max(0, Math.min(adapterCeiling, availableBudget));
+}
+
+/**
  * Executes a single provider call with an AbortController timeout.
  */
 async function callAdapterWithTimeout(adapter, { systemPrompt, userPrompt }, env, timeoutMs = PROVIDER_TIMEOUT_MS) {
+  const boundedTimeoutMs = Math.max(0, Number(timeoutMs) || 0);
+  if (boundedTimeoutMs <= 0) {
+    const timeoutErr = new Error(`${adapter.name} request timed out (non-positive timeout: ${timeoutMs}ms)`);
+    timeoutErr.name = 'AbortError';
+    timeoutErr.classification = FAILURE_CLASS.TIMEOUT;
+    timeoutErr.provider = adapter.name;
+    timeoutErr.model = adapter.getModel ? adapter.getModel(env) : adapter.defaultModel;
+    throw timeoutErr;
+  }
+
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  const timeoutId = setTimeout(() => controller.abort(), boundedTimeoutMs);
 
   try {
     const result = await adapter.call({ systemPrompt, userPrompt }, env, controller.signal);
@@ -954,7 +990,7 @@ async function callAdapterWithTimeout(adapter, { systemPrompt, userPrompt }, env
   } catch (err) {
     clearTimeout(timeoutId);
     if (controller.signal.aborted || err.name === 'AbortError') {
-      const timeoutErr = new Error(`${adapter.name} request timed out after ${timeoutMs}ms`);
+      const timeoutErr = new Error(`${adapter.name} request timed out after ${boundedTimeoutMs}ms`);
       timeoutErr.name = 'AbortError';
       timeoutErr.classification = FAILURE_CLASS.TIMEOUT;
       timeoutErr.provider = adapter.name;
@@ -979,7 +1015,7 @@ async function callAdapterWithTimeout(adapter, { systemPrompt, userPrompt }, env
  * - If all free providers fail, returns a clear error stating no free provider is available.
  */
 export async function executeManualAiWaterfall(options = {}, envParam = {}) {
-  const { systemPrompt, userPrompt, article, qualityEvaluator, safetyAnalyzer } = options;
+  const { systemPrompt, userPrompt, article, qualityEvaluator, safetyAnalyzer, nowFn = Date.now } = options;
   const env = (envParam && typeof envParam === 'object' && Object.keys(envParam).length > 0) ? envParam : (options.env || {});
   const activeWaterfall = getActiveProviderWaterfall(env);
 
@@ -993,17 +1029,21 @@ export async function executeManualAiWaterfall(options = {}, envParam = {}) {
     };
   }
 
-  const startTime = Date.now();
+  const startTime = nowFn();
   let totalAttempts = 0;
   const failureLog = [];
 
   for (const adapter of activeWaterfall) {
     for (let attempt = 1; attempt <= MAX_RETRY_ATTEMPTS; attempt++) {
-      const elapsedMs = Date.now() - startTime;
+      const elapsedMs = nowFn() - startTime;
       const remainingBudget = MAX_WATERFALL_DURATION_MS - elapsedMs;
 
-      // Stop if remaining budget minus reserve cannot sustain a minimum viable generation attempt
-      if (remainingBudget - RESPONSE_RESERVE_MS < MIN_ATTEMPT_BUDGET_MS) {
+      // Dynamically budget attempt timeout via single-source-of-truth helper:
+      // Bounded by the lesser of adapter ceiling (e.g. 18s OpenRouter, 12s Gemini) and remaining budget minus reserve (1500ms).
+      // Returns 0 if remaining budget cannot sustain minimum viable attempt (6000ms).
+      const currentTimeoutMs = computeAttemptTimeout(adapter, elapsedMs);
+
+      if (currentTimeoutMs <= 0) {
         failureLog.push({
           provider: adapter.name,
           error: `Waterfall time budget exhausted (${remainingBudget}ms remaining; requires minimum ${MIN_ATTEMPT_BUDGET_MS}ms plus ${RESPONSE_RESERVE_MS}ms reserve)`,
@@ -1014,10 +1054,6 @@ export async function executeManualAiWaterfall(options = {}, envParam = {}) {
       }
 
       totalAttempts++;
-      // Dynamically budget attempt timeout: respect adapter specific ceiling (e.g. 12s for Gemini, 24s for OpenRouter),
-      // bounded by remaining budget minus response-processing reserve (1500ms).
-      const adapterCeiling = adapter.timeoutMs || PROVIDER_TIMEOUT_MS;
-      const currentTimeoutMs = Math.min(adapterCeiling, remainingBudget - RESPONSE_RESERVE_MS);
 
       try {
         const result = await callAdapterWithTimeout(adapter, { systemPrompt, userPrompt }, env, currentTimeoutMs);
@@ -1048,6 +1084,7 @@ export async function executeManualAiWaterfall(options = {}, envParam = {}) {
           providerUsed: result.provider,
           modelUsed: result.model,
           totalAttempts,
+          attemptTimeoutMs: currentTimeoutMs,
           data: result.data,
           quality: result.quality,
           safetyAnalysis: result.safetyAnalysis
@@ -1083,6 +1120,7 @@ export async function executeManualAiWaterfall(options = {}, envParam = {}) {
           classification: failureClass,
           error: scrubbedMsg,
           attempt,
+          timeoutMs: currentTimeoutMs,
           retryable: isRetryable
         });
 

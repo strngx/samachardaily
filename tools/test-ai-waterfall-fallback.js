@@ -24,7 +24,11 @@ import {
   FREE_GENERATION_ALLOWLIST,
   FAILURE_CLASS,
   isValidOpenRouterFreeModel,
-  executeManualAiWaterfall
+  executeManualAiWaterfall,
+  computeAttemptTimeout,
+  MAX_WATERFALL_DURATION_MS,
+  RESPONSE_RESERVE_MS,
+  MIN_ATTEMPT_BUDGET_MS
 } from '../worker/manual-ai-providers.js';
 
 let passed = 0;
@@ -100,16 +104,16 @@ await itAsync('1. Gemini HTTP 400 LOCATION_UNSUPPORTED is non-retryable (exactly
   }
 });
 
-// 2. OpenRouter timeout is bounded
-it('2. OpenRouter timeout is bounded to <= 12,000 ms within waterfall budget', () => {
+// 2. OpenRouter timeout is bounded to 18,000 ms
+it('2. OpenRouter configured maximum timeout is 18,000 ms within waterfall budget', () => {
   const timeoutMs = PROVIDER_ADAPTERS.openrouter.timeoutMs;
   assert.strictEqual(typeof timeoutMs, 'number');
-  assert.strictEqual(timeoutMs, 12000, 'OpenRouter timeoutMs must be 12000ms');
+  assert.strictEqual(timeoutMs, 18000, 'OpenRouter timeoutMs must be 18000ms');
   assert(timeoutMs < 20000, 'Must not exceed 20,000ms to preserve waterfall headroom');
 });
 
-// 3. OpenRouter includes verified free models fallback array in request payload
-await itAsync('3. OpenRouter sends verified free models fallback array in request payload', async () => {
+// 3. OpenRouter includes verified free models fallback array in request payload with openrouter/free first
+await itAsync('3. OpenRouter sets openrouter/free as primary and first in models fallback array', async () => {
   let capturedBody = null;
   const originalFetch = globalThis.fetch;
   globalThis.fetch = async (url, opts) => {
@@ -117,7 +121,7 @@ await itAsync('3. OpenRouter sends verified free models fallback array in reques
     return {
       ok: true,
       json: async () => ({
-        model: 'nvidia/nemotron-3.5-lightning:free',
+        model: 'openrouter/free',
         choices: [{
           message: {
             content: JSON.stringify({
@@ -137,6 +141,7 @@ await itAsync('3. OpenRouter sends verified free models fallback array in reques
 
   try {
     const adapter = PROVIDER_ADAPTERS.openrouter;
+    assert.strictEqual(adapter.defaultModel, 'openrouter/free', 'Default model must be openrouter/free');
     const res = await adapter.call({
       systemPrompt: 'Sys',
       userPrompt: 'User'
@@ -145,13 +150,17 @@ await itAsync('3. OpenRouter sends verified free models fallback array in reques
     });
 
     assert(capturedBody, 'Body must be captured');
+    assert.strictEqual(capturedBody.model, 'openrouter/free', 'Primary model in payload must be openrouter/free');
     assert(Array.isArray(capturedBody.models), 'Request body must contain models array');
-    assert(capturedBody.models.length >= 2, 'Fallback models array must contain at least 2 models');
+    assert.strictEqual(capturedBody.models.length, 3, 'Fallback models array must contain exactly 3 models');
+    assert.strictEqual(capturedBody.models[0], 'openrouter/free', 'First model must be openrouter/free');
+    assert.strictEqual(capturedBody.models[1], 'google/gemma-4-31b-it:free', 'Second model must be google/gemma-4-31b-it:free');
+    assert.strictEqual(capturedBody.models[2], 'nvidia/nemotron-3.5-lightning:free', 'Third model must be nvidia/nemotron-3.5-lightning:free');
+
     capturedBody.models.forEach(m => {
       assert(isValidOpenRouterFreeModel(m), `Model ${m} in models array must be verified free`);
     });
-    assert.strictEqual(capturedBody.model, capturedBody.models[0]);
-    assert.strictEqual(res.model, 'nvidia/nemotron-3.5-lightning:free');
+    assert.strictEqual(res.model, 'openrouter/free');
   } finally {
     globalThis.fetch = originalFetch;
   }
@@ -256,7 +265,7 @@ await itAsync('7. OpenRouter response parsing cleanly strips markdown codeblocks
     return {
       ok: true,
       json: async () => ({
-        model: 'google/gemma-4-31b-it:free',
+        model: 'openrouter/free',
         choices: [{
           message: {
             content: '```json\n{"headline":"Markdown Stripped","body":"Extracted correctly"}\n```'
@@ -276,7 +285,7 @@ await itAsync('7. OpenRouter response parsing cleanly strips markdown codeblocks
       MANUAL_AI_OPENROUTER_API_KEY: 'test-or-key'
     });
 
-    assert.strictEqual(res.model, 'google/gemma-4-31b-it:free');
+    assert.strictEqual(res.model, 'openrouter/free');
     assert(res.text.includes('Markdown Stripped'));
   } finally {
     globalThis.fetch = originalFetch;
@@ -337,7 +346,7 @@ await itAsync('9. Waterfall cascades from Gemini 400 to OpenRouter and succeeds'
       return {
         ok: true,
         json: async () => ({
-          model: 'nvidia/nemotron-3.5-lightning:free',
+          model: 'openrouter/free',
           choices: [{
             message: {
               content: JSON.stringify({
@@ -368,7 +377,7 @@ await itAsync('9. Waterfall cascades from Gemini 400 to OpenRouter and succeeds'
 
     assert.strictEqual(res.success, true);
     assert.strictEqual(res.providerUsed, 'OpenRouter');
-    assert.strictEqual(res.modelUsed, 'nvidia/nemotron-3.5-lightning:free');
+    assert.strictEqual(res.modelUsed, 'openrouter/free');
     assert.strictEqual(res.data.headline, 'OpenRouter Upgraded Headline');
   } finally {
     globalThis.fetch = originalFetch;
@@ -411,7 +420,7 @@ await itAsync('11. Six-field rewrite contract preserves all required editorial p
     return {
       ok: true,
       json: async () => ({
-        model: 'google/gemma-4-31b-it:free',
+        model: 'openrouter/free',
         choices: [{
           message: {
             content: JSON.stringify({
@@ -460,18 +469,25 @@ it('12. Zero paid providers exist in free generation allowlist', () => {
   for (const m of allowlist.openrouter.allowedModels) {
     assert(isValidOpenRouterFreeModel(m), `Model ${m} in allowlist must be verified free`);
   }
-  // Verify defaultModel is free
+  // Verify defaultModel is free and matches openrouter/free
+  assert.strictEqual(allowlist.openrouter.defaultModel, 'openrouter/free');
   assert(isValidOpenRouterFreeModel(allowlist.openrouter.defaultModel));
+  assert.deepStrictEqual(allowlist.openrouter.allowedModels, [
+    'openrouter/free',
+    'google/gemma-4-31b-it:free',
+    'nvidia/nemotron-3.5-lightning:free'
+  ]);
 });
 
-// 13. OpenRouter HTTP 400 response_format retry removes flag, preserves models array, rejects disallowed model
-await itAsync('13. HTTP 400 response_format retry strips format flag, preserves models fallback array, and validates model', async () => {
+// 13. OpenRouter HTTP 400 response_format retry removes flag, preserves models array, shares signal deadline, rejects disallowed model
+await itAsync('13. HTTP 400 response_format retry strips format flag, preserves models fallback array, shares caller deadline, and validates model', async () => {
   const originalFetch = globalThis.fetch;
   const capturedRequests = [];
+  const callerController = new AbortController();
 
   globalThis.fetch = async (url, opts) => {
     const body = JSON.parse(opts.body);
-    capturedRequests.push({ url, body });
+    capturedRequests.push({ url, body, signal: opts.signal });
 
     if (capturedRequests.length === 1) {
       // First attempt fails with 400 indicating response_format json_object is unsupported
@@ -490,7 +506,7 @@ await itAsync('13. HTTP 400 response_format retry strips format flag, preserves 
     return {
       ok: true,
       json: async () => ({
-        model: 'nvidia/nemotron-3.5-lightning:free',
+        model: 'openrouter/free',
         choices: [{
           message: {
             content: '{"headline":"Retried Headline","body":"Retried Body Content"}'
@@ -508,27 +524,34 @@ await itAsync('13. HTTP 400 response_format retry strips format flag, preserves 
       userPrompt: 'User'
     }, {
       MANUAL_AI_OPENROUTER_API_KEY: 'test-key'
-    });
+    }, callerController.signal);
 
     assert.strictEqual(capturedRequests.length, 2, 'Must have made exactly 2 requests');
     // First request had response_format
     assert.deepStrictEqual(capturedRequests[0].body.response_format, { type: 'json_object' });
     // Second request removed response_format
     assert.strictEqual(capturedRequests[1].body.response_format, undefined);
+    // Both requests share the exact same caller abort signal (same deadline)
+    assert.strictEqual(capturedRequests[0].signal, callerController.signal, 'First request must use caller signal');
+    assert.strictEqual(capturedRequests[1].signal, callerController.signal, 'Retry request must share original caller signal');
     // Second request preserved the full models fallback array
     assert(Array.isArray(capturedRequests[1].body.models));
-    assert(capturedRequests[1].body.models.length >= 2);
+    assert.deepStrictEqual(capturedRequests[1].body.models, [
+      'openrouter/free',
+      'google/gemma-4-31b-it:free',
+      'nvidia/nemotron-3.5-lightning:free'
+    ]);
     capturedRequests[1].body.models.forEach(m => {
       assert(isValidOpenRouterFreeModel(m));
     });
     // Response was verified
-    assert.strictEqual(res.model, 'nvidia/nemotron-3.5-lightning:free');
+    assert.strictEqual(res.model, 'openrouter/free');
     assert(res.text.includes('Retried Headline'));
 
     // Also verify that if the retry returns a non-free model, it is rejected
     capturedRequests.length = 0;
     globalThis.fetch = async (url, opts) => {
-      capturedRequests.push(JSON.parse(opts.body));
+      capturedRequests.push({ body: JSON.parse(opts.body), signal: opts.signal });
       if (capturedRequests.length === 1) {
         return {
           ok: false,
@@ -596,6 +619,177 @@ await itAsync('14. Deterministic abort/timeout path correctly classifies TIMEOUT
 
     const elapsed = Date.now() - startTime;
     assert(elapsed < 200, `Abort test must complete immediately, took ${elapsed}ms`);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+// 15. OpenRouter timeout can reach 18,000 ms after a fast Gemini failure
+await itAsync('15. OpenRouter timeout can reach 18,000 ms after a fast Gemini failure', async () => {
+  const originalFetch = globalThis.fetch;
+  let simulatedTime = 1000;
+  const nowMock = () => simulatedTime;
+
+  globalThis.fetch = async (url) => {
+    const urlStr = String(url);
+    if (urlStr.includes('generativelanguage.googleapis.com')) {
+      // Gemini fails fast in 100 ms with unsupported location
+      simulatedTime += 100;
+      return {
+        ok: false,
+        status: 400,
+        text: async () => JSON.stringify({ error: { message: 'User location is not supported' } })
+      };
+    }
+    if (urlStr.includes('openrouter.ai')) {
+      return {
+        ok: true,
+        json: async () => ({
+          model: 'openrouter/free',
+          choices: [{
+            message: {
+              content: JSON.stringify({ headline: 'Fast Fail Head', body: 'Fast Fail Body' })
+            },
+            finish_reason: 'stop'
+          }]
+        })
+      };
+    }
+    return { ok: false, status: 500, text: async () => 'err' };
+  };
+
+  try {
+    // 1. Direct timeout budgeting calculation verification
+    const computed = computeAttemptTimeout(PROVIDER_ADAPTERS.openrouter, 100);
+    assert.strictEqual(computed, 18000, 'Calculated attempt timeout must reach 18,000 ms ceiling when 100ms elapsed');
+
+    // 2. End-to-end waterfall verification with simulated clock
+    const res = await executeManualAiWaterfall({
+      systemPrompt: 'System',
+      userPrompt: 'Rewrite article',
+      nowFn: nowMock
+    }, {
+      MANUAL_AI_GEMINI_API_KEY: 'gemini-key',
+      MANUAL_AI_OPENROUTER_API_KEY: 'or-key'
+    });
+
+    assert.strictEqual(res.success, true);
+    assert.strictEqual(res.providerUsed, 'OpenRouter');
+    assert.strictEqual(res.attemptTimeoutMs, 18000, 'Attempt timeout on OpenRouter must be exactly 18,000 ms');
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+// 16. Timeout shrinks correctly when earlier attempts consume most of the waterfall budget
+await itAsync('16. Timeout shrinks correctly when earlier attempts consume most of the waterfall budget', async () => {
+  const originalFetch = globalThis.fetch;
+  let simulatedTime = 1000;
+  const nowMock = () => simulatedTime;
+
+  globalThis.fetch = async (url) => {
+    const urlStr = String(url);
+    if (urlStr.includes('generativelanguage.googleapis.com')) {
+      // Gemini took 16,000 ms before failing
+      simulatedTime += 16000;
+      return {
+        ok: false,
+        status: 400,
+        text: async () => JSON.stringify({ error: { message: 'User location is not supported' } })
+      };
+    }
+    if (urlStr.includes('openrouter.ai')) {
+      return {
+        ok: true,
+        json: async () => ({
+          model: 'openrouter/free',
+          choices: [{
+            message: {
+              content: JSON.stringify({ headline: 'Shrunk Timeout Head', body: 'Shrunk Timeout Body' })
+            },
+            finish_reason: 'stop'
+          }]
+        })
+      };
+    }
+    return { ok: false, status: 500, text: async () => 'err' };
+  };
+
+  try {
+    // 1. Direct computation check: 27,000 - 16,000 = 11,000 budget; minus 1,500 reserve = 9,500 ms.
+    const computed = computeAttemptTimeout(PROVIDER_ADAPTERS.openrouter, 16000);
+    assert.strictEqual(computed, 9500, 'Timeout must shrink from 18,000 ms to 9,500 ms');
+    assert(computed < 18000, 'Timeout must be strictly less than 18,000 ms ceiling');
+
+    // 2. End-to-end waterfall check
+    const res = await executeManualAiWaterfall({
+      systemPrompt: 'System',
+      userPrompt: 'Rewrite article',
+      nowFn: nowMock
+    }, {
+      MANUAL_AI_GEMINI_API_KEY: 'gemini-key',
+      MANUAL_AI_OPENROUTER_API_KEY: 'or-key'
+    });
+
+    assert.strictEqual(res.success, true);
+    assert.strictEqual(res.providerUsed, 'OpenRouter');
+    assert.strictEqual(res.attemptTimeoutMs, 9500, 'OpenRouter attempt timeout must be shrunk to 9,500 ms');
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+// 17. Timeout never exceeds remaining budget minus response reserve across all elapsed durations
+it('17. Timeout is strictly bounded by remaining budget minus response reserve across all elapsed durations', () => {
+  const adapter = PROVIDER_ADAPTERS.openrouter;
+  const testElapsedDurations = [0, 50, 500, 2000, 5000, 9000, 12000, 15000, 18000, 19500, 21000, 22000, 26000, 27000, 30000];
+
+  for (const elapsed of testElapsedDurations) {
+    const timeout = computeAttemptTimeout(adapter, elapsed);
+    const remainingBudget = MAX_WATERFALL_DURATION_MS - elapsed;
+    const availableBudget = remainingBudget - RESPONSE_RESERVE_MS;
+
+    if (availableBudget >= MIN_ATTEMPT_BUDGET_MS) {
+      assert(timeout > 0, `Timeout must be positive when available budget ${availableBudget} >= ${MIN_ATTEMPT_BUDGET_MS}`);
+      assert(timeout <= 18000, `Timeout (${timeout}ms) must not exceed 18,000 ms ceiling`);
+      assert(timeout <= availableBudget, `Timeout (${timeout}ms) must not exceed remaining budget minus reserve (${availableBudget}ms)`);
+      assert(elapsed + timeout + RESPONSE_RESERVE_MS <= MAX_WATERFALL_DURATION_MS, 'Total duration must not exceed MAX_WATERFALL_DURATION_MS');
+    } else {
+      assert.strictEqual(timeout, 0, `Timeout must be 0 when available budget ${availableBudget} < minimum ${MIN_ATTEMPT_BUDGET_MS}`);
+    }
+  }
+});
+
+// 18. HTTP 400 compatibility retry aborts cleanly if signal was aborted
+await itAsync('18. HTTP 400 retry immediately aborts if caller deadline expired during request', async () => {
+  const originalFetch = globalThis.fetch;
+  const controller = new AbortController();
+  let calls = 0;
+
+  globalThis.fetch = async (url, opts) => {
+    calls++;
+    if (calls === 1) {
+      // Abort the controller before returning 400 response
+      controller.abort();
+      return {
+        ok: false,
+        status: 400,
+        clone: () => ({ text: async () => 'response_format is not supported' }),
+        text: async () => 'response_format is not supported'
+      };
+    }
+    return { ok: true, json: async () => ({ model: 'openrouter/free' }) };
+  };
+
+  try {
+    const adapter = PROVIDER_ADAPTERS.openrouter;
+    await assert.rejects(async () => {
+      await adapter.call({ systemPrompt: 'S', userPrompt: 'U' }, { MANUAL_AI_OPENROUTER_API_KEY: 'k' }, controller.signal);
+    }, (err) => {
+      return err.name === 'AbortError' || err.message.includes('aborted');
+    });
+
+    assert.strictEqual(calls, 1, 'Must not issue second request when signal is already aborted');
   } finally {
     globalThis.fetch = originalFetch;
   }
