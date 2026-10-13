@@ -611,7 +611,9 @@ function adminAuthMiddleware(req, res, next) {
             headline: file.data.title,
             body: file.content.trim(),
             relPath: relPath,
-            wordCount: newWordCount
+            sha: newSha,
+            wordCount: newWordCount,
+            modified: nowIso
           }
         }));
       } catch (err) {

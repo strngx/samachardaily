@@ -3015,6 +3015,16 @@ noindex: true
               </div>
             </div>
 
+            <!-- Persistent Error Panel for Save / Reload Failures -->
+            <div id="editor-error-panel" class="editor-error-panel" role="alert" style="display: none; margin-bottom: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;">
+                <div id="editor-error-content" style="line-height: 1.5; font-size: 13px;"></div>
+                <button type="button" class="btn-table-action" onclick="dismissEditorError()" style="font-size: 11px; padding: 4px 10px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; cursor: pointer; border-radius: var(--radius-sm);">
+                  Dismiss
+                </button>
+              </div>
+            </div>
+
             <div class="editor-layout-grid">
               
               <!-- Left Writing Canvas -->
@@ -6501,6 +6511,7 @@ noindex: true
       currentUser: null,
       membersLoading: false,
       membersError: null,
+      _isDirty: false,
       _saveSequenceId: 0,
       _lastCompletedSaveId: 0,
       _fetchSequenceId: 0,
@@ -7818,6 +7829,8 @@ noindex: true
       }
 
       AppState.currentlyEditingArticle = art;
+      AppState._isDirty = false;
+      if (typeof dismissEditorError === 'function') dismissEditorError();
       navigate('articles', { subview: 'editor', fromPopState: options.fromPopState });
 
       // Update Back button text based on origin
@@ -7908,8 +7921,17 @@ noindex: true
             if (fetchSeq < AppState._lastCompletedFetchId) return;
             AppState._lastCompletedFetchId = fetchSeq;
 
-            art.body = (typeof data.body === 'string') ? data.body : (art.body || '');
             art.sha = data.sha || art.sha || null;
+
+            // REQUIREMENT 6: If the user has active unsaved edits in the editor,
+            // DO NOT overwrite their edits with the background server GET response!
+            if (AppState._isDirty && AppState.currentlyEditingArticle && AppState.currentlyEditingArticle.relPath === relPath) {
+              saveStatus.className = 'editor-save-indicator';
+              saveStatus.innerText = 'Unsaved changes (Repo SHA: ' + (art.sha ? art.sha.slice(0, 7) : 'verified') + ')';
+              return;
+            }
+
+            art.body = (typeof data.body === 'string') ? data.body : (art.body || '');
 
             if (data.data) {
               const d = data.data;
@@ -7965,17 +7987,21 @@ noindex: true
               Object.assign(targetInCorpus, art);
             }
 
+            if (typeof dismissEditorError === 'function') dismissEditorError();
             saveStatus.className = 'editor-save-indicator';
             saveStatus.innerText = art.sha ? ('Loaded (Git SHA: ' + art.sha.slice(0, 7) + ')') : 'Loaded dispatch';
           } else {
+            showEditorError('<strong>Load Error:</strong> Failed to retrieve authoritative revision from repository: ' + ((data && data.error) || 'Server rejected request.'));
             saveStatus.className = 'editor-save-indicator error';
             saveStatus.innerText = 'Failed to load: ' + ((data && data.error) || 'Server error');
           }
         } else {
+          showEditorError('<strong>Repository Fetch Failed:</strong> Failed to fetch article revision from server (HTTP ' + res.status + '). Edits cannot be saved until authoritative Git SHA is verified.');
           saveStatus.className = 'editor-save-indicator error';
           saveStatus.innerText = 'Failed to fetch article (' + res.status + ')';
         }
       } catch (fetchErr) {
+        showEditorError('<strong>Network Error:</strong> Failed to connect to repository during article fetch. Check your connection and reload.');
         saveStatus.className = 'editor-save-indicator error';
         saveStatus.innerText = 'Error loading latest article revision';
       }
@@ -7993,6 +8019,8 @@ noindex: true
       const origin = AppState.editorOrigin || 'articles';
       AppState.currentlyEditingArticle = null;
       AppState.editorOrigin = null;
+      AppState._isDirty = false;
+      if (typeof dismissEditorError === 'function') dismissEditorError();
       updateEditorActionButtons(null);
       if (origin === 'safety') {
         navigate('safety');
@@ -8283,7 +8311,31 @@ noindex: true
       previewWrap.style.display = 'block';
     }
 
+    function showEditorError(messageHtml, isConflict = false) {
+      const panel = document.getElementById('editor-error-panel');
+      const content = document.getElementById('editor-error-content');
+      if (panel && content) {
+        content.innerHTML = messageHtml;
+        panel.style.display = 'block';
+        if (isConflict) {
+          panel.style.background = 'rgba(245, 158, 11, 0.12)';
+          panel.style.borderColor = 'rgba(245, 158, 11, 0.35)';
+          panel.style.color = '#fde68a';
+        } else {
+          panel.style.background = 'rgba(239, 68, 68, 0.12)';
+          panel.style.borderColor = 'rgba(239, 68, 68, 0.28)';
+          panel.style.color = '#fca5a5';
+        }
+      }
+    }
+
+    function dismissEditorError() {
+      const panel = document.getElementById('editor-error-panel');
+      if (panel) panel.style.display = 'none';
+    }
+
     function markEditorAsUnsaved() {
+      AppState._isDirty = true;
       const saveStatus = document.getElementById('editor-save-status');
       if (saveStatus) {
         saveStatus.className = 'editor-save-indicator';
@@ -8363,6 +8415,20 @@ noindex: true
         return;
       }
 
+      const relPath = AppState.currentlyEditingArticle.relPath;
+      if (!relPath || typeof relPath !== 'string' || !relPath.startsWith('src/articles/')) {
+        showEditorError('<strong>Save Blocked:</strong> Target article file path is invalid or missing. Please return to the articles list and reopen the article.');
+        showToast('Invalid target article path.', 'error');
+        return;
+      }
+
+      const currentSha = AppState.currentlyEditingArticle.sha;
+      if (!currentSha || typeof currentSha !== 'string' || currentSha.trim() === '' || currentSha === 'working_draft') {
+        showEditorError('<strong>Save Blocked:</strong> Authoritative Git revision (SHA) has not been confirmed from GitHub yet. Please wait for the article to finish loading from repository, or reload if the fetch failed.');
+        showToast('Authoritative Git SHA not verified. Cannot save.', 'error');
+        return;
+      }
+
       const saveStatus = document.getElementById('editor-save-status');
       const btn = document.getElementById('btn-save-editor');
       btn.disabled = true;
@@ -8389,7 +8455,7 @@ noindex: true
 
       const payload = {
         relPath: AppState.currentlyEditingArticle.relPath,
-        sha: AppState.currentlyEditingArticle.sha || null,
+        sha: AppState.currentlyEditingArticle.sha,
         title: document.getElementById('edit-headline').value,
         headline: document.getElementById('edit-headline').value,
         dek: document.getElementById('edit-dek').value,
@@ -8434,10 +8500,14 @@ noindex: true
 
         btn.disabled = false;
 
-        if (res.ok && data && data.success) {
+        if (res.ok && data && data.success && (data.sha || (data.article && data.article.sha))) {
           // Drop stale in-flight save response if a newer save completed
           if (saveSeq < AppState._lastCompletedSaveId) return;
           AppState._lastCompletedSaveId = saveSeq;
+          AppState._isDirty = false;
+          if (typeof dismissEditorError === 'function') dismissEditorError();
+
+          const confirmedSha = data.sha || data.article.sha;
 
           // Update editor saved state from confirmed server response
           if (data.article) {
@@ -8445,7 +8515,7 @@ noindex: true
           } else {
             Object.assign(AppState.currentlyEditingArticle, payload);
           }
-          if (data.sha) AppState.currentlyEditingArticle.sha = data.sha;
+          AppState.currentlyEditingArticle.sha = confirmedSha;
           AppState.currentlyEditingArticle.wordCount = data.wordCount || countArticleWords(payload.body);
           AppState.currentlyEditingArticle.modified = data.modified || new Date().toISOString();
           AppState.currentlyEditingArticle.hasImage = Boolean(payload.image && payload.image.trim().length > 0);
@@ -8458,6 +8528,7 @@ noindex: true
           const targetInCorpus = AppState.articles.find(a => a.relPath === payload.relPath);
           if (targetInCorpus && targetInCorpus !== AppState.currentlyEditingArticle) {
             Object.assign(targetInCorpus, AppState.currentlyEditingArticle);
+            targetInCorpus.sha = confirmedSha;
           }
 
           // Phase 14A-2: Run targeted deterministic live recalculation
@@ -8469,20 +8540,31 @@ noindex: true
 
           const timeStr = new Date(AppState.currentlyEditingArticle.modified).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
           saveStatus.className = 'editor-save-indicator saved';
-          saveStatus.innerText = 'Saved • Modified: ' + timeStr + (AppState.currentlyEditingArticle.sha ? ' (Git SHA: ' + AppState.currentlyEditingArticle.sha.slice(0, 7) + ')' : '');
+          saveStatus.innerText = 'Saved • Modified: ' + timeStr + ' (Git SHA: ' + confirmedSha.slice(0, 7) + ')';
 
           showToast('Article saved successfully (' + timeStr + ')', 'success');
         } else if (res.status === 409 || (data && data.conflict)) {
+          const remoteSha = (data && data.currentSha) ? (' (Remote Git SHA: ' + data.currentSha.slice(0, 7) + ')') : '';
+          showEditorError('<strong>Edit Conflict (HTTP 409):</strong> This article was modified in GitHub by another user or build process' + remoteSha + ' since you opened it. Your unsaved edits are preserved in the editor canvas. To prevent silently overwriting the remote revision, copy any edits you wish to keep, then reload the latest version before saving.', true);
           saveStatus.className = 'editor-save-indicator error';
           saveStatus.innerText = 'Conflict: Article changed in GitHub';
-          showToast('This article changed in GitHub since you opened it. Reload before saving.', 'error');
-        } else {
+          showToast('Conflict: Article changed in GitHub. Your unsaved edits were preserved.', 'error');
+        } else if (res.status === 401 || res.status === 403) {
+          const authMsg = (data && data.error) || (res.status === 401 ? 'Session expired or unauthenticated.' : 'Permission denied: editorial save privileges required.');
+          showEditorError('<strong>Authentication Error (HTTP ' + res.status + '):</strong> ' + authMsg + ' Your unsaved edits are preserved in the editor canvas. Please log in or verify credentials in a new tab, then retry saving.');
           saveStatus.className = 'editor-save-indicator error';
-          saveStatus.innerText = 'Save error: ' + ((data && data.error) || ('Server rejected (' + res.status + ')'));
-          showToast((data && data.error) || 'Failed to save changes. Your edits remain in the editor.', 'error');
+          saveStatus.innerText = 'Auth error (' + res.status + ')';
+          showToast('Authentication error: ' + authMsg, 'error');
+        } else {
+          const errMsg = (data && data.error) || ('Server rejected save request (HTTP ' + res.status + ').');
+          showEditorError('<strong>Save Error:</strong> ' + errMsg + ' Your unsaved edits are preserved in the editor canvas.');
+          saveStatus.className = 'editor-save-indicator error';
+          saveStatus.innerText = 'Save error: ' + errMsg;
+          showToast(errMsg, 'error');
         }
       } catch (err) {
         btn.disabled = false;
+        showEditorError('<strong>Network Error:</strong> Failed to connect to server during save (' + (err.message || 'connection failed') + '). Your unsaved edits are preserved in the editor canvas. Check your network connection and click "Save Changes" again.');
         saveStatus.className = 'editor-save-indicator error';
         saveStatus.innerText = 'Network error during save';
         showToast('Save failed: Network error. Edits remain in editor.', 'error');
@@ -9436,6 +9518,18 @@ noindex: true
 
     // Initialize application on DOM load
     document.addEventListener('DOMContentLoaded', () => {
+      // Track dirty state on user input in editor
+      const editorContainer = document.getElementById('articles-editor-container');
+      if (editorContainer) {
+        editorContainer.addEventListener('input', (e) => {
+          if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT')) {
+            if (e.target.id && e.target.id.startsWith('edit-')) {
+              markEditorAsUnsaved();
+            }
+          }
+        });
+      }
+
       populateOverviewStats();
       applyFiltersAndSorting();
       renderNeedsAttentionTab();
@@ -12950,6 +13044,9 @@ noindex: true
         // Stage 1: Load accepted rewritten text into the article editor working state
         const targetArt = (AppState && Array.isArray(AppState.articles) && AppState.articles.find(a => a.relPath === orig.relPath)) || orig;
         AppState.currentlyEditingArticle = targetArt;
+        AppState._isDirty = true;
+        AppState._lastCompletedFetchId = ++AppState._fetchSequenceId;
+        if (typeof dismissEditorError === 'function') dismissEditorError();
 
         targetArt.title = candidateToLoad.headline;
         targetArt.headline = candidateToLoad.headline;

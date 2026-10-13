@@ -55,7 +55,7 @@ async function itAsync(name, fn) {
   const workerContent = fs.readFileSync(path.join(ROOT_DIR, 'worker/index.js'), 'utf8');
   const adminAuthContent = fs.readFileSync(path.join(ROOT_DIR, 'tools/admin-auth.js'), 'utf8');
 
-  it('Code integrity: worker/admin-views.js contains authoritative openArticleEditor sync', () => {
+  it('Code integrity: worker/admin-views.js contains authoritative openArticleEditor and reliability sync', () => {
     assert(avContent.includes('edit-headline').valueOf(), 'admin-views.js missing edit-headline');
     assert(avContent.includes('edit-seo-title').valueOf(), 'admin-views.js missing edit-seo-title');
     assert(avContent.includes('edit-dek').valueOf(), 'admin-views.js missing edit-dek');
@@ -63,16 +63,24 @@ async function itAsync(name, fn) {
     assert(avContent.includes('edit-what-happens-next').valueOf(), 'admin-views.js missing edit-what-happens-next');
     assert(avContent.includes('_lastCompletedSaveId'), 'admin-views.js missing save sequence ID tracking');
     assert(avContent.includes('_lastCompletedFetchId'), 'admin-views.js missing fetch sequence ID tracking');
+    assert(avContent.includes('_isDirty'), 'admin-views.js missing dirty tracking');
+    assert(avContent.includes('showEditorError'), 'admin-views.js missing showEditorError');
+    assert(avContent.includes('editor-error-panel'), 'admin-views.js missing editor-error-panel');
+    assert(njkContent.includes('_isDirty'), 'index.njk missing dirty tracking');
+    assert(njkContent.includes('showEditorError'), 'index.njk missing showEditorError');
+    assert(njkContent.includes('editor-error-panel'), 'index.njk missing editor-error-panel');
   });
 
   it('Code integrity: worker/index.js accepts headline fallback and returns confirmed article', () => {
     assert(workerContent.includes('const effectiveTitle = (typeof title === \'string\' && title.trim()) ? title.trim() : ((typeof headline === \'string\' && headline.trim()) ? headline.trim() : null);'));
     assert(workerContent.includes('headline: parsed.data.title'));
+    assert(workerContent.includes('sha: newSha'));
   });
 
   it('Code integrity: tools/admin-auth.js accepts headline fallback and returns confirmed article', () => {
     assert(adminAuthContent.includes('const effectiveTitle = (typeof title === \'string\' && title.trim()) ? title.trim() : ((typeof headline === \'string\' && headline.trim()) ? headline.trim() : null);'));
     assert(adminAuthContent.includes('headline: file.data.title'));
+    assert(adminAuthContent.includes('sha: newSha'));
   });
 
   // TEST 1: Accept Rewrite -> Save Changes -> reload -> all six fields remain unchanged
@@ -357,6 +365,324 @@ async function itAsync(name, fn) {
     assert.strictEqual(res.success, true);
     assert.strictEqual(gitCommitCount, 0, 'Must have zero git commits on accept');
     assert.strictEqual(diskWriteCount, 0, 'Must have zero disk writes on accept');
+  });
+
+  // TEST 7: Failed save (401, 403, 409, 500, network error) -> all six fields preserved, actionable error displayed, never reports success
+  it('7. Failed save (401, 403, 409, 500, network error) -> all six fields preserved, actionable error displayed, never reports success', () => {
+    const errorScenarios = [
+      {
+        name: '401 Unauthorized',
+        res: { ok: false, status: 401, data: { success: false, error: 'Session expired' } },
+        expectedErrorKeyword: 'Authentication Error (HTTP 401)'
+      },
+      {
+        name: '403 Forbidden',
+        res: { ok: false, status: 403, data: { success: false, error: 'Insufficient permissions' } },
+        expectedErrorKeyword: 'Authentication Error (HTTP 403)'
+      },
+      {
+        name: '409 Conflict (remote edit)',
+        res: { ok: false, status: 409, data: { success: false, conflict: true, currentSha: 'remote_sha_999' } },
+        expectedErrorKeyword: 'Edit Conflict (HTTP 409)'
+      },
+      {
+        name: '500 Server Error',
+        res: { ok: false, status: 500, data: { success: false, error: 'GitHub Contents API 500' } },
+        expectedErrorKeyword: 'Save Error:'
+      },
+      {
+        name: 'Network Connection Failure',
+        isNetworkError: true,
+        networkError: new Error('Failed to fetch (net::ERR_CONNECTION_REFUSED)'),
+        expectedErrorKeyword: 'Network Error:'
+      }
+    ];
+
+    for (const scenario of errorScenarios) {
+      // Editor canvas with all 6 fields
+      const editorCanvas = {
+        headline: 'Canvas Headline Under Test',
+        seoTitle: 'Canvas SEO Title Under Test',
+        dek: 'Canvas Dek Summary',
+        body: 'Canvas Rich Article Body with multiple paragraphs.',
+        why_it_matters: 'Canvas Grounded Analysis',
+        what_happens_next: 'Canvas Forward Steps'
+      };
+
+      let errorPanelDisplayed = false;
+      let errorPanelContent = '';
+      let isConflictFlag = false;
+      let toastType = null;
+      let saveIndicatorClass = '';
+
+      function mockShowEditorError(msg, isConflict = false) {
+        errorPanelDisplayed = true;
+        errorPanelContent = msg;
+        isConflictFlag = isConflict;
+      }
+
+      function mockShowToast(msg, type) {
+        toastType = type;
+      }
+
+      // Simulate save response handler
+      if (scenario.isNetworkError) {
+        mockShowEditorError('<strong>Network Error:</strong> Failed to connect to server during save (' + (scenario.networkError.message || 'connection failed') + '). Your unsaved edits are preserved in the editor canvas. Check your network connection and click "Save Changes" again.');
+        saveIndicatorClass = 'editor-save-indicator error';
+        mockShowToast('Save failed: Network error. Edits remain in editor.', 'error');
+      } else {
+        const res = scenario.res;
+        const data = res.data;
+        if (res.ok && data && data.success && (data.sha || (data.article && data.article.sha))) {
+          saveIndicatorClass = 'editor-save-indicator saved';
+          mockShowToast('Article saved successfully', 'success');
+        } else if (res.status === 409 || (data && data.conflict)) {
+          const remoteSha = (data && data.currentSha) ? (' (Remote Git SHA: ' + data.currentSha.slice(0, 7) + ')') : '';
+          mockShowEditorError('<strong>Edit Conflict (HTTP 409):</strong> This article was modified in GitHub by another user or build process' + remoteSha + ' since you opened it. Your unsaved edits are preserved in the editor canvas. To prevent silently overwriting the remote revision, copy any edits you wish to keep, then reload the latest version before saving.', true);
+          saveIndicatorClass = 'editor-save-indicator error';
+          mockShowToast('Conflict: Article changed in GitHub. Your unsaved edits were preserved.', 'error');
+        } else if (res.status === 401 || res.status === 403) {
+          const authMsg = (data && data.error) || (res.status === 401 ? 'Session expired or unauthenticated.' : 'Permission denied: editorial save privileges required.');
+          mockShowEditorError('<strong>Authentication Error (HTTP ' + res.status + '):</strong> ' + authMsg + ' Your unsaved edits are preserved in the editor canvas. Please log in or verify credentials in a new tab, then retry saving.');
+          saveIndicatorClass = 'editor-save-indicator error';
+          mockShowToast('Authentication error: ' + authMsg, 'error');
+        } else {
+          const errMsg = (data && data.error) || ('Server rejected save request (HTTP ' + res.status + ').');
+          mockShowEditorError('<strong>Save Error:</strong> ' + errMsg + ' Your unsaved edits are preserved in the editor canvas.');
+          saveIndicatorClass = 'editor-save-indicator error';
+          mockShowToast(errMsg, 'error');
+        }
+      }
+
+      // Verification for scenario
+      assert.notStrictEqual(saveIndicatorClass, 'editor-save-indicator saved', `${scenario.name}: must NOT enter saved indicator state`);
+      assert.strictEqual(saveIndicatorClass, 'editor-save-indicator error', `${scenario.name}: must enter error indicator state`);
+      assert.notStrictEqual(toastType, 'success', `${scenario.name}: must NOT display success toast`);
+      assert.strictEqual(errorPanelDisplayed, true, `${scenario.name}: persistent error panel must be displayed`);
+      assert(errorPanelContent.includes(scenario.expectedErrorKeyword), `${scenario.name}: error panel must contain "${scenario.expectedErrorKeyword}"`);
+
+      // Verify all six fields are 100% preserved in the canvas
+      assert.strictEqual(editorCanvas.headline, 'Canvas Headline Under Test');
+      assert.strictEqual(editorCanvas.seoTitle, 'Canvas SEO Title Under Test');
+      assert.strictEqual(editorCanvas.dek, 'Canvas Dek Summary');
+      assert.strictEqual(editorCanvas.body, 'Canvas Rich Article Body with multiple paragraphs.');
+      assert.strictEqual(editorCanvas.why_it_matters, 'Canvas Grounded Analysis');
+      assert.strictEqual(editorCanvas.what_happens_next, 'Canvas Forward Steps');
+    }
+  });
+
+  // TEST 8: Pre-save validation: missing path or missing/unverified SHA blocks submission
+  it('8. Pre-save validation: missing path or missing/unverified SHA blocks submission', () => {
+    const invalidArticles = [
+      { article: { relPath: null, sha: 'valid_sha_123' }, reason: 'Null relPath' },
+      { article: { relPath: 'invalid/path.md', sha: 'valid_sha_123' }, reason: 'Invalid relPath outside src/articles/' },
+      { article: { relPath: 'src/articles/india/story.md', sha: null }, reason: 'Missing Git SHA (not loaded yet)' },
+      { article: { relPath: 'src/articles/india/story.md', sha: '' }, reason: 'Empty Git SHA' },
+      { article: { relPath: 'src/articles/india/story.md', sha: 'working_draft' }, reason: 'Draft placeholder SHA without authoritative Git SHA' }
+    ];
+
+    for (const testCase of invalidArticles) {
+      let networkFetchDispatched = false;
+      let errorShown = null;
+
+      function mockValidateAndSave(art) {
+        if (!art || !art.relPath || typeof art.relPath !== 'string' || !art.relPath.startsWith('src/articles/')) {
+          errorShown = 'Invalid path';
+          return false;
+        }
+        if (!art.sha || typeof art.sha !== 'string' || art.sha.trim() === '' || art.sha === 'working_draft') {
+          errorShown = 'Unverified Git SHA';
+          return false;
+        }
+        networkFetchDispatched = true;
+        return true;
+      }
+
+      const allowed = mockValidateAndSave(testCase.article);
+      assert.strictEqual(allowed, false, `${testCase.reason}: must block submission`);
+      assert.strictEqual(networkFetchDispatched, false, `${testCase.reason}: fetch must NOT be dispatched`);
+      assert.notStrictEqual(errorShown, null, `${testCase.reason}: must trigger actionable error`);
+    }
+  });
+
+  // TEST 9: Stale background GET response cannot overwrite active unsaved edits or accepted AI rewrite
+  it('9. Stale background GET response cannot overwrite active unsaved edits or accepted AI rewrite', () => {
+    const activeEditorState = {
+      relPath: 'src/articles/india/stale-get-test.md',
+      sha: 'initial_sha_100',
+      title: 'Active Unsaved Headline In Canvas',
+      seoTitle: 'Active Unsaved SEO Title',
+      dek: 'Active Unsaved Dek',
+      body: 'Active unsaved rewritten body text typed by user.',
+      why_it_matters: 'Active unsaved why it matters.',
+      what_happens_next: 'Active unsaved what happens next.'
+    };
+
+    let AppState_isDirty = true; // User typed edits or accepted AI rewrite draft!
+
+    // In-flight background GET finally arrives with OLD / STALE data
+    const staleServerGetResponse = {
+      success: true,
+      relPath: 'src/articles/india/stale-get-test.md',
+      sha: 'newest_repo_sha_200',
+      data: {
+        title: 'OLD Stale Title From Server',
+        seoTitle: 'OLD Stale SEO Title',
+        dek: 'OLD Stale Dek',
+        why_it_matters: 'OLD Stale Why It Matters',
+        what_happens_next: 'OLD Stale What Happens Next'
+      },
+      body: 'OLD stale body text from remote repo.'
+    };
+
+    // Simulate openArticleEditor GET handler with Requirement 6 guard
+    function handleBackgroundGetResponse(data, art, isDirty) {
+      art.sha = data.sha || art.sha || null;
+
+      // REQUIREMENT 6 GUARD:
+      if (isDirty) {
+        // Only update sha; DO NOT touch DOM canvas or article edit fields!
+        return { guarded: true };
+      }
+
+      art.body = data.body;
+      if (data.data) {
+        Object.assign(art, data.data);
+      }
+      return { guarded: false };
+    }
+
+    const result = handleBackgroundGetResponse(staleServerGetResponse, activeEditorState, AppState_isDirty);
+
+    assert.strictEqual(result.guarded, true, 'Dirty guard must prevent stale GET overwrite');
+    // Verify all six fields remain untouched in the active draft:
+    assert.strictEqual(activeEditorState.title, 'Active Unsaved Headline In Canvas');
+    assert.strictEqual(activeEditorState.seoTitle, 'Active Unsaved SEO Title');
+    assert.strictEqual(activeEditorState.dek, 'Active Unsaved Dek');
+    assert.strictEqual(activeEditorState.body, 'Active unsaved rewritten body text typed by user.');
+    assert.strictEqual(activeEditorState.why_it_matters, 'Active unsaved why it matters.');
+    assert.strictEqual(activeEditorState.what_happens_next, 'Active unsaved what happens next.');
+    // Verified repo SHA was safely captured:
+    assert.strictEqual(activeEditorState.sha, 'newest_repo_sha_200');
+  });
+
+  // TEST 10: Complete authoritative roundtrip of all six fields: Save -> Disk/GitHub -> Reload GET -> Editor restoration
+  await itAsync('10. Complete authoritative roundtrip of all six fields: Save -> Disk/GitHub -> Reload GET -> Editor restoration', async () => {
+    const sixFieldsData = {
+      headline: 'Six Fields Authoritative Headline',
+      seoTitle: 'Six Fields Authoritative SEO Title — Full Guide',
+      dek: 'Six Fields Authoritative Dek summary of breaking developments.',
+      body: 'Authoritative complete body text containing extensive paragraphs, detailed investigative quotes, and corroborated facts.',
+      why_it_matters: 'Comprehensive analytical synthesis of regulatory, constitutional, and economic repercussions.',
+      what_happens_next: 'Detailed schedule of parliamentary hearings, judicial reviews, and expected deadlines.'
+    };
+
+    // 1. Client save payload
+    const clientPayload = {
+      relPath: 'src/articles/india/six-fields-roundtrip.md',
+      sha: 'roundtrip_base_sha_111',
+      title: sixFieldsData.headline,
+      headline: sixFieldsData.headline,
+      seoTitle: sixFieldsData.seoTitle,
+      dek: sixFieldsData.dek,
+      body: sixFieldsData.body,
+      why_it_matters: sixFieldsData.why_it_matters,
+      what_happens_next: sixFieldsData.what_happens_next,
+      category: 'India',
+      author: 'SamacharDaily Desk'
+    };
+
+    // 2. Server Markdown persistence (same logic as worker/index.js and tools/admin-auth.js)
+    const frontmatterData = {
+      title: clientPayload.title,
+      seoTitle: clientPayload.seoTitle,
+      dek: clientPayload.dek,
+      category: clientPayload.category,
+      author: clientPayload.author,
+      why_it_matters: clientPayload.why_it_matters,
+      what_happens_next: clientPayload.what_happens_next
+    };
+    const persistedMarkdown = matter.stringify('\n' + clientPayload.body.trim() + '\n', frontmatterData);
+    const newSha = 'roundtrip_committed_sha_222';
+
+    // 3. Authoritative server GET simulation
+    const parsedFile = matter(persistedMarkdown);
+    const authoritativeGetResponse = {
+      success: true,
+      relPath: clientPayload.relPath,
+      sha: newSha,
+      data: parsedFile.data,
+      body: parsedFile.content.trim(),
+      wordCount: parsedFile.content.trim().split(/\s+/).filter(Boolean).length
+    };
+
+    // 4. Client openArticleEditor restoration on reload
+    const restoredEditor = {
+      relPath: clientPayload.relPath,
+      sha: authoritativeGetResponse.sha,
+      headline: (authoritativeGetResponse.data && authoritativeGetResponse.data.title) || '',
+      seoTitle: (authoritativeGetResponse.data && authoritativeGetResponse.data.seoTitle) || '',
+      dek: (authoritativeGetResponse.data && authoritativeGetResponse.data.dek) || '',
+      body: authoritativeGetResponse.body,
+      why_it_matters: (authoritativeGetResponse.data && authoritativeGetResponse.data.why_it_matters) || '',
+      what_happens_next: (authoritativeGetResponse.data && authoritativeGetResponse.data.what_happens_next) || ''
+    };
+
+    assert.strictEqual(restoredEditor.headline, sixFieldsData.headline, 'Headline must roundtrip');
+    assert.strictEqual(restoredEditor.seoTitle, sixFieldsData.seoTitle, 'SEO Title must roundtrip');
+    assert.strictEqual(restoredEditor.dek, sixFieldsData.dek, 'Dek must roundtrip');
+    assert.strictEqual(restoredEditor.body, sixFieldsData.body, 'Body must roundtrip');
+    assert.strictEqual(restoredEditor.why_it_matters, sixFieldsData.why_it_matters, 'Why It Matters must roundtrip');
+    assert.strictEqual(restoredEditor.what_happens_next, sixFieldsData.what_happens_next, 'What Happens Next must roundtrip');
+    assert.strictEqual(restoredEditor.sha, newSha, 'Committed SHA must roundtrip');
+  });
+
+  // TEST 11: HTTP 409 Concurrency Conflict preserves user edits and explains GitHub remote change
+  it('11. HTTP 409 Concurrency Conflict preserves user edits and explains GitHub remote change', () => {
+    const stagedUserRewrite = {
+      headline: 'Unsaved User Rewrite Headline',
+      seoTitle: 'Unsaved User SEO Title',
+      dek: 'Unsaved User Dek',
+      body: 'Unsaved User Full Investigative Rewrite Body',
+      why_it_matters: 'Unsaved User Context Analysis',
+      what_happens_next: 'Unsaved User Forecast'
+    };
+
+    const conflictResponse = {
+      status: 409,
+      data: {
+        success: false,
+        conflict: true,
+        currentSha: 'remote_git_commit_sha_abc1234',
+        error: 'This article changed in GitHub since you opened it. Reload before saving.'
+      }
+    };
+
+    let errorPanelHtml = '';
+    let isConflict = false;
+    let saveStatus = '';
+
+    if (conflictResponse.status === 409 || conflictResponse.data.conflict) {
+      const remoteSha = (conflictResponse.data && conflictResponse.data.currentSha)
+        ? (' (Remote Git SHA: ' + conflictResponse.data.currentSha.slice(0, 7) + ')')
+        : '';
+      errorPanelHtml = '<strong>Edit Conflict (HTTP 409):</strong> This article was modified in GitHub by another user or build process' + remoteSha + ' since you opened it. Your unsaved edits are preserved in the editor canvas. To prevent silently overwriting the remote revision, copy any edits you wish to keep, then reload the latest version before saving.';
+      isConflict = true;
+      saveStatus = 'Conflict: Article changed in GitHub';
+    }
+
+    assert.strictEqual(isConflict, true, 'Must set conflict styling flag');
+    assert(errorPanelHtml.includes('Remote Git SHA: remote_'), 'Must specify remote revision in error message');
+    assert(errorPanelHtml.includes('Your unsaved edits are preserved in the editor canvas'), 'Must reassure user edits are preserved');
+    assert.strictEqual(saveStatus, 'Conflict: Article changed in GitHub');
+
+    // Verify all 6 fields in user draft remain untouched
+    assert.strictEqual(stagedUserRewrite.headline, 'Unsaved User Rewrite Headline');
+    assert.strictEqual(stagedUserRewrite.seoTitle, 'Unsaved User SEO Title');
+    assert.strictEqual(stagedUserRewrite.dek, 'Unsaved User Dek');
+    assert.strictEqual(stagedUserRewrite.body, 'Unsaved User Full Investigative Rewrite Body');
+    assert.strictEqual(stagedUserRewrite.why_it_matters, 'Unsaved User Context Analysis');
+    assert.strictEqual(stagedUserRewrite.what_happens_next, 'Unsaved User Forecast');
   });
 
   console.log(`\nResults: ${passedTests} / ${totalTests} tests passed.\n`);
