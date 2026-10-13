@@ -6710,8 +6710,8 @@ noindex: true
         if (viewId === 'articles' && AppState.articleSubView === 'editor' && AppState.currentlyEditingArticle) {
           url.searchParams.set('article', AppState.currentlyEditingArticle.slug || 'edit');
           url.searchParams.set('mode', 'edit');
-        } else if (viewId === 'ai-upgrade' && (options.article || (typeof AiUpgradeState !== 'undefined' && AiUpgradeState.selectedArticle))) {
-          const art = options.article || AiUpgradeState.selectedArticle;
+        } else if (viewId === 'ai-upgrade' && options.article) {
+          const art = options.article;
           const artSlug = art.slug || (art.relPath ? art.relPath.split('\\').pop().split('/').pop().replace(/\.md$/, '') : '');
           if (artSlug) url.searchParams.set('article', artSlug);
           url.searchParams.delete('mode');
@@ -6749,9 +6749,15 @@ noindex: true
         }
       }
 
-      if (view === 'ai-upgrade' && artSlug) {
-        const art = AppState.articles.find(a => a.slug === artSlug || (a.relPath && a.relPath.includes(artSlug)));
-        navigate('ai-upgrade', { article: art, fromPopState: true });
+      if (view === 'ai-upgrade') {
+        if (artSlug) {
+          const art = AppState.articles.find(a => a.slug === artSlug || (a.relPath && a.relPath.includes(artSlug)));
+          if (art) {
+            navigate('ai-upgrade', { article: art, fromPopState: true });
+            return;
+          }
+        }
+        navigate('ai-upgrade', { fromPopState: true });
         return;
       }
 
@@ -9563,15 +9569,21 @@ noindex: true
         }
       }
 
-      if (initialView === 'ai-upgrade' && initialArticle) {
-        const normArticle = initialArticle.replace(/\\/g, '/');
-        const art = AppState.articles.find(a => 
-          a.slug === initialArticle || 
-          a.relPath === initialArticle || 
-          (a.relPath && a.relPath.replace(/\\/g, '/') === normArticle) ||
-          a.relPath.includes(initialArticle)
-        );
-        navigate('ai-upgrade', { article: art, fromPopState: true });
+      if (initialView === 'ai-upgrade') {
+        if (initialArticle) {
+          const normArticle = initialArticle.replace(/\\/g, '/');
+          const art = AppState.articles.find(a =>
+            a.slug === initialArticle ||
+            a.relPath === initialArticle ||
+            (a.relPath && a.relPath.replace(/\\/g, '/') === normArticle) ||
+            a.relPath.includes(initialArticle)
+          );
+          if (art) {
+            navigate('ai-upgrade', { article: art, fromPopState: true });
+            return;
+          }
+        }
+        navigate('ai-upgrade', { fromPopState: true });
         return;
       }
 
@@ -12453,30 +12465,17 @@ noindex: true
       checkAiProviderStatus();
 
       let targetArticle = preselectedArticle;
-      if (!targetArticle && AppState && AppState.currentlyEditingArticle) {
-        targetArticle = AppState.currentlyEditingArticle;
-      }
-      if (!targetArticle && AiUpgradeState && AiUpgradeState.selectedArticle) {
-        targetArticle = AiUpgradeState.selectedArticle;
-      }
-      if (!targetArticle) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const artSlug = urlParams.get('article');
-        if (artSlug) {
-          const allArticles = (AppState && Array.isArray(AppState.articles) && AppState.articles.length > 0)
-            ? AppState.articles
-            : (Array.isArray(window.__CORPUS__) ? window.__CORPUS__ : []);
-          targetArticle = allArticles.find(a => a.slug === artSlug || (a.relPath && a.relPath.includes(artSlug)));
-        }
+      if (typeof targetArticle === 'string') {
+        const allArticles = (AppState && Array.isArray(AppState.articles) && AppState.articles.length > 0)
+          ? AppState.articles
+          : (Array.isArray(window.__CORPUS__) ? window.__CORPUS__ : []);
+        targetArticle = allArticles.find(a => a.slug === targetArticle || (a.relPath && a.relPath.includes(targetArticle))) || null;
       }
 
       if (targetArticle) {
         loadStudioArticle(targetArticle);
       } else {
-        const emptyState = document.getElementById('ai-upgrade-empty-state');
-        const workspace = document.getElementById('ai-upgrade-workspace');
-        if (emptyState) emptyState.style.display = 'block';
-        if (workspace) workspace.style.display = 'none';
+        clearAiStudioSession();
       }
     }
 
@@ -12530,6 +12529,10 @@ noindex: true
       AiUpgradeState.originalArticle = JSON.parse(JSON.stringify(art));
       AiUpgradeState.candidateArticle = null;
       AiUpgradeState.safetyFindings = [];
+      AiUpgradeState.lastQuality = null;
+      AiUpgradeState.isAnalyzing = false;
+      AiUpgradeState.isGenerating = false;
+      AiUpgradeState.isSaving = false;
 
       const headEl = document.getElementById('ai-up-selected-headline');
       const deskEl = document.getElementById('ai-up-selected-desk');
@@ -12591,6 +12594,37 @@ noindex: true
         candPill.textContent = 'Pending Rewrite';
       }
 
+      const errBanner = document.getElementById('ai-upgrade-error-banner');
+      const errMsgEl = document.getElementById('ai-upgrade-error-message');
+      if (errBanner) errBanner.style.display = 'none';
+      if (errMsgEl) errMsgEl.textContent = '';
+      const loader = document.getElementById('ai-upgrade-loading-indicator');
+      if (loader) loader.style.display = 'none';
+      const startUpgradeBtn = document.getElementById('btn-start-ai-upgrade');
+      if (startUpgradeBtn) startUpgradeBtn.disabled = false;
+      const regenBtn = document.getElementById('btn-regenerate-upgrade');
+      if (regenBtn) regenBtn.style.display = 'none';
+      const draftBadge = document.getElementById('ai-upgrade-draft-status-badge');
+      if (draftBadge) {
+        draftBadge.style.display = 'none';
+        draftBadge.className = 'badge badge-blue';
+        draftBadge.textContent = 'Draft';
+      }
+      const provEl = document.getElementById('sbs-provider-used');
+      if (provEl) provEl.textContent = 'AI';
+      const qualityBadge = document.getElementById('sbs-quality-badge');
+      if (qualityBadge) {
+        qualityBadge.textContent = 'PASS';
+        qualityBadge.className = 'badge badge-green';
+      }
+      const changesList = document.getElementById('sbs-changes-list');
+      if (changesList) changesList.innerHTML = '';
+
+      const compModal = document.getElementById('compare-changes-modal');
+      const accModal = document.getElementById('accept-upgrade-modal');
+      if (compModal) compModal.style.display = 'none';
+      if (accModal) accModal.style.display = 'none';
+
       if (emptyState) emptyState.style.display = 'none';
       if (workspace) workspace.style.display = 'flex';
 
@@ -12628,11 +12662,179 @@ noindex: true
 
     const selectAiUpgradeArticle = loadStudioArticle;
 
+    function clearAiStudioSession() {
+      // 1. Reset transient in-memory session state
+      if (typeof AiUpgradeState !== 'undefined' && AiUpgradeState) {
+        AiUpgradeState.selectedArticle = null;
+        AiUpgradeState.originalArticle = null;
+        AiUpgradeState.candidateArticle = null;
+        AiUpgradeState.safetyFindings = [];
+        AiUpgradeState.isAnalyzing = false;
+        AiUpgradeState.isGenerating = false;
+        AiUpgradeState.isSaving = false;
+        AiUpgradeState.currentStep = 1;
+        AiUpgradeState.lastQuality = null;
+      }
+
+      // 2. Clear candidate form inputs
+      const candHead = document.getElementById('sbs-cand-headline');
+      const candSeo = document.getElementById('sbs-cand-seo-title');
+      const candDek = document.getElementById('sbs-cand-dek');
+      const candBody = document.getElementById('sbs-cand-body');
+      const candWhy = document.getElementById('sbs-cand-why-it-matters');
+      const candNext = document.getElementById('sbs-cand-what-happens-next');
+      if (candHead) candHead.value = '';
+      if (candSeo) candSeo.value = '';
+      if (candDek) candDek.value = '';
+      if (candBody) candBody.value = '';
+      if (candWhy) candWhy.value = '';
+      if (candNext) candNext.value = '';
+
+      // 3. Clear candidate counters & validation indicators
+      const candCount = document.getElementById('sbs-cand-count');
+      const seoCharsEl = document.getElementById('sbs-cand-seo-title-chars');
+      const whyWordsEl = document.getElementById('sbs-cand-why-words');
+      const nextWordsEl = document.getElementById('sbs-cand-next-words');
+      const deltaBadge = document.getElementById('sbs-delta-badge');
+      const candPill = document.getElementById('sbs-cand-status-pill');
+      const draftBadge = document.getElementById('ai-upgrade-draft-status-badge');
+      const provEl = document.getElementById('sbs-provider-used');
+      const qualityBadge = document.getElementById('sbs-quality-badge');
+      const changesList = document.getElementById('sbs-changes-list');
+      const regenBtn = document.getElementById('btn-regenerate-upgrade');
+
+      if (candCount) candCount.textContent = '0 words';
+      if (seoCharsEl) {
+        seoCharsEl.textContent = '0 chars (target 50–60)';
+        seoCharsEl.style.color = 'var(--color-muted)';
+      }
+      if (whyWordsEl) whyWordsEl.textContent = '0 words';
+      if (nextWordsEl) nextWordsEl.textContent = '0 words';
+      if (deltaBadge) {
+        deltaBadge.textContent = '0 words';
+        deltaBadge.className = 'badge badge-teal';
+      }
+      if (candPill) {
+        candPill.className = 'badge badge-pink';
+        candPill.textContent = 'Pending Rewrite';
+      }
+      if (draftBadge) {
+        draftBadge.style.display = 'none';
+        draftBadge.className = 'badge badge-blue';
+        draftBadge.textContent = 'Draft';
+      }
+      if (provEl) provEl.textContent = 'AI';
+      if (qualityBadge) {
+        qualityBadge.textContent = 'PASS';
+        qualityBadge.className = 'badge badge-green';
+      }
+      if (changesList) changesList.innerHTML = '';
+      if (regenBtn) regenBtn.style.display = 'none';
+
+      // 4. Reset loading and error indicators
+      const startBtn = document.getElementById('btn-start-ai-upgrade');
+      const loader = document.getElementById('ai-upgrade-loading-indicator');
+      const errBanner = document.getElementById('ai-upgrade-error-banner');
+      const errMsg = document.getElementById('ai-upgrade-error-message');
+      if (startBtn) startBtn.disabled = false;
+      if (loader) loader.style.display = 'none';
+      if (errBanner) errBanner.style.display = 'none';
+      if (errMsg) errMsg.textContent = '';
+
+      // 5. Reset original article meta strip and display boxes
+      const headEl = document.getElementById('ai-up-selected-headline');
+      const deskEl = document.getElementById('ai-up-selected-desk');
+      const dateEl = document.getElementById('ai-up-selected-date');
+      const sourceEl = document.getElementById('ai-up-selected-source');
+      const wordsEl = document.getElementById('ai-up-selected-words');
+      const slugEl = document.getElementById('ai-up-selected-slug');
+      if (headEl) headEl.textContent = 'Selected Article Headline';
+      if (deskEl) deskEl.textContent = 'India';
+      if (dateEl) dateEl.textContent = 'Date';
+      if (sourceEl) sourceEl.textContent = 'Declared wire';
+      if (wordsEl) wordsEl.textContent = '0 words';
+      if (slugEl) slugEl.textContent = 'slug';
+
+      const origHead = document.getElementById('sbs-orig-headline');
+      const origSeo = document.getElementById('sbs-orig-seo-title');
+      const origDek = document.getElementById('sbs-orig-dek');
+      const origBody = document.getElementById('sbs-orig-body');
+      const origWhy = document.getElementById('sbs-orig-why-it-matters');
+      const origNext = document.getElementById('sbs-orig-what-happens-next');
+      const origCount = document.getElementById('sbs-orig-count');
+      if (origHead) origHead.textContent = 'Headline';
+      if (origSeo) origSeo.textContent = 'No custom SEO title';
+      if (origDek) origDek.textContent = 'Dek / description';
+      if (origBody) origBody.textContent = 'Complete article body...';
+      if (origWhy) origWhy.textContent = 'Why It Matters...';
+      if (origNext) origNext.textContent = 'What Happens Next...';
+      if (origCount) origCount.textContent = '0 words';
+
+      // 6. Reset comparison and accept modals
+      const compareModal = document.getElementById('compare-changes-modal');
+      const acceptModal = document.getElementById('accept-upgrade-modal');
+      if (compareModal) compareModal.style.display = 'none';
+      if (acceptModal) acceptModal.style.display = 'none';
+
+      const mOrigHead = document.getElementById('compare-modal-orig-headline');
+      const mCandHead = document.getElementById('compare-modal-cand-headline');
+      const mOrigSeo = document.getElementById('compare-modal-orig-seo-title');
+      const mCandSeo = document.getElementById('compare-modal-cand-seo-title');
+      const mOrigDek = document.getElementById('compare-modal-orig-dek');
+      const mCandDek = document.getElementById('compare-modal-cand-dek');
+      const mOrigWhy = document.getElementById('compare-modal-orig-why');
+      const mCandWhy = document.getElementById('compare-modal-cand-why');
+      const mOrigNext = document.getElementById('compare-modal-orig-next');
+      const mCandNext = document.getElementById('compare-modal-cand-next');
+      const mOrigBody = document.getElementById('compare-modal-orig-body');
+      const mCandBody = document.getElementById('compare-modal-cand-body');
+      const mWords = document.getElementById('compare-modal-words');
+      const mChanges = document.getElementById('compare-modal-changes-list');
+      if (mOrigHead) mOrigHead.textContent = '';
+      if (mCandHead) mCandHead.textContent = '';
+      if (mOrigSeo) mOrigSeo.textContent = '';
+      if (mCandSeo) mCandSeo.textContent = '';
+      if (mOrigDek) mOrigDek.textContent = '';
+      if (mCandDek) mCandDek.textContent = '';
+      if (mOrigWhy) mOrigWhy.textContent = '';
+      if (mCandWhy) mCandWhy.textContent = '';
+      if (mOrigNext) mOrigNext.textContent = '';
+      if (mCandNext) mCandNext.textContent = '';
+      if (mOrigBody) mOrigBody.textContent = '';
+      if (mCandBody) mCandBody.textContent = '';
+      if (mWords) mWords.textContent = '';
+      if (mChanges) mChanges.innerHTML = '';
+
+      const accHead = document.getElementById('accept-modal-headline');
+      const accSlug = document.getElementById('accept-modal-slug');
+      const accSeo = document.getElementById('accept-modal-seo-title');
+      const accWords = document.getElementById('accept-modal-words');
+      const accBtn = document.getElementById('btn-confirm-save-upgrade');
+      if (accHead) accHead.textContent = '';
+      if (accSlug) accSlug.textContent = '';
+      if (accSeo) accSeo.textContent = '';
+      if (accWords) accWords.textContent = '';
+      if (accBtn) {
+        accBtn.disabled = false;
+        accBtn.innerText = 'Load into Editor Working Draft \u2192';
+      }
+
+      // 7. Toggle workspace to clean empty state
+      const emptyState = document.getElementById('ai-upgrade-empty-state');
+      const workspace = document.getElementById('ai-upgrade-workspace');
+      if (emptyState) emptyState.style.display = 'block';
+      if (workspace) workspace.style.display = 'none';
+    }
+
+    const clearSelectedAiUpgradeArticle = clearAiStudioSession;
+
     function returnToEditor() {
+      const fallbackRelPath = (AiUpgradeState && AiUpgradeState.selectedArticle) ? AiUpgradeState.selectedArticle.relPath : null;
+      clearAiStudioSession();
       if (AppState && AppState.currentlyEditingArticle) {
         navigate('articles', { subview: 'editor' });
-      } else if (AiUpgradeState && AiUpgradeState.selectedArticle && AiUpgradeState.selectedArticle.relPath) {
-        openArticleEditor(AiUpgradeState.selectedArticle.relPath);
+      } else if (fallbackRelPath) {
+        openArticleEditor(fallbackRelPath);
       } else {
         navigate('articles');
       }
@@ -13168,15 +13370,9 @@ noindex: true
       }
     }
 
+    // Delegate clearSelectedAiUpgradeArticle to comprehensive clearAiStudioSession
     function clearSelectedAiUpgradeArticle() {
-      AiUpgradeState.selectedArticle = null;
-      AiUpgradeState.originalArticle = null;
-      AiUpgradeState.candidateArticle = null;
-      AiUpgradeState.safetyFindings = [];
-      const emptyState = document.getElementById('ai-upgrade-empty-state');
-      const workspace = document.getElementById('ai-upgrade-workspace');
-      if (emptyState) emptyState.style.display = 'block';
-      if (workspace) workspace.style.display = 'none';
+      clearAiStudioSession();
     }
 
 
