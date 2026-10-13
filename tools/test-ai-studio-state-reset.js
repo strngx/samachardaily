@@ -13,6 +13,7 @@
 const fs = require('fs');
 const path = require('path');
 const assert = require('assert');
+const vm = require('vm');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const njkContent = fs.readFileSync(path.join(ROOT_DIR, 'src/admin/editorial/index.njk'), 'utf8');
@@ -638,6 +639,25 @@ function createHarness() {
     assert.strictEqual(editNext.value, 'User Unsaved Next Steps');
     assert.strictEqual(AppState._isDirty, true, 'AppState._isDirty must remain true');
     assert.strictEqual(AppState.currentlyEditingArticle, originalArticle, 'currentlyEditingArticle must remain intact');
+  });
+
+  // TEST 7: Full client-side JavaScript syntax validation in worker views
+  it('7. Full client-side JavaScript syntax validation: zero duplicate declarations or V8 parse errors in worker views', () => {
+    const match = avContent.match(/export const editorialHtml = ([\s\S]*?);\r?\n\r?\nexport const qualityIndexJson/);
+    assert(match && match[1], 'Could not extract editorialHtml from worker/admin-views.js');
+    const edHtml = JSON.parse(match[1]);
+    const scriptMatch = edHtml.match(/<script>([\s\S]*?)<\/script>/);
+    assert(scriptMatch && scriptMatch[1], 'Could not find <script> tag in editorialHtml');
+    const script = scriptMatch[1];
+
+    // Validate compilation in Node vm
+    assert.doesNotThrow(() => {
+      new vm.Script(script, { filename: 'editorial-client-script.js' });
+    }, 'Client script in worker/admin-views.js must parse with zero SyntaxErrors');
+
+    // Confirm no duplicate const declaration
+    assert(!script.includes('const clearSelectedAiUpgradeArticle ='), 'Found duplicate const clearSelectedAiUpgradeArticle declaration');
+    assert(script.includes('function clearSelectedAiUpgradeArticle()'), 'Expected function clearSelectedAiUpgradeArticle() to be present');
   });
 
   console.log(`\nResults: ${passedTests} / ${totalTests} tests passed.\n`);
