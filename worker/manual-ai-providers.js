@@ -110,17 +110,17 @@ export const FREE_GENERATION_ALLOWLIST = {
     displayName: 'OpenRouter (Free Models Only)',
     secretEnvName: 'MANUAL_AI_OPENROUTER_API_KEY',
     modelEnvName: 'MANUAL_AI_OPENROUTER_MODEL',
-    defaultModel: 'openrouter/free',
+    defaultModel: 'nvidia/nemotron-3.5-lightning:free',
     allowedModels: [
-      'openrouter/free',
+      'nvidia/nemotron-3.5-lightning:free',
       'google/gemma-4-31b-it:free',
-      'google/gemma-4-26b-a4b-it:free',
-      'nvidia/nemotron-3.5-lightning:free'
+      'openrouter/free',
+      'google/gemma-4-26b-a4b-it:free'
     ],
     validateModel(model) {
       return isValidOpenRouterFreeModel(model);
     },
-    freeTierInfo: 'OpenRouter Free Tier: $0.00/token for openrouter/free router and models ending with :free. Zero account balance required. Returns HTTP 429 or 402 on limit exhaustion.',
+    freeTierInfo: 'OpenRouter Free Tier: $0.00/token for verified models ending with :free and openrouter/free router. Zero account balance required. Returns HTTP 429 or 402 on limit exhaustion.',
     accountRequirement: 'OpenRouter account with $0.00 balance. The server strictly enforces the :free model suffix or openrouter/free and rejects all paid model IDs.',
     verificationSource: 'https://openrouter.ai/models?q=free'
   }
@@ -354,8 +354,13 @@ export const PROVIDER_ADAPTERS = {
     displayName: 'OpenRouter (Free Models Only)',
     secretEnvName: 'MANUAL_AI_OPENROUTER_API_KEY',
     modelEnvName: 'MANUAL_AI_OPENROUTER_MODEL',
-    defaultModel: 'openrouter/free',
-    timeoutMs: 24000,
+    defaultModel: 'nvidia/nemotron-3.5-lightning:free',
+    fallbackModels: [
+      'nvidia/nemotron-3.5-lightning:free',
+      'google/gemma-4-31b-it:free',
+      'openrouter/free'
+    ],
+    timeoutMs: 12000,
     isConfigured(env = {}) {
       return Boolean(env && typeof env.MANUAL_AI_OPENROUTER_API_KEY === 'string' && env.MANUAL_AI_OPENROUTER_API_KEY.trim());
     },
@@ -370,15 +375,27 @@ export const PROVIDER_ADAPTERS = {
       err.classification = FAILURE_CLASS.PAID_MODEL_REJECTED;
       throw err;
     },
+    getModels(env = {}) {
+      const primary = this.getModel(env);
+      const models = [primary];
+      for (const m of this.fallbackModels) {
+        if (m !== primary && isValidOpenRouterFreeModel(m) && !models.includes(m)) {
+          models.push(m);
+        }
+      }
+      return models;
+    },
     async call({ systemPrompt, userPrompt }, env = {}, signal) {
       const apiKey = env.MANUAL_AI_OPENROUTER_API_KEY.trim();
-      const model = this.getModel(env); // Throws if paid or malformed model identifier detected
+      const models = this.getModels(env); // Array of validated free models
+      const primaryModel = models[0];
       const url = 'https://openrouter.ai/api/v1/chat/completions';
 
       // First attempt with response_format json_object; fallback without response_format if provider returns 400
       const sendRequest = async (useJsonFormat) => {
         const bodyObj = {
-          model,
+          model: primaryModel,
+          models,
           messages: [
             { role: 'system', content: systemPrompt },
             { role: 'user', content: userPrompt }
@@ -427,7 +444,7 @@ export const PROVIDER_ADAPTERS = {
         const err = new Error(`OpenRouter HTTP ${resp.status}: ${safeDetail}`);
         err.status = resp.status;
         err.provider = 'OpenRouter';
-        err.model = model;
+        err.model = primaryModel;
         throw err;
       }
 
@@ -463,7 +480,7 @@ export const PROVIDER_ADAPTERS = {
         err.status = parsed.status;
         err.classification = parsed.classification;
         err.provider = 'OpenRouter';
-        err.model = model;
+        err.model = primaryModel;
         throw err;
       }
 
@@ -472,7 +489,7 @@ export const PROVIDER_ADAPTERS = {
         const err = new Error('OpenRouter response contained no choices');
         err.classification = FAILURE_CLASS.INVALID_RESPONSE;
         err.provider = 'OpenRouter';
-        err.model = model;
+        err.model = primaryModel;
         throw err;
       }
 
@@ -486,18 +503,37 @@ export const PROVIDER_ADAPTERS = {
         err.status = parsed.status;
         err.classification = parsed.classification;
         err.provider = 'OpenRouter';
-        err.model = model;
+        err.model = primaryModel;
         throw err;
+      }
+
+      // 4. Validate returned model identifier against free policy
+      const rawModel = json?.model;
+      if (typeof rawModel !== 'string' || !rawModel.trim()) {
+        const missingErr = new Error('OpenRouter response omitted model identifier; cannot independently verify free status of response');
+        missingErr.classification = FAILURE_CLASS.INVALID_RESPONSE;
+        missingErr.provider = 'OpenRouter';
+        missingErr.model = primaryModel;
+        throw missingErr;
+      }
+
+      const returnedModel = rawModel.trim();
+      if (!isValidOpenRouterFreeModel(returnedModel)) {
+        const paidErr = new Error(`OpenRouter returned response from unverified or paid model '${returnedModel}'. Rejected under strict free-only policy.`);
+        paidErr.classification = FAILURE_CLASS.PAID_MODEL_REJECTED;
+        paidErr.provider = 'OpenRouter';
+        paidErr.model = returnedModel;
+        throw paidErr;
       }
 
       const finishReason = choice?.finish_reason;
 
-      // 4. Inspect finish_reason states
+      // 5. Inspect finish_reason states
       if (finishReason === 'length') {
         const err = new Error(`OpenRouter generation was truncated by model token length limit (finish_reason: length). Incomplete draft rejected to prevent saving partial article.`);
         err.classification = FAILURE_CLASS.TRUNCATION_ERROR;
         err.provider = 'OpenRouter';
-        err.model = model;
+        err.model = returnedModel;
         throw err;
       }
 
@@ -505,7 +541,7 @@ export const PROVIDER_ADAPTERS = {
         const err = new Error('OpenRouter generation terminated with finish_reason: error');
         err.classification = FAILURE_CLASS.PROVIDER_UNAVAILABLE;
         err.provider = 'OpenRouter';
-        err.model = model;
+        err.model = returnedModel;
         throw err;
       }
 
@@ -513,21 +549,21 @@ export const PROVIDER_ADAPTERS = {
         const err = new Error('OpenRouter generation was blocked by provider content filter');
         err.classification = FAILURE_CLASS.QUALITY_REJECTED;
         err.provider = 'OpenRouter';
-        err.model = model;
+        err.model = returnedModel;
         throw err;
       }
 
-      // 5. Inspect content existence and validity
+      // 6. Inspect content existence and validity
       const rawContent = choice?.message?.content;
       if (typeof rawContent !== 'string' || !rawContent.trim()) {
         const err = new Error(`OpenRouter returned empty or non-string message content (finish_reason: ${finishReason || 'unknown'})`);
         err.classification = FAILURE_CLASS.INVALID_RESPONSE;
         err.provider = 'OpenRouter';
-        err.model = model;
+        err.model = returnedModel;
         throw err;
       }
 
-      return { text: rawContent, model, finishReason };
+      return { text: rawContent, model: returnedModel, finishReason };
     }
   }
 };
