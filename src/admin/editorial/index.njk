@@ -3772,20 +3772,15 @@ noindex: true
           <div class="view-header">
             <div class="view-title-group">
               <div style="display: flex; align-items: center; gap: 10px;">
-                <h1>Content Quality &amp; Thin Content Diagnostic</h1>
-                <span class="badge badge-purple">Phase E Diagnostic</span>
+                <h1>Content Quality</h1>
               </div>
-              <p>Deterministic corpus analysis for thin content, substantive value, near-duplicates, and metadata health.</p>
+              <p>Deterministic corpus analysis for article depth, substantive reporting, duplicates, and metadata health.</p>
             </div>
             <div class="view-actions-group" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
               <span id="cq-scan-status-badge" class="badge badge-gray">Corpus Loaded</span>
-              <button class="btn-table-action" id="btn-cq-refresh" onclick="refreshContentQualityData(true)">
+              <button class="btn-table-action" id="btn-cq-refresh" onclick="refreshContentQualityData()">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
                 Refresh Data
-              </button>
-              <button class="btn-table-action btn-table-primary" id="btn-cq-analyze" onclick="triggerCorpusAnalysis()">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                Run Quality Scan
               </button>
             </div>
           </div>
@@ -3800,15 +3795,15 @@ noindex: true
             </div>
           </div>
 
-          <!-- Top Summary Cards (Prompt Section 7) -->
-          <div class="kpi-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 20px;">
+          <!-- Top Summary Cards -->
+          <div class="kpi-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px;">
             <div class="kpi-card" onclick="filterCqQueue('all')" style="cursor: pointer;" title="Total Articles Analyzed in Corpus">
               <div class="kpi-card-header">
                 <span class="kpi-card-label">Articles Analyzed</span>
                 <span class="badge badge-gray">Corpus</span>
               </div>
               <div class="kpi-card-val" id="cq-kpi-total">--</div>
-              <div class="kpi-card-sub" id="cq-kpi-total-sub">100% real published dispatches</div>
+              <div class="kpi-card-sub" id="cq-kpi-total-sub">Published dispatches</div>
             </div>
 
             <div class="kpi-card" onclick="filterCqQueue('healthy')" style="cursor: pointer;" title="Healthy Articles">
@@ -3817,7 +3812,7 @@ noindex: true
                 <span class="badge badge-green">Good</span>
               </div>
               <div class="kpi-card-val" id="cq-kpi-healthy" style="color: var(--color-green);">--</div>
-              <div class="kpi-card-sub" id="cq-kpi-healthy-sub">Adequate substantive body &amp; structure</div>
+              <div class="kpi-card-sub" id="cq-kpi-healthy-sub">Substantive body &amp; structure</div>
             </div>
 
             <div class="kpi-card" onclick="filterCqQueue('needs_review')" style="cursor: pointer;" title="Needs Editorial Review">
@@ -3835,7 +3830,7 @@ noindex: true
                 <span class="badge badge-red">Attention</span>
               </div>
               <div class="kpi-card-val" id="cq-kpi-thin" style="color: var(--color-red);">--</div>
-              <div class="kpi-card-sub" id="cq-kpi-thin-sub">Very short body or high boilerplate</div>
+              <div class="kpi-card-sub" id="cq-kpi-thin-sub">Short body or high boilerplate</div>
             </div>
 
             <div class="kpi-card" onclick="switchCqSubTab('duplicates')" style="cursor: pointer;" title="Duplicate / Near-Duplicate Pairs">
@@ -3844,7 +3839,7 @@ noindex: true
                 <span class="badge badge-purple">Overlap</span>
               </div>
               <div class="kpi-card-val" id="cq-kpi-duplicates" style="color: var(--color-purple);">--</div>
-              <div class="kpi-card-sub" id="cq-kpi-duplicates-sub">High body-text similarity pairs</div>
+              <div class="kpi-card-sub" id="cq-kpi-duplicates-sub">High text similarity pairs</div>
             </div>
 
             <div class="kpi-card" onclick="filterCqQueue('brief')" style="cursor: pointer;" title="Short News Briefs (Legitimate)">
@@ -3853,12 +3848,12 @@ noindex: true
                 <span class="badge badge-amber">Briefs</span>
               </div>
               <div class="kpi-card-val" id="cq-kpi-briefs" style="color: var(--color-amber);">--</div>
-              <div class="kpi-card-sub" id="cq-kpi-briefs-sub">Short but substantive breaking news</div>
+              <div class="kpi-card-sub" id="cq-kpi-briefs-sub">Short breaking news briefs</div>
             </div>
 
             <div class="kpi-card" onclick="filterCqQueue('missing_meta')" style="cursor: pointer;" title="Missing or Incomplete Metadata">
               <div class="kpi-card-header">
-                <span class="kpi-card-label">Missing/Weak Metadata</span>
+                <span class="kpi-card-label">Missing Metadata</span>
                 <span class="badge badge-amber">Meta</span>
               </div>
               <div class="kpi-card-val" id="cq-kpi-missing-meta" style="color: var(--color-amber);">--</div>
@@ -3871,7 +3866,7 @@ noindex: true
                 <span class="badge badge-purple">Policy</span>
               </div>
               <div class="kpi-card-val" id="cq-kpi-sensitive" style="color: var(--color-purple);">--</div>
-              <div class="kpi-card-sub" id="cq-kpi-sensitive-sub">Governed legal, political, defense news</div>
+              <div class="kpi-card-sub" id="cq-kpi-sensitive-sub">Governed news topics</div>
             </div>
 
             <div class="kpi-card" title="Content Freshness Overview">
@@ -3879,8 +3874,8 @@ noindex: true
                 <span class="kpi-card-label">Corpus Freshness</span>
                 <span class="badge badge-gray">Timeline</span>
               </div>
-              <div class="kpi-card-val" id="cq-kpi-freshness" style="font-size: 15px; margin-top: 6px;">--</div>
-              <div class="kpi-card-sub" id="cq-kpi-freshness-sub">Distribution across publication dates</div>
+              <div class="kpi-card-val" id="cq-kpi-freshness" style="font-size: 14px; margin-top: 6px;">--</div>
+              <div class="kpi-card-sub" id="cq-kpi-freshness-sub">Distribution across dates</div>
             </div>
           </div>
 
@@ -3896,12 +3891,12 @@ noindex: true
 
           <!-- SUBTAB 1: QUALITY QUEUE -->
           <div id="cq-subpane-queue">
-            <!-- Filter Bar (Prompt Section 8) -->
+            <!-- Filter Bar -->
             <div class="dashboard-panel" style="margin-bottom: 16px; padding: 14px 18px;">
-              <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-                <div>
-                  <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--color-subtle); margin-bottom: 4px;">Quality Status</label>
-                  <select id="cq-filter-status" class="form-input" style="padding: 6px 10px; font-size: 13px; min-width: 150px;" onchange="onCqFilterChange()">
+              <div style="display: flex; gap: 14px; align-items: flex-end; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 160px;">
+                  <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--color-subtle); margin-bottom: 6px; font-weight: 600;">Quality Status</label>
+                  <select id="cq-filter-status" class="form-input" style="padding: 7px 10px; font-size: 13px; width: 100%;" onchange="onCqFilterChange()">
                     <option value="all">All Articles</option>
                     <option value="thin">Potential Thin Content</option>
                     <option value="needs_review">Needs Review</option>
@@ -3919,9 +3914,9 @@ noindex: true
                   </select>
                 </div>
 
-                <div>
-                  <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--color-subtle); margin-bottom: 4px;">Desk / Category</label>
-                  <select id="cq-filter-desk" class="form-input" style="padding: 6px 10px; font-size: 13px; min-width: 120px;" onchange="onCqFilterChange()">
+                <div style="flex: 1; min-width: 130px;">
+                  <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--color-subtle); margin-bottom: 6px; font-weight: 600;">Desk / Category</label>
+                  <select id="cq-filter-desk" class="form-input" style="padding: 7px 10px; font-size: 13px; width: 100%;" onchange="onCqFilterChange()">
                     <option value="all">All Desks</option>
                     <option value="india">India</option>
                     <option value="world">World</option>
@@ -3931,19 +3926,19 @@ noindex: true
                   </select>
                 </div>
 
-                <div>
-                  <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--color-subtle); margin-bottom: 4px;">Min Words</label>
-                  <input type="number" id="cq-filter-min-words" class="form-input" placeholder="0" min="0" style="padding: 6px 10px; font-size: 13px; width: 90px;" onchange="onCqFilterChange()">
+                <div style="min-width: 90px; width: 100px;">
+                  <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--color-subtle); margin-bottom: 6px; font-weight: 600;">Min Words</label>
+                  <input type="number" id="cq-filter-min-words" class="form-input" placeholder="0" min="0" style="padding: 7px 10px; font-size: 13px; width: 100%;" onchange="onCqFilterChange()">
                 </div>
 
-                <div>
-                  <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--color-subtle); margin-bottom: 4px;">Max Words</label>
-                  <input type="number" id="cq-filter-max-words" class="form-input" placeholder="No limit" min="0" style="padding: 6px 10px; font-size: 13px; width: 90px;" onchange="onCqFilterChange()">
+                <div style="min-width: 90px; width: 100px;">
+                  <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--color-subtle); margin-bottom: 6px; font-weight: 600;">Max Words</label>
+                  <input type="number" id="cq-filter-max-words" class="form-input" placeholder="No limit" min="0" style="padding: 7px 10px; font-size: 13px; width: 100%;" onchange="onCqFilterChange()">
                 </div>
 
-                <div>
-                  <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--color-subtle); margin-bottom: 4px;">Sort By</label>
-                  <select id="cq-filter-sort" class="form-input" style="padding: 6px 10px; font-size: 13px; min-width: 150px;" onchange="onCqFilterChange()">
+                <div style="flex: 1; min-width: 160px;">
+                  <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--color-subtle); margin-bottom: 6px; font-weight: 600;">Sort By</label>
+                  <select id="cq-filter-sort" class="form-input" style="padding: 7px 10px; font-size: 13px; width: 100%;" onchange="onCqFilterChange()">
                     <option value="date_desc">Date: Newest First</option>
                     <option value="date_asc">Date: Oldest First</option>
                     <option value="words_asc">Words: Fewest First</option>
@@ -3952,8 +3947,8 @@ noindex: true
                   </select>
                 </div>
 
-                <div style="margin-top: 18px;">
-                  <button class="btn-table-action" onclick="resetCqFilters()">Reset Filters</button>
+                <div>
+                  <button class="btn-table-action" style="padding: 7px 12px;" onclick="resetCqFilters()">Reset Filters</button>
                 </div>
               </div>
             </div>
@@ -3973,8 +3968,11 @@ noindex: true
                 </thead>
                 <tbody id="cq-queue-tbody">
                   <tr>
-                    <td colspan="6" style="padding: 30px; text-align: center; color: var(--color-subtle);">
-                      Loading quality index...
+                    <td colspan="6" style="padding: 36px; text-align: center; color: var(--color-subtle);">
+                      <div style="display: inline-flex; align-items: center; gap: 8px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>
+                        <span>Loading quality queue...</span>
+                      </div>
                     </td>
                   </tr>
                 </tbody>
@@ -4017,8 +4015,11 @@ noindex: true
                 </thead>
                 <tbody id="cq-duplicates-tbody">
                   <tr>
-                    <td colspan="4" style="padding: 30px; text-align: center; color: var(--color-subtle);">
-                      No duplicate pairs loaded.
+                    <td colspan="4" style="padding: 36px; text-align: center; color: var(--color-subtle);">
+                      <div style="display: inline-flex; align-items: center; gap: 8px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>
+                        <span>Loading duplicate analysis...</span>
+                      </div>
                     </td>
                   </tr>
                 </tbody>
@@ -4037,6 +4038,7 @@ noindex: true
             </div>
           </div>
         </section>
+
 
         <!-- ================================================================
              GSC OVERVIEW (HIGH-LEVEL SEARCH CONSOLE & PROPERTY STATUS)
@@ -13487,8 +13489,8 @@ noindex: true
       },
       currentInspectedArticle: null,
       loading: false,
-      analyzing: false,
-      initialLoaded: false
+      initialLoaded: false,
+      requestId: 0
     };
 
     function initContentQualityView(options) {
@@ -13504,74 +13506,172 @@ noindex: true
         CqState.page = 1;
       }
       if (!CqState.initialLoaded) {
-        loadContentQualityData(false);
+        loadContentQualityData();
       } else {
         loadCqQueue();
       }
     }
 
-    async function loadContentQualityData(forceRefresh) {
+    async function loadContentQualityData() {
+      if (CqState.loading) return;
       CqState.loading = true;
+      const currentReq = ++CqState.requestId;
+
       const statusBadge = document.getElementById('cq-scan-status-badge');
       if (statusBadge) {
         statusBadge.className = 'badge badge-blue';
         statusBadge.textContent = 'Loading...';
       }
+      const refreshBtn = document.getElementById('btn-cq-refresh');
+      if (refreshBtn) refreshBtn.disabled = true;
+
+      // Render loading row in queue table if empty
+      const tbody = document.getElementById('cq-queue-tbody');
+      if (tbody && (!CqState.items || CqState.items.length === 0)) {
+        tbody.innerHTML = '<tr><td colspan="6" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
+          '<div style="display: inline-flex; align-items: center; gap: 8px;">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' +
+            '<span>Loading content quality data...</span>' +
+          '</div>' +
+        '</td></tr>';
+      }
+
+      // Render loading row in duplicates table if empty
+      const dupTbody = document.getElementById('cq-duplicates-tbody');
+      if (dupTbody && (!CqState.duplicatePairs || CqState.duplicatePairs.length === 0)) {
+        dupTbody.innerHTML = '<tr><td colspan="4" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
+          '<div style="display: inline-flex; align-items: center; gap: 8px;">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' +
+            '<span>Loading duplicate analysis...</span>' +
+          '</div>' +
+        '</td></tr>';
+      }
 
       try {
-        const refreshQuery = forceRefresh ? '?refresh=true' : '';
-        const resp = await fetch('/api/admin/content-quality/summary' + refreshQuery, {
-          headers: { 'Accept': 'application/json' }
+        const queueParams = new URLSearchParams({
+          filter: CqState.filters.status,
+          desk: CqState.filters.desk,
+          page: CqState.page.toString(),
+          pageSize: CqState.pageSize.toString(),
+          sortBy: CqState.filters.sortBy
         });
+        if (CqState.filters.minWords > 0) queueParams.set('minWords', CqState.filters.minWords.toString());
+        if (CqState.filters.maxWords) queueParams.set('maxWords', CqState.filters.maxWords.toString());
 
-        if (resp.status === 401 || resp.status === 403) {
+        const [sumResp, queueResp, dupResp] = await Promise.all([
+          fetch('/api/admin/content-quality/summary', { headers: { 'Accept': 'application/json' } }),
+          fetch('/api/admin/content-quality/queue?' + queueParams.toString(), { headers: { 'Accept': 'application/json' } }),
+          fetch('/api/admin/content-quality/duplicates?page=' + CqState.dupPage + '&pageSize=' + CqState.dupPageSize, { headers: { 'Accept': 'application/json' } })
+        ]);
+
+        if (currentReq !== CqState.requestId) return;
+
+        if (sumResp.status === 401 || sumResp.status === 403 || queueResp.status === 401 || queueResp.status === 403 || dupResp.status === 401 || dupResp.status === 403) {
           if (statusBadge) {
             statusBadge.className = 'badge badge-red';
             statusBadge.textContent = 'Auth Required';
           }
+          if (tbody) {
+            tbody.innerHTML = '<tr><td colspan="6" style="padding: 30px; text-align: center; color: var(--color-red);">Authentication required. Please refresh or re-login.</td></tr>';
+          }
+          if (dupTbody) {
+            dupTbody.innerHTML = '<tr><td colspan="4" style="padding: 30px; text-align: center; color: var(--color-red);">Authentication required. Please refresh or re-login.</td></tr>';
+          }
           return;
         }
 
-        const data = await resp.json();
-        if (data.success) {
-          if (data.needsAnalysis) {
+        const sumData = await sumResp.json().catch(() => ({}));
+        const queueData = await queueResp.json().catch(() => ({}));
+        const dupData = await dupResp.json().catch(() => ({}));
+
+        if (currentReq !== CqState.requestId) return;
+
+        // Process Summary
+        if (sumResp.ok && sumData.success) {
+          if (sumData.needsAnalysis) {
             if (statusBadge) {
-              statusBadge.className = 'badge badge-amber';
-              statusBadge.textContent = 'Scan Required';
+              statusBadge.className = 'badge badge-gray';
+              statusBadge.textContent = 'No Index';
             }
-            renderCqNeedsAnalysisState();
+            renderCqEmptyCorpusState();
           } else {
-            CqState.summary = data;
+            CqState.summary = sumData;
             CqState.initialLoaded = true;
             if (statusBadge) {
               statusBadge.className = 'badge badge-green';
               statusBadge.textContent = 'Corpus Synced';
             }
-            renderCqSummaryCards(data);
-            await Promise.all([loadCqQueue(), loadCqDuplicates()]);
+            renderCqSummaryCards(sumData);
           }
         } else {
-          showToast(data.error || 'Failed to load content quality data', 'error');
+          if (statusBadge) {
+            statusBadge.className = 'badge badge-red';
+            statusBadge.textContent = 'Sync Failed';
+          }
+          showToast(sumData.error || (!sumResp.ok ? ('Summary error (' + sumResp.status + ')') : 'Corpus summary sync failed'), 'error');
+        }
+
+        // Process Queue
+        if (queueResp.ok && queueData.success && !queueData.needsAnalysis) {
+          CqState.items = queueData.items || [];
+          CqState.total = queueData.total || 0;
+          CqState.page = queueData.page || 1;
+          CqState.totalPages = queueData.totalPages || 1;
+          renderCqQueueRows(CqState.items);
+          renderCqPagination();
+          if (CqState.items.length > 0 && typeof fetchThinQueueReviewStates === 'function') {
+            fetchThinQueueReviewStates(CqState.items.map(i => i.slug).filter(Boolean));
+          }
+        } else if (queueResp.ok && queueData.success && queueData.needsAnalysis) {
+          if (!sumData.success || sumData.needsAnalysis) {
+            renderCqEmptyCorpusState();
+          }
+        } else {
+          renderCqQueueError(queueData.error || (!queueResp.ok ? ('Server error (' + queueResp.status + ')') : 'Failed to load queue'));
+        }
+
+        // Process Duplicates
+        if (dupResp.ok && dupData.success && !dupData.needsAnalysis) {
+          CqState.duplicatePairs = dupData.pairs || [];
+          CqState.dupTotal = dupData.total || 0;
+          renderCqDuplicateRows(CqState.duplicatePairs);
+          renderCqDupPagination(dupData.total, dupData.page, dupData.totalPages);
+          const badgeEl = document.getElementById('cq-dup-tab-count');
+          if (badgeEl) badgeEl.textContent = (dupData.total || 0).toString();
+        } else if (dupResp.ok && dupData.success && dupData.needsAnalysis) {
+          const dtBody = document.getElementById('cq-duplicates-tbody');
+          if (dtBody) {
+            dtBody.innerHTML = '<tr><td colspan="4" style="padding: 30px; text-align: center; color: var(--color-subtle);">No duplicate analysis cached. Click Refresh Data to reload.</td></tr>';
+          }
+        } else {
+          renderCqDuplicatesError(dupData.error || (!dupResp.ok ? ('Server error (' + dupResp.status + ')') : 'Failed to load duplicates'));
         }
       } catch (err) {
-        console.error('[ContentQuality] Error loading summary:', err);
+        if (currentReq !== CqState.requestId) return;
+        console.error('[ContentQuality] Error loading data:', err);
         if (statusBadge) {
           statusBadge.className = 'badge badge-red';
           statusBadge.textContent = 'Load Failed';
         }
+        renderCqQueueError('Network error loading quality data. Please check connection and retry.');
+        renderCqDuplicatesError('Network error loading duplicate data. Please check connection and retry.');
+        showToast('Network error loading content quality data', 'error');
       } finally {
-        CqState.loading = false;
+        if (currentReq === CqState.requestId) {
+          CqState.loading = false;
+          if (refreshBtn) refreshBtn.disabled = false;
+        }
       }
     }
 
-    function renderCqNeedsAnalysisState() {
+    function renderCqEmptyCorpusState() {
       const tbody = document.getElementById('cq-queue-tbody');
       if (tbody) {
         tbody.innerHTML = '<tr><td colspan="6" style="padding: 40px; text-align: center; color: var(--color-subtle);">' +
-          '<div style="font-size: 15px; font-weight: 600; color: var(--color-ink); margin-bottom: 8px;">Content Quality Index Not Yet Built</div>' +
-          '<p style="font-size: 13px; margin-bottom: 16px;">The article corpus has not been analyzed yet in the current cache window.</p>' +
-          '<button class="btn-table-action btn-table-primary" onclick="triggerCorpusAnalysis()">' +
-          'Run Quality Scan Now' +
+          '<div style="font-size: 15px; font-weight: 600; color: var(--color-ink); margin-bottom: 8px;">Content Quality Index Not Available</div>' +
+          '<p style="font-size: 13px; margin-bottom: 16px; color: var(--color-subtle);">No cached quality data found. Click Refresh Data to check for updates.</p>' +
+          '<button class="btn-table-action" onclick="refreshContentQualityData()">' +
+          'Refresh Data' +
           '</button>' +
         '</td></tr>';
       }
@@ -13584,7 +13684,33 @@ noindex: true
       document.getElementById('cq-kpi-missing-meta').textContent = '--';
       const sensEl = document.getElementById('cq-kpi-sensitive');
       if (sensEl) sensEl.textContent = '--';
-      document.getElementById('cq-kpi-freshness').textContent = 'Needs Scan';
+      document.getElementById('cq-kpi-freshness').textContent = '--';
+    }
+
+    function renderCqQueueError(message) {
+      const tbody = document.getElementById('cq-queue-tbody');
+      if (tbody) {
+        tbody.innerHTML = '<tr><td colspan="6" style="padding: 36px; text-align: center;">' +
+          '<div style="font-size: 14px; font-weight: 600; color: var(--color-ink); margin-bottom: 6px;">Unable to Load Quality Queue</div>' +
+          '<p style="font-size: 12px; color: var(--color-subtle); margin-bottom: 14px;">' + escapeHtml(message || 'An error occurred while fetching quality data.') + '</p>' +
+          '<button class="btn-table-action" onclick="refreshContentQualityData()">' +
+          'Retry' +
+          '</button>' +
+        '</td></tr>';
+      }
+    }
+
+    function renderCqDuplicatesError(message) {
+      const tbody = document.getElementById('cq-duplicates-tbody');
+      if (tbody) {
+        tbody.innerHTML = '<tr><td colspan="4" style="padding: 36px; text-align: center;">' +
+          '<div style="font-size: 14px; font-weight: 600; color: var(--color-ink); margin-bottom: 6px;">Unable to Load Duplicate Analysis</div>' +
+          '<p style="font-size: 12px; color: var(--color-subtle); margin-bottom: 14px;">' + escapeHtml(message || 'An error occurred while fetching duplicate data.') + '</p>' +
+          '<button class="btn-table-action" onclick="refreshContentQualityData()">' +
+          'Retry' +
+          '</button>' +
+        '</td></tr>';
+      }
     }
 
     function renderCqSummaryCards(s) {
@@ -13626,72 +13752,19 @@ noindex: true
       if (ovTotalEl && s.total) ovTotalEl.textContent = s.total.toLocaleString();
     }
 
-    async function triggerCorpusAnalysis() {
-      if (CqState.analyzing) return;
-      CqState.analyzing = true;
-
-      const btn = document.getElementById('btn-cq-analyze');
-      const origText = btn ? btn.innerHTML : '';
-      if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = 'Scanning Corpus...';
-      }
-
-      const statusBadge = document.getElementById('cq-scan-status-badge');
-      if (statusBadge) {
-        statusBadge.className = 'badge badge-blue';
-        statusBadge.textContent = 'Scanning...';
-      }
-
-      try {
-        const resp = await fetch('/api/admin/content-quality/analyze', {
-          method: 'POST',
-          headers: { 'Accept': 'application/json' }
-        });
-        const data = await resp.json();
-        if (data.success) {
-          showToast('Corpus quality scan complete: ' + (data.summary.total || 0) + ' articles analyzed', 'success');
-          CqState.summary = data.summary;
-          CqState.initialLoaded = true;
-          if (statusBadge) {
-            statusBadge.className = 'badge badge-green';
-            statusBadge.textContent = 'Scan Complete';
-          }
-          renderCqSummaryCards(data.summary);
-          CqState.page = 1;
-          CqState.dupPage = 1;
-          await Promise.all([loadCqQueue(), loadCqDuplicates()]);
-        } else {
-          showToast(data.error || 'Corpus analysis failed', 'error');
-          if (statusBadge) {
-            statusBadge.className = 'badge badge-red';
-            statusBadge.textContent = 'Scan Failed';
-          }
-        }
-      } catch (err) {
-        console.error('[ContentQuality] Analysis error:', err);
-        showToast('Network error during corpus scan: ' + err.message, 'error');
-        if (statusBadge) {
-          statusBadge.className = 'badge badge-red';
-          statusBadge.textContent = 'Scan Failed';
-        }
-      } finally {
-        CqState.analyzing = false;
-        if (btn) {
-          btn.disabled = false;
-          btn.innerHTML = origText;
-        }
-      }
-    }
-
-    function refreshContentQualityData(force) {
-      loadContentQualityData(force);
+    function refreshContentQualityData() {
+      loadContentQualityData();
     }
 
     async function loadCqQueue() {
       const tbody = document.getElementById('cq-queue-tbody');
       if (tbody) {
-        tbody.innerHTML = '<tr><td colspan="6" style="padding: 24px; text-align: center; color: var(--color-subtle);">Loading queue...</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" style="padding: 24px; text-align: center; color: var(--color-subtle);">' +
+          '<div style="display: inline-flex; align-items: center; gap: 8px;">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' +
+            '<span>Loading queue...</span>' +
+          '</div>' +
+        '</td></tr>';
       }
 
       try {
@@ -13712,7 +13785,7 @@ noindex: true
 
         if (data.success) {
           if (data.needsAnalysis) {
-            renderCqNeedsAnalysisState();
+            renderCqEmptyCorpusState();
             return;
           }
           CqState.items = data.items || [];
@@ -13725,15 +13798,11 @@ noindex: true
             fetchThinQueueReviewStates(CqState.items.map(i => i.slug).filter(Boolean));
           }
         } else {
-          if (tbody) {
-            tbody.innerHTML = '<tr><td colspan="6" style="padding: 24px; text-align: center; color: var(--color-brand);">' + escapeHtml(data.error || 'Failed to load queue') + '</td></tr>';
-          }
+          renderCqQueueError(data.error || 'Failed to load queue');
         }
       } catch (err) {
         console.error('[ContentQuality] Queue load error:', err);
-        if (tbody) {
-          tbody.innerHTML = '<tr><td colspan="6" style="padding: 24px; text-align: center; color: var(--color-brand);">Network error loading queue</td></tr>';
-        }
+        renderCqQueueError('Network error loading queue');
       }
     }
 
@@ -13742,8 +13811,11 @@ noindex: true
       if (!tbody) return;
 
       if (!items || items.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="padding: 30px; text-align: center; color: var(--color-subtle);">' +
-          'No articles found matching the current filters.' +
+        const hasFilters = CqState.filters.status !== 'all' || CqState.filters.desk !== 'all' || CqState.filters.minWords > 0 || CqState.filters.maxWords !== null;
+        tbody.innerHTML = '<tr><td colspan="6" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
+          '<div style="font-size: 14px; font-weight: 600; color: var(--color-ink); margin-bottom: 6px;">' + (hasFilters ? 'No Matching Articles' : 'No Articles Found') + '</div>' +
+          '<p style="font-size: 12px; color: var(--color-subtle); margin-bottom: ' + (hasFilters ? '12px' : '0') + ';">' + (hasFilters ? 'No articles match the current filter criteria.' : 'There are currently no articles in this queue.') + '</p>' +
+          (hasFilters ? '<button class="btn-table-action" onclick="resetCqFilters()">Reset Filters</button>' : '') +
         '</td></tr>';
         return;
       }
@@ -13959,16 +14031,21 @@ noindex: true
     async function loadCqDuplicates() {
       const tbody = document.getElementById('cq-duplicates-tbody');
       if (tbody) {
-        tbody.innerHTML = '<tr><td colspan="4" style="padding: 24px; text-align: center; color: var(--color-subtle);">Loading duplicates...</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="4" style="padding: 24px; text-align: center; color: var(--color-subtle);">' +
+          '<div style="display: inline-flex; align-items: center; gap: 8px;">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' +
+            '<span>Loading duplicates...</span>' +
+          '</div>' +
+        '</td></tr>';
       }
 
       try {
         const resp = await fetch('/api/admin/content-quality/duplicates?page=' + CqState.dupPage + '&pageSize=' + CqState.dupPageSize, {
           headers: { 'Accept': 'application/json' }
         });
-        const data = await resp.json();
+        const data = await resp.json().catch(() => ({}));
 
-        if (data.success) {
+        if (resp.ok && data.success) {
           CqState.duplicatePairs = data.pairs || [];
           CqState.dupTotal = data.total || 0;
           renderCqDuplicateRows(CqState.duplicatePairs);
@@ -13976,15 +14053,11 @@ noindex: true
           const badgeEl = document.getElementById('cq-dup-tab-count');
           if (badgeEl) badgeEl.textContent = (data.total || 0).toString();
         } else {
-          if (tbody) {
-            tbody.innerHTML = '<tr><td colspan="4" style="padding: 24px; text-align: center; color: var(--color-brand);">' + escapeHtml(data.error || 'Failed to load duplicates') + '</td></tr>';
-          }
+          renderCqDuplicatesError(data.error || (!resp.ok ? ('Server error (' + resp.status + ')') : 'Failed to load duplicates'));
         }
       } catch (err) {
         console.error('[ContentQuality] Duplicates load error:', err);
-        if (tbody) {
-          tbody.innerHTML = '<tr><td colspan="4" style="padding: 24px; text-align: center; color: var(--color-brand);">Network error loading duplicates</td></tr>';
-        }
+        renderCqDuplicatesError('Network error loading duplicates');
       }
     }
 
@@ -13993,8 +14066,9 @@ noindex: true
       if (!tbody) return;
 
       if (!pairs || pairs.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" style="padding: 30px; text-align: center; color: var(--color-subtle);">' +
-          'No duplicate or near-duplicate article pairs found in corpus.' +
+        tbody.innerHTML = '<tr><td colspan="4" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
+          '<div style="font-size: 14px; font-weight: 600; color: var(--color-ink); margin-bottom: 6px;">No Duplicate Pairs Detected</div>' +
+          '<p style="font-size: 12px; color: var(--color-subtle); margin: 0;">Deterministic n-gram analysis found no high body-text overlap across published articles.</p>' +
         '</td></tr>';
         return;
       }
@@ -14378,6 +14452,7 @@ noindex: true
       // Re-render queue table so status updates immediately
       if (CqState.items) renderCqQueueRows(CqState.items);
     }
+
 
     // ========================================================================
     // INTERNAL LINKING & ORPHAN CONTENT CONTROLLER (Phase F)

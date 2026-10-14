@@ -316,6 +316,215 @@ it('13. Legacy redirects for thin-queue, attention, and safety are preserved acr
   });
 });
 
+// 14. Automatic initialization and request concurrency guards
+it('14. Opening Content Quality triggers automatic loading with concurrency guards', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+
+    // Verify automatic call to loadContentQualityData in initContentQualityView
+    assert(
+      source.includes('if (!CqState.initialLoaded) {\r\n        loadContentQualityData();') ||
+      source.includes('if (!CqState.initialLoaded) {\n        loadContentQualityData();'),
+      `Automatic loadContentQualityData call missing in ${fileLabel}`
+    );
+
+    // Verify concurrency lock
+    assert(
+      source.includes('if (CqState.loading) return;'),
+      `Loading concurrency lock missing in ${fileLabel}`
+    );
+
+    // Verify request ID generation counter to prevent race conditions
+    assert(
+      source.includes('const currentReq = ++CqState.requestId;'),
+      `Request ID race-condition counter missing in ${fileLabel}`
+    );
+
+    // Verify review states are fetched on init
+    assert(
+      source.includes('fetchThinQueueReviewStates();'),
+      `fetchThinQueueReviewStates call on init missing in ${fileLabel}`
+    );
+  });
+});
+
+// 15. Removal of manual scan action & preservation of Refresh Data
+it('15. Manual "Run Quality Scan" and dead scan handlers are removed, Refresh Data is preserved', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+
+    // Verify Run Quality Scan button is NOT present
+    assert(!source.includes('id="btn-cq-analyze"'), `Found removed btn-cq-analyze in ${fileLabel}`);
+    assert(!source.includes('Run Quality Scan'), `Found "Run Quality Scan" text in ${fileLabel}`);
+    assert(!source.includes('Run Quality Scan Now'), `Found "Run Quality Scan Now" text in ${fileLabel}`);
+
+    // Verify dead handler triggerCorpusAnalysis is removed from client script
+    assert(!source.includes('function triggerCorpusAnalysis'), `Found dead handler triggerCorpusAnalysis in ${fileLabel}`);
+
+    // Verify Refresh Data button is present and calls refreshContentQualityData()
+    assert(source.includes('id="btn-cq-refresh"'), `btn-cq-refresh missing in ${fileLabel}`);
+    assert(source.includes('onclick="refreshContentQualityData()"'), `refreshContentQualityData onclick missing in ${fileLabel}`);
+    assert(source.includes('function refreshContentQualityData()'), `refreshContentQualityData function missing in ${fileLabel}`);
+  });
+});
+
+// 16. Removal of internal Phase E badge from Content Quality
+it('16. Internal "Phase E Diagnostic" badge is removed from Content Quality header', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(!source.includes('Phase E Diagnostic'), `Found internal "Phase E Diagnostic" badge in ${fileLabel}`);
+  });
+});
+
+// 17. Visual states: loading, empty, and non-destructive error handling
+it('17. Content Quality supports consistent loading, empty, and error states with Retry option', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+
+    // Verify error renderer with Retry
+    assert(source.includes('function renderCqQueueError('), `renderCqQueueError missing in ${fileLabel}`);
+    assert(source.includes('renderCqEmptyCorpusState();'), `renderCqEmptyCorpusState missing in ${fileLabel}`);
+
+    // Verify non-destructive retry calling refreshContentQualityData()
+    const errFnMatch = source.match(/function renderCqQueueError\(message\)\s*\{([\s\S]*?)\n    \}/);
+    assert(errFnMatch && errFnMatch[1], `renderCqQueueError body missing in ${fileLabel}`);
+    assert(errFnMatch[1].includes('refreshContentQualityData()'), `Retry handler in renderCqQueueError must call refreshContentQualityData() in ${fileLabel}`);
+    assert(errFnMatch[1].includes('Retry'), `Retry button label missing in renderCqQueueError in ${fileLabel}`);
+  });
+});
+
+// 18. Filter and view preservation during data refresh
+it('18. Content Quality preserves filters, sort, desk, and page across queue loads and refreshes', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+
+    // Verify filter parameters passed to queue endpoint
+    assert(source.includes('filter: CqState.filters.status,'), `status filter missing in ${fileLabel}`);
+    assert(source.includes('desk: CqState.filters.desk,'), `desk filter missing in ${fileLabel}`);
+    assert(source.includes('sortBy: CqState.filters.sortBy'), `sortBy filter missing in ${fileLabel}`);
+    assert(source.includes('page: CqState.page.toString(),'), `page param missing in ${fileLabel}`);
+  });
+});
+
+// 19. Unique Queue and Duplicate Detector pagination IDs
+it('19. Unique Queue and Duplicate Detector pagination IDs', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    const queuePrevMatches = source.match(/id=["']cq-btn-prev-page["']/g) || [];
+    const queueNextMatches = source.match(/id=["']cq-btn-next-page["']/g) || [];
+    const dupPrevMatches = source.match(/id=["']cq-dup-btn-prev["']/g) || [];
+    const dupNextMatches = source.match(/id=["']cq-dup-btn-next["']/g) || [];
+
+    assert.strictEqual(queuePrevMatches.length, 1, `Queue prev button ID must appear exactly once in ${fileLabel}`);
+    assert.strictEqual(queueNextMatches.length, 1, `Queue next button ID must appear exactly once in ${fileLabel}`);
+    assert.strictEqual(dupPrevMatches.length, 1, `Duplicate prev button ID must appear exactly once in ${fileLabel}`);
+    assert.strictEqual(dupNextMatches.length, 1, `Duplicate next button ID must appear exactly once in ${fileLabel}`);
+  });
+});
+
+// 20. Duplicate Detector Next button state updates
+it('20. Duplicate Detector Next button state updates correctly with renderCqDupPagination', () => {
+  const scriptMatch = editorialHtml.match(/<script>([\s\S]*?)<\/script>/);
+  assert(scriptMatch && scriptMatch[1], 'Could not extract <script> from editorialHtml');
+  const code = scriptMatch[1].trim();
+
+  const elements = {
+    'cq-dup-pagination-info': { textContent: '' },
+    'cq-dup-btn-prev': { disabled: false },
+    'cq-dup-btn-next': { disabled: false },
+    'cq-dup-page-label': { textContent: '' }
+  };
+  const sandbox = {
+    document: {
+      getElementById: (id) => elements[id] || null
+    },
+    CqState: { dupPage: 1 }
+  };
+  vm.createContext(sandbox);
+
+  const fnMatch = code.match(/function renderCqDupPagination\(total,\s*page,\s*totalPages\)\s*\{[\s\S]*?\n    \}/);
+  assert(fnMatch, 'Could not find renderCqDupPagination function');
+  vm.runInContext(fnMatch[0], sandbox);
+
+  // Page 1 of 3: Prev disabled, Next enabled
+  sandbox.renderCqDupPagination(30, 1, 3);
+  assert.strictEqual(elements['cq-dup-btn-prev'].disabled, true, 'Prev must be disabled on page 1');
+  assert.strictEqual(elements['cq-dup-btn-next'].disabled, false, 'Next must be enabled on page 1 of 3');
+
+  // Page 2 of 3: Prev enabled, Next enabled
+  sandbox.renderCqDupPagination(30, 2, 3);
+  assert.strictEqual(elements['cq-dup-btn-prev'].disabled, false, 'Prev must be enabled on page 2');
+  assert.strictEqual(elements['cq-dup-btn-next'].disabled, false, 'Next must be enabled on page 2 of 3');
+
+  // Page 3 of 3: Prev enabled, Next disabled
+  sandbox.renderCqDupPagination(30, 3, 3);
+  assert.strictEqual(elements['cq-dup-btn-prev'].disabled, false, 'Prev must be enabled on page 3');
+  assert.strictEqual(elements['cq-dup-btn-next'].disabled, true, 'Next must be disabled on page 3 of 3');
+});
+
+// 21. Summary endpoint HTTP failure handling
+it('21. Summary endpoint HTTP failure updates status badge to Sync Failed and does not leave Loading', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(source.includes('if (sumResp.ok && sumData.success)'), `Must check sumResp.ok and sumData.success in ${fileLabel}`);
+    assert(source.includes("statusBadge.textContent = 'Sync Failed'"), `Must update statusBadge to Sync Failed in ${fileLabel}`);
+    assert(source.includes("statusBadge.className = 'badge badge-red'"), `Must set badge-red failure class in ${fileLabel}`);
+  });
+});
+
+// 22. Summary endpoint { success: false } handling
+it('22. Summary endpoint { success: false } preserves existing summary and flags failure', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(source.includes('if (sumResp.ok && sumData.success) {'), `Summary check missing in ${fileLabel}`);
+    assert(source.includes("statusBadge.textContent = 'Sync Failed';"), `Sync Failed text missing in ${fileLabel}`);
+  });
+});
+
+// 23. Duplicate endpoint HTTP failure handling
+it('23. Duplicate endpoint HTTP failure updates table with error card and Retry action', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(source.includes('function renderCqDuplicatesError('), `renderCqDuplicatesError missing in ${fileLabel}`);
+    assert(source.includes('renderCqDuplicatesError('), `Duplicate error invocation missing in ${fileLabel}`);
+  });
+});
+
+// 24. Duplicate endpoint { success: false } handling
+it('24. Duplicate endpoint { success: false } replaces loading spinner with non-destructive error', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(source.includes('if (dupResp.ok && dupData.success && !dupData.needsAnalysis)'), `Must check dupResp.ok and dupData.success for duplicates in ${fileLabel}`);
+    const dupErrMatch = source.match(/function renderCqDuplicatesError\(message\)\s*\{([\s\S]*?)\n    \}/);
+    assert(dupErrMatch && dupErrMatch[1], `renderCqDuplicatesError must have a valid body in ${fileLabel}`);
+    assert(dupErrMatch[1].includes('Unable to Load Duplicate Analysis'), `Error heading missing in ${fileLabel}`);
+  });
+});
+
+// 25. Loading indicators are replaced on failure and Retry uses Refresh Data
+it('25. Loading indicators are replaced on failure and Retry uses Refresh Data', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    const qMatch = source.match(/function renderCqQueueError\(message\)\s*\{([\s\S]*?)\n    \}/);
+    const dMatch = source.match(/function renderCqDuplicatesError\(message\)\s*\{([\s\S]*?)\n    \}/);
+    assert(qMatch && qMatch[1].includes('refreshContentQualityData()'), `renderCqQueueError Retry must call refreshContentQualityData() in ${fileLabel}`);
+    assert(dMatch && dMatch[1].includes('refreshContentQualityData()'), `renderCqDuplicatesError Retry must call refreshContentQualityData() in ${fileLabel}`);
+    assert(!source.includes('triggerCorpusAnalysis'), `No retry may call removed triggerCorpusAnalysis in ${fileLabel}`);
+  });
+});
+
+// 26. Existing filter and view state remains intact after retry
+it('26. Existing filter and view state remains intact after retry', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    const refFnMatch = source.match(/function refreshContentQualityData\(\)\s*\{([\s\S]*?)\n    \}/);
+    assert(refFnMatch && refFnMatch[1].includes('loadContentQualityData()'), `refreshContentQualityData must invoke loadContentQualityData() in ${fileLabel}`);
+    assert(source.includes('filter: CqState.filters.status,'), `Filters status must be read from CqState in ${fileLabel}`);
+    assert(source.includes('desk: CqState.filters.desk,'), `Filters desk must be read from CqState in ${fileLabel}`);
+    assert(source.includes('sortBy: CqState.filters.sortBy'), `Filters sortBy must be read from CqState in ${fileLabel}`);
+  });
+});
+
 console.log(`\nResults: ${passedTests} / ${totalTests} tests passed.\n`);
 if (passedTests !== totalTests) {
   process.exit(1);
