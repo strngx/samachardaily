@@ -525,6 +525,94 @@ it('26. Existing filter and view state remains intact after retry', () => {
   });
 });
 
+// 27. Diagnostic banner is completely absent in both implementations
+it('27. Diagnostic banner ("Read-Only Diagnostic System") is completely absent in both implementations', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(!source.includes('Read-Only Diagnostic System'), `Found "Read-Only Diagnostic System" in ${fileLabel}`);
+    assert(!source.includes('Invariant Notice Banner'), `Found "Invariant Notice Banner" in ${fileLabel}`);
+    assert(!source.includes('Content Quality analysis is 100% deterministic and local'), `Found banner body text in ${fileLabel}`);
+  });
+});
+
+// 28. Auto-initialization path via POST /api/admin/content-quality/analyze
+it('28. Auto-initialization is triggered via POST /api/admin/content-quality/analyze when needsAnalysis is reported', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(source.includes("fetch('/api/admin/content-quality/analyze'"), `Auto-initialization call to /api/admin/content-quality/analyze missing in ${fileLabel}`);
+    assert(source.includes("method: 'POST'"), `POST method missing for /api/admin/content-quality/analyze in ${fileLabel}`);
+    assert(source.includes("Initializing Index..."), `Initializing Index badge text missing in ${fileLabel}`);
+    assert(source.includes("Building content quality index from corpus..."), `Initialization loading status missing in ${fileLabel}`);
+  });
+});
+
+// 29. API failures remain distinguishable from genuine empty data
+it('29. API failures remain distinguishable from genuine empty data', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(source.includes('function renderCqQueueError('), `renderCqQueueError missing in ${fileLabel}`);
+    assert(source.includes('function renderCqDuplicatesError('), `renderCqDuplicatesError missing in ${fileLabel}`);
+    assert(source.includes('Unable to Load Quality Queue'), `Error heading missing in ${fileLabel}`);
+    assert(source.includes('Unable to Load Duplicate Analysis'), `Duplicate error heading missing in ${fileLabel}`);
+    // Genuine empty state renders "No Articles Found" / "No Duplicate Pairs Detected"
+    assert(source.includes('No Articles Found'), `Genuine empty queue text missing in ${fileLabel}`);
+    assert(source.includes('No Duplicate Pairs Detected'), `Genuine empty duplicates text missing in ${fileLabel}`);
+  });
+});
+
+// 30. Existing data renders when the supported API returns it
+it('30. Existing data renders when the supported API returns it', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(source.includes('function renderCqSummaryCards('), `renderCqSummaryCards missing in ${fileLabel}`);
+    assert(source.includes('function renderCqQueueRows('), `renderCqQueueRows missing in ${fileLabel}`);
+    assert(source.includes('function renderCqDuplicateRows('), `renderCqDuplicateRows missing in ${fileLabel}`);
+    assert(source.includes('document.getElementById(\'cq-kpi-total\').textContent'), `cq-kpi-total rendering missing in ${fileLabel}`);
+    assert(source.includes('document.getElementById(\'cq-kpi-healthy\').textContent'), `cq-kpi-healthy rendering missing in ${fileLabel}`);
+  });
+});
+
+// 31. Missing cache/index data produces an accurate, actionable state with retry
+it('31. Missing cache/index data produces an accurate, actionable state with retry', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(source.includes('renderCqEmptyCorpusState();'), `renderCqEmptyCorpusState call missing in ${fileLabel}`);
+    assert(source.includes('Content Quality Index Not Available'), `Accurate empty index heading missing in ${fileLabel}`);
+    assert(source.includes('onclick="refreshContentQualityData()"'), `Actionable retry/refresh action missing in ${fileLabel}`);
+  });
+});
+
+// 32. Worker-rendered and template implementations remain synchronized
+it('32. Worker-rendered and template implementations remain synchronized', () => {
+  // Extract and compare loadContentQualityData function bodies
+  const fnStart = 'async function loadContentQualityData() {';
+  const fnEnd = 'function renderCqEmptyCorpusState() {';
+  const njkFn = njkContent.slice(njkContent.indexOf(fnStart), njkContent.indexOf(fnEnd)).trim();
+  const viewsFn = editorialHtml.slice(editorialHtml.indexOf(fnStart), editorialHtml.indexOf(fnEnd)).trim();
+  assert.strictEqual(njkFn, viewsFn, 'loadContentQualityData must be character-for-character identical between njk and views');
+});
+
+// 33. Bounded concurrency retry stops retrying after 3 attempts and displays actionable error
+it('33. Bounded concurrency retry stops retrying after 3 attempts and displays actionable error', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(source.includes('(CqState.initRetries || 0) < 3'), `Must check (CqState.initRetries || 0) < 3 in ${fileLabel}`);
+    assert(source.includes('CqState.initRetries = (CqState.initRetries || 0) + 1;'), `Must increment initRetries in ${fileLabel}`);
+    assert(source.includes('Corpus analysis is currently in progress or locked by another session.'), `Exhausted retries error message missing in ${fileLabel}`);
+    assert(source.includes('CqState.initRetries = 0;'), `Must reset initRetries in ${fileLabel}`);
+  });
+});
+
+// 34. Concurrency guard prevents duplicate initialization requests
+it('34. Concurrency guard (CqState.initializing) prevents duplicate initialization requests', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(source.includes('initializing: false,'), `initializing property missing in CqState in ${fileLabel}`);
+    assert(source.includes('CqState.initializing = true;'), `Must set CqState.initializing = true before analyze in ${fileLabel}`);
+    assert(source.includes('if (!CqState.initializing)'), `Must check !CqState.initializing in queue handler in ${fileLabel}`);
+  });
+});
+
 console.log(`\nResults: ${passedTests} / ${totalTests} tests passed.\n`);
 if (passedTests !== totalTests) {
   process.exit(1);

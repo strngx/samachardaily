@@ -3785,16 +3785,6 @@ noindex: true
             </div>
           </div>
 
-          <!-- Invariant Notice Banner -->
-          <div class="dashboard-panel" style="margin-bottom: 20px; border-left: 3px solid var(--color-blue); background: rgba(59, 130, 246, 0.05); padding: 12px 18px;">
-            <div style="display: flex; align-items: flex-start; gap: 12px;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-blue); flex-shrink: 0; margin-top: 2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-              <div style="font-size: 13px; color: var(--color-ink-light); line-height: 1.5;">
-                <strong style="color: var(--color-ink);">Read-Only Diagnostic System:</strong> Content Quality analysis is 100% deterministic and local. It will <strong style="color: var(--color-ink);">never</strong> automatically rewrite, mutate, delete, or noindex published articles. Use the Quality Queue and Duplicate Detector below to identify dispatches requiring human editorial attention.
-              </div>
-            </div>
-          </div>
-
           <!-- Top Summary Cards -->
           <div class="kpi-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px;">
             <div class="kpi-card" onclick="filterCqQueue('all')" style="cursor: pointer;" title="Total Articles Analyzed in Corpus">
@@ -13489,6 +13479,8 @@ noindex: true
       },
       currentInspectedArticle: null,
       loading: false,
+      initializing: false,
+      initRetries: 0,
       initialLoaded: false,
       requestId: 0
     };
@@ -13586,13 +13578,116 @@ noindex: true
 
         if (currentReq !== CqState.requestId) return;
 
+        // If corpus index requires initialization or KV cache is expired, auto-initialize
+        if ((sumResp.ok && sumData.success && sumData.needsAnalysis) || (queueResp.ok && queueData.success && queueData.needsAnalysis)) {
+          if (statusBadge) {
+            statusBadge.className = 'badge badge-blue';
+            statusBadge.textContent = 'Initializing Index...';
+          }
+          if (tbody) {
+            tbody.innerHTML = '<tr><td colspan="6" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
+              '<div style="display: inline-flex; align-items: center; gap: 8px;">' +
+                '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' +
+                '<span>Building content quality index from corpus...</span>' +
+              '</div>' +
+            '</td></tr>';
+          }
+          if (dupTbody) {
+            dupTbody.innerHTML = '<tr><td colspan="4" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
+              '<div style="display: inline-flex; align-items: center; gap: 8px;">' +
+                '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' +
+                '<span>Building duplicate analysis index...</span>' +
+              '</div>' +
+            '</td></tr>';
+          }
+
+          try {
+            CqState.initializing = true;
+            const analyzeResp = await fetch('/api/admin/content-quality/analyze', {
+              method: 'POST',
+              headers: { 'Accept': 'application/json' }
+            });
+            if (currentReq !== CqState.requestId) return;
+
+            if (analyzeResp.status === 401 || analyzeResp.status === 403) {
+              CqState.initializing = false;
+              CqState.initRetries = 0;
+              if (statusBadge) {
+                statusBadge.className = 'badge badge-red';
+                statusBadge.textContent = 'Auth Required';
+              }
+              if (tbody) {
+                tbody.innerHTML = '<tr><td colspan="6" style="padding: 30px; text-align: center; color: var(--color-red);">Authentication required. Please refresh or re-login.</td></tr>';
+              }
+              if (dupTbody) {
+                dupTbody.innerHTML = '<tr><td colspan="4" style="padding: 30px; text-align: center; color: var(--color-red);">Authentication required. Please refresh or re-login.</td></tr>';
+              }
+              return;
+            }
+
+            const analyzeData = await analyzeResp.json().catch(() => ({}));
+            if (analyzeResp.ok && analyzeData.success && analyzeData.summary) {
+              CqState.initializing = false;
+              CqState.initRetries = 0;
+              CqState.summary = analyzeData.summary;
+              CqState.initialLoaded = true;
+              if (statusBadge) {
+                statusBadge.className = 'badge badge-green';
+                statusBadge.textContent = 'Corpus Synced';
+              }
+              renderCqSummaryCards(analyzeData.summary);
+              await Promise.all([loadCqQueue(), loadCqDuplicates()]);
+              return;
+            } else if (analyzeResp.status === 409 || analyzeData.inProgress) {
+              if ((CqState.initRetries || 0) < 3) {
+                CqState.initRetries = (CqState.initRetries || 0) + 1;
+                setTimeout(() => {
+                  if (currentReq === CqState.requestId) {
+                    CqState.loading = false;
+                    CqState.initializing = false;
+                    loadContentQualityData();
+                  }
+                }, 2000);
+                return;
+              } else {
+                CqState.initRetries = 0;
+                CqState.initializing = false;
+                if (statusBadge) {
+                  statusBadge.className = 'badge badge-red';
+                  statusBadge.textContent = 'Sync Failed';
+                }
+                renderCqQueueError('Corpus analysis is currently in progress or locked by another session. Click Retry to check again.');
+                renderCqDuplicatesError('Corpus analysis is currently in progress or locked by another session. Click Retry to check again.');
+                return;
+              }
+            } else {
+              CqState.initializing = false;
+              CqState.initRetries = 0;
+              if (statusBadge) {
+                statusBadge.className = 'badge badge-red';
+                statusBadge.textContent = 'Sync Failed';
+              }
+              renderCqQueueError(analyzeData.error || (!analyzeResp.ok ? ('Server error (' + analyzeResp.status + ')') : 'Failed to initialize quality index.'));
+              renderCqDuplicatesError(analyzeData.error || (!analyzeResp.ok ? ('Server error (' + analyzeResp.status + ')') : 'Failed to initialize duplicate analysis.'));
+              return;
+            }
+          } catch (initErr) {
+            if (currentReq !== CqState.requestId) return;
+            CqState.initializing = false;
+            CqState.initRetries = 0;
+            if (statusBadge) {
+              statusBadge.className = 'badge badge-red';
+              statusBadge.textContent = 'Sync Failed';
+            }
+            renderCqQueueError('Network error initializing quality index. Click Retry to reload.');
+            renderCqDuplicatesError('Network error initializing duplicate index. Click Retry to reload.');
+            return;
+          }
+        }
+
         // Process Summary
         if (sumResp.ok && sumData.success) {
           if (sumData.needsAnalysis) {
-            if (statusBadge) {
-              statusBadge.className = 'badge badge-gray';
-              statusBadge.textContent = 'No Index';
-            }
             renderCqEmptyCorpusState();
           } else {
             CqState.summary = sumData;
@@ -13753,6 +13848,7 @@ noindex: true
     }
 
     function refreshContentQualityData() {
+      CqState.initRetries = 0;
       loadContentQualityData();
     }
 
@@ -13785,7 +13881,9 @@ noindex: true
 
         if (data.success) {
           if (data.needsAnalysis) {
-            renderCqEmptyCorpusState();
+            if (!CqState.initializing) {
+              loadContentQualityData();
+            }
             return;
           }
           CqState.items = data.items || [];
