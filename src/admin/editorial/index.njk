@@ -1602,6 +1602,10 @@ noindex: true
       justify-content: center;
       padding: 16px;
     }
+    .modal-backdrop.active,
+    .modal-backdrop.show {
+      display: flex !important;
+    }
     .modal-box {
       background: var(--color-surface);
       border: 1px solid var(--color-border);
@@ -3985,15 +3989,6 @@ noindex: true
 
           <!-- SUBTAB 2: DUPLICATE DETECTOR -->
           <div id="cq-subpane-duplicates" style="display: none;">
-            <div class="dashboard-panel" style="margin-bottom: 16px; border-left: 3px solid var(--color-purple); background: rgba(168, 85, 247, 0.05); padding: 12px 18px;">
-              <div style="display: flex; align-items: flex-start; gap: 12px;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-purple); flex-shrink: 0; margin-top: 2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                <div style="font-size: 13px; color: var(--color-ink-light); line-height: 1.5;">
-                  <strong style="color: var(--color-ink);">Deterministic Duplicate Detection:</strong> Calculated using body-text n-gram fingerprinting and Jaccard similarity. Common news vocabulary and headlines alone do not trigger matches. Compare matching articles side by side before taking editorial action.
-                </div>
-              </div>
-            </div>
-
             <div class="dashboard-panel" style="padding: 0; overflow-x: auto;">
               <table class="table-custom" style="width: 100%; border-collapse: collapse;">
                 <thead>
@@ -13839,6 +13834,21 @@ noindex: true
       document.getElementById('cq-kpi-freshness').textContent = '--';
       const badgeEl = document.getElementById('cq-dup-tab-count');
       if (badgeEl) badgeEl.textContent = '--';
+      const totalSubEl = document.getElementById('cq-kpi-total-sub');
+      if (totalSubEl) {
+        totalSubEl.textContent = 'Data unavailable';
+        totalSubEl.title = 'Corpus count unavailable';
+      }
+      const dupSubEl = document.getElementById('cq-kpi-duplicates-sub');
+      if (dupSubEl) {
+        dupSubEl.textContent = 'Data unavailable';
+        dupSubEl.title = 'Duplicate analysis unavailable';
+      }
+      const freshnessSubEl = document.getElementById('cq-kpi-freshness-sub');
+      if (freshnessSubEl) {
+        freshnessSubEl.textContent = '--';
+        freshnessSubEl.title = 'Corpus freshness unavailable';
+      }
     }
 
     function renderCqQueueError(message) {
@@ -14021,12 +14031,18 @@ noindex: true
 
       const dupSubEl = document.getElementById('cq-kpi-duplicates-sub');
       if (dupSubEl) {
-        if (typeof s.exactDuplicates === 'number' && Number.isFinite(s.exactDuplicates) && s.exactDuplicates > 0) {
+        if (typeof s.nearDuplicates !== 'number' || !Number.isFinite(s.nearDuplicates)) {
+          dupSubEl.textContent = 'Data unavailable';
+          dupSubEl.title = 'Duplicate analysis unavailable';
+        } else if (typeof s.exactDuplicates === 'number' && Number.isFinite(s.exactDuplicates) && s.exactDuplicates > 0) {
           dupSubEl.textContent = s.exactDuplicates.toLocaleString() + ' exact · High similarity pairs';
           dupSubEl.title = (typeof s.nearDuplicates === 'number' ? s.nearDuplicates.toLocaleString() : '0') + ' near duplicates, ' + s.exactDuplicates.toLocaleString() + ' exact duplicates';
+        } else if (s.nearDuplicates === 0) {
+          dupSubEl.textContent = '0 high similarity pairs';
+          dupSubEl.title = 'Scan complete: No duplicate pairs detected';
         } else {
           dupSubEl.textContent = 'High text similarity pairs';
-          dupSubEl.title = 'High text similarity pairs';
+          dupSubEl.title = s.nearDuplicates.toLocaleString() + ' near duplicates';
         }
       }
 
@@ -14055,16 +14071,16 @@ noindex: true
       const freshnessEl = document.getElementById('cq-kpi-freshness');
       if (freshnessEl) {
         if (hasFreshnessData) {
-          freshnessEl.innerHTML = '<span style="color: var(--color-green);" title="Fresh (published &le;7 days ago): ' + freshCount + '">' + freshCount + ' fresh</span> &middot; ' +
-            '<span style="color: var(--color-teal);" title="Recent (published 8&ndash;30 days ago): ' + recentCount + '">' + recentCount + ' recent</span> &middot; ' +
-            '<span style="color: var(--color-muted);" title="Older (&gt;30 days ago; 31&ndash;90d moderate: ' + moderateCount + ', &gt;90d archive: ' + olderCount + '): ' + combinedOlder + '">' + combinedOlder + ' older</span>';
+          freshnessEl.innerHTML = '<span style="color: var(--color-green);" title="Fresh (published ≤7 days ago): ' + freshCount + '">' + freshCount + ' fresh</span> · ' +
+            '<span style="color: var(--color-teal);" title="Recent (published 8–30 days ago): ' + recentCount + '">' + recentCount + ' recent</span> · ' +
+            '<span style="color: var(--color-muted);" title="Older (>30 days ago; 31–90d moderate: ' + moderateCount + ', >90d archive: ' + olderCount + '): ' + combinedOlder + '">' + combinedOlder + ' older</span>';
         } else {
           freshnessEl.textContent = '--';
         }
       }
       const freshnessSubEl = document.getElementById('cq-kpi-freshness-sub');
       if (freshnessSubEl) {
-        freshnessSubEl.textContent = 'Fresh (&le;7d) &middot; Recent (8-30d) &middot; Older (&gt;30d)';
+        freshnessSubEl.textContent = 'Fresh (≤7d) · Recent (8–30d) · Older (>30d)';
         freshnessSubEl.title = 'Corpus age distribution: Fresh (&le;7d), Recent (8&ndash;30d), Established/Archive (&gt;30d)';
       }
 
@@ -14084,7 +14100,9 @@ noindex: true
       }
 
       const dupCountEl = document.getElementById('cq-dup-tab-count');
-      if (dupCountEl) dupCountEl.textContent = ((typeof s.nearDuplicates === 'number' && s.nearDuplicates >= 0) ? s.nearDuplicates : 0).toString();
+      if (dupCountEl) {
+        dupCountEl.textContent = ((typeof s.nearDuplicates === 'number' && Number.isFinite(s.nearDuplicates) && s.nearDuplicates >= 0) ? s.nearDuplicates.toString() : '--');
+      }
 
       const sideQualityEl = document.getElementById('side-quality-count');
       if (sideQualityEl) {
@@ -14508,6 +14526,67 @@ noindex: true
       loadCqDuplicates();
     }
 
+    function renderCqArticleModalLoading(slug) {
+      const modal = document.getElementById('cq-article-modal');
+      if (!modal) return;
+
+      document.getElementById('cq-modal-title').textContent = 'Loading Quality Findings...';
+      document.getElementById('cq-modal-desk').textContent = '--';
+      document.getElementById('cq-modal-author').textContent = '--';
+      document.getElementById('cq-modal-date').textContent = '--';
+      document.getElementById('cq-modal-words').textContent = '--';
+      document.getElementById('cq-modal-paras').textContent = '--';
+
+      const freshnessEl = document.getElementById('cq-modal-freshness');
+      if (freshnessEl) {
+        freshnessEl.textContent = '...';
+        freshnessEl.className = 'badge badge-gray';
+      }
+      const statusBadge = document.getElementById('cq-modal-status-badge');
+      if (statusBadge) {
+        statusBadge.textContent = 'Loading...';
+        statusBadge.className = 'badge badge-blue';
+      }
+      const reviewBadge = document.getElementById('cq-modal-review-badge');
+      if (reviewBadge) reviewBadge.style.display = 'none';
+
+      const bodyEl = document.getElementById('cq-modal-body');
+      if (bodyEl) {
+        bodyEl.innerHTML = '<div style="padding: 40px 20px; text-align: center; color: var(--color-subtle);">' +
+          '<div style="display: inline-flex; align-items: center; gap: 8px;">' +
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' +
+            '<span style="font-size: 13px;">Loading article diagnostics and quality findings...</span>' +
+          '</div>' +
+        '</div>';
+      }
+
+      modal.classList.add('active');
+      modal.style.display = 'flex';
+    }
+
+    function renderCqArticleModalError(message, slug) {
+      const modal = document.getElementById('cq-article-modal');
+      if (!modal) return;
+
+      document.getElementById('cq-modal-title').textContent = 'Unable to Load Article Quality Findings';
+      const statusBadge = document.getElementById('cq-modal-status-badge');
+      if (statusBadge) {
+        statusBadge.textContent = 'Load Failed';
+        statusBadge.className = 'badge badge-red';
+      }
+
+      const bodyEl = document.getElementById('cq-modal-body');
+      if (bodyEl) {
+        bodyEl.innerHTML = '<div style="padding: 36px 20px; text-align: center;">' +
+          '<p style="font-size: 13px; color: var(--color-subtle); margin-bottom: 16px;">' + escapeHtml(message || 'Failed to retrieve article quality detail from index.') + '</p>' +
+          (slug ? '<button class="btn-table-action" onclick="inspectArticleQuality(\'' + escapeJs(slug) + '\')">Retry Inspection</button>' : '') +
+        '</div>';
+      }
+
+      modal.classList.add('active');
+      modal.style.display = 'flex';
+    }
+
     async function inspectArticleQuality(slug) {
       if (!slug) return;
       const cleanSlug = String(slug).trim();
@@ -14518,11 +14597,14 @@ noindex: true
       if (localArt) {
         CqState.currentInspectedArticle = localArt;
         renderCqArticleModal(localArt, []);
+      } else {
+        renderCqArticleModalLoading(cleanSlug);
       }
 
       try {
         const resp = await fetch('/api/admin/content-quality/article?slug=' + encodeURIComponent(cleanSlug), {
-          headers: { 'Accept': 'application/json' }
+          headers: { 'Accept': 'application/json' },
+          credentials: 'same-origin'
         });
         const data = await resp.json().catch(() => ({}));
         if (resp.ok && data.success && data.article) {
@@ -14530,14 +14612,17 @@ noindex: true
           renderCqArticleModal(data.article, data.relatedDuplicates || []);
         } else if (!localArt) {
           if (resp.status === 401 || resp.status === 403) {
+            renderCqArticleModalError('Authentication required to inspect article details. Please log in again.');
             showToast('Authentication required to inspect article details.', 'error');
           } else {
+            renderCqArticleModalError(data.error || 'Failed to load article detail', cleanSlug);
             showToast(data.error || 'Failed to load article detail', 'error');
           }
         }
       } catch (err) {
         console.error('[ContentQuality] Article inspect error:', err);
         if (!localArt) {
+          renderCqArticleModalError('Network error loading article detail: ' + err.message, cleanSlug);
           showToast('Network error loading article detail: ' + err.message, 'error');
         }
       }
@@ -14547,11 +14632,15 @@ noindex: true
       const modal = document.getElementById('cq-article-modal');
       if (!modal) return;
 
+      const rawDate = art.pubDate || art.date;
+      const dateStr = rawDate ? (typeof rawDate === 'string' ? rawDate.split('T')[0] : (rawDate instanceof Date ? rawDate.toISOString().split('T')[0] : String(rawDate))) : 'None';
+      const words = typeof art.bodyWords === 'number' ? art.bodyWords : (typeof art.wordCount === 'number' ? art.wordCount : 0);
+
       document.getElementById('cq-modal-title').textContent = art.title || 'Untitled Article';
       document.getElementById('cq-modal-desk').textContent = (art.category || 'unknown').toUpperCase();
       document.getElementById('cq-modal-author').textContent = art.author || 'None';
-      document.getElementById('cq-modal-date').textContent = art.pubDate ? art.pubDate.split('T')[0] : 'None';
-      document.getElementById('cq-modal-words').textContent = (art.bodyWords || 0).toLocaleString();
+      document.getElementById('cq-modal-date').textContent = dateStr;
+      document.getElementById('cq-modal-words').textContent = words.toLocaleString();
       document.getElementById('cq-modal-paras').textContent = (art.paragraphCount || 0).toString();
 
       const freshnessEl = document.getElementById('cq-modal-freshness');
@@ -14707,12 +14796,16 @@ noindex: true
       }
 
       modal.classList.add('active');
+      modal.style.display = 'flex';
     }
 
     function closeCqArticleModal(event) {
       if (event && event.target && event.target !== event.currentTarget) return;
       const modal = document.getElementById('cq-article-modal');
-      if (modal) modal.classList.remove('active');
+      if (modal) {
+        modal.classList.remove('active');
+        modal.style.display = 'none';
+      }
     }
 
     function openEditorFromCqModal() {

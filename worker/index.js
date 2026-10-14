@@ -3260,9 +3260,10 @@ export default {
           // Parse and analyze — deterministic, no AI, no external calls
           const records = parseArticleIndex(indexData);
           const analyzed = records.map(r => analyzeArticle(r.data, r.body, r.category, r.slug, r.relPath));
-          const duplicatePairs = detectDuplicates(analyzed);
+          const activeAnalyzed = analyzed.filter(a => !a.noindex && a.qualityStatus !== 'redirect' && a.qualityStatus !== 'archived');
+          const duplicatePairs = detectDuplicates(activeAnalyzed);
           const summary = buildCorpusSummary(analyzed, duplicatePairs);
-          const cachePayload = buildCachePayload(analyzed, duplicatePairs, summary, {
+          const cachePayload = buildCachePayload(activeAnalyzed, duplicatePairs, summary, {
             versionId: (lockResult && lockResult.lockId) || null
           });
 
@@ -3488,31 +3489,41 @@ export default {
             } catch (_) {}
           }
 
-          if (!cached || !Array.isArray(cached.articles)) {
-            return new Response(JSON.stringify({ success: false, error: 'Quality index not available. Run analysis first.', needsAnalysis: true }), {
-              status: 404,
-              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
-            });
+          let article = (cached && Array.isArray(cached.articles)) ? cached.articles.find(a => a.slug === slug) : null;
+          let relatedPairs = (cached && Array.isArray(cached.duplicatePairs))
+            ? cached.duplicatePairs.filter(p => p.articleA.slug === slug || p.articleB.slug === slug)
+            : [];
+          let cachedAt = cached ? cached.cachedAt : null;
+
+          // If not found in cache, fallback to qualityIndexJson module
+          if (!article && typeof qualityIndexJson !== 'undefined' && qualityIndexJson && qualityIndexJson !== '{}') {
+            try {
+              const parsed = typeof qualityIndexJson === 'string' ? JSON.parse(qualityIndexJson) : qualityIndexJson;
+              const found = (parsed.articles || []).find(a => a.slug === slug);
+              if (found) {
+                article = analyzeArticle(found.data || {}, found.body || '', found.category, found.slug, found.relPath);
+              }
+            } catch (_) {}
           }
 
-          const article = cached.articles.find(a => a.slug === slug);
           if (!article) {
+            if (!cached || !Array.isArray(cached.articles)) {
+              return new Response(JSON.stringify({ success: false, error: 'Quality index not available. Run analysis first.', needsAnalysis: true }), {
+                status: 404,
+                headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+              });
+            }
             return new Response(JSON.stringify({ success: false, error: 'Article not found in quality index.' }), {
               status: 404,
               headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
             });
           }
 
-          // Find any duplicate pairs involving this article
-          const relatedPairs = (cached.duplicatePairs || []).filter(p =>
-            p.articleA.slug === slug || p.articleB.slug === slug
-          );
-
           return new Response(JSON.stringify({
             success: true,
             article,
             relatedDuplicates: relatedPairs,
-            cachedAt: cached.cachedAt
+            cachedAt: cached ? cached.cachedAt : null
           }), {
             status: 200,
             headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }

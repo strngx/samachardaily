@@ -216,7 +216,9 @@ export function analyzeArticle(data, body, category, slug, relPath) {
   const sourceName = data.sourceName || null;
   const videoId = data.video_id || null;
   const canonical = data.canonical || null;
-  const noindex = Boolean(data.noindex);
+  const isRedirect = Boolean(data.redirect_to || data.layout === 'layouts/redirect.njk' || data.redirect);
+  const isArchived = Boolean(data.archived);
+  const noindex = Boolean(data.noindex || isArchived || isRedirect);
   const actualCategory = category || data.category || 'unknown';
 
   let pubDate = null;
@@ -348,7 +350,13 @@ export function analyzeArticle(data, body, category, slug, relPath) {
   );
 
   let qualityStatus, qualityLabel;
-  if (!hasAnyBodyContent || hasCritical) {
+  if (isRedirect) {
+    qualityStatus = 'redirect';
+    qualityLabel = 'Redirect Stub';
+  } else if (isArchived) {
+    qualityStatus = 'archived';
+    qualityLabel = 'Archived Article';
+  } else if (!hasAnyBodyContent || hasCritical) {
     qualityStatus = 'thin';
     qualityLabel = 'Potential Thin Content';
   } else if (bodyWords < THRESHOLDS.ACCEPTABLE_BRIEF) {
@@ -377,7 +385,7 @@ export function analyzeArticle(data, body, category, slug, relPath) {
     relPath, slug, category: actualCategory, title, dek, author,
     pubDate: pubDate ? pubDate.toISOString() : null,
     ageInDays, freshness,
-    imageUrl, imageCredit, imageAlt, sourceUrl, sourceName, videoId, noindex, canonical, publicUrl,
+    imageUrl, imageCredit, imageAlt, sourceUrl, sourceName, videoId, noindex, isRedirect, isArchived, canonical, publicUrl,
     totalWords, bodyWords, headlineLength, headlineWords, dekWords,
     paragraphCount, headingCount, sentenceCount, avgParaLength, avgSentenceLength,
     linkCount, boilerplateRatio,
@@ -394,7 +402,7 @@ export function analyzeArticle(data, body, category, slug, relPath) {
 
 export function detectDuplicates(articles, threshold = THRESHOLDS.NEAR_DUPLICATE) {
   const pairs = [];
-  const candidates = articles.filter(a => a.bodyWords >= 15 && a._fingerprint);
+  const candidates = articles.filter(a => !a.noindex && a.qualityStatus !== 'redirect' && a.qualityStatus !== 'archived' && a.bodyWords >= 15 && a._fingerprint);
 
   // Pre-index tokens for each candidate document
   const candidateSets = candidates.map(c => {
@@ -479,27 +487,28 @@ export function buildCorpusSummary(articles, duplicatePairs) {
   const noindexed = total > 0 ? articles.filter(a => Boolean(a.noindex)).length : 0;
   const active = Math.max(0, total - noindexed);
   const corpusTotal = total;
-  const healthy = articles.filter(a => a.qualityStatus === 'healthy').length;
-  const thin = articles.filter(a => a.qualityStatus === 'thin').length;
-  const needsReview = articles.filter(a => a.qualityStatus === 'needs_review').length;
-  const brief = articles.filter(a => a.qualityStatus === 'brief').length;
+  const activeArticles = noindexed > 0 ? articles.filter(a => !a.noindex && a.qualityStatus !== 'redirect' && a.qualityStatus !== 'archived') : articles;
+  const healthy = activeArticles.filter(a => a.qualityStatus === 'healthy').length;
+  const thin = activeArticles.filter(a => a.qualityStatus === 'thin').length;
+  const needsReview = activeArticles.filter(a => a.qualityStatus === 'needs_review').length;
+  const brief = activeArticles.filter(a => a.qualityStatus === 'brief').length;
   const nearDuplicates = duplicatePairs.filter(p => p.dupType === 'near_duplicate' || p.dupType === 'exact_duplicate').length;
   const exactDuplicates = duplicatePairs.filter(p => p.dupType === 'exact_duplicate').length;
-  const missingMeta = articles.filter(a => a.missingTitle || a.missingDate || a.missingAuthor).length;
-  const fresh = articles.filter(a => a.freshness === 'fresh').length;
-  const recent = articles.filter(a => a.freshness === 'recent').length;
+  const missingMeta = activeArticles.filter(a => a.missingTitle || a.missingDate || a.missingAuthor).length;
+  const fresh = activeArticles.filter(a => a.freshness === 'fresh').length;
+  const recent = activeArticles.filter(a => a.freshness === 'recent').length;
   const moderate = articles.filter(a => a.freshness === 'moderate').length;
-  const older = articles.filter(a => a.freshness === 'older').length;
-  const avgBodyWords = total > 0 ? Math.round(articles.reduce((sum, a) => sum + (a.bodyWords || 0), 0) / total) : 0;
-  const totalWithSignals = articles.filter(a => a.signals && a.signals.length > 0).length;
-  const sensitive = articles.filter(a => a.sensitiveTopic && a.sensitiveTopic.length > 0).length;
+  const older = activeArticles.filter(a => a.freshness === 'older').length;
+  const avgBodyWords = activeArticles.length > 0 ? Math.round(activeArticles.reduce((sum, a) => sum + (a.bodyWords || 0), 0) / activeArticles.length) : 0;
+  const totalWithSignals = activeArticles.filter(a => a.signals && a.signals.length > 0).length;
+  const sensitive = activeArticles.filter(a => a.sensitiveTopic && a.sensitiveTopic.length > 0).length;
   const advisoryCounts = {
-    Enrich: articles.filter(a => a.thinClassification === 'Enrich').length,
-    'Keep Short': articles.filter(a => a.thinClassification === 'Keep Short').length,
-    Consolidate: articles.filter(a => a.thinClassification === 'Consolidate').length,
-    Noindex: articles.filter(a => a.thinClassification === 'Noindex').length,
-    Prune: articles.filter(a => a.thinClassification === 'Prune').length,
-    Review: articles.filter(a => a.thinClassification === 'Review').length
+    Enrich: activeArticles.filter(a => a.thinClassification === 'Enrich').length,
+    'Keep Short': activeArticles.filter(a => a.thinClassification === 'Keep Short').length,
+    Consolidate: activeArticles.filter(a => a.thinClassification === 'Consolidate').length,
+    Noindex: activeArticles.filter(a => a.thinClassification === 'Noindex').length,
+    Prune: activeArticles.filter(a => a.thinClassification === 'Prune').length,
+    Review: activeArticles.filter(a => a.thinClassification === 'Review').length
   };
   return {
     total, active, corpusTotal, healthy, thin, needsReview, brief, nearDuplicates, exactDuplicates,
@@ -557,6 +566,11 @@ export function paginateArticles(items, options) {
   const sortBy = opts.sortBy || 'date_desc';
 
   let filtered = items.slice();
+
+  // Exclude archived and redirect articles from general queue unless explicitly requested
+  if (filter !== 'archived' && filter !== 'redirect' && filter !== 'noindex') {
+    filtered = filtered.filter(a => !a.noindex && a.qualityStatus !== 'redirect' && a.qualityStatus !== 'archived');
+  }
 
   if (filter && filter !== 'all') {
     if (filter === 'sensitive') {
