@@ -97,6 +97,10 @@ import {
   paginateArticles,
   QUALITY_CACHE_KEY,
   QUALITY_CACHE_TTL,
+  QUALITY_LOCK_KEY,
+  acquireQualityAnalysisLock,
+  releaseQualityAnalysisLock,
+  isQualityLockStale,
 } from './content-quality.js';
 import {
   registerSubscriber,
@@ -3079,46 +3083,72 @@ export default {
       // GET /api/admin/content-quality/summary — corpus summary from cache or fresh analysis
       if (pathname === '/api/admin/content-quality/summary' && method === 'GET') {
         try {
-          // Try cached result first (lightweight summary key first, full cache fallback)
+          // Try cached result first (unified versioned snapshot first, legacy summary key fallback)
           const forceRefresh = url.searchParams.get('refresh') === 'true';
           let summaryObj = null;
           let cachedAt = null;
+          let versionId = null;
 
           if (!forceRefresh && env.AUTH_KV) {
+            // Priority 1: Read unified versioned snapshot directly from primary cache key
             try {
-              const summaryRaw = await env.AUTH_KV.get(QUALITY_CACHE_KEY + ':summary');
-              if (summaryRaw) {
-                const parsed = JSON.parse(summaryRaw);
-                summaryObj = parsed.summary || parsed;
-                cachedAt = parsed.analyzedAt || parsed.cachedAt || null;
+              const raw = await env.AUTH_KV.get(QUALITY_CACHE_KEY);
+              if (raw) {
+                const parsed = JSON.parse(raw);
+                if (parsed && parsed.summary) {
+                  summaryObj = parsed.summary;
+                  cachedAt = parsed.cachedAt || parsed.analyzedAt || null;
+                  versionId = parsed.versionId || null;
+                }
               }
             } catch (_) {}
 
+            // Priority 2: Fallback to legacy summary key if primary snapshot is absent
             if (!summaryObj) {
               try {
-                const raw = await env.AUTH_KV.get(QUALITY_CACHE_KEY);
-                if (raw) {
-                  const parsed = JSON.parse(raw);
-                  summaryObj = parsed.summary || null;
-                  cachedAt = parsed.cachedAt || null;
+                const summaryRaw = await env.AUTH_KV.get(QUALITY_CACHE_KEY + ':summary');
+                if (summaryRaw) {
+                  const parsed = JSON.parse(summaryRaw);
+                  summaryObj = parsed.summary || parsed;
+                  cachedAt = parsed.analyzedAt || parsed.cachedAt || null;
+                  versionId = parsed.versionId || null;
                 }
               } catch (_) {}
             }
           }
 
           if (summaryObj) {
-            return new Response(JSON.stringify({ success: true, cached: true, ...summaryObj, cachedAt }), {
+            return new Response(JSON.stringify({
+              success: true,
+              cached: true,
+              ...summaryObj,
+              cachedAt,
+              versionId: versionId || undefined
+            }), {
               status: 200,
               headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
             });
           }
 
-          // No cache: return needs-analysis state (analysis triggered separately)
+          // No cache: check if analysis is currently in progress
+          let inProgress = false;
+          if (env.AUTH_KV) {
+            try {
+              const activeRaw = await env.AUTH_KV.get(QUALITY_LOCK_KEY);
+              if (activeRaw && !isQualityLockStale(activeRaw)) {
+                inProgress = true;
+              }
+            } catch (_) {}
+          }
+
           return new Response(JSON.stringify({
             success: true,
             cached: false,
-            needsAnalysis: true,
-            message: 'Content quality index not yet available. Click Run Quality Scan Now to analyze.'
+            needsAnalysis: !inProgress,
+            inProgress,
+            message: inProgress
+              ? 'Corpus quality analysis is currently in progress.'
+              : 'Content quality index not yet available. Click Run Quality Scan Now to analyze.'
           }), {
             status: 200,
             headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
@@ -3133,24 +3163,26 @@ export default {
 
       // POST /api/admin/content-quality/analyze — trigger corpus analysis from quality-index or search-index
       if (pathname === '/api/admin/content-quality/analyze' && method === 'POST') {
+        let lockResult = null;
+        let analysisError = null;
+        let cleanupError = null;
+        let responseSent = null;
+
         try {
-          // Concurrency guard: check if scan is currently running in this KV window
-          const lockKey = 'phase_e:quality_index:lock';
+          // Concurrency guard: acquire structured analysis lock
           if (env.AUTH_KV) {
-            try {
-              const activeLock = await env.AUTH_KV.get(lockKey);
-              if (activeLock) {
-                return new Response(JSON.stringify({
-                  success: false,
-                  inProgress: true,
-                  error: 'A content quality scan is already in progress. Please wait a few moments.'
-                }), {
-                  status: 409,
-                  headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
-                });
-              }
-              await env.AUTH_KV.put(lockKey, 'locked', { expirationTtl: 60 });
-            } catch (_) {}
+            lockResult = await acquireQualityAnalysisLock(env.AUTH_KV);
+            if (!lockResult.acquired) {
+              responseSent = new Response(JSON.stringify({
+                success: false,
+                inProgress: true,
+                error: lockResult.error || 'A content quality scan is already in progress. Please wait a few moments.'
+              }), {
+                status: 409,
+                headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+              });
+              return responseSent;
+            }
           }
 
           // Multi-tier resilient corpus loading:
@@ -3215,16 +3247,14 @@ export default {
           }
 
           if (!indexData || !Array.isArray(indexData.articles) || indexData.articles.length === 0) {
-            if (env.AUTH_KV) {
-              await env.AUTH_KV.delete(lockKey).catch(() => {});
-            }
-            return new Response(JSON.stringify({
+            responseSent = new Response(JSON.stringify({
               success: false,
               error: 'Quality index corpus could not be loaded from index or static assets.'
             }), {
               status: 503,
               headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
             });
+            return responseSent;
           }
 
           // Parse and analyze — deterministic, no AI, no external calls
@@ -3232,31 +3262,73 @@ export default {
           const analyzed = records.map(r => analyzeArticle(r.data, r.body, r.category, r.slug, r.relPath));
           const duplicatePairs = detectDuplicates(analyzed);
           const summary = buildCorpusSummary(analyzed, duplicatePairs);
-          const cachePayload = buildCachePayload(analyzed, duplicatePairs, summary);
+          const cachePayload = buildCachePayload(analyzed, duplicatePairs, summary, {
+            versionId: (lockResult && lockResult.lockId) || null
+          });
 
-          // Store result in KV with TTL (both full payload and lightweight summary)
+          // Store result in KV with TTL and fencing check (separate from lock release)
           if (env.AUTH_KV) {
-            try {
-              await Promise.all([
-                env.AUTH_KV.put(QUALITY_CACHE_KEY, JSON.stringify(cachePayload), { expirationTtl: QUALITY_CACHE_TTL }),
-                env.AUTH_KV.put(QUALITY_CACHE_KEY + ':summary', JSON.stringify({ summary, analyzedAt: summary.analyzedAt }), { expirationTtl: QUALITY_CACHE_TTL }),
-                env.AUTH_KV.delete(lockKey)
-              ]);
-            } catch (_) {}
+            // Ownership fencing verification: guarantee an expired or superseded analysis cannot overwrite newer results
+            if (lockResult && lockResult.lockId) {
+              const activeRaw = await env.AUTH_KV.get(QUALITY_LOCK_KEY).catch(() => null);
+              let activeObj = null;
+              try { activeObj = activeRaw ? JSON.parse(activeRaw) : null; } catch (_) {}
+              if (activeObj && activeObj.lockId && activeObj.lockId !== lockResult.lockId) {
+                throw new Error('Analysis lost lock ownership before persistence; cache write aborted to prevent stale overwrite.');
+              }
+            }
+
+            await Promise.all([
+              env.AUTH_KV.put(QUALITY_CACHE_KEY, JSON.stringify(cachePayload), { expirationTtl: QUALITY_CACHE_TTL }),
+              env.AUTH_KV.put(QUALITY_CACHE_KEY + ':summary', JSON.stringify({
+                versionId: cachePayload.versionId,
+                summary,
+                analyzedAt: summary.analyzedAt
+              }), { expirationTtl: QUALITY_CACHE_TTL })
+            ]);
           }
 
-          return new Response(JSON.stringify({ success: true, summary, analyzedAt: summary.analyzedAt }), {
+          responseSent = new Response(JSON.stringify({
+            success: true,
+            versionId: cachePayload.versionId,
+            summary,
+            analyzedAt: summary.analyzedAt
+          }), {
             status: 200,
             headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
           });
+          return responseSent;
         } catch (err) {
-          if (env.AUTH_KV) {
-            await env.AUTH_KV.delete('phase_e:quality_index:lock').catch(() => {});
+          analysisError = err;
+          console.error('[ContentQuality] Analysis error:', err.message);
+        } finally {
+          // Guaranteed cleanup in finally: release lock only if we are the owner
+          if (env.AUTH_KV && lockResult && lockResult.acquired && lockResult.lockId) {
+            try {
+              await releaseQualityAnalysisLock(env.AUTH_KV, lockResult.lockId);
+            } catch (cleanErr) {
+              cleanupError = cleanErr;
+              console.error('[ContentQuality] Failed to release lock during cleanup:', cleanErr.message);
+            }
           }
-          return new Response(JSON.stringify({ success: false, error: 'Analysis failed: ' + err.message }), {
-            status: 500,
-            headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
-          });
+
+          if (analysisError || cleanupError) {
+            let errorDetails = '';
+            if (analysisError && cleanupError) {
+              errorDetails = `Analysis failed: ${analysisError.message}; Lock cleanup also failed: ${cleanupError.message}`;
+            } else if (analysisError) {
+              errorDetails = `Analysis failed: ${analysisError.message}`;
+            } else {
+              errorDetails = `Lock cleanup failed: ${cleanupError.message}`;
+            }
+            return new Response(JSON.stringify({
+              success: false,
+              error: errorDetails
+            }), {
+              status: 500,
+              headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
+            });
+          }
         }
       }
 
@@ -3272,15 +3344,28 @@ export default {
           }
 
           if (!cached || !Array.isArray(cached.articles)) {
+            let inProgress = false;
+            if (env.AUTH_KV) {
+              try {
+                const activeRaw = await env.AUTH_KV.get(QUALITY_LOCK_KEY);
+                if (activeRaw && !isQualityLockStale(activeRaw)) {
+                  inProgress = true;
+                }
+              } catch (_) {}
+            }
+
             return new Response(JSON.stringify({
               success: true,
-              needsAnalysis: true,
+              needsAnalysis: !inProgress,
+              inProgress,
               items: [],
               total: 0,
               page: 1,
               pageSize: 50,
               totalPages: 0,
-              message: 'Content quality index not yet available. Click Analyze Corpus to build the index.'
+              message: inProgress
+                ? 'Corpus quality analysis is currently in progress.'
+                : 'Content quality index not yet available. Click Analyze Corpus to build the index.'
             }), {
               status: 200,
               headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
@@ -3301,6 +3386,8 @@ export default {
           return new Response(JSON.stringify({
             success: true,
             needsAnalysis: false,
+            inProgress: false,
+            versionId: cached.versionId || undefined,
             cachedAt: cached.cachedAt,
             ...paginated
           }), {
@@ -3327,7 +3414,26 @@ export default {
           }
 
           if (!cached) {
-            return new Response(JSON.stringify({ success: true, needsAnalysis: true, pairs: [], total: 0 }), {
+            let inProgress = false;
+            if (env.AUTH_KV) {
+              try {
+                const activeRaw = await env.AUTH_KV.get(QUALITY_LOCK_KEY);
+                if (activeRaw && !isQualityLockStale(activeRaw)) {
+                  inProgress = true;
+                }
+              } catch (_) {}
+            }
+
+            return new Response(JSON.stringify({
+              success: true,
+              needsAnalysis: !inProgress,
+              inProgress,
+              pairs: [],
+              total: null,
+              message: inProgress
+                ? 'Corpus analysis is currently in progress.'
+                : 'Content quality index not yet available.'
+            }), {
               status: 200,
               headers: { 'Content-Type': 'application/json', ...getSecurityHeaders() }
             });
@@ -3342,7 +3448,10 @@ export default {
           return new Response(JSON.stringify({
             success: true,
             needsAnalysis: false,
+            inProgress: false,
+            versionId: cached.versionId || undefined,
             total: pairs.length,
+            corpusTotal: Array.isArray(cached.articles) ? cached.articles.length : null,
             page,
             pageSize,
             totalPages: Math.ceil(pairs.length / pageSize) || 1,

@@ -13485,7 +13485,9 @@ noindex: true
       initializing: false,
       initRetries: 0,
       initialLoaded: false,
-      requestId: 0
+      requestId: 0,
+      _inFlightLoadPromise: null,
+      _retryTimer: null
     };
 
     function initContentQualityView(options) {
@@ -13508,276 +13510,310 @@ noindex: true
     }
 
     async function loadContentQualityData(isRefresh = false) {
+      // Deduplicate concurrent initialization and loading requests
+      if (CqState._inFlightLoadPromise && !isRefresh) {
+        return CqState._inFlightLoadPromise;
+      }
       if (CqState.loading) return;
-      CqState.loading = true;
+
       const currentReq = ++CqState.requestId;
 
-      const statusBadge = document.getElementById('cq-scan-status-badge');
-      if (statusBadge) {
-        statusBadge.className = 'badge badge-blue';
-        statusBadge.textContent = isRefresh ? 'Refreshing Data...' : 'Loading...';
-      }
-      const refreshBtn = document.getElementById('btn-cq-refresh');
-      if (refreshBtn) {
-        refreshBtn.disabled = true;
-        refreshBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px; animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' + (isRefresh ? 'Refreshing...' : 'Loading...');
-      }
+      const runLoad = async () => {
+        CqState.loading = true;
 
-      // Render loading row in queue table if empty
-      const tbody = document.getElementById('cq-queue-tbody');
-      if (tbody && (!CqState.items || CqState.items.length === 0)) {
-        tbody.innerHTML = '<tr><td colspan="6" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
-          '<div style="display: inline-flex; align-items: center; gap: 8px;">' +
-            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' +
-            '<span>Loading content quality data...</span>' +
-          '</div>' +
-        '</td></tr>';
-      }
-
-      // Render loading row in duplicates table if empty
-      const dupTbody = document.getElementById('cq-duplicates-tbody');
-      if (dupTbody && (!CqState.duplicatePairs || CqState.duplicatePairs.length === 0)) {
-        dupTbody.innerHTML = '<tr><td colspan="4" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
-          '<div style="display: inline-flex; align-items: center; gap: 8px;">' +
-            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' +
-            '<span>Loading duplicate analysis...</span>' +
-          '</div>' +
-        '</td></tr>';
-      }
-
-      try {
-        const queueParams = new URLSearchParams({
-          filter: CqState.filters.status,
-          desk: CqState.filters.desk,
-          page: CqState.page.toString(),
-          pageSize: CqState.pageSize.toString(),
-          sortBy: CqState.filters.sortBy
-        });
-        if (CqState.filters.minWords > 0) queueParams.set('minWords', CqState.filters.minWords.toString());
-        if (CqState.filters.maxWords) queueParams.set('maxWords', CqState.filters.maxWords.toString());
-
-        const summaryUrl = isRefresh ? '/api/admin/content-quality/summary?refresh=true' : '/api/admin/content-quality/summary';
-        const [sumResp, queueResp, dupResp] = await Promise.all([
-          fetch(summaryUrl, { headers: { 'Accept': 'application/json' } }),
-          fetch('/api/admin/content-quality/queue?' + queueParams.toString(), { headers: { 'Accept': 'application/json' } }),
-          fetch('/api/admin/content-quality/duplicates?page=' + CqState.dupPage + '&pageSize=' + CqState.dupPageSize, { headers: { 'Accept': 'application/json' } })
-        ]);
-
-        if (currentReq !== CqState.requestId) return;
-
-        if (sumResp.status === 401 || sumResp.status === 403 || queueResp.status === 401 || queueResp.status === 403 || dupResp.status === 401 || dupResp.status === 403) {
-          if (statusBadge) {
-            statusBadge.className = 'badge badge-red';
-            statusBadge.textContent = 'Auth Required';
-          }
-          if (tbody) {
-            tbody.innerHTML = '<tr><td colspan="6" style="padding: 30px; text-align: center; color: var(--color-red);">Authentication required. Please refresh or re-login.</td></tr>';
-          }
-          if (dupTbody) {
-            dupTbody.innerHTML = '<tr><td colspan="4" style="padding: 30px; text-align: center; color: var(--color-red);">Authentication required. Please refresh or re-login.</td></tr>';
-          }
-          showToast('Authentication required. Please log in again.', 'error');
-          return;
+        const statusBadge = document.getElementById('cq-scan-status-badge');
+        if (statusBadge) {
+          statusBadge.className = 'badge badge-blue';
+          statusBadge.textContent = isRefresh ? 'Refreshing Data...' : 'Loading...';
+        }
+        const refreshBtn = document.getElementById('btn-cq-refresh');
+        if (refreshBtn) {
+          refreshBtn.disabled = true;
+          refreshBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px; animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' + (isRefresh ? 'Refreshing...' : 'Loading...');
         }
 
-        const sumData = await sumResp.json().catch(() => ({}));
-        const queueData = await queueResp.json().catch(() => ({}));
-        const dupData = await dupResp.json().catch(() => ({}));
+        // Render loading row in queue table if empty
+        const tbody = document.getElementById('cq-queue-tbody');
+        if (tbody && (!CqState.items || CqState.items.length === 0)) {
+          tbody.innerHTML = '<tr><td colspan="6" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
+            '<div style="display: inline-flex; align-items: center; gap: 8px;">' +
+              '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' +
+              '<span>Loading content quality data...</span>' +
+            '</div>' +
+          '</td></tr>';
+        }
 
-        if (currentReq !== CqState.requestId) return;
+        // Render loading row in duplicates table if empty
+        const dupTbody = document.getElementById('cq-duplicates-tbody');
+        if (dupTbody && (!CqState.duplicatePairs || CqState.duplicatePairs.length === 0)) {
+          dupTbody.innerHTML = '<tr><td colspan="4" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
+            '<div style="display: inline-flex; align-items: center; gap: 8px;">' +
+              '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' +
+              '<span>Loading duplicate analysis...</span>' +
+            '</div>' +
+          '</td></tr>';
+        }
 
-        // If corpus index requires initialization or KV cache is expired, auto-initialize
-        if ((sumResp.ok && sumData.success && sumData.needsAnalysis) || (queueResp.ok && queueData.success && queueData.needsAnalysis)) {
-          if (statusBadge) {
-            statusBadge.className = 'badge badge-blue';
-            statusBadge.textContent = isRefresh ? 'Re-analyzing Index...' : 'Initializing Index...';
+        try {
+          const queueParams = new URLSearchParams({
+            filter: CqState.filters.status,
+            desk: CqState.filters.desk,
+            page: CqState.page.toString(),
+            pageSize: CqState.pageSize.toString(),
+            sortBy: CqState.filters.sortBy
+          });
+          if (CqState.filters.minWords > 0) queueParams.set('minWords', CqState.filters.minWords.toString());
+          if (CqState.filters.maxWords) queueParams.set('maxWords', CqState.filters.maxWords.toString());
+
+          const summaryUrl = isRefresh ? '/api/admin/content-quality/summary?refresh=true' : '/api/admin/content-quality/summary';
+          const [sumResp, queueResp, dupResp] = await Promise.all([
+            fetch(summaryUrl, { headers: { 'Accept': 'application/json' } }),
+            fetch('/api/admin/content-quality/queue?' + queueParams.toString(), { headers: { 'Accept': 'application/json' } }),
+            fetch('/api/admin/content-quality/duplicates?page=' + CqState.dupPage + '&pageSize=' + CqState.dupPageSize, { headers: { 'Accept': 'application/json' } })
+          ]);
+
+          if (currentReq !== CqState.requestId) return;
+
+          if (sumResp.status === 401 || sumResp.status === 403 || queueResp.status === 401 || queueResp.status === 403 || dupResp.status === 401 || dupResp.status === 403) {
+            if (statusBadge) {
+              statusBadge.className = 'badge badge-red';
+              statusBadge.textContent = 'Auth Required';
+            }
+            if (tbody) {
+              tbody.innerHTML = '<tr><td colspan="6" style="padding: 30px; text-align: center; color: var(--color-red);">Authentication required. Please refresh or re-login.</td></tr>';
+            }
+            if (dupTbody) {
+              dupTbody.innerHTML = '<tr><td colspan="4" style="padding: 30px; text-align: center; color: var(--color-red);">Authentication required. Please refresh or re-login.</td></tr>';
+            }
+            showToast('Authentication required. Please log in again.', 'error');
+            return;
           }
-          if (tbody) {
-            tbody.innerHTML = '<tr><td colspan="6" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
-              '<div style="display: inline-flex; align-items: center; gap: 8px;">' +
-                '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' +
-                '<span>Building content quality index from corpus...</span>' +
-              '</div>' +
-            '</td></tr>';
-          }
-          if (dupTbody) {
-            dupTbody.innerHTML = '<tr><td colspan="4" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
-              '<div style="display: inline-flex; align-items: center; gap: 8px;">' +
-                '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' +
-                '<span>Building duplicate analysis index...</span>' +
-              '</div>' +
-            '</td></tr>';
-          }
 
-          try {
-            CqState.initializing = true;
-            const analyzeResp = await fetch('/api/admin/content-quality/analyze', {
-              method: 'POST',
-              headers: { 'Accept': 'application/json' }
-            });
-            if (currentReq !== CqState.requestId) return;
+          const sumData = await sumResp.json().catch(() => ({}));
+          const queueData = await queueResp.json().catch(() => ({}));
+          const dupData = await dupResp.json().catch(() => ({}));
 
-            if (analyzeResp.status === 401 || analyzeResp.status === 403) {
-              CqState.initializing = false;
-              CqState.initRetries = 0;
-              if (statusBadge) {
-                statusBadge.className = 'badge badge-red';
-                statusBadge.textContent = 'Auth Required';
-              }
-              if (tbody) {
-                tbody.innerHTML = '<tr><td colspan="6" style="padding: 30px; text-align: center; color: var(--color-red);">Authentication required. Please refresh or re-login.</td></tr>';
-              }
-              if (dupTbody) {
-                dupTbody.innerHTML = '<tr><td colspan="4" style="padding: 30px; text-align: center; color: var(--color-red);">Authentication required. Please refresh or re-login.</td></tr>';
-              }
-              showToast('Authentication required. Please log in again.', 'error');
-              return;
+          if (currentReq !== CqState.requestId) return;
+
+          const isAnalysisNeeded = (sumResp.ok && sumData.success && sumData.needsAnalysis) ||
+                                  (queueResp.ok && queueData.success && queueData.needsAnalysis) ||
+                                  Boolean(sumData.inProgress || queueData.inProgress || dupData.inProgress);
+
+          // If corpus index requires initialization or scan is in progress, auto-initialize
+          if (isAnalysisNeeded) {
+            const isAlreadyRunning = Boolean(sumData.inProgress || queueData.inProgress || dupData.inProgress);
+            if (statusBadge) {
+              statusBadge.className = 'badge badge-blue';
+              statusBadge.textContent = isAlreadyRunning
+                ? 'Analysis In Progress...'
+                : (isRefresh ? 'Re-analyzing Index...' : 'Initializing Index...');
+            }
+            if (tbody) {
+              tbody.innerHTML = '<tr><td colspan="6" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
+                '<div style="display: inline-flex; align-items: center; gap: 8px;">' +
+                  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' +
+                  '<span>' + (isAlreadyRunning ? 'Corpus analysis is currently running...' : 'Building content quality index from corpus...') + '</span>' +
+                '</div>' +
+              '</td></tr>';
+            }
+            if (dupTbody) {
+              dupTbody.innerHTML = '<tr><td colspan="4" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
+                '<div style="display: inline-flex; align-items: center; gap: 8px;">' +
+                  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' +
+                  '<span>Building duplicate analysis index...</span>' +
+                '</div>' +
+              '</td></tr>';
             }
 
-            const analyzeData = await analyzeResp.json().catch(() => ({}));
-            if (analyzeResp.ok && analyzeData.success && analyzeData.summary) {
-              CqState.initializing = false;
-              CqState.initRetries = 0;
-              CqState.summary = analyzeData.summary;
-              CqState.initialLoaded = true;
-              if (statusBadge) {
-                statusBadge.className = 'badge badge-green';
-                statusBadge.textContent = 'Corpus Synced';
-              }
-              renderCqSummaryCards(analyzeData.summary);
-              if (isRefresh) {
-                showToast('Content quality data refreshed successfully.', 'success');
-              }
-              await Promise.all([loadCqQueue(), loadCqDuplicates()]);
-              return;
-            } else if (analyzeResp.status === 409 || analyzeData.inProgress) {
-              if ((CqState.initRetries || 0) < 3) {
-                CqState.initRetries = (CqState.initRetries || 0) + 1;
-                setTimeout(() => {
-                  if (currentReq === CqState.requestId) {
-                    CqState.loading = false;
-                    CqState.initializing = false;
-                    loadContentQualityData(isRefresh);
-                  }
-                }, 2000);
-                return;
-              } else {
-                CqState.initRetries = 0;
+            try {
+              CqState.initializing = true;
+              const analyzeResp = await fetch('/api/admin/content-quality/analyze', {
+                method: 'POST',
+                headers: { 'Accept': 'application/json' }
+              });
+              if (currentReq !== CqState.requestId) return;
+
+              if (analyzeResp.status === 401 || analyzeResp.status === 403) {
                 CqState.initializing = false;
+                CqState.initRetries = 0;
+                if (statusBadge) {
+                  statusBadge.className = 'badge badge-red';
+                  statusBadge.textContent = 'Auth Required';
+                }
+                if (tbody) {
+                  tbody.innerHTML = '<tr><td colspan="6" style="padding: 30px; text-align: center; color: var(--color-red);">Authentication required. Please refresh or re-login.</td></tr>';
+                }
+                if (dupTbody) {
+                  dupTbody.innerHTML = '<tr><td colspan="4" style="padding: 30px; text-align: center; color: var(--color-red);">Authentication required. Please refresh or re-login.</td></tr>';
+                }
+                showToast('Authentication required. Please log in again.', 'error');
+                return;
+              }
+
+              const analyzeData = await analyzeResp.json().catch(() => ({}));
+              if (analyzeResp.ok && analyzeData.success && analyzeData.summary) {
+                CqState.initializing = false;
+                CqState.initRetries = 0;
+                CqState.summary = analyzeData.summary;
+                CqState.initialLoaded = true;
+                if (statusBadge) {
+                  statusBadge.className = 'badge badge-green';
+                  statusBadge.textContent = 'Corpus Synced';
+                }
+                renderCqSummaryCards(analyzeData.summary);
+                if (isRefresh) {
+                  showToast('Content quality data refreshed successfully.', 'success');
+                }
+                await Promise.all([loadCqQueue(), loadCqDuplicates()]);
+                return;
+              } else if (analyzeResp.status === 409 || analyzeData.inProgress) {
+                if ((CqState.initRetries || 0) < 3) {
+                  CqState.initRetries = (CqState.initRetries || 0) + 1;
+                  const backoffDelays = [1500, 3000, 5000];
+                  const delay = backoffDelays[CqState.initRetries - 1] || 3000;
+                  if (statusBadge) {
+                    statusBadge.className = 'badge badge-blue';
+                    statusBadge.textContent = 'Scan in progress (retry ' + CqState.initRetries + '/3)...';
+                  }
+                  CqState._retryTimer = setTimeout(() => {
+                    CqState._retryTimer = null;
+                    if (currentReq === CqState.requestId) {
+                      CqState.loading = false;
+                      CqState.initializing = false;
+                      loadContentQualityData(isRefresh);
+                    }
+                  }, delay);
+                  return;
+                } else {
+                  CqState.initRetries = 0;
+                  CqState.initializing = false;
+                  if (statusBadge) {
+                    statusBadge.className = 'badge badge-red';
+                    statusBadge.textContent = 'Sync Failed';
+                  }
+                  renderCqQueueError('Corpus analysis is currently in progress or locked by another session. Click Retry to check again.');
+                  renderCqDuplicatesError('Corpus analysis is currently in progress or locked by another session. Click Retry to check again.');
+                  showToast('Analysis locked by another session. Please retry shortly.', 'warning');
+                  return;
+                }
+              } else {
+                CqState.initializing = false;
+                CqState.initRetries = 0;
                 if (statusBadge) {
                   statusBadge.className = 'badge badge-red';
                   statusBadge.textContent = 'Sync Failed';
                 }
-                renderCqQueueError('Corpus analysis is currently in progress or locked by another session. Click Retry to check again.');
-                renderCqDuplicatesError('Corpus analysis is currently in progress or locked by another session. Click Retry to check again.');
-                showToast('Analysis locked by another session. Please retry shortly.', 'warning');
+                renderCqQueueError(analyzeData.error || (!analyzeResp.ok ? ('Server error (' + analyzeResp.status + ')') : 'Failed to initialize quality index.'));
+                renderCqDuplicatesError(analyzeData.error || (!analyzeResp.ok ? ('Server error (' + analyzeResp.status + ')') : 'Failed to initialize duplicate analysis.'));
+                showToast(analyzeData.error || 'Failed to initialize quality index', 'error');
                 return;
               }
-            } else {
+            } catch (initErr) {
+              if (currentReq !== CqState.requestId) return;
               CqState.initializing = false;
               CqState.initRetries = 0;
               if (statusBadge) {
                 statusBadge.className = 'badge badge-red';
                 statusBadge.textContent = 'Sync Failed';
               }
-              renderCqQueueError(analyzeData.error || (!analyzeResp.ok ? ('Server error (' + analyzeResp.status + ')') : 'Failed to initialize quality index.'));
-              renderCqDuplicatesError(analyzeData.error || (!analyzeResp.ok ? ('Server error (' + analyzeResp.status + ')') : 'Failed to initialize duplicate analysis.'));
-              showToast(analyzeData.error || 'Failed to initialize quality index', 'error');
+              renderCqQueueError('Network error initializing quality index. Click Retry to reload.');
+              renderCqDuplicatesError('Network error initializing duplicate index. Click Retry to reload.');
+              showToast('Network error during quality initialization', 'error');
               return;
             }
-          } catch (initErr) {
-            if (currentReq !== CqState.requestId) return;
-            CqState.initializing = false;
-            CqState.initRetries = 0;
+          }
+
+          // Process Summary
+          if (sumResp.ok && sumData.success) {
+            if (sumData.needsAnalysis) {
+              renderCqEmptyCorpusState();
+            } else {
+              CqState.summary = sumData;
+              CqState.initialLoaded = true;
+              if (statusBadge) {
+                statusBadge.className = 'badge badge-green';
+                statusBadge.textContent = 'Corpus Synced';
+              }
+              renderCqSummaryCards(sumData);
+              if (isRefresh) {
+                showToast('Content quality data refreshed successfully.', 'success');
+              }
+            }
+          } else {
             if (statusBadge) {
               statusBadge.className = 'badge badge-red';
               statusBadge.textContent = 'Sync Failed';
             }
-            renderCqQueueError('Network error initializing quality index. Click Retry to reload.');
-            renderCqDuplicatesError('Network error initializing duplicate index. Click Retry to reload.');
-            showToast('Network error during quality initialization', 'error');
-            return;
+            showToast(sumData.error || (!sumResp.ok ? ('Summary error (' + sumResp.status + ')') : 'Corpus summary sync failed'), 'error');
           }
-        }
 
-        // Process Summary
-        if (sumResp.ok && sumData.success) {
-          if (sumData.needsAnalysis) {
-            renderCqEmptyCorpusState();
+          // Process Queue
+          if (queueResp.ok && queueData.success && !queueData.needsAnalysis) {
+            CqState.items = queueData.items || [];
+            CqState.total = queueData.total || 0;
+            CqState.page = queueData.page || 1;
+            CqState.totalPages = queueData.totalPages || 1;
+            renderCqQueueRows(CqState.items);
+            renderCqPagination();
+            if (CqState.items.length > 0 && typeof fetchThinQueueReviewStates === 'function') {
+              fetchThinQueueReviewStates(CqState.items.map(i => i.slug).filter(Boolean));
+            }
+          } else if (queueResp.ok && queueData.success && queueData.needsAnalysis) {
+            if (!sumData.success || sumData.needsAnalysis) {
+              renderCqEmptyCorpusState();
+            }
           } else {
-            CqState.summary = sumData;
-            CqState.initialLoaded = true;
-            if (statusBadge) {
-              statusBadge.className = 'badge badge-green';
-              statusBadge.textContent = 'Corpus Synced';
-            }
-            renderCqSummaryCards(sumData);
-            if (isRefresh) {
-              showToast('Content quality data refreshed successfully.', 'success');
-            }
+            renderCqQueueError(queueData.error || (!queueResp.ok ? ('Server error (' + queueResp.status + ')') : 'Failed to load queue'));
           }
-        } else {
+
+          // Process Duplicates
+          if (dupResp.ok && dupData.success && !dupData.needsAnalysis) {
+            if (dupData.inProgress) {
+              renderCqDuplicatesEmptyOrPending('Corpus analysis is currently in progress. Duplicate pairs will appear once analysis completes.');
+            } else {
+              CqState.duplicatePairs = dupData.pairs || [];
+              CqState.dupTotal = (typeof dupData.total === 'number') ? dupData.total : 0;
+              renderCqDuplicateRows(CqState.duplicatePairs, {
+                emptyCorpus: dupData.corpusTotal === 0 || (CqState.summary && CqState.summary.total === 0)
+              });
+              renderCqDupPagination(CqState.dupTotal, dupData.page, dupData.totalPages);
+              const badgeEl = document.getElementById('cq-dup-tab-count');
+              if (badgeEl) badgeEl.textContent = CqState.dupTotal.toString();
+            }
+          } else if (dupResp.ok && dupData.success && dupData.needsAnalysis) {
+            renderCqDuplicatesEmptyOrPending('Duplicate analysis index not yet initialized.');
+          } else {
+            renderCqDuplicatesError(dupData.error || (!dupResp.ok ? ('Server error (' + dupResp.status + ')') : 'Failed to load duplicates'));
+          }
+        } catch (err) {
+          if (currentReq !== CqState.requestId) return;
+          console.error('[ContentQuality] Error loading data:', err);
           if (statusBadge) {
             statusBadge.className = 'badge badge-red';
-            statusBadge.textContent = 'Sync Failed';
+            statusBadge.textContent = 'Load Failed';
           }
-          showToast(sumData.error || (!sumResp.ok ? ('Summary error (' + sumResp.status + ')') : 'Corpus summary sync failed'), 'error');
+          renderCqQueueError('Network error loading quality data. Please check connection and retry.');
+          renderCqDuplicatesError('Network error loading duplicate data. Please check connection and retry.');
+          showToast('Network error loading content quality data', 'error');
+        } finally {
+          if (currentReq === CqState.requestId) {
+            if (!CqState._retryTimer) {
+              CqState.loading = false;
+              CqState.initializing = false;
+            }
+            if (refreshBtn) {
+              refreshBtn.disabled = false;
+              refreshBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>Refresh Data';
+            }
+          }
         }
+      };
 
-        // Process Queue
-        if (queueResp.ok && queueData.success && !queueData.needsAnalysis) {
-          CqState.items = queueData.items || [];
-          CqState.total = queueData.total || 0;
-          CqState.page = queueData.page || 1;
-          CqState.totalPages = queueData.totalPages || 1;
-          renderCqQueueRows(CqState.items);
-          renderCqPagination();
-          if (CqState.items.length > 0 && typeof fetchThinQueueReviewStates === 'function') {
-            fetchThinQueueReviewStates(CqState.items.map(i => i.slug).filter(Boolean));
-          }
-        } else if (queueResp.ok && queueData.success && queueData.needsAnalysis) {
-          if (!sumData.success || sumData.needsAnalysis) {
-            renderCqEmptyCorpusState();
-          }
-        } else {
-          renderCqQueueError(queueData.error || (!queueResp.ok ? ('Server error (' + queueResp.status + ')') : 'Failed to load queue'));
-        }
+      CqState._inFlightLoadPromise = runLoad().finally(() => {
+        CqState._inFlightLoadPromise = null;
+      });
 
-        // Process Duplicates
-        if (dupResp.ok && dupData.success && !dupData.needsAnalysis) {
-          CqState.duplicatePairs = dupData.pairs || [];
-          CqState.dupTotal = dupData.total || 0;
-          renderCqDuplicateRows(CqState.duplicatePairs);
-          renderCqDupPagination(dupData.total, dupData.page, dupData.totalPages);
-          const badgeEl = document.getElementById('cq-dup-tab-count');
-          if (badgeEl) badgeEl.textContent = (dupData.total || 0).toString();
-        } else if (dupResp.ok && dupData.success && dupData.needsAnalysis) {
-          const dtBody = document.getElementById('cq-duplicates-tbody');
-          if (dtBody) {
-            dtBody.innerHTML = '<tr><td colspan="4" style="padding: 30px; text-align: center; color: var(--color-subtle);">No duplicate analysis cached. Click Refresh Data to reload.</td></tr>';
-          }
-        } else {
-          renderCqDuplicatesError(dupData.error || (!dupResp.ok ? ('Server error (' + dupResp.status + ')') : 'Failed to load duplicates'));
-        }
-      } catch (err) {
-        if (currentReq !== CqState.requestId) return;
-        console.error('[ContentQuality] Error loading data:', err);
-        if (statusBadge) {
-          statusBadge.className = 'badge badge-red';
-          statusBadge.textContent = 'Load Failed';
-        }
-        renderCqQueueError('Network error loading quality data. Please check connection and retry.');
-        renderCqDuplicatesError('Network error loading duplicate data. Please check connection and retry.');
-        showToast('Network error loading content quality data', 'error');
-      } finally {
-        if (currentReq === CqState.requestId) {
-          CqState.loading = false;
-          if (refreshBtn) {
-            refreshBtn.disabled = false;
-            refreshBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>Refresh Data';
-          }
-        }
-      }
+      return CqState._inFlightLoadPromise;
     }
 
     function renderCqEmptyCorpusState() {
@@ -13801,6 +13837,8 @@ noindex: true
       const sensEl = document.getElementById('cq-kpi-sensitive');
       if (sensEl) sensEl.textContent = '--';
       document.getElementById('cq-kpi-freshness').textContent = '--';
+      const badgeEl = document.getElementById('cq-dup-tab-count');
+      if (badgeEl) badgeEl.textContent = '--';
     }
 
     function renderCqQueueError(message) {
@@ -13826,6 +13864,27 @@ noindex: true
           'Retry' +
           '</button>' +
         '</td></tr>';
+      }
+      const badgeEl = document.getElementById('cq-dup-tab-count');
+      if (badgeEl && (!CqState.summary || typeof CqState.summary.nearDuplicates !== 'number')) {
+        badgeEl.textContent = '--';
+      }
+    }
+
+    function renderCqDuplicatesEmptyOrPending(message) {
+      const tbody = document.getElementById('cq-duplicates-tbody');
+      if (tbody) {
+        tbody.innerHTML = '<tr><td colspan="4" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
+          '<div style="font-size: 14px; font-weight: 600; color: var(--color-ink); margin-bottom: 6px;">Duplicate Analysis Unavailable</div>' +
+          '<p style="font-size: 12px; color: var(--color-subtle); margin-bottom: 14px;">' + escapeHtml(message) + '</p>' +
+          '<button class="btn-table-action" onclick="refreshContentQualityData()">' +
+          'Refresh Data' +
+          '</button>' +
+        '</td></tr>';
+      }
+      const badgeEl = document.getElementById('cq-dup-tab-count');
+      if (badgeEl && (!CqState.summary || typeof CqState.summary.nearDuplicates !== 'number')) {
+        badgeEl.textContent = '--';
       }
     }
 
@@ -14043,6 +14102,10 @@ noindex: true
 
     function refreshContentQualityData() {
       if (CqState.loading || CqState.initializing) return;
+      if (CqState._retryTimer) {
+        clearTimeout(CqState._retryTimer);
+        CqState._retryTimer = null;
+      }
       CqState.initRetries = 0;
       loadContentQualityData(true);
     }
@@ -14077,7 +14140,9 @@ noindex: true
         if (data.success) {
           if (data.needsAnalysis) {
             if (!CqState.initializing) {
-              loadContentQualityData();
+              if (!CqState.loading) {
+                loadContentQualityData();
+              }
             }
             return;
           }
@@ -14337,12 +14402,26 @@ noindex: true
         const data = await resp.json().catch(() => ({}));
 
         if (resp.ok && data.success) {
+          if (data.needsAnalysis) {
+            if (!CqState.initializing && !CqState.loading) {
+              loadContentQualityData();
+            } else {
+              renderCqDuplicatesEmptyOrPending('Duplicate analysis index not yet initialized.');
+            }
+            return;
+          }
+          if (data.inProgress) {
+            renderCqDuplicatesEmptyOrPending('Corpus analysis is currently in progress. Duplicate pairs will appear once analysis completes.');
+            return;
+          }
           CqState.duplicatePairs = data.pairs || [];
-          CqState.dupTotal = data.total || 0;
-          renderCqDuplicateRows(CqState.duplicatePairs);
-          renderCqDupPagination(data.total, data.page, data.totalPages);
+          CqState.dupTotal = (typeof data.total === 'number') ? data.total : 0;
+          renderCqDuplicateRows(CqState.duplicatePairs, {
+            emptyCorpus: data.corpusTotal === 0 || (CqState.summary && CqState.summary.total === 0)
+          });
+          renderCqDupPagination(CqState.dupTotal, data.page, data.totalPages);
           const badgeEl = document.getElementById('cq-dup-tab-count');
-          if (badgeEl) badgeEl.textContent = (data.total || 0).toString();
+          if (badgeEl) badgeEl.textContent = CqState.dupTotal.toString();
         } else {
           renderCqDuplicatesError(data.error || (!resp.ok ? ('Server error (' + resp.status + ')') : 'Failed to load duplicates'));
         }
@@ -14352,11 +14431,18 @@ noindex: true
       }
     }
 
-    function renderCqDuplicateRows(pairs) {
+    function renderCqDuplicateRows(pairs, options = {}) {
       const tbody = document.getElementById('cq-duplicates-tbody');
       if (!tbody) return;
 
       if (!pairs || pairs.length === 0) {
+        if (options && options.emptyCorpus) {
+          tbody.innerHTML = '<tr><td colspan="4" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
+            '<div style="font-size: 14px; font-weight: 600; color: var(--color-ink); margin-bottom: 6px;">Corpus Is Empty</div>' +
+            '<p style="font-size: 12px; color: var(--color-subtle); margin: 0;">Publish articles to enable text similarity and duplicate analysis.</p>' +
+          '</td></tr>';
+          return;
+        }
         tbody.innerHTML = '<tr><td colspan="4" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
           '<div style="font-size: 14px; font-weight: 600; color: var(--color-ink); margin-bottom: 6px;">No Duplicate Pairs Detected</div>' +
           '<p style="font-size: 12px; color: var(--color-subtle); margin: 0;">Deterministic n-gram analysis found no high body-text overlap across published articles.</p>' +

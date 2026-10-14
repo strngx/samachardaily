@@ -513,12 +513,15 @@ export function buildCorpusSummary(articles, duplicatePairs) {
 export const QUALITY_CACHE_KEY = 'phase_e:quality_index:v1';
 export const QUALITY_CACHE_TTL = 3600;
 
-export function buildCachePayload(articles, duplicatePairs, summary) {
+export function buildCachePayload(articles, duplicatePairs, summary, options = {}) {
+  const versionId = options.versionId || options.lockId || ('cq_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8));
   return {
+    versionId,
     summary,
     duplicatePairs: duplicatePairs.slice(0, 200),
     articles: articles.map(a => { const { _fingerprint, ...safe } = a; return safe; }),
     cachedAt: new Date().toISOString(),
+    analyzedAt: (summary && summary.analyzedAt) || new Date().toISOString(),
   };
 }
 
@@ -604,4 +607,233 @@ export function paginateArticles(items, options) {
   const pageItems = filtered.slice(startIdx, startIdx + safePageSize);
 
   return { items: pageItems, total, page: safePage, pageSize: safePageSize, totalPages };
+}
+
+// SECTION 9: LOCK LIFECYCLE & CONCURRENCY GUARDS
+
+export const QUALITY_LOCK_KEY = 'phase_e:quality_index:lock';
+export const DEFAULT_LOCK_TTL = 120; // 120 seconds in KV
+export const DEFAULT_LOCK_LEASE_MS = 60000; // 60 seconds lease
+export const DEFAULT_STALE_THRESHOLD_MS = 90000; // 90 seconds (never reclaim purely because > 30s)
+
+/**
+ * Checks whether an existing lock representation is demonstrably expired/stale.
+ *
+ * Requirements:
+ * - Do NOT reclaim a lock merely because it is older than 30 seconds.
+ * - Structured lock: { lockId, createdAt, expiresAt, updatedAt }
+ * - Expired if now >= expiresAt or (now - referenceTime) > staleThresholdMs
+ * - Legacy "locked" string: cannot be demonstrably proven stale without metadata,
+ *   so returns false unless an explicit legacyAgeMs or legacyCreatedAt is provided in options.
+ *
+ * @param {string|object|null} rawLock
+ * @param {number} [staleThresholdMs=DEFAULT_STALE_THRESHOLD_MS]
+ * @param {object} [options]
+ * @returns {boolean}
+ */
+export function isQualityLockStale(rawLock, staleThresholdMs = DEFAULT_STALE_THRESHOLD_MS, options = {}) {
+  if (!rawLock) return false;
+
+  const now = options.now || Date.now();
+  const threshold = (typeof staleThresholdMs === 'number' && staleThresholdMs > 0)
+    ? staleThresholdMs
+    : DEFAULT_STALE_THRESHOLD_MS;
+
+  // Handle structured lock (either parsed object or JSON string)
+  let lockObj = null;
+  if (typeof rawLock === 'object') {
+    lockObj = rawLock;
+  } else if (typeof rawLock === 'string') {
+    try {
+      lockObj = JSON.parse(rawLock);
+    } catch (_) {
+      // Legacy literal string like "locked"
+      lockObj = null;
+    }
+  }
+
+  if (lockObj && typeof lockObj === 'object') {
+    const parseTime = (val) => {
+      if (typeof val === 'number') return val;
+      if (typeof val === 'string') {
+        const parsed = Date.parse(val);
+        return isNaN(parsed) ? 0 : parsed;
+      }
+      return 0;
+    };
+
+    const expiresAt = parseTime(lockObj.expiresAt);
+    const createdAt = parseTime(lockObj.createdAt || lockObj.timestamp);
+    const updatedAt = parseTime(lockObj.updatedAt) || createdAt;
+
+    // If explicit expiresAt is present and expired:
+    if (expiresAt > 0 && now >= expiresAt) {
+      return true;
+    }
+
+    // Heartbeat or creation time exceeded stale threshold:
+    const referenceTime = updatedAt || createdAt;
+    if (referenceTime > 0 && (now - referenceTime) > threshold) {
+      return true;
+    }
+
+    return false;
+  }
+
+  // Legacy string format (e.g. "locked"):
+  // Cannot be proven stale without metadata; safe default is false to preserve active scans.
+  if (typeof options.legacyAgeMs === 'number') {
+    return options.legacyAgeMs > threshold;
+  }
+  if (typeof options.legacyCreatedAt === 'number') {
+    return (now - options.legacyCreatedAt) > threshold;
+  }
+  if (options.allowLegacyReclaim === true) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Acquires a structured analysis lock in KV.
+ *
+ * @param {object} kv - KV namespace (e.g. env.AUTH_KV)
+ * @param {object} [options]
+ * @param {string} [options.lockKey=QUALITY_LOCK_KEY]
+ * @param {number} [options.ttl=DEFAULT_LOCK_TTL]
+ * @param {number} [options.leaseMs=DEFAULT_LOCK_LEASE_MS]
+ * @param {number} [options.staleThresholdMs=DEFAULT_STALE_THRESHOLD_MS]
+ * @param {string} [options.lockId]
+ * @returns {Promise<{acquired: boolean, lockId?: string, lockData?: object, inProgress?: boolean, error?: string, existingLock?: any}>}
+ */
+export async function acquireQualityAnalysisLock(kv, options = {}) {
+  if (!kv) {
+    return { acquired: true, lockId: null, lockData: null, noKv: true };
+  }
+
+  const lockKey = options.lockKey || QUALITY_LOCK_KEY;
+  const ttl = options.ttl || DEFAULT_LOCK_TTL;
+  const leaseMs = options.leaseMs || DEFAULT_LOCK_LEASE_MS;
+  const staleThresholdMs = options.staleThresholdMs || DEFAULT_STALE_THRESHOLD_MS;
+  const now = options.now || Date.now();
+
+  let rawLock = null;
+  try {
+    rawLock = await kv.get(lockKey);
+  } catch (err) {
+    console.error('[ContentQuality] Error checking existing lock in KV:', err.message);
+  }
+
+  if (rawLock) {
+    const isStale = isQualityLockStale(rawLock, staleThresholdMs, options);
+    if (!isStale) {
+      return {
+        acquired: false,
+        inProgress: true,
+        existingLock: rawLock,
+        error: 'A content quality scan is already in progress. Please wait a few moments.'
+      };
+    }
+    // Stale lock detected; safely reclaim
+    console.warn('[ContentQuality] Reclaiming expired/stale analysis lock.');
+  }
+
+  const lockId = options.lockId || ('lock_' + now + '_' + Math.random().toString(36).slice(2, 10));
+  const lockData = {
+    lockId,
+    createdAt: now,
+    expiresAt: now + leaseMs,
+    updatedAt: now
+  };
+
+  try {
+    await kv.put(lockKey, JSON.stringify(lockData), { expirationTtl: ttl });
+  } catch (putErr) {
+    console.error('[ContentQuality] Failed to write analysis lock to KV:', putErr.message);
+    throw new Error('Failed to acquire analysis lock: ' + putErr.message);
+  }
+
+  return {
+    acquired: true,
+    lockId,
+    lockData
+  };
+}
+
+/**
+ * Releases a structured analysis lock in KV with ownership verification.
+ *
+ * Guarantees:
+ * - Only the current owner can delete the lock.
+ * - An older analysis cannot delete a newer owner's lock.
+ * - Does not swallow errors.
+ *
+ * @param {object} kv - KV namespace
+ * @param {string} lockId - The lockId acquired by the caller
+ * @param {object} [options]
+ * @param {string} [options.lockKey=QUALITY_LOCK_KEY]
+ * @param {boolean} [options.force=false]
+ * @returns {Promise<{released: boolean, reason?: string, currentLockId?: string}>}
+ */
+export async function releaseQualityAnalysisLock(kv, lockId, options = {}) {
+  if (!kv) {
+    return { released: true, noKv: true };
+  }
+  if (!lockId && !options.force) {
+    return { released: true, noLockId: true };
+  }
+
+  const lockKey = options.lockKey || QUALITY_LOCK_KEY;
+
+  let currentRaw = null;
+  try {
+    currentRaw = await kv.get(lockKey);
+  } catch (getErr) {
+    console.error('[ContentQuality] Error inspecting lock before release:', getErr.message);
+    throw getErr;
+  }
+
+  if (!currentRaw) {
+    // Lock already released or expired
+    return { released: true, alreadyGone: true };
+  }
+
+  if (options.force) {
+    await kv.delete(lockKey);
+    return { released: true, forced: true };
+  }
+
+  // Parse structured lock
+  let currentLock = null;
+  try {
+    currentLock = typeof currentRaw === 'string' ? JSON.parse(currentRaw) : currentRaw;
+  } catch (_) {
+    currentLock = null;
+  }
+
+  if (currentLock && typeof currentLock === 'object' && currentLock.lockId) {
+    if (currentLock.lockId === lockId) {
+      await kv.delete(lockKey);
+      return { released: true, ownerMatched: true };
+    } else {
+      // Ownership mismatch! Lock was acquired by a newer analysis
+      console.warn(`[ContentQuality] Lock release skipped: owner mismatch (held by: ${currentLock.lockId}, caller: ${lockId})`);
+      return { released: false, reason: 'owner_mismatch', currentLockId: currentLock.lockId };
+    }
+  }
+
+  // Handle legacy lock literal string "locked"
+  if (currentRaw === 'locked') {
+    if (lockId === 'locked' || options.allowLegacyRelease) {
+      await kv.delete(lockKey);
+      return { released: true, legacy: true };
+    } else {
+      console.warn('[ContentQuality] Lock release skipped: active lock is legacy "locked" not matching lockId');
+      return { released: false, reason: 'legacy_lock_mismatch' };
+    }
+  }
+
+  // Unknown format: do not delete
+  return { released: false, reason: 'unrecognized_lock_format' };
 }

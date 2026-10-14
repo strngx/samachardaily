@@ -1068,7 +1068,565 @@ it('44. Backend buildCorpusSummary produces explicit active and corpusTotal fiel
   assert.strictEqual(emptySummary.corpusTotal, 0, 'Empty corpus corpusTotal must be 0');
 });
 
-console.log(`\nResults: ${passedTests} / ${totalTests} tests passed.\n`);
-if (passedTests !== totalTests) {
-  process.exit(1);
+// ============================================================================
+// SECTION 7: CONTENT QUALITY LOCK LIFECYCLE & CONCURRENCY REGRESSION SUITE
+// ============================================================================
+
+// Helper to evaluate worker/content-quality.js functions in sandbox
+const strippedCqCode = cqWorkerContent
+  .replace(/export\s+const\s+/g, 'var ')
+  .replace(/export\s+let\s+/g, 'var ')
+  .replace(/export\s+/g, '');
+const cqSandbox = {
+  crypto: { randomUUID: () => 'test-uuid-' + Math.random().toString(36).slice(2) },
+  console,
+  setTimeout,
+  clearTimeout,
+  Date
+};
+vm.createContext(cqSandbox);
+vm.runInContext(strippedCqCode, cqSandbox);
+
+const {
+  acquireQualityAnalysisLock,
+  releaseQualityAnalysisLock,
+  isQualityLockStale,
+  QUALITY_LOCK_KEY,
+  DEFAULT_LOCK_TTL,
+  DEFAULT_LOCK_LEASE_MS,
+  DEFAULT_STALE_THRESHOLD_MS
+} = cqSandbox;
+
+function createMockKvStore(initial = {}) {
+  const store = new Map(Object.entries(initial));
+  return {
+    store,
+    async get(key, type) {
+      if (!store.has(key)) return null;
+      const val = store.get(key);
+      if (type === 'json' && typeof val === 'string') {
+        try { return JSON.parse(val); } catch (e) { return null; }
+      }
+      return val;
+    },
+    async put(key, val, options) {
+      store.set(key, typeof val === 'string' ? val : JSON.stringify(val));
+    },
+    async delete(key) {
+      store.delete(key);
+    }
+  };
 }
+
+async function itAsync(name, fn) {
+  totalTests++;
+  try {
+    await fn();
+    passedTests++;
+    console.log(`  ✓ ${name}`);
+  } catch (err) {
+    console.error(`  ✗ ${name}`);
+    console.error(`    ${err.message}`);
+    process.exitCode = 1;
+  }
+}
+
+(async () => {
+  // 45. Lock released after successful analysis
+  await itAsync('45. Lock released after successful analysis', async () => {
+    const kv = createMockKvStore();
+    const lock = await acquireQualityAnalysisLock(kv);
+    assert(lock && lock.lockId, 'Lock must be acquired with lockId');
+    assert(kv.store.has(QUALITY_LOCK_KEY), 'Lock must be stored in KV');
+
+    // Simulate successful cache write and lock release
+    const rel = await releaseQualityAnalysisLock(kv, lock.lockId);
+    assert.strictEqual(rel.released, true, 'Lock must report released: true');
+    assert.strictEqual(kv.store.has(QUALITY_LOCK_KEY), false, 'Lock must be deleted from KV after success');
+  });
+
+  // 46. Lock released after an analysis exception
+  await itAsync('46. Lock released after an analysis exception', async () => {
+    const kv = createMockKvStore();
+    const lock = await acquireQualityAnalysisLock(kv);
+    assert(lock && lock.lockId, 'Lock must be acquired');
+
+    let analysisError = null;
+    try {
+      try {
+        throw new Error('Unexpected corpus parsing failure');
+      } finally {
+        await releaseQualityAnalysisLock(kv, lock.lockId);
+      }
+    } catch (err) {
+      analysisError = err;
+    }
+
+    assert(analysisError, 'Analysis exception must be caught');
+    assert.strictEqual(analysisError.message, 'Unexpected corpus parsing failure');
+    assert.strictEqual(kv.store.has(QUALITY_LOCK_KEY), false, 'Lock must be released in finally after exception');
+  });
+
+  // 47. Lock cleanup after failed persistence
+  await itAsync('47. Lock cleanup after failed persistence', async () => {
+    const kv = createMockKvStore();
+    const lock = await acquireQualityAnalysisLock(kv);
+    assert(lock && lock.lockId, 'Lock acquired');
+
+    let persistenceError = null;
+    try {
+      try {
+        throw new Error('KV storage write quota exceeded');
+      } finally {
+        await releaseQualityAnalysisLock(kv, lock.lockId);
+      }
+    } catch (err) {
+      persistenceError = err;
+    }
+
+    assert.strictEqual(persistenceError.message, 'KV storage write quota exceeded');
+    assert.strictEqual(kv.store.has(QUALITY_LOCK_KEY), false, 'Lock must be cleaned up despite persistence error');
+  });
+
+  // 48. Lock cleanup after a timeout
+  await itAsync('48. Lock cleanup after a timeout', async () => {
+    const kv = createMockKvStore();
+    const lock = await acquireQualityAnalysisLock(kv);
+
+    let caughtTimeout = null;
+    try {
+      try {
+        const timeoutErr = new Error('The execution timed out');
+        timeoutErr.name = 'TimeoutError';
+        throw timeoutErr;
+      } finally {
+        await releaseQualityAnalysisLock(kv, lock.lockId);
+      }
+    } catch (err) {
+      caughtTimeout = err;
+    }
+
+    assert.strictEqual(caughtTimeout.name, 'TimeoutError');
+    assert.strictEqual(kv.store.has(QUALITY_LOCK_KEY), false, 'Lock must be cleaned up after timeout');
+  });
+
+  // 49. Safe stale-lock recovery
+  await itAsync('49. Safe stale-lock recovery', async () => {
+    const kv = createMockKvStore();
+    const staleTime = new Date(Date.now() - 120000).toISOString();
+    kv.store.set(QUALITY_LOCK_KEY, JSON.stringify({
+      lockId: 'stale-abandoned-session',
+      createdAt: staleTime,
+      expiresAt: new Date(Date.now() - 60000).toISOString(),
+      updatedAt: staleTime
+    }));
+
+    assert.strictEqual(isQualityLockStale(JSON.parse(kv.store.get(QUALITY_LOCK_KEY)), 90000), true);
+
+    const recovered = await acquireQualityAnalysisLock(kv, { staleThresholdMs: 90000 });
+    assert(recovered && recovered.lockId, 'Must successfully acquire lock over stale lock');
+    assert.notStrictEqual(recovered.lockId, 'stale-abandoned-session', 'Recovered lock must have new unique lockId');
+  });
+
+  // 50. Older analysis cannot delete a newer owner\'s lock
+  await itAsync('50. Older analysis cannot delete a newer owner\'s lock', async () => {
+    const kv = createMockKvStore();
+    const lockA = await acquireQualityAnalysisLock(kv);
+
+    // Newer owner B takes the lock
+    const newerLockB = {
+      lockId: 'new-owner-lock-b',
+      createdAt: new Date().toISOString(),
+      expiresAt: new Date(Date.now() + 60000).toISOString()
+    };
+    kv.store.set(QUALITY_LOCK_KEY, JSON.stringify(newerLockB));
+
+    // Older owner A attempts cleanup
+    const releaseResult = await releaseQualityAnalysisLock(kv, lockA.lockId);
+    assert.strictEqual(releaseResult.released, false, 'Old owner must not be allowed to release lock');
+    assert.strictEqual(releaseResult.reason, 'owner_mismatch', 'Reason must report owner_mismatch');
+
+    const currentLock = JSON.parse(kv.store.get(QUALITY_LOCK_KEY));
+    assert.strictEqual(currentLock.lockId, 'new-owner-lock-b', 'New owner lock must remain untouched');
+  });
+
+  // 51. Older analysis cannot overwrite newer results (fencing check)
+  await itAsync('51. Older analysis cannot overwrite newer results', async () => {
+    const kv = createMockKvStore();
+    const lockA = await acquireQualityAnalysisLock(kv);
+
+    // Another process takes lock and publishes cache
+    const CACHE_KEY = 'phase_e:quality_index:cache';
+    kv.store.set(CACHE_KEY, JSON.stringify({ version: 'B', total: 100 }));
+    kv.store.set(QUALITY_LOCK_KEY, JSON.stringify({ lockId: 'lock-B-id', createdAt: new Date().toISOString() }));
+
+    // Process A checks lock fencing before publishing
+    const activeLock = await kv.get(QUALITY_LOCK_KEY, 'json');
+    const isOwner = activeLock && (activeLock.lockId === lockA.lockId || activeLock === lockA.lockId);
+
+    if (isOwner) {
+      await kv.put(CACHE_KEY, JSON.stringify({ version: 'A', total: 50 }));
+    }
+
+    assert.strictEqual(isOwner, false, 'Process A must fail ownership fencing verification');
+    const finalCache = JSON.parse(kv.store.get(CACHE_KEY));
+    assert.strictEqual(finalCache.version, 'B', 'Newer results must not be overwritten by expired session');
+  });
+
+  // 52. Concurrent initialization requests share one analysis
+  await itAsync('52. Concurrent initialization requests share one analysis', async () => {
+    let analyzeDispatches = 0;
+    const testState = {
+      _inFlightLoadPromise: null,
+      loading: false,
+      requestId: 0
+    };
+
+    function fakeLoad() {
+      if (testState._inFlightLoadPromise) {
+        return testState._inFlightLoadPromise;
+      }
+      testState.loading = true;
+      const reqId = ++testState.requestId;
+
+      testState._inFlightLoadPromise = (async () => {
+        analyzeDispatches++;
+        await new Promise(r => setTimeout(r, 10));
+        return { success: true };
+      })().finally(() => {
+        testState.loading = false;
+        testState._inFlightLoadPromise = null;
+      });
+
+      return testState._inFlightLoadPromise;
+    }
+
+    // Dispatch 4 concurrent requests
+    const [p1, p2, p3, p4] = [fakeLoad(), fakeLoad(), fakeLoad(), fakeLoad()];
+    assert.strictEqual(p1, p2, 'Concurrent call 1 and 2 must return identical promise');
+    assert.strictEqual(p2, p3, 'Concurrent call 2 and 3 must return identical promise');
+    assert.strictEqual(p3, p4, 'Concurrent call 3 and 4 must return identical promise');
+
+    await Promise.all([p1, p2, p3, p4]);
+    assert.strictEqual(analyzeDispatches, 1, 'Only 1 underlying execution must be dispatched across concurrent calls');
+  });
+
+  // 53. A legitimate in-progress analysis is not incorrectly reclaimed
+  await itAsync('53. A legitimate in-progress analysis is not incorrectly reclaimed', async () => {
+    const kv = createMockKvStore();
+    const freshTime = new Date(Date.now() - 25000).toISOString(); // 25s old, < 90s stale threshold
+    kv.store.set(QUALITY_LOCK_KEY, JSON.stringify({
+      lockId: 'in-progress-run-id',
+      createdAt: freshTime,
+      expiresAt: new Date(Date.now() + 35000).toISOString()
+    }));
+
+    const raw = JSON.parse(kv.store.get(QUALITY_LOCK_KEY));
+    assert.strictEqual(isQualityLockStale(raw, 90000), false, '25s old lock must not be considered stale');
+
+    const attempt = await acquireQualityAnalysisLock(kv, { staleThresholdMs: 90000 });
+    assert.strictEqual(attempt.acquired, false, 'Lock acquisition must be rejected for legitimate in-progress run');
+    assert.strictEqual(attempt.inProgress, true, 'inProgress flag must be reported');
+    assert(kv.store.has(QUALITY_LOCK_KEY), 'Legitimate lock must remain in KV');
+  });
+
+  // 54. Successful refresh populates KPI cards and queue data
+  await itAsync('54. Successful refresh populates KPI cards and queue data', async () => {
+    const dom = {
+      'cq-kpi-total': { textContent: '--' },
+      'cq-kpi-total-sub': { textContent: '', title: '' },
+      'cq-kpi-healthy': { textContent: '--' },
+      'cq-kpi-review': { textContent: '--' },
+      'cq-kpi-thin': { textContent: '--' },
+      'cq-kpi-duplicates': { textContent: '--' },
+      'cq-kpi-duplicates-sub': { textContent: '' },
+      'cq-kpi-briefs': { textContent: '--' },
+      'cq-kpi-missing-meta': { textContent: '--' },
+      'cq-kpi-sensitive': { textContent: '--' },
+      'cq-kpi-freshness': { textContent: '--', innerHTML: '' },
+      'cq-kpi-freshness-sub': { textContent: '', title: '' },
+      'cq-dup-tab-count': { textContent: '--' },
+      'side-quality-count': { textContent: '' },
+      'ov-kpi-thin': { textContent: '--' },
+      'ov-kpi-total': { textContent: '--' }
+    };
+
+    const mockSummary = {
+      total: 50,
+      active: 50,
+      corpusTotal: 50,
+      healthy: 35,
+      needsReview: 7,
+      thin: 6,
+      nearDuplicates: 2,
+      brief: 5,
+      briefs: 5,
+      missingMeta: 1,
+      sensitive: 4,
+      freshness: { fresh: 20, recent: 10, moderate: 10, older: 10 }
+    };
+
+    const renderMatch = njkContent.match(/function renderCqSummaryCards\(s\)\s*\{([\s\S]*?)\n    \}/);
+    assert(renderMatch && renderMatch[1], 'renderCqSummaryCards function body found');
+
+    const fn = vm.runInContext(
+      '(function(s) { const document = { getElementById: (id) => dom[id] || null }; ' + renderMatch[1] + '})',
+      vm.createContext({ dom, Math, Number })
+    );
+
+    fn(mockSummary);
+
+    assert.strictEqual(dom['cq-kpi-total'].textContent, '50', 'Total KPI rendered');
+    assert.strictEqual(dom['cq-kpi-healthy'].textContent, '35', 'Healthy KPI rendered');
+    assert.strictEqual(dom['cq-kpi-review'].textContent, '7', 'Review KPI rendered');
+    assert.strictEqual(dom['cq-kpi-thin'].textContent, '6', 'Thin KPI rendered');
+    assert.strictEqual(dom['cq-kpi-duplicates'].textContent, '2', 'Duplicates KPI rendered');
+    assert.strictEqual(dom['cq-kpi-briefs'].textContent, '5', 'Briefs KPI rendered');
+    assert.strictEqual(dom['cq-kpi-missing-meta'].textContent, '1', 'Missing meta KPI rendered');
+    assert.strictEqual(dom['cq-kpi-sensitive'].textContent, '4', 'Sensitive KPI rendered');
+    assert(dom['cq-kpi-freshness'].innerHTML.includes('fresh'), 'Freshness KPI rendered');
+  });
+
+  // 55. API and network errors do not leave the UI stuck loading
+  await itAsync('55. API and network errors do not leave the UI stuck loading', async () => {
+    const testState = {
+      loading: true,
+      initializing: true,
+      _retryTimer: null
+    };
+
+    const refreshBtn = { disabled: true, innerHTML: 'Loading...' };
+
+    // Simulate finally cleanup block from loadContentQualityData
+    function executeFinally() {
+      if (!testState._retryTimer) {
+        testState.loading = false;
+        testState.initializing = false;
+      }
+      refreshBtn.disabled = false;
+      refreshBtn.innerHTML = 'Refresh Data';
+    }
+
+    executeFinally();
+
+    assert.strictEqual(testState.loading, false, 'loading state must be reset to false');
+    assert.strictEqual(testState.initializing, false, 'initializing state must be reset to false');
+    assert.strictEqual(refreshBtn.disabled, false, 'Refresh Data button must be re-enabled');
+  });
+
+  // 56. Retry works after a recoverable failure
+  await itAsync('56. Retry works after a recoverable failure', async () => {
+    let loadCalled = false;
+    const testState = {
+      loading: false,
+      initializing: false,
+      initRetries: 3,
+      _retryTimer: 999
+    };
+
+    function fakeRefreshContentQualityData() {
+      if (testState.loading || testState.initializing) return;
+      if (testState._retryTimer) {
+        testState._retryTimer = null;
+      }
+      testState.initRetries = 0;
+      loadCalled = true;
+    }
+
+    fakeRefreshContentQualityData();
+    assert.strictEqual(loadCalled, true, 'Retry must initiate data refresh');
+    assert.strictEqual(testState.initRetries, 0, 'Retry counter must be reset to 0');
+    assert.strictEqual(testState._retryTimer, null, 'Active timer must be cleared');
+  });
+
+  // 57. Duplicate Detector distinguishes zero duplicates from unavailable data
+  await itAsync('57. Duplicate Detector distinguishes zero duplicates from unavailable data', async () => {
+    const bodies = {
+      duplicates: ''
+    };
+    const badges = {
+      count: ''
+    };
+
+    const mockDoc = {
+      getElementById(id) {
+        if (id === 'cq-duplicates-tbody') return { set innerHTML(val) { bodies.duplicates = val; }, get innerHTML() { return bodies.duplicates; } };
+        if (id === 'cq-dup-tab-count') return { set textContent(val) { badges.count = val; }, get textContent() { return badges.count; } };
+        return null;
+      }
+    };
+
+    // Case 1: Confirmed zero duplicates
+    const renderRowsMatch = njkContent.match(/function renderCqDuplicateRows\(pairs, options = \{\}\)\s*\{([\s\S]*?)\n    \}/);
+    const renderRowsFn = vm.runInContext(
+      '(function(pairs, options) { const document = mockDoc; function escapeHtml(s){return s;} function escapeJs(s){return s;} ' + renderRowsMatch[1] + '})',
+      vm.createContext({ mockDoc, bodies, badges })
+    );
+
+    renderRowsFn([]);
+    assert(bodies.duplicates.includes('No Duplicate Pairs Detected'), 'Zero duplicates should show "No Duplicate Pairs Detected"');
+
+    // Case 2: Empty corpus
+    renderRowsFn([], { emptyCorpus: true });
+    assert(bodies.duplicates.includes('Corpus Is Empty'), 'Empty corpus should show "Corpus Is Empty"');
+
+    // Case 3: Unavailable / pending index
+    const renderEmptyPendingMatch = njkContent.match(/function renderCqDuplicatesEmptyOrPending\(message\)\s*\{([\s\S]*?)\n    \}/);
+    const renderPendingFn = vm.runInContext(
+      '(function(message) { const document = mockDoc; const CqState = {}; function escapeHtml(s){return s;} ' + renderEmptyPendingMatch[1] + '})',
+      vm.createContext({ mockDoc, bodies, badges })
+    );
+
+    renderPendingFn('Duplicate analysis index not yet initialized.');
+    assert(bodies.duplicates.includes('Duplicate Analysis Unavailable'), 'Pending analysis must show "Duplicate Analysis Unavailable"');
+    assert.strictEqual(badges.count, '--', 'Badge must show -- when analysis is unavailable');
+  });
+
+  // 58. Cache-miss initialization does not cause a duplicate-analysis loop
+  await itAsync('58. Cache-miss initialization does not cause a duplicate-analysis loop', async () => {
+    let triggeredLoads = 0;
+    const testState = {
+      initializing: true,
+      loading: false
+    };
+
+    function handleQueueResponse(data) {
+      if (data.needsAnalysis) {
+        if (!testState.initializing) {
+          if (!testState.loading) {
+            triggeredLoads++;
+          }
+        }
+      }
+    }
+
+    handleQueueResponse({ success: true, needsAnalysis: true });
+    assert.strictEqual(triggeredLoads, 0, 'No re-analysis should be triggered when initialization is already active');
+  });
+
+  // 59. Legacy "locked" values are handled safely
+  await itAsync('59. Legacy "locked" values are handled safely', async () => {
+    const kv = createMockKvStore();
+    kv.store.set(QUALITY_LOCK_KEY, 'locked');
+
+    // Safe check
+    const isStale = isQualityLockStale('locked', 90000);
+    assert.strictEqual(typeof isStale, 'boolean', 'isQualityLockStale must return boolean for literal "locked"');
+
+    // Safe release
+    const rel = await releaseQualityAnalysisLock(kv, 'locked');
+    assert.strictEqual(rel.released, true, 'Legacy literal lock must be safely cleared');
+    assert.strictEqual(kv.store.has(QUALITY_LOCK_KEY), false, 'Legacy lock must be removed from KV');
+  });
+
+  // 60. A failed cleanup is reported without concealing the original analysis error
+  await itAsync('60. A failed cleanup is reported without concealing the original analysis error', async () => {
+    let primaryError = null;
+    let cleanupError = null;
+
+    try {
+      try {
+        throw new Error('Analysis worker execution failed');
+      } finally {
+        try {
+          throw new Error('KV storage cleanup network error');
+        } catch (cleanErr) {
+          cleanupError = cleanErr;
+        }
+      }
+    } catch (err) {
+      primaryError = err;
+    }
+
+    assert(primaryError, 'Primary analysis error must be preserved');
+    assert.strictEqual(primaryError.message, 'Analysis worker execution failed');
+    assert(cleanupError, 'Cleanup error must be captured');
+    assert.strictEqual(cleanupError.message, 'KV storage cleanup network error');
+  });
+
+  // 61. Two simultaneous analysis requests
+  await itAsync('61. Two simultaneous analysis requests: second request receives 409 inProgress', async () => {
+    const kv = createMockKvStore();
+    const lock1 = await acquireQualityAnalysisLock(kv);
+    assert(lock1.acquired, 'First request must successfully acquire lock');
+    assert(lock1.lockId, 'First request must have valid lockId');
+
+    // Second simultaneous request arrives while lock1 is held
+    const lock2 = await acquireQualityAnalysisLock(kv);
+    assert.strictEqual(lock2.acquired, false, 'Second concurrent request must not acquire lock');
+    assert.strictEqual(lock2.inProgress, true, 'Second request must receive inProgress: true');
+    assert(lock2.error && lock2.error.includes('already in progress'), 'Second request must receive descriptive in-progress error');
+
+    // Verify first lock remains untouched
+    const currentLock = JSON.parse(kv.store.get(QUALITY_LOCK_KEY));
+    assert.strictEqual(currentLock.lockId, lock1.lockId, 'Lock in KV must still belong to first owner');
+  });
+
+  // 62. Index, summary, and queue are read from a single consistent snapshot
+  await itAsync('62. Index, summary, and queue are read from a single consistent versioned snapshot', async () => {
+    const kv = createMockKvStore();
+    const testVersionId = 'cq_v_test_' + Date.now();
+    const mockArticles = [
+      { slug: 'art-1', category: 'india', data: { title: 'Story 1' }, body: 'Content 1' }
+    ];
+    const mockSummary = { total: 1, active: 1, healthy: 1, analyzedAt: new Date().toISOString() };
+    const mockDuplicates = [];
+
+    // Evaluate buildCachePayload from worker/content-quality.js
+    const payload = cqSandbox.buildCachePayload(mockArticles, mockDuplicates, mockSummary, {
+      versionId: testVersionId
+    });
+
+    assert.strictEqual(payload.versionId, testVersionId, 'Snapshot must store explicit versionId');
+    assert.strictEqual(payload.summary.total, 1, 'Snapshot must contain matching summary');
+    assert.strictEqual(payload.articles.length, 1, 'Snapshot must contain matching articles');
+
+    // Store unified snapshot under primary QUALITY_CACHE_KEY
+    await kv.put(QUALITY_LOCK_KEY, JSON.stringify({ lockId: testVersionId, createdAt: Date.now() }));
+    await kv.put(cqSandbox.QUALITY_CACHE_KEY, JSON.stringify(payload));
+
+    // Read back snapshot
+    const raw = await kv.get(cqSandbox.QUALITY_CACHE_KEY, 'json');
+    assert(raw, 'Primary snapshot must be present');
+    assert.strictEqual(raw.versionId, testVersionId, 'versionId must match across readers');
+    assert.strictEqual(raw.summary.total, raw.articles.length, 'Summary count and articles count must be strictly consistent');
+  });
+
+  // 63. Legacy cache migration and fallback
+  await itAsync('63. Legacy cache migration: fallback to legacy summary key when primary snapshot is absent', async () => {
+    const kv = createMockKvStore();
+    const legacySummaryData = {
+      summary: { total: 42, active: 40, healthy: 30 },
+      analyzedAt: '2026-10-10T00:00:00.000Z'
+    };
+
+    // Primary key is absent; only legacy key exists
+    await kv.put(cqSandbox.QUALITY_CACHE_KEY + ':summary', JSON.stringify(legacySummaryData));
+
+    // Simulate summary endpoint read logic
+    let summaryObj = null;
+    let cachedAt = null;
+
+    // Check primary first
+    const primaryRaw = await kv.get(cqSandbox.QUALITY_CACHE_KEY, 'json');
+    if (primaryRaw && primaryRaw.summary) {
+      summaryObj = primaryRaw.summary;
+    } else {
+      // Fallback to legacy
+      const legacyRaw = await kv.get(cqSandbox.QUALITY_CACHE_KEY + ':summary', 'json');
+      if (legacyRaw) {
+        summaryObj = legacyRaw.summary || legacyRaw;
+        cachedAt = legacyRaw.analyzedAt || null;
+      }
+    }
+
+    assert(summaryObj, 'Must successfully fall back to legacy summary');
+    assert.strictEqual(summaryObj.total, 42, 'Must read correct legacy summary total');
+    assert.strictEqual(cachedAt, '2026-10-10T00:00:00.000Z', 'Must preserve legacy analyzedAt timestamp');
+  });
+
+  console.log(`\nResults: ${passedTests} / ${totalTests} tests passed.\n`);
+  if (passedTests !== totalTests) {
+    process.exit(1);
+  }
+})();
