@@ -371,7 +371,7 @@ export function analyzeArticle(data, body, category, slug, relPath) {
     qualityLabel = 'Needs Review';
   }
 
-  const publicUrl = slug ? `/${actualCategory.toLowerCase()}/articles/${slug}/` : null;
+  const publicUrl = slug ? `/articles/${actualCategory.toLowerCase()}/${slug}/` : null;
 
   return {
     relPath, slug, category: actualCategory, title, dek, author,
@@ -461,8 +461,24 @@ export function detectDuplicates(articles, threshold = THRESHOLDS.NEAR_DUPLICATE
 
 // SECTION 5: CORPUS SUMMARY
 
+/**
+ * Builds high-level quality and corpus distribution summary metrics.
+ *
+ * Corpus count semantics:
+ * - total: Number of articles in the analyzed dataset.
+ * - noindexed: Number of articles in the dataset classified as noindex/redirect/excluded.
+ * - active: Number of active/indexable articles (total - noindexed).
+ * - corpusTotal: Total corpus size represented by the analyzed dataset (equal to total).
+ *   All counts dynamically derive from the analyzed dataset without hardcoded offsets or fixed fallbacks.
+ *   An empty corpus returns 0 for all four count fields.
+ */
 export function buildCorpusSummary(articles, duplicatePairs) {
+  if (!Array.isArray(articles)) articles = [];
+  if (!Array.isArray(duplicatePairs)) duplicatePairs = [];
   const total = articles.length;
+  const noindexed = total > 0 ? articles.filter(a => Boolean(a.noindex)).length : 0;
+  const active = Math.max(0, total - noindexed);
+  const corpusTotal = total;
   const healthy = articles.filter(a => a.qualityStatus === 'healthy').length;
   const thin = articles.filter(a => a.qualityStatus === 'thin').length;
   const needsReview = articles.filter(a => a.qualityStatus === 'needs_review').length;
@@ -470,11 +486,11 @@ export function buildCorpusSummary(articles, duplicatePairs) {
   const nearDuplicates = duplicatePairs.filter(p => p.dupType === 'near_duplicate' || p.dupType === 'exact_duplicate').length;
   const exactDuplicates = duplicatePairs.filter(p => p.dupType === 'exact_duplicate').length;
   const missingMeta = articles.filter(a => a.missingTitle || a.missingDate || a.missingAuthor).length;
-  const noindexed = articles.filter(a => a.noindex).length;
   const fresh = articles.filter(a => a.freshness === 'fresh').length;
   const recent = articles.filter(a => a.freshness === 'recent').length;
+  const moderate = articles.filter(a => a.freshness === 'moderate').length;
   const older = articles.filter(a => a.freshness === 'older').length;
-  const avgBodyWords = total > 0 ? Math.round(articles.reduce((sum, a) => sum + a.bodyWords, 0) / total) : 0;
+  const avgBodyWords = total > 0 ? Math.round(articles.reduce((sum, a) => sum + (a.bodyWords || 0), 0) / total) : 0;
   const totalWithSignals = articles.filter(a => a.signals && a.signals.length > 0).length;
   const sensitive = articles.filter(a => a.sensitiveTopic && a.sensitiveTopic.length > 0).length;
   const advisoryCounts = {
@@ -486,8 +502,8 @@ export function buildCorpusSummary(articles, duplicatePairs) {
     Review: articles.filter(a => a.thinClassification === 'Review').length
   };
   return {
-    total, healthy, thin, needsReview, brief, nearDuplicates, exactDuplicates,
-    missingMeta, noindexed, freshness: { fresh, recent, older },
+    total, active, corpusTotal, healthy, thin, needsReview, brief, nearDuplicates, exactDuplicates,
+    missingMeta, noindexed, freshness: { fresh, recent, moderate, older },
     avgBodyWords, totalWithSignals, sensitive, advisoryCounts, analyzedAt: new Date().toISOString()
   };
 }
@@ -542,6 +558,8 @@ export function paginateArticles(items, options) {
   if (filter && filter !== 'all') {
     if (filter === 'sensitive') {
       filtered = filtered.filter(a => (a.sensitiveTopic && a.sensitiveTopic.length > 0) || (a.signals && a.signals.some(s => s.code === 'SENSITIVE_TOPIC')));
+    } else if (filter === 'missing_meta' || filter === 'missing_metadata') {
+      filtered = filtered.filter(a => a.missingTitle || a.missingDate || a.missingAuthor);
     } else if (filter === 'enrich') {
       filtered = filtered.filter(a => a.thinClassification === 'Enrich');
     } else if (filter === 'keep_short') {

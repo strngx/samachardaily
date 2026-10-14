@@ -518,7 +518,7 @@ it('26. Existing filter and view state remains intact after retry', () => {
   [njkContent, editorialHtml].forEach((source, idx) => {
     const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
     const refFnMatch = source.match(/function refreshContentQualityData\(\)\s*\{([\s\S]*?)\n    \}/);
-    assert(refFnMatch && refFnMatch[1].includes('loadContentQualityData()'), `refreshContentQualityData must invoke loadContentQualityData() in ${fileLabel}`);
+    assert(refFnMatch && refFnMatch[1].includes('loadContentQualityData('), `refreshContentQualityData must invoke loadContentQualityData(true) in ${fileLabel}`);
     assert(source.includes('filter: CqState.filters.status,'), `Filters status must be read from CqState in ${fileLabel}`);
     assert(source.includes('desk: CqState.filters.desk,'), `Filters desk must be read from CqState in ${fileLabel}`);
     assert(source.includes('sortBy: CqState.filters.sortBy'), `Filters sortBy must be read from CqState in ${fileLabel}`);
@@ -585,7 +585,7 @@ it('31. Missing cache/index data produces an accurate, actionable state with ret
 // 32. Worker-rendered and template implementations remain synchronized
 it('32. Worker-rendered and template implementations remain synchronized', () => {
   // Extract and compare loadContentQualityData function bodies
-  const fnStart = 'async function loadContentQualityData() {';
+  const fnStart = 'async function loadContentQualityData(isRefresh = false) {';
   const fnEnd = 'function renderCqEmptyCorpusState() {';
   const njkFn = njkContent.slice(njkContent.indexOf(fnStart), njkContent.indexOf(fnEnd)).trim();
   const viewsFn = editorialHtml.slice(editorialHtml.indexOf(fnStart), editorialHtml.indexOf(fnEnd)).trim();
@@ -611,6 +611,461 @@ it('34. Concurrency guard (CqState.initializing) prevents duplicate initializati
     assert(source.includes('CqState.initializing = true;'), `Must set CqState.initializing = true before analyze in ${fileLabel}`);
     assert(source.includes('if (!CqState.initializing)'), `Must check !CqState.initializing in queue handler in ${fileLabel}`);
   });
+});
+
+// 35. Issue 4: Authoritative public article permalink routing (/articles/${category}/${slug}/)
+it('35. Authoritative public article permalinks (/articles/${category}/${slug}/) generated in worker and client views', () => {
+  // Check worker permalink generation in content-quality.js
+  assert(cqWorkerContent.includes("const publicUrl = slug ? `/articles/${actualCategory.toLowerCase()}/${slug}/` : null;"),
+    'worker/content-quality.js must generate /articles/${category}/${slug}/ permalink'
+  );
+  assert(!cqWorkerContent.includes("const publicUrl = slug ? `/${actualCategory.toLowerCase()}/articles/${slug}/` : null;"),
+    'worker/content-quality.js must not generate inverted /category/articles/ URL'
+  );
+
+  // Check client views in both njk and admin-views.js
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(source.includes("liveUrl = (item.publicUrl && item.publicUrl.startsWith('/articles/'))"),
+      `renderCqQueueRows must enforce /articles/ permalink in ${fileLabel}`
+    );
+    assert(source.includes("'/articles/' + desk.toLowerCase() + '/' + safeSlug + '/'"),
+      `renderCqQueueRows must fallback to /articles/{desk}/{slug}/ in ${fileLabel}`
+    );
+    assert(source.includes("modalLiveUrl = (art.publicUrl && art.publicUrl.startsWith('/articles/'))"),
+      `renderCqArticleModal must enforce /articles/ permalink in ${fileLabel}`
+    );
+  });
+});
+
+// 36. Issue 2: Refresh Data observable loading state, disabling, error handling, and concurrency protection
+it('36. Refresh Data button observable loading state, disabled attribute, and concurrency guard', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    // Concurrency guard in refreshContentQualityData
+    assert(source.includes('if (CqState.loading || CqState.initializing) return;'),
+      `refreshContentQualityData must guard against concurrent calls in ${fileLabel}`
+    );
+    // Refresh button spinner and text
+    assert(source.includes("refreshBtn.innerHTML = '<svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" style=\"margin-right: 4px; animation: spin 1s linear infinite;\">"),
+      `Refresh button must show animated spinner during load in ${fileLabel}`
+    );
+    assert(source.includes("isRefresh ? 'Refreshing...' : 'Loading...'"),
+      `Refresh button must display Refreshing... text when isRefresh is true in ${fileLabel}`
+    );
+    // Button is disabled during loading
+    assert(source.includes('refreshBtn.disabled = true;'),
+      `Refresh button must be disabled during loading in ${fileLabel}`
+    );
+    // Button is restored in finally block
+    assert(source.includes('refreshBtn.disabled = false;'),
+      `Refresh button must be re-enabled after loading in ${fileLabel}`
+    );
+    assert(source.includes("Refresh Data'"),
+      `Refresh button must restore label Refresh Data in ${fileLabel}`
+    );
+    // Passing ?refresh=true on manual refresh
+    assert(source.includes("const summaryUrl = isRefresh ? '/api/admin/content-quality/summary?refresh=true' : '/api/admin/content-quality/summary';"),
+      `loadContentQualityData must pass ?refresh=true on manual refresh in ${fileLabel}`
+    );
+  });
+});
+
+// 37. Issue 3: Inspect button row passing, escapeJs safe attribute, and in-memory fallback
+it('37. Inspect button uses safe JS string escaping and instant in-memory fallback', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    // Safe JS slug escaping
+    assert(source.includes("const jsSlug = escapeJs(item.slug || '');"),
+      `renderCqQueueRows must use escapeJs for row slug in ${fileLabel}`
+    );
+    assert(source.includes("inspectArticleQuality(\\'' + jsSlug + '\\')"),
+      `renderCqQueueRows Inspect button must pass jsSlug in ${fileLabel}`
+    );
+    // Duplicate detector buttons
+    assert(source.includes("inspectArticleQuality(\\'' + escapeJs(a.slug || '') + '\\')"),
+      `renderCqDuplicateRows Inspect A button must pass escapeJs slug in ${fileLabel}`
+    );
+    // Fast in-memory preview before API fetch
+    assert(source.includes("const localArt = (CqState.items || []).find(a => a.slug === cleanSlug) ||"),
+      `inspectArticleQuality must check local in-memory articles first in ${fileLabel}`
+    );
+    assert(source.includes("CqState.currentInspectedArticle = localArt;"),
+      `inspectArticleQuality must populate currentInspectedArticle from in-memory state in ${fileLabel}`
+    );
+  });
+});
+
+// 38. Issue 3: Inspection modal closes on Escape keydown
+it('38. Inspection modal closes on Escape keydown without errors', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(source.includes('closeCqArticleModal();'),
+      `Global Escape key listener must close Content Quality inspection modal in ${fileLabel}`
+    );
+    assert(source.includes('function closeCqArticleModal('),
+      `closeCqArticleModal function must be declared in ${fileLabel}`
+    );
+  });
+});
+
+// 39. Issue 5: Missing metadata filter supported in API and UI dropdown
+it('39. Missing metadata filter supported in API pagination and UI dropdown', () => {
+  // Backend worker support
+  assert(cqWorkerContent.includes("filter === 'missing_meta'"),
+    'worker/content-quality.js must support missing_meta filter in paginateArticles'
+  );
+  assert(cqWorkerContent.includes('a.missingTitle || a.missingDate || a.missingAuthor'),
+    'worker/content-quality.js must filter for missing metadata fields'
+  );
+
+  // Client UI support
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(source.includes('<option value="missing_meta">Missing Metadata</option>'),
+      `Quality status dropdown must include missing_meta option in ${fileLabel}`
+    );
+    assert(source.includes("if (f === 'missing_metadata') return 'missing_meta';"),
+      `normalizeCqFilter must map missing_metadata alias to missing_meta in ${fileLabel}`
+    );
+    assert(source.includes("filterCqQueue('missing_meta')"),
+      `Missing Metadata KPI card must trigger filterCqQueue('missing_meta') in ${fileLabel}`
+    );
+  });
+});
+
+// 40. Issue 5: Corpus Freshness calculates moderate tier and displays informative tooltips
+it('40. Corpus Freshness calculates moderate age tier and provides informative tooltip breakdown', () => {
+  // Backend calculation in worker/content-quality.js
+  assert(cqWorkerContent.includes("const moderate = articles.filter(a => a.freshness === 'moderate').length;"),
+    'worker/content-quality.js buildCorpusSummary must calculate moderate tier'
+  );
+  assert(cqWorkerContent.includes("freshness: { fresh, recent, moderate, older }"),
+    'worker/content-quality.js buildCorpusSummary must return moderate in freshness object'
+  );
+
+  // Client rendering
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(source.includes("const moderateCount = (s.freshness && s.freshness.moderate) || 0;"),
+      `renderCqSummaryCards must read moderate freshness count in ${fileLabel}`
+    );
+    assert(source.includes("Corpus age distribution: Fresh (&le;7d), Recent (8&ndash;30d), Established/Archive (&gt;30d)"),
+      `Corpus Freshness card must display informative age distribution tooltip in ${fileLabel}`
+    );
+  });
+});
+
+// 41. Issue 1: Article count reconciliation tooltip and active vs archived breakdown
+it('41. Article count reconciliation displays active vs archived dispatches with detailed explanation', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(source.includes("let activeCount = 0;"),
+      `renderCqSummaryCards must initialize activeCount in ${fileLabel}`
+    );
+    assert(source.includes("let archivedCount = null;"),
+      `renderCqSummaryCards must initialize archivedCount as null in ${fileLabel}`
+    );
+    assert(source.includes("let corpusTotal = null;"),
+      `renderCqSummaryCards must initialize corpusTotal as null in ${fileLabel}`
+    );
+    assert(!source.includes("let archivedCount = 63;"),
+      `renderCqSummaryCards must NOT hardcode archivedCount fallback of 63 in ${fileLabel}`
+    );
+    assert(!source.includes("let corpusTotal = 1557;"),
+      `renderCqSummaryCards must NOT hardcode corpusTotal fallback of 1557 in ${fileLabel}`
+    );
+    assert(source.includes("activeCount.toLocaleString() + ' active · ' + archivedCount.toLocaleString() + ' archived'"),
+      `renderCqSummaryCards must render active vs archived breakdown in ${fileLabel}`
+    );
+    assert(source.includes("corpusTotal.toLocaleString() + ' total corpus articles (' + activeCount.toLocaleString() + ' active dispatches, ' + archivedCount.toLocaleString() + ' archived/noindex/redirects)'"),
+      `renderCqSummaryCards must expose full reconciliation tooltip in ${fileLabel}`
+    );
+    assert(source.includes("activeCount.toLocaleString() + ' active · archived unavailable'"),
+      `renderCqSummaryCards must support archived unavailable label in ${fileLabel}`
+    );
+  });
+});
+
+// 42. Synchronized inspection modal contains authoritative live article link
+it('42. Inspection modal dynamically binds authoritative live article link', () => {
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    assert(source.includes("modalLiveUrl = (art.publicUrl && art.publicUrl.startsWith('/articles/'))"),
+      `renderCqArticleModal must enforce /articles/ format for modalLiveUrl in ${fileLabel}`
+    );
+    assert(source.includes("liveBtn.href = modalLiveUrl;"),
+      `renderCqArticleModal must set liveBtn.href in ${fileLabel}`
+    );
+  });
+});
+
+// 43. Authoritative count reconciliation calculation logic execution across all scenarios
+it('43. Authoritative count calculation logic execution across explicit, legacy, full-corpus, zero, missing, malformed, and inconsistent payloads', () => {
+  const cqSummaryMatch = cqWorkerContent.match(/export function buildCorpusSummary\(articles, duplicatePairs\)\s*\{([\s\S]*?)\n\}/);
+  assert(cqSummaryMatch, 'Could not extract buildCorpusSummary from worker/content-quality.js');
+  const runBuildCorpusSummary = vm.runInContext('(function(articles, duplicatePairs) {' + cqSummaryMatch[1] + '})', vm.createContext({}));
+
+  [njkContent, editorialHtml].forEach((source, idx) => {
+    const fileLabel = idx === 0 ? 'src/admin/editorial/index.njk' : 'worker/admin-views.js';
+    const fnMatch = source.match(/function renderCqSummaryCards\(s\)\s*\{([\s\S]*?)\n    \}/);
+    assert(fnMatch, `Could not extract renderCqSummaryCards from ${fileLabel}`);
+
+    function createRunner() {
+      const dom = {};
+      const mockDoc = {
+        getElementById: (id) => {
+          if (!dom[id]) dom[id] = { textContent: '', innerHTML: '', title: '' };
+          return dom[id];
+        }
+      };
+      const ctx = vm.createContext({
+        document: mockDoc,
+        window: {},
+        AppState: { articles: [] }
+      });
+      const fn = vm.runInContext('(function(s) {' + fnMatch[1] + '})', ctx);
+      return { fn, dom };
+    }
+
+    // 1. Full corpus with zero excluded records
+    {
+      const { fn, dom } = createRunner();
+      fn({ total: 100, active: 100, noindexed: 0, corpusTotal: 100 });
+      assert.strictEqual(dom['cq-kpi-total'].textContent, '100', `Articles analyzed must display 100 in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-total-sub'].textContent, '100 active · 0 archived', `Subtext must show 100 active · 0 archived in ${fileLabel}`);
+      assert(dom['cq-kpi-total-sub'].title.includes('100 total corpus articles (100 active dispatches, 0 archived/noindex/redirects)'),
+        `Tooltip must explain full corpus breakdown with 0 excluded records in ${fileLabel}`);
+    }
+
+    // 2. Full corpus with excluded records
+    {
+      const { fn, dom } = createRunner();
+      fn({ total: 1557, active: 1494, noindexed: 63, corpusTotal: 1557 });
+      assert.strictEqual(dom['cq-kpi-total'].textContent, '1,494', `Articles analyzed must display 1,494 in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-total-sub'].textContent, '1,494 active · 63 archived', `Subtext must show 1,494 active · 63 archived in ${fileLabel}`);
+      assert(dom['cq-kpi-total-sub'].title.includes('1,557 total corpus articles (1,494 active dispatches, 63 archived/noindex/redirects)'),
+        `Tooltip must explain 1,557 total corpus in ${fileLabel}`);
+    }
+
+    // 3. Active-only legacy payload with no archive count
+    {
+      const { fn, dom } = createRunner();
+      fn({ total: 1494 });
+      assert.strictEqual(dom['cq-kpi-total'].textContent, '1,494', `Articles analyzed must display known active 1,494 in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-total-sub'].textContent, '1,494 active · archived unavailable',
+        `Subtext must label archived as unavailable instead of inventing a number in ${fileLabel}`);
+      assert(dom['cq-kpi-total-sub'].title.includes('unavailable'),
+        `Tooltip must indicate physical corpus total unavailable in ${fileLabel}`);
+      assert(!dom['cq-kpi-total-sub'].textContent.includes('63'),
+        `Must NEVER infer that exactly 63 records are archived in ${fileLabel}`);
+    }
+
+    // 4. Active-only legacy payload with an explicitly verified archive count
+    {
+      const { fn, dom } = createRunner();
+      fn({ total: 1494, noindexed: 63 });
+      assert.strictEqual(dom['cq-kpi-total'].textContent, '1,494', `Articles analyzed must display 1,494 in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-total-sub'].textContent, '1,494 active · 63 archived',
+        `Subtext must reconcile verified 63 archived with 1,494 active in ${fileLabel}`);
+      assert(dom['cq-kpi-total-sub'].title.includes('1,557 total corpus articles'),
+        `Tooltip must derive full corpus total without double-subtraction in ${fileLabel}`);
+      assert(!dom['cq-kpi-total-sub'].textContent.includes('1,431'),
+        `Must NOT double-subtract active count to 1,431 in ${fileLabel}`);
+    }
+
+    // 5. Empty corpus
+    {
+      const { fn, dom } = createRunner();
+      fn({ total: 0 });
+      assert.strictEqual(dom['cq-kpi-total'].textContent, '0', `Zero count must render 0 in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-total-sub'].textContent, '0 published dispatches', `Zero count subtext must render 0 published dispatches in ${fileLabel}`);
+
+      const { fn: fnEmpty, dom: domEmpty } = createRunner();
+      fnEmpty({ total: 0, active: 0, noindexed: 0, corpusTotal: 0 });
+      assert.strictEqual(domEmpty['cq-kpi-total'].textContent, '0', `Empty corpus summary must render 0 in ${fileLabel}`);
+      assert.strictEqual(domEmpty['cq-kpi-total-sub'].textContent, '0 published dispatches', `Empty corpus subtext must render 0 published dispatches in ${fileLabel}`);
+    }
+
+    // 6. Missing, negative, string, and NaN count fields
+    {
+      const { fn, dom } = createRunner();
+      fn({});
+      assert.strictEqual(dom['cq-kpi-total'].textContent, '--', `Empty summary must render honest unavailable -- in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-total-sub'].textContent, 'Data unavailable', `Empty summary subtext must show Data unavailable in ${fileLabel}`);
+
+      const { fn: fn2, dom: dom2 } = createRunner();
+      fn2({ healthy: 10 });
+      assert.strictEqual(dom2['cq-kpi-total'].textContent, '--', `Missing count summary must render -- in ${fileLabel}`);
+      assert.strictEqual(dom2['cq-kpi-total-sub'].textContent, 'Data unavailable', `Missing count subtext must show Data unavailable in ${fileLabel}`);
+
+      const { fn: fn3, dom: dom3 } = createRunner();
+      fn3(null);
+      assert.strictEqual(dom3['cq-kpi-total'].textContent, '--', `Null payload must render -- in ${fileLabel}`);
+
+      const { fn: fn4, dom: dom4 } = createRunner();
+      fn4(undefined);
+      assert.strictEqual(dom4['cq-kpi-total'].textContent, '--', `Undefined payload must render -- in ${fileLabel}`);
+
+      const { fn: fn5, dom: dom5 } = createRunner();
+      fn5({ total: -10 });
+      assert.strictEqual(dom5['cq-kpi-total'].textContent, '--', `Negative total must render -- in ${fileLabel}`);
+      assert.strictEqual(dom5['cq-kpi-total-sub'].textContent, 'Data unavailable', `Negative total must show Data unavailable in ${fileLabel}`);
+
+      const { fn: fn6, dom: dom6 } = createRunner();
+      fn6({ total: 'invalid' });
+      assert.strictEqual(dom6['cq-kpi-total'].textContent, '--', `String total must render -- in ${fileLabel}`);
+
+      const { fn: fn7, dom: dom7 } = createRunner();
+      fn7({ total: NaN });
+      assert.strictEqual(dom7['cq-kpi-total'].textContent, '--', `NaN total must render -- in ${fileLabel}`);
+    }
+
+    // 7. Inconsistent active, total, noindexed, and corpusTotal
+    {
+      // Subcase 7a: corpusTotal < active
+      const { fn, dom } = createRunner();
+      fn({ active: 1494, corpusTotal: 1000, noindexed: 63 });
+      assert.strictEqual(dom['cq-kpi-total'].textContent, '1,494', `Inconsistent corpusTotal must preserve active 1,494 in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-total-sub'].textContent, '1,494 active · 63 archived', `Subtext must preserve active and archived in ${fileLabel}`);
+      assert(dom['cq-kpi-total-sub'].title.includes('1,557 total corpus articles'),
+        `Physical corpus total must never be smaller than active count in ${fileLabel}`);
+
+      // Subcase 7b: noindexed > corpusTotal
+      const { fn: fn2, dom: dom2 } = createRunner();
+      fn2({ corpusTotal: 100, noindexed: 200 });
+      assert.strictEqual(dom2['cq-kpi-total'].textContent, '0', `Negative active clamped to 0 in ${fileLabel}`);
+
+      // Subcase 7c: negative active
+      const { fn: fn3, dom: dom3 } = createRunner();
+      fn3({ active: -20 });
+      assert.strictEqual(dom3['cq-kpi-total'].textContent, '--', `Negative active count rejected in ${fileLabel}`);
+    }
+
+    // 8. Adding four new articles changes counts dynamically, with no source-code edits
+    {
+      const mockArticles = Array.from({ length: 1557 }, (_, i) => ({
+        slug: `art-${i}`,
+        noindex: i < 63,
+        qualityStatus: 'healthy',
+        bodyWords: 250,
+        signals: []
+      }));
+      const baseSummary = runBuildCorpusSummary(mockArticles, []);
+      assert.strictEqual(baseSummary.total, 1557);
+      assert.strictEqual(baseSummary.active, 1494);
+      assert.strictEqual(baseSummary.noindexed, 63);
+      assert.strictEqual(baseSummary.corpusTotal, 1557);
+
+      // Dynamically append 4 new active articles
+      const expandedArticles = [
+        ...mockArticles,
+        { slug: 'art-1557', noindex: false, qualityStatus: 'healthy', bodyWords: 300, signals: [] },
+        { slug: 'art-1558', noindex: false, qualityStatus: 'healthy', bodyWords: 320, signals: [] },
+        { slug: 'art-1559', noindex: false, qualityStatus: 'healthy', bodyWords: 350, signals: [] },
+        { slug: 'art-1560', noindex: false, qualityStatus: 'healthy', bodyWords: 400, signals: [] }
+      ];
+      const dynamicSummary = runBuildCorpusSummary(expandedArticles, []);
+      assert.strictEqual(dynamicSummary.total, 1561, 'Dynamic total must be 1561');
+      assert.strictEqual(dynamicSummary.active, 1498, 'Dynamic active must be 1498');
+      assert.strictEqual(dynamicSummary.noindexed, 63, 'Dynamic noindexed must remain 63');
+      assert.strictEqual(dynamicSummary.corpusTotal, 1561, 'Dynamic corpusTotal must be 1561');
+
+      const { fn, dom } = createRunner();
+      fn(dynamicSummary);
+      assert.strictEqual(dom['cq-kpi-total'].textContent, '1,498', `Dynamic active count must render 1,498 in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-total-sub'].textContent, '1,498 active · 63 archived',
+        `Dynamic subtext must render 1,498 active · 63 archived in ${fileLabel}`);
+      assert(dom['cq-kpi-total-sub'].title.includes('1,561 total corpus articles (1,498 active dispatches, 63 archived/noindex/redirects)'),
+        `Dynamic tooltip must reflect 1,561 total in ${fileLabel}`);
+    }
+
+    // 9. A legacy payload must never receive an invented archive count
+    {
+      const payloads = [{ total: 1494 }, { total: 1200 }, { total: 500 }, { active: 800 }];
+      payloads.forEach(p => {
+        const { fn, dom } = createRunner();
+        fn(p);
+        assert(!dom['cq-kpi-total-sub'].textContent.includes('63'),
+          `Legacy payload without verified archive data must NOT receive invented 63 in ${fileLabel}`);
+        assert(dom['cq-kpi-total-sub'].textContent.includes('archived unavailable'),
+          `Legacy payload without verified archive data must state archived unavailable in ${fileLabel}`);
+      });
+    }
+
+    // 10. Stale values clear when rendering an unavailable summary
+    {
+      const { fn, dom } = createRunner();
+      // Prime with initial populated data
+      fn({
+        total: 1557,
+        active: 1494,
+        noindexed: 63,
+        corpusTotal: 1557,
+        healthy: 1200,
+        needsReview: 200,
+        thin: 50,
+        nearDuplicates: 10,
+        exactDuplicates: 2,
+        brief: 30,
+        missingMeta: 5,
+        sensitive: 8,
+        freshness: { fresh: 10, recent: 20, moderate: 30, older: 40 }
+      });
+      assert.strictEqual(dom['cq-kpi-total'].textContent, '1,494');
+      assert.strictEqual(dom['cq-kpi-healthy'].textContent, '1,200');
+      assert.strictEqual(dom['cq-kpi-review'].textContent, '200');
+      assert.strictEqual(dom['cq-kpi-thin'].textContent, '50');
+      assert.strictEqual(dom['cq-kpi-duplicates'].textContent, '10');
+      assert.strictEqual(dom['cq-kpi-briefs'].textContent, '30');
+      assert.strictEqual(dom['cq-kpi-missing-meta'].textContent, '5');
+      assert.strictEqual(dom['cq-kpi-sensitive'].textContent, '8');
+
+      // Now pass unavailable summary (null)
+      fn(null);
+      assert.strictEqual(dom['cq-kpi-total'].textContent, '--', `Total must clear to -- in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-total-sub'].textContent, 'Data unavailable', `Total sub must show Data unavailable in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-healthy'].textContent, '--', `Healthy must clear to -- in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-review'].textContent, '--', `Review must clear to -- in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-thin'].textContent, '--', `Thin must clear to -- in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-duplicates'].textContent, '--', `Duplicates must clear to -- in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-duplicates-sub'].textContent, 'Data unavailable', `Duplicates sub must clear in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-briefs'].textContent, '--', `Briefs must clear to -- in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-missing-meta'].textContent, '--', `Missing meta must clear to -- in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-sensitive'].textContent, '--', `Sensitive must clear to -- in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-freshness'].textContent, '--', `Freshness must clear to -- in ${fileLabel}`);
+      assert.strictEqual(dom['cq-kpi-freshness-sub'].textContent, '--', `Freshness sub must clear to -- in ${fileLabel}`);
+      assert.strictEqual(dom['cq-dup-tab-count'].textContent, '0', `Dup tab count must clear to 0 in ${fileLabel}`);
+      assert.strictEqual(dom['side-quality-count'].textContent, '', `Sidebar count must clear in ${fileLabel}`);
+      assert.strictEqual(dom['ov-kpi-thin'].textContent, '--', `Overview thin must clear to -- in ${fileLabel}`);
+      assert.strictEqual(dom['ov-kpi-total'].textContent, '--', `Overview total must clear to -- in ${fileLabel}`);
+    }
+  });
+});
+
+// 44. Backend buildCorpusSummary produces explicit active and corpusTotal fields dynamically without hardcoded 63
+it('44. Backend buildCorpusSummary produces explicit active and corpusTotal fields dynamically without hardcoded 63', () => {
+  assert(cqWorkerContent.includes("const active = Math.max(0, total - noindexed);") ||
+         cqWorkerContent.includes("const active = total - noindexed;"),
+    'worker/content-quality.js buildCorpusSummary must calculate active'
+  );
+  assert(cqWorkerContent.includes("const corpusTotal = total;"),
+    'worker/content-quality.js buildCorpusSummary must set corpusTotal to total'
+  );
+  assert(!cqWorkerContent.includes("+ 63"),
+    'worker/content-quality.js buildCorpusSummary must not contain hardcoded + 63'
+  );
+  assert(cqWorkerContent.includes("total, active, corpusTotal,"),
+    'worker/content-quality.js buildCorpusSummary must export active and corpusTotal in summary payload'
+  );
+
+  const cqSummaryMatch = cqWorkerContent.match(/export function buildCorpusSummary\(articles, duplicatePairs\)\s*\{([\s\S]*?)\n\}/);
+  const runBuildCorpusSummary = vm.runInContext('(function(articles, duplicatePairs) {' + cqSummaryMatch[1] + '})', vm.createContext({}));
+  const emptySummary = runBuildCorpusSummary([], []);
+  assert.strictEqual(emptySummary.total, 0, 'Empty corpus total must be 0');
+  assert.strictEqual(emptySummary.active, 0, 'Empty corpus active must be 0');
+  assert.strictEqual(emptySummary.noindexed, 0, 'Empty corpus noindexed must be 0');
+  assert.strictEqual(emptySummary.corpusTotal, 0, 'Empty corpus corpusTotal must be 0');
 });
 
 console.log(`\nResults: ${passedTests} / ${totalTests} tests passed.\n`);

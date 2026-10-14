@@ -3893,6 +3893,7 @@ noindex: true
                     <option value="brief">Short News Brief</option>
                     <option value="healthy">Healthy</option>
                     <option value="sensitive">Sensitive Topics</option>
+                    <option value="missing_meta">Missing Metadata</option>
                     <optgroup label="Thin Content Advisory">
                       <option value="enrich">Advisory: Enrich</option>
                       <option value="keep_short">Advisory: Keep Short</option>
@@ -6577,7 +6578,8 @@ noindex: true
       if (!filter || typeof filter !== 'string') return 'all';
       const f = filter.trim().toLowerCase().replace(/-/g, '_');
       if (f === 'review') return 'advisory_review';
-      const valid = ['all', 'thin', 'needs_review', 'brief', 'healthy', 'sensitive', 'enrich', 'keep_short', 'consolidate', 'noindex', 'prune', 'advisory_review'];
+      if (f === 'missing_metadata') return 'missing_meta';
+      const valid = ['all', 'thin', 'needs_review', 'brief', 'healthy', 'sensitive', 'missing_meta', 'enrich', 'keep_short', 'consolidate', 'noindex', 'prune', 'advisory_review'];
       return valid.includes(f) ? f : 'all';
     }
 
@@ -9592,6 +9594,7 @@ noindex: true
         closeRevisionModal();
         closeThinDetailModal();
         closeSafetyModal();
+        closeCqArticleModal();
       }
     });
 
@@ -13504,7 +13507,7 @@ noindex: true
       }
     }
 
-    async function loadContentQualityData() {
+    async function loadContentQualityData(isRefresh = false) {
       if (CqState.loading) return;
       CqState.loading = true;
       const currentReq = ++CqState.requestId;
@@ -13512,10 +13515,13 @@ noindex: true
       const statusBadge = document.getElementById('cq-scan-status-badge');
       if (statusBadge) {
         statusBadge.className = 'badge badge-blue';
-        statusBadge.textContent = 'Loading...';
+        statusBadge.textContent = isRefresh ? 'Refreshing Data...' : 'Loading...';
       }
       const refreshBtn = document.getElementById('btn-cq-refresh');
-      if (refreshBtn) refreshBtn.disabled = true;
+      if (refreshBtn) {
+        refreshBtn.disabled = true;
+        refreshBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px; animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>' + (isRefresh ? 'Refreshing...' : 'Loading...');
+      }
 
       // Render loading row in queue table if empty
       const tbody = document.getElementById('cq-queue-tbody');
@@ -13550,8 +13556,9 @@ noindex: true
         if (CqState.filters.minWords > 0) queueParams.set('minWords', CqState.filters.minWords.toString());
         if (CqState.filters.maxWords) queueParams.set('maxWords', CqState.filters.maxWords.toString());
 
+        const summaryUrl = isRefresh ? '/api/admin/content-quality/summary?refresh=true' : '/api/admin/content-quality/summary';
         const [sumResp, queueResp, dupResp] = await Promise.all([
-          fetch('/api/admin/content-quality/summary', { headers: { 'Accept': 'application/json' } }),
+          fetch(summaryUrl, { headers: { 'Accept': 'application/json' } }),
           fetch('/api/admin/content-quality/queue?' + queueParams.toString(), { headers: { 'Accept': 'application/json' } }),
           fetch('/api/admin/content-quality/duplicates?page=' + CqState.dupPage + '&pageSize=' + CqState.dupPageSize, { headers: { 'Accept': 'application/json' } })
         ]);
@@ -13569,6 +13576,7 @@ noindex: true
           if (dupTbody) {
             dupTbody.innerHTML = '<tr><td colspan="4" style="padding: 30px; text-align: center; color: var(--color-red);">Authentication required. Please refresh or re-login.</td></tr>';
           }
+          showToast('Authentication required. Please log in again.', 'error');
           return;
         }
 
@@ -13582,7 +13590,7 @@ noindex: true
         if ((sumResp.ok && sumData.success && sumData.needsAnalysis) || (queueResp.ok && queueData.success && queueData.needsAnalysis)) {
           if (statusBadge) {
             statusBadge.className = 'badge badge-blue';
-            statusBadge.textContent = 'Initializing Index...';
+            statusBadge.textContent = isRefresh ? 'Re-analyzing Index...' : 'Initializing Index...';
           }
           if (tbody) {
             tbody.innerHTML = '<tr><td colspan="6" style="padding: 36px; text-align: center; color: var(--color-subtle);">' +
@@ -13622,6 +13630,7 @@ noindex: true
               if (dupTbody) {
                 dupTbody.innerHTML = '<tr><td colspan="4" style="padding: 30px; text-align: center; color: var(--color-red);">Authentication required. Please refresh or re-login.</td></tr>';
               }
+              showToast('Authentication required. Please log in again.', 'error');
               return;
             }
 
@@ -13636,6 +13645,9 @@ noindex: true
                 statusBadge.textContent = 'Corpus Synced';
               }
               renderCqSummaryCards(analyzeData.summary);
+              if (isRefresh) {
+                showToast('Content quality data refreshed successfully.', 'success');
+              }
               await Promise.all([loadCqQueue(), loadCqDuplicates()]);
               return;
             } else if (analyzeResp.status === 409 || analyzeData.inProgress) {
@@ -13645,7 +13657,7 @@ noindex: true
                   if (currentReq === CqState.requestId) {
                     CqState.loading = false;
                     CqState.initializing = false;
-                    loadContentQualityData();
+                    loadContentQualityData(isRefresh);
                   }
                 }, 2000);
                 return;
@@ -13658,6 +13670,7 @@ noindex: true
                 }
                 renderCqQueueError('Corpus analysis is currently in progress or locked by another session. Click Retry to check again.');
                 renderCqDuplicatesError('Corpus analysis is currently in progress or locked by another session. Click Retry to check again.');
+                showToast('Analysis locked by another session. Please retry shortly.', 'warning');
                 return;
               }
             } else {
@@ -13669,6 +13682,7 @@ noindex: true
               }
               renderCqQueueError(analyzeData.error || (!analyzeResp.ok ? ('Server error (' + analyzeResp.status + ')') : 'Failed to initialize quality index.'));
               renderCqDuplicatesError(analyzeData.error || (!analyzeResp.ok ? ('Server error (' + analyzeResp.status + ')') : 'Failed to initialize duplicate analysis.'));
+              showToast(analyzeData.error || 'Failed to initialize quality index', 'error');
               return;
             }
           } catch (initErr) {
@@ -13681,6 +13695,7 @@ noindex: true
             }
             renderCqQueueError('Network error initializing quality index. Click Retry to reload.');
             renderCqDuplicatesError('Network error initializing duplicate index. Click Retry to reload.');
+            showToast('Network error during quality initialization', 'error');
             return;
           }
         }
@@ -13697,6 +13712,9 @@ noindex: true
               statusBadge.textContent = 'Corpus Synced';
             }
             renderCqSummaryCards(sumData);
+            if (isRefresh) {
+              showToast('Content quality data refreshed successfully.', 'success');
+            }
           }
         } else {
           if (statusBadge) {
@@ -13754,7 +13772,10 @@ noindex: true
       } finally {
         if (currentReq === CqState.requestId) {
           CqState.loading = false;
-          if (refreshBtn) refreshBtn.disabled = false;
+          if (refreshBtn) {
+            refreshBtn.disabled = false;
+            refreshBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>Refresh Data';
+          }
         }
       }
     }
@@ -13809,47 +13830,221 @@ noindex: true
     }
 
     function renderCqSummaryCards(s) {
-      if (!s) return;
-      document.getElementById('cq-kpi-total').textContent = (s.total || 0).toLocaleString();
-      document.getElementById('cq-kpi-healthy').textContent = (s.healthy || 0).toLocaleString();
-      document.getElementById('cq-kpi-review').textContent = (s.needsReview || 0).toLocaleString();
-      document.getElementById('cq-kpi-thin').textContent = (s.thin || 0).toLocaleString();
-      document.getElementById('cq-kpi-duplicates').textContent = (s.nearDuplicates || 0).toLocaleString();
-      document.getElementById('cq-kpi-briefs').textContent = (s.brief || 0).toLocaleString();
-      document.getElementById('cq-kpi-missing-meta').textContent = (s.missingMeta || 0).toLocaleString();
+      function isValidCount(v) {
+        return typeof v === 'number' && Number.isFinite(v) && v >= 0;
+      }
+
+      const hasActive = s && isValidCount(s.active);
+      const hasTotal = s && isValidCount(s.total);
+      const hasCorpusTotal = s && isValidCount(s.corpusTotal);
+      const hasNoindexed = s && isValidCount(s.noindexed);
+
+      const totalEl = document.getElementById('cq-kpi-total');
+      const totalSubEl = document.getElementById('cq-kpi-total-sub');
+
+      // When count data is absent or malformed, clear stale values and show an honest unavailable state
+      if (!s || (!hasActive && !hasTotal && !hasCorpusTotal)) {
+        if (totalEl) totalEl.textContent = '--';
+        if (totalSubEl) {
+          totalSubEl.textContent = 'Data unavailable';
+          totalSubEl.title = 'Corpus count unavailable';
+        }
+        const setMissing = (id) => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = '--';
+        };
+        setMissing('cq-kpi-healthy');
+        setMissing('cq-kpi-review');
+        setMissing('cq-kpi-thin');
+        setMissing('cq-kpi-duplicates');
+        setMissing('cq-kpi-briefs');
+        setMissing('cq-kpi-missing-meta');
+        const dupSubEl = document.getElementById('cq-kpi-duplicates-sub');
+        if (dupSubEl) {
+          dupSubEl.textContent = 'Data unavailable';
+          dupSubEl.title = 'Duplicate analysis unavailable';
+        }
+        const sensEl = document.getElementById('cq-kpi-sensitive');
+        if (sensEl) sensEl.textContent = '--';
+        const freshnessEl = document.getElementById('cq-kpi-freshness');
+        if (freshnessEl) freshnessEl.textContent = '--';
+        const freshnessSubEl = document.getElementById('cq-kpi-freshness-sub');
+        if (freshnessSubEl) {
+          freshnessSubEl.textContent = '--';
+          freshnessSubEl.title = 'Corpus freshness unavailable';
+        }
+        const dupCountEl = document.getElementById('cq-dup-tab-count');
+        if (dupCountEl) dupCountEl.textContent = '0';
+        const sideQualityEl = document.getElementById('side-quality-count');
+        if (sideQualityEl) sideQualityEl.textContent = '';
+        const ovThinEl = document.getElementById('ov-kpi-thin');
+        if (ovThinEl) ovThinEl.textContent = '--';
+        const ovTotalEl = document.getElementById('ov-kpi-total');
+        if (ovTotalEl) ovTotalEl.textContent = '--';
+        return;
+      }
+
+      // Dynamic count reconciliation from authoritative summary data:
+      // - activeCount: Active indexable articles.
+      // - archivedCount: Excluded / noindex / redirect records, or null if unavailable.
+      // - corpusTotal: Full physical corpus count, or null if unavailable.
+      let activeCount = 0;
+      let archivedCount = null;
+      let corpusTotal = null;
+
+      if (hasActive) {
+        // Tier 1: Explicit authoritative active field
+        activeCount = s.active;
+        if (hasNoindexed) {
+          archivedCount = s.noindexed;
+        } else if (hasCorpusTotal && s.corpusTotal >= activeCount) {
+          archivedCount = s.corpusTotal - activeCount;
+        } else if (hasTotal && s.total > activeCount) {
+          archivedCount = s.total - activeCount;
+        }
+        if (hasCorpusTotal) {
+          corpusTotal = Math.max(s.corpusTotal, activeCount + (archivedCount !== null ? archivedCount : 0));
+        } else if (archivedCount !== null) {
+          corpusTotal = activeCount + archivedCount;
+        } else if (hasTotal && s.total >= activeCount) {
+          corpusTotal = s.total;
+        }
+      } else if (hasCorpusTotal) {
+        // Tier 2: Explicit corpusTotal provided without active field
+        corpusTotal = s.corpusTotal;
+        if (hasNoindexed) {
+          archivedCount = s.noindexed;
+          activeCount = Math.max(0, corpusTotal - archivedCount);
+        } else if (hasTotal && s.total < corpusTotal) {
+          activeCount = s.total;
+          archivedCount = corpusTotal - activeCount;
+        } else {
+          activeCount = corpusTotal;
+        }
+      } else if (hasTotal) {
+        // Tier 3: Total supplied without explicit active or corpusTotal fields
+        if (s.total === 0) {
+          activeCount = 0;
+          archivedCount = hasNoindexed ? s.noindexed : 0;
+          corpusTotal = 0;
+        } else if (s.isFullCorpus === true) {
+          // Explicitly flagged full physical corpus payload
+          corpusTotal = s.total;
+          archivedCount = hasNoindexed ? s.noindexed : 0;
+          activeCount = Math.max(0, corpusTotal - archivedCount);
+        } else {
+          // Known legacy active-only payload where total represents active dispatches
+          // Do not subtract noindexed a second time.
+          activeCount = s.total;
+          if (hasNoindexed) {
+            archivedCount = s.noindexed;
+            corpusTotal = activeCount + archivedCount;
+          } else {
+            archivedCount = null;
+            corpusTotal = null;
+          }
+        }
+      }
+
+      // Enforce internal consistency: non-negative activeCount and corpusTotal >= activeCount
+      activeCount = Math.max(0, activeCount);
+      if (corpusTotal !== null) {
+        corpusTotal = Math.max(corpusTotal, activeCount + (archivedCount !== null ? archivedCount : 0));
+      }
+
+      if (totalEl) totalEl.textContent = activeCount.toLocaleString();
+      document.getElementById('cq-kpi-healthy').textContent = (typeof s.healthy === 'number' && Number.isFinite(s.healthy) && s.healthy >= 0) ? s.healthy.toLocaleString() : '--';
+      document.getElementById('cq-kpi-review').textContent = (typeof s.needsReview === 'number' && Number.isFinite(s.needsReview) && s.needsReview >= 0) ? s.needsReview.toLocaleString() : '--';
+      document.getElementById('cq-kpi-thin').textContent = (typeof s.thin === 'number' && Number.isFinite(s.thin) && s.thin >= 0) ? s.thin.toLocaleString() : '--';
+      document.getElementById('cq-kpi-duplicates').textContent = (typeof s.nearDuplicates === 'number' && Number.isFinite(s.nearDuplicates) && s.nearDuplicates >= 0) ? s.nearDuplicates.toLocaleString() : '--';
+      document.getElementById('cq-kpi-briefs').textContent = (typeof s.brief === 'number' && Number.isFinite(s.brief) && s.brief >= 0) ? s.brief.toLocaleString() : '--';
+      document.getElementById('cq-kpi-missing-meta').textContent = (typeof s.missingMeta === 'number' && Number.isFinite(s.missingMeta) && s.missingMeta >= 0) ? s.missingMeta.toLocaleString() : '--';
+
+      const dupSubEl = document.getElementById('cq-kpi-duplicates-sub');
+      if (dupSubEl) {
+        if (typeof s.exactDuplicates === 'number' && Number.isFinite(s.exactDuplicates) && s.exactDuplicates > 0) {
+          dupSubEl.textContent = s.exactDuplicates.toLocaleString() + ' exact · High similarity pairs';
+          dupSubEl.title = (typeof s.nearDuplicates === 'number' ? s.nearDuplicates.toLocaleString() : '0') + ' near duplicates, ' + s.exactDuplicates.toLocaleString() + ' exact duplicates';
+        } else {
+          dupSubEl.textContent = 'High text similarity pairs';
+          dupSubEl.title = 'High text similarity pairs';
+        }
+      }
 
       const sensEl = document.getElementById('cq-kpi-sensitive');
       if (sensEl) {
-        const sensCount = (typeof s.sensitive === 'number') ? s.sensitive : (Array.isArray(window.__SENSITIVE__) ? window.__SENSITIVE__.length : 0);
-        sensEl.textContent = sensCount.toLocaleString();
+        if (typeof s.sensitive === 'number' && Number.isFinite(s.sensitive) && s.sensitive >= 0) {
+          sensEl.textContent = s.sensitive.toLocaleString();
+        } else if (Array.isArray(window.__SENSITIVE__)) {
+          sensEl.textContent = window.__SENSITIVE__.length.toLocaleString();
+        } else {
+          sensEl.textContent = '--';
+        }
       }
 
       const freshCount = (s.freshness && s.freshness.fresh) || 0;
       const recentCount = (s.freshness && s.freshness.recent) || 0;
+      const moderateCount = (s.freshness && s.freshness.moderate) || 0;
       const olderCount = (s.freshness && s.freshness.older) || 0;
-      document.getElementById('cq-kpi-freshness').innerHTML = '<span style="color: var(--color-green);">' + freshCount + ' fresh</span> &middot; ' +
-        '<span style="color: var(--color-teal);">' + recentCount + ' recent</span> &middot; ' +
-        '<span style="color: var(--color-muted);">' + olderCount + ' older</span>';
+      const hasFreshnessData = s.freshness && (
+        typeof s.freshness.fresh === 'number' ||
+        typeof s.freshness.recent === 'number' ||
+        typeof s.freshness.moderate === 'number' ||
+        typeof s.freshness.older === 'number'
+      );
+      const combinedOlder = moderateCount + olderCount;
+      const freshnessEl = document.getElementById('cq-kpi-freshness');
+      if (freshnessEl) {
+        if (hasFreshnessData) {
+          freshnessEl.innerHTML = '<span style="color: var(--color-green);" title="Fresh (published &le;7 days ago): ' + freshCount + '">' + freshCount + ' fresh</span> &middot; ' +
+            '<span style="color: var(--color-teal);" title="Recent (published 8&ndash;30 days ago): ' + recentCount + '">' + recentCount + ' recent</span> &middot; ' +
+            '<span style="color: var(--color-muted);" title="Older (&gt;30 days ago; 31&ndash;90d moderate: ' + moderateCount + ', &gt;90d archive: ' + olderCount + '): ' + combinedOlder + '">' + combinedOlder + ' older</span>';
+        } else {
+          freshnessEl.textContent = '--';
+        }
+      }
+      const freshnessSubEl = document.getElementById('cq-kpi-freshness-sub');
+      if (freshnessSubEl) {
+        freshnessSubEl.textContent = 'Fresh (&le;7d) &middot; Recent (8-30d) &middot; Older (&gt;30d)';
+        freshnessSubEl.title = 'Corpus age distribution: Fresh (&le;7d), Recent (8&ndash;30d), Established/Archive (&gt;30d)';
+      }
+
+      if (totalSubEl) {
+        if (archivedCount !== null) {
+          if (activeCount === 0 && archivedCount === 0) {
+            totalSubEl.textContent = '0 published dispatches';
+            totalSubEl.title = '0 published dispatches';
+          } else {
+            totalSubEl.textContent = activeCount.toLocaleString() + ' active · ' + archivedCount.toLocaleString() + ' archived';
+            totalSubEl.title = corpusTotal.toLocaleString() + ' total corpus articles (' + activeCount.toLocaleString() + ' active dispatches, ' + archivedCount.toLocaleString() + ' archived/noindex/redirects)';
+          }
+        } else {
+          totalSubEl.textContent = activeCount.toLocaleString() + ' active · archived unavailable';
+          totalSubEl.title = activeCount.toLocaleString() + ' active dispatches (physical corpus total unavailable)';
+        }
+      }
 
       const dupCountEl = document.getElementById('cq-dup-tab-count');
-      if (dupCountEl) dupCountEl.textContent = (s.nearDuplicates || 0).toString();
+      if (dupCountEl) dupCountEl.textContent = ((typeof s.nearDuplicates === 'number' && s.nearDuplicates >= 0) ? s.nearDuplicates : 0).toString();
 
       const sideQualityEl = document.getElementById('side-quality-count');
       if (sideQualityEl) {
-        const flagCount = (s.thin || 0) + (s.needsReview || 0);
+        const flagCount = ((typeof s.thin === 'number' && s.thin >= 0) ? s.thin : 0) +
+                          ((typeof s.needsReview === 'number' && s.needsReview >= 0) ? s.needsReview : 0);
         sideQualityEl.textContent = flagCount > 0 ? flagCount.toString() : '✓';
       }
 
       // Also refresh Overview tab KPI cards
       const ovThinEl = document.getElementById('ov-kpi-thin');
-      if (ovThinEl) ovThinEl.textContent = (s.thin || 0).toLocaleString();
+      if (ovThinEl) ovThinEl.textContent = (typeof s.thin === 'number' && Number.isFinite(s.thin) && s.thin >= 0) ? s.thin.toLocaleString() : '--';
       const ovTotalEl = document.getElementById('ov-kpi-total');
-      if (ovTotalEl && s.total) ovTotalEl.textContent = s.total.toLocaleString();
+      if (ovTotalEl) ovTotalEl.textContent = (corpusTotal !== null ? corpusTotal : activeCount).toLocaleString();
     }
 
     function refreshContentQualityData() {
+      if (CqState.loading || CqState.initializing) return;
       CqState.initRetries = 0;
-      loadContentQualityData();
+      loadContentQualityData(true);
     }
 
     async function loadCqQueue() {
@@ -13973,7 +14168,10 @@ noindex: true
         }
 
         const safeSlug = escapeHtml(item.slug || '');
-        const liveUrl = item.publicUrl || ('/' + desk.toLowerCase() + '/articles/' + safeSlug + '/');
+        const jsSlug = escapeJs(item.slug || '');
+        const liveUrl = (item.publicUrl && item.publicUrl.startsWith('/articles/'))
+          ? item.publicUrl
+          : ('/articles/' + desk.toLowerCase() + '/' + safeSlug + '/');
 
         html += '<tr style="border-bottom: 1px solid var(--color-border);">' +
           '<td style="padding: 12px 16px;">' +
@@ -14000,9 +14198,9 @@ noindex: true
           '<td style="padding: 12px 16px;"><div style="display: flex; flex-wrap: wrap; gap: 2px;">' + signalsHtml + '</div></td>' +
           '<td style="padding: 12px 16px; text-align: right;">' +
             '<div style="display: inline-flex; gap: 4px; align-items: center;">' +
-              '<button class="btn-table-action" onclick="inspectArticleQuality(\'' + safeSlug + '\')" title="Inspect Quality Finding">Inspect</button>' +
-              '<button class="btn-table-action btn-table-primary" onclick="openArticleEditor(\'' + escapeHtml(item.relPath || '') + '\')" title="Open Editor">Edit</button>' +
-              '<button class="btn-table-action" onclick="openAiUpgradeForArticleSlug(\'' + safeSlug + '\')" style="border-color: var(--color-purple); color: var(--color-purple);" title="AI Upgrade Studio">AI</button>' +
+              '<button class="btn-table-action" onclick="inspectArticleQuality(\'' + jsSlug + '\')" title="Inspect Quality Finding">Inspect</button>' +
+              '<button class="btn-table-action btn-table-primary" onclick="openArticleEditor(\'' + escapeJs(item.relPath || '') + '\')" title="Open Editor">Edit</button>' +
+              '<button class="btn-table-action" onclick="openAiUpgradeForArticleSlug(\'' + jsSlug + '\')" style="border-color: var(--color-purple); color: var(--color-purple);" title="AI Upgrade Studio">AI</button>' +
               '<a class="btn-table-action" href="' + liveUrl + '" target="_blank" rel="noopener" title="View Public Article">&nearr;</a>' +
             '</div>' +
           '</td>' +
@@ -14062,13 +14260,8 @@ noindex: true
       if (CqState.activeSubTab !== 'queue') switchCqSubTab('queue');
       const normalized = normalizeCqFilter(status);
       const el = document.getElementById('cq-filter-status');
-      if (status === 'missing_meta') {
-        if (el) el.value = 'all';
-        CqState.filters.status = 'all';
-      } else {
-        if (el) el.value = normalized;
-        CqState.filters.status = normalized;
-      }
+      if (el) el.value = normalized;
+      CqState.filters.status = normalized;
       CqState.page = 1;
       if (AppState.currentView === 'content-quality') {
         const url = new URL(window.location);
@@ -14202,8 +14395,8 @@ noindex: true
           '</td>' +
           '<td style="padding: 12px 16px; text-align: right;">' +
             '<div style="display: inline-flex; gap: 4px;">' +
-              '<button class="btn-table-action" onclick="inspectArticleQuality(\'' + escapeHtml(a.slug || '') + '\')" title="Inspect Article A">Inspect A</button>' +
-              '<button class="btn-table-action" onclick="inspectArticleQuality(\'' + escapeHtml(b.slug || '') + '\')" title="Inspect Article B">Inspect B</button>' +
+              '<button class="btn-table-action" onclick="inspectArticleQuality(\'' + escapeJs(a.slug || '') + '\')" title="Inspect Article A">Inspect A</button>' +
+              '<button class="btn-table-action" onclick="inspectArticleQuality(\'' + escapeJs(b.slug || '') + '\')" title="Inspect Article B">Inspect B</button>' +
             '</div>' +
           '</td>' +
         '</tr>';
@@ -14231,20 +14424,36 @@ noindex: true
 
     async function inspectArticleQuality(slug) {
       if (!slug) return;
+      const cleanSlug = String(slug).trim();
+
+      // Fast in-memory preview if article is already available in client state
+      const localArt = (CqState.items || []).find(a => a.slug === cleanSlug) ||
+                       (AppState.articles || []).find(a => a.slug === cleanSlug);
+      if (localArt) {
+        CqState.currentInspectedArticle = localArt;
+        renderCqArticleModal(localArt, []);
+      }
+
       try {
-        const resp = await fetch('/api/admin/content-quality/article?slug=' + encodeURIComponent(slug), {
+        const resp = await fetch('/api/admin/content-quality/article?slug=' + encodeURIComponent(cleanSlug), {
           headers: { 'Accept': 'application/json' }
         });
-        const data = await resp.json();
-        if (data.success && data.article) {
+        const data = await resp.json().catch(() => ({}));
+        if (resp.ok && data.success && data.article) {
           CqState.currentInspectedArticle = data.article;
           renderCqArticleModal(data.article, data.relatedDuplicates || []);
-        } else {
-          showToast(data.error || 'Failed to load article detail', 'error');
+        } else if (!localArt) {
+          if (resp.status === 401 || resp.status === 403) {
+            showToast('Authentication required to inspect article details.', 'error');
+          } else {
+            showToast(data.error || 'Failed to load article detail', 'error');
+          }
         }
       } catch (err) {
         console.error('[ContentQuality] Article inspect error:', err);
-        showToast('Network error loading article detail: ' + err.message, 'error');
+        if (!localArt) {
+          showToast('Network error loading article detail: ' + err.message, 'error');
+        }
       }
     }
 
@@ -14301,7 +14510,12 @@ noindex: true
       }
 
       const liveBtn = document.getElementById('cq-modal-btn-live');
-      if (liveBtn) liveBtn.href = art.publicUrl || '#';
+      if (liveBtn) {
+        const modalLiveUrl = (art.publicUrl && art.publicUrl.startsWith('/articles/'))
+          ? art.publicUrl
+          : ('/articles/' + (art.category || 'india').toLowerCase() + '/' + (art.slug || '') + '/');
+        liveBtn.href = modalLiveUrl;
+      }
 
       const bodyEl = document.getElementById('cq-modal-body');
       if (bodyEl) {
