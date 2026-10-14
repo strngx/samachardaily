@@ -5,6 +5,44 @@
 
 // SECTION 1: TEXT UTILITIES
 
+export const SENSITIVE_PATTERNS = {
+  crime_legal: /\b(?:murder|homicide|manslaughter|kidnapping|arrested|fir registered|criminal charges|court verdict|sentenced to|cbi|ed|ncb|bail denied)\b/i,
+  fatalities_disasters: /\b(?:death toll|fatalities|fatal crash|fatal accident|killed|perished|succumbed to injuries|drown(?:ed|ing)|landslide)\b/i,
+  politics_elections: /\b(?:election commission|polling dates|all-party consultation|assembly election|voter turnout|campaign rally|bjp|congress|aap|parliament)\b/i,
+  health_medical: /\b(?:medical trial|clinical study|pharmaceutical|cancer treatment|vaccine efficacy|ministry of health|hospital negligence)\b/i,
+  defense_military: /\b(?:drdo|missile test|army chief|air force|navy|defense ministry|border clash|line of actual control)\b/i,
+  financial_markets: /\b(?:stock exchange|sensex|nifty|market rally|benchmark repo rate|sebi|interest rate hike)\b/i
+};
+
+export function classifySensitive(title, dek, body) {
+  const text = ((title || '') + ' ' + (dek || '') + ' ' + (body || '')).toLowerCase();
+  const matched = [];
+  for (const [cat, regex] of Object.entries(SENSITIVE_PATTERNS)) {
+    if (regex.test(text)) matched.push(cat);
+  }
+  return matched.length > 0 ? matched : null;
+}
+
+const CONTEXT_PATTERNS = /\b(?:earlier|previously|background|history|in recent months|context|following the|development comes as|preceded by|meanwhile|historically|prior to|over the past)\b/i;
+const ATTRIBUTION_PATTERNS = /\b(?:according to|reported by|spokesperson|news agency|press release|pti|ani|reuters|afp|associated press|official statement|confirmed by|disclosed by|briefed reporters)\b/i;
+const FACTS_PATTERNS = /\b(?:\d{1,4}(?:,\d{3})*(?:\.\d+)?%?|\$\d+|₹\d+|rs\.?\s*\d+|\b(?:january|february|march|april|may|june|july|august|september|october|november|december)\b)\b/i;
+const EXPLANATORY_PATTERNS = /\b(?:because|due to|in order to|as a result|explaining why|intended to|significance|implications|aims to|seeks to|primary objective)\b/i;
+
+export function classifyThinAdvisory(wordCount, bodyText, pubDateIso, hasQuotes, hasContext, hasExplanatory, hasAttribution, hasFacts, paraCount) {
+  if (wordCount < 85 && !hasQuotes && !hasContext && pubDateIso && pubDateIso < '2026-09-18') {
+    return 'Prune';
+  } else if (wordCount < 100 && !hasQuotes && !hasContext) {
+    return 'Noindex';
+  } else if (wordCount >= 100 && wordCount <= 260 && hasAttribution && hasFacts && (paraCount >= 2 || hasQuotes)) {
+    return 'Keep Short';
+  } else if (wordCount < 200 && (!hasContext || !hasExplanatory)) {
+    return 'Enrich';
+  } else if (wordCount < 220 || (!hasQuotes && wordCount < 260)) {
+    return 'Review';
+  }
+  return null;
+}
+
 export function stripFrontmatter(markdown) {
   if (!markdown || typeof markdown !== 'string') return '';
   const match = markdown.match(/^---\r?\n[\s\S]*?\r?\n---\r?\n?([\s\S]*)$/);
@@ -268,6 +306,33 @@ export function analyzeArticle(data, body, category, slug, relPath) {
     signals.push({ code: 'MISSING_SOURCE', label: 'Missing source attribution', severity: 'info' });
   }
 
+  const hasQuotes = /["'""''«»]/.test(bodyText);
+  const hasContext = CONTEXT_PATTERNS.test(bodyText);
+  const hasExplanatory = EXPLANATORY_PATTERNS.test(bodyText);
+  const hasAttribution = Boolean(sourceUrl || sourceName || ATTRIBUTION_PATTERNS.test(bodyText));
+  const hasFacts = FACTS_PATTERNS.test(bodyText);
+
+  const isoDate = pubDate ? pubDate.toISOString().slice(0, 10) : null;
+  const thinClassification = classifyThinAdvisory(bodyWords, bodyText, isoDate, hasQuotes, hasContext, hasExplanatory, hasAttribution, hasFacts, paragraphCount);
+
+  const sensitiveTopic = classifySensitive(title, dek, bodyText) || (Array.isArray(data.sensitiveTopic) ? data.sensitiveTopic : (data.sensitiveTopic ? [data.sensitiveTopic] : null));
+
+  if (sensitiveTopic && sensitiveTopic.length > 0) {
+    signals.push({
+      code: 'SENSITIVE_TOPIC',
+      label: 'Sensitive: ' + sensitiveTopic.map(s => s.replace(/_/g, ' ')).join(', '),
+      severity: 'warning'
+    });
+  }
+
+  if (thinClassification) {
+    signals.push({
+      code: 'THIN_ADVISORY',
+      label: 'Advisory: ' + thinClassification,
+      severity: thinClassification === 'Keep Short' ? 'info' : (thinClassification === 'Prune' || thinClassification === 'Noindex' ? 'critical' : 'warning')
+    });
+  }
+
   const hasAnyBodyContent = bodyWords > 0;
   const hasCritical = signals.some(s => s.severity === 'critical');
   const hasWarnings = signals.some(s => s.severity === 'warning');
@@ -319,6 +384,7 @@ export function analyzeArticle(data, body, category, slug, relPath) {
     repeatedPhrases: repeatedPhrases.slice(0, 3),
     repeatedSentenceCount: repeatedSentences.length,
     signals, qualityStatus, qualityLabel,
+    sensitiveTopic, thinClassification,
     _fingerprint: bodyFingerprint,
     missingTitle, missingDek, missingAuthor, missingDate, missingImage, missingSource,
   };
@@ -410,7 +476,20 @@ export function buildCorpusSummary(articles, duplicatePairs) {
   const older = articles.filter(a => a.freshness === 'older').length;
   const avgBodyWords = total > 0 ? Math.round(articles.reduce((sum, a) => sum + a.bodyWords, 0) / total) : 0;
   const totalWithSignals = articles.filter(a => a.signals && a.signals.length > 0).length;
-  return { total, healthy, thin, needsReview, brief, nearDuplicates, exactDuplicates, missingMeta, noindexed, freshness: { fresh, recent, older }, avgBodyWords, totalWithSignals, analyzedAt: new Date().toISOString() };
+  const sensitive = articles.filter(a => a.sensitiveTopic && a.sensitiveTopic.length > 0).length;
+  const advisoryCounts = {
+    Enrich: articles.filter(a => a.thinClassification === 'Enrich').length,
+    'Keep Short': articles.filter(a => a.thinClassification === 'Keep Short').length,
+    Consolidate: articles.filter(a => a.thinClassification === 'Consolidate').length,
+    Noindex: articles.filter(a => a.thinClassification === 'Noindex').length,
+    Prune: articles.filter(a => a.thinClassification === 'Prune').length,
+    Review: articles.filter(a => a.thinClassification === 'Review').length
+  };
+  return {
+    total, healthy, thin, needsReview, brief, nearDuplicates, exactDuplicates,
+    missingMeta, noindexed, freshness: { fresh, recent, older },
+    avgBodyWords, totalWithSignals, sensitive, advisoryCounts, analyzedAt: new Date().toISOString()
+  };
 }
 
 // SECTION 6: CACHE HELPERS
@@ -461,7 +540,23 @@ export function paginateArticles(items, options) {
   let filtered = items.slice();
 
   if (filter && filter !== 'all') {
-    filtered = filtered.filter(a => a.qualityStatus === filter);
+    if (filter === 'sensitive') {
+      filtered = filtered.filter(a => (a.sensitiveTopic && a.sensitiveTopic.length > 0) || (a.signals && a.signals.some(s => s.code === 'SENSITIVE_TOPIC')));
+    } else if (filter === 'enrich') {
+      filtered = filtered.filter(a => a.thinClassification === 'Enrich');
+    } else if (filter === 'keep_short') {
+      filtered = filtered.filter(a => a.thinClassification === 'Keep Short');
+    } else if (filter === 'consolidate') {
+      filtered = filtered.filter(a => a.thinClassification === 'Consolidate');
+    } else if (filter === 'noindex') {
+      filtered = filtered.filter(a => a.thinClassification === 'Noindex');
+    } else if (filter === 'prune') {
+      filtered = filtered.filter(a => a.thinClassification === 'Prune');
+    } else if (filter === 'review' || filter === 'advisory_review') {
+      filtered = filtered.filter(a => a.thinClassification === 'Review');
+    } else {
+      filtered = filtered.filter(a => a.qualityStatus === filter);
+    }
   }
   if (desk && desk !== 'all') {
     filtered = filtered.filter(a => (a.category || '').toLowerCase() === desk.toLowerCase());
