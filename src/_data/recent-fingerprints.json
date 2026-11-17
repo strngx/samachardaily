@@ -1,5 +1,34 @@
 [
   {
+    "title": "A top Puerto Rico government official resigns as corruption allegations swirl",
+    "normalizedTitle": "a top puerto rico government official resigns as corruption allegations swirl",
+    "keywords": [
+      "allegations",
+      "announced",
+      "corruption",
+      "department",
+      "embattled",
+      "family",
+      "government",
+      "juan",
+      "monday",
+      "nov",
+      "official",
+      "puerto",
+      "resigns",
+      "rico",
+      "san",
+      "secretary",
+      "swirl",
+      "top"
+    ],
+    "category": "World",
+    "categoryKey": "world",
+    "slug": "puerto-rico-department-of-family-secretary-resigns-amid-corruption-allegations",
+    "sourceUrl": "https://www.theweek.in/wire-updates/international/2026/11/17/a-top-puerto-rico-government-official-resigns-as-corruption-allegations-swirl.html",
+    "timestamp": "2026-11-17T11:19:20.467Z"
+  },
+  {
     "title": "CM Mann launches phase-II of Census",
     "normalizedTitle": "cm mann launches phaseii of census",
     "keywords": [
@@ -7670,39 +7699,5 @@
     "slug": "mcd-hands-out-over-10300-pollution-challans-fines-exceed-rs-111-crore",
     "sourceUrl": "https://www.tribuneindia.com/news/delhi/mcd-issues-over-10300-challans-for-pollution-violations",
     "timestamp": "2026-11-10T12:29:16.403Z"
-  },
-  {
-    "title": "SLU men's soccer gets a chance to get back at Davidson in Atlantic 10 semifinal",
-    "normalizedTitle": "slu mens soccer gets a chance to get back at davidson in atlantic 10 semifinal",
-    "keywords": [
-      "atlantic",
-      "back",
-      "billikens",
-      "chance",
-      "davidson",
-      "deny",
-      "faces",
-      "game",
-      "get",
-      "gets",
-      "goal",
-      "last",
-      "late",
-      "men",
-      "regular",
-      "scored",
-      "season",
-      "semifinal",
-      "semifinals",
-      "slu",
-      "soccer",
-      "title",
-      "tuesday"
-    ],
-    "category": "Sports",
-    "categoryKey": "sports",
-    "slug": "slu-mens-soccer-set-for-atlantic-10-semifinal-rematch-with-davidson",
-    "sourceUrl": "https://www.stltoday.com/sports/college/slu/article_74d505cc-4e0a-47f8-a75a-006524817090.html",
-    "timestamp": "2026-11-10T09:11:12.883Z"
   }
 ]
