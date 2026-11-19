@@ -1,5 +1,33 @@
 [
   {
+    "title": "Seven police stations added, four new divisions created",
+    "normalizedTitle": "seven police stations added four new divisions created",
+    "keywords": [
+      "added",
+      "adds",
+      "bengaluru",
+      "boosting",
+      "brings",
+      "city",
+      "created",
+      "divisions",
+      "four",
+      "limits",
+      "police",
+      "restructuring",
+      "rural",
+      "seven",
+      "staffing",
+      "stations",
+      "urban"
+    ],
+    "category": "India",
+    "categoryKey": "india",
+    "slug": "bengaluru-police-adds-four-divisions-brings-seven-rural-stations-into-city",
+    "sourceUrl": "https://www.thehindu.com/news/national/karnataka/seven-police-stations-added-four-new-divisions-created/article71717169.ece",
+    "timestamp": "2026-11-19T07:29:19.146Z"
+  },
+  {
     "title": "K’taka govt transfers 34 senior IPS officers; Bengaluru divided into five Police Commissionerates",
     "normalizedTitle": "ktaka govt transfers 34 senior ips officers bengaluru divided into five police commissionerates",
     "keywords": [
@@ -7142,43 +7170,5 @@
     "slug": "high-court-files-contempt-petition-against-myl-rally-organizers-in-kochi",
     "sourceUrl": "https://www.thehindu.com/news/national/kerala/myl-rally-contempt-of-court-plea-filed-before-hc/article71690768.ece",
     "timestamp": "2026-11-12T08:29:33.018Z"
-  },
-  {
-    "title": "Mum & stepdad of Thornton drugs mule Jensen Westhead, 20, who died in Dubai hotel on trial for manslaughter",
-    "normalizedTitle": "mum  stepdad of thornton drugs mule jensen westhead 20 who died in dubai hotel on trial for manslaughter",
-    "keywords": [
-      "airport",
-      "arab",
-      "arrived",
-      "avalon",
-      "close",
-      "dead",
-      "december",
-      "died",
-      "drugs",
-      "dubai",
-      "emirates",
-      "flying",
-      "found",
-      "hatfield",
-      "hotel",
-      "jensen",
-      "manchester",
-      "manslaughter",
-      "mule",
-      "mum",
-      "old",
-      "stepdad",
-      "thornton",
-      "trial",
-      "united",
-      "westhead",
-      "year"
-    ],
-    "category": "Sports",
-    "categoryKey": "sports",
-    "slug": "jensen-westhead-died-dubai-manslaughter-trial-on-drugs-mule",
-    "sourceUrl": "https://www.blackpoolgazette.co.uk/news/mum-of-thornton-drugs-mule-20-who-died-in-dubai-hotel-on-trial-for-manslaughter-9345614",
-    "timestamp": "2026-11-12T05:10:17.840Z"
   }
 ]
